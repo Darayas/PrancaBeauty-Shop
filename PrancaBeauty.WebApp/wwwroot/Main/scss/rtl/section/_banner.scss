@@ -1,0 +1,369 @@
+/*04. banner section css here */
+.banner_gallery_area{
+    padding: 100px 0;
+    @media #{$tablet-device}{
+        padding: 80px 0;
+    }
+    @media #{$large-mobile}{
+       padding: 57px 0 25px;
+    }
+}
+.single_banner{
+    @media #{$large-mobile}{
+       margin-bottom: 30px;
+    }
+  
+}
+
+.banner_thumb{
+    position: relative;
+    transition: .3s;
+     @media #{$large-mobile}{
+      text-align: center;
+    }
+    &:hover{
+        &::before{
+            opacity: 1;
+            top: 20px;
+            right: 20px;
+            bottom: 20px;
+            left: 20px;
+        }
+    }
+    &::before{
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        content: "";
+        opacity: 0;
+        border: 1px solid #fff;
+        -webkit-transition: all 300ms linear;
+        -moz-transition: all 300ms linear;
+        -ms-transition: all 300ms linear;
+        -o-transition: all 300ms linear;
+        transition: all 300ms linear;
+        pointer-events: none;
+    }
+    & img{
+        transition: .3s;
+    }
+    
+}
+
+.banner_text{
+    margin-top: 20px;
+    text-align:right;
+
+    @media #{$tablet-device}{
+        margin-top: 17px;
+    }
+    @media #{$large-mobile}{
+        margin-top: 17px;
+    }
+    & h3{
+        font-size: 28px;
+        line-height: 28px;
+        font-weight: 400;
+        margin-bottom: 10px;
+        @media #{$desktop-device}{
+            font-size: 22px;
+            line-height: 22px;
+        }
+        @media #{$tablet-device}{
+            font-size: 20px;
+            line-height: 22px;
+            margin-bottom: 8px
+        }
+        @media #{$large-mobile}{
+            font-size: 20px;
+            line-height: 20px;
+            margin-bottom: 8px;
+        }
+    }
+    & p{
+        font-size: 16px;
+        line-height: 18px;
+        margin-bottom: 0;
+        @media #{$tablet-device}{
+            font-size: 15px;
+            line-height: 18px;
+            margin-top: 8px;
+        }
+        @media #{$large-mobile}{
+            font-size: 15px;
+            line-height: 20px;
+            margin-top: 6px;
+        }
+    }
+}
+
+
+.banner_static_area{
+    background:#f8f8f8;
+    padding: 100px 0;
+    @media #{$tablet-device}{
+        padding: 80px 0;
+        margin-bottom: 75px;
+    }
+    @media #{$large-mobile}{
+        padding: 58px 0 60px;
+        margin-bottom: 58px;
+    }
+}
+
+.banner_static_content{
+    text-align:right;
+
+    @media #{$large-mobile}{
+        margin-bottom: 30px;
+    }
+    & h3{
+        font-size: 24px;
+        color:$secondary_color;
+        font-weight: 600;
+        line-height: 1;
+        letter-spacing: 2px;
+        margin-bottom: 18px;
+        @media #{$desktop-device}{
+            font-size: 22px;
+            margin-bottom: 16px;
+        }
+        @media #{$tablet-device}{
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+        @media #{$large-mobile}{
+            font-size: 20px;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+    }
+    & h2{
+        font-size: 70px;
+        line-height: 70px;
+        font-weight: 500;
+        margin-bottom: 0;
+        @media #{$laptop-device }{
+            font-size: 64px;
+            line-height: 64px;
+        }
+        @media #{$mini-laptop-device}{
+            font-size: 57px;
+            line-height: 57px;
+        }
+        @media #{$desktop-device}{
+            font-size: 42px;
+            line-height: 47px;
+        }
+        @media #{$tablet-device}{
+            font-size: 32px;
+            line-height: 34px;
+        }
+        @media #{$large-mobile}{
+            font-size: 30px;
+            line-height: 35px;
+        }
+    }
+    & p{
+        font-size: 19px;
+        font-weight: 400;
+        max-width: 80%;
+        line-height: 32px;
+        margin-top: 26px;
+        margin-bottom: 0;
+        @media #{$desktop-device}{
+            font-size: 17px;
+            max-width: 100%;
+            line-height: 30px;
+            margin-top: 20px;
+        }
+        @media #{$tablet-device}{
+            font-size: 17px;
+            line-height: 28px;
+            margin-top: 12px;
+            max-width: 100%;
+        }
+        @media #{$large-mobile}{
+            font-size: 17px;
+            max-width: 100%;
+            margin-top: 15px;
+        }
+    }
+    & a{
+        font-size: 18px;
+        line-height: 20px;
+        font-weight: 600;
+        color:#333;
+        text-transform: capitalize;
+        display: inline-block;
+        margin-top: 36px;
+        &:hover{
+            color:$secondary_color;
+        }
+        @media #{$desktop-device}{
+            margin-top: 30px;
+        }
+        @media #{$tablet-device}{
+            font-size: 16px;
+            margin-top: 18px;
+        }
+        @media #{$large-mobile}{
+            font-size: 17px;
+            line-height: 20px;
+            margin-top: 17px;
+        }
+    }
+}
+
+
+/*home two css here*/
+.banner_carousel {
+    & .col-lg-3{
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+    &:hover{
+        & .owl-nav{
+            & div{
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+    }
+    & .owl-nav{
+        & div{
+            position: absolute;
+            top: 49%;
+            transform: translatey(-50%);
+            left: 0;
+            font-size: 45px;
+            @include transition(.3s);
+            opacity: 0;
+            visibility: hidden;
+            &:hover{
+                color: $secondary_color;
+            }
+            &.owl-next{
+                right: 0;
+                left: auto;
+            }
+            @media #{$large-mobile}{
+                display: none;
+            }
+        }
+    }
+}
+
+
+/*home three css here*/
+.banner_style_three{
+    padding: 0 15px;
+    @media #{$laptop-device}{
+       padding: 0;
+    }
+    @media #{$desktop-device}{
+        padding: 0;
+    }
+    @media #{$tablet-device}{
+        padding: 0;
+        margin-bottom: 76px;
+    }
+    @media #{$large-mobile}{
+       padding: 0;
+        margin-bottom: 28px;
+    }
+    & .banner_thumb{
+        @media #{$large-mobile}{
+            margin-bottom: 30px;
+        }
+    }
+    & .banner_text{
+        position: absolute;
+        top: 50%;
+        transform: translatey(-50%);
+        left: 9%;
+        margin-top: 0;
+        @media #{$large-mobile}{
+            text-align: left;
+        }
+        & h3{
+            font-size: 40px;
+            line-height: 40px;
+            font-weight: 500;
+            margin-bottom: 35px;
+            @media #{$laptop-device}{
+               font-size: 32px;
+                line-height: 36px;
+                margin-bottom: 35px;
+            }
+            @media #{$desktop-device}{
+                font-size: 30px;
+                line-height: 32px;
+                margin-bottom: 20px;
+            }
+             @media #{$tablet-device}{
+                font-size: 25px;
+                line-height: 25px;
+                margin-bottom: 16px;
+            }
+            @media #{$large-mobile}{
+                font-size: 22px;
+                line-height: 24px;
+                margin-bottom: 14px;
+            }
+        }
+        & p{
+            font-size: 19px;
+            line-height: 28px;
+            max-width: 53%;
+            @media #{$laptop-device}{
+              font-size: 17px;
+             line-height: 24px;
+            }
+            @media #{$desktop-device}{
+                font-size: 17px;
+                line-height: 28px;
+                max-width: 62%;
+            }
+            @media #{$tablet-device}{
+                font-size: 16px;
+                line-height: 24px;
+                max-width: 75%;
+            }
+            @media #{$large-mobile}{
+               font-size: 16px;
+                line-height: 22px;
+                max-width: 90%;
+            }
+        }
+    }
+}
+
+
+
+
+/*home four css here*/
+.banner_style_four{
+    @media #{$tablet-device}{
+       margin-bottom: 0;
+    }
+    @media #{$large-mobile}{
+        margin-bottom: 0;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

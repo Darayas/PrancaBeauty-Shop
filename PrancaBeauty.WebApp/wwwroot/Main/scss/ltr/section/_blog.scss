@@ -1,0 +1,199 @@
+/* 05. blog area css here */
+
+.blog_carousel{
+    &:hover{
+        & .owl-nav{
+            & div{
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+    }
+    & .owl-nav{
+        & div{
+            position: absolute;
+            top: 49%;
+            transform: translatey(-50%);
+            left: 0;
+            font-size: 45px;
+            @include transition(.3s);
+            opacity: 0;
+            visibility: hidden;
+            &:hover{
+                color: $secondary_color;
+            }
+            &.owl-next{
+                right: 0;
+                left: auto;
+            }
+            @media #{$large-mobile}{
+                display: none;
+            }
+        }
+    }
+    
+    & .col-lg-3{
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
+.single_blog{
+    border: 1px solid #e5e5e5;
+}
+.blog_thumb{
+    overflow: hidden;
+    &:hover{
+        & img{
+            transform: scale(1.1) rotate(0.05deg);
+        }
+    }
+    & img{
+        transition: .3s;
+    }
+}
+.blog_content {
+   padding: 25px 20px;
+    text-align: center;
+    @media #{$desktop-device}{
+        padding: 20px 10px;
+    }
+    @media #{$tablet-device}{
+        padding: 18px 15px;
+    }
+    @media #{$large-mobile}{
+        padding: 20px 13px;
+    }
+    & h4{
+        font-size: 22px;
+        line-height: 24px;
+        margin-bottom: 22px;
+        font-weight: 400;
+        @media #{$mini-laptop-device}{
+            font-size: 20px;
+            line-height: 22px;
+        }
+        @media #{$desktop-device}{
+            font-size: 17px;
+            line-height: 21px;
+            margin-bottom: 11px;
+        }
+        @media #{$tablet-device}{
+            font-size: 18px;
+            line-height: 20px;
+        }
+        @media #{$large-mobile}{
+            font-size: 19px;
+            line-height: 23px;
+            margin-bottom: 11px;
+        }
+        & a{
+            &:hover{
+                color: $secondary_color;
+            }
+        }
+    }
+    & p{
+        font-size: 16px;
+        line-height: 20px;
+        margin-bottom: 0;
+        @media #{$desktop-device}{
+            font-size: 14px;
+            line-height: 19px;
+        }
+        @media #{$tablet-device}{
+            font-size: 15px;
+        }
+        @media #{$large-mobile}{
+            font-size: 15px;
+            line-height: 20px;
+        }
+        & span{
+            display: block;
+        }
+    }
+}
+
+
+.blog_footer{
+    margin-top: 20px;
+    @media #{$desktop-device}{
+      margin-top: 13px;
+    }
+    @media #{$tablet-device}{
+       margin-top: 14px;
+    }
+    @media #{$large-mobile}{
+        margin-top: 11px;
+    }
+    & > a{
+       font-size: 18px;
+        line-height: 20px;
+        display:inline-block;
+        font-weight: 600;
+        &:hover{
+            color: $secondary_color;
+        }
+        @media #{$desktop-device}{
+            font-size: 16px;
+            line-height: 22px;
+        }
+        @media #{$tablet-device}{
+           font-size: 16px;
+            line-height: 20px;
+        }
+        @media #{$large-mobile}{
+            font-size: 15px;
+            line-height: 22px;
+        }
+    }
+}
+
+
+.color_two{
+    & .owl-nav div:hover{
+        background: $secondary_color2;
+    }
+    & .post_author a{
+        color: $secondary_color2;
+    }
+    & .blog_content h4 a:hover{
+         color: $secondary_color2;
+    }
+    & .blog_footer > a:hover{
+        color: $secondary_color2;
+    }
+}
+
+
+/*home three css here*/
+
+
+.color_three{
+    & .owl-nav div:hover{
+        background: $secondary_color3;
+    }
+    & .post_author a{
+        color: $secondary_color3;
+    }
+    & .blog_content h4 a:hover{
+         color: $secondary_color3;
+    }
+    & .blog_footer > a:hover{
+        color: $secondary_color3;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

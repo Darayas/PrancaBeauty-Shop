@@ -1,0 +1,306 @@
+/*----------------------------------------*/
+/*  01. Theme default CSS
+/*----------------------------------------*/
+
+/*-- Google Font --*/
+@import url('https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900&display=swap');
+
+/*-- Common Style --*/
+*, *::after, *::before {
+  box-sizing: border-box;
+}
+html, body {
+    height: 100%;
+}
+body{
+    line-height: 24px;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    visibility: visible;
+    font-family: $worksans;
+    color: $fonts_color;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 400;
+    margin-top: 0;
+    font-family: $worksans;
+}
+h1 {
+    font-size: 48px;
+    line-height: 1;
+    font-weight: 700;
+}
+h2 {
+    font-size: 36px;
+    line-height: 36px;
+}
+h3 {
+    font-size: 30px;
+    line-height: 30px;
+}
+h4 {
+    font-size: 16px;
+    line-height: 19px;
+    font-weight: 700;
+}
+h5 {
+    font-size: 14px;
+    line-height: 18px;
+}
+h6 {
+    font-size: 12px;
+    line-height: 14px;
+}
+p:last-child {
+    margin-bottom: 0;
+}
+
+a, button {
+    color: inherit;
+    line-height: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+a, button, img, input, span {
+    transition: all 0.3s ease 0s;
+}
+*:focus {
+    outline: none !important;
+}
+a:focus {
+    color: inherit;
+    outline: none;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: none;
+}
+button, input[type="submit"] {
+    cursor: pointer;
+}
+img {max-width:100%;height:auto}
+ul {
+    list-style: outside none none;
+    margin: 0;
+    padding: 0;
+}
+figure{
+    padding: 0;
+    margin: 0;
+}
+/*-- 
+    - Common Classes
+-----------------------------------------*/
+.fix {
+    overflow:hidden
+}
+.hidden {
+    display: none;
+}
+.clear{
+    clear: both;
+}
+
+.container{
+    max-width: 1440px;
+}
+@media #{$large-mobile}{
+    .container {
+        max-width: 464px;
+    }
+}
+@media #{$small-mobile}{
+    .container {
+        width: 100%;
+    }
+}
+
+.capitalize {
+    text-transform: capitalize;
+}
+.uppercase {
+    text-transform: uppercase;
+}
+
+.no-gutters > .col, .no-gutters > [class*="col-"] {
+	padding-right: 0;
+	padding-left: 0;
+    margin: 0;
+}
+
+/*-- 
+    - Background color
+-----------------------------------------*/
+.bg-white {
+    background-color: $white;
+}
+.bg-light-grey {
+    background-color: $light-grey;
+}
+
+.bg-grey {
+    background-color: #f8f8f8;
+}
+.bluewood-bg {
+    background: #354b65;
+}
+
+/*- Overlay Color BG -*/
+
+.bluewood-bg-overlay {
+    position: relative;
+    &::before {
+        background: rgba(70, 90, 112, 0.9);
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+    }
+}
+.overly-bg-black {
+    position: relative;
+    &::after {
+        background: rgba(0, 0, 0, 0.3);
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+    }
+}
+/*-- 
+    - color
+-----------------------------------------*/
+
+/*-- 
+    - Input Placeholder
+-----------------------------------------*/
+input:-moz-placeholder, textarea:-moz-placeholder {
+    opacity: 1;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+}
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+    opacity: 1;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+}
+input::-moz-placeholder, textarea::-moz-placeholder {
+    opacity: 1;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+}
+input:-ms-input-placeholder, textarea:-ms-input-placeholder {
+    opacity: 1;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+}
+
+/*-- 
+    Scroll Up 
+-----------------------------------------*/
+
+#scrollUp {
+	background: $secondary_color none repeat scroll 0 0;
+	bottom: 85px;
+	color: #ffffff;
+	cursor: pointer;
+	display: none;
+	font-size: 20px;
+	height: 45px;
+	line-height: 39px;
+	position: fixed;
+	right: 12px;
+	text-align: center;
+	width: 45px;
+	z-index: 9999;
+	border-radius: 50%;
+	border: 2px solid #fff;
+	-webkit-transition: .3s;
+	transition: .3s;
+     &:hover i {
+        animation-name: fadeInUp;
+        animation-duration:1s;
+        animation-fill-mode:both;
+        animation-iteration-count: infinite;
+    }
+}
+
+/*-- 
+    - Main Wrapper
+-----------------------------------------*/
+.main-wrapper {
+    &.header-transparent {
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+}
+
+
+.mt-23{
+    margin-top:23px;
+}
+.mt-30{
+    margin-top: 30px;
+}
+.mt-50{
+    margin-top: 50px;
+}
+.mt-55{
+    margin-top: 55px;
+}
+.mt-57{
+    margin-top: 57px;
+}
+.mt-60{
+    margin-top: 60px;
+}
+.mt-70{
+    margin-top: 70px;
+}
+.mt-100{
+    margin-top: 100px;
+}
+.mb-15{
+    margin-bottom: 15px;
+}
+.mb-30{
+    margin-bottom: 30px;
+}
+.mb-40{
+    margin-bottom: 40px;
+}
+
+.mb-50{
+    margin-bottom: 50px;
+}
+.mb-55{
+    margin-bottom: 55px;
+}
+.mb-57{
+    margin-bottom: 57px;
+}
+.mb-60{
+    margin-bottom: 60px;
+}
+.mb-64{
+    margin-bottom: 64px;
+}
+.mb-65{
+    margin-bottom: 65px;
+}
+.mb-70{
+    margin-bottom: 70px;
+}
+.mb-90{
+    margin-bottom: 90px;
+}
+.mb-92{
+   margin-bottom: 92px; 
+}
+.mb-95{
+   margin-bottom: 95px; 
+}
+.mb-100{
+    margin-bottom: 100px;
+}

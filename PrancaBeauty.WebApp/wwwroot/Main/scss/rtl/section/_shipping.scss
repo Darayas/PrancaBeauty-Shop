@@ -1,0 +1,151 @@
+/* 21. shipping css here */
+.shipping_area {
+    padding: 100px 0;
+
+    @media #{$tablet-device} {
+        padding: 80px 0;
+    }
+
+    @media #{$large-mobile} {
+        padding: 60px 0 36px;
+    }
+}
+
+.single_shipping {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    &:last-child {
+        &::before {
+            display: none;
+        }
+    }
+
+    &.col3 {
+        @media #{$tablet-device} {
+            margin-top: 30px;
+        }
+    }
+
+    @media #{$large-mobile} {
+        margin-bottom: 25px;
+    }
+
+    &:hover {
+        & .shipping_icone {
+            background: #333;
+            color: #fff;
+            border-color: #333;
+        }
+    }
+}
+
+.shipping_icone {
+    height: 90px;
+    min-width: 90px;
+    line-height: 88px;
+    border: 1px solid #e5e5e5;
+    border-radius: 100%;
+    text-align: center;
+    margin-left: 30px;
+    transition: .3s;
+
+    @media #{$tablet-device} {
+        height: 75px;
+        min-width: 75px;
+        line-height: 75px;
+        margin-left: 20px
+    }
+
+    @media #{$large-mobile} {
+        height: 60px;
+        min-width: 60px;
+        line-height: 58px;
+        margin-left: 15px;
+    }
+
+    & i {
+        font-size: 28px;
+        line-height: 88px;
+
+        @media #{$desktop-device} {
+            font-size: 26px;
+            line-height: 78px;
+        }
+
+        @media #{$tablet-device} {
+            font-size: 25px;
+            line-height: 75px;
+        }
+
+        @media #{$large-mobile} {
+            font-size: 22px;
+            line-height: 58px;
+        }
+    }
+
+    @media #{$desktop-device} {
+        height: 80px;
+        min-width: 80px;
+        line-height: 78px;
+        margin-right: 25px;
+    }
+}
+
+.shipping_content {
+    text-align: right;
+
+    & h3 {
+        font-size: 18px;
+        line-height: 20px;
+        text-transform: capitalize;
+        font-weight: 600;
+        margin-bottom: 7px;
+
+        @media #{$desktop-device} {
+            font-size: 15px;
+        }
+
+        @media #{$tablet-device} {
+            font-size: 15px;
+            line-height: 16px;
+        }
+
+        @media #{$large-mobile} {
+            font-size: 16px;
+            line-height: 20px;
+            margin-bottom: 5px;
+        }
+
+        & a {
+            &:hover {
+                color: $secondary_color;
+            }
+        }
+    }
+
+    & p {
+        font-size: 16px;
+        line-height: 24px;
+
+        @media #{$desktop-device} {
+            font-size: 13px;
+        }
+
+        @media #{$large-mobile} {
+            font-size: 15px;
+            line-height: 22px;
+        }
+    }
+}
+
+
+
+.shipping_padding {
+    padding: 60px 0;
+
+    @media #{$large-mobile} {
+        padding: 60px 0 36px;
+    }
+}

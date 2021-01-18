@@ -1,0 +1,92 @@
+/*privacy policy css here*/
+.privacy_policy_main_area {
+	padding: 53px 0 10px;
+    @media #{$large-mobile}{
+        padding: 57px 0 6px;
+    }
+}
+.privacy_policy_header{
+    text-align: center;
+    margin-bottom: 50px;
+    @media #{$large-mobile}{
+        margin-bottom: 53px;
+    }
+    & h1{
+        font-size: 42px;
+        line-height: 45px;
+        font-weight: 500;
+        margin-bottom: 0;
+        @media #{$large-mobile}{
+            font-size: 25px;
+            line-height: 25px;
+        }
+    }
+}
+
+
+.privacy_content{
+    margin-bottom: 44px;
+    @media #{$large-mobile}{
+        margin-bottom: 46px;
+    }
+    & h2{
+        font-size: 25px;
+        line-height: 33px;
+        font-weight: 500;
+        @media #{$large-mobile}{
+            font-size: 18px;
+            line-height: 26px;
+        }
+    }
+    & h3{
+        font-size: 21px;
+        line-height: 28px;
+        font-weight: 500;
+        margin-bottom: 10px;
+        @media #{$large-mobile}{
+            font-size: 18px;
+            line-height: 24px;
+        }
+    }
+    & p{
+        font-size: 16px;
+        line-height: 29px;
+        margin-bottom: 15px;
+        @media #{$large-mobile}{
+            font-size: 15px;
+            line-height: 28px;
+        }
+        & a{
+            color: #a43d21;
+            &:hover{
+                color: $secondary_color;
+            }
+        }
+    }
+    
+    &.section_1{
+        & h2{
+            margin-bottom: 14px;
+            @media #{$large-mobile}{
+                margin-bottom: 9px;
+            }
+        }
+    }
+    &.section_2{
+        & h2{
+            margin-bottom: 20px;
+            @media #{$large-mobile}{
+                margin-bottom: 16px;
+            }
+        }
+    }
+    &.section_3{
+        & h2{
+            margin-bottom: 18px;
+            @media #{$large-mobile}{
+                margin-bottom: 12px;
+            }
+        }
+    }
+}
+/*privacy policy css end*/

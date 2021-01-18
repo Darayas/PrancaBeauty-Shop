@@ -1,0 +1,93 @@
+/*brand css here*/
+.brand_area {
+	padding: 100px 0;
+    @media #{$large-mobile}{
+       padding: 56px 0;
+    }
+}
+.brand_container{
+    & .single_brand{
+        & img{
+            width: inherit;
+            margin: 0 auto;
+        }
+    }
+    &:hover{
+        & .owl-nav{
+            & div{
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+    }
+    & .owl-nav{
+        & div{
+            position: absolute;
+            top: 49%;
+            transform: translatey(-50%);
+            left: 0;
+            font-size: 45px;
+            @include transition(.3s);
+            opacity: 0;
+            visibility: hidden;
+            &:hover{
+                color: $secondary_color;
+            }
+            &.owl-next{
+                right: 0;
+                left: auto;
+            }
+            @media #{$large-mobile}{
+                display: none;
+            }
+        }
+    }
+}
+
+.single_brand{
+    overflow: hidden;
+    & img{
+        transition: .3s;
+        opacity: .5;
+    }
+    &:hover{
+        & img{
+            opacity: 1;
+            transform: scale(1.05) rotate(0.05deg);
+        }
+    }
+}
+
+
+
+
+
+.brand_padding{
+    padding: 0;
+    & .brand_container{
+        border-top: 1px solid #e5e5e5;
+        border-bottom: 1px solid #e5e5e5;
+        padding: 60px 0;
+         @media #{$large-mobile}{
+            padding: 56px 0;
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

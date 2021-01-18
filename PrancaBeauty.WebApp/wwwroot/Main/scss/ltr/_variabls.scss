@@ -1,0 +1,91 @@
+// Font Family
+$worksans: 'Work Sans', sans-serif;
+
+*{
+    box-sizing: border-box;
+}
+
+
+// Colors ---------------
+
+// Theme Color
+
+$fonts_color: #333;
+$primary_color: #999999;
+
+$fonts_color2:#757575;
+$fonts_color3:#919191;
+
+$fonts_color4:#888888;
+$fonts_color5:#a4a4a4;
+
+$fonts_color6:#3E444A;
+$fonts_color7:#808080;
+
+$fonts_color9:#a7a7a7;
+$fonts_color10:#222;
+
+$fonts_color11:#2f2f2f;
+$fonts_color12:#ccc;
+
+
+$secondary_color: #d52121;
+$secondary_color2: #fe3737;
+$secondary_color3: #0DB6C8;
+
+$secondary_color4: #CF1F1F;
+$secondary_color5: #ed9153;
+
+$secondary_color6: #e93838;
+$secondary_color7: #0881a3;
+
+$secondary_color8: #ff6666;
+$secondary_color9: #9b6501;
+$secondary_color10: #999;
+
+$secondary_color11: #f8f9f9;
+$secondary_color12: #2d2d2d;
+
+$secondary_color13: #a8741a;
+
+$white: #ffffff;
+$black: #000000;
+
+// Dark Color
+$grey_color: #ededed;
+$dark_grey:#e9e9e9;
+
+// Light Color
+$light-grey: #f6fafb;
+$light: #191919;
+
+
+
+// Body Color
+$body-color: #fff;
+$body-color-light: #909090;
+
+
+// Body Color
+$grey-light: #f0f0f0;
+$grey-dark: #888888;
+
+// Heading Color
+$heading-color: #333333;
+$heading-color-light: #505050;
+
+
+
+
+
+// Responsive Variables
+$extraBig-device : 'only screen and (min-w idth: 1600px)';
+$laptop-device : 'only screen and (min-width: 1200px) and (max-width: 1600px)';
+$mini-laptop-device : 'only screen and (min-width: 1200px) and (max-width: 1300px)';
+$desktop-device : 'only screen and (min-width: 992px) and (max-width: 1199px)';
+$tablet-device:'only screen and (min-width: 768px) and (max-width: 991px)';
+$small-mobile3:'only screen and (min-width: 430px) and (max-width: 575px)';
+$large-mobile:'only screen and (max-width: 767px)';
+$small-mobile2: 'only screen and (max-width: 575px)';
+$small-mobile: 'only screen and (max-width: 479px)';
+

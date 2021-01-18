@@ -1,0 +1,163 @@
+﻿@page "/Contact"
+@model PrancaBeauty.WebApp.Pages.Home.ContactUsModel
+@{
+    Layout = "~/Pages/Shared/_MainLayout.cshtml";
+}
+
+<!--breadcrumbs area start-->
+<div class="breadcrumbs_area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb_content">
+                    <ul>
+                        <li><a href="index.html">home</a></li>
+                        <li>contact us</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--breadcrumbs area end-->
+<!--contact map start-->
+<div class="contact_map">
+    <div class="map-area">
+        <div id="googleMap"></div>
+    </div>
+</div>
+<!--contact map end-->
+<!--contact area start-->
+<div class="contact_area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6">
+                <div class="contact_message content">
+                    <h3>contact us</h3>
+                    <p>Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram anteposuerit litterarum formas human. qui sequitur mutationem consuetudium lectorum. Mirum est notare quam</p>
+                    <ul>
+                        <li><i class="fa fa-fax"></i>  Address : No 40 Baria Sreet 133/2 NewYork City</li>
+                        <li><i class="fa fa-phone"></i> <a href="#">Infor@roadthemes.com</a></li>
+                        <li><i class="fa fa-envelope-o"></i><a href="tel:0(1234)567890">0(1234) 567 890</a>  </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="contact_message form">
+                    <h3>Tell us your project</h3>
+                    <form id="contact-form" method="POST" action="/Main/mail.php">
+                        <p>
+                            <label> Your Name (required)</label>
+                            <input name="name" placeholder="Name *" type="text">
+                        </p>
+                        <p>
+                            <label>  Your Email (required)</label>
+                            <input name="email" placeholder="Email *" type="email">
+                        </p>
+                        <p>
+                            <label>  Subject</label>
+                            <input name="subject" placeholder="Subject *" type="text">
+                        </p>
+                        <div class="contact_textarea">
+                            <label>  Your Message</label>
+                            <textarea placeholder="Message *" name="message" class="form-control2"></textarea>
+                        </div>
+                        <button type="submit"> Send</button>
+                        <p class="form-messege"></p>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--contact area end-->
+<!--brand area start-->
+<div class="brand_area brand_padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="brand_container owl-carousel ">
+                    <div class="single_brand">
+                        <a href="#"><img src="/Main/img/brand/brand1.jpg" alt=""></a>
+                    </div>
+                    <div class="single_brand">
+                        <a href="#"><img src="/Main/img/brand/brand2.jpg" alt=""></a>
+                    </div>
+                    <div class="single_brand">
+                        <a href="#"><img src="/Main/img/brand/brand3.jpg" alt=""></a>
+                    </div>
+                    <div class="single_brand">
+                        <a href="#"><img src="/Main/img/brand/brand4.jpg" alt=""></a>
+                    </div>
+                    <div class="single_brand">
+                        <a href="#"><img src="/Main/img/brand/brand5.jpg" alt=""></a>
+                    </div>
+                    <div class="single_brand">
+                        <a href="#"><img src="/Main/img/brand/brand1.jpg" alt=""></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--brand area end-->
+<!--shipping area start-->
+<div class="shipping_area shipping_padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-6">
+                <div class="single_shipping">
+                    <div class="shipping_icone">
+                        <i class="icon-call-out icons"></i>
+                    </div>
+                    <div class="shipping_content">
+                        <h3><a href="tel:(+99)0521282399">(+99) 052 128 2399</a></h3>
+                        <p>/ Phone</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="single_shipping">
+                    <div class="shipping_icone">
+                        <i class="icon-location-pin icons"></i>
+                    </div>
+                    <div class="shipping_content">
+                        <h3>New York, USA – 1060 Firs Avenue, Muswell Hill</h3>
+                        <p>/ Address</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="single_shipping col3">
+                    <div class="shipping_icone">
+                        <i class="icon-envelope icons"></i>
+                    </div>
+                    <div class="shipping_content">
+                        <h3><a href="#">bonique@domain.com</a></h3>
+                        <p>/ Email</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--shipping area end-->
+
+@section styles{
+    <link href="~/lib/leafletJS/leaflet.min.css" rel="stylesheet" />
+}
+
+@section scripts{
+    <script src="~/lib/leafletJS/leaflet.min.js"></script>
+    <script>
+        var map = L.map('googleMap').setView([51.505, -0.09], 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        L.marker([51.5, -0.09]).addTo(map);
+            
+    </script>
+}

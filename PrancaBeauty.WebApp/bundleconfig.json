@@ -1,0 +1,14 @@
+[
+  {
+    "outputFileName": "wwwroot/lib/leafletJS/leaflet.min.css",
+    "inputFiles": [
+      "wwwroot/lib/leafletJS/leaflet.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/lib/leafletJS/leaflet.min.js",
+    "inputFiles": [
+      "wwwroot/lib/leafletJS/leaflet.js"
+    ]
+  }
+]

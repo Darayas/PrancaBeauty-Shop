@@ -1,0 +1,137 @@
+/*06. newsletter area css here*/
+.newsletter_area_start {
+    padding: 92px 0 100px;
+
+    @media #{$tablet-device} {
+        padding: 74px 0 80px;
+    }
+
+    @media #{$large-mobile} {
+        padding: 57px 0 60px;
+    }
+
+    & .section_title {
+        & h2 {
+            & span {
+                color: $secondary_color;
+            }
+        }
+    }
+}
+
+.newsletter_container {
+    padding-top: 16px;
+
+    @media #{$tablet-device} {
+        padding-top: 8px;
+    }
+
+    @media #{$large-mobile} {
+        padding-top: 0;
+    }
+}
+
+.subscribe_form {
+    & form {
+        width: 100%;
+        position: relative;
+
+        @media #{$tablet-device} {
+            width: 430px;
+        }
+
+        @media #{$large-mobile} {
+            width: 100%;
+        }
+
+        & input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+            color: #666;
+        }
+
+        & input::-moz-placeholder { /* Firefox 19+ */
+            color: #666;
+        }
+
+        & input:-ms-input-placeholder { /* IE 10+ */
+            color: #666;
+        }
+
+        & input:-moz-placeholder { /* Firefox 18- */
+            color: #666;
+        }
+
+        & input {
+            width: 100%;
+            background: none;
+            padding: 0 3px 0 50px;
+            height: 45px;
+            font-size: 16px;
+            color: #666;
+            border: 0;
+            border-bottom: 2px solid #dfdfdf;
+
+            @media #{$tablet-device} {
+                height: 46px;
+            }
+
+            @media #{$large-mobile} {
+                font-size: 14px;
+            }
+        }
+
+        & button {
+            font-size: 28px;
+            height: 100%;
+            border: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            @include transition(.3s);
+            color: #666;
+            background: inherit;
+            padding: 0;
+            transform: rotate(180deg);
+
+            &:hover {
+                color: $secondary_color;
+            }
+
+            @media #{$large-mobile} {
+                font-size: 22px;
+            }
+
+        }
+    }
+}
+
+.mailchimp-error {
+    text-align: center;
+    color: green;
+}
+
+.mailchimp-success {
+    text-align: center;
+    max-width: 510px;
+    color: green;
+    margin: 0 auto;
+
+    &.active {
+        margin-top: 20px;
+    }
+}
+
+/*home two css here*/
+
+.color_two {
+    & .subscribe_form form button:hover {
+        background: $secondary_color2;
+    }
+}
+
+
+/*home three css here*/
+.color_three {
+    & .subscribe_form form button:hover {
+        background: $secondary_color3;
+    }
+}

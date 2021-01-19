@@ -1295,29 +1295,29 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
     text-align: center;
     padding-left: 0; } }
 
-.slider_content h1 {
+.slider_content h2 {
   font-size: 70px;
   line-height: 70px;
   font-weight: 500;
   margin-bottom: 0; }
   @media only screen and (min-width: 1200px) and (max-width: 1600px) {
-    .slider_content h1 {
+    .slider_content h2 {
       font-size: 66px;
       line-height: 66px; } }
   @media only screen and (min-width: 992px) and (max-width: 1199px) {
-    .slider_content h1 {
+    .slider_content h2 {
       font-size: 48px;
       line-height: 48px; } }
   @media only screen and (min-width: 768px) and (max-width: 991px) {
-    .slider_content h1 {
+    .slider_content h2 {
       font-size: 38px;
       line-height: 38px; } }
   @media only screen and (max-width: 767px) {
-    .slider_content h1 {
+    .slider_content h2 {
       font-size: 26px;
       line-height: 26px; } }
 
-.slider_content h2 {
+.slider_content h3 {
   font-size: 24px;
   line-height: 24px;
   text-transform: capitalize;
@@ -1326,22 +1326,22 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   letter-spacing: 4px;
   color: #d52121; }
   @media only screen and (min-width: 1200px) and (max-width: 1600px) {
-    .slider_content h2 {
+    .slider_content h3 {
       font-size: 22px;
       line-height: 22px; } }
   @media only screen and (min-width: 992px) and (max-width: 1199px) {
-    .slider_content h2 {
+    .slider_content h3 {
       font-size: 22px;
       line-height: 22px;
       margin-bottom: 15px; } }
   @media only screen and (min-width: 768px) and (max-width: 991px) {
-    .slider_content h2 {
+    .slider_content h3 {
       font-size: 20px;
       line-height: 24px;
       margin-bottom: 11px;
       letter-spacing: 2px; } }
   @media only screen and (max-width: 767px) {
-    .slider_content h2 {
+    .slider_content h3 {
       font-size: 16px;
       line-height: 22px;
       letter-spacing: 2px;
@@ -1924,7 +1924,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   @media only screen and (max-width: 767px) {
     .section_title {
       margin-bottom: 25px; } }
-  .section_title h2 {
+  .section_title h3 {
     font-size: 30px;
     line-height: 30px;
     font-weight: 400;
@@ -1932,15 +1932,15 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
     margin-bottom: 0;
     letter-spacing: 3px; }
     @media only screen and (min-width: 992px) and (max-width: 1199px) {
-      .section_title h2 {
+      .section_title h3 {
         letter-spacing: 2px; } }
     @media only screen and (min-width: 768px) and (max-width: 991px) {
-      .section_title h2 {
+      .section_title h3 {
         font-size: 28px;
         line-height: 28px;
         letter-spacing: 2px; } }
     @media only screen and (max-width: 767px) {
-      .section_title h2 {
+      .section_title h3 {
         font-size: 22px;
         line-height: 22px;
         letter-spacing: 1px; } }
@@ -2111,24 +2111,24 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   @media only screen and (max-width: 767px) {
     .product_content {
       padding: 15px 10px; } }
-  .product_content h4 {
+  .product_content h2 {
     font-size: 18px;
     line-height: 20px;
     font-weight: 400;
     text-transform: capitalize;
     margin-bottom: 10px; }
     @media only screen and (min-width: 992px) and (max-width: 1199px) {
-      .product_content h4 {
+      .product_content h2 {
         font-size: 16px; } }
     @media only screen and (min-width: 768px) and (max-width: 991px) {
-      .product_content h4 {
+      .product_content h2 {
         font-size: 16px;
         line-height: 20px;
         margin-bottom: 10px; } }
     @media only screen and (max-width: 767px) {
-      .product_content h4 {
+      .product_content h2 {
         font-size: 16px; } }
-    .product_content h4 a:hover {
+    .product_content h2 a:hover {
       color: #d52121; }
 
 .product_rating {
@@ -2930,30 +2930,30 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   @media only screen and (max-width: 767px) {
     .blog_content {
       padding: 20px 13px; } }
-  .blog_content h4 {
+  .blog_content h2 {
     font-size: 22px;
     line-height: 24px;
     margin-bottom: 22px;
     font-weight: 400; }
     @media only screen and (min-width: 1200px) and (max-width: 1300px) {
-      .blog_content h4 {
+      .blog_content h2 {
         font-size: 20px;
         line-height: 22px; } }
     @media only screen and (min-width: 992px) and (max-width: 1199px) {
-      .blog_content h4 {
+      .blog_content h2 {
         font-size: 17px;
         line-height: 21px;
         margin-bottom: 11px; } }
     @media only screen and (min-width: 768px) and (max-width: 991px) {
-      .blog_content h4 {
+      .blog_content h2 {
         font-size: 18px;
         line-height: 20px; } }
     @media only screen and (max-width: 767px) {
-      .blog_content h4 {
+      .blog_content h2 {
         font-size: 19px;
         line-height: 23px;
         margin-bottom: 11px; } }
-    .blog_content h4 a:hover {
+    .blog_content h2 a:hover {
       color: #d52121; }
   .blog_content p {
     font-size: 16px;

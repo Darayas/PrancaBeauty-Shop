@@ -44,7 +44,7 @@
         margin-bottom: 25px;
     }
 
-    & h2 {
+    & h3 {
         font-size: 30px;
         line-height: 30px;
         font-weight: 400;
@@ -304,14 +304,14 @@
         padding: 15px 10px;
     }
 
-    & h4 {
+    & h2 {
         font-size: 18px;
         line-height: 20px;
         font-weight: 400;
         text-transform: capitalize;
         margin-bottom: 10px;
         text-align: right;
-        direction:rtl;
+        direction: rtl;
 
         @media #{$desktop-device} {
             font-size: 16px;
@@ -363,8 +363,8 @@
 
 .price_box {
     transition: .3s;
-    direction:rtl;
-    text-align:right;
+    direction: rtl;
+    text-align: right;
 
     & span {
         font-size: 16px;
@@ -393,7 +393,7 @@
     opacity: 0;
     visibility: hidden;
     transition: .4s;
-    right:25px;
+    right: 25px;
 
     & a {
         font-size: 18px;
@@ -1354,7 +1354,7 @@
 
     & .product_items {
         & .single_product {
-            direction:rtl;
+            direction: rtl;
 
             @media #{$desktop-device} {
                 margin-bottom: 23px;

@@ -1,50 +1,59 @@
 /* 02. slider area css here */
-.single_slider{
-        background-repeat: no-repeat;
-        background-attachment: scroll;
-        background-position: center center;
-        background-size: cover; 
-        height: 683px;
-        @media #{$laptop-device}{
-           height: 480px;
-        }
-        @media #{$desktop-device}{
-          height: 400px;
-        }
-        @media #{$tablet-device}{
-            height: 380px;
-        }
-        @media #{$large-mobile}{
-           background-position: 5%;
-            height: 280px;
-        }
- 
+.single_slider {
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-position: center center;
+    background-size: cover;
+    height: 683px;
+
+    @media #{$laptop-device} {
+        height: 480px;
+    }
+
+    @media #{$desktop-device} {
+        height: 400px;
+    }
+
+    @media #{$tablet-device} {
+        height: 380px;
+    }
+
+    @media #{$large-mobile} {
+        background-position: 5%;
+        height: 280px;
+    }
 }
-.slider_section{
-    &.mb-40{
-        @media #{$tablet-device}{
+
+.slider_section {
+    &.mb-40 {
+        @media #{$tablet-device} {
             margin-bottom: 30px;
         }
-        @media #{$large-mobile}{
-           margin-bottom: 30px;
+
+        @media #{$large-mobile} {
+            margin-bottom: 30px;
         }
     }
-    &.mb-70{
-        @media #{$large-mobile}{
-           margin-bottom: 60px;
+
+    &.mb-70 {
+        @media #{$large-mobile} {
+            margin-bottom: 60px;
         }
     }
 }
-.slider_area{
-    & .owl-dots{
+
+.slider_area {
+    & .owl-dots {
         position: absolute;
         bottom: 10px;
         left: 50%;
         transform: translatex(-50%);
-        @media #{$large-mobile}{
+
+        @media #{$large-mobile} {
             bottom: 4px;
         }
-        & .owl-dot{
+
+        & .owl-dot {
             width: 12px;
             height: 12px;
             border-radius: 50%;
@@ -52,116 +61,136 @@
             margin: 0 3px;
             transition: .3s;
             background: #fff;
-            &.active{
+
+            &.active {
                 background: $secondary_color;
             }
-            &:hover{
+
+            &:hover {
                 background: $secondary_color;
             }
         }
     }
 }
 
-.slider_content{
-    @media #{$large-mobile}{
+.slider_content {
+    @media #{$large-mobile} {
         text-align: center;
         padding-left: 0;
     }
-    & h1{
+
+    & h2 {
         font-size: 70px;
         line-height: 70px;
         font-weight: 500;
         margin-bottom: 0;
-        @media #{$laptop-device}{
-           font-size: 66px;
+
+        @media #{$laptop-device} {
+            font-size: 66px;
             line-height: 66px;
         }
-        @media #{$desktop-device}{
+
+        @media #{$desktop-device} {
             font-size: 48px;
             line-height: 48px;
         }
-        @media #{$tablet-device}{
-           font-size: 38px;
+
+        @media #{$tablet-device} {
+            font-size: 38px;
             line-height: 38px;
         }
-        @media #{$large-mobile}{
+
+        @media #{$large-mobile} {
             font-size: 26px;
             line-height: 26px;
         }
     }
-    & h2{
+
+    & h3 {
         font-size: 24px;
         line-height: 24px;
         text-transform: capitalize;
-       margin-bottom: 27px;
+        margin-bottom: 27px;
         font-weight: 600;
         letter-spacing: 4px;
         color: $secondary_color;
-        @media #{$laptop-device}{
-           font-size: 22px;
+
+        @media #{$laptop-device} {
+            font-size: 22px;
             line-height: 22px;
         }
-        @media #{$desktop-device}{
+
+        @media #{$desktop-device} {
             font-size: 22px;
             line-height: 22px;
             margin-bottom: 15px;
         }
-        @media #{$tablet-device}{
+
+        @media #{$tablet-device} {
             font-size: 20px;
             line-height: 24px;
             margin-bottom: 11px;
             letter-spacing: 2px;
         }
-        @media #{$large-mobile}{
-           font-size: 16px;
+
+        @media #{$large-mobile} {
+            font-size: 16px;
             line-height: 22px;
             letter-spacing: 2px;
             margin-bottom: 13px;
         }
-        
     }
-    & p{
+
+    & p {
         font-size: 20px;
         line-height: 34px;
         padding: 32px 0 32px;
         margin-bottom: 0;
-       max-width: 51%;
-        @media #{$laptop-device}{
-           font-size: 18px;
+        max-width: 51%;
+
+        @media #{$laptop-device} {
+            font-size: 18px;
             line-height: 32px;
         }
-        @media #{$desktop-device}{
+
+        @media #{$desktop-device} {
             font-size: 17px;
             line-height: 30px;
             max-width: 53%;
             padding: 27px 0 27px;
         }
-        @media #{$tablet-device}{
+
+        @media #{$tablet-device} {
             font-size: 16px;
             line-height: 26px;
             padding: 29px 0 29px;
             max-width: 59%;
         }
-        @media #{$large-mobile}{
+
+        @media #{$large-mobile} {
             font-size: 14px;
             line-height: 23px;
             padding: 14px 0 15px;
-             max-width: 100%;
+            max-width: 100%;
         }
     }
-    & a{
+
+    & a {
         font-size: 18px;
         line-height: 18px;
         font-weight: 600;
         display: inline-block;
         text-transform: capitalize;
-        &:hover{
-            color:  $secondary_color;
+
+        &:hover {
+            color: $secondary_color;
         }
-        @media #{$tablet-device}{
+
+        @media #{$tablet-device} {
             font-size: 16px;
         }
-        @media #{$large-mobile}{
+
+        @media #{$large-mobile} {
             font-size: 15px;
         }
     }
@@ -170,50 +199,57 @@
 
 
 
-.active .slider_content h1,.active .slider_content h2,.active .slider_content h3,.active .slider_content a,.active .slider_content p,.active .slider_content span {
-	-webkit-animation-fill-mode: both;
-	animation-fill-mode: both;
-	-webkit-animation-duration: 1s;
-	animation-duration: 1s;
+.active .slider_content h1, .active .slider_content h2, .active .slider_content h3, .active .slider_content a, .active .slider_content p, .active .slider_content span {
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
     -webkit-animation-name: fadeInLeft;
     animation-name: fadeInLeft;
     -webkit-animation-delay: 0.3s;
     animation-delay: 0.3s;
 }
 
-.active .slider_content h2{
-     -webkit-animation-delay: 0.5s;
+.active .slider_content h2 {
+    -webkit-animation-delay: 0.5s;
     animation-delay: 0.5s;
 }
-.active .slider_content h3,.active .slider_content span{
-     -webkit-animation-delay: 0.7s;
+
+.active .slider_content h3, .active .slider_content span {
+    -webkit-animation-delay: 0.7s;
     animation-delay: 0.7s;
 }
-.active .slider_content p{
-     -webkit-animation-delay: 0.7s;
+
+.active .slider_content p {
+    -webkit-animation-delay: 0.7s;
     animation-delay: 0.7s;
 }
-.active .slider_content a{
-     -webkit-animation-delay: 0.9s;
+
+.active .slider_content a {
+    -webkit-animation-delay: 0.9s;
     animation-delay: 0.9s;
 }
 
 
 
 /*home three css here*/
-.slider_s_three{
-    & .single_slider{
+.slider_s_three {
+    & .single_slider {
         height: 1054px;
-        @media #{$laptop-device}{
-           height: 741px;
+
+        @media #{$laptop-device} {
+            height: 741px;
         }
-        @media #{$desktop-device}{
-          height: 555px;
+
+        @media #{$desktop-device} {
+            height: 555px;
         }
-        @media #{$tablet-device}{
+
+        @media #{$tablet-device} {
             height: 380px;
         }
-        @media #{$large-mobile}{
+
+        @media #{$large-mobile} {
             height: 280px;
             background-position: 0%;
         }
@@ -221,16 +257,19 @@
 }
 
 
-.slider_c_three{
+.slider_c_three {
     padding-top: 130px;
-    @media #{$desktop-device}{
-      padding-top: 145px;
+
+    @media #{$desktop-device} {
+        padding-top: 145px;
     }
-    @media #{$tablet-device}{
+
+    @media #{$tablet-device} {
         padding-top: 0;
     }
-    @media #{$large-mobile}{
-       padding-top: 0;
+
+    @media #{$large-mobile} {
+        padding-top: 0;
     }
 }
 
@@ -239,51 +278,59 @@
 .slider_s_four {
     margin-bottom: 84px;
     padding: 0 15px;
-    @media #{$laptop-device}{
-       padding: 0;
-    }
-    @media #{$desktop-device}{
+
+    @media #{$laptop-device} {
         padding: 0;
     }
-    @media #{$tablet-device}{
+
+    @media #{$desktop-device} {
+        padding: 0;
+    }
+
+    @media #{$tablet-device} {
         padding: 0;
         margin-bottom: 66px;
     }
-    @media #{$large-mobile}{
-       padding: 0;
+
+    @media #{$large-mobile} {
+        padding: 0;
         margin-bottom: 47px;
     }
 }
-.active .slider_c_four h1,.active .slider_c_four h2{
-	-webkit-animation-fill-mode: both;
-	animation-fill-mode: both;
-	-webkit-animation-duration: 1s;
-	animation-duration: 1s;
+
+.active .slider_c_four h1, .active .slider_c_four h2 {
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
     -webkit-animation-name: fadeInUp;
     animation-name: fadeInUp;
     -webkit-animation-delay: 0.3s;
     animation-delay: 0.3s;
 }
 
-.active .slider_content h2{
-     -webkit-animation-delay: 0.5s;
+.active .slider_content h2 {
+    -webkit-animation-delay: 0.5s;
     animation-delay: 0.5s;
 }
-.slider_four_area{
-    &:hover{
-        & .owl-nav{
-            & div{
+
+.slider_four_area {
+    &:hover {
+        & .owl-nav {
+            & div {
                 opacity: 1;
                 visibility: visible;
                 left: 15px;
-                &.owl-next{
+
+                &.owl-next {
                     right: 15px;
                 }
             }
         }
     }
-    & .owl-nav{
-        & div{
+
+    & .owl-nav {
+        & div {
             position: absolute;
             top: 50%;
             transform: translatey(-50%);
@@ -291,87 +338,103 @@
             width: 65px;
             height: 65px;
             line-height: 65px;
-            color:#333;
-            background:#fff;
+            color: #333;
+            background: #fff;
             text-align: center;
             font-size: 38px;
             @include transition(.3s);
             opacity: 0;
             visibility: hidden;
-            &:hover{
+
+            &:hover {
                 background: $secondary_color;
                 color: #fff;
             }
-            @media #{$tablet-device}{
+
+            @media #{$tablet-device} {
                 width: 54px;
                 height: 54px;
                 line-height: 54px;
                 font-size: 30px;
             }
-            &.owl-next{
+
+            &.owl-next {
                 right: 30px;
                 left: auto;
             }
-            @media #{$large-mobile}{
+
+            @media #{$large-mobile} {
                 display: none;
             }
         }
     }
 }
-.slider_c_four{
+
+.slider_c_four {
     text-align: center;
     margin-top: 22px;
     padding-bottom: 10px;
-    @media #{$large-mobile}{
-       margin-top: 18px;
+
+    @media #{$large-mobile} {
+        margin-top: 18px;
     }
-    & h1{
+
+    & h1 {
         font-size: 45px;
         line-height: 45px;
         text-transform: uppercase;
         font-weight: 600;
         margin-bottom: 0;
-        @media #{$laptop-device}{
-           font-size: 40px;
+
+        @media #{$laptop-device} {
+            font-size: 40px;
             line-height: 40px;
         }
-        @media #{$desktop-device}{
-           font-size: 35px;
+
+        @media #{$desktop-device} {
+            font-size: 35px;
             line-height: 35px;
         }
-        @media #{$tablet-device}{
-           font-size: 30px;
+
+        @media #{$tablet-device} {
+            font-size: 30px;
             line-height: 30px;
         }
-        @media #{$large-mobile}{
+
+        @media #{$large-mobile} {
             font-size: 20px;
             line-height: 20px;
         }
     }
-    & h2{
+
+    & h2 {
         font-size: 24px;
         line-height: 24px;
         text-transform: capitalize;
-       margin-bottom: 18px;
+        margin-bottom: 18px;
         font-weight: 600;
         letter-spacing: 4px;
         color: $secondary_color;
-        @media #{$laptop-device}{
-           font-size: 22px;
+
+        @media #{$laptop-device} {
+            font-size: 22px;
             line-height: 22px;
         }
-        @media #{$desktop-device}{
+
+        @media #{$desktop-device} {
             font-size: 22px;
             line-height: 22px;
             margin-bottom: 15px;
         }
-        @media #{$tablet-device}{
+
+        @media #{$tablet-device} {
             font-size: 19px;
             line-height: 24px;
             margin-bottom: 9px;
             letter-spacing: 2px;
         }
-        @media #{$large-mobile}{
+
+        @media #{$large-mobile} {
             font-size: 16px;
             line-height: 19px;
             letter-spacing: 2px;
@@ -379,21 +442,3 @@
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -6669,13 +6669,13 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   .post_wrapper:last-child {
     margin-bottom: 0; }
 
-.post_info h4 {
+.post_info h2 {
   font-size: 13px;
   font-weight: 500;
   text-transform: capitalize;
   line-height: 14px;
   margin-bottom: 5px; }
-  .post_info h4 a:hover {
+  .post_info h2 a:hover {
     color: #d52121; }
 
 .post_info span {
@@ -6872,21 +6872,21 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   @media only screen and (max-width: 767px) {
     .post_header {
       margin-bottom: 22px; } }
-  .post_header h3 {
+  .post_header h1 {
     font-size: 30px;
     line-height: 35px;
     font-weight: 500;
     margin-bottom: 4px; }
     @media only screen and (min-width: 992px) and (max-width: 1199px) {
-      .post_header h3 {
+      .post_header h1 {
         font-size: 26px;
         line-height: 30px; } }
     @media only screen and (min-width: 768px) and (max-width: 991px) {
-      .post_header h3 {
+      .post_header h1 {
         font-size: 25px;
         line-height: 25px; } }
     @media only screen and (max-width: 767px) {
-      .post_header h3 {
+      .post_header h1 {
         font-size: 17px;
         line-height: 24px; } }
 
@@ -6989,6 +6989,12 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
     .entry_content .post_meta span {
       font-weight: 500;
       font-size: 13px; }
+      .entry_content .post_meta span a:hover {
+        color: #d52121; }
+    .entry_content .post_meta span {
+      font-weight: 500;
+      font-size: 13px;
+      display: inline; }
       .entry_content .post_meta span a:hover {
         color: #d52121; }
 
@@ -7143,15 +7149,15 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
     .related_thumb img {
       width: 100%; } }
 
-.related_content h4 {
+.related_content h2 {
   font-size: 13px;
   font-weight: 500;
   line-height: 13px;
   margin-bottom: 0;
   text-transform: uppercase; }
-  .related_content h4 a {
+  .related_content h2 a {
     color: #333; }
-    .related_content h4 a:hover {
+    .related_content h2 a:hover {
       color: #d52121; }
 
 .related_content span {

@@ -10,7 +10,7 @@
         margin-bottom: 22px;
     }
 
-    & h3 {
+    & h1 {
         font-size: 30px;
         line-height: 35px;
         font-weight: 500;
@@ -187,6 +187,18 @@
         & span {
             font-weight: 500;
             font-size: 13px;
+
+            & a {
+                &:hover {
+                    color: $secondary_color;
+                }
+            }
+        }
+
+        & h2 {
+            font-weight: 500;
+            font-size: 13px;
+            display: inline;
 
             & a {
                 &:hover {
@@ -415,7 +427,7 @@
 }
 
 .related_content {
-    & h4 {
+    & h2 {
         font-size: 13px;
         font-weight: 500;
         line-height: 13px;

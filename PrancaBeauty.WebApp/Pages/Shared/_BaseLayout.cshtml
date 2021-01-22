@@ -2,10 +2,17 @@
 <html class="no-js" lang="en">
 <head>
     <meta charset="utf-8">
+    <title>@ViewData["Tilte"]</title>
+
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Bonique - Beauty & Cosmetic eCommerce HTML Template </title>
-    <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="@ViewData["Descreption"]">
+    @if (ViewData["canonical"] != null)
+    {
+        <link rel="canonical" href="@ViewData["canonical"]" />
+    }
+    <meta name="generator" content="DotNetLearnApp" />
+
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="~/Main/img/favicon.ico">
 

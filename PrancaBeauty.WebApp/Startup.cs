@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.WebEncoders;
 using PrancaBeauty.WebApp.Config;
+using PrancaBeauty.WebApp.Localization.Resource;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -23,8 +24,11 @@ namespace PrancaBeauty.WebApp
 
             services.WebEncoderConfig();
 
-            services.AddRazorPage();
+            services.AddRazorPage()
+                    .AddCustomViewLocalization("Localization/Resource")
+                    .AddCustomDataAnnotationLocalization(services,typeof(SharedResource));
 
+            services.AddInject();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

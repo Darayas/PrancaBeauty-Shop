@@ -1,8 +1,12 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.WebEncoders;
+using PrancaBeauty.Domin.Users.RoleAgg.Entities;
+using PrancaBeauty.Domin.Users.UserAgg.Entities;
+using PrancaBeauty.Infrastructure.EFCore.Context;
 using PrancaBeauty.WebApp.Localization;
 using System;
 using System.Collections.Generic;
@@ -82,5 +86,6 @@ namespace PrancaBeauty.WebApp.Config
 
             return services;
         }
+
     }
 }

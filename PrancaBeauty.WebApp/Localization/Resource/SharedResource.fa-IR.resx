@@ -117,7 +117,73 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ConcurrencyFailure" xml:space="preserve">
+    <value>رکورد جاری پیشتر ویرایش شده‌است و تغییرات شما آن‌را بازنویسی خواهد کرد</value>
+  </data>
+  <data name="DefaultError" xml:space="preserve">
+    <value>خطایی ناشناخته رخ داد. لطفا بعدا مجدد امتحان کنید</value>
+  </data>
+  <data name="DuplicateEmail" xml:space="preserve">
+    <value>ایمیل تکراری میبشاد</value>
+  </data>
+  <data name="DuplicateRoleName" xml:space="preserve">
+    <value>نام Role تکراری میباشد</value>
+  </data>
+  <data name="DuplicateUserName" xml:space="preserve">
+    <value>نام کاربری تکراری میباشد</value>
+  </data>
   <data name="Hello" xml:space="preserve">
     <value>سلام</value>
+  </data>
+  <data name="InvalidEmail" xml:space="preserve">
+    <value>ایمیل '{email}' نامعتبر است</value>
+  </data>
+  <data name="InvalidRoleName" xml:space="preserve">
+    <value>نام Role معتبر نمیباشد</value>
+  </data>
+  <data name="InvalidToken" xml:space="preserve">
+    <value>اطلاعات ارسالی صحیح نیست. لطفا روی لینک موجود در ایمیل کلیک کنید و آدرس ایمیل را نیز مجددا چک کنید</value>
+  </data>
+  <data name="InvalidUserName" xml:space="preserve">
+    <value>نام کاربری '{userName}' نامعتبر است، فقط می تواند حاوی حروف و یا اعداد باشد</value>
+  </data>
+  <data name="LoginAlreadyAssociated" xml:space="preserve">
+    <value>این کاربر قبلأ اضافه شده‌است</value>
+  </data>
+  <data name="PasswordMismatch" xml:space="preserve">
+    <value>کلمه عبور صحیح نمیباشد</value>
+  </data>
+  <data name="PasswordRequiresDigit" xml:space="preserve">
+    <value>کلمه عبور باید حداقل یک عدد داشته باشد</value>
+  </data>
+  <data name="PasswordRequiresLower" xml:space="preserve">
+    <value>کلمه عبور باید حداقل یک حروف کوچک داشته باشد</value>
+  </data>
+  <data name="PasswordRequiresNonAlphanumeric" xml:space="preserve">
+    <value>کلمه عبور باید حداقل یک کاراکتر از حروف الفبا داشته باشد</value>
+  </data>
+  <data name="PasswordRequiresUniqueChars" xml:space="preserve">
+    <value>کلمه‌ی عبور باید حداقل داراى {0} حرف متفاوت باشد</value>
+  </data>
+  <data name="PasswordRequiresUpper" xml:space="preserve">
+    <value>کلمه عبور باید حداقل یک حروف بزرگ داشته باشد</value>
+  </data>
+  <data name="PasswordTooShort" xml:space="preserve">
+    <value>کلمه عبور باید حداقل {length} کاراکتر باشد</value>
+  </data>
+  <data name="RecoveryCodeRedemptionFailed" xml:space="preserve">
+    <value>بازیابی ناموفق بود</value>
+  </data>
+  <data name="UserAlreadyHasPassword" xml:space="preserve">
+    <value>کاربر از قبل دارای کلمه عبور می باشد</value>
+  </data>
+  <data name="UserAlreadyInRole" xml:space="preserve">
+    <value>کاربر از قبل عضو این Role می باشد</value>
+  </data>
+  <data name="UserLockoutNotEnabled" xml:space="preserve">
+    <value>این کاربر قفل نشده است و فعال می باشد</value>
+  </data>
+  <data name="UserNotInRole" xml:space="preserve">
+    <value>کاربر عضو این Role نمیباشد</value>
   </data>
 </root>

@@ -86,6 +86,5 @@ namespace PrancaBeauty.WebApp.Config
 
             return services;
         }
-
     }
 }

@@ -34,6 +34,8 @@ namespace PrancaBeauty.WebApp
 
             services.AddCustomIdentity()
                     .AddErrorDescriber<CustomErrorDescriber>();
+
+            services.AddJwtAuthentication("", "", "", "");
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

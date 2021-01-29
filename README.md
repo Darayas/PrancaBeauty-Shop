@@ -11,7 +11,7 @@
 
 <p dir="rtl">&nbsp;</p>
 
-<h1 dir="rtl"><span style="font-family:Tahoma,Geneva,sans-serif"><span style="font-size:14px"><span style="color:#c0392b">لینک دوره </span><a href="https://dotnetlearn.com/fa/Tutorial/%D8%A2%D9%85%D9%88%D8%B2%D8%B4-Asp-net-Core-5-%D8%AF%D8%B1-%D9%82%D8%A7%D9%84%D8%A8-%D9%81%D8%B1%D9%88%D8%B4%DA%AF%D8%A7%D9%87-%D8%A7%DB%8C%D9%86%D8%AA%D8%B1%D9%86%D8%AA%DB%8C"><span style="color:#c0392b">آموزش Asp.net Core 5</span></a><span style="color:#c0392b"> در قالب فروشگاه اینترنتی پرنسابیوتی</span></span></span></h1>
+<p dir="rtl"><span style="font-size:16px"><strong><span style="font-family:Tahoma,Geneva,sans-serif"><span style="color:#c0392b">لینک دوره </span><a href="https://dotnetlearn.com/fa/Tutorial/%D8%A2%D9%85%D9%88%D8%B2%D8%B4-Asp-net-Core-5-%D8%AF%D8%B1-%D9%82%D8%A7%D9%84%D8%A8-%D9%81%D8%B1%D9%88%D8%B4%DA%AF%D8%A7%D9%87-%D8%A7%DB%8C%D9%86%D8%AA%D8%B1%D9%86%D8%AA%DB%8C"><span style="color:#c0392b">آموزش Asp.net Core 5</span></a><span style="color:#c0392b"> در قالب فروشگاه اینترنتی پرنسابیوتی</span></span></strong></span></p>
 
 <p dir="rtl"><span style="font-size:14px"><span style="font-family:Tahoma,Geneva,sans-serif"><strong>سایت</strong>: https://dotnetLearn.com</span></span><br />
 <span style="font-family:Tahoma,Geneva,sans-serif"><span style="font-size:14px"><strong>ایمیل</strong>: reza9025 [at] gmail [dot] com</span></span></p>

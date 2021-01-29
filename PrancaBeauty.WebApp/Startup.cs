@@ -1,3 +1,4 @@
+using Framework.Application.Consts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -28,14 +29,14 @@ namespace PrancaBeauty.WebApp
 
             services.AddRazorPage()
                     .AddCustomViewLocalization("Localization/Resource")
-                    .AddCustomDataAnnotationLocalization(services,typeof(SharedResource));
+                    .AddCustomDataAnnotationLocalization(services, typeof(SharedResource));
 
             services.AddInject();
 
             services.AddCustomIdentity()
                     .AddErrorDescriber<CustomErrorDescriber>();
 
-            services.AddJwtAuthentication("", "", "", "");
+            services.AddJwtAuthentication(AuthConst.SecretCode, AuthConst.SecretKey, AuthConst.Audience, AuthConst.Issuer);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -51,8 +52,7 @@ namespace PrancaBeauty.WebApp
 
             app.UseLocalization(new List<CultureInfo> { new CultureInfo("en-US"), new CultureInfo("fa-IR") }, "fa-IR");
 
-            app.UseAuthentication();
-            app.UseAuthorization();
+            app.UserJwtAuthentication(AuthConst.CookieName);
 
             app.UseEndpoints(endpoints =>
             {

@@ -31,6 +31,8 @@ namespace PrancaBeauty.WebApp
                     .AddCustomViewLocalization("Localization/Resource")
                     .AddCustomDataAnnotationLocalization(services, typeof(SharedResource));
 
+            services.Config();
+
             services.AddInject();
 
             services.AddCustomIdentity()

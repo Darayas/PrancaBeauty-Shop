@@ -10,9 +10,35 @@ namespace PrancaBeauty.Infrastructure.EFCore.Common.ExMethods
 {
     public static class ModelBuilderEx
     {
+        public static void RegisterAllEntities<BaseType>(this ModelBuilder modelBuilder, params Assembly[] assemblies)
+        {
+            IEnumerable<Type> types = assemblies.SelectMany(a => a.GetExportedTypes())
+                .Where(c => c.IsClass && !c.IsAbstract && c.IsPublic && typeof(BaseType).IsAssignableFrom(c));
+
+            foreach (Type type in types)
+            {
+                modelBuilder.Entity(type);
+            }
+        }
+
         public static void RegisterEntityTypeConfigurtion(this ModelBuilder modelBuilder, params Assembly[] assemblies)
         {
+            MethodInfo applyGenericMethod = typeof(ModelBuilder).GetMethods().First(m => m.Name == nameof(ModelBuilder.ApplyConfiguration));
 
+            IEnumerable<Type> types = assemblies.SelectMany(a => a.GetExportedTypes())
+                .Where(c => c.IsClass && !c.IsAbstract && c.IsPublic);
+
+            foreach (Type type in types)
+            {
+                foreach (Type iface in type.GetInterfaces())
+                {
+                    if (iface.IsConstructedGenericType && iface.GetGenericTypeDefinition() == typeof(IEntityTypeConfiguration<>))
+                    {
+                        MethodInfo applyConcreteMethod = applyGenericMethod.MakeGenericMethod(iface.GenericTypeArguments[0]);
+                        applyConcreteMethod.Invoke(modelBuilder, new object[] { Activator.CreateInstance(type) });
+                    }
+                }
+            }
         }
     }
 }

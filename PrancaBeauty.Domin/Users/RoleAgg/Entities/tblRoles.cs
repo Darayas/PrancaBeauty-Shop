@@ -8,6 +8,9 @@ namespace PrancaBeauty.Domin.Users.RoleAgg.Entities
 {
     public class tblRoles : IdentityRole<Guid>, IEntity
     {
-
+        public Guid? ParentId { get; set; }
+        public string PageName { get; set; }
+        public int Sort { get; set; }
+        public string Description { get; set; }
     }
 }

@@ -61,21 +61,21 @@
         }
         & input{
             background: #EBEBEB;
-            padding: 0 127px 0 20px;
+            padding: 0 20px 0 127px;
             height: 45px;
             border: 0;
             width: 100%;
             color: #747474;
             margin-bottom: 0;
             @media #{$large-mobile}{
-                padding: 0 104px 0 20px;
+                padding: 0 20px 0 104px;
             }
         }
         & a{
             &.theme-btn-outlined{
                 position: absolute;
                 top: 0;
-                right: 0;
+                left: 0;
                 height: 100%;
                 width: 110px;
                 background: $fonts_color;
@@ -127,7 +127,7 @@
 
 #popup2 {
 	position: absolute;
-	right: 1px;
+	left: 1px;
     top: 1px;
 	text-align: center;
 	cursor: pointer;

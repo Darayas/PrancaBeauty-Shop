@@ -2051,7 +2051,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   .product_tab_btn ul {
     justify-content: center; }
     .product_tab_btn ul li {
-      margin-right: 60px;
+      margin-left: 60px;
       position: relative; }
       .product_tab_btn ul li:last-child {
         margin-right: 0; }
@@ -7602,7 +7602,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
     color: #747474; }
   #frm_subscribe form input {
     background: #EBEBEB;
-    padding: 0 127px 0 20px;
+    padding: 0 20px 0 127px;
     height: 45px;
     border: 0;
     width: 100%;
@@ -7610,11 +7610,11 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
     margin-bottom: 0; }
     @media only screen and (max-width: 767px) {
       #frm_subscribe form input {
-        padding: 0 104px 0 20px; } }
+        padding: 0 20px 0 104px; } }
   #frm_subscribe form a.theme-btn-outlined {
     position: absolute;
     top: 0;
-    right: 0;
+    left: 0;
     height: 100%;
     width: 110px;
     background: #333;
@@ -7652,7 +7652,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 
 #popup2 {
   position: absolute;
-  right: 1px;
+  left: 1px;
   top: 1px;
   text-align: center;
   cursor: pointer;

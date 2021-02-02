@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using PrancaBeauty.Infrastructure.Logger.Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,14 @@ namespace PrancaBeauty.WebApp
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                    //if(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")==Environments.Development)
+                    //{
+                    //    webBuilder.UseSeriLog_Console();
+                    //}
+                    //else
+                    //{
+                        webBuilder.UseSeriLog_SqlServer();
+                    //}
                 });
     }
 }

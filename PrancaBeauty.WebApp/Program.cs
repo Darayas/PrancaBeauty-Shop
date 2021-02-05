@@ -22,14 +22,14 @@ namespace PrancaBeauty.WebApp
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                    //if(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")==Environments.Development)
-                    //{
-                    //    webBuilder.UseSeriLog_Console();
-                    //}
-                    //else
-                    //{
+                    if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == Environments.Development)
+                    {
+                        webBuilder.UseSeriLog_Console();
+                    }
+                    else
+                    {
                         webBuilder.UseSeriLog_SqlServer();
-                    //}
+                    }
                 });
     }
 }

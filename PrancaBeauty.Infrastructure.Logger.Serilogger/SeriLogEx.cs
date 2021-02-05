@@ -16,6 +16,7 @@ namespace PrancaBeauty.Infrastructure.Logger.Serilog
             webHostBuilder.UseSerilog((builder, logger) =>
             {
                 logger = new SerilogConfig().ConfigSqlServer(LogEventLevel.Warning);
+                logger.CreateLogger();
             });
         }
 

@@ -19,9 +19,9 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
         {
             services.AddDbContext<MainContext>(opt => opt.UseSqlServer("Server=.;Database=PrancaBeautyDb;Trusted_Connection=True;"));
 
-            services.AddSingleton<ILogger, Serilogger>();
+            services.AddScoped<ILogger, Serilogger>();
 
-            services.AddSingleton<IUserRepository, UserRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
         }
     }
 }

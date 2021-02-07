@@ -16,6 +16,12 @@ namespace PrancaBeauty.Infrastructure.EFCore.Mapping.Users
         {
             builder.Property(a => a.FirstName).IsRequired().HasMaxLength(100);
             builder.Property(a => a.LastName).IsRequired().HasMaxLength(100);
+
+            builder.HasOne(a => a.tblAccessLevels)
+                   .WithMany(a => a.tblUsers)
+                   .HasPrincipalKey(a => a.Id)
+                   .HasForeignKey(a => a.AccessLevelId)
+                   .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

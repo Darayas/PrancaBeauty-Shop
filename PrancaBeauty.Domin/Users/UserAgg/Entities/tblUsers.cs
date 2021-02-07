@@ -1,5 +1,6 @@
 ﻿using Framework.Domain;
 using Microsoft.AspNetCore.Identity;
+using PrancaBeauty.Domin.Users.AccessLevelAgg.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,9 +9,12 @@ namespace PrancaBeauty.Domin.Users.UserAgg.Entities
 {
     public class tblUsers : IdentityUser<Guid>, IEntity
     {
+        public Guid AccessLevelId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime Date { get; set; }
 
+
+        public virtual tblAccessLevels tblAccessLevels { get; set; }
     }
 }

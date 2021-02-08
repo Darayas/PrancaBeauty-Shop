@@ -15,5 +15,6 @@ namespace PrancaBeauty.Domin.Users.AccessLevelAgg.Entities
 
 
         public virtual ICollection<tblUsers> tblUsers{ get; set; }
+        public virtual ICollection<tblAccessLevel_Roles> tblAccessLevel_Roles { get; set; }
     }
 }

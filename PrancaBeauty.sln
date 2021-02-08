@@ -21,9 +21,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrancaBeauty.Infrastructure
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrancaBeauty.Infrastructure.EFCore.Identity.JWT", "PrancaBeauty.Infrastructure.EFCore.Identity.JWT\PrancaBeauty.Infrastructure.EFCore.Identity.JWT.csproj", "{3D09D3BC-B39D-427A-9C93-559A97958B5C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrancaBeauty.Infrastructure.Logger", "PrancaBeauty.Infrastructure.Logger\PrancaBeauty.Infrastructure.Logger.csproj", "{B1209FAF-6EEF-43AF-84B1-06E9D3CE815B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrancaBeauty.Infrastructure.Logger", "PrancaBeauty.Infrastructure.Logger\PrancaBeauty.Infrastructure.Logger.csproj", "{B1209FAF-6EEF-43AF-84B1-06E9D3CE815B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrancaBeauty.Infrastructure.Logger.Serilog", "PrancaBeauty.Infrastructure.Logger.Serilogger\PrancaBeauty.Infrastructure.Logger.Serilog.csproj", "{BB705A6E-1EB9-42EE-AF19-3BCFE29DAB6F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrancaBeauty.Infrastructure.Logger.Serilog", "PrancaBeauty.Infrastructure.Logger.Serilogger\PrancaBeauty.Infrastructure.Logger.Serilog.csproj", "{BB705A6E-1EB9-42EE-AF19-3BCFE29DAB6F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

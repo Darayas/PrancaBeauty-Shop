@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.WebEncoders;
 using PrancaBeauty.Infrastructure.Core.Configuration;
+using PrancaBeauty.Infrastructure.EFCore.Data;
 using PrancaBeauty.WebApp.Authentication;
 using PrancaBeauty.WebApp.Config;
 using PrancaBeauty.WebApp.Localization.Resource;

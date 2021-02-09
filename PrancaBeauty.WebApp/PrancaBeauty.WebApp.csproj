@@ -15,4 +15,8 @@
     <ProjectReference Include="..\PrancaBeauty.Infrastructure.Core\PrancaBeauty.Infrastructure.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\ViewModel\" />
+  </ItemGroup>
+
 </Project>

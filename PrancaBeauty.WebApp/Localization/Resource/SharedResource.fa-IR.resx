@@ -120,6 +120,9 @@
   <data name="ConcurrencyFailure" xml:space="preserve">
     <value>رکورد جاری پیشتر ویرایش شده‌است و تغییرات شما آن‌را بازنویسی خواهد کرد</value>
   </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>تایید کلمه عبور</value>
+  </data>
   <data name="DefaultError" xml:space="preserve">
     <value>خطایی ناشناخته رخ داد. لطفا بعدا مجدد امتحان کنید</value>
   </data>
@@ -132,8 +135,17 @@
   <data name="DuplicateUserName" xml:space="preserve">
     <value>نام کاربری تکراری میباشد</value>
   </data>
+  <data name="Email" xml:space="preserve">
+    <value>ایمیل</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>نام</value>
+  </data>
   <data name="Hello" xml:space="preserve">
     <value>سلام</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>خانه</value>
   </data>
   <data name="InvalidEmail" xml:space="preserve">
     <value>ایمیل '{email}' نامعتبر است</value>
@@ -147,8 +159,14 @@
   <data name="InvalidUserName" xml:space="preserve">
     <value>نام کاربری '{userName}' نامعتبر است، فقط می تواند حاوی حروف و یا اعداد باشد</value>
   </data>
+  <data name="LastName" xml:space="preserve">
+    <value>نام خانوادگی</value>
+  </data>
   <data name="LoginAlreadyAssociated" xml:space="preserve">
     <value>این کاربر قبلأ اضافه شده‌است</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>کلمه عبور</value>
   </data>
   <data name="PasswordMismatch" xml:space="preserve">
     <value>کلمه عبور صحیح نمیباشد</value>
@@ -171,8 +189,17 @@
   <data name="PasswordTooShort" xml:space="preserve">
     <value>کلمه عبور باید حداقل {length} کاراکتر باشد</value>
   </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>شماره موبایل</value>
+  </data>
   <data name="RecoveryCodeRedemptionFailed" xml:space="preserve">
     <value>بازیابی ناموفق بود</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>ثبت نام</value>
+  </data>
+  <data name="RegisterBtn" xml:space="preserve">
+    <value>ثبت نام</value>
   </data>
   <data name="UserAlreadyHasPassword" xml:space="preserve">
     <value>کاربر از قبل دارای کلمه عبور می باشد</value>

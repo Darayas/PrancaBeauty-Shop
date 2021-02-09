@@ -1,0 +1,94 @@
+﻿@page "/Auth/Register"
+@model PrancaBeauty.WebApp.Pages.Auth.RegisterModel
+@{
+    ViewData["Tilte"] = Localizer["Register"];
+    Layout = "~/Pages/Shared/_MainLayout.cshtml";
+}
+
+<!--breadcrumbs area start-->
+<div class="breadcrumbs_area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb_content">
+                    <ul>
+                        <li><a href="index.html">@Localizer["Home"]</a></li>
+                        <li>@ViewData["Tilte"]</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--breadcrumbs area end-->
+<!-- customer login start -->
+<div class="customer_login">
+    <div class="container">
+        <div class="row">
+            <!--Description area start-->
+            <div class="col-lg-6 col-md-6">
+
+            </div>
+            <!--Description area start-->
+            <!--register area start-->
+            <div class="col-lg-6 col-md-6">
+                <div class="account_form register">
+                    <h2>@ViewData["Tilte"]</h2>
+                    <form action="#">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <label asp-for="Input.Email"></label>
+                                    <input asp-for="Input.Email" />
+                                </div>
+                                <div class="col-md-5">
+                                    <label asp-for="Input.PhoneNumber"></label>
+                                    <input asp-for="Input.PhoneNumber" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label asp-for="Input.FirstName"></label>
+                                    <input asp-for="Input.FirstName" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label asp-for="Input.LastName"></label>
+                                    <input asp-for="Input.LastName" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label asp-for="Input.Password"></label>
+                                    <input asp-for="Input.Password" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label asp-for="Input.ConfirmPassword"></label>
+                                    <input asp-for="Input.ConfirmPassword" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="login_submit">
+                            <button type="submit">@Localizer["RegisterBtn"]</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!--register area end-->
+        </div>
+    </div>
+</div>
+<!-- customer login end -->
+
+<partial name="~/Pages/Shared/Partials/P_ShippingArea.cshtml" />

@@ -21,6 +21,12 @@ namespace PrancaBeauty.WebApp.Pages.Auth
             return Page();
         }
 
+        public IActionResult OnPost()
+        {
+
+            return Page();
+        }
+
         public viRegisterModel Input { get; set; }
     }
 }

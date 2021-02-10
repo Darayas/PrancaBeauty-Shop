@@ -54,7 +54,8 @@ body {
   visibility: visible;
   font-family: "iranyekan", "iransans", sans-serif;
   color: #333;
-  direction: rtl; }
+  direction: rtl;
+  text-align: right; }
 
 h1, h2, h3, h4, h5, h6 {
   font-weight: 400;

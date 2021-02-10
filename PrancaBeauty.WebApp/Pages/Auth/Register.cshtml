@@ -27,23 +27,26 @@
         <div class="row">
             <!--Description area start-->
             <div class="col-lg-6 col-md-6">
-
+                <div class="">
+                    @Html.Raw(Localizer["ReisterDescription"])
+                </div>
             </div>
             <!--Description area start-->
             <!--register area start-->
             <div class="col-lg-6 col-md-6">
                 <div class="account_form register">
                     <h2>@ViewData["Tilte"]</h2>
-                    <form action="#">
+                    <form action="/Auth/Register" method="post">
+                        @Html.AntiForgeryToken()
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-7">
                                     <label asp-for="Input.Email"></label>
-                                    <input asp-for="Input.Email" />
+                                    <input autocomplete="off" class="text-left" asp-for="Input.Email" />
                                 </div>
                                 <div class="col-md-5">
                                     <label asp-for="Input.PhoneNumber"></label>
-                                    <input asp-for="Input.PhoneNumber" />
+                                    <input autocomplete="off" class="text-left" asp-for="Input.PhoneNumber" />
                                 </div>
                             </div>
                         </div>
@@ -67,7 +70,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <label asp-for="Input.Password"></label>
-                                    <input asp-for="Input.Password" />
+                                    <input class="text-left" asp-for="Input.Password" />
                                 </div>
                             </div>
                         </div>
@@ -75,7 +78,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <label asp-for="Input.ConfirmPassword"></label>
-                                    <input asp-for="Input.ConfirmPassword" />
+                                    <input class="text-left" asp-for="Input.ConfirmPassword" />
                                 </div>
                             </div>
                         </div>
@@ -92,3 +95,20 @@
 <!-- customer login end -->
 
 <partial name="~/Pages/Shared/Partials/P_ShippingArea.cshtml" />
+
+@section scripts{
+    <script src="~/lib/input-mask/jquery.inputmask.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#Input_PhoneNumber').inputmask({
+                regex: '@Localizer["MobilePattern"]',
+                placeholder: ''
+            });
+
+            $('#Input_Email').inputmask({
+                regex: '@Localizer["EmailPattern"]',
+                placeholder: ''
+            });
+        });
+    </script>
+}

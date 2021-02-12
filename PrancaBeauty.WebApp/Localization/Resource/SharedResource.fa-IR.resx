@@ -138,6 +138,9 @@
   <data name="Email" xml:space="preserve">
     <value>ایمیل</value>
   </data>
+  <data name="EmailAddressMsg" xml:space="preserve">
+    <value>قالب ایمیل صحیح نمیباشد. قالب صحیح: ex@example.com</value>
+  </data>
   <data name="EmailPattern" xml:space="preserve">
     <value>^[a-zA-Z0-9\-\._]{3,100}[@][a-zA-Z0-9\-\._]{3,100}$</value>
   </data>
@@ -170,6 +173,9 @@
   </data>
   <data name="MobilePattern" xml:space="preserve">
     <value>^[0][9][0-9]{9}$</value>
+  </data>
+  <data name="PassCompareMsg" xml:space="preserve">
+    <value>کلمه عبور با تکرار آن یکسان نیست.</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>کلمه عبور</value>
@@ -209,6 +215,12 @@
   </data>
   <data name="ReisterDescription" xml:space="preserve">
     <value>توضیحات &lt;b&gt;ثبت نام&lt;/b&gt;</value>
+  </data>
+  <data name="RequiredMsg" xml:space="preserve">
+    <value>{0} را وارد نمایید.</value>
+  </data>
+  <data name="StringLengthMsg" xml:space="preserve">
+    <value>{0} باید بین {2} تا {1} کاراکتر باشد</value>
   </data>
   <data name="UserAlreadyHasPassword" xml:space="preserve">
     <value>کاربر از قبل دارای کلمه عبور می باشد</value>

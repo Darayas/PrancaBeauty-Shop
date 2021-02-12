@@ -23,10 +23,15 @@ namespace PrancaBeauty.WebApp.Pages.Auth
 
         public IActionResult OnPost()
         {
+            if (!ModelState.IsValid)
+            {
+
+            }
 
             return Page();
         }
 
+        [BindProperty]
         public viRegisterModel Input { get; set; }
     }
 }

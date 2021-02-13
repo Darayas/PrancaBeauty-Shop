@@ -144,6 +144,9 @@
   <data name="EmailPattern" xml:space="preserve">
     <value>^[a-zA-Z0-9\-\._]{3,100}[@][a-zA-Z0-9\-\._]{3,100}$</value>
   </data>
+  <data name="Error500" xml:space="preserve">
+    <value>عملیات با شکست مواجه شد.</value>
+  </data>
   <data name="FirstName" xml:space="preserve">
     <value>نام</value>
   </data>

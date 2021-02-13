@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using PrancaBeauty.WebApp.Common.ExMethod;
 using PrancaBeauty.WebApp.Models.ViewInput;
 
 namespace PrancaBeauty.WebApp.Pages.Auth
@@ -24,9 +25,7 @@ namespace PrancaBeauty.WebApp.Pages.Auth
         public IActionResult OnPost()
         {
             if (!ModelState.IsValid)
-            {
-
-            }
+                return Page();
 
             return Page();
         }

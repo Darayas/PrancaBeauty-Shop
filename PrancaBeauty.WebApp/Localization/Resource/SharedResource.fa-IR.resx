@@ -231,6 +231,9 @@
   <data name="UserAlreadyInRole" xml:space="preserve">
     <value>کاربر از قبل عضو این Role می باشد</value>
   </data>
+  <data name="UserCreatedSuccessfully" xml:space="preserve">
+    <value>کاربر با موفقیت ایجاد شد.</value>
+  </data>
   <data name="UserLockoutNotEnabled" xml:space="preserve">
     <value>این کاربر قفل نشده است و فعال می باشد</value>
   </data>

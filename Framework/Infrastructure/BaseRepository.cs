@@ -25,52 +25,52 @@ namespace Framework.Infrastructure
 
         public IQueryable<TEntity> GetNoTraking => DbEntities.AsNoTracking();
 
-        public async Task AddAsync(TEntity entity, CancellationToken cancellationToken, bool AutoSave = true)
+        public virtual async Task AddAsync(TEntity entity, CancellationToken cancellationToken, bool AutoSave = true)
         {
             await DbEntities.AddAsync(entity, cancellationToken);
             if (AutoSave == true)
                 await dbContext.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task AddRangeAsync(IEnumerable<TEntity> Entities, CancellationToken cancellationToken, bool AutoSave = true)
+        public virtual async Task AddRangeAsync(IEnumerable<TEntity> Entities, CancellationToken cancellationToken, bool AutoSave = true)
         {
             await this.DbEntities.AddRangeAsync(Entities, cancellationToken);
             if (AutoSave == true)
                 await dbContext.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task DeleteAsync(TEntity entity, CancellationToken cancellationToken, bool AutoSave = true)
+        public virtual async Task DeleteAsync(TEntity entity, CancellationToken cancellationToken, bool AutoSave = true)
         {
             DbEntities.Remove(entity);
             if (AutoSave == true)
                 await dbContext.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task DeleteRangeAsync(IEnumerable<TEntity> Entities, CancellationToken cancellationToken, bool AutoSave = true)
+        public virtual async Task DeleteRangeAsync(IEnumerable<TEntity> Entities, CancellationToken cancellationToken, bool AutoSave = true)
         {
             DbEntities.RemoveRange(Entities);
             if (AutoSave == true)
                 await dbContext.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task<TEntity> GetById(CancellationToken cancellationToken, params object[] Ids)
+        public virtual async Task<TEntity> GetById(CancellationToken cancellationToken, params object[] Ids)
         {
             return await DbEntities.FindAsync(Ids, cancellationToken);
         }
 
-        public async Task<int> SaveChangeAsync()
+        public virtual async Task<int> SaveChangeAsync()
         {
             return await dbContext.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(TEntity entity, CancellationToken cancellationToken, bool AutoSave = true)
+        public virtual async Task UpdateAsync(TEntity entity, CancellationToken cancellationToken, bool AutoSave = true)
         {
             DbEntities.Update(entity);
             if (AutoSave)
                 await dbContext.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task UpdateRangeAsync(IEnumerable<TEntity> Entities, CancellationToken cancellationToken, bool AutoSave = true)
+        public virtual async Task UpdateRangeAsync(IEnumerable<TEntity> Entities, CancellationToken cancellationToken, bool AutoSave = true)
         {
             DbEntities.UpdateRange(Entities);
             if (AutoSave)

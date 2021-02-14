@@ -1,4 +1,5 @@
 ﻿using Framework.Domain;
+using Microsoft.AspNetCore.Identity;
 using PrancaBeauty.Domin.Users.UserAgg.Entities;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,6 @@ namespace PrancaBeauty.Domin.Users.UserAgg.Contracts
 {
     public interface IUserRepository : IRepository<tblUsers>
     {
-
+        Task<IdentityResult> CreateUserAsync(tblUsers User, string Password);
     }
 }

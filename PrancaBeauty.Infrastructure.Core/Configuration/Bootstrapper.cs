@@ -1,10 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Framework.Application.Services.Email;
+using Framework.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using PrancaBeauty.Application.Apps.Users;
 using PrancaBeauty.Domin.Users.UserAgg.Contracts;
 using PrancaBeauty.Infrastructure.EFCore.Context;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Users;
-using PrancaBeauty.Infrastructure.Logger.Contracts;
 using PrancaBeauty.Infrastructure.Logger.Serilogger;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,7 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddDbContext<MainContext>(opt => opt.UseSqlServer("Server=.;Database=PrancaBeautyDb;Trusted_Connection=True;"));
 
             services.AddScoped<ILogger, Serilogger>();
+            services.AddScoped<IEmailSender, GmailSender>();
 
             // Repositories
             services.AddScoped<IUserRepository, UserRepository>();

@@ -21,8 +21,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrancaBeauty.Infrastructure
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrancaBeauty.Infrastructure.EFCore.Identity.JWT", "PrancaBeauty.Infrastructure.EFCore.Identity.JWT\PrancaBeauty.Infrastructure.EFCore.Identity.JWT.csproj", "{3D09D3BC-B39D-427A-9C93-559A97958B5C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrancaBeauty.Infrastructure.Logger", "PrancaBeauty.Infrastructure.Logger\PrancaBeauty.Infrastructure.Logger.csproj", "{B1209FAF-6EEF-43AF-84B1-06E9D3CE815B}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrancaBeauty.Infrastructure.Logger.Serilog", "PrancaBeauty.Infrastructure.Logger.Serilogger\PrancaBeauty.Infrastructure.Logger.Serilog.csproj", "{BB705A6E-1EB9-42EE-AF19-3BCFE29DAB6F}"
 EndProject
 Global
@@ -67,10 +65,6 @@ Global
 		{3D09D3BC-B39D-427A-9C93-559A97958B5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D09D3BC-B39D-427A-9C93-559A97958B5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D09D3BC-B39D-427A-9C93-559A97958B5C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B1209FAF-6EEF-43AF-84B1-06E9D3CE815B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B1209FAF-6EEF-43AF-84B1-06E9D3CE815B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B1209FAF-6EEF-43AF-84B1-06E9D3CE815B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B1209FAF-6EEF-43AF-84B1-06E9D3CE815B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BB705A6E-1EB9-42EE-AF19-3BCFE29DAB6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BB705A6E-1EB9-42EE-AF19-3BCFE29DAB6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BB705A6E-1EB9-42EE-AF19-3BCFE29DAB6F}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -202,7 +202,7 @@
     <value>کلمه عبور باید حداقل یک حروف بزرگ داشته باشد</value>
   </data>
   <data name="PasswordTooShort" xml:space="preserve">
-    <value>کلمه عبور باید حداقل {length} کاراکتر باشد</value>
+    <value>کلمه عبور باید حداقل {0} کاراکتر باشد</value>
   </data>
   <data name="PhoneNumber" xml:space="preserve">
     <value>شماره موبایل</value>

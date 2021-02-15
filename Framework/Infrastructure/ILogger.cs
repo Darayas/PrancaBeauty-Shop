@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace PrancaBeauty.Infrastructure.Logger.Contracts
+namespace Framework.Infrastructure
 {
     public interface ILogger
     {

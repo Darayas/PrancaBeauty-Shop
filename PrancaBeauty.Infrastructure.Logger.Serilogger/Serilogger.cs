@@ -1,5 +1,4 @@
-﻿using PrancaBeauty.Infrastructure.Logger.Contracts;
-using PrancaBeauty.Infrastructure.Logger.Serilog;
+﻿using PrancaBeauty.Infrastructure.Logger.Serilog;
 using Serilog;
 using Serilog.Events;
 using Serilog.Sinks.MSSqlServer;
@@ -9,7 +8,7 @@ using System.Text;
 
 namespace PrancaBeauty.Infrastructure.Logger.Serilogger
 {
-    public class Serilogger : PrancaBeauty.Infrastructure.Logger.Contracts.ILogger
+    public class Serilogger : Framework.Infrastructure.ILogger
     {
         public Serilogger()
         {

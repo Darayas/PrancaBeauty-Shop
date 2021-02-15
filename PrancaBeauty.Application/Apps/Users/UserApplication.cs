@@ -1,8 +1,8 @@
-﻿using PrancaBeauty.Application.Contracts.Results;
+﻿using Framework.Infrastructure;
+using PrancaBeauty.Application.Contracts.Results;
 using PrancaBeauty.Application.Contracts.Users;
 using PrancaBeauty.Domin.Users.UserAgg.Contracts;
 using PrancaBeauty.Domin.Users.UserAgg.Entities;
-using PrancaBeauty.Infrastructure.Logger.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;

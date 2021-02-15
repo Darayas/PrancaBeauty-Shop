@@ -31,7 +31,7 @@ namespace PrancaBeauty.WebApp.Authentication
         public override IdentityError UserLockoutNotEnabled() { return new IdentityError { Code = nameof(UserLockoutNotEnabled), Description = Localizer["UserLockoutNotEnabled"] }; }
         public override IdentityError UserAlreadyInRole(string role) { return new IdentityError { Code = nameof(UserAlreadyInRole), Description = Localizer["UserAlreadyInRole"] }; }
         public override IdentityError UserNotInRole(string role) { return new IdentityError { Code = nameof(UserNotInRole), Description = Localizer["UserNotInRole"] }; }
-        public override IdentityError PasswordTooShort(int length) { return new IdentityError { Code = nameof(PasswordTooShort), Description = Localizer["PasswordTooShort"] }; }
+        public override IdentityError PasswordTooShort(int length) { return new IdentityError { Code = nameof(PasswordTooShort), Description = Localizer["PasswordTooShort", length] }; }
         public override IdentityError PasswordRequiresNonAlphanumeric() { return new IdentityError { Code = nameof(PasswordRequiresNonAlphanumeric), Description = Localizer["PasswordRequiresNonAlphanumeric"] }; }
         public override IdentityError PasswordRequiresDigit() { return new IdentityError { Code = nameof(PasswordRequiresDigit), Description = Localizer["PasswordRequiresDigit"] }; }
         public override IdentityError PasswordRequiresLower() { return new IdentityError { Code = nameof(PasswordRequiresLower), Description = Localizer["PasswordRequiresLower"] }; }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Framework.Application.Services.Email;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Users;
@@ -13,10 +14,13 @@ namespace PrancaBeauty.WebApp.Pages.Auth
 {
     public class RegisterModel : PageModel
     {
+        private readonly IEmailSender _EmailSender;
         private readonly IUserApplication _UserApplication;
-        public RegisterModel(IUserApplication UserApplication)
+
+        public RegisterModel(IUserApplication UserApplication, IEmailSender Sender)
         {
             _UserApplication = UserApplication;
+            _Sender = Sender;
         }
 
         public IActionResult OnGet()
@@ -42,6 +46,8 @@ namespace PrancaBeauty.WebApp.Pages.Auth
             if (Result.IsSucceeded)
             {
                 // ارسال ایمیل تایید
+
+                await _EmailSender.SendAsync("", "", "");
 
                 return Page();
             }

@@ -25,6 +25,19 @@ namespace PrancaBeauty.Infrastructure.EFCore.Repository.Users
             return await _UserManager.CreateAsync(User, Password);
         }
 
+        public async Task<tblUsers> FindByIdAsync(string UserId)
+        {
+            return await _UserManager.FindByIdAsync(UserId);
+        }
 
+        public async Task<string> GenerateEmailConfirmationTokenAsync(tblUsers user)
+        {
+            return await _UserManager.GenerateEmailConfirmationTokenAsync(user);
+        }
+
+        public bool RequireConfirmedEmail()
+        {
+            return _UserManager.Options.SignIn.RequireConfirmedEmail;
+        }
     }
 }

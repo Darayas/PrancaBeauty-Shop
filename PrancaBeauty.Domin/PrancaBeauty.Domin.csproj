@@ -5,6 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Region\Languages\Contracts\" />
+    <Folder Include="Templates\Contracts\" />
     <Folder Include="Users\AccessLevelAgg\Contracts\" />
     <Folder Include="Users\RoleAgg\Contracts\" />
   </ItemGroup>

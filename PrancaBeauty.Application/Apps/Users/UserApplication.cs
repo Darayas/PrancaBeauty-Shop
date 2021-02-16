@@ -56,7 +56,10 @@ namespace PrancaBeauty.Application.Apps.Users
                 var Result = await _UserRepository.CreateUserAsync(tUser, Input.Password);
                 if (Result.Succeeded)
                 {
-                    return new OperationResult().Succeeded("UserCreatedSuccessfully");
+                    if (_UserRepository.RequireConfirmedEmail())
+                        return new OperationResult().Succeeded(1, tUser.Id.ToString());
+                    else
+                        return new OperationResult().Succeeded("UserCreatedSuccessfully");
                 }
                 else
                 {
@@ -68,6 +71,13 @@ namespace PrancaBeauty.Application.Apps.Users
                 _Logger.Error(ex);
                 return new OperationResult().Failed("Error500");
             }
+        }
+
+        public async Task<string> GenerateEmailConfirmationTokenAsync(string UserId)
+        {
+            var qUser = await _UserRepository.FindByIdAsync(UserId);
+
+            return await _UserRepository.GenerateEmailConfirmationTokenAsync(qUser);
         }
     }
 }

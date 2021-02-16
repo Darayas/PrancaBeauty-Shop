@@ -216,6 +216,9 @@
   <data name="RegisterBtn" xml:space="preserve">
     <value>ثبت نام</value>
   </data>
+  <data name="RegistrationEmailSubject" xml:space="preserve">
+    <value>تایید ایمیل</value>
+  </data>
   <data name="ReisterDescription" xml:space="preserve">
     <value>توضیحات &lt;b&gt;ثبت نام&lt;/b&gt;</value>
   </data>

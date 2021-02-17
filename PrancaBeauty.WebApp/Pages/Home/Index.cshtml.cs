@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using PrancaBeauty.Infrastructure.Logger.Contracts;
 using PrancaBeauty.WebApp.Localization;
 
 namespace PrancaBeauty.WebApp.Pages.Home
@@ -13,7 +12,7 @@ namespace PrancaBeauty.WebApp.Pages.Home
     {
         public void OnGet()
         {
-            
+
         }
     }
 }

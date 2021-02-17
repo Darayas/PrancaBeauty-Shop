@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ using Framework.Application.Services.Email;
 using Framework.Common.ExMethods;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using PrancaBeauty.Application.Apps.Templates;
 using PrancaBeauty.Application.Apps.Users;
 using PrancaBeauty.Application.Contracts.Users;
 using PrancaBeauty.WebApp.Common.ExMethod;
@@ -21,12 +23,15 @@ namespace PrancaBeauty.WebApp.Pages.Auth
         private readonly IEmailSender _EmailSender;
         private readonly ILocalizer _Localizer;
         private readonly IUserApplication _UserApplication;
+        private readonly ITemplateApplication _TemplateApplication;
 
-        public RegisterModel(IUserApplication UserApplication, IEmailSender EmailSender, ILocalizer Localizer)
+        public RegisterModel(IUserApplication UserApplication, IEmailSender EmailSender, ILocalizer Localizer, ITemplateApplication TemplateApplication)
         {
             _UserApplication = UserApplication;
             _Localizer = Localizer;
             _EmailSender = EmailSender;
+
+            _TemplateApplication = TemplateApplication;
         }
 
         public IActionResult OnGet()
@@ -59,11 +64,14 @@ namespace PrancaBeauty.WebApp.Pages.Auth
                         string Token = await _UserApplication.GenerateEmailConfirmationTokenAsync(UserId);
                         string EncToken = $"{UserId}, {Token}".AesEncrypt(AuthConst.SecretKey);
 
-                        string _Url = $"/Auth/EmailConfirmation?Token={WebUtility.UrlEncode(EncToken)}";
+                        string SiteUrl = "";
+                        string _Url = $"{SiteUrl}/Auth/EmailConfirmation?Token={WebUtility.UrlEncode(EncToken)}";
 
-                        await _EmailSender.SendAsync(Input.Email, _Localizer["RegistrationEmailSubject"], $"<a href=\"{_Url}\">Click!!!</a>");
+                        await _EmailSender.SendAsync(Input.Email, _Localizer["RegistrationEmailSubject"], await _TemplateApplication.GetEmailConfirmationTemplateAsync(CultureInfo.CurrentCulture.Name, _Url));
                     }
                     #endregion
+
+                    return Page();
                 }
                 else
                     return Redirect("/Auth/UserCreatedSuccessfully");

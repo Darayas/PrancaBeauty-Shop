@@ -1,0 +1,58 @@
+﻿using Microsoft.EntityFrameworkCore;
+using PrancaBeauty.Application.Contracts.Templates;
+using PrancaBeauty.Domin.TemplatesAgg.Contracts;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace PrancaBeauty.Application.Apps.Templates
+{
+    public class TemplateApplication : ITemplateApplication
+    {
+        private readonly ITemplateRepository _TemplateRepository;
+        private List<OutTemplates> _ListTemplates;
+
+        public TemplateApplication(ITemplateRepository templateRepository)
+        {
+            _TemplateRepository = templateRepository;
+            _ListTemplates = new List<OutTemplates>();
+        }
+
+        public async Task<string> GetEmailConfirmationTemplateAsync(string LangCode, string Url)
+        {
+            string _Template = await GetTemplateAsync(LangCode, "");
+
+            return SetGeneralParameters(_Template)
+                                .Replace("[Url]", Url);
+        }
+
+        public async Task<string> GetTemplateAsync(string LangCode, string Name)
+        {
+            if (_ListTemplates != null)
+                if (_ListTemplates.Where(a => a.Name == Name && a.LangCode == LangCode).Any())
+                    return _ListTemplates.Where(a => a.Name == Name && a.LangCode == LangCode).Select(a => a.Template).Single();
+
+            string _Template = await _TemplateRepository.GetNoTraking
+                                                        .Where(a => a.Name == Name && a.tblLanguages.Code == LangCode)
+                                                        .Select(a => a.Template)
+                                                        .SingleAsync();
+
+            _ListTemplates.Add(new OutTemplates
+            {
+                Name = Name,
+                LangCode = LangCode,
+                Template = _Template
+            }); ;
+
+            return _Template;
+        }
+
+        private string SetGeneralParameters(string Template)
+        {
+            return Template.Replace("[SiteName]", "PrancaBeauty")
+                           .Replace("[SiteUrl]", "https://PrancaBeauty.com");
+        }
+    }
+}

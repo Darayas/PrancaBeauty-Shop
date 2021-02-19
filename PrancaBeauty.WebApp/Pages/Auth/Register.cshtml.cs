@@ -9,6 +9,7 @@ using Framework.Application.Services.Email;
 using Framework.Common.ExMethods;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using PrancaBeauty.Application.Apps.Settings;
 using PrancaBeauty.Application.Apps.Templates;
 using PrancaBeauty.Application.Apps.Users;
 using PrancaBeauty.Application.Contracts.Users;
@@ -24,14 +25,16 @@ namespace PrancaBeauty.WebApp.Pages.Auth
         private readonly ILocalizer _Localizer;
         private readonly IUserApplication _UserApplication;
         private readonly ITemplateApplication _TemplateApplication;
+        private readonly ISettingApplication _SettingApplication;
 
-        public RegisterModel(IUserApplication UserApplication, IEmailSender EmailSender, ILocalizer Localizer, ITemplateApplication TemplateApplication)
+        public RegisterModel(IUserApplication UserApplication, IEmailSender EmailSender, ILocalizer Localizer, ITemplateApplication TemplateApplication, ISettingApplication settingApplication)
         {
             _UserApplication = UserApplication;
             _Localizer = Localizer;
             _EmailSender = EmailSender;
 
             _TemplateApplication = TemplateApplication;
+            _SettingApplication = settingApplication;
         }
 
         public IActionResult OnGet()
@@ -64,7 +67,8 @@ namespace PrancaBeauty.WebApp.Pages.Auth
                         string Token = await _UserApplication.GenerateEmailConfirmationTokenAsync(UserId);
                         string EncToken = $"{UserId}, {Token}".AesEncrypt(AuthConst.SecretKey);
 
-                        string SiteUrl = "";
+                        string SiteUrl = (await _SettingApplication.GetSettingAsync(CultureInfo.CurrentCulture.Name)).SiteUrl;
+
                         string _Url = $"{SiteUrl}/Auth/EmailConfirmation?Token={WebUtility.UrlEncode(EncToken)}";
 
                         await _EmailSender.SendAsync(Input.Email, _Localizer["RegistrationEmailSubject"], await _TemplateApplication.GetEmailConfirmationTemplateAsync(CultureInfo.CurrentCulture.Name, _Url));

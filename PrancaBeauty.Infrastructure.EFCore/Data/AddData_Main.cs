@@ -14,6 +14,8 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
             {
                 new AddData_AccessLevel().Run();
                 new AddData_Users().Run();
+
+                new AddData_Settings().Run();
             }
             catch (Exception ex)
             {

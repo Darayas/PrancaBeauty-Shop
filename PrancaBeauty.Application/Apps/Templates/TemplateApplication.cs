@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PrancaBeauty.Application.Apps.Settings;
 using PrancaBeauty.Application.Contracts.Templates;
 using PrancaBeauty.Domin.TemplatesAgg.Contracts;
 using System;
@@ -11,21 +12,23 @@ namespace PrancaBeauty.Application.Apps.Templates
 {
     public class TemplateApplication : ITemplateApplication
     {
+        private readonly ISettingApplication _SettingApplication;
         private readonly ITemplateRepository _TemplateRepository;
         private List<OutTemplates> _ListTemplates;
 
-        public TemplateApplication(ITemplateRepository templateRepository)
+        public TemplateApplication(ITemplateRepository templateRepository, ISettingApplication settingApplication)
         {
             _TemplateRepository = templateRepository;
             _ListTemplates = new List<OutTemplates>();
+            _SettingApplication = settingApplication;
         }
 
         public async Task<string> GetEmailConfirmationTemplateAsync(string LangCode, string Url)
         {
             string _Template = await GetTemplateAsync(LangCode, "");
 
-            return SetGeneralParameters(_Template)
-                                .Replace("[Url]", Url);
+            return (await SetGeneralParameters(_Template, LangCode))
+                                                        .Replace("[Url]", Url);
         }
 
         public async Task<string> GetTemplateAsync(string LangCode, string Name)
@@ -49,10 +52,17 @@ namespace PrancaBeauty.Application.Apps.Templates
             return _Template;
         }
 
-        private string SetGeneralParameters(string Template)
+        private async Task<string> SetGeneralParameters(string Template, string LangCode)
         {
-            return Template.Replace("[SiteName]", "PrancaBeauty")
-                           .Replace("[SiteUrl]", "https://PrancaBeauty.com");
+            var qSetting = await _SettingApplication.GetSettingAsync(LangCode);
+
+            return Template.Replace("[SiteName]", qSetting.SiteTitle)
+                           .Replace("[SiteUrl]", qSetting.SiteUrl);
+        }
+
+        public void ClearCache()
+        {
+            _ListTemplates = new List<OutTemplates>();
         }
     }
 }

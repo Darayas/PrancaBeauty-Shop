@@ -18,7 +18,8 @@ namespace PrancaBeauty.Domin.StettingsAgg.Entities
         public string SiteEmail { get; set; }
         public string SitePhoneNumber { get; set; }
         public bool IsInManufacture { get; set; }
-
+        public DateTime Date { get; set; }
+        public bool IsEnable { get; set; }
 
         public virtual tblLanguages tblLanguages { get; set; }
     }

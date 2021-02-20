@@ -35,6 +35,23 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     SiteDescription = "سایت فروشگاهی پرنسابیوتی",
                     SiteEmail = "info@prancabeauty.com",
                     SitePhoneNumber = "09147922542",
+                    SiteTitle = "پرنسابیوتی",
+                    SiteUrl = "https://localhost:44377"
+                }, default, true).Wait();
+            }
+
+            if (!_repSetting.Get.Any(a => a.IsEnable == true && a.tblLanguages.Code == "en-US"))
+            {
+                _repSetting.AddAsync(new tblSettings()
+                {
+                    Id = new Guid().SequentialGuid(),
+                    Date = DateTime.Now,
+                    IsEnable = true,
+                    IsInManufacture = false,
+                    LangId = _repLang.Get.Where(a => a.Code == "en-US").Select(a => a.Id).Single(),
+                    SiteDescription = "PrancaBeauty Shop",
+                    SiteEmail = "info@prancabeauty.com",
+                    SitePhoneNumber = "09147922542",
                     SiteTitle = "PrancaBeauty",
                     SiteUrl = "https://localhost:44377"
                 }, default, true).Wait();

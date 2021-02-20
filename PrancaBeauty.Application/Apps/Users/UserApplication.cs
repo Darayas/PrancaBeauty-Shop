@@ -1,4 +1,5 @@
 ﻿using Framework.Infrastructure;
+using PrancaBeauty.Application.Apps.Accesslevels;
 using PrancaBeauty.Application.Contracts.Results;
 using PrancaBeauty.Application.Contracts.Users;
 using PrancaBeauty.Domin.Users.UserAgg.Contracts;
@@ -15,11 +16,13 @@ namespace PrancaBeauty.Application.Apps.Users
     {
         private readonly ILogger _Logger;
         private readonly IUserRepository _UserRepository;
+        private readonly IAccesslevelApplication _AccesslevelApplication;
 
-        public UserApplication(ILogger logger, IUserRepository userRepository)
+        public UserApplication(ILogger logger, IUserRepository userRepository, IAccesslevelApplication accesslevelApplication)
         {
             _Logger = logger;
             _UserRepository = userRepository;
+            _AccesslevelApplication = accesslevelApplication;
         }
 
         public async Task<OperationResult> AddUserAsync(InpAddUser Input)
@@ -47,7 +50,7 @@ namespace PrancaBeauty.Application.Apps.Users
                     Email = Input.Email,
                     FirstName = Input.FirstName,
                     LastName = Input.LastName,
-                    AccessLevelId = Guid.Empty,
+                    AccessLevelId = Guid.Parse(await _AccesslevelApplication.GetIdByNameAsync("Users")),
                     IsActive = true,
                     PhoneNumber = Input.PhoneNumber,
                     UserName = Input.Email

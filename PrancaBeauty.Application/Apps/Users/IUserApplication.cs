@@ -7,6 +7,7 @@ namespace PrancaBeauty.Application.Apps.Users
     public interface IUserApplication
     {
         Task<OperationResult> AddUserAsync(InpAddUser Input);
+        Task<OperationResult> EmailConfirmationAsync(string UserId, string Token);
         Task<string> GenerateEmailConfirmationTokenAsync(string UserId);
     }
 }

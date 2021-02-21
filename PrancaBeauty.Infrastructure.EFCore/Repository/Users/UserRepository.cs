@@ -20,7 +20,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Repository.Users
             _UserManager = UserManager;
         }
 
-        public async Task<IdentityResult> CreateUserAsync(tblUsers User,string Password)
+        public async Task<IdentityResult> CreateUserAsync(tblUsers User, string Password)
         {
             return await _UserManager.CreateAsync(User, Password);
         }
@@ -38,6 +38,22 @@ namespace PrancaBeauty.Infrastructure.EFCore.Repository.Users
         public bool RequireConfirmedEmail()
         {
             return _UserManager.Options.SignIn.RequireConfirmedEmail;
+        }
+
+        public async Task<IdentityResult> EmailConfirmationAsync(tblUsers User, string Token)
+        {
+            if (User == null)
+                throw new ArgumentNullException("User cant be null.");
+
+            if (string.IsNullOrWhiteSpace(Token))
+                throw new ArgumentNullException("Token cant be null.");
+
+            return await _UserManager.ConfirmEmailAsync(User, Token);
+        }
+
+        public async Task<bool> IsEmailConfirmedAsync(tblUsers User)
+        {
+            return await _UserManager.IsEmailConfirmedAsync(User);
         }
     }
 }

@@ -334,6 +334,39 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   font-size: 13px;
   border-radius: 3px; }
 
+.offset-1 {
+  margin-right: 8.333333% !important; }
+
+.offset-2 {
+  margin-right: 16.666667% !important; }
+
+.offset-3 {
+  margin-right: 25% !important; }
+
+.offset-4 {
+  margin-right: 33.333333% !important; }
+
+.offset-5 {
+  margin-right: 41.666667% !important; }
+
+.offset-6 {
+  margin-right: 50% !important; }
+
+.offset-7 {
+  margin-right: 58.333333% !important; }
+
+.offset-8 {
+  margin-right: 66.666667% !important; }
+
+.offset-9 {
+  margin-right: 75% !important; }
+
+.offset-10 {
+  margin-right: 83.333333% !important; }
+
+.offset-11 {
+  margin-right: 91.666667% !important; }
+
 @font-face {
   font-family: 'iransans';
   font-weight: 300;

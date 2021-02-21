@@ -1,0 +1,42 @@
+﻿@page "/Auth/AccountCreate"
+@model PrancaBeauty.WebApp.Pages.Auth.AccountCreateModel
+@{
+    ViewData["Tilte"] = Localizer["AccountCreate"];
+    Layout = "~/Pages/Shared/_MainLayout.cshtml";
+}
+
+<!--breadcrumbs area start-->
+<div class="breadcrumbs_area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb_content">
+                    <ul>
+                        <li><a href="index.html">@Localizer["Home"]</a></li>
+                        <li>@ViewData["Tilte"]</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--breadcrumbs area end-->
+<!-- customer login start -->
+<div class="customer_login">
+    <div class="container">
+        <div class="row">
+            <!--register area start-->
+            <div class="col-md-6 offset-3">
+                <div class="account_form register">
+                    <div class="alert alert-success">
+                        @Html.Raw(Localizer["AccountCreateMsg"])
+                    </div>
+                </div>
+            </div>
+            <!--register area end-->
+        </div>
+    </div>
+</div>
+<!-- customer login end -->
+
+<partial name="~/Pages/Shared/Partials/P_ShippingArea.cshtml" />

@@ -82,5 +82,44 @@ namespace PrancaBeauty.Application.Apps.Users
 
             return await _UserRepository.GenerateEmailConfirmationTokenAsync(qUser);
         }
+
+        public async Task<OperationResult> EmailConfirmationAsync(string UserId, string Token)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(UserId))
+                    throw new ArgumentNullException("UserId cant be null.");
+
+                if (string.IsNullOrWhiteSpace(Token))
+                    throw new ArgumentNullException("Token cant be null.");
+
+                if(await IsEmailConfirmedAsync(UserId))
+                    return new OperationResult().Failed("EmailAlreadyVerified");
+
+                var qUser = await _UserRepository.FindByIdAsync(UserId);
+
+                var Result = await _UserRepository.EmailConfirmationAsync(qUser, Token);
+                if (Result.Succeeded)
+                {
+                    return new OperationResult().Succeeded("EmailConfirmationSuccesfully");
+                }
+                else
+                {
+                    return new OperationResult().Failed(string.Join(", ", Result.Errors.Select(a => a.Description)));
+                }
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
+
+        public async Task<bool> IsEmailConfirmedAsync(string UserId)
+        {
+            var qUser = await _UserRepository.FindByIdAsync(UserId);
+
+            return await _UserRepository.IsEmailConfirmedAsync(qUser);
+        }
     }
 }

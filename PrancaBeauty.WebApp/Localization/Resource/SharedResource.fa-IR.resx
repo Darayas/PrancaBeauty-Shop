@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AccountCreate" xml:space="preserve">
+    <value>حساب ایجاد شد</value>
+  </data>
+  <data name="AccountCreateMsg" xml:space="preserve">
+    <value>حساب کاربر با موفیت ایجاد شد. لطفا ایمیل خود را برسی کنید و &lt;b&gt;روی لینک فعالسازی کلیک نمایید&lt;/b&gt;.</value>
+  </data>
   <data name="ConcurrencyFailure" xml:space="preserve">
     <value>رکورد جاری پیشتر ویرایش شده‌است و تغییرات شما آن‌را بازنویسی خواهد کرد</value>
   </data>
@@ -140,6 +146,15 @@
   </data>
   <data name="EmailAddressMsg" xml:space="preserve">
     <value>قالب ایمیل صحیح نمیباشد. قالب صحیح: ex@example.com</value>
+  </data>
+  <data name="EmailAlreadyVerified" xml:space="preserve">
+    <value>ایمیل قبلا تایید شده است</value>
+  </data>
+  <data name="EmailConfirmation" xml:space="preserve">
+    <value>تایید ایمیل</value>
+  </data>
+  <data name="EmailConfirmationSuccesfully" xml:space="preserve">
+    <value>حساب کاربری با موفقیت تایید شد.</value>
   </data>
   <data name="EmailPattern" xml:space="preserve">
     <value>^[a-zA-Z0-9\-\._]{3,100}[@][a-zA-Z0-9\-\._]{3,100}$</value>

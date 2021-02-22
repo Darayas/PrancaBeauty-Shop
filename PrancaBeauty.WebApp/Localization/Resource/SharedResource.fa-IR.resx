@@ -186,8 +186,14 @@
   <data name="LastName" xml:space="preserve">
     <value>نام خانوادگی</value>
   </data>
+  <data name="Login" xml:space="preserve">
+    <value>ورود به سایت</value>
+  </data>
   <data name="LoginAlreadyAssociated" xml:space="preserve">
     <value>این کاربر قبلأ اضافه شده‌است</value>
+  </data>
+  <data name="LostYourPassword?" xml:space="preserve">
+    <value>کلمه عبور را فراموش کرده اید؟</value>
   </data>
   <data name="MobilePattern" xml:space="preserve">
     <value>^[0][9][0-9]{9}$</value>
@@ -236,6 +242,9 @@
   </data>
   <data name="ReisterDescription" xml:space="preserve">
     <value>توضیحات &lt;b&gt;ثبت نام&lt;/b&gt;</value>
+  </data>
+  <data name="RemmeberMe" xml:space="preserve">
+    <value>مرا بخاطر بسپار</value>
   </data>
   <data name="RequiredMsg" xml:space="preserve">
     <value>{0} را وارد نمایید.</value>

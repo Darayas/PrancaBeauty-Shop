@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Framework.Common.Utilities.Downloader;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using PrancaBeauty.Application.Apps.Settings;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,26 +19,53 @@ namespace PrancaBeauty.WebApp.TagHelpers
         public object Data { get; set; }
         public HttpContext Context { get; set; }
 
-        public LoadComponentTagHelper()
-        {
+        private readonly IDownloader _Downloader;
+        private readonly ISettingApplication _SettingApplication;
 
+        public LoadComponentTagHelper(IDownloader downloader, ISettingApplication settingApplication)
+        {
+            _Downloader = downloader;
+            _SettingApplication = settingApplication;
         }
 
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
         {
-            string HtmlData = "";
+            try
+            {
+                if (string.IsNullOrWhiteSpace(Url))
+                    throw new ArgumentNullException("Url cant be null.");
 
-            if (HtmlData == null)
-                throw new Exception("");
+                if (Context == null)
+                    throw new ArgumentNullException("Context cant be null.");
 
-            output.TagName = "div";
-            if (Id != null)
-                output.Attributes.SetAttribute("id", Id);
+                Url = (await _SettingApplication.GetSettingAsync(CultureInfo.CurrentCulture.Name)).SiteUrl + Url;
 
-            if (Class != null)
-                output.Attributes.SetAttribute("class", Class);
+                string HtmlData = await _Downloader.GetHtmlFromPageAsync(Url, Data, Context.Request.Headers.Select(a => new KeyValuePair<string, string>(a.Key, a.Value)).ToDictionary(k => k.Key, v => v.Value));
 
-            output.Content.SetHtmlContent(HtmlData);
+                if (HtmlData == null)
+                    throw new Exception("");
+
+                output.TagName = "div";
+                if (Id != null)
+                    output.Attributes.SetAttribute("id", Id);
+
+                if (Class != null)
+                    output.Attributes.SetAttribute("class", Class);
+
+                output.Content.SetHtmlContent(HtmlData);
+            }
+            catch (Exception)
+            {
+                output.TagName = "div";
+
+                if (Id != null)
+                    output.Attributes.SetAttribute("id", Id);
+
+                if (Class != null)
+                    output.Attributes.SetAttribute("class", Class);
+
+                output.Content.SetHtmlContent("<err500>Module Error: 500, Internal Server Error</err500>");
+            }
         }
     }
 }

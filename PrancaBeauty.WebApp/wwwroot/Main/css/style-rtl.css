@@ -7904,3 +7904,13 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
       text-align: right;
       padding-right: 18px !important;
       padding-left: 29px !important; }
+
+err500 {
+  width: 100%;
+  padding: 15px;
+  background-color: #dc0000;
+  font-weight: 700;
+  font-size: 14px;
+  color: #ffffff;
+  text-align: center;
+  border: 1px solid #cb0000; }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,11 +17,15 @@ namespace Framework.Common.Utilities.Downloader
         {
             _Logger = logger;
         }
+
         public async Task<string> GetHtmlFromPageAsync(string PageUrl, object Data, Dictionary<string, string> Headers)
         {
             try
             {
                 string UrlParemeter = "";
+
+                if (Data != null)
+                    UrlParemeter = UrlEncodeParameterGenarator(Data);
 
                 string Url = PageUrl + UrlParemeter.Trim(new char[] { '&' });
 
@@ -55,6 +60,60 @@ namespace Framework.Common.Utilities.Downloader
                 _Logger.Error(ex);
                 return null;
             }
+        }
+
+        private string UrlEncodeParameterGenarator(object Data)
+        {
+            if (Data == null)
+                return "";
+
+            var Parameter = GetModelParameters(Data);
+
+            string UrlParameter = "?";
+
+            foreach (var item in Parameter)
+            {
+                if (item.Value != null)
+                    UrlParameter += "&" + item.Key + "=" + item.Value;
+            }
+
+            return UrlParameter;
+        }
+        private Dictionary<string, string> GetModelParameters(object Data)
+        {
+            if (Data == null)
+                return new Dictionary<string, string>();
+
+            Type t = Data.GetType();
+            PropertyInfo[] props = t.GetProperties();
+
+            Dictionary<string, string> LstParameter = new Dictionary<string, string>();
+
+            foreach (var prop in props)
+            {
+                object value = prop.GetValue(Data, new object[] { });
+                if (value != null)
+                {
+                    if (value.GetType() == typeof(string[]))
+                        foreach (var item in (string[])value)
+                            if (item != null)
+                                LstParameter.Add(prop.Name, item);
+
+                    if (value.GetType() == typeof(string))
+                        LstParameter.Add(prop.Name, value.ToString());
+
+                    if (value.GetType() == typeof(int))
+                        LstParameter.Add(prop.Name, value.ToString());
+
+                    if (value.GetType() == typeof(double))
+                        LstParameter.Add(prop.Name, value.ToString());
+
+                    if (value.GetType() == typeof(float))
+                        LstParameter.Add(prop.Name, value.ToString());
+                }
+            }
+
+            return LstParameter;
         }
     }
 }

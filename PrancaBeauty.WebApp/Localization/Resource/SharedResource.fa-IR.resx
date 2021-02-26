@@ -198,6 +198,9 @@
   <data name="MobilePattern" xml:space="preserve">
     <value>^[0][9][0-9]{9}$</value>
   </data>
+  <data name="OK" xml:space="preserve">
+    <value>باشه</value>
+  </data>
   <data name="PassCompareMsg" xml:space="preserve">
     <value>کلمه عبور با تکرار آن یکسان نیست.</value>
   </data>

@@ -93,7 +93,7 @@ namespace PrancaBeauty.Application.Apps.Users
                 if (string.IsNullOrWhiteSpace(Token))
                     throw new ArgumentNullException("Token cant be null.");
 
-                if(await IsEmailConfirmedAsync(UserId))
+                if (await IsEmailConfirmedAsync(UserId))
                     return new OperationResult().Failed("EmailAlreadyVerified");
 
                 var qUser = await _UserRepository.FindByIdAsync(UserId);
@@ -107,6 +107,25 @@ namespace PrancaBeauty.Application.Apps.Users
                 {
                     return new OperationResult().Failed(string.Join(", ", Result.Errors.Select(a => a.Description)));
                 }
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
+
+        public async Task<OperationResult> LoginByUserNamePasswordAsync(string UserName, string Pawword)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(UserName))
+                    throw new ArgumentNullException("UserName cant be null.");
+
+                if (string.IsNullOrWhiteSpace(Pawword))
+                    throw new ArgumentNullException("Pawword cant be null.");
+
+                return new OperationResult().Succeeded("");
             }
             catch (Exception ex)
             {

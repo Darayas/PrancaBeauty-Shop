@@ -1,7 +1,9 @@
-﻿namespace PrancaBeauty.WebApp.Common.Utility.MessageBox
+﻿using PrancaBeauty.WebApp.Common.Types;
+
+namespace PrancaBeauty.WebApp.Common.Utility.MessageBox
 {
     public interface IMsgBox
     {
-        string ModelStateMsg(string ModelErrors, string CallBackFuncs = null);
+        JsResult ModelStateMsg(string ModelErrors, string CallBackFuncs = null);
     }
 }

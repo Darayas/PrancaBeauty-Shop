@@ -7,6 +7,7 @@ using Microsoft.Extensions.WebEncoders;
 using PrancaBeauty.Domin.Users.RoleAgg.Entities;
 using PrancaBeauty.Domin.Users.UserAgg.Entities;
 using PrancaBeauty.Infrastructure.EFCore.Context;
+using PrancaBeauty.WebApp.Common.Utility.MessageBox;
 using PrancaBeauty.WebApp.Localization;
 using System;
 using System.Collections.Generic;
@@ -83,6 +84,7 @@ namespace PrancaBeauty.WebApp.Config
         public static IServiceCollection AddInject(this IServiceCollection services)
         {
             services.AddSingleton<ILocalizer, Localizer>();
+            services.AddSingleton<IMsgBox, MsgBox>();
 
             return services;
         }

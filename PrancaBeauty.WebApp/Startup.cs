@@ -26,6 +26,8 @@ namespace PrancaBeauty.WebApp
         {
             services.AddLocalization("Localization/Resource");
 
+            services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
+
             services.WebEncoderConfig();
 
             services.AddRazorPage()

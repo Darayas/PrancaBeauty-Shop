@@ -21,7 +21,7 @@ namespace PrancaBeauty.WebApp.Pages.Auth.Login.Components
             _MsgBox = msgBox;
         }
 
-        public IActionResult OnGet(string ReturnUrl)
+        public IActionResult OnGet(string ReturnUrl = null)
         {
             ViewData["ReturnUrl"] = ReturnUrl;
             return Page();
@@ -30,7 +30,7 @@ namespace PrancaBeauty.WebApp.Pages.Auth.Login.Components
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
-                return _MsgBox.ModelStateMsg(ModelState.GetErrors());
+                return _MsgBox.ModelStateMsg(ModelState.GetErrors(),"alert('Hello')");
 
             var Result = await _UserApplication.LoginByUserNamePasswordAsync(Input.Email, Input.Password);
 

@@ -10,6 +10,7 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
     {
         [Display(Name = "Email")]
         [Required(ErrorMessage = "RequiredMsg")]
+        [EmailAddress(ErrorMessage = "EmailAddressMsg")]
         public string Email { get; set; }
 
         [Display(Name = "Password")]

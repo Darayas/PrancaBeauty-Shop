@@ -1,4 +1,5 @@
 ﻿using Framework.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Apps.Accesslevels;
 using PrancaBeauty.Application.Contracts.Results;
 using PrancaBeauty.Application.Contracts.Users;
@@ -115,17 +116,62 @@ namespace PrancaBeauty.Application.Apps.Users
             }
         }
 
-        public async Task<OperationResult> LoginByUserNamePasswordAsync(string UserName, string Pawword)
+        public async Task<OperationResult> LoginByUserNamePasswordAsync(string UserName, string Password)
         {
             try
             {
                 if (string.IsNullOrWhiteSpace(UserName))
                     throw new ArgumentNullException("UserName cant be null.");
 
-                if (string.IsNullOrWhiteSpace(Pawword))
+                if (string.IsNullOrWhiteSpace(Password))
                     throw new ArgumentNullException("Pawword cant be null.");
 
-                return new OperationResult().Succeeded("");
+                var userId = await _UserRepository.GetUserIdByUserNameAsync(UserName);
+
+                return await LoginAsync(userId, Password);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
+
+        public async Task<OperationResult> LoginAsync(string UserId, string Password)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(UserId))
+                    throw new ArgumentNullException("UserId cant be null.");
+
+                if (string.IsNullOrWhiteSpace(Password))
+                    throw new ArgumentNullException("Password cant be null.");
+
+                var qUser = await _UserRepository.FindByIdAsync(UserId);
+
+                if (qUser == null)
+                    return new OperationResult().Failed("");
+
+                if (qUser.EmailConfirmed == false)
+                    return new OperationResult().Failed("");
+
+                if (qUser.IsActive == false)
+                    return new OperationResult().Failed("");
+
+                var Result = await _UserRepository.PasswordSignInAsync(qUser, Password, true, true);
+                if (Result.Succeeded)
+                {
+                    return new OperationResult().Succeeded(qUser.Id.ToString());
+                }
+                else
+                {
+                    if (Result.IsLockedOut)
+                        return new OperationResult().Failed("UserIsLockedOut");
+                    else if (Result.IsNotAllowed)
+                        return new OperationResult().Failed("UserIsLockedOut");
+                    else
+                        return new OperationResult().Failed("UserNameOrPasswordIsInvalid");
+                }
             }
             catch (Exception ex)
             {
@@ -139,6 +185,39 @@ namespace PrancaBeauty.Application.Apps.Users
             var qUser = await _UserRepository.FindByIdAsync(UserId);
 
             return await _UserRepository.IsEmailConfirmedAsync(qUser);
+        }
+
+        public async Task<OutGetAllUserDetails> GetAllUserDetailsAsync(string UserId)
+        {
+            try
+            {
+                var qData = await _UserRepository.Get
+                                        .Where(a => a.Id == Guid.Parse(UserId))
+                                        .Select(a => new OutGetAllUserDetails
+                                        {
+                                            Id = a.Id.ToString(),
+                                            UserName = a.UserName,
+                                            Email = a.Email,
+                                            PhoneNumber = a.PhoneNumber,
+                                            AccessLevelId = a.AccessLevelId.ToString(),
+                                            AccessLevelTitle = a.tblAccessLevels.Name,
+                                            FirstName = a.FirstName,
+                                            LastName = a.LastName,
+                                            Date = a.Date,
+                                            IsActive = a.IsActive
+                                        })
+                                        .SingleOrDefaultAsync();
+
+                if (qData == null)
+                    return null;
+
+                return qData;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
+            }
         }
     }
 }

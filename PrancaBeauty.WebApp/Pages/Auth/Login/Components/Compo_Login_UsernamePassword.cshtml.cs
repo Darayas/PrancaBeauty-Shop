@@ -30,7 +30,7 @@ namespace PrancaBeauty.WebApp.Pages.Auth.Login.Components
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
-                return _MsgBox.ModelStateMsg(ModelState.GetErrors(),"alert('Hello')");
+                return _MsgBox.ModelStateMsg(ModelState.GetErrors());
 
             var Result = await _UserApplication.LoginByUserNamePasswordAsync(Input.Email, Input.Password);
 
@@ -40,10 +40,8 @@ namespace PrancaBeauty.WebApp.Pages.Auth.Login.Components
             }
             else
             {
-
+                return _MsgBox.InfoMsg(Result.Message);
             }
-
-            return Page();
         }
 
         [BindProperty]

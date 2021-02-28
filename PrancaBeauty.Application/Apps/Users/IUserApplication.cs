@@ -9,6 +9,7 @@ namespace PrancaBeauty.Application.Apps.Users
         Task<OperationResult> AddUserAsync(InpAddUser Input);
         Task<OperationResult> EmailConfirmationAsync(string UserId, string Token);
         Task<string> GenerateEmailConfirmationTokenAsync(string UserId);
+        Task<OutGetAllUserDetails> GetAllUserDetailsAsync(string UserId);
         Task<OperationResult> LoginByUserNamePasswordAsync(string UserName, string Pawword);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Framework.Infrastructure;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Domin.Users.UserAgg.Contracts;
 using PrancaBeauty.Domin.Users.UserAgg.Entities;
 using PrancaBeauty.Infrastructure.EFCore.Context;
@@ -14,10 +15,12 @@ namespace PrancaBeauty.Infrastructure.EFCore.Repository.Users
 {
     public class UserRepository : BaseRepository<tblUsers>, IUserRepository
     {
+        private readonly SignInManager<tblUsers> _SignInManager;
         private readonly UserManager<tblUsers> _UserManager;
-        public UserRepository(MainContext Context, UserManager<tblUsers> UserManager) : base(Context)
+        public UserRepository(MainContext Context, UserManager<tblUsers> UserManager, SignInManager<tblUsers> signInManager) : base(Context)
         {
             _UserManager = UserManager;
+            _SignInManager = signInManager;
         }
 
         public async Task<IdentityResult> CreateUserAsync(tblUsers User, string Password)
@@ -54,6 +57,26 @@ namespace PrancaBeauty.Infrastructure.EFCore.Repository.Users
         public async Task<bool> IsEmailConfirmedAsync(tblUsers User)
         {
             return await _UserManager.IsEmailConfirmedAsync(User);
+        }
+
+        public async Task<SignInResult> PasswordSignInAsync(tblUsers user, string password, bool isPersistent, bool lockoutOnFailure)
+        {
+            return await _SignInManager.PasswordSignInAsync(user, password, isPersistent, lockoutOnFailure);
+        }
+    
+        public async Task<string> GetUserIdByUserNameAsync(string UserName)
+        {
+            return await GetNoTraking.Where(a => a.UserName == UserName).Select(a => a.Id.ToString()).SingleOrDefaultAsync();
+        }
+
+        public async Task<string> GetUserIdByEmailAsync(string Email)
+        {
+            return await GetNoTraking.Where(a => a.Email == Email).Select(a => a.Id.ToString()).SingleOrDefaultAsync();
+        }
+
+        public async Task<string> GetUserIdByPhoneNumberAsync(string PhoneNumber)
+        {
+            return await GetNoTraking.Where(a => a.PhoneNumber == PhoneNumber).Select(a => a.Id.ToString()).SingleOrDefaultAsync();
         }
     }
 }

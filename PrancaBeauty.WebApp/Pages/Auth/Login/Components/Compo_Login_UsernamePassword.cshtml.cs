@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Users;
+using PrancaBeauty.WebApp.Authentication;
 using PrancaBeauty.WebApp.Common.ExMethod;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
 using PrancaBeauty.WebApp.Models.ViewInput;
@@ -15,10 +16,12 @@ namespace PrancaBeauty.WebApp.Pages.Auth.Login.Components
     {
         private readonly IMsgBox _MsgBox;
         private readonly IUserApplication _UserApplication;
-        public Compo_Login_UsernamePasswordModel(IUserApplication userApplication, IMsgBox msgBox)
+        private readonly IJWTBuilder _JWTBuilder;
+        public Compo_Login_UsernamePasswordModel(IUserApplication userApplication, IMsgBox msgBox, IJWTBuilder jWTBuilder)
         {
             _UserApplication = userApplication;
             _MsgBox = msgBox;
+            _JWTBuilder = jWTBuilder;
         }
 
         public IActionResult OnGet(string ReturnUrl = null)
@@ -36,7 +39,9 @@ namespace PrancaBeauty.WebApp.Pages.Auth.Login.Components
 
             if (Result.IsSucceeded)
             {
+                string GeneratedToken = await _JWTBuilder.CreateTokenAync(Result.Message);
 
+                // ایجاد کوکی
             }
             else
             {

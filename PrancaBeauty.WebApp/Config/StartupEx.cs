@@ -7,6 +7,7 @@ using Microsoft.Extensions.WebEncoders;
 using PrancaBeauty.Domin.Users.RoleAgg.Entities;
 using PrancaBeauty.Domin.Users.UserAgg.Entities;
 using PrancaBeauty.Infrastructure.EFCore.Context;
+using PrancaBeauty.WebApp.Authentication;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
 using PrancaBeauty.WebApp.Localization;
 using System;
@@ -85,6 +86,7 @@ namespace PrancaBeauty.WebApp.Config
         {
             services.AddSingleton<ILocalizer, Localizer>();
             services.AddSingleton<IMsgBox, MsgBox>();
+            services.AddSingleton<IJWTBuilder, JWTBuilder>();
 
             return services;
         }

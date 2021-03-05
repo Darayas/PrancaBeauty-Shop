@@ -219,5 +219,18 @@ namespace PrancaBeauty.Application.Apps.Users
                 return null;
             }
         }
+
+        public async Task<tblUsers> GetUserAsync(string UserId)
+        {
+            try
+            {
+                return await _UserRepository.FindByIdAsync(UserId);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
+            }
+        }
     }
 }

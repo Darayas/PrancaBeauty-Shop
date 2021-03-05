@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <Folder Include="Region\LanguagesAgg\Contracts\" />
-    <Folder Include="Users\RoleAgg\Contracts\" />
   </ItemGroup>
 
   <ItemGroup>

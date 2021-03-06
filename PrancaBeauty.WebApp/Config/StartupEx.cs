@@ -86,7 +86,7 @@ namespace PrancaBeauty.WebApp.Config
         {
             services.AddSingleton<ILocalizer, Localizer>();
             services.AddSingleton<IMsgBox, MsgBox>();
-            services.AddSingleton<IJWTBuilder, JWTBuilder>();
+            services.AddScoped<IJWTBuilder, JWTBuilder>();
 
             return services;
         }

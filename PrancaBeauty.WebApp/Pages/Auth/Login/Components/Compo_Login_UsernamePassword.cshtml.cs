@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Users;
 using PrancaBeauty.WebApp.Authentication;
 using PrancaBeauty.WebApp.Common.ExMethod;
+using PrancaBeauty.WebApp.Common.Types;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
 using PrancaBeauty.WebApp.Models.ViewInput;
 
@@ -26,7 +27,7 @@ namespace PrancaBeauty.WebApp.Pages.Auth.Login.Components
 
         public IActionResult OnGet(string ReturnUrl = null)
         {
-            ViewData["ReturnUrl"] = ReturnUrl;
+            ViewData["ReturnUrl"] = ReturnUrl ?? "/Auth/User/Index";
             return Page();
         }
 
@@ -41,7 +42,9 @@ namespace PrancaBeauty.WebApp.Pages.Auth.Login.Components
             {
                 string GeneratedToken = await _JWTBuilder.CreateTokenAync(Result.Message);
 
-                // ایجاد کوکی
+                Response.CreateAuthCookie(GeneratedToken, Input.RemmeberMe);
+
+                return new JsResult("GotoReturnUrl()");
             }
             else
             {

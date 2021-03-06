@@ -1,4 +1,5 @@
 ﻿using Framework.Application.Consts;
+using Framework.Common.ExMethods;
 using Microsoft.IdentityModel.Tokens;
 using PrancaBeauty.Application.Apps.Roles;
 using PrancaBeauty.Application.Apps.Users;
@@ -61,7 +62,7 @@ namespace PrancaBeauty.WebApp.Authentication
             var _SecurityToken = new JwtSecurityTokenHandler().CreateToken(TokenDescreptor);
             string _GeneratedToken = "Bearer " + new JwtSecurityTokenHandler().WriteToken(_SecurityToken);
 
-            return _GeneratedToken;
+            return _GeneratedToken.AesEncrypt(AuthConst.SecretKey);
         }
     }
 }

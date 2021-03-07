@@ -48,6 +48,8 @@ namespace PrancaBeauty.WebApp.Pages.Auth
             if (!ModelState.IsValid)
                 return Page();
 
+            await _UserApplication.RemoveUnConfirmedUserAsync(Input.Email);
+
             var Result = await _UserApplication.AddUserAsync(new InpAddUser
             {
                 Email = Input.Email,
@@ -75,7 +77,7 @@ namespace PrancaBeauty.WebApp.Pages.Auth
                     }
                     #endregion
 
-                    return Page();
+                    return Redirect("/Auth/UserCreatedSuccessfully");
                 }
                 else
                     return Redirect("/Auth/UserCreatedSuccessfully");

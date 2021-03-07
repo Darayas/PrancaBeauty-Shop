@@ -12,7 +12,9 @@ namespace PrancaBeauty.Domin.Users.UserAgg.Contracts
     public interface IUserRepository : IRepository<tblUsers>
     {
         Task<IdentityResult> CreateUserAsync(tblUsers User, string Password);
+        Task<IdentityResult> DeleteAsync(tblUsers entity);
         Task<IdentityResult> EmailConfirmationAsync(tblUsers User, string Token);
+        Task<tblUsers> FindByEmailAsync(string Email);
         Task<tblUsers> FindByIdAsync(string UserId);
         Task<string> GenerateEmailConfirmationTokenAsync(tblUsers user);
         Task<string> GetUserIdByEmailAsync(string Email);

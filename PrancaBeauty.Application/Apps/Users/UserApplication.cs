@@ -150,13 +150,13 @@ namespace PrancaBeauty.Application.Apps.Users
                 var qUser = await _UserRepository.FindByIdAsync(UserId);
 
                 if (qUser == null)
-                    return new OperationResult().Failed("");
+                    return new OperationResult().Failed("UserNameOrPasswordIsInvalid");
 
                 if (qUser.EmailConfirmed == false)
-                    return new OperationResult().Failed("");
+                    return new OperationResult().Failed("PleaseConfirmYourEmail");
 
                 if (qUser.IsActive == false)
-                    return new OperationResult().Failed("");
+                    return new OperationResult().Failed("YourAccountIsDisabled");
 
                 var Result = await _UserRepository.PasswordSignInAsync(qUser, Password, true, true);
                 if (Result.Succeeded)
@@ -220,7 +220,7 @@ namespace PrancaBeauty.Application.Apps.Users
             }
         }
 
-        public async Task<tblUsers> GetUserAsync(string UserId)
+        public async Task<tblUsers> GetUserByIdAsync(string UserId)
         {
             try
             {
@@ -230,6 +230,39 @@ namespace PrancaBeauty.Application.Apps.Users
             {
                 _Logger.Error(ex);
                 return null;
+            }
+        }
+
+        public async Task<tblUsers> GetUserByEmailAsync(string Email)
+        {
+            var qUser = await _UserRepository.FindByEmailAsync(Email);
+            return qUser;
+        }
+
+        public async Task<bool> RemoveUnConfirmedUserAsync(string Email)
+        {
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(Email))
+                    throw new ArgumentNullException("UserId cant be null.");
+
+                var qUser = await GetUserByEmailAsync(Email);
+                if (qUser == null)
+                    return true;
+
+                if (qUser.EmailConfirmed)
+                    return true;
+
+                var Result = await _UserRepository.DeleteAsync(qUser);
+                if (Result.Succeeded)
+                    return true;
+                else
+                    throw new Exception(string.Join(", ", Result.Errors.Select(a => a.Code + "-" + a.Description)));
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return false;
             }
         }
     }

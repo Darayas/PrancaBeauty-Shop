@@ -30,7 +30,7 @@ namespace PrancaBeauty.WebApp.Authentication
             if (_UserDetails == null)
                 throw new Exception();
 
-            var _UserRoles = await _RoleApplication.GetRolesByUserAsync(await _UserApplication.GetUserAsync(UserId));
+            var _UserRoles = await _RoleApplication.GetRolesByUserAsync(await _UserApplication.GetUserByIdAsync(UserId));
             if (_UserDetails == null)
                 throw new Exception();
 

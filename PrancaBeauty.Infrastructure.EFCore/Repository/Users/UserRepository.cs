@@ -33,6 +33,11 @@ namespace PrancaBeauty.Infrastructure.EFCore.Repository.Users
             return await _UserManager.FindByIdAsync(UserId);
         }
 
+        public async Task<tblUsers> FindByEmailAsync(string Email)
+        {
+            return await _UserManager.FindByEmailAsync(Email);
+        }
+
         public async Task<string> GenerateEmailConfirmationTokenAsync(tblUsers user)
         {
             return await _UserManager.GenerateEmailConfirmationTokenAsync(user);
@@ -63,7 +68,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Repository.Users
         {
             return await _SignInManager.PasswordSignInAsync(user, password, isPersistent, lockoutOnFailure);
         }
-    
+
         public async Task<string> GetUserIdByUserNameAsync(string UserName)
         {
             return await GetNoTraking.Where(a => a.UserName == UserName).Select(a => a.Id.ToString()).SingleOrDefaultAsync();
@@ -77,6 +82,11 @@ namespace PrancaBeauty.Infrastructure.EFCore.Repository.Users
         public async Task<string> GetUserIdByPhoneNumberAsync(string PhoneNumber)
         {
             return await GetNoTraking.Where(a => a.PhoneNumber == PhoneNumber).Select(a => a.Id.ToString()).SingleOrDefaultAsync();
+        }
+
+        public async Task<IdentityResult> DeleteAsync(tblUsers entity)
+        {
+            return await _UserManager.DeleteAsync(entity);
         }
     }
 }

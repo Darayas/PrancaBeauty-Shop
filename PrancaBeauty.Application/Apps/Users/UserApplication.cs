@@ -137,6 +137,52 @@ namespace PrancaBeauty.Application.Apps.Users
             }
         }
 
+        public async Task<OperationResult> LoginByEmailLinkStep1Async(string Email)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(Email))
+                    throw new ArgumentNullException("Email cant be null.");
+
+                var qUser = await GetUserByEmailAsync(Email);
+
+                if (qUser == null)
+                    return new OperationResult().Failed("EmailNotFound");
+
+                if (qUser.EmailConfirmed == false)
+                    return new OperationResult().Failed("PleaseConfirmYourEmail");
+
+                if (qUser.IsActive == false)
+                    return new OperationResult().Failed("YourAccountIsDisabled");
+
+                #region حذف پسورد قبلی کاربر
+                if (await _UserRepository.HasPasswordAsync(qUser))
+                {
+                    var Result = await _UserRepository.RemovePasswordAsync(qUser);
+                    if (!Result.Succeeded)
+                    {
+                        _Logger.Error(string.Join(", ", Result.Errors.Select(a => a.Description)));
+                        return new OperationResult().Failed("EmailNotFound");
+                    }
+                }
+                #endregion
+
+                #region تنظیم پسورد جدید برای کاربر
+                string NewPassword = new Random().Next(100000, 999999).ToString();
+                #endregion
+
+
+
+
+                return new OperationResult().Succeeded(1, qUser.Id + ", " + NewPassword);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
+
         public async Task<OperationResult> LoginAsync(string UserId, string Password)
         {
             try
@@ -265,5 +311,7 @@ namespace PrancaBeauty.Application.Apps.Users
                 return false;
             }
         }
+
+
     }
 }

@@ -88,5 +88,20 @@ namespace PrancaBeauty.Infrastructure.EFCore.Repository.Users
         {
             return await _UserManager.DeleteAsync(entity);
         }
+
+        public async Task<bool> HasPasswordAsync(tblUsers user)
+        {
+            return await _UserManager.HasPasswordAsync(user);
+        }
+
+        public async Task<IdentityResult> RemovePasswordAsync(tblUsers entity)
+        {
+            return await _UserManager.RemovePasswordAsync(entity);
+        }
+
+        public async Task<IdentityResult> AddPasswordAsync(tblUsers entity, string Password)
+        {
+            return await _UserManager.AddPasswordAsync(entity, Password);
+        }
     }
 }

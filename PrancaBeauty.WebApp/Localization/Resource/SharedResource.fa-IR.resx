@@ -156,6 +156,9 @@
   <data name="EmailConfirmationSuccesfully" xml:space="preserve">
     <value>حساب کاربری با موفقیت تایید شد.</value>
   </data>
+  <data name="EmailNotFound" xml:space="preserve">
+    <value>کاربری با این ایمیل یافت نشد</value>
+  </data>
   <data name="EmailPattern" xml:space="preserve">
     <value>^[a-zA-Z0-9\-\._]{3,100}[@][a-zA-Z0-9\-\._]{3,100}$</value>
   </data>
@@ -191,6 +194,12 @@
   </data>
   <data name="LoginAlreadyAssociated" xml:space="preserve">
     <value>این کاربر قبلأ اضافه شده‌است</value>
+  </data>
+  <data name="LoginByEmailLink" xml:space="preserve">
+    <value>لاگین با لینک یکبار مصرف</value>
+  </data>
+  <data name="LoginByPhoneNumber" xml:space="preserve">
+    <value>لاگین با تلفن همراه</value>
   </data>
   <data name="LostYourPassword?" xml:space="preserve">
     <value>کلمه عبور را فراموش کرده اید؟</value>

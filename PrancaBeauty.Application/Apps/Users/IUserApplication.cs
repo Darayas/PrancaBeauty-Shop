@@ -13,6 +13,7 @@ namespace PrancaBeauty.Application.Apps.Users
         Task<OutGetAllUserDetails> GetAllUserDetailsAsync(string UserId);
         Task<tblUsers> GetUserByEmailAsync(string Email);
         Task<tblUsers> GetUserByIdAsync(string UserId);
+        Task<OperationResult> LoginByEmailLinkStep1Async(string Email);
         Task<OperationResult> LoginByUserNamePasswordAsync(string UserName, string Pawword);
         Task<bool> RemoveUnConfirmedUserAsync(string UserId);
     }

@@ -156,6 +156,12 @@
   <data name="EmailConfirmationSuccesfully" xml:space="preserve">
     <value>حساب کاربری با موفقیت تایید شد.</value>
   </data>
+  <data name="EmailLoginSent" xml:space="preserve">
+    <value>لینک یکبار مصرف با موفقیت ارسال شد. لطفا ایمیل خود را برسی نمایید.</value>
+  </data>
+  <data name="EmailLoginSubject" xml:space="preserve">
+    <value>لینک یکبار مصرف</value>
+  </data>
   <data name="EmailNotFound" xml:space="preserve">
     <value>کاربری با این ایمیل یافت نشد</value>
   </data>

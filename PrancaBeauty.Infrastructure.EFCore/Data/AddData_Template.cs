@@ -47,6 +47,31 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     Template = "<a href='[Url]'>Click</a>"
                 }, default, true).Wait();
             }
+
+            // EmailLogin  fa-IR
+            if (!_repTemplate.GetNoTraking.Any(a => a.tblLanguages.Code == "fa-IR" && a.Name == "EmailLogin"))
+            {
+                _repTemplate.AddAsync(new tblTamplates()
+                {
+                    Id = new Guid().SequentialGuid(),
+                    LangId = _repLang.GetNoTraking.Where(a => a.Code == "fa-IR").Select(a => a.Id).Single(),
+                    Name = "EmailLogin",
+                    Template = "<a href='[Url]'>ورود به سایت</a>"
+                }, default, true).Wait();
+            }
+
+            // EmailLogin  en-US
+            if (!_repTemplate.GetNoTraking.Any(a => a.tblLanguages.Code == "en-US" && a.Name == "EmailLogin"))
+            {
+                _repTemplate.AddAsync(new tblTamplates()
+                {
+                    Id = new Guid().SequentialGuid(),
+                    LangId = _repLang.GetNoTraking.Where(a => a.Code == "en-US").Select(a => a.Id).Single(),
+                    Name = "EmailLogin",
+                    Template = "<a href='[Url]'>Click To Login</a>"
+                }, default, true).Wait();
+            }
         }
+
     }
 }

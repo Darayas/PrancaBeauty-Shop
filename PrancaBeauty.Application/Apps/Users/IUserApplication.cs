@@ -14,6 +14,7 @@ namespace PrancaBeauty.Application.Apps.Users
         Task<tblUsers> GetUserByEmailAsync(string Email);
         Task<tblUsers> GetUserByIdAsync(string UserId);
         Task<OperationResult> LoginByEmailLinkStep1Async(string Email);
+        Task<OperationResult> LoginByEmailLinkStep2Async(string UserId, string Password);
         Task<OperationResult> LoginByUserNamePasswordAsync(string UserName, string Pawword);
         Task<bool> RemoveUnConfirmedUserAsync(string UserId);
     }

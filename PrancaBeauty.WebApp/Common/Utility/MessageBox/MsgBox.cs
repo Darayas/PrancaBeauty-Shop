@@ -46,6 +46,11 @@ namespace PrancaBeauty.WebApp.Common.Utility.MessageBox
         {
             return new JsResult(Show("", Message, MsgBoxType.info, _Localizer["OK"], CallBackFuncs));
         }
+
+        public JsResult SuccessMsg(string Message, string CallBackFuncs = null)
+        {
+            return new JsResult(Show("", Message, MsgBoxType.success, _Localizer["OK"], CallBackFuncs));
+        }
     }
 
     public enum MsgBoxType

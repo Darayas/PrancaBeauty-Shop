@@ -1,6 +1,10 @@
 (function ($) {
     "use strict";
 
+    $(document).ready(function () {
+        $('.loading').hide();
+    });
+
     new WOW().init();
 
     /*---background image---*/
@@ -760,6 +764,8 @@ function SendForm(_url, _FormId, _Funcs_Success = function (res) { }) {
         cache: false,
         timeout: 600000,
         beforeSend: function (xhr) {
+            $('.loading').show();
+
             var securityToken = $("[name=__RequestVerificationToken]").val();
             xhr.setRequestHeader("XSRF-TOKEN", securityToken);
         },
@@ -767,7 +773,7 @@ function SendForm(_url, _FormId, _Funcs_Success = function (res) { }) {
             _Funcs_Success(response);
         },
         complete: function (data) {
-
+            $('.loading').hide(100);
         }
     });
 }
@@ -777,7 +783,12 @@ function LoadComponenet(_Url, _Data, _CallbackFuncs = function (data) { }) {
         url: _Url,
         type: 'get',
         data: _Data,
-        beforeSend: function (xhr) { }
+        beforeSend: function (xhr) {
+            $('.loading').show();
+        },
+        complete: function (data) {
+            $('.loading').hide(100);
+        }
     }).done(function (data) {
         _CallbackFuncs(data);
     });

@@ -162,6 +162,9 @@
   <data name="EmailLoginSubject" xml:space="preserve">
     <value>لینک یکبار مصرف</value>
   </data>
+  <data name="EmailLoginSuccess" xml:space="preserve">
+    <value>ورود موفقیت آمیز</value>
+  </data>
   <data name="EmailNotFound" xml:space="preserve">
     <value>کاربری با این ایمیل یافت نشد</value>
   </data>
@@ -206,6 +209,9 @@
   </data>
   <data name="LoginByPhoneNumber" xml:space="preserve">
     <value>لاگین با تلفن همراه</value>
+  </data>
+  <data name="LoginEmailSuccess" xml:space="preserve">
+    <value>لاگین با موفقیت انجام شد.&lt;br/&gt; شما در حال انتقال به صفحه ی کاربری هستید</value>
   </data>
   <data name="LostYourPassword?" xml:space="preserve">
     <value>کلمه عبور را فراموش کرده اید؟</value>

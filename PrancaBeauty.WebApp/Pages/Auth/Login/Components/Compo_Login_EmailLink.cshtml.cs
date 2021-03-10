@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Net;
+using System.Threading;
 using System.Threading.Tasks;
 using Framework.Application.Consts;
 using Framework.Application.Services.Email;
@@ -48,11 +50,13 @@ namespace PrancaBeauty.WebApp.Pages.Auth.Login.Components
             if (!ModelState.IsValid)
                 return _MsgBox.ModelStateMsg(ModelState.GetErrors());
 
+            Thread.Sleep(3000);
+
             var Result = await _UserApplication.LoginByEmailLinkStep1Async(Input.Email);
             if (Result.IsSucceeded)
             {
-                string Token = Result.Message.AesEncrypt(AuthConst.SecretKey);
-                string _Url = (await _SettingApplication.GetSettingAsync(CultureInfo.CurrentCulture.Name)).SiteUrl + $"/EmailLogin?Token={Token}";
+                string Token = (Result.Message + ", " + Input.RemmeberMe).AesEncrypt(AuthConst.SecretKey);
+                string _Url = (await _SettingApplication.GetSettingAsync(CultureInfo.CurrentCulture.Name)).SiteUrl + $"/EmailLogin?Token={WebUtility.UrlEncode(Token)}";
 
                 await _EmailSender.SendAsync(Input.Email, _Localizer["EmailLoginSubject"], await _TemplateApplication.GetEmailLoginTemplateAsync(CultureInfo.CurrentCulture.Name, _Url));
 

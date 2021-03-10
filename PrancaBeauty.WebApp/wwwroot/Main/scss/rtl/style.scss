@@ -98,3 +98,19 @@ err500 {
     text-align: center;
     border: 1px solid #cb0000;
 }
+
+.loading {
+    position: fixed;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    background-color: rgba(0, 0, 0, 0.35);
+    z-index: 1000;
+
+    img {
+        position: absolute;
+        left: calc(50% - 100px);
+        top: calc(50vh - 100px);
+    }
+}

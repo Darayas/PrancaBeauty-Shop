@@ -188,15 +188,7 @@ namespace PrancaBeauty.Application.Apps.Users
 
         public async Task<OperationResult> LoginByEmailLinkStep2Async(string UserId, string Password)
         {
-            try
-            {
-                return await LoginAsync(UserId, Password);
-            }
-            catch (Exception ex)
-            {
-                _Logger.Error(ex);
-                return new OperationResult().Failed("Error500");
-            }
+            return await LoginAsync(UserId, Password);
         }
 
         public async Task<OperationResult> LoginAsync(string UserId, string Password)

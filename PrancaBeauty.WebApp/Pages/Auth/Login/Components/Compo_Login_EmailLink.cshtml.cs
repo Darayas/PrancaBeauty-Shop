@@ -52,7 +52,7 @@ namespace PrancaBeauty.WebApp.Pages.Auth.Login.Components
 
             Thread.Sleep(3000);
 
-            var Result = await _UserApplication.LoginByEmailLinkStep1Async(Input.Email);
+            var Result = await _UserApplication.LoginByEmailLinkStep1Async(Input.Email, HttpContext.Connection.RemoteIpAddress.ToString());
             if (Result.IsSucceeded)
             {
                 string Token = (Result.Message + ", " + Input.RemmeberMe).AesEncrypt(AuthConst.SecretKey);

@@ -1,0 +1,35 @@
+﻿@page "/Auth/Login/Components/LoginByPhoneNumber"
+@model PrancaBeauty.WebApp.Pages.Auth.Login.Components.PhoneNumberLogin.Compo_Login_PhoneNumberModel
+
+<div class="account_form">
+    <h2>@Localizer["Login"]</h2>
+    <form id="compo_Login" method="post">
+        <p>
+            <label asp-for="Input.PhoneNumber"></label>
+            <input asp-for="Input.PhoneNumber" class="text-left">
+        </p>
+        <div class="login_submit">
+            <a onclick="LoginByUserNamePassword()" href="#LoginPhoneNumber">@Localizer["LoginByUserNamePassword"]</a>
+            <button onclick="SendForm('/Auth/Login/Components/LoginByPhoneNumber','compo_Login')" type="button">@Localizer["Login"]</button>
+        </div>
+    </form>
+</div>
+
+<script>
+        $(document).ready(function () {
+            $('#Input_PhoneNumber').inputmask({
+                regex: '@Localizer["MobilePattern"]',
+                placeholder: ''
+            });
+        });
+
+    function GotoReturnUrl() {
+        location.href = '@(System.Net.WebUtility.UrlDecode(ViewData["ReturnUrl"].ToString()))';
+    }
+
+    function LoginByUserNamePassword() {
+        LoadComponenet('/Auth/Login/Components/LoginByUsernamePassword', { ReturnUrl: null }, function (data) {
+            $('#CompoLogin').html(data);
+        });
+    }
+</script>

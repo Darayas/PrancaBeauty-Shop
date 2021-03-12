@@ -33,13 +33,14 @@ namespace PrancaBeauty.WebApp.Pages.Auth.Login
             string DecryptedToken = Token.AesDecrypt(AuthConst.SecretKey);
             string UserId = DecryptedToken.Split(", ")[0];
             string Password = DecryptedToken.Split(", ")[1];
-            bool RemmeberMe = bool.Parse(DecryptedToken.Split(", ")[2]);
+            string Ip = DecryptedToken.Split(", ")[2];
+            string Date = DecryptedToken.Split(", ")[3];
+            bool RemmeberMe = bool.Parse(DecryptedToken.Split(", ")[4]);
 
-            var Result = await _UserApplication.LoginByEmailLinkStep2Async(UserId, Password);
+            var Result = await _UserApplication.LoginByEmailLinkStep2Async(UserId, Password, Ip, HttpContext.Connection.RemoteIpAddress.ToString(), DateTime.Parse(Date));
             if (Result.IsSucceeded)
             {
                 string GeneratedToken = await _JWTBuilder.CreateTokenAync(Result.Message);
-
                 Response.CreateAuthCookie(GeneratedToken, RemmeberMe);
 
                 ViewData["Message"] = _Localizer["LoginEmailSuccess"];

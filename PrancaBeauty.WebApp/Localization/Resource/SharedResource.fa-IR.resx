@@ -198,6 +198,9 @@
   <data name="LastName" xml:space="preserve">
     <value>نام خانوادگی</value>
   </data>
+  <data name="LinkExipred" xml:space="preserve">
+    <value>لینک منقضی شده است. لطفا مجددا اقدام نمایید</value>
+  </data>
   <data name="Login" xml:space="preserve">
     <value>ورود به سایت</value>
   </data>
@@ -209,6 +212,9 @@
   </data>
   <data name="LoginByPhoneNumber" xml:space="preserve">
     <value>لاگین با تلفن همراه</value>
+  </data>
+  <data name="LoginByUserNamePassword" xml:space="preserve">
+    <value>لاگین با نام کاربری و کلمه عبور</value>
   </data>
   <data name="LoginEmailSuccess" xml:space="preserve">
     <value>لاگین با موفقیت انجام شد.&lt;br/&gt; شما در حال انتقال به صفحه ی کاربری هستید</value>

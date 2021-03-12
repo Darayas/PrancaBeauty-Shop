@@ -9,7 +9,7 @@
             <input asp-for="Input.Email" class="text-left">
         </p>
         <div class="login_submit">
-            <a onclick="" href="#LoginPhoneNumber">@Localizer["LoginByPhoneNumber?"]</a>
+            <a onclick="LoginByPhoneNumber()" href="#LoginPhoneNumber">@Localizer["LoginByPhoneNumber"]</a>
             <label asp-for="Input.RemmeberMe">
                 <input asp-for="Input.RemmeberMe">
                 @Localizer["RemmeberMe"]
@@ -29,5 +29,11 @@
 
     function GotoReturnUrl() {
         location.href = '@(System.Net.WebUtility.UrlDecode(ViewData["ReturnUrl"].ToString()))';
+    }
+
+    function LoginByPhoneNumber() {
+        LoadComponenet('/Auth/Login/Components/LoginByPhoneNumber', { ReturnUrl: null }, function (data) {
+            $('#CompoLogin').html(data);
+        });
     }
 </script>

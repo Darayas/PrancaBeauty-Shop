@@ -137,7 +137,7 @@ namespace PrancaBeauty.Application.Apps.Users
             }
         }
 
-        public async Task<OperationResult> LoginByEmailLinkStep1Async(string Email)
+        public async Task<OperationResult> LoginByEmailLinkStep1Async(string Email, string IP)
         {
             try
             {
@@ -177,7 +177,7 @@ namespace PrancaBeauty.Application.Apps.Users
                 }
                 #endregion
 
-                return new OperationResult().Succeeded(qUser.Id + ", " + NewPassword);
+                return new OperationResult().Succeeded(qUser.Id + ", " + NewPassword + ", " + IP + ", " + DateTime.Now.ToString("yy/MM/dd HH:mm"));
             }
             catch (Exception ex)
             {
@@ -186,8 +186,14 @@ namespace PrancaBeauty.Application.Apps.Users
             }
         }
 
-        public async Task<OperationResult> LoginByEmailLinkStep2Async(string UserId, string Password)
+        public async Task<OperationResult> LoginByEmailLinkStep2Async(string UserId, string Password, string LinkIP, string UserIP, DateTime Date)
         {
+            if (LinkIP != UserIP)
+                return new OperationResult().Failed("LinkExipred");
+
+            if (Date.AddMinutes(60) < DateTime.Now)
+                return new OperationResult().Failed("LinkExipred");
+
             return await LoginAsync(UserId, Password);
         }
 

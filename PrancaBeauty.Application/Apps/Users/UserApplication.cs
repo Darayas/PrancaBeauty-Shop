@@ -7,6 +7,7 @@ using PrancaBeauty.Domin.Users.UserAgg.Contracts;
 using PrancaBeauty.Domin.Users.UserAgg.Entities;
 using System;
 using System.Collections.Generic;
+using System.IO.Pipelines;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -197,6 +198,52 @@ namespace PrancaBeauty.Application.Apps.Users
             return await LoginAsync(UserId, Password);
         }
 
+        public async Task<OperationResult> LoginByPhoneNumberStep1Async(string PhoneNumber)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(PhoneNumber))
+                    throw new ArgumentNullException("PhoneNumber cant be null");
+
+                var qUser = await GetUserByPhoneNumberAsync(PhoneNumber);
+
+                if (qUser == null)
+                    return new OperationResult().Failed("PhoneNumberNotFound");
+
+                if (qUser.PhoneNumberConfirmed == false)
+                    return new OperationResult().Failed("PleaseConfirmYourPhoneNumber");
+
+                if (qUser.IsActive == false)
+                    return new OperationResult().Failed("YourAccountIsDisabled");
+
+                #region حذف پسورد قبلی کاربر
+                var Result = await _UserRepository.RemovePhoneNumberPasswordAsync(qUser);
+                if (!Result.Succeeded)
+                {
+                    _Logger.Error(string.Join(", ", Result.Errors.Select(a => a.Description)));
+                    return new OperationResult().Failed("PhoneNumberNotFound");
+                }
+                #endregion
+
+                #region تنظیم پسورد جدید برای کاربر
+                string NewPassword = new Random().Next(10000, 99999).ToString();
+                var AddPassResult = await _UserRepository.AddPhoneNumberPasswordAsync(qUser, NewPassword);
+                if (!AddPassResult.Succeeded)
+                {
+                    _Logger.Error(string.Join(", ", AddPassResult.Errors.Select(a => a.Description)));
+                    return new OperationResult().Failed("PhoneNumberNotFound");
+                }
+                #endregion
+
+                return new OperationResult().Succeeded(NewPassword);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
+
         public async Task<OperationResult> LoginAsync(string UserId, string Password)
         {
             try
@@ -296,6 +343,12 @@ namespace PrancaBeauty.Application.Apps.Users
         public async Task<tblUsers> GetUserByEmailAsync(string Email)
         {
             var qUser = await _UserRepository.FindByEmailAsync(Email);
+            return qUser;
+        }
+
+        public async Task<tblUsers> GetUserByPhoneNumberAsync(string PhoneNumber)
+        {
+            var qUser = await _UserRepository.FindByPhoneNumberAsync(PhoneNumber);
             return qUser;
         }
 

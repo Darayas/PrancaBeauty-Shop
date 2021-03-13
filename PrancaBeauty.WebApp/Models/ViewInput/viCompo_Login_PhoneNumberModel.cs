@@ -11,8 +11,5 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
         [Display(Name = "PhoneNumber")]
         [Required(ErrorMessage = "RequiredMsg")]
         public string PhoneNumber { get; set; }
-
-        [Display(Name = "RemmeberMe")]
-        public bool RemmeberMe { get; set; }
     }
 }

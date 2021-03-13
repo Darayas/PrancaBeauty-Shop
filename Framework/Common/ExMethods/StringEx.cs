@@ -28,5 +28,11 @@ namespace Framework.Common.ExMethods
 
             return Decrypt;
         }
+
+        public static string ToMD5(this string text)
+        {
+            string Md5Hash = EncryptProvider.Md5(text);
+            return Md5Hash;
+        }
     }
 }

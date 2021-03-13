@@ -1,4 +1,5 @@
-﻿using Framework.Infrastructure;
+﻿using Framework.Common.ExMethods;
+using Framework.Infrastructure;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Domin.Users.UserAgg.Contracts;
@@ -36,6 +37,11 @@ namespace PrancaBeauty.Infrastructure.EFCore.Repository.Users
         public async Task<tblUsers> FindByEmailAsync(string Email)
         {
             return await _UserManager.FindByEmailAsync(Email);
+        }
+
+        public async Task<tblUsers> FindByPhoneNumberAsync(string PhoneNumber)
+        {
+            return await Get.Where(a => a.PhoneNumber == PhoneNumber).SingleOrDefaultAsync();
         }
 
         public async Task<string> GenerateEmailConfirmationTokenAsync(tblUsers user)
@@ -102,6 +108,22 @@ namespace PrancaBeauty.Infrastructure.EFCore.Repository.Users
         public async Task<IdentityResult> AddPasswordAsync(tblUsers entity, string Password)
         {
             return await _UserManager.AddPasswordAsync(entity, Password);
+        }
+
+        public async Task<IdentityResult> RemovePhoneNumberPasswordAsync(tblUsers entity)
+        {
+            entity.PasswordPhoneNumber = null;
+            entity.LastTrySentSms = null;
+
+            return await _UserManager.UpdateAsync(entity);
+        }
+
+        public async Task<IdentityResult> AddPhoneNumberPasswordAsync(tblUsers entity, string Password)
+        {
+            entity.PasswordPhoneNumber = Password.ToMD5();
+            entity.LastTrySentSms = DateTime.Now;
+
+            return await _UserManager.UpdateAsync(entity);
         }
     }
 }

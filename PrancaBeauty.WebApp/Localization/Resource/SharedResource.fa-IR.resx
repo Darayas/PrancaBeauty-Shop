@@ -216,6 +216,9 @@
   <data name="LoginByUserNamePassword" xml:space="preserve">
     <value>لاگین با نام کاربری و کلمه عبور</value>
   </data>
+  <data name="LoginCodeIsSent" xml:space="preserve">
+    <value>رمز یکبار مصرف یا موفقیت برای شما ارسال شد. .&lt;br/&gt;&lt;span style="color:red;font-weight:700"&gt;این کد فقط 10 دقیقه اعتبار دارد&lt;/span&gt;</value>
+  </data>
   <data name="LoginEmailSuccess" xml:space="preserve">
     <value>لاگین با موفقیت انجام شد.&lt;br/&gt; شما در حال انتقال به صفحه ی کاربری هستید</value>
   </data>
@@ -290,6 +293,9 @@
   </data>
   <data name="SendAuthCode" xml:space="preserve">
     <value>ارسال کد احراز هویت</value>
+  </data>
+  <data name="SmsSenderNotRespond" xml:space="preserve">
+    <value>سرویس دهنده ی پیامک پاسخ گو نیست</value>
   </data>
   <data name="StringLengthMsg" xml:space="preserve">
     <value>{0} باید بین {2} تا {1} کاراکتر باشد</value>

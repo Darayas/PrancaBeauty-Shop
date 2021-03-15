@@ -42,7 +42,7 @@ namespace PrancaBeauty.WebApp.Pages.Auth.Login.Components.PhoneNumberLogin
             {
                 var IsSend = _SmsSender.SendLoginCode(Input.PhoneNumber, Result.Message);
                 if (IsSend)
-                    return _MsgBox.SuccessMsg(_Localizer["LoginCodeIsSent"]);
+                    return _MsgBox.SuccessMsg(_Localizer["LoginCodeIsSent"], "GotoOtpPage()");
                 else
                     return _MsgBox.FaildMsg(_Localizer["SmsSenderNotRespond"]);
             }

@@ -13,5 +13,6 @@ namespace Framework.Application.Consts
         public const string Issuer = "PrancaBeauty Online Shop";
         public const string SecretKey = "q6zOsfFfpTv5lNFRgfi8VizQCckeFzL0";
         public const string CookieName = "PrancaBeautyAuth";
+        public const int LimitToResendSmsInMinute = 2;
     }
 }

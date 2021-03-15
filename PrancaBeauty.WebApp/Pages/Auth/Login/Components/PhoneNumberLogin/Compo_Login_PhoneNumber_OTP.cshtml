@@ -1,0 +1,46 @@
+﻿@page "/Auth/Login/Components/LoginByPhoneNumber/OTP"
+@model PrancaBeauty.WebApp.Pages.Auth.Login.Components.PhoneNumberLogin.Compo_Login_PhoneNumber_OTPModel
+
+<div class="account_form">
+    <h2>@Localizer["Login"]</h2>
+    <form id="compo_Login" method="post">
+        <p>
+            <input type="hidden" asp-for="Input.PhoneNumber" class="text-left">
+        </p>
+        <p>
+            <label asp-for="Input.Code"></label>
+            <input asp-for="Input.Code" class="text-center">
+        </p>
+        <div class="login_submit">
+            <a onclick="Resend()" href="#Resend">@Localizer["Resend"]</a>
+
+            <label asp-for="Input.RemmeberMe">
+                <input asp-for="Input.RemmeberMe">
+                @Localizer["RemmeberMe"]
+            </label>
+            <button onclick="SendForm('/Auth/Login/Components/LoginByPhoneNumber/OTP','compo_Login')" type="button">@Localizer["Login"]</button>
+        </div>
+    </form>
+</div>
+
+<script>
+        $(document).ready(function () {
+            $('#Input_PhoneNumber').inputmask({
+                regex: '@Localizer["MobilePattern"]',
+                placeholder: ''
+            });
+
+            $('#Input_Code').inputmask({
+                regex: '[1-9][0-9]{4}',
+                placeholder: '_'
+            });
+        });
+
+    function GotoReturnUrl() {
+        location.href = '@(System.Net.WebUtility.UrlDecode(ViewData["ReturnUrl"].ToString()))';
+    }
+
+    function Resend() {
+
+    }
+</script>

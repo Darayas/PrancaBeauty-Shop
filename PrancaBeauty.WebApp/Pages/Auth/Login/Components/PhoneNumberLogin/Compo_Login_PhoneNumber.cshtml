@@ -32,4 +32,10 @@
             $('#CompoLogin').html(data);
         });
     }
+
+    function GotoOtpPage() {
+        LoadComponenet('/Auth/Login/Components/LoginByPhoneNumber/OTP', { ReturnUrl: null, PhoneNumber: $('#Input_PhoneNumber').val() }, function (data) {
+            $('#CompoLogin').html(data);
+        });
+    }
 </script>

@@ -1,4 +1,6 @@
-﻿using Framework.Infrastructure;
+﻿using Framework.Application.Consts;
+using Framework.Common.ExMethods;
+using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Apps.Accesslevels;
 using PrancaBeauty.Application.Contracts.Results;
@@ -216,6 +218,10 @@ namespace PrancaBeauty.Application.Apps.Users
                 if (qUser.IsActive == false)
                     return new OperationResult().Failed("YourAccountIsDisabled");
 
+                if (qUser.LastTrySentSms.HasValue)
+                    if (qUser.LastTrySentSms.Value.AddMinutes(AuthConst.LimitToResendSmsInMinute) > DateTime.Now)
+                        return new OperationResult().Failed("LimitToResendSms2Minute");
+
                 #region حذف پسورد قبلی کاربر
                 var Result = await _UserRepository.RemovePhoneNumberPasswordAsync(qUser);
                 if (!Result.Succeeded)
@@ -236,6 +242,43 @@ namespace PrancaBeauty.Application.Apps.Users
                 #endregion
 
                 return new OperationResult().Succeeded(NewPassword);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
+
+        public async Task<OperationResult> LoginByPhoneNumberStep2Async(string PhoneNumber, string Code)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(PhoneNumber))
+                    throw new ArgumentNullException("PhoneNumber cant be null");
+
+                if (string.IsNullOrWhiteSpace(Code))
+                    throw new ArgumentNullException("Code cant be null");
+
+                var qUser = await GetUserByPhoneNumberAsync(PhoneNumber);
+
+                if (qUser == null)
+                    return new OperationResult().Failed("PhoneNumberNotFound");
+
+                if (qUser.PhoneNumberConfirmed == false)
+                    return new OperationResult().Failed("PleaseConfirmYourPhoneNumber");
+
+                if (qUser.IsActive == false)
+                    return new OperationResult().Failed("YourAccountIsDisabled");
+
+                if (qUser.PasswordPhoneNumber != Code.ToMD5())
+                    return new OperationResult().Failed("CodeIsInvalid");
+
+                if (qUser.LastTrySentSms.HasValue)
+                    if (qUser.LastTrySentSms.Value.AddMinutes(10) > DateTime.Now)
+                        return new OperationResult().Failed("CodeIsExpired");
+
+                return new OperationResult().Succeeded(qUser.Id.ToString()) ;
             }
             catch (Exception ex)
             {

@@ -123,6 +123,15 @@
   <data name="AccountCreateMsg" xml:space="preserve">
     <value>حساب کاربر با موفیت ایجاد شد. لطفا ایمیل خود را برسی کنید و &lt;b&gt;روی لینک فعالسازی کلیک نمایید&lt;/b&gt;.</value>
   </data>
+  <data name="Code" xml:space="preserve">
+    <value>کد</value>
+  </data>
+  <data name="CodeIsExpired" xml:space="preserve">
+    <value>کد وارد شده منقضی شده است. &lt;br&gt;&lt;b&gt;لطفا مجددا اقدام نمایید&lt;/b&gt;</value>
+  </data>
+  <data name="CodeIsInvalid" xml:space="preserve">
+    <value>کد وارد شده استباه است</value>
+  </data>
   <data name="ConcurrencyFailure" xml:space="preserve">
     <value>رکورد جاری پیشتر ویرایش شده‌است و تغییرات شما آن‌را بازنویسی خواهد کرد</value>
   </data>
@@ -197,6 +206,9 @@
   </data>
   <data name="LastName" xml:space="preserve">
     <value>نام خانوادگی</value>
+  </data>
+  <data name="LimitToResendSms2Minute" xml:space="preserve">
+    <value>شما کمتر از 2 دقیقه قبل اقدام به لاگین کرده اید. لطفا 2 دقیقه صبر نمایید و مجددا اقدام کنید</value>
   </data>
   <data name="LinkExipred" xml:space="preserve">
     <value>لینک منقضی شده است. لطفا مجددا اقدام نمایید</value>
@@ -290,6 +302,9 @@
   </data>
   <data name="RequiredMsg" xml:space="preserve">
     <value>{0} را وارد نمایید.</value>
+  </data>
+  <data name="Resend" xml:space="preserve">
+    <value>ارسال مجدد</value>
   </data>
   <data name="SendAuthCode" xml:space="preserve">
     <value>ارسال کد احراز هویت</value>

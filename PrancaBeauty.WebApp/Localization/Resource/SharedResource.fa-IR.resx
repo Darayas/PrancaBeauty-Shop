@@ -273,6 +273,12 @@
   <data name="PhoneNumber" xml:space="preserve">
     <value>شماره موبایل</value>
   </data>
+  <data name="PhoneNumberCantBeNull" xml:space="preserve">
+    <value>شماره موبایل الزامی میباشد</value>
+  </data>
+  <data name="PhoneNumberIsInvalid" xml:space="preserve">
+    <value>شماره موبایل وارد شده اشتباه است</value>
+  </data>
   <data name="PhoneNumberNotFound" xml:space="preserve">
     <value>شماره موبایل یافت نشد</value>
   </data>
@@ -326,6 +332,9 @@
   </data>
   <data name="UserLockoutNotEnabled" xml:space="preserve">
     <value>این کاربر قفل نشده است و فعال می باشد</value>
+  </data>
+  <data name="UserNotFound" xml:space="preserve">
+    <value>کاربری با این مشخصات یافت نشد</value>
   </data>
   <data name="UserNotInRole" xml:space="preserve">
     <value>کاربر عضو این Role نمیباشد</value>

@@ -20,6 +20,7 @@ namespace PrancaBeauty.Application.Apps.Users
         Task<OperationResult> LoginByPhoneNumberStep1Async(string PhoneNumber);
         Task<OperationResult> LoginByPhoneNumberStep2Async(string PhoneNumber, string Code);
         Task<OperationResult> LoginByUserNamePasswordAsync(string UserName, string Pawword);
+        Task<OperationResult> ReCreatePasswordAsync(tblUsers User);
         Task<bool> RemoveUnConfirmedUserAsync(string UserId);
     }
 }

@@ -10,5 +10,11 @@
     "inputFiles": [
       "wwwroot/lib/leafletJS/leaflet.js"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/lib/countdown-timer-controls/jquery-countdown-timer-control.min.js",
+    "inputFiles": [
+      "wwwroot/lib/countdown-timer-controls/jquery-countdown-timer-control.js"
+    ]
   }
 ]

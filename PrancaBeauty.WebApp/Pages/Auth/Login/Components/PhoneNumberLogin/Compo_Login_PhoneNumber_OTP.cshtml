@@ -12,7 +12,8 @@
             <input asp-for="Input.Code" class="text-center">
         </p>
         <div class="login_submit">
-            <a onclick="Resend()" href="#Resend">@Localizer["Resend"]</a>
+            <div class="timer" data-minutes-left="2.01"></div>
+            <a class="resendbtn" onclick="Resend()" href="#Resend">@Localizer["Resend"]</a>
 
             <label asp-for="Input.RemmeberMe">
                 <input asp-for="Input.RemmeberMe">
@@ -23,6 +24,7 @@
     </form>
 </div>
 
+<script src="~/lib/countdown-timer-controls/jquery-countdown-timer-control.min.js"></script>
 <script>
         $(document).ready(function () {
             $('#Input_PhoneNumber').inputmask({
@@ -34,6 +36,8 @@
                 regex: '[1-9][0-9]{4}',
                 placeholder: '_'
             });
+
+            StartTimer();
         });
 
     function GotoReturnUrl() {
@@ -41,10 +45,20 @@
     }
 
     function Resend() {
-
+        SendData('/Auth/Login/Components/LoginByPhoneNumber/OTP?handler=Resend', { PhoneNumber: $('#Input_PhoneNumber').val() });
     }
 
     function StartTimer() {
 
+        $('.timer').html('');
+        $('.resendbtn').hide();
+        $('.timer').show();
+
+        var Timer = $('.timer').startTimer({
+            onComplete: function (element) {
+                $('.resendbtn').show();
+                $('.timer').hide();
+            }
+        }).trigger('start');
     }
 </script>

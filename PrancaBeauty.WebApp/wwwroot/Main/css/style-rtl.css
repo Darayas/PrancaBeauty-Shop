@@ -7928,3 +7928,12 @@ err500 {
     position: absolute;
     left: calc(50% - 100px);
     top: calc(50vh - 100px); }
+
+.timer {
+  direction: ltr;
+  text-align: right; }
+  .timer div {
+    display: inline-block; }
+
+.resendbtn {
+  display: none; }

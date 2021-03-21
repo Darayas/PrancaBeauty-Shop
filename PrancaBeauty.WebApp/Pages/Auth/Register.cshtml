@@ -1,4 +1,4 @@
-﻿@page "/Auth/Register"
+﻿@page "/{culture}/Auth/Register"
 @model PrancaBeauty.WebApp.Pages.Auth.RegisterModel
 @{
     ViewData["Tilte"] = Localizer["Register"];
@@ -12,7 +12,7 @@
             <div class="col-12">
                 <div class="breadcrumb_content">
                     <ul>
-                        <li><a href="index.html">@Localizer["Home"]</a></li>
+                        <li><a href="/">@Localizer["Home"]</a></li>
                         <li>@ViewData["Tilte"]</li>
                     </ul>
                 </div>

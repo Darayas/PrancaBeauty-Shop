@@ -2,11 +2,11 @@
 @model PrancaBeauty.WebApp.Pages.Auth.Login.Components.PhoneNumberLogin.Compo_Login_PhoneNumberModel
 
 <div class="account_form">
-    <h2>@Localizer["Login"]</h2>
+    <h2>@Localizer["LoginByPhoneNumber"]</h2>
     <form id="compo_Login" method="post">
         <p>
             <label asp-for="Input.PhoneNumber"></label>
-            <input asp-for="Input.PhoneNumber" class="text-left">
+            <input autocomplete="off" asp-for="Input.PhoneNumber" class="text-left">
         </p>
         <div class="login_submit">
             <a onclick="LoginByUserNamePassword()" href="#LoginPhoneNumber">@Localizer["LoginByUserNamePassword"]</a>

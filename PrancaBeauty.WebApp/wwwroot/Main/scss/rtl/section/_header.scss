@@ -560,6 +560,10 @@
         @media #{$large-mobile} {
             max-width: 120px;
         }
+
+        @media #{$tablet-device} {
+            max-width: 140px;
+        }
     }
 }
 

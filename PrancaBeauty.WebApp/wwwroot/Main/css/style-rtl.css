@@ -832,6 +832,10 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   .logo img {
     max-width: 120px; } }
 
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .logo img {
+    max-width: 140px; } }
+
 .header_middle {
   padding: 24px 0;
   position: relative; }

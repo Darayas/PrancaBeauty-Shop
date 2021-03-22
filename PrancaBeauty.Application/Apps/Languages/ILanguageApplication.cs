@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PrancaBeauty.Application.Contracts.Languages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,7 @@ namespace PrancaBeauty.Application.Apps.Languages
 {
     public interface ILanguageApplication
     {
+        Task<List<OutSiteLangCache>> GetAllLanguageForSiteLangAsync();
+        Task<string> GetCodeByAbbrAsync(string Abbr);
     }
 }

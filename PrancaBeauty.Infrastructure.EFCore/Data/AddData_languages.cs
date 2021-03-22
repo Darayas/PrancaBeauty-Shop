@@ -29,7 +29,8 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     IsActive = true,
                     IsRtl = true,
                     Name = "Persian_IR",
-                    NativeName = "فارسی (ایران)"
+                    NativeName = "فارسی (ایران)",
+                    Abbr="fa"
                 }, default, true).Wait();
             }
 
@@ -42,7 +43,8 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     IsActive = true,
                     IsRtl = false,
                     Name = "English_USA",
-                    NativeName = "English (USA)"
+                    NativeName = "English (USA)",
+                    Abbr="en"
                 }, default, true).Wait();
             }
         }

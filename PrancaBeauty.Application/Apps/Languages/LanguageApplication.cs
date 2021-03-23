@@ -31,7 +31,7 @@ namespace PrancaBeauty.Application.Apps.Languages
 
         private async Task LoadCacheAsync()
         {
-            if (SiteLangCache == null && SiteLangCache.Count() == 0)
+            if (SiteLangCache == null)
             {
                 SiteLangCache = await _LanguageRepository.Get
                                                      .Where(a => a.IsActive)

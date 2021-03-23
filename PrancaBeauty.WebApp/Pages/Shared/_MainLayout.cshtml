@@ -43,12 +43,7 @@
                     <div class="language_currency bottom">
                         <ul>
                             <li class="account">
-                                <a href="#"> تنظیمات <i class="icon-right ion-ios-arrow-down"></i></a>
-                                <ul class="dropdown_currency bottom_drop_c">
-                                    <li><a href="#">€ یورو</a></li>
-                                    <li><a href="#">£ پوند</a></li>
-                                    <li><a href="#">$ دلار</a></li>
-                                </ul>
+                                @(await Html.PartialAsync("~/Pages/Shared/Partials/P_ChangeLanuage.cshtml"))
                             </li>
                             <li><a href="#"><i class="icon-equalizer icons"></i> مقایسه (3)</a></li>
                             <li><a href="#"><i class="icon-heart"></i> علاقه مندی (3)</a></li>
@@ -222,12 +217,7 @@
                         <div class="language_currency">
                             <ul>
                                 <li class="language">
-                                    <a href="#"><img src="~/Main/img/icon/language.png" alt=""> اینگلیسی <i class="icon-right ion-ios-arrow-down"></i></a>
-                                    <ul class="dropdown_language">
-                                        <li><a href="#">فرانسوی</a></li>
-                                        <li><a href="#">اسپانیایی</a></li>
-                                        <li><a href="#">روسی</a></li>
-                                    </ul>
+                                    @(await Html.PartialAsync("~/Pages/Shared/Partials/P_ChangeLanuage.cshtml"))
                                 </li>
                                 <li class="currency">
                                     <a href="#"> $ <i class="icon-right ion-ios-arrow-down"></i></a>

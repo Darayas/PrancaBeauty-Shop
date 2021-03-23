@@ -1,0 +1,41 @@
+﻿@inject PrancaBeauty.Application.Apps.Languages.ILanguageApplication _LanguageApplication
+@{
+    var qLang = await _LanguageApplication.GetAllLanguageForSiteLangAsync();
+}
+
+<a href="#">@(await _LanguageApplication.GetCodeByAbbrAsync(GetAbbr())) <i class="icon-right ion-ios-arrow-down"></i></a>
+<ul class="dropdown_language">
+    @foreach (var item in qLang)
+    {
+        <li><a href="@SetLang(item.Abbr)">@item.NativeName</a></li>
+    }
+</ul>
+
+@functions {
+    string SetLang(string Abbr)
+    {
+        var request = Context.Request;
+
+        string Host = request.Scheme + "://" + request.Host;
+        string Path = request.Path;
+        string Parameters = request.QueryString.HasValue ? request.QueryString.Value : "";
+
+        List<string> SplitPath = Path.Trim('/').Split("/").ToList();
+        SplitPath.RemoveAt(0);
+
+        Path = "/" + Abbr + "/" + string.Join("/", SplitPath);
+
+        return Host + Path + Parameters;
+    }
+
+    string GetAbbr()
+    {
+        var request = Context.Request;
+        string Path = request.Path;
+
+        if (Path.Trim('/') == "")
+            return "fa";
+
+        return Path.Trim('/').Split("/")[0];
+    }
+}

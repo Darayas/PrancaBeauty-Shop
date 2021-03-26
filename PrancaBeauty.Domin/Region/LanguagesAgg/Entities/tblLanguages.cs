@@ -12,6 +12,7 @@ namespace PrancaBeauty.Domin.Region.LanguagesAgg.Entities
     public class tblLanguages : IEntity
     {
         public Guid Id { get; set; }
+        public string FlagImgId { get; set; }
         public string Name { get; set; }
         public string Code { get; set; }
         public string Abbr { get; set; }
@@ -22,5 +23,6 @@ namespace PrancaBeauty.Domin.Region.LanguagesAgg.Entities
 
         public virtual ICollection<tblTamplates> tblTamplates { get; set; }
         public virtual ICollection<tblSettings> tblSettings { get; set; }
+        public virtual tblfiles tblSettings { get; set; }
     }
 }

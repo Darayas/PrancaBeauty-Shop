@@ -57,7 +57,7 @@ namespace PrancaBeauty.WebApp
 
             app.UseLocalization(new List<CultureInfo> { new CultureInfo("en-US"), new CultureInfo("fa-IR") }, "fa-ir");
 
-            app.UserJwtAuthentication(AuthConst.CookieName);
+            app.UseJwtAuthentication(AuthConst.CookieName);
 
             app.UseEndpoints(endpoints =>
             {

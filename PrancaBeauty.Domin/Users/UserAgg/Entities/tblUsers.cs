@@ -1,5 +1,6 @@
 ﻿using Framework.Domain;
 using Microsoft.AspNetCore.Identity;
+using PrancaBeauty.Domin.FileServer.FileAgg.Entities;
 using PrancaBeauty.Domin.Users.AccessLevelAgg.Entities;
 using System;
 using System.Collections.Generic;
@@ -18,5 +19,7 @@ namespace PrancaBeauty.Domin.Users.UserAgg.Entities
         public bool IsActive { get; set; }
 
         public virtual tblAccessLevels tblAccessLevels { get; set; }
+        public virtual ICollection<tblFiles> tblFiles { get; set; }
+
     }
 }

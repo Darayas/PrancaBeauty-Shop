@@ -29,6 +29,16 @@ namespace PrancaBeauty.Application.Apps.Languages
                                 .SingleOrDefault();
         }
 
+        public async Task<string> GetNativeNameByCodeAsync(string Code)
+        {
+            await LoadCacheAsync();
+
+            return SiteLangCache
+                         .Where(a => a.Code == Code)
+                         .Select(a => a.NativeName)
+                         .SingleOrDefault();
+        }
+
         private async Task LoadCacheAsync()
         {
             if (SiteLangCache == null)

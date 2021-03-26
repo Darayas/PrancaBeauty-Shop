@@ -10,6 +10,7 @@ using PrancaBeauty.Application.Apps.Roles;
 using PrancaBeauty.Application.Apps.Settings;
 using PrancaBeauty.Application.Apps.Templates;
 using PrancaBeauty.Application.Apps.Users;
+using PrancaBeauty.Domin.FileServer.ServerAgg.Contracts;
 using PrancaBeauty.Domin.Region.LanguagesAgg.Contracts;
 using PrancaBeauty.Domin.StettingsAgg.Contracts;
 using PrancaBeauty.Domin.TemplatesAgg.Contracts;
@@ -18,6 +19,7 @@ using PrancaBeauty.Domin.Users.RoleAgg.Contracts;
 using PrancaBeauty.Domin.Users.UserAgg.Contracts;
 using PrancaBeauty.Infrastructure.EFCore.Context;
 using PrancaBeauty.Infrastructure.EFCore.Repository.AccessLevel;
+using PrancaBeauty.Infrastructure.EFCore.Repository.FileServer;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Region;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Roles;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Settings;
@@ -50,6 +52,7 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddScoped<IAccesslevelRepository, AccessLevelRepository>();
             services.AddScoped<IRoleRepository, RoleRepository>();
             services.AddScoped<ILanguageRepository, LanguageRepository>();
+            services.AddScoped<IFileServerRepository, FileServerRepository>();
 
             // Applications
             services.AddScoped<IUserApplication, UserApplication>();

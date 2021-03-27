@@ -12,10 +12,11 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
         {
             try
             {
-                //new AddData_AccessLevel().Run();
-                //new AddData_Users().Run();
-                //new AddData_languages().Run();
-                //new AddData_Settings().Run();
+                new AddData_FileServers().Run();
+                new AddData_AccessLevel().Run();
+                new AddData_Users().Run();
+                new AddData_languages().Run();
+                new AddData_Settings().Run();
                 new AddData_Template().Run();
             }
             catch (Exception ex)

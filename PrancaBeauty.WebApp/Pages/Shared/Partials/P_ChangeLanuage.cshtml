@@ -3,7 +3,7 @@
     var qLang = await _LanguageApplication.GetAllLanguageForSiteLangAsync();
 }
 
-<a href="#">@(await _LanguageApplication.GetNativeNameByCodeAsync(await _LanguageApplication.GetCodeByAbbrAsync(GetAbbr()))) <i class="icon-right ion-ios-arrow-down"></i></a>
+<a href="#"><img class="lang-flag" src="@(await _LanguageApplication.GetFlagUrlByCodeAsync(await _LanguageApplication.GetCodeByAbbrAsync(GetAbbr())))" /> @(await _LanguageApplication.GetNativeNameByCodeAsync(await _LanguageApplication.GetCodeByAbbrAsync(GetAbbr()))) <i class="icon-right ion-ios-arrow-down"></i></a>
 <ul class="dropdown_language">
     @foreach (var item in qLang)
     {

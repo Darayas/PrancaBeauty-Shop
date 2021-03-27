@@ -39,6 +39,16 @@ namespace PrancaBeauty.Application.Apps.Languages
                          .SingleOrDefault();
         }
 
+        public async Task<string> GetFlagUrlByCodeAsync(string Code)
+        {
+            await LoadCacheAsync();
+
+            return SiteLangCache
+                         .Where(a => a.Code == Code)
+                         .Select(a => a.FlagUrl)
+                         .SingleOrDefault();
+        }
+
         private async Task LoadCacheAsync()
         {
             if (SiteLangCache == null)
@@ -53,7 +63,11 @@ namespace PrancaBeauty.Application.Apps.Languages
                                                          Code = a.Code,
                                                          IsRtl = a.IsRtl,
                                                          Name = a.Name,
-                                                         NativeName = a.NativeName
+                                                         NativeName = a.NativeName,
+                                                         FlagUrl=a.tblFile.tblFileServer.HttpDomin+
+                                                                    a.tblFile.tblFileServer.HttpPath+
+                                                                    a.tblFile.Path+
+                                                                    a.tblFile.FileName
                                                      })
                                                      .ToListAsync();
             }

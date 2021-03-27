@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <Folder Include="Models\ViewModel\" />
+    <Folder Include="wwwroot\FileServer\Flags\" />
   </ItemGroup>
 
 </Project>

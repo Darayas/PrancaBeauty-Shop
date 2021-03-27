@@ -5,11 +5,14 @@ using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using PrancaBeauty.Application.Apps.Accesslevels;
+using PrancaBeauty.Application.Apps.Files;
+using PrancaBeauty.Application.Apps.FileServer;
 using PrancaBeauty.Application.Apps.Languages;
 using PrancaBeauty.Application.Apps.Roles;
 using PrancaBeauty.Application.Apps.Settings;
 using PrancaBeauty.Application.Apps.Templates;
 using PrancaBeauty.Application.Apps.Users;
+using PrancaBeauty.Domin.FileServer.FileAgg.Contracts;
 using PrancaBeauty.Domin.FileServer.ServerAgg.Contracts;
 using PrancaBeauty.Domin.Region.LanguagesAgg.Contracts;
 using PrancaBeauty.Domin.StettingsAgg.Contracts;
@@ -53,6 +56,7 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddScoped<IRoleRepository, RoleRepository>();
             services.AddScoped<ILanguageRepository, LanguageRepository>();
             services.AddScoped<IFileServerRepository, FileServerRepository>();
+            services.AddScoped<IFileRepository, FileRepository>();
 
             // Applications
             services.AddScoped<IUserApplication, UserApplication>();
@@ -61,6 +65,8 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddScoped<IAccesslevelApplication, AccesslevelApplication>();
             services.AddScoped<IRoleApplication, RoleApplication>();
             services.AddScoped<ILanguageApplication, LanguageApplication>();
+            services.AddScoped<IFileServerApplication, FileServerApplication>();
+            services.AddScoped<IFileApplication, FileApplication>();
         }
     }
 }

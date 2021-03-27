@@ -1,4 +1,6 @@
 ﻿using Framework.Infrastructure;
+using PrancaBeauty.Domin.FileServer.FileAgg.Entities;
+using PrancaBeauty.Domin.FileServer.ServerAgg.Entities;
 using PrancaBeauty.Domin.Region.LanguagesAgg.Entities;
 using PrancaBeauty.Infrastructure.EFCore.Common.ExMethods;
 using PrancaBeauty.Infrastructure.EFCore.Context;
@@ -13,9 +15,11 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
     public class AddData_languages
     {
         BaseRepository<tblLanguages> _repLang;
+        BaseRepository<tblFileServers> _FileServer;
         public AddData_languages()
         {
             _repLang = new BaseRepository<tblLanguages>(new MainContext());
+            _FileServer = new BaseRepository<tblFileServers>(new MainContext());
         }
 
         public void Run()
@@ -30,7 +34,19 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     IsRtl = true,
                     Name = "Persian_IR",
                     NativeName = "فارسی (ایران)",
-                    Abbr="fa"
+                    Abbr = "fa",
+                    UseForSiteLanguage = true,
+                    tblFile = new tblFiles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        Title = "IranFlag",
+                        Date = DateTime.Now,
+                        FileName = "IranFlag.png",
+                        FileServerId = _FileServer.GetNoTraking.Where(a => a.Name == "Public").Select(a => a.Id).Single(),
+                        MimeType = "image/png",
+                        Path = "/flags/",
+                        SizeOnDisk = 0
+                    }
                 }, default, true).Wait();
             }
 
@@ -44,7 +60,19 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     IsRtl = false,
                     Name = "English_USA",
                     NativeName = "English (USA)",
-                    Abbr="en"
+                    Abbr = "en",
+                    UseForSiteLanguage = true,
+                    tblFile = new tblFiles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        Title = "UsFlag",
+                        Date = DateTime.Now,
+                        FileName = "UsFlag.png",
+                        FileServerId = _FileServer.GetNoTraking.Where(a => a.Name == "Public").Select(a => a.Id).Single(),
+                        MimeType = "image/png",
+                        Path = "/flags/",
+                        SizeOnDisk = 0
+                    }
                 }, default, true).Wait();
             }
         }

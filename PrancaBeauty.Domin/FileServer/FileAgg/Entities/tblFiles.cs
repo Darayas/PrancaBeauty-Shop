@@ -1,5 +1,6 @@
 ﻿using Framework.Domain;
 using PrancaBeauty.Domin.FileServer.ServerAgg.Entities;
+using PrancaBeauty.Domin.Region.LanguagesAgg.Entities;
 using PrancaBeauty.Domin.Users.UserAgg.Entities;
 using System;
 using System.Collections.Generic;
@@ -25,5 +26,6 @@ namespace PrancaBeauty.Domin.FileServer.FileAgg.Entities
 
         public virtual tblFileServers tblFileServer { get; set; }
         public virtual tblUsers tblUser { get; set; }
+        public virtual ICollection<tblLanguages> tblLanguages { get; set; }
     }
 }

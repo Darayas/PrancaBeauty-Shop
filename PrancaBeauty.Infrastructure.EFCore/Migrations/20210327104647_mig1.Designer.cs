@@ -10,8 +10,8 @@ using PrancaBeauty.Infrastructure.EFCore.Context;
 namespace PrancaBeauty.Infrastructure.EFCore.Migrations
 {
     [DbContext(typeof(MainContext))]
-    [Migration("20210207210227_mig2")]
-    partial class mig2
+    [Migration("20210327104647_mig1")]
+    partial class mig1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -122,6 +122,239 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("PrancaBeauty.Domin.FileServer.FileAgg.Entities.tblFiles", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(150)
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<Guid>("FileServerId")
+                        .HasMaxLength(150)
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsPrivate")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("MimeType")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Path")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<long>("SizeOnDisk")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<Guid?>("UserId")
+                        .HasMaxLength(450)
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FileServerId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("tblFiles");
+                });
+
+            modelBuilder.Entity("PrancaBeauty.Domin.FileServer.ServerAgg.Entities.tblFileServers", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<long>("Capacity")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FtpData")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HttpDomin")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HttpPath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("tblFileServers");
+                });
+
+            modelBuilder.Entity("PrancaBeauty.Domin.Region.LanguagesAgg.Entities.tblLanguages", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(150)
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Abbr")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<Guid>("FlagImgId")
+                        .HasMaxLength(150)
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsRtl")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("NativeName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<bool>("UseForSiteLanguage")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FlagImgId");
+
+                    b.ToTable("tblLanguages");
+                });
+
+            modelBuilder.Entity("PrancaBeauty.Domin.StettingsAgg.Entities.tblSettings", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(150)
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsEnable")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsInManufacture")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("LangId")
+                        .HasMaxLength(150)
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("SiteDescription")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<string>("SiteEmail")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("SitePhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("SiteTitle")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("SiteUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LangId");
+
+                    b.ToTable("tblSettings");
+                });
+
+            modelBuilder.Entity("PrancaBeauty.Domin.TemplatesAgg.Entitis.tblTamplates", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(150)
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("LangId")
+                        .HasMaxLength(150)
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Template")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LangId");
+
+                    b.ToTable("tblTamplates");
+                });
+
+            modelBuilder.Entity("PrancaBeauty.Domin.Users.AccessLevelAgg.Entities.tblAccessLevel_Roles", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(150)
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AccessLevelId")
+                        .HasMaxLength(150)
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("RoleId")
+                        .HasMaxLength(450)
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AccessLevelId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("tblAccessLevel_Roles");
+                });
+
             modelBuilder.Entity("PrancaBeauty.Domin.Users.AccessLevelAgg.Entities.tblAccessLevels", b =>
                 {
                     b.Property<Guid>("Id")
@@ -186,8 +419,8 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("e11cd3aa-c497-4f9d-8ed3-acc90008e9e7"),
-                            ConcurrencyStamp = "0a9c31c0-f296-4aee-9519-7b40496372ee",
+                            Id = new Guid("5047990a-b333-41d4-bd3f-acf800fbcd4c"),
+                            ConcurrencyStamp = "8b0f2fdd-407a-4622-8273-8e0f8439acf6",
                             Description = "دسترسی مدیر کل",
                             Name = "FullControl",
                             NormalizedName = "FULLCONTROL",
@@ -227,10 +460,16 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime?>("LastTrySentSms")
+                        .HasColumnType("datetime2");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -247,6 +486,10 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PasswordPhoneNumber")
+                        .HasMaxLength(5000)
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
@@ -331,6 +574,76 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("PrancaBeauty.Domin.FileServer.FileAgg.Entities.tblFiles", b =>
+                {
+                    b.HasOne("PrancaBeauty.Domin.FileServer.ServerAgg.Entities.tblFileServers", "tblFileServer")
+                        .WithMany("tblFiles")
+                        .HasForeignKey("FileServerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("PrancaBeauty.Domin.Users.UserAgg.Entities.tblUsers", "tblUser")
+                        .WithMany("tblFiles")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("tblFileServer");
+
+                    b.Navigation("tblUser");
+                });
+
+            modelBuilder.Entity("PrancaBeauty.Domin.Region.LanguagesAgg.Entities.tblLanguages", b =>
+                {
+                    b.HasOne("PrancaBeauty.Domin.FileServer.FileAgg.Entities.tblFiles", "tblFile")
+                        .WithMany("tblLanguages")
+                        .HasForeignKey("FlagImgId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("tblFile");
+                });
+
+            modelBuilder.Entity("PrancaBeauty.Domin.StettingsAgg.Entities.tblSettings", b =>
+                {
+                    b.HasOne("PrancaBeauty.Domin.Region.LanguagesAgg.Entities.tblLanguages", "tblLanguages")
+                        .WithMany("tblSettings")
+                        .HasForeignKey("LangId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("tblLanguages");
+                });
+
+            modelBuilder.Entity("PrancaBeauty.Domin.TemplatesAgg.Entitis.tblTamplates", b =>
+                {
+                    b.HasOne("PrancaBeauty.Domin.Region.LanguagesAgg.Entities.tblLanguages", "tblLanguages")
+                        .WithMany("tblTamplates")
+                        .HasForeignKey("LangId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("tblLanguages");
+                });
+
+            modelBuilder.Entity("PrancaBeauty.Domin.Users.AccessLevelAgg.Entities.tblAccessLevel_Roles", b =>
+                {
+                    b.HasOne("PrancaBeauty.Domin.Users.AccessLevelAgg.Entities.tblAccessLevels", "tblAccessLevels")
+                        .WithMany("tblAccessLevel_Roles")
+                        .HasForeignKey("AccessLevelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PrancaBeauty.Domin.Users.RoleAgg.Entities.tblRoles", "tblRoles")
+                        .WithMany("tblAccessLevel_Roles")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("tblAccessLevels");
+
+                    b.Navigation("tblRoles");
+                });
+
             modelBuilder.Entity("PrancaBeauty.Domin.Users.UserAgg.Entities.tblUsers", b =>
                 {
                     b.HasOne("PrancaBeauty.Domin.Users.AccessLevelAgg.Entities.tblAccessLevels", "tblAccessLevels")
@@ -342,9 +655,38 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                     b.Navigation("tblAccessLevels");
                 });
 
+            modelBuilder.Entity("PrancaBeauty.Domin.FileServer.FileAgg.Entities.tblFiles", b =>
+                {
+                    b.Navigation("tblLanguages");
+                });
+
+            modelBuilder.Entity("PrancaBeauty.Domin.FileServer.ServerAgg.Entities.tblFileServers", b =>
+                {
+                    b.Navigation("tblFiles");
+                });
+
+            modelBuilder.Entity("PrancaBeauty.Domin.Region.LanguagesAgg.Entities.tblLanguages", b =>
+                {
+                    b.Navigation("tblSettings");
+
+                    b.Navigation("tblTamplates");
+                });
+
             modelBuilder.Entity("PrancaBeauty.Domin.Users.AccessLevelAgg.Entities.tblAccessLevels", b =>
                 {
+                    b.Navigation("tblAccessLevel_Roles");
+
                     b.Navigation("tblUsers");
+                });
+
+            modelBuilder.Entity("PrancaBeauty.Domin.Users.RoleAgg.Entities.tblRoles", b =>
+                {
+                    b.Navigation("tblAccessLevel_Roles");
+                });
+
+            modelBuilder.Entity("PrancaBeauty.Domin.Users.UserAgg.Entities.tblUsers", b =>
+                {
+                    b.Navigation("tblFiles");
                 });
 #pragma warning restore 612, 618
         }

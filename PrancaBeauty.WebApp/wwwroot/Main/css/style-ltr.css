@@ -377,7 +377,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
     overflow-y: auto; }
   .offcanvas_menu_wrapper .search_container {
     display: block; }
-  .offcanvas_menu_wrapper .language_currency {
+  .offcanvas_menu_wrapper .language_currency, .offcanvas_menu_wrapper .setting_compare {
     display: block; }
   .offcanvas_menu_wrapper .header_account_area {
     display: flex; }
@@ -552,48 +552,48 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
       display: none; } }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
-  .language_currency {
+  .language_currency, .setting_compare {
     display: none;
     margin-bottom: 18px;
     text-align: center; } }
 
 @media only screen and (max-width: 767px) {
-  .language_currency {
+  .language_currency, .setting_compare {
     display: none;
     margin-bottom: 18px;
     text-align: center; } }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
-  .language_currency.bottom {
+  .language_currency.bottom, .bottom.setting_compare {
     margin-bottom: 20px; } }
 
 @media only screen and (max-width: 767px) {
-  .language_currency.bottom {
+  .language_currency.bottom, .bottom.setting_compare {
     margin-bottom: 20px; } }
 
-.language_currency > ul > li {
+.language_currency > ul > li, .setting_compare > ul > li {
   display: inline-block;
   position: relative;
   margin-right: 14px;
   padding-right: 15px; }
   @media only screen and (min-width: 992px) and (max-width: 1199px) {
-    .language_currency > ul > li {
+    .language_currency > ul > li, .setting_compare > ul > li {
       margin-right: 11px;
       padding-right: 12px; } }
-  .language_currency > ul > li:last-child {
+  .language_currency > ul > li:last-child, .setting_compare > ul > li:last-child {
     margin-right: 0;
     padding-right: 0; }
-    .language_currency > ul > li:last-child::before {
+    .language_currency > ul > li:last-child::before, .setting_compare > ul > li:last-child::before {
       display: none; }
   @media only screen and (min-width: 768px) and (max-width: 991px) {
-    .language_currency > ul > li {
+    .language_currency > ul > li, .setting_compare > ul > li {
       margin-right: 7px;
       padding-right: 8px; } }
   @media only screen and (max-width: 767px) {
-    .language_currency > ul > li {
+    .language_currency > ul > li, .setting_compare > ul > li {
       margin-right: 7px;
       padding-right: 8px; } }
-  .language_currency > ul > li::before {
+  .language_currency > ul > li::before, .setting_compare > ul > li::before {
     content: "";
     width: 1px;
     height: 16px;
@@ -602,65 +602,65 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
     top: 50%;
     transform: translatey(-50%);
     right: 0; }
-  .language_currency > ul > li:hover ul.dropdown_currency, .language_currency > ul > li:hover ul.dropdown_language {
+  .language_currency > ul > li:hover ul.dropdown_currency, .setting_compare > ul > li:hover ul.dropdown_currency, .language_currency > ul > li:hover ul.dropdown_language, .setting_compare > ul > li:hover ul.dropdown_language {
     visibility: visible;
     max-height: 200px; }
-  .language_currency > ul > li:hover > a {
+  .language_currency > ul > li:hover > a, .setting_compare > ul > li:hover > a {
     color: #d52121; }
-  .language_currency > ul > li span {
+  .language_currency > ul > li span, .setting_compare > ul > li span {
     text-transform: uppercase;
     line-height: 16px;
     font-size: 16px; }
     @media only screen and (min-width: 992px) and (max-width: 1199px) {
-      .language_currency > ul > li span {
+      .language_currency > ul > li span, .setting_compare > ul > li span {
         line-height: 14px;
         font-size: 14px; } }
     @media only screen and (min-width: 768px) and (max-width: 991px) {
-      .language_currency > ul > li span {
+      .language_currency > ul > li span, .setting_compare > ul > li span {
         line-height: 26px;
         font-size: 13px; } }
     @media only screen and (max-width: 767px) {
-      .language_currency > ul > li span {
+      .language_currency > ul > li span, .setting_compare > ul > li span {
         line-height: 26px;
         font-size: 13px; } }
-  .language_currency > ul > li > a {
+  .language_currency > ul > li > a, .setting_compare > ul > li > a {
     text-transform: uppercase;
     line-height: 16px;
     font-size: 16px;
     display: inline-block;
     font-weight: 400; }
     @media only screen and (min-width: 992px) and (max-width: 1199px) {
-      .language_currency > ul > li > a {
+      .language_currency > ul > li > a, .setting_compare > ul > li > a {
         line-height: 14px;
         font-size: 14px; } }
     @media only screen and (min-width: 768px) and (max-width: 991px) {
-      .language_currency > ul > li > a {
+      .language_currency > ul > li > a, .setting_compare > ul > li > a {
         line-height: 26px;
         font-size: 13px; } }
     @media only screen and (max-width: 767px) {
-      .language_currency > ul > li > a {
+      .language_currency > ul > li > a, .setting_compare > ul > li > a {
         line-height: 26px;
         font-size: 13px; } }
-    .language_currency > ul > li > a i.ion-ios-arrow-down {
+    .language_currency > ul > li > a i.ion-ios-arrow-down, .setting_compare > ul > li > a i.ion-ios-arrow-down {
       margin-left: 3px;
       font-size: 13px; }
       @media only screen and (min-width: 768px) and (max-width: 991px) {
-        .language_currency > ul > li > a i.ion-ios-arrow-down {
+        .language_currency > ul > li > a i.ion-ios-arrow-down, .setting_compare > ul > li > a i.ion-ios-arrow-down {
           margin-left: 0px; } }
       @media only screen and (max-width: 767px) {
-        .language_currency > ul > li > a i.ion-ios-arrow-down {
+        .language_currency > ul > li > a i.ion-ios-arrow-down, .setting_compare > ul > li > a i.ion-ios-arrow-down {
           margin-left: 0px; } }
-    .language_currency > ul > li > a img {
+    .language_currency > ul > li > a img, .setting_compare > ul > li > a img {
       margin-right: 5px;
       vertical-align: 0; }
       @media only screen and (min-width: 768px) and (max-width: 991px) {
-        .language_currency > ul > li > a img {
+        .language_currency > ul > li > a img, .setting_compare > ul > li > a img {
           margin-right: 2px; } }
       @media only screen and (max-width: 767px) {
-        .language_currency > ul > li > a img {
+        .language_currency > ul > li > a img, .setting_compare > ul > li > a img {
           margin-right: 2px; } }
 
-.language_currency > ul > li:hover a:not([href]):not([tabindex]) {
+.language_currency > ul > li:hover a:not([href]):not([tabindex]), .setting_compare > ul > li:hover a:not([href]):not([tabindex]) {
   color: #d52121; }
 
 .dropdown_currency, .dropdown_language {
@@ -722,6 +722,11 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 @media only screen and (max-width: 767px) {
   .logo img {
     max-width: 120px; } }
+
+.setting_compare > ul {
+  text-align: right; }
+  .setting_compare > ul li {
+    display: inline; }
 
 .header_middle {
   padding: 24px 0;
@@ -7704,3 +7709,57 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
         margin-bottom: 12px; } }
 
 /*privacy policy css end*/
+.dir-ltr {
+  direction: ltr; }
+
+.nice-select {
+  padding-right: 18px !important;
+  padding-left: 30px !important; }
+  .nice-select:after {
+    right: unset !important;
+    left: 12px; }
+  .nice-select .list {
+    right: 0px;
+    left: auto; }
+    .nice-select .list .option {
+      text-align: right;
+      padding-right: 18px !important;
+      padding-left: 29px !important; }
+
+err500 {
+  width: 100%;
+  display: inline-block;
+  padding: 15px;
+  background-color: #dc0000;
+  font-weight: 700;
+  font-size: 14px;
+  color: #ffffff;
+  text-align: center;
+  border: 1px solid #cb0000; }
+
+.loading {
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  background-color: rgba(0, 0, 0, 0.35);
+  z-index: 1000; }
+  .loading img {
+    position: absolute;
+    left: calc(50% - 100px);
+    top: calc(50vh - 100px); }
+
+.timer {
+  direction: ltr;
+  text-align: right; }
+  .timer div {
+    display: inline-block; }
+
+.resendbtn {
+  display: none; }
+
+.lang-flag {
+  width: 24px;
+  position: relative;
+  top: 6px; }

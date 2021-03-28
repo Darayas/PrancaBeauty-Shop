@@ -49,6 +49,16 @@ namespace PrancaBeauty.Application.Apps.Languages
                          .SingleOrDefault();
         }
 
+        public async Task<string> GetDirectionByCodeAsync(string Code)
+        {
+            await LoadCacheAsync();
+
+            return SiteLangCache
+                         .Where(a => a.Code == Code)
+                         .Select(a => a.IsRtl ? "rtl" : "ltr")
+                         .SingleOrDefault();
+        }
+
         private async Task LoadCacheAsync()
         {
             if (SiteLangCache == null)
@@ -64,9 +74,9 @@ namespace PrancaBeauty.Application.Apps.Languages
                                                          IsRtl = a.IsRtl,
                                                          Name = a.Name,
                                                          NativeName = a.NativeName,
-                                                         FlagUrl=a.tblFile.tblFileServer.HttpDomin+
-                                                                    a.tblFile.tblFileServer.HttpPath+
-                                                                    a.tblFile.Path+
+                                                         FlagUrl = a.tblFile.tblFileServer.HttpDomin +
+                                                                    a.tblFile.tblFileServer.HttpPath +
+                                                                    a.tblFile.Path +
                                                                     a.tblFile.FileName
                                                      })
                                                      .ToListAsync();
@@ -80,5 +90,6 @@ namespace PrancaBeauty.Application.Apps.Languages
 
             return SiteLangCache;
         }
+
     }
 }

@@ -60,22 +60,74 @@
 @import 'section/404';
 @import 'section/privacy-policy';
 
+.dir-ltr {
+    direction: ltr;
+}
 
+.nice-select {
+    padding-right: 18px !important;
+    padding-left: 30px !important;
 
+    &:after {
+        right: unset !important;
+        left: 12px;
+    }
 
+    .list {
+        right: 0px;
+        left: auto;
 
+        .option {
+            text-align: right;
+            padding-right: 18px !important;
+            padding-left: 29px !important;
+        }
+    }
+}
 
+err500 {
+    width: 100%;
+    display: inline-block;
+    padding: 15px;
+    background-color: #dc0000;
+    font-weight: 700;
+    font-size: 14px;
+    color: #ffffff;
+    text-align: center;
+    border: 1px solid #cb0000;
+}
 
+.loading {
+    position: fixed;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    background-color: rgba(0, 0, 0, 0.35);
+    z-index: 1000;
 
+    img {
+        position: absolute;
+        left: calc(50% - 100px);
+        top: calc(50vh - 100px);
+    }
+}
 
+.timer {
+    direction: ltr;
+    text-align: right;
 
+    div {
+        display: inline-block;
+    }
+}
 
+.resendbtn {
+    display: none;
+}
 
-
-
-
-
-
-
-
-
+.lang-flag {
+    width: 24px;
+    position: relative;
+    top: 6px;
+}

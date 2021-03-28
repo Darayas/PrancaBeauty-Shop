@@ -9,6 +9,7 @@ using PrancaBeauty.Domin.Users.RoleAgg.Entities;
 using PrancaBeauty.Domin.Users.UserAgg.Entities;
 using PrancaBeauty.Infrastructure.EFCore.Context;
 using PrancaBeauty.WebApp.Authentication;
+using PrancaBeauty.WebApp.Common.Utility.IpAddress;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
 using PrancaBeauty.WebApp.Localization;
 using System;
@@ -89,6 +90,7 @@ namespace PrancaBeauty.WebApp.Config
             services.AddSingleton<ILocalizer, Localizer>();
             services.AddSingleton<IMsgBox, MsgBox>();
             services.AddScoped<IJWTBuilder, JWTBuilder>();
+            services.AddSingleton<IIpAddressChecker, IpAddressChecker>();
 
             return services;
         }

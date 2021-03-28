@@ -43,8 +43,16 @@
 
     @RenderSection("styles", false)
 
-    <!-- Main Style CSS -->
-    <link rel="stylesheet" href="~/Main/css/style-rtl.min.css">
+    @if (TempData["LangDir"].ToString() == "rtl")
+    {
+        <!-- Main Style CSS -->
+        <link rel="stylesheet" href="~/Main/css/style-rtl.min.css">
+    }
+    else
+    {
+        <!-- Main Style CSS -->
+        <link rel="stylesheet" href="~/Main/css/style-ltr.min.css">
+    }
 
     <!--jquery min js-->
     <script src="~/Main/js/vendor/jquery-3.4.1.min.js"></script>

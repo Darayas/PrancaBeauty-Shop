@@ -1,4 +1,5 @@
 ﻿using Framework.Application.Services.Email;
+using Framework.Application.Services.IpList;
 using Framework.Application.Services.Sms;
 using Framework.Common.Utilities.Downloader;
 using Framework.Infrastructure;
@@ -47,6 +48,7 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddScoped<IEmailSender, GmailSender>();
             services.AddScoped<ISmsSender, KaveNegarSmsSender>();
             services.AddScoped<IDownloader, Downloader>();
+            services.AddScoped<IIPList, IPList>();
 
             // Repositories
             services.AddScoped<IUserRepository, UserRepository>();

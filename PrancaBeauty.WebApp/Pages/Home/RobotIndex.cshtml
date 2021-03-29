@@ -1,0 +1,19 @@
+﻿@page
+
+@model PrancaBeauty.WebApp.Pages.Home.RobotIndexModel
+@{
+    string SiteUrl = (await _SettingApplication.GetSettingAsync(System.Globalization.CultureInfo.CurrentCulture.Name)).SiteUrl;
+}
+@inject PrancaBeauty.Application.Apps.Settings.ISettingApplication _SettingApplication
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PrancaBeauty</title>
+    <meta name="robots" content="noindex" />
+</head>
+<body>
+    <h2><a href="@SiteUrl/fa" title="فروشگاه لوازم ارایشی پرنسا بیوتی">فروشگاه لوازم ارایشی پرنسا بیوتی</a></h2>
+    <h2><a href="@SiteUrl/en" title="Pranca Beauty Cosmetics Store">Pranca Beauty Cosmetics Store</a></h2>
+</body>
+</html>

@@ -59,6 +59,8 @@ namespace PrancaBeauty.WebApp
 
             app.UseJwtAuthentication(AuthConst.CookieName);
 
+            app.UseRedirectNotRobots();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();

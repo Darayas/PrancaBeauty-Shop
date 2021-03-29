@@ -1,8 +1,20 @@
-﻿
+﻿@inject PrancaBeauty.WebApp.Common.Utility.IpAddress.IIpAddressChecker IpAddressChecker
 
 @{
     if (TempData["LangDir"] == null)
     {
-        TempData["LangDir"] = "rtl";
+        string IpAddress = Context.Connection.RemoteIpAddress.ToString();
+        if (IpAddressChecker.CheckIp(IpAddress) == "ir")
+        {
+            TempData["LangDir"] = "rtl";
+        }
+        else if (IpAddressChecker.CheckIp(IpAddress) == "us")
+        {
+            TempData["LangDir"] = "ltr";
+        }
+        else
+        {
+            TempData["LangDir"] = "rtl";
+        }
     }
 }

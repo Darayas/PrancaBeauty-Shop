@@ -9,6 +9,7 @@ namespace PrancaBeauty.Application.Apps.Languages
 {
     public interface ILanguageApplication
     {
+        Task<string> GetAbbrByCodeAsync(string Code);
         Task<List<OutSiteLangCache>> GetAllLanguageForSiteLangAsync();
         Task<string> GetCodeByAbbrAsync(string Abbr);
         Task<string> GetDirectionByCodeAsync(string Code);

@@ -12,6 +12,7 @@ using PrancaBeauty.WebApp.Authentication;
 using PrancaBeauty.WebApp.Common.Utility.IpAddress;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
 using PrancaBeauty.WebApp.Localization;
+using PrancaBeauty.WebApp.Middlewares;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -36,7 +37,7 @@ namespace PrancaBeauty.WebApp.Config
         {
             return services.AddRazorPages(a =>
             {
-                a.Conventions.AddPageRoute("/Home/Index", "");
+                a.Conventions.AddPageRoute("/Home/RobotIndex", "");
             });
         }
 
@@ -93,6 +94,11 @@ namespace PrancaBeauty.WebApp.Config
             services.AddSingleton<IIpAddressChecker, IpAddressChecker>();
 
             return services;
+        }
+
+        public static IApplicationBuilder UseRedirectNotRobots(this IApplicationBuilder app)
+        {
+            return app.UseMiddleware<RedirectWhenNotRobotsMiddleware>();
         }
     }
 }

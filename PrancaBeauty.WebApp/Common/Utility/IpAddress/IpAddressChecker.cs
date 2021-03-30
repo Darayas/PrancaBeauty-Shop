@@ -13,8 +13,7 @@ namespace PrancaBeauty.WebApp.Common.Utility.IpAddress
 
         public IpAddressChecker()
         {
-            IranianIpList = new IPList();
-            UsIpList = new IPList();
+
         }
 
         private void AddIranIpList()
@@ -1401,7 +1400,7 @@ namespace PrancaBeauty.WebApp.Common.Utility.IpAddress
 
         private void AddUsIpList()
         {
-
+            UsIpList = new IPList();
         }
 
         public string CheckIp(string Ip) 

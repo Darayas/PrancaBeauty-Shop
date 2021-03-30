@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using PrancaBeauty.Application.Apps.Languages;
+using PrancaBeauty.WebApp.Common.Utility.IpAddress;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +23,23 @@ namespace PrancaBeauty.WebApp.Localization
 
             var LangCode = await _LanguageApplication.GetCodeByAbbrAsync(CultureName);
             if (LangCode == null)
-                LangCode = "fa-IR";
+            {
+                var _IpAddressChecker= (IIpAddressChecker)httpContext.RequestServices.GetService(typeof(IIpAddressChecker));
+                string _IpAddress = httpContext.Connection.RemoteIpAddress.ToString();
+
+                if (_IpAddressChecker.CheckIp(_IpAddress) == "ir")
+                {
+                    LangCode = "fa-IR";
+                }
+                else if (_IpAddressChecker.CheckIp(_IpAddress) == "us")
+                {
+                    LangCode = "en-US";
+                }
+                else
+                {
+                    LangCode = "fa-IR";
+                }
+            }
 
             return new ProviderCultureResult(LangCode, LangCode);
         }

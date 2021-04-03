@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <Folder Include="Models\ViewModel\" />
+    <Folder Include="wwwroot\Admin\css\" />
     <Folder Include="wwwroot\FileServer\Flags\" />
   </ItemGroup>
 

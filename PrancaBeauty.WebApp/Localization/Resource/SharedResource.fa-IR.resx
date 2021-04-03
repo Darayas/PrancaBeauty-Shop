@@ -123,6 +123,9 @@
   <data name="AccountCreateMsg" xml:space="preserve">
     <value>حساب کاربر با موفیت ایجاد شد. لطفا ایمیل خود را برسی کنید و &lt;b&gt;روی لینک فعالسازی کلیک نمایید&lt;/b&gt;.</value>
   </data>
+  <data name="AdminPanel" xml:space="preserve">
+    <value>پنل مدیریت</value>
+  </data>
   <data name="Code" xml:space="preserve">
     <value>کد</value>
   </data>
@@ -137,6 +140,9 @@
   </data>
   <data name="ConfirmPassword" xml:space="preserve">
     <value>تایید کلمه عبور</value>
+  </data>
+  <data name="Dashborad" xml:space="preserve">
+    <value>پیشخوان</value>
   </data>
   <data name="DefaultError" xml:space="preserve">
     <value>خطایی ناشناخته رخ داد. لطفا بعدا مجدد امتحان کنید</value>
@@ -315,6 +321,9 @@
   <data name="SendAuthCode" xml:space="preserve">
     <value>ارسال کد احراز هویت</value>
   </data>
+  <data name="ShopMainPage" xml:space="preserve">
+    <value>فروشگاه</value>
+  </data>
   <data name="SmsSenderNotRespond" xml:space="preserve">
     <value>سرویس دهنده ی پیامک پاسخ گو نیست</value>
   </data>
@@ -338,6 +347,9 @@
   </data>
   <data name="UserNotInRole" xml:space="preserve">
     <value>کاربر عضو این Role نمیباشد</value>
+  </data>
+  <data name="UserPanel" xml:space="preserve">
+    <value>پنل کاربری</value>
   </data>
   <data name="YourAccountIsDisabled" xml:space="preserve">
     <value>حساب کاربری شما غیرفعال شده است. لطفا با مدیریت در ارتباط باشید.</value>

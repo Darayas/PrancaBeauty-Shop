@@ -30,6 +30,8 @@ namespace PrancaBeauty.WebApp
 
             services.WebEncoderConfig();
 
+            services.AddCustomAuthorization();
+
             services.AddRazorPage()
                     .AddCustomViewLocalization("Localization/Resource")
                     .AddCustomDataAnnotationLocalization(services, typeof(SharedResource));

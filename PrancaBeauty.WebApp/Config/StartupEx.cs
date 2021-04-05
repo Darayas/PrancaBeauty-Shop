@@ -33,11 +33,20 @@ namespace PrancaBeauty.WebApp.Config
             });
         }
 
+        public static IServiceCollection AddCustomAuthorization(this IServiceCollection services)
+        {
+            return services.AddAuthorization(opt =>
+            {
+                opt.AddPolicy("AdminPanelPolicy", pol => pol.RequireRole(new string[] { "AdminPage" }));
+            });
+        }
+
         public static IMvcBuilder AddRazorPage(this IServiceCollection services)
         {
             return services.AddRazorPages(a =>
             {
                 a.Conventions.AddPageRoute("/Home/RobotIndex", "");
+                a.Conventions.AuthorizeFolder("/Admin/", "AdminPanelPolicy");
             });
         }
 

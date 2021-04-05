@@ -19,17 +19,17 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
         }
         public void Run()
         {
-            if (!_repRoles.Get.Any(a => a.Name == "FullControl"))
+            if (!_repRoles.Get.Any(a => a.Name == "AdminPage"))
             {
                 _repRoles.AddAsync(new tblRoles()
                 {
                     Id = new Guid().SequentialGuid(),
                     ParentId = null,
-                    PageName = "FullControl",
+                    PageName = "AdminPage",
                     Sort = 0,
-                    Name = "FullControl",
-                    NormalizedName = "FullControl".ToUpper(),
-                    Description = "دسترسی مدیر کل"
+                    Name = "AdminPage",
+                    NormalizedName = "AdminPage".ToUpper(),
+                    Description = "دسترسی به پنل مدیریت"
                 }, default, false).Wait();
             }
 

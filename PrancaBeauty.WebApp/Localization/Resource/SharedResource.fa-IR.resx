@@ -123,6 +123,9 @@
   <data name="AccountCreateMsg" xml:space="preserve">
     <value>حساب کاربر با موفیت ایجاد شد. لطفا ایمیل خود را برسی کنید و &lt;b&gt;روی لینک فعالسازی کلیک نمایید&lt;/b&gt;.</value>
   </data>
+  <data name="AddNewAccessLevel" xml:space="preserve">
+    <value>افزودن</value>
+  </data>
   <data name="AdminPanel" xml:space="preserve">
     <value>پنل مدیریت</value>
   </data>
@@ -219,6 +222,9 @@
   <data name="LinkExipred" xml:space="preserve">
     <value>لینک منقضی شده است. لطفا مجددا اقدام نمایید</value>
   </data>
+  <data name="ListAccessLevel" xml:space="preserve">
+    <value>لیست سطوح دسترسی</value>
+  </data>
   <data name="Login" xml:space="preserve">
     <value>ورود به سایت</value>
   </data>
@@ -242,6 +248,9 @@
   </data>
   <data name="LostYourPassword?" xml:space="preserve">
     <value>کلمه عبور را فراموش کرده اید؟</value>
+  </data>
+  <data name="ManageAccessLevel" xml:space="preserve">
+    <value>مدریت سطوح دسترسی</value>
   </data>
   <data name="MobilePattern" xml:space="preserve">
     <value>^[0][9][0-9]{9}$</value>

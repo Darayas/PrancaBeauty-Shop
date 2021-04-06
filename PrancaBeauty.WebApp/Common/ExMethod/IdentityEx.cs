@@ -16,12 +16,12 @@ namespace PrancaBeauty.WebApp.Common.ExMethod
 
             var UserData = new vmGetUserDetails()
             {
-                UserId = user.Claims.Where(a => a.Type == "nameidentifier").Select(a => a.Value).SingleOrDefault() ?? "",
-                UserName = user.Claims.Where(a => a.Type == "name").Select(a => a.Value).SingleOrDefault() ?? "",
-                Email = user.Claims.Where(a => a.Type == "email").Select(a => a.Value).SingleOrDefault() ?? "",
-                MobileNumber = user.Claims.Where(a => a.Type == "mobilephone").Select(a => a.Value).SingleOrDefault() ?? "",
-                GivenName = user.Claims.Where(a => a.Type == "givenname").Select(a => a.Value).SingleOrDefault() ?? "",
-                Surname = user.Claims.Where(a => a.Type == "surname").Select(a => a.Value).SingleOrDefault() ?? "",
+                UserId = user.Claims.Where(a => a.Type == ClaimTypes.NameIdentifier).Select(a => a.Value).SingleOrDefault() ?? "",
+                UserName = user.Claims.Where(a => a.Type == ClaimTypes.Name).Select(a => a.Value).SingleOrDefault() ?? "",
+                Email = user.Claims.Where(a => a.Type == ClaimTypes.Email).Select(a => a.Value).SingleOrDefault() ?? "",
+                MobileNumber = user.Claims.Where(a => a.Type == ClaimTypes.MobilePhone).Select(a => a.Value).SingleOrDefault() ?? "",
+                GivenName = user.Claims.Where(a => a.Type == ClaimTypes.GivenName).Select(a => a.Value).SingleOrDefault() ?? "",
+                Surname = user.Claims.Where(a => a.Type == ClaimTypes.Surname).Select(a => a.Value).SingleOrDefault() ?? "",
                 AccessLevel = user.Claims.Where(a => a.Type == "AccessLevel").Select(a => a.Value).SingleOrDefault() ?? "",
                 Date = DateTime.Parse(user.Claims.Where(a => a.Type == "Date").Select(a => a.Value).SingleOrDefault() ?? DateTime.MinValue.ToString()),
             };

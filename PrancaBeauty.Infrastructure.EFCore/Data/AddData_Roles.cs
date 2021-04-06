@@ -33,6 +33,39 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                 }, default, false).Wait();
             }
 
+            #region ManageAccessLevelPage
+            {
+                Guid _Id = new Guid().SequentialGuid();
+                if (!_repRoles.Get.Any(a => a.Name == "CanManageAccessLevel"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = _Id,
+                        ParentId = null,
+                        PageName = "ManageAccessLevelPage",
+                        Sort = 10,
+                        Name = "CanManageAccessLevel",
+                        NormalizedName = "CanManageAccessLevel".ToUpper(),
+                        Description = "توانایی مدیریت سطوح دسترسی"
+                    }, default, false).Wait();
+                }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanViewListAccessLevel"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageAccessLevelPage",
+                        Sort = 20,
+                        Name = "CanViewListAccessLevel",
+                        NormalizedName = "CanViewListAccessLevel".ToUpper(),
+                        Description = "توانایی مشاهده لیست سطوح دسترسی"
+                    }, default, false).Wait();
+                }
+            }
+            #endregion
+
             _repRoles.SaveChangeAsync().Wait();
         }
     }

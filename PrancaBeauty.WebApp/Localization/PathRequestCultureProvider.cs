@@ -24,7 +24,10 @@ namespace PrancaBeauty.WebApp.Localization
             var LangCode = await _LanguageApplication.GetCodeByAbbrAsync(CultureName);
             if (LangCode == null)
             {
-                var _IpAddressChecker= (IIpAddressChecker)httpContext.RequestServices.GetService(typeof(IIpAddressChecker));
+                //httpContext.Response.Redirect("/fa");
+                //return new ProviderCultureResult("fa-IR", "fa-IR");
+
+                var _IpAddressChecker = (IIpAddressChecker)httpContext.RequestServices.GetService(typeof(IIpAddressChecker));
                 string _IpAddress = httpContext.Connection.RemoteIpAddress.ToString();
 
                 if (_IpAddressChecker.CheckIp(_IpAddress) == "ir")

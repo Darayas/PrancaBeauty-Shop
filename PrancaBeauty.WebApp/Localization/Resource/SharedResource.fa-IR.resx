@@ -351,6 +351,9 @@
   <data name="UserLockoutNotEnabled" xml:space="preserve">
     <value>این کاربر قفل نشده است و فعال می باشد</value>
   </data>
+  <data name="UserNameOrPasswordIsInvalid" xml:space="preserve">
+    <value>نام کاربری یا کلمه عبور اشتباه است</value>
+  </data>
   <data name="UserNotFound" xml:space="preserve">
     <value>کاربری با این مشخصات یافت نشد</value>
   </data>

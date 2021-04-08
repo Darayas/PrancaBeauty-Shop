@@ -128,9 +128,11 @@ namespace PrancaBeauty.Application.Apps.Users
                     throw new ArgumentNullException("UserName cant be null.");
 
                 if (string.IsNullOrWhiteSpace(Password))
-                    throw new ArgumentNullException("Pawword cant be null.");
+                    throw new ArgumentNullException("Paswword cant be null.");
 
                 var userId = await _UserRepository.GetUserIdByUserNameAsync(UserName);
+                if (userId == null)
+                    return new OperationResult().Failed("UserNameOrPasswordIsInvalid");
 
                 return await LoginAsync(userId, Password);
             }

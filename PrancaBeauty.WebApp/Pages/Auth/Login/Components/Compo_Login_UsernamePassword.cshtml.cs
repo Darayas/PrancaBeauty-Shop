@@ -9,6 +9,7 @@ using PrancaBeauty.WebApp.Authentication;
 using PrancaBeauty.WebApp.Common.ExMethod;
 using PrancaBeauty.WebApp.Common.Types;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
+using PrancaBeauty.WebApp.Localization;
 using PrancaBeauty.WebApp.Models.ViewInput;
 
 namespace PrancaBeauty.WebApp.Pages.Auth.Login.Components
@@ -18,11 +19,13 @@ namespace PrancaBeauty.WebApp.Pages.Auth.Login.Components
         private readonly IMsgBox _MsgBox;
         private readonly IUserApplication _UserApplication;
         private readonly IJWTBuilder _JWTBuilder;
-        public Compo_Login_UsernamePasswordModel(IUserApplication userApplication, IMsgBox msgBox, IJWTBuilder jWTBuilder)
+        private readonly ILocalizer _Localizer;
+        public Compo_Login_UsernamePasswordModel(IUserApplication userApplication, IMsgBox msgBox, IJWTBuilder jWTBuilder, ILocalizer localizer)
         {
             _UserApplication = userApplication;
             _MsgBox = msgBox;
             _JWTBuilder = jWTBuilder;
+            _Localizer = localizer;
         }
 
         public IActionResult OnGet(string ReturnUrl = null)
@@ -48,7 +51,7 @@ namespace PrancaBeauty.WebApp.Pages.Auth.Login.Components
             }
             else
             {
-                return _MsgBox.InfoMsg(Result.Message);
+                return _MsgBox.InfoMsg(_Localizer[Result.Message]);
             }
         }
 

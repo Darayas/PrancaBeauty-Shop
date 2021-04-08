@@ -43,7 +43,7 @@
 
     @RenderSection("styles", false)
 
-    @if (TempData["LangDir"].ToString() == "rtl")
+    @if (ViewData["LangDir"].ToString() == "rtl")
     {
         <!-- Main Style CSS -->
         <link rel="stylesheet" href="~/Main/css/style-rtl.min.css">

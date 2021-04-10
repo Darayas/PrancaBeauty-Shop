@@ -192,8 +192,14 @@
   <data name="Error500" xml:space="preserve">
     <value>عملیات با شکست مواجه شد.</value>
   </data>
+  <data name="First" xml:space="preserve">
+    <value>اولین</value>
+  </data>
   <data name="FirstName" xml:space="preserve">
     <value>نام</value>
+  </data>
+  <data name="GridIsEmpty" xml:space="preserve">
+    <value>رکوردی به جهت نمایش وجود ندارد</value>
   </data>
   <data name="Hello" xml:space="preserve">
     <value>سلام</value>
@@ -212,6 +218,15 @@
   </data>
   <data name="InvalidUserName" xml:space="preserve">
     <value>نام کاربری '{userName}' نامعتبر است، فقط می تواند حاوی حروف و یا اعداد باشد</value>
+  </data>
+  <data name="ItemsPerPage" xml:space="preserve">
+    <value>مورد بر صفحه</value>
+  </data>
+  <data name="KendoOf" xml:space="preserve">
+    <value>از {0}</value>
+  </data>
+  <data name="Last" xml:space="preserve">
+    <value>آخرین</value>
   </data>
   <data name="LastName" xml:space="preserve">
     <value>نام خانوادگی</value>
@@ -255,8 +270,20 @@
   <data name="MobilePattern" xml:space="preserve">
     <value>^[0][9][0-9]{9}$</value>
   </data>
+  <data name="MorePages" xml:space="preserve">
+    <value>صفحات بیشتر</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>بعدی</value>
+  </data>
   <data name="OK" xml:space="preserve">
     <value>باشه</value>
+  </data>
+  <data name="Page" xml:space="preserve">
+    <value>صفحه</value>
+  </data>
+  <data name="PageableMsg" xml:space="preserve">
+    <value>{0} تا {1} از {2} مورد</value>
   </data>
   <data name="PassCompareMsg" xml:space="preserve">
     <value>کلمه عبور با تکرار آن یکسان نیست.</value>
@@ -303,8 +330,14 @@
   <data name="PleaseConfirmYourPhoneNumber" xml:space="preserve">
     <value>شماره موبایل شمت تایید نشده است لطفا ابتدا آن را تایید نمایید</value>
   </data>
+  <data name="Previous" xml:space="preserve">
+    <value>قبلی</value>
+  </data>
   <data name="RecoveryCodeRedemptionFailed" xml:space="preserve">
     <value>بازیابی ناموفق بود</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>بارگزاری مجدد</value>
   </data>
   <data name="Register" xml:space="preserve">
     <value>ثبت نام</value>

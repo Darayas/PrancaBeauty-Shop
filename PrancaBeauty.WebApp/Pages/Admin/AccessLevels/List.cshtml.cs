@@ -15,6 +15,10 @@ namespace PrancaBeauty.WebApp.Pages.Admin.AccessLevels
             return Page();
         }
 
-        
+        public async Task OnPostReadDataAsync()
+        {
+
+        }
+
     }
 }

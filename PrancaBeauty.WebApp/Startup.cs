@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.WebEncoders;
+using Newtonsoft.Json.Serialization;
 using PrancaBeauty.Infrastructure.Core.Configuration;
 using PrancaBeauty.Infrastructure.EFCore.Data;
 using PrancaBeauty.WebApp.Authentication;
@@ -34,7 +35,8 @@ namespace PrancaBeauty.WebApp
 
             services.AddRazorPage()
                     .AddCustomViewLocalization("Localization/Resource")
-                    .AddCustomDataAnnotationLocalization(services, typeof(SharedResource));
+                    .AddCustomDataAnnotationLocalization(services, typeof(SharedResource))
+                    .AddNewtonsoftJson(opt => opt.SerializerSettings.ContractResolver = new DefaultContractResolver());
 
             services.Config();
 
@@ -44,6 +46,8 @@ namespace PrancaBeauty.WebApp
                     .AddErrorDescriber<CustomErrorDescriber>();
 
             services.AddJwtAuthentication(AuthConst.SecretCode, AuthConst.SecretKey, AuthConst.Audience, AuthConst.Issuer);
+
+            services.AddKendo();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -5,6 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\Shared\js\SharedScript.min.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\Shared\js\SharedScript.min.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -20,6 +28,10 @@
   <ItemGroup>
     <Folder Include="wwwroot\Admin\css\" />
     <Folder Include="wwwroot\FileServer\Flags\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Shared\js\SharedScript.min.js" />
   </ItemGroup>
 
 </Project>

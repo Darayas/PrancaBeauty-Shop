@@ -16,5 +16,11 @@
     "inputFiles": [
       "wwwroot/lib/countdown-timer-controls/jquery-countdown-timer-control.js"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/Shared/js/SharedScript.min.js",
+    "inputFiles": [
+      "wwwroot/Shared/js/SharedScript.js"
+    ]
   }
 ]

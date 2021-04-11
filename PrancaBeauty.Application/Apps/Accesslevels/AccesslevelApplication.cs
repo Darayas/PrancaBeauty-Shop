@@ -44,13 +44,17 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
                 if (Take < 1)
                     throw new Exception("Take < 1");
 
+                Title = string.IsNullOrWhiteSpace(Title) ? null : Title;
+
                 // آماده سازی اولیه ی کویری
                 var qData = _AccessLevelRepository.Get.Select(a => new OutGetListForAdminPage
                 {
                     Id = a.Id.ToString(),
                     Name = a.Name,
                     CountUser = a.tblUsers.Count()
-                }).OrderBy(a => a.Name);
+                })
+                .Where(a => Title != null ? a.Name.Contains(Title) : true)
+                .OrderBy(a => a.Name);
 
                 // صفحه بندی داده ها
                 var qPagingData = PagingData.Calc(await qData.LongCountAsync(), PageNum, Take);

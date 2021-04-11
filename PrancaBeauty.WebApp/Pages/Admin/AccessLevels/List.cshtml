@@ -30,19 +30,21 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            @(Html.Kendo()
+                            <div class="k-lang">
+                                @(Html.Kendo()
                                   .Grid<PrancaBeauty.Application.Contracts.AccessLevels.OutGetListForAdminPage>()
                                   .Name("ListAccessLevel")
                                   .DefaultSettings(Localizer)
                                   .Columns(col=> {
                                       col.Bound(a => a.Id).Hidden().HtmlAttributes(new { @class = "RowId" }).Sortable(false);
                                       col.Bound(a => a.Name).Sortable(false);
-                                      col.Bound(a => a.CountUser).Sortable(false).Width(100);
+                                      col.Bound(a => a.CountUser).Sortable(false).Width(150);
                                       col.Bound(a => a).Width(50).Title(" ");
                                   })
                                   .DataSource(ds=>ds.Ajax()
-                                                    .PageSize(10)
+                                                    .PageSize(1)
                                                     .Read(read=>read.Url($"/{CultureInfo.CurrentCulture.Parent.Name}/Admin/AccessLevel/List?handler=ReadData").Data("forgeryToken"))))
+                            </div>
                         </div>
                     </div>
                 </div>

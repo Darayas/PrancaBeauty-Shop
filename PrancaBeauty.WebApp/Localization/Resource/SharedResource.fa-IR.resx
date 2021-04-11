@@ -144,6 +144,9 @@
   <data name="ConfirmPassword" xml:space="preserve">
     <value>تایید کلمه عبور</value>
   </data>
+  <data name="CountUser" xml:space="preserve">
+    <value>تعداد کاربران</value>
+  </data>
   <data name="Dashborad" xml:space="preserve">
     <value>پیشخوان</value>
   </data>
@@ -371,6 +374,9 @@
   </data>
   <data name="StringLengthMsg" xml:space="preserve">
     <value>{0} باید بین {2} تا {1} کاراکتر باشد</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>عنوان</value>
   </data>
   <data name="UserAlreadyHasPassword" xml:space="preserve">
     <value>کاربر از قبل دارای کلمه عبور می باشد</value>

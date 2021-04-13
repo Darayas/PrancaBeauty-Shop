@@ -11,8 +11,7 @@ namespace PrancaBeauty.WebApp.Common.ExMethod
     {
         public static GridBuilder<T> DefaultSettings<T>(this GridBuilder<T> builder, ILocalizer localizer) where T : class
         {
-            builder.Scrollable(a => a.Height("auto"))
-                   .Pageable(a =>
+            builder.Pageable(a =>
                    {
                        a.Messages(msg =>
                        {

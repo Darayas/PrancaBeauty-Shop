@@ -11,5 +11,7 @@ namespace PrancaBeauty.WebApp.Authentication
         public const string CanManageAccessLevel = "CanManageAccessLevel";
         public const string CanViewListAccessLevel = "CanViewListAccessLevel";
         public const string CanAddAccessLevel = "CanAddAccessLevel";
+        public const string CanEditAccessLevel = "CanEditAccessLevel";
+        public const string CanRemoveAccessLevel = "CanRemoveAccessLevel";
     }
 }

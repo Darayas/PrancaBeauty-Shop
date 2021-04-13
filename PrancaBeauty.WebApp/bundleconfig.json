@@ -22,5 +22,11 @@
     "inputFiles": [
       "wwwroot/Shared/js/SharedScript.js"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/lib/KendoUI/css/kendo.theme.min.css",
+    "inputFiles": [
+      "wwwroot/lib/KendoUI/css/kendo.theme.css"
+    ]
   }
 ]

@@ -62,7 +62,23 @@
     <div class="item-action dropdown">
         <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fa fa-bars fs-16 text-dark"></i></a>
         <div class="dropdown-menu dropdown-menu-left">
-            <a href="" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i>ویرایش</a>
+            @if (User.IsInRole(Roles.CanEditAccessLevel))
+            {
+            <a href="" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i>@Localizer["Edit"]</a>
+            }
+            @if (User.IsInRole(Roles.CanRemoveAccessLevel))
+            {
+            <a href="" class="dropdown-item"><i class="dropdown-icon fa fa-times"></i>@Localizer["Remove"]</a>
+            }
         </div>
     </div>
 </script>
+
+@if (User.IsInRole(Roles.CanAddAccessLevel))
+{
+    <script>
+        function Add() {
+            location.href = '/@ViewData["Culture"]/Admin/AccessLevel/Add?ReturnUrl=@(System.Net.WebUtility.UrlEncode(Request.GetCurrentUrl()))';
+        }
+    </script>
+}

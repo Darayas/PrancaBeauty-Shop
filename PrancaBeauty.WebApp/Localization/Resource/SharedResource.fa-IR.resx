@@ -123,6 +123,9 @@
   <data name="AccountCreateMsg" xml:space="preserve">
     <value>حساب کاربر با موفیت ایجاد شد. لطفا ایمیل خود را برسی کنید و &lt;b&gt;روی لینک فعالسازی کلیک نمایید&lt;/b&gt;.</value>
   </data>
+  <data name="AddAccessLevel" xml:space="preserve">
+    <value>افزودن سطح دسترسی جدید</value>
+  </data>
   <data name="AddNewAccessLevel" xml:space="preserve">
     <value>افزودن</value>
   </data>
@@ -161,6 +164,9 @@
   </data>
   <data name="DuplicateUserName" xml:space="preserve">
     <value>نام کاربری تکراری میباشد</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>ویرایش</value>
   </data>
   <data name="Email" xml:space="preserve">
     <value>ایمیل</value>
@@ -276,6 +282,9 @@
   <data name="MorePages" xml:space="preserve">
     <value>صفحات بیشتر</value>
   </data>
+  <data name="Name" xml:space="preserve">
+    <value>نام</value>
+  </data>
   <data name="Next" xml:space="preserve">
     <value>بعدی</value>
   </data>
@@ -357,11 +366,17 @@
   <data name="RemmeberMe" xml:space="preserve">
     <value>مرا بخاطر بسپار</value>
   </data>
+  <data name="Remove" xml:space="preserve">
+    <value>حذف</value>
+  </data>
   <data name="RequiredMsg" xml:space="preserve">
     <value>{0} را وارد نمایید.</value>
   </data>
   <data name="Resend" xml:space="preserve">
     <value>ارسال مجدد</value>
+  </data>
+  <data name="Roles" xml:space="preserve">
+    <value>نقش ها</value>
   </data>
   <data name="SendAuthCode" xml:space="preserve">
     <value>ارسال کد احراز هویت</value>

@@ -156,6 +156,9 @@
   <data name="DefaultError" xml:space="preserve">
     <value>خطایی ناشناخته رخ داد. لطفا بعدا مجدد امتحان کنید</value>
   </data>
+  <data name="Description" xml:space="preserve">
+    <value>توضیحات</value>
+  </data>
   <data name="DuplicateEmail" xml:space="preserve">
     <value>ایمیل تکراری میبشاد</value>
   </data>
@@ -296,6 +299,9 @@
   </data>
   <data name="PageableMsg" xml:space="preserve">
     <value>{0} تا {1} از {2} مورد</value>
+  </data>
+  <data name="PageName" xml:space="preserve">
+    <value>عنوان بخش</value>
   </data>
   <data name="PassCompareMsg" xml:space="preserve">
     <value>کلمه عبور با تکرار آن یکسان نیست.</value>

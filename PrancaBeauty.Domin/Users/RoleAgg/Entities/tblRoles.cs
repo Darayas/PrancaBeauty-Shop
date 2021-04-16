@@ -14,7 +14,9 @@ namespace PrancaBeauty.Domin.Users.RoleAgg.Entities
         public int Sort { get; set; }
         public string Description { get; set; }
 
-
+        public virtual tblRoles tblRoles_Parent { get; set; }
+        public virtual ICollection<tblRoles> tblRoles_Childs { get; set; }
         public virtual ICollection<tblAccessLevel_Roles> tblAccessLevel_Roles { get; set; }
+
     }
 }

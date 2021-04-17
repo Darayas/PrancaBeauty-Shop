@@ -51,7 +51,7 @@ namespace PrancaBeauty.WebApp.Pages.Admin.AccessLevels.Componenets
             return new JsonResult(await qData.ToDataSourceResultAsync(request));
         }
 
-        [BindProperty]
+        [BindProperty(SupportsGet = true)]
         public viCompo_ListGridRolesModel Input { get; set; }
     }
 }

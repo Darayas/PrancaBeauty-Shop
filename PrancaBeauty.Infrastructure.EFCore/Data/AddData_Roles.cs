@@ -49,6 +49,10 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                         Description = "توانایی مدیریت سطوح دسترسی"
                     }, default, false).Wait();
                 }
+                else
+                {
+                    _Id = _repRoles.Get.Where(a => a.Name == "CanManageAccessLevel").Select(a => a.Id).Single();
+                }
 
                 if (!_repRoles.Get.Any(a => a.Name == "CanViewListAccessLevel"))
                 {

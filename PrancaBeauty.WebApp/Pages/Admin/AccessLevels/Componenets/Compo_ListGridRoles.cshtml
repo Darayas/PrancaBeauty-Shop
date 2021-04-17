@@ -1,6 +1,11 @@
 ﻿@page "/Admin/AccessLevel/Compo/ListGridRoles"
 @model PrancaBeauty.WebApp.Pages.Admin.AccessLevels.Componenets.Compo_ListGridRolesModel
 
+<script>
+    function onDataBound(e) {
+
+    }
+</script>
 
 <div class="k-lang">
     @(Html.Kendo()
@@ -8,14 +13,90 @@
           .Name("ListRoles")
           .DefaultSettings(Localizer)
           .Pageable(a=>a.Enabled(false))
-          .Sortable()
-          .Columns(col=> { })
+          .Sortable(false)
+          .Columns(col=> {
+              col.Bound(a => a.Id).Title(" ").Sortable(false).Width(50).ClientTemplate("<input value='#=Id#' name='Input.Roles' class='k-checkbox' type='checkbox'/>");
+              col.Bound(a => a.PageName).Sortable(false);
+              col.Bound(a => a.Name).Sortable(false);
+              col.Bound(a => a.Description).Sortable(false);
+          })
           .PersistSelection()
           .Events(a=> {
-              a.DataBound("");
+              a.DataBound("onDataBound");
           })
-          .ClientDetailTemplateId("")
+          .ClientDetailTemplateId("ListAccessLevelTmpl")
           .DataSource(ds=> ds.Ajax()
                              .Model(model=> model.Id(a=>a.Id))
                              .Read(read=> read.Url("/Admin/AccessLevel/Compo/ListGridRoles?handler=Read").Data("forgeryToken"))))
 </div>
+
+<script id="ListAccessLevelTmpl" type="text/kendo-tmpl">
+    @(Html.Kendo()
+          .Grid<vmCompo_ListGridRolesModel>()
+          .Name("ListRoles_Child#=Id#")
+          .DefaultSettings(Localizer)
+          .Pageable(a=>a.Enabled(false))
+          .Sortable(false)
+          .Columns(col=> {
+              col.Bound(a => a.Id).Title(" ").Sortable(false).Width(50).ClientTemplate("<input value='\\#=Id\\#' name='Input.Roles' class='k-checkbox' type='checkbox'/>");
+              col.Bound(a => a.PageName).Sortable(false);
+              col.Bound(a => a.Name).Sortable(false);
+              col.Bound(a => a.Description).Sortable(false);
+          })
+          .PersistSelection()
+          .Events(a=> {
+              a.DataBound("onDataBound");
+          })
+          .ClientDetailTemplateId("ListAccessLevelTmpl_ChildTmpl")
+          .DataSource(ds=> ds.Ajax()
+                             .Model(model=> model.Id(a=>a.Id))
+                             .Read(read=> read.Url("/Admin/AccessLevel/Compo/ListGridRoles?handler=Read&ParentId=#=Id#").Data("forgeryToken")))
+          .ToClientTemplate())
+</script>
+
+<script id="ListAccessLevelTmpl_ChildTmpl" type="text/kendo-tmpl">
+     @(Html.Kendo()
+          .Grid<vmCompo_ListGridRolesModel>()
+          .Name("ListRoles_Child#=Id#")
+          .DefaultSettings(Localizer)
+          .Pageable(a=>a.Enabled(false))
+          .Sortable(false)
+          .Columns(col=> {
+              col.Bound(a => a.Id).Title(" ").Sortable(false).Width(50).ClientTemplate("<input value='\\#=Id\\#' name='Input.Roles' class='k-checkbox' type='checkbox'/>");
+              col.Bound(a => a.PageName).Sortable(false);
+              col.Bound(a => a.Name).Sortable(false);
+              col.Bound(a => a.Description).Sortable(false);
+          })
+          .PersistSelection()
+          .Events(a=> {
+              a.DataBound("onDataBound");
+          })
+          .ClientDetailTemplateId("ListAccessLevelTmpl_ChildTmpl_Child")
+          .DataSource(ds=> ds.Ajax()
+                             .Model(model=> model.Id(a=>a.Id))
+                             .Read(read=> read.Url("/Admin/AccessLevel/Compo/ListGridRoles?handler=Read&ParentId=#=Id#").Data("forgeryToken")))
+          .ToClientTemplate())
+</script>
+
+<script id="ListAccessLevelTmpl_ChildTmpl_Child" type="text/kendo-tmpl">
+     @(Html.Kendo()
+          .Grid<vmCompo_ListGridRolesModel>()
+          .Name("ListRoles_Child#=Id#")
+          .DefaultSettings(Localizer)
+          .Pageable(a=>a.Enabled(false))
+          .Sortable(false)
+          .Columns(col=> {
+              col.Bound(a => a.Id).Title(" ").Sortable(false).Width(50).ClientTemplate("<input value='\\#=Id\\#' name='Input.Roles' class='k-checkbox' type='checkbox'/>");
+              col.Bound(a => a.PageName).Sortable(false);
+              col.Bound(a => a.Name).Sortable(false);
+              col.Bound(a => a.Description).Sortable(false);
+          })
+          .PersistSelection()
+          .Events(a=> {
+              a.DataBound("onDataBound");
+          })
+          .DataSource(ds=> ds.Ajax()
+                             .Model(model=> model.Id(a=>a.Id))
+                             .Read(read=> read.Url("/Admin/AccessLevel/Compo/ListGridRoles?handler=Read&ParentId=#=Id#").Data("forgeryToken")))
+          .ToClientTemplate())
+</script>

@@ -210,6 +210,9 @@
   <data name="FirstName" xml:space="preserve">
     <value>نام</value>
   </data>
+  <data name="GotoList" xml:space="preserve">
+    <value>بازگشت به لیست</value>
+  </data>
   <data name="GridIsEmpty" xml:space="preserve">
     <value>رکوردی به جهت نمایش وجود ندارد</value>
   </data>
@@ -383,6 +386,9 @@
   </data>
   <data name="Roles" xml:space="preserve">
     <value>نقش ها</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>ذخیره</value>
   </data>
   <data name="SendAuthCode" xml:space="preserve">
     <value>ارسال کد احراز هویت</value>

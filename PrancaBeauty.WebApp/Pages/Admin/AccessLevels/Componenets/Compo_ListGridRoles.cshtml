@@ -2,8 +2,21 @@
 @model PrancaBeauty.WebApp.Pages.Admin.AccessLevels.Componenets.Compo_ListGridRolesModel
 
 <script>
-    function onDataBound(e) {
+    function IsSelected(_Id) {
+        return '';
+    }
 
+    function onDataBound(e) {
+        var data = this.dataSource.data();
+
+        $.each(data, function (i, row) {
+            if (row.get("HasChild") == false) {
+                $('tr[data-uid="' + row.uid + '"]').find(".k-hierarchy-cell a").remove();
+            }
+        });
+
+        this.expandRow(this.tbody.find("tr.k-master-row"));
+        this.collapseRow(this.tbody.find("tr.k-master-row"));
     }
 </script>
 
@@ -15,7 +28,7 @@
           .Pageable(a=>a.Enabled(false))
           .Sortable(false)
           .Columns(col=> {
-              col.Bound(a => a.Id).Title(" ").Sortable(false).Width(50).ClientTemplate("<input value='#=Id#' name='Input.Roles' class='k-checkbox' type='checkbox'/>");
+              col.Bound(a => a.Id).Title(" ").Sortable(false).Width(50).ClientTemplate("<input #=IsSelected(Id)# value='#=Id#' name='Input.Roles' class='k-checkbox' type='checkbox'/>");
               col.Bound(a => a.PageName).Sortable(false);
               col.Bound(a => a.Name).Sortable(false);
               col.Bound(a => a.Description).Sortable(false);
@@ -38,7 +51,7 @@
           .Pageable(a=>a.Enabled(false))
           .Sortable(false)
           .Columns(col=> {
-              col.Bound(a => a.Id).Title(" ").Sortable(false).Width(50).ClientTemplate("<input value='\\#=Id\\#' name='Input.Roles' class='k-checkbox' type='checkbox'/>");
+              col.Bound(a => a.Id).Title(" ").Sortable(false).Width(50).ClientTemplate("<input \\#=IsSelected(Id)\\# value='\\#=Id\\#' name='Input.Roles' class='k-checkbox' type='checkbox'/>");
               col.Bound(a => a.PageName).Sortable(false);
               col.Bound(a => a.Name).Sortable(false);
               col.Bound(a => a.Description).Sortable(false);
@@ -62,7 +75,7 @@
           .Pageable(a=>a.Enabled(false))
           .Sortable(false)
           .Columns(col=> {
-              col.Bound(a => a.Id).Title(" ").Sortable(false).Width(50).ClientTemplate("<input value='\\#=Id\\#' name='Input.Roles' class='k-checkbox' type='checkbox'/>");
+              col.Bound(a => a.Id).Title(" ").Sortable(false).Width(50).ClientTemplate("<input \\#=IsSelected(Id)\\# value='\\#=Id\\#' name='Input.Roles' class='k-checkbox' type='checkbox'/>");
               col.Bound(a => a.PageName).Sortable(false);
               col.Bound(a => a.Name).Sortable(false);
               col.Bound(a => a.Description).Sortable(false);
@@ -86,7 +99,7 @@
           .Pageable(a=>a.Enabled(false))
           .Sortable(false)
           .Columns(col=> {
-              col.Bound(a => a.Id).Title(" ").Sortable(false).Width(50).ClientTemplate("<input value='\\#=Id\\#' name='Input.Roles' class='k-checkbox' type='checkbox'/>");
+              col.Bound(a => a.Id).Title(" ").Sortable(false).Width(50).ClientTemplate("<input \\#=IsSelected(Id)\\# value='\\#=Id\\#' name='Input.Roles' class='k-checkbox' type='checkbox'/>");
               col.Bound(a => a.PageName).Sortable(false);
               col.Bound(a => a.Name).Sortable(false);
               col.Bound(a => a.Description).Sortable(false);

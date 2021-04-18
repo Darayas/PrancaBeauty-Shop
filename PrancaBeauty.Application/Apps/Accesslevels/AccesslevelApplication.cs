@@ -2,6 +2,7 @@
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Contracts.AccessLevels;
+using PrancaBeauty.Application.Contracts.Results;
 using PrancaBeauty.Domin.Users.AccessLevelAgg.Contracts;
 using System;
 using System.Collections.Generic;
@@ -66,6 +67,12 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
                 _Logger.Error(ex);
                 return (null, null);
             }
+        }
+
+        public async Task<OperationResult> AddNewAsync(InpAddNewAccessLevel Input)
+        {
+
+            return default;
         }
     }
 }

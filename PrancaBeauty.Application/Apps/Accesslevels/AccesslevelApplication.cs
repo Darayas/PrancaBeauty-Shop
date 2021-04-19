@@ -1,9 +1,12 @@
-﻿using Framework.Common.Utilities.Paging;
+﻿using Framework.Common.ExMethods;
+using Framework.Common.Utilities.Paging;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Contracts.AccessLevels;
 using PrancaBeauty.Application.Contracts.Results;
+using PrancaBeauty.Application.Exceptions;
 using PrancaBeauty.Domin.Users.AccessLevelAgg.Contracts;
+using PrancaBeauty.Domin.Users.AccessLevelAgg.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -71,8 +74,39 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
 
         public async Task<OperationResult> AddNewAsync(InpAddNewAccessLevel Input)
         {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(Input.Name))
+                    throw new ArgumentInvalidException("Name cant be null.", new ArgumentNullException());
 
-            return default;
+                if (Input.Roles == null)
+                    throw new ArgumentInvalidException("Roles cant be null.", new ArgumentNullException());
+
+                if (await _AccessLevelRepository.Get.AnyAsync(a => a.Name == Input.Name))
+                    throw new ArgumentInvalidException("Name is duplicate.", new ArgumentNullException());
+
+                await _AccessLevelRepository.AddAsync(new tblAccessLevels
+                {
+                    Id = new Guid().SequentialGuid(),
+                    Name = Input.Name,
+                    tblAccessLevel_Roles = Input.Roles.Select(roleId => new tblAccessLevel_Roles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        RoleId = Guid.Parse(roleId)
+                    }).ToList()
+                }, default, true);
+
+                return new OperationResult().Succeeded();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
         }
     }
 }

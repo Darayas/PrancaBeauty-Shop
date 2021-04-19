@@ -17,6 +17,14 @@ namespace PrancaBeauty.Application.Contracts.Results
             IsSucceeded = false;
         }
 
+        public OperationResult Succeeded()
+        {
+            IsSucceeded = true;
+            Message = "Operation was successded";
+
+            return this;
+        }
+
         public OperationResult Succeeded(string _Message)
         {
             IsSucceeded = true;

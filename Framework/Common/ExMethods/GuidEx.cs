@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PrancaBeauty.Infrastructure.EFCore.Common.ExMethods
+namespace Framework.Common.ExMethods
 {
     public static class GuidEx
     {

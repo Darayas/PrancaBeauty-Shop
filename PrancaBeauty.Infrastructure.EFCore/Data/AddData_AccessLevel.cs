@@ -1,7 +1,7 @@
-﻿using Framework.Infrastructure;
+﻿using Framework.Common.ExMethods;
+using Framework.Infrastructure;
 using PrancaBeauty.Domin.Users.AccessLevelAgg.Entities;
 using PrancaBeauty.Domin.Users.RoleAgg.Entities;
-using PrancaBeauty.Infrastructure.EFCore.Common.ExMethods;
 using PrancaBeauty.Infrastructure.EFCore.Context;
 using System;
 using System.Collections.Generic;

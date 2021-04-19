@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Framework.Common.ExMethods;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using PrancaBeauty.Domin.Users.RoleAgg.Entities;
-using PrancaBeauty.Infrastructure.EFCore.Common.ExMethods;
 using System;
 using System.Collections.Generic;
 using System.Linq;

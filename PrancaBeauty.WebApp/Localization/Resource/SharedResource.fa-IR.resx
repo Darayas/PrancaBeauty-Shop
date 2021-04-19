@@ -291,11 +291,20 @@
   <data name="Name" xml:space="preserve">
     <value>نام</value>
   </data>
+  <data name="Name cant be null." xml:space="preserve">
+    <value>نام را وارد کنید</value>
+  </data>
+  <data name="Name is duplicate." xml:space="preserve">
+    <value>نام تکراری است.</value>
+  </data>
   <data name="Next" xml:space="preserve">
     <value>بعدی</value>
   </data>
   <data name="OK" xml:space="preserve">
     <value>باشه</value>
+  </data>
+  <data name="Operation was successded" xml:space="preserve">
+    <value>عملایت با موفقیت انجام شد.</value>
   </data>
   <data name="Page" xml:space="preserve">
     <value>صفحه</value>
@@ -386,6 +395,9 @@
   </data>
   <data name="Roles" xml:space="preserve">
     <value>نقش ها</value>
+  </data>
+  <data name="Roles cant be null." xml:space="preserve">
+    <value>نقش ها را وارد کنید</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>ذخیره</value>

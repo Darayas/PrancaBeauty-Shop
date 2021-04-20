@@ -1,4 +1,22 @@
-﻿function SendData(_url, _data, _Funcs_Success = function (res) { }) {
+﻿
+window.confirm = function (_text, _title, _yesAction = function () { }) {
+    swal.fire({
+        title: _title,
+        text: _text,
+        icon: 'warning',
+        showCancelButton: true,
+        cancelButtonColor: '#3085d6',
+        confirmButtonColor: '#d33',
+        confirmButtonText: YesText,
+        cancelButtonText: NoText
+    }).then((result) => {
+        if (result.isConfirmed) {
+            _yesAction();
+        }
+    });
+}
+
+function SendData(_url, _data, _Funcs_Success = function (res) { }) {
 
     $.ajax({
         type: "post",
@@ -63,4 +81,8 @@ function LoadComponenet(_Url, _Data, _CallbackFuncs = function (data) { }) {
     }).done(function (data) {
         _CallbackFuncs(data);
     });
+}
+
+function RemoveData(_Url, _Data) {
+
 }

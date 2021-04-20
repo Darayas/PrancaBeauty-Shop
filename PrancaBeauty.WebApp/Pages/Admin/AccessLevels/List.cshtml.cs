@@ -9,17 +9,25 @@ using PrancaBeauty.Application.Apps.Accesslevels;
 using Kendo.Mvc.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using PrancaBeauty.WebApp.Authentication;
+using PrancaBeauty.WebApp.Common.Utility.MessageBox;
+using PrancaBeauty.WebApp.Common.ExMethod;
+using PrancaBeauty.Application.Contracts.AccessLevels;
+using PrancaBeauty.WebApp.Localization;
 
 namespace PrancaBeauty.WebApp.Pages.Admin.AccessLevels
 {
     [Authorize(Roles = Roles.CanViewListAccessLevel)]
     public class ListModel : PageModel
     {
+        private readonly IMsgBox _MsgBox;
+        private readonly ILocalizer _Localizer;
         private readonly IAccesslevelApplication _AccesslevelApplication;
 
-        public ListModel(IAccesslevelApplication accesslevelApplication)
+        public ListModel(IAccesslevelApplication accesslevelApplication, IMsgBox msgBox, ILocalizer localizer)
         {
             _AccesslevelApplication = accesslevelApplication;
+            _MsgBox = msgBox;
+            _Localizer = localizer;
         }
 
         public IActionResult OnGet()
@@ -39,5 +47,27 @@ namespace PrancaBeauty.WebApp.Pages.Admin.AccessLevels
             return new JsonResult(_DataGrid);
         }
 
+        public async Task<IActionResult> OnPostRemoveAsync(string Id)
+        {
+            if (!User.IsInRole(Roles.CanRemoveAccessLevel))
+                return _MsgBox.FaildMsg("");
+
+            if (!ModelState.IsValid)
+                return _MsgBox.ModelStateMsg(ModelState.GetErrors());
+
+            var Result = await _AccesslevelApplication.RemoveAsync(new InpRemove
+            {
+                Id = Id
+            });
+
+            if (Result.IsSucceeded)
+            {
+
+            }
+            else
+            {
+                return _MsgBox.ModelStateMsg(_Localizer[Result.Message]);
+            }
+        }
     }
 }

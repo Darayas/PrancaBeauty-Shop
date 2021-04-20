@@ -108,5 +108,27 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
                 return new OperationResult().Failed("Error500");
             }
         }
+
+        public async Task<OperationResult> RemoveAsync(InpRemove Input)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(Input.Id))
+                    throw new ArgumentInvalidException("Id cant be null.");
+
+
+
+                return new OperationResult().Succeeded();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
     }
 }

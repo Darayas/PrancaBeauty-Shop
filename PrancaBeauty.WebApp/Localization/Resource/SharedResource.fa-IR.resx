@@ -132,6 +132,9 @@
   <data name="AdminPanel" xml:space="preserve">
     <value>پنل مدیریت</value>
   </data>
+  <data name="AreYouSure" xml:space="preserve">
+    <value>ایا مطمعن هستید؟</value>
+  </data>
   <data name="Code" xml:space="preserve">
     <value>کد</value>
   </data>
@@ -300,6 +303,9 @@
   <data name="Next" xml:space="preserve">
     <value>بعدی</value>
   </data>
+  <data name="No" xml:space="preserve">
+    <value>خیر</value>
+  </data>
   <data name="OK" xml:space="preserve">
     <value>باشه</value>
   </data>
@@ -440,6 +446,9 @@
   </data>
   <data name="UserPanel" xml:space="preserve">
     <value>پنل کاربری</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>بله</value>
   </data>
   <data name="YourAccountIsDisabled" xml:space="preserve">
     <value>حساب کاربری شما غیرفعال شده است. لطفا با مدیریت در ارتباط باشید.</value>

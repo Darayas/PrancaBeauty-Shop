@@ -11,5 +11,6 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
         Task<OperationResult> AddNewAsync(InpAddNewAccessLevel Input);
         Task<string> GetIdByNameAsync(string Name);
         Task<(OutPagingData, List<OutGetListForAdminPage>)> GetListForAdminPageAsync(string Title, int PageNum, int Take);
+        Task<OperationResult> RemoveAsync(InpRemove Input);
     }
 }

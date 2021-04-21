@@ -117,6 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AccessDenied" xml:space="preserve">
+    <value>&lt;span style='font-wieght:700; font-size:16px;'&gt;403&lt;/span&gt;&lt;br/&gt;&lt;span style='font-wieght:400; font-size:12px;color:red;'&gt;دسترسی شما به این بخش، غیرمجاز میباشد&lt;/span&gt;</value>
+  </data>
+  <data name="AccessLevelHasUser" xml:space="preserve">
+    <value>سطح دسترسی جاری، حاوی کاربرانی میباشد که ابتدا باید آن ها از عضویت این سطح دسترسی خارج شوند.</value>
+  </data>
+  <data name="AccessLevelNotFound" xml:space="preserve">
+    <value>سطح دسترسی مورد نظر شما یافت نشد.</value>
+  </data>
   <data name="AccountCreate" xml:space="preserve">
     <value>حساب ایجاد شد</value>
   </data>
@@ -224,6 +233,9 @@
   </data>
   <data name="Home" xml:space="preserve">
     <value>خانه</value>
+  </data>
+  <data name="Id cant be null." xml:space="preserve">
+    <value>شناسه نمیتواند خالی باشد</value>
   </data>
   <data name="InvalidEmail" xml:space="preserve">
     <value>ایمیل '{email}' نامعتبر است</value>

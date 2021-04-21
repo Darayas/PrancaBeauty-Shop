@@ -85,11 +85,15 @@
 
 @if (User.IsInRole(Roles.CanRemoveAccessLevel))
 {
-<script>
+    <script>
         function Remove(_Id) {
-            confirm('@Localizer["AreYouSure"]', '', function () {
-                SendData('/@ViewData["Culture"]/Admin/AccessLevel/List?handler=Remove', { Id: _Id});
-            });
+            RemoveData('/@ViewData["Culture"]/Admin/AccessLevel/List?handler=Remove', {Id:_Id});
         }
-</script>
+    </script>
 }
+
+<script>
+    function RefreshData() {
+        RefreshGrid('ListAccessLevel');
+    }
+</script>

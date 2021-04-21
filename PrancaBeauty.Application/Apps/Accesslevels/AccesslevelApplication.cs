@@ -2,6 +2,7 @@
 using Framework.Common.Utilities.Paging;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using PrancaBeauty.Application.Apps.Users;
 using PrancaBeauty.Application.Contracts.AccessLevels;
 using PrancaBeauty.Application.Contracts.Results;
 using PrancaBeauty.Application.Exceptions;
@@ -116,7 +117,17 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
                 if (string.IsNullOrWhiteSpace(Input.Id))
                     throw new ArgumentInvalidException("Id cant be null.");
 
+                // واکشی سطح دسترسی
+                var qData = await _AccessLevelRepository.Get.Where(a => a.Id == Guid.Parse(Input.Id)).SingleOrDefaultAsync();
+                if(qData==null)
+                    return new OperationResult().Failed("AccessLevelNotFound");
 
+                // برسی عضو بودن کاربر در سطح دسترسی جاری
+                if (await CheckHasUserAsync(Input.Id))
+                    return new OperationResult().Failed("AccessLevelHasUser");
+
+                // حذف کامل سطح دسترسی
+                await _AccessLevelRepository.DeleteAsync(qData, default, true);
 
                 return new OperationResult().Succeeded();
             }
@@ -129,6 +140,14 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
                 _Logger.Error(ex);
                 return new OperationResult().Failed("Error500");
             }
+        }
+
+        private async Task<bool> CheckHasUserAsync(string AccessLevelId)
+        {
+            return await _AccessLevelRepository.Get
+                                           .Where(a => a.Id == Guid.Parse(AccessLevelId))
+                                           .Select(a => a.tblUsers.Any())
+                                           .SingleAsync();
         }
     }
 }

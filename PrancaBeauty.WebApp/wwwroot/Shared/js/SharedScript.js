@@ -83,6 +83,13 @@ function LoadComponenet(_Url, _Data, _CallbackFuncs = function (data) { }) {
     });
 }
 
-function RemoveData(_Url, _Data) {
+function RemoveData(_Url, _Data = {}) {
+    confirm(DeleteMsg, '', function () {
+        SendData(_Url, _Data);
+    });
+}
 
+function RefreshGrid(_GridId) {
+    $('#' + _GridId).data("kendoGrid").dataSource.read();
+    $('#' + _GridId).data("kendoGrid").refresh();
 }

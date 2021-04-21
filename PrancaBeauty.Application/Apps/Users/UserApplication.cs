@@ -447,7 +447,5 @@ namespace PrancaBeauty.Application.Apps.Users
                 return false;
             }
         }
-
-        
     }
 }

@@ -49,7 +49,7 @@ namespace PrancaBeauty.WebApp.Pages.Admin.AccessLevels
 
             if (Result.IsSucceeded)
             {
-                return _MsgBox.SuccessMsg(_Localizer[Result.Message], "GotoList");
+                return _MsgBox.SuccessMsg(_Localizer[Result.Message], "GotoList()");
             }
             else
             {

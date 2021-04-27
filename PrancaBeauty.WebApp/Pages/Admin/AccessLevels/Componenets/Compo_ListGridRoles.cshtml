@@ -1,10 +1,31 @@
 ﻿@page "/Admin/AccessLevel/Compo/ListGridRoles"
 @model PrancaBeauty.WebApp.Pages.Admin.AccessLevels.Componenets.Compo_ListGridRolesModel
 
-<script>
-    function IsSelected(_Id) {
-        return '';
+@if (Model.Input.AccessLevelId == null)
+{
+    <script>
+        function IsSelected(_Id) {
+            return '';
+        }
+    </script>
+}
+else
+{
+    <script>
+        function IsSelected(_Id) {
+        var RolesId = '@string.Join(",", (string[])ViewData["SelectedRoles"])';
+
+            if (RolesId.includes(_Id)) {
+                return 'checked';
+            } else {
+                return '';
+            }
     }
+    </script>
+}
+
+<script>
+
 
     function onDataBound(e) {
         var data = this.dataSource.data();

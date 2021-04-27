@@ -25,6 +25,12 @@ namespace PrancaBeauty.WebApp.Pages.Admin.AccessLevels.Componenets
             if (Input.AccessLevelId != null)
             {
                 // ویرایش
+                var RolesList = await _RoleApplication.ListOfRolesByAccessLevelIdAsync(Input.AccessLevelId);
+
+                if (RolesList == null)
+                    throw new Exception("RolesList is null.");
+
+                ViewData["SelectedRoles"] = RolesList;
                 return Page();
             }
             else

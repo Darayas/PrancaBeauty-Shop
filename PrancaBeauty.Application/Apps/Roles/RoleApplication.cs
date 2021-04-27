@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Contracts.Roles;
+using PrancaBeauty.Application.Exceptions;
 using PrancaBeauty.Domin.Users.RoleAgg.Contracts;
 using PrancaBeauty.Domin.Users.RoleAgg.Entities;
 using PrancaBeauty.Domin.Users.UserAgg.Entities;
@@ -61,6 +62,31 @@ namespace PrancaBeauty.Application.Apps.Roles
 
             return qData;
 
+        }
+
+        public async Task<string[]> ListOfRolesByAccessLevelIdAsync(string AccessLevelId)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(AccessLevelId))
+                    throw new ArgumentInvalidException("AccessLevelId cant be null.");
+
+                var qData = await _RoleManager.Roles
+                                         .Where(a => a.tblAccessLevel_Roles.Where(b => b.AccessLevelId == Guid.Parse(AccessLevelId)).Any())
+                                         .Select(a => a.Id.ToString())
+                                         .ToArrayAsync();
+
+                return qData;
+            }
+            catch (ArgumentInvalidException)
+            {
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
+            }
         }
     }
 }

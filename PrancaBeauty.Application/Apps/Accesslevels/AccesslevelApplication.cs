@@ -11,6 +11,7 @@ using PrancaBeauty.Domin.Users.AccessLevelAgg.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -119,7 +120,7 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
 
                 // واکشی سطح دسترسی
                 var qData = await _AccessLevelRepository.Get.Where(a => a.Id == Guid.Parse(Input.Id)).SingleOrDefaultAsync();
-                if(qData==null)
+                if (qData == null)
                     return new OperationResult().Failed("AccessLevelNotFound");
 
                 // برسی عضو بودن کاربر در سطح دسترسی جاری
@@ -148,6 +149,34 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
                                            .Where(a => a.Id == Guid.Parse(AccessLevelId))
                                            .Select(a => a.tblUsers.Any())
                                            .SingleAsync();
+        }
+
+        public async Task<OutGetForEdit> GetForEditAsync(string AccessLevelId)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(AccessLevelId))
+                    throw new ArgumentInvalidException("AccessLevelId cant be null.");
+
+                return await _AccessLevelRepository.Get
+                                                   .Where(a => a.Id == Guid.Parse(AccessLevelId))
+                                                   .Select(a => new OutGetForEdit
+                                                   {
+                                                       Id = a.Id.ToString(),
+                                                       Name = a.Name,
+                                                       Roles = a.tblAccessLevel_Roles.
+                                                   })
+                                                   .SingleOrDefaultAsync();
+            }
+            catch (ArgumentInvalidException)
+            {
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
+            }
         }
     }
 }

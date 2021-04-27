@@ -213,6 +213,9 @@
   <data name="EmailPattern" xml:space="preserve">
     <value>^[a-zA-Z0-9\-\._]{3,100}[@][a-zA-Z0-9\-\._]{3,100}$</value>
   </data>
+  <data name="Error404" xml:space="preserve">
+    <value>اطلاعات مورد نظر شما یافت نشد.</value>
+  </data>
   <data name="Error500" xml:space="preserve">
     <value>عملیات با شکست مواجه شد.</value>
   </data>
@@ -236,6 +239,9 @@
   </data>
   <data name="Id cant be null." xml:space="preserve">
     <value>شناسه نمیتواند خالی باشد</value>
+  </data>
+  <data name="Input cant be null." xml:space="preserve">
+    <value>اطلاعات لازم را وارد کنید</value>
   </data>
   <data name="InvalidEmail" xml:space="preserve">
     <value>ایمیل '{email}' نامعتبر است</value>

@@ -64,7 +64,7 @@
         <div class="dropdown-menu dropdown-menu-left">
             @if (User.IsInRole(Roles.CanEditAccessLevel))
             {
-                <a href="" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i>@Localizer["Edit"]</a>
+                <a href="/@ViewData["Culture"]/Admin/AccessLevel/Edit/#:Id#" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i>@Localizer["Edit"]</a>
             }
             @if (User.IsInRole(Roles.CanRemoveAccessLevel))
             {

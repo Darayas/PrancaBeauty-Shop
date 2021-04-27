@@ -2,6 +2,7 @@
 using Framework.Common.Utilities.Paging;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using PrancaBeauty.Application.Apps.AccesslevelsRoles;
 using PrancaBeauty.Application.Apps.Users;
 using PrancaBeauty.Application.Contracts.AccessLevels;
 using PrancaBeauty.Application.Contracts.Results;
@@ -21,10 +22,12 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
     {
         private readonly ILogger _Logger;
         private readonly IAccesslevelRepository _AccessLevelRepository;
-        public AccesslevelApplication(IAccesslevelRepository accessLevelRepository, ILogger logger)
+        private readonly IAccesslevelRolesApplication _AccessLevelRolesApplication;
+        public AccesslevelApplication(IAccesslevelRepository accessLevelRepository, ILogger logger, IAccesslevelRolesApplication accessLevelRolesApplication)
         {
             _AccessLevelRepository = accessLevelRepository;
             _Logger = logger;
+            _AccessLevelRolesApplication = accessLevelRolesApplication;
         }
 
         public async Task<string> GetIdByNameAsync(string Name)
@@ -163,8 +166,7 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
                                                    .Select(a => new OutGetForEdit
                                                    {
                                                        Id = a.Id.ToString(),
-                                                       Name = a.Name,
-                                                       Roles = a.tblAccessLevel_Roles.
+                                                       Name = a.Name
                                                    })
                                                    .SingleOrDefaultAsync();
             }
@@ -178,5 +180,69 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
                 return null;
             }
         }
+
+        public async Task<OperationResult> UpdateAsync(InpUpdateAccessLevel Input)
+        {
+            try
+            {
+                #region برسی ورودی ها
+                if (Input == null)
+                    throw new ArgumentInvalidException("Input cant be null.");
+
+                if (string.IsNullOrWhiteSpace(Input.Id))
+                    throw new ArgumentInvalidException("Id cant be null.");
+
+                if (string.IsNullOrWhiteSpace(Input.Name))
+                    throw new ArgumentInvalidException("Name cant be null.");
+
+                if (Input.Roles == null)
+                    throw new ArgumentInvalidException("Roles cant be null.");
+
+                if (Input.Roles.Count() == 0)
+                    throw new ArgumentInvalidException("Roles cant be null.");
+                #endregion
+
+                // واکشی اطلاعات قدیمی
+                var qData = await _AccessLevelRepository.Get.Where(a => a.Id == Guid.Parse(Input.Id)).SingleOrDefaultAsync();
+                if (qData == null)
+                    return new OperationResult().Failed("Error404");
+
+                // جایگزاری داده های جدید
+                qData.Name = Input.Name;
+
+                // لغو عضویت تمامی رول ها
+                var ResultRemoveAccRoles = await _AccessLevelRolesApplication.RemoveByAccessLevelIdAsync(Input.Id);
+
+                #region ثبت رول های جدید
+                qData.tblAccessLevel_Roles = new List<tblAccessLevel_Roles>();
+                foreach (var item in Input.Roles)
+                {
+                    qData.tblAccessLevel_Roles.Add(new tblAccessLevel_Roles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        RoleId = Guid.Parse(item)
+                    });
+                }
+                #endregion
+
+                // ثبت ویرایش
+                await _AccessLevelRepository.UpdateAsync(qData, default, true);
+
+                // ابدیت سطح دسترسی های کاربران
+
+                return new OperationResult().Succeeded();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
+
+
     }
 }

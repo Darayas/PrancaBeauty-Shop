@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Apps.Accesslevels;
 using PrancaBeauty.Application.Contracts.Results;
 using PrancaBeauty.Application.Contracts.Users;
+using PrancaBeauty.Application.Exceptions;
 using PrancaBeauty.Domin.Users.UserAgg.Contracts;
 using PrancaBeauty.Domin.Users.UserAgg.Entities;
 using System;
@@ -445,6 +446,83 @@ namespace PrancaBeauty.Application.Apps.Users
             {
                 _Logger.Error(ex);
                 return false;
+            }
+        }
+
+        public async Task<OperationResult> RemoveAllUserRolesByUserIdAsync(string UserId)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(UserId))
+                    throw new ArgumentInvalidException("UserId cant be null.");
+
+                await _UserRepository.RemoveAllUserRolesByUserIdAsync(UserId);
+
+                return new OperationResult().Succeeded();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
+
+        public async Task<OperationResult> AddRolesToUsersByUserIdAsync(string UserId, string[] Roles)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(UserId))
+                    throw new ArgumentInvalidException("UserId cant be null.");
+
+                // تبدیل RoleId به RoleName
+                string[] RolesName = new string[] { };
+                foreach (var item in Roles)
+                {
+
+                }
+
+                await _UserRepository.AddUserRolesAsync(UserId, RolesName);
+
+                return new OperationResult().Succeeded();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
+
+        public async Task<OperationResult> EditUsersRolesAsync(string AccessLevelId, string[] Roles)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(AccessLevelId))
+                    throw new ArgumentInvalidException("AccessLevelId cant be null.");
+
+                var qUserIds = await _UserRepository.Get.Where(a => a.AccessLevelId == Guid.Parse(AccessLevelId)).Select(a => a.Id).ToListAsync();
+                foreach (var item in qUserIds)
+                {
+                    // حذف عضویت تمامی رول ها
+                    await RemoveAllUserRolesByUserIdAsync(item.ToString());
+
+                    // افزودن عضویت رول های جدید
+                    await AddRolesToUsersByUserIdAsync(item.ToString(), Roles);
+                }
+
+                return new OperationResult().Succeeded();
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
             }
         }
     }

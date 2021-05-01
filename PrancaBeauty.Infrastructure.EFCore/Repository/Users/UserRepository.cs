@@ -125,5 +125,22 @@ namespace PrancaBeauty.Infrastructure.EFCore.Repository.Users
 
             return await _UserManager.UpdateAsync(entity);
         }
+
+        public async Task<IdentityResult> RemoveAllUserRolesByUserIdAsync(string UserId)
+        {
+            var qUser = await FindByIdAsync(UserId);
+
+            var qRoles = await _UserManager.GetRolesAsync(qUser);
+
+            return await _UserManager.RemoveFromRolesAsync(qUser, qRoles);
+
+        }
+
+        public async Task<IdentityResult> AddUserRolesAsync(string UserId, string[] RolesId)
+        {
+            var qUser = await FindByIdAsync(UserId);
+
+            return await _UserManager.AddToRolesAsync(qUser, RolesId);
+        }
     }
 }

@@ -13,6 +13,7 @@ namespace PrancaBeauty.Domin.Users.UserAgg.Contracts
     {
         Task<IdentityResult> AddPasswordAsync(tblUsers entity, string Password);
         Task<IdentityResult> AddPhoneNumberPasswordAsync(tblUsers entity, string Password);
+        Task<IdentityResult> AddUserRolesAsync(string UserId, string[] RolesName);
         Task<IdentityResult> CreateUserAsync(tblUsers User, string Password);
         Task<IdentityResult> DeleteAsync(tblUsers entity);
         Task<IdentityResult> EmailConfirmationAsync(tblUsers User, string Token);
@@ -26,6 +27,7 @@ namespace PrancaBeauty.Domin.Users.UserAgg.Contracts
         Task<bool> HasPasswordAsync(tblUsers user);
         Task<bool> IsEmailConfirmedAsync(tblUsers User);
         Task<SignInResult> PasswordSignInAsync(tblUsers user, string password, bool isPersistent, bool lockoutOnFailure);
+        Task<IdentityResult> RemoveAllUserRolesByUserIdAsync(string UserId);
         Task<IdentityResult> RemovePasswordAsync(tblUsers entity);
         Task<IdentityResult> RemovePhoneNumberPasswordAsync(tblUsers entity);
         bool RequireConfirmedEmail();

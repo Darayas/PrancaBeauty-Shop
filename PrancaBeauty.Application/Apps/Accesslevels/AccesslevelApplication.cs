@@ -9,6 +9,7 @@ using PrancaBeauty.Application.Contracts.Results;
 using PrancaBeauty.Application.Exceptions;
 using PrancaBeauty.Domin.Users.AccessLevelAgg.Contracts;
 using PrancaBeauty.Domin.Users.AccessLevelAgg.Entities;
+using PrancaBeauty.Domin.Users.UserAgg.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -228,8 +229,6 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
                 // ثبت ویرایش
                 await _AccessLevelRepository.UpdateAsync(qData, default, true);
 
-                // ابدیت سطح دسترسی های کاربران
-
                 return new OperationResult().Succeeded();
             }
             catch (ArgumentInvalidException ex)
@@ -243,6 +242,26 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
             }
         }
 
+        public async Task<List<tblUsers>> GetUsersByAccesLevelAsync(string AccessLevelId)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(AccessLevelId))
+                    throw new ArgumentInvalidException("AccessLevelId cant be null.");
 
+                var qData = await _AccessLevelRepository.Get.Where(a => a.Id == Guid.Parse(AccessLevelId)).Select(a => a.tblUsers).SingleOrDefaultAsync();
+                
+                return qData.ToList();
+            }
+            catch(ArgumentInvalidException)
+            {
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
+            }
+        }
     }
 }

@@ -3,13 +3,13 @@ using Framework.Common.Utilities.Paging;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Apps.AccesslevelsRoles;
+using PrancaBeauty.Application.Apps.Roles;
 using PrancaBeauty.Application.Apps.Users;
 using PrancaBeauty.Application.Contracts.AccessLevels;
 using PrancaBeauty.Application.Contracts.Results;
 using PrancaBeauty.Application.Exceptions;
 using PrancaBeauty.Domin.Users.AccessLevelAgg.Contracts;
 using PrancaBeauty.Domin.Users.AccessLevelAgg.Entities;
-using PrancaBeauty.Domin.Users.UserAgg.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,11 +24,13 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
         private readonly ILogger _Logger;
         private readonly IAccesslevelRepository _AccessLevelRepository;
         private readonly IAccesslevelRolesApplication _AccessLevelRolesApplication;
-        public AccesslevelApplication(IAccesslevelRepository accessLevelRepository, ILogger logger, IAccesslevelRolesApplication accessLevelRolesApplication)
+        private readonly IRoleApplication _RoleApplication;
+        public AccesslevelApplication(IAccesslevelRepository accessLevelRepository, ILogger logger, IAccesslevelRolesApplication accessLevelRolesApplication, IRoleApplication roleApplication)
         {
             _AccessLevelRepository = accessLevelRepository;
             _Logger = logger;
             _AccessLevelRolesApplication = accessLevelRolesApplication;
+            _RoleApplication = roleApplication;
         }
 
         public async Task<string> GetIdByNameAsync(string Name)
@@ -221,13 +223,15 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
                     qData.tblAccessLevel_Roles.Add(new tblAccessLevel_Roles()
                     {
                         Id = new Guid().SequentialGuid(),
-                        RoleId = Guid.Parse(item)
+                        RoleId = Guid.Parse(await _RoleApplication.GetIdByNameAsync(item))
                     });
                 }
                 #endregion
 
                 // ثبت ویرایش
                 await _AccessLevelRepository.UpdateAsync(qData, default, true);
+
+                // ابدیت سطح دسترسی های کاربران
 
                 return new OperationResult().Succeeded();
             }
@@ -242,26 +246,6 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
             }
         }
 
-        public async Task<List<tblUsers>> GetUsersByAccesLevelAsync(string AccessLevelId)
-        {
-            try
-            {
-                if (string.IsNullOrWhiteSpace(AccessLevelId))
-                    throw new ArgumentInvalidException("AccessLevelId cant be null.");
 
-                var qData = await _AccessLevelRepository.Get.Where(a => a.Id == Guid.Parse(AccessLevelId)).Select(a => a.tblUsers).SingleOrDefaultAsync();
-                
-                return qData.ToList();
-            }
-            catch(ArgumentInvalidException)
-            {
-                return null;
-            }
-            catch (Exception ex)
-            {
-                _Logger.Error(ex);
-                return null;
-            }
-        }
     }
 }

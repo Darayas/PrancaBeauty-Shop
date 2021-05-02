@@ -13,9 +13,9 @@ else
 {
     <script>
         function IsSelected(_Id) {
-        var RolesId = '@string.Join(",", (string[])ViewData["SelectedRoles"])';
+        var RolesName = '@string.Join(",", (string[])ViewData["SelectedRoles"])';
 
-            if (RolesId.includes(_Id)) {
+            if (RolesName.includes(_Id)) {
                 return 'checked';
             } else {
                 return '';
@@ -49,7 +49,7 @@ else
           .Pageable(a=>a.Enabled(false))
           .Sortable(false)
           .Columns(col=> {
-              col.Bound(a => a.Id).Title(" ").Sortable(false).Width(50).ClientTemplate("<input #=IsSelected(Id)# value='#=Id#' name='Input.Roles' class='k-checkbox' type='checkbox'/>");
+              col.Bound(a => a.Id).Title(" ").Sortable(false).Width(50).ClientTemplate("<input #=IsSelected(Name)# value='#=Name#' name='Input.Roles' class='k-checkbox' type='checkbox'/>");
               col.Bound(a => a.PageName).Sortable(false);
               col.Bound(a => a.Name).Sortable(false);
               col.Bound(a => a.Description).Sortable(false);
@@ -72,7 +72,7 @@ else
           .Pageable(a=>a.Enabled(false))
           .Sortable(false)
           .Columns(col=> {
-              col.Bound(a => a.Id).Title(" ").Sortable(false).Width(50).ClientTemplate("<input \\#=IsSelected(Id)\\# value='\\#=Id\\#' name='Input.Roles' class='k-checkbox' type='checkbox'/>");
+              col.Bound(a => a.Id).Title(" ").Sortable(false).Width(50).ClientTemplate("<input \\#=IsSelected(Name)\\# value='\\#=Name\\#' name='Input.Roles' class='k-checkbox' type='checkbox'/>");
               col.Bound(a => a.PageName).Sortable(false);
               col.Bound(a => a.Name).Sortable(false);
               col.Bound(a => a.Description).Sortable(false);
@@ -96,7 +96,7 @@ else
           .Pageable(a=>a.Enabled(false))
           .Sortable(false)
           .Columns(col=> {
-              col.Bound(a => a.Id).Title(" ").Sortable(false).Width(50).ClientTemplate("<input \\#=IsSelected(Id)\\# value='\\#=Id\\#' name='Input.Roles' class='k-checkbox' type='checkbox'/>");
+              col.Bound(a => a.Id).Title(" ").Sortable(false).Width(50).ClientTemplate("<input \\#=IsSelected(Name)\\# value='\\#=Name\\#' name='Input.Roles' class='k-checkbox' type='checkbox'/>");
               col.Bound(a => a.PageName).Sortable(false);
               col.Bound(a => a.Name).Sortable(false);
               col.Bound(a => a.Description).Sortable(false);
@@ -120,7 +120,7 @@ else
           .Pageable(a=>a.Enabled(false))
           .Sortable(false)
           .Columns(col=> {
-              col.Bound(a => a.Id).Title(" ").Sortable(false).Width(50).ClientTemplate("<input \\#=IsSelected(Id)\\# value='\\#=Id\\#' name='Input.Roles' class='k-checkbox' type='checkbox'/>");
+              col.Bound(a => a.Id).Title(" ").Sortable(false).Width(50).ClientTemplate("<input \\#=IsSelected(Name)\\# value='\\#=Name\\#' name='Input.Roles' class='k-checkbox' type='checkbox'/>");
               col.Bound(a => a.PageName).Sortable(false);
               col.Bound(a => a.Name).Sortable(false);
               col.Bound(a => a.Description).Sortable(false);

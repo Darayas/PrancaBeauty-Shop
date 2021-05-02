@@ -8,8 +8,9 @@ namespace PrancaBeauty.Application.Apps.Users
 {
     public interface IUserApplication
     {
+        Task<OperationResult> AddRolesAsync(tblUsers user, string[] Roles);
         Task<OperationResult> AddUserAsync(InpAddUser Input);
-        Task<OperationResult> EditUsersRolesAsync(string AccessLevelId, string[] Roles);
+        Task<OperationResult> EditUsersRoleByAccIdAsync(string AccessLevelId, string[] Roles);
         Task<OperationResult> EmailConfirmationAsync(string UserId, string Token);
         Task<string> GenerateEmailConfirmationTokenAsync(string UserId);
         Task<OutGetAllUserDetails> GetAllUserDetailsAsync(string UserId);
@@ -22,7 +23,7 @@ namespace PrancaBeauty.Application.Apps.Users
         Task<OperationResult> LoginByPhoneNumberStep2Async(string PhoneNumber, string Code);
         Task<OperationResult> LoginByUserNamePasswordAsync(string UserName, string Pawword);
         Task<OperationResult> ReCreatePasswordAsync(tblUsers User);
-        Task<OperationResult> RemoveAllUserRolesByUserIdAsync(string UserId);
+        Task<OperationResult> RemoveAllRolesAsync(tblUsers user);
         Task<bool> RemoveUnConfirmedUserAsync(string UserId);
     }
 }

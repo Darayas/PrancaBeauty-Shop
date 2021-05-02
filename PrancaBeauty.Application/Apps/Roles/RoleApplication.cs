@@ -73,7 +73,7 @@ namespace PrancaBeauty.Application.Apps.Roles
 
                 var qData = await _RoleManager.Roles
                                          .Where(a => a.tblAccessLevel_Roles.Where(b => b.AccessLevelId == Guid.Parse(AccessLevelId)).Any())
-                                         .Select(a => a.Id.ToString())
+                                         .Select(a => a.Name.ToString())
                                          .ToArrayAsync();
 
                 return qData;
@@ -87,6 +87,11 @@ namespace PrancaBeauty.Application.Apps.Roles
                 _Logger.Error(ex);
                 return null;
             }
+        }
+
+        public async Task<string> GetIdByNameAsync(string Name)
+        {
+            return await _RoleRepository.Get.Where(a => a.Name == Name).Select(a => a.Id.ToString()).SingleOrDefaultAsync();
         }
     }
 }

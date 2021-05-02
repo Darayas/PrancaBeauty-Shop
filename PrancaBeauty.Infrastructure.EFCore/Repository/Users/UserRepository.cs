@@ -126,21 +126,19 @@ namespace PrancaBeauty.Infrastructure.EFCore.Repository.Users
             return await _UserManager.UpdateAsync(entity);
         }
 
-        public async Task<IdentityResult> RemoveAllUserRolesByUserIdAsync(string UserId)
+        public async Task<IdentityResult> RemoveAllRolesAsync(tblUsers user)
         {
-            var qUser = await FindByIdAsync(UserId);
+            // واکشی رول های فعلی کاربر
+            var qRoles = await _UserManager.GetRolesAsync(user);
 
-            var qRoles = await _UserManager.GetRolesAsync(qUser);
-
-            return await _UserManager.RemoveFromRolesAsync(qUser, qRoles);
-
+            // حذف عضویت
+            return await _UserManager.RemoveFromRolesAsync(user, qRoles);
         }
 
-        public async Task<IdentityResult> AddUserRolesAsync(string UserId, string[] RolesId)
+        public async Task<IdentityResult> AddToRolesAsync(tblUsers user, string[] Roles)
         {
-            var qUser = await FindByIdAsync(UserId);
-
-            return await _UserManager.AddToRolesAsync(qUser, RolesId);
+            // افزودن عضویت
+            return await _UserManager.AddToRolesAsync(user, Roles);
         }
     }
 }

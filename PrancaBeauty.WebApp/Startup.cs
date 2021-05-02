@@ -65,6 +65,8 @@ namespace PrancaBeauty.WebApp
 
             app.UseJwtAuthentication(AuthConst.CookieName);
 
+            app.UseMiddleware<NeedToRebuildTokenMiddleware>();
+
             app.UseRedirectNotRobots();
 
             app.UseEndpoints(endpoints =>

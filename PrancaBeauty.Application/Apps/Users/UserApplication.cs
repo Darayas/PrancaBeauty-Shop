@@ -542,12 +542,34 @@ namespace PrancaBeauty.Application.Apps.Users
             catch (ArgumentInvalidException ex)
             {
                 return new OperationResult().Failed(ex.Message);
-    }
+            }
             catch (Exception ex)
             {
                 _Logger.Error(ex);
                 return new OperationResult().Failed("Error500");
-}
+            }
+        }
+
+        public async Task<List<string>> GetUserIdsByAccIdAsync(string AccessLevelId)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(AccessLevelId))
+                    throw new ArgumentInvalidException("AccessLevelId cant be null.");
+
+                var qUsers = await _UserRepository.Get.Where(a => a.AccessLevelId == Guid.Parse(AccessLevelId)).Select(a=>a.Id.ToString()).ToListAsync();
+
+                return qUsers;
+            }
+            catch (ArgumentInvalidException)
+            {
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
+            }
         }
     }
 }

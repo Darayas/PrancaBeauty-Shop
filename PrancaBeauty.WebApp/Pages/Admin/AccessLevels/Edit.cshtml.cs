@@ -61,10 +61,14 @@ namespace PrancaBeauty.WebApp.Pages.Admin.AccessLevels
                 Name = Input.Name,
                 Roles = Input.Roles
             });
+
             if (Result.IsSucceeded)
             {
                 // ابدیت سطح دسترسی های کاربران
                 var UpdateRolesResult = await _UserApplication.EditUsersRoleByAccIdAsync(Input.Id, Input.Roles);
+
+                // ذخیره شناسه کاربران عضو سطح دسترسی جاری برای ابدیت توکن ها
+                CacheUsersToRebuildToken.AddRange(await _UserApplication.GetUserIdsByAccIdAsync(Input.Id));
 
                 return _MsgBox.SuccessMsg(_Localizer[Result.Message], "GotoList()");
             }

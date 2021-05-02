@@ -1,8 +1,11 @@
-﻿using Framework.Infrastructure;
+﻿using Framework.Common.ExMethods;
+using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using PrancaBeauty.Application.Apps.Roles;
 using PrancaBeauty.Application.Contracts.Results;
 using PrancaBeauty.Application.Exceptions;
 using PrancaBeauty.Domin.Users.AccessLevelAgg.Contracts;
+using PrancaBeauty.Domin.Users.AccessLevelAgg.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,10 +18,12 @@ namespace PrancaBeauty.Application.Apps.AccesslevelsRoles
     {
         private readonly ILogger _Logger;
         private readonly IAccesslevelRolesRepository _AccesslevelRolesRepository;
-        public AccesslevelRolesApplication(IAccesslevelRolesRepository accesslevelRolesRepository, ILogger logger)
+        private readonly IRoleApplication _RoleApplication;
+        public AccesslevelRolesApplication(IAccesslevelRolesRepository accesslevelRolesRepository, ILogger logger, IRoleApplication roleApplication)
         {
             _AccesslevelRolesRepository = accesslevelRolesRepository;
             _Logger = logger;
+            _RoleApplication = roleApplication;
         }
 
         public async Task<OperationResult> RemoveByAccessLevelIdAsync(string AccessLevelId)
@@ -52,9 +57,35 @@ namespace PrancaBeauty.Application.Apps.AccesslevelsRoles
             }
         }
 
-        public async Task<OperatingSystem> AddRolesToAccessLevelAsync(string AccessLevelId, string[] RolesId)
+        public async Task<OperationResult> AddRolesToAccessLevelAsync(string AccessLevelId, string[] RolesName)
         {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(AccessLevelId))
+                    throw new ArgumentInvalidException("AccessLevelId cant be null.");
 
+                if (RolesName == null)
+                    throw new ArgumentInvalidException("RolesName cant be null.");
+
+                foreach (var item in RolesName)
+                {
+                    await _AccesslevelRolesRepository.AddAsync(new tblAccessLevel_Roles
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        AccessLevelId = Guid.Parse(AccessLevelId),
+                        RoleId = Guid.Parse(await _RoleApplication.GetIdByNameAsync(item))
+                    }, default, false);
+                }
+
+                await _AccesslevelRolesRepository.SaveChangeAsync();
+
+                return new OperationResult().Succeeded();
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
         }
     }
 }

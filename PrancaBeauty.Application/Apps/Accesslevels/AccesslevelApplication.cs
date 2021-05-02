@@ -216,22 +216,11 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
                 // لغو عضویت تمامی رول ها
                 var ResultRemoveAccRoles = await _AccessLevelRolesApplication.RemoveByAccessLevelIdAsync(Input.Id);
 
-                #region ثبت رول های جدید
-                qData.tblAccessLevel_Roles = new List<tblAccessLevel_Roles>();
-                foreach (var item in Input.Roles)
-                {
-                    qData.tblAccessLevel_Roles.Add(new tblAccessLevel_Roles()
-                    {
-                        Id = new Guid().SequentialGuid(),
-                        RoleId = Guid.Parse(await _RoleApplication.GetIdByNameAsync(item))
-                    });
-                }
-                #endregion
+                // ثبت رول های جدید
+                await _AccessLevelRolesApplication.AddRolesToAccessLevelAsync(Input.Id, Input.Roles);
 
                 // ثبت ویرایش
                 await _AccessLevelRepository.UpdateAsync(qData, default, true);
-
-                // ابدیت سطح دسترسی های کاربران
 
                 return new OperationResult().Succeeded();
             }

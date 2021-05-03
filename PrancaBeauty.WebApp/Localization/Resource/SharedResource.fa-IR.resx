@@ -123,6 +123,9 @@
   <data name="AccessLevelHasUser" xml:space="preserve">
     <value>سطح دسترسی جاری، حاوی کاربرانی میباشد که ابتدا باید آن ها از عضویت این سطح دسترسی خارج شوند.</value>
   </data>
+  <data name="AccessLevelName" xml:space="preserve">
+    <value>نقش کاربر</value>
+  </data>
   <data name="AccessLevelNotFound" xml:space="preserve">
     <value>سطح دسترسی مورد نظر شما یافت نشد.</value>
   </data>
@@ -225,6 +228,9 @@
   <data name="FirstName" xml:space="preserve">
     <value>نام</value>
   </data>
+  <data name="FullName" xml:space="preserve">
+    <value>نام کاربر</value>
+  </data>
   <data name="GotoList" xml:space="preserve">
     <value>بازگشت به لیست</value>
   </data>
@@ -255,6 +261,9 @@
   <data name="InvalidUserName" xml:space="preserve">
     <value>نام کاربری '{userName}' نامعتبر است، فقط می تواند حاوی حروف و یا اعداد باشد</value>
   </data>
+  <data name="IsActive" xml:space="preserve">
+    <value>وضعیت</value>
+  </data>
   <data name="ItemsPerPage" xml:space="preserve">
     <value>مورد بر صفحه</value>
   </data>
@@ -275,6 +284,9 @@
   </data>
   <data name="ListAccessLevel" xml:space="preserve">
     <value>لیست سطوح دسترسی</value>
+  </data>
+  <data name="ListUsers" xml:space="preserve">
+    <value>لیست کاربران</value>
   </data>
   <data name="Login" xml:space="preserve">
     <value>ورود به سایت</value>
@@ -392,6 +404,9 @@
   </data>
   <data name="Refresh" xml:space="preserve">
     <value>بارگزاری مجدد</value>
+  </data>
+  <data name="RegDate" xml:space="preserve">
+    <value>تاریخ ثبت نام</value>
   </data>
   <data name="Register" xml:space="preserve">
     <value>ثبت نام</value>

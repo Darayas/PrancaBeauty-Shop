@@ -112,6 +112,85 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
             }
             #endregion
 
+            #region ManageUsersPage
+            {
+                Guid _Id = new Guid().SequentialGuid();
+                if (!_repRoles.Get.Any(a => a.Name == "CanManageUsers"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = _Id,
+                        ParentId = null,
+                        PageName = "ManageUsersPage",
+                        Sort = 60,
+                        Name = "CanManageUsers",
+                        NormalizedName = "CanManageUsers".ToUpper(),
+                        Description = "توانایی مدیریت کاربران"
+                    }, default, false).Wait();
+                }
+                else
+                {
+                    _Id = _repRoles.Get.Where(a => a.Name == "CanManageUsers").Select(a => a.Id).Single();
+                }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanViewListUsers"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageUsersPage",
+                        Sort = 60,
+                        Name = "CanViewListUsers",
+                        NormalizedName = "CanViewListUsers".ToUpper(),
+                        Description = "توانایی مشاهده لیست کاربران"
+                    }, default, false).Wait();
+                }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanAddUsers"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageUsersPage",
+                        Sort = 70,
+                        Name = "CanAddUsers",
+                        NormalizedName = "CanAddUsers".ToUpper(),
+                        Description = "توانایی افزودن کاربر جدید"
+                    }, default, false).Wait();
+                }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanEditUsers"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageUsersPage",
+                        Sort = 80,
+                        Name = "CanEditUsers",
+                        NormalizedName = "CanEditUsers".ToUpper(),
+                        Description = "توانایی ویرایش کاربر"
+                    }, default, false).Wait();
+                }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanRemoveUsers"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageUsersPage",
+                        Sort = 90,
+                        Name = "CanRemoveUsers",
+                        NormalizedName = "CanRemoveUsers".ToUpper(),
+                        Description = "توانایی حذف سطح دسترسی"
+                    }, default, false).Wait();
+                }
+            }
+            #endregion
+
             _repRoles.SaveChangeAsync().Wait();
         }
     }

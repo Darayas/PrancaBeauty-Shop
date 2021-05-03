@@ -1,5 +1,6 @@
 ﻿using Framework.Application.Consts;
 using Framework.Common.ExMethods;
+using Framework.Common.Utilities.Paging;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Apps.Accesslevels;
@@ -557,7 +558,7 @@ namespace PrancaBeauty.Application.Apps.Users
                 if (string.IsNullOrWhiteSpace(AccessLevelId))
                     throw new ArgumentInvalidException("AccessLevelId cant be null.");
 
-                var qUsers = await _UserRepository.Get.Where(a => a.AccessLevelId == Guid.Parse(AccessLevelId)).Select(a=>a.Id.ToString()).ToListAsync();
+                var qUsers = await _UserRepository.Get.Where(a => a.AccessLevelId == Guid.Parse(AccessLevelId)).Select(a => a.Id.ToString()).ToListAsync();
 
                 return qUsers;
             }
@@ -569,6 +570,52 @@ namespace PrancaBeauty.Application.Apps.Users
             {
                 _Logger.Error(ex);
                 return null;
+            }
+        }
+
+        public async Task<(OutPagingData, List<OutGetListForAdminPage>)> GetListForAdminPageAsync(string Email, string PhoneNumber, string FullName, int PageNum, int Take)
+        {
+            try
+            {
+                if (PageNum < 1)
+                    throw new ArgumentInvalidException("PageNum < 1");
+
+                if (Take < 1)
+                    throw new ArgumentInvalidException("Take < 1");
+
+                Email = string.IsNullOrWhiteSpace(Email) ? null : Email;
+                PhoneNumber = string.IsNullOrWhiteSpace(PhoneNumber) ? null : PhoneNumber;
+                FullName = string.IsNullOrWhiteSpace(FullName) ? null : FullName;
+
+                // آماده سازی اولیه ی کویری
+                var qData = _UserRepository.Get.Select(a => new OutGetListForAdminPage
+                {
+                    Id = a.Id.ToString(),
+                    FullName = a.FirstName + " " + a.LastName,
+                    Email = a.Email,
+                    PhoneNumber = a.PhoneNumber,
+                    AccessLevelName = a.tblAccessLevels.Name,
+                    Date = a.Date,
+                    IsActive = a.IsActive
+                })
+                .Where(a => FullName != null ? a.FullName.Contains(FullName) : true)
+                .Where(a => Email != null ? a.Email.Contains(Email) : true)
+                .Where(a => PhoneNumber != null ? a.PhoneNumber.Contains(PhoneNumber) : true)
+                .OrderByDescending(a => a.Date);
+
+                // صفحه بندی داده ها
+                var qPagingData = PagingData.Calc(await qData.LongCountAsync(), PageNum, Take);
+
+                return (qPagingData, await qData.Skip((int)qPagingData.Skip).Take(qPagingData.Take).ToListAsync());
+            }
+            catch (ArgumentInvalidException)
+            {
+                return (null, null);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return (null, null);
             }
         }
     }

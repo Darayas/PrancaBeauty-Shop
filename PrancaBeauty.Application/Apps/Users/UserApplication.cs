@@ -588,20 +588,22 @@ namespace PrancaBeauty.Application.Apps.Users
                 FullName = string.IsNullOrWhiteSpace(FullName) ? null : FullName;
 
                 // آماده سازی اولیه ی کویری
-                var qData = _UserRepository.Get.Select(a => new OutGetListForAdminPage
-                {
-                    Id = a.Id.ToString(),
-                    FullName = a.FirstName + " " + a.LastName,
-                    Email = a.Email,
-                    PhoneNumber = a.PhoneNumber,
-                    AccessLevelName = a.tblAccessLevels.Name,
-                    Date = a.Date,
-                    IsActive = a.IsActive
-                })
+                var qData = _UserRepository.Get
+                    .OrderByDescending(a => a.Date)
+                    .Select(a => new OutGetListForAdminPage
+                    {
+                        Id = a.Id.ToString(),
+                        FullName = a.FirstName + " " + a.LastName,
+                        Email = a.Email,
+                        PhoneNumber = a.PhoneNumber,
+                        AccessLevelName = a.tblAccessLevels.Name,
+                        Date = a.Date.ToString("yyyy/MM/dd HH:mm"),
+                        IsActive = a.IsActive
+                    })
                 .Where(a => FullName != null ? a.FullName.Contains(FullName) : true)
                 .Where(a => Email != null ? a.Email.Contains(Email) : true)
                 .Where(a => PhoneNumber != null ? a.PhoneNumber.Contains(PhoneNumber) : true)
-                .OrderByDescending(a => a.Date);
+                .OrderByDescending(a => a.IsActive);
 
                 // صفحه بندی داده ها
                 var qPagingData = PagingData.Calc(await qData.LongCountAsync(), PageNum, Take);

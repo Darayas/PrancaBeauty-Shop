@@ -141,6 +141,9 @@
   <data name="AddNewAccessLevel" xml:space="preserve">
     <value>افزودن</value>
   </data>
+  <data name="AddNewUsers" xml:space="preserve">
+    <value>افزودن کاربر جدید</value>
+  </data>
   <data name="AdminPanel" xml:space="preserve">
     <value>پنل مدیریت</value>
   </data>
@@ -314,6 +317,9 @@
   </data>
   <data name="ManageAccessLevel" xml:space="preserve">
     <value>مدریت سطوح دسترسی</value>
+  </data>
+  <data name="ManageUsers" xml:space="preserve">
+    <value>مدیریت کاربران</value>
   </data>
   <data name="MobilePattern" xml:space="preserve">
     <value>^[0][9][0-9]{9}$</value>

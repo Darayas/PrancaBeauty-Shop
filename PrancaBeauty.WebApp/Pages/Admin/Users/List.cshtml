@@ -35,15 +35,16 @@
                                 @(Html.Kendo()
                                   .Grid<PrancaBeauty.Application.Contracts.Users.OutGetListForAdminPage>()
                                   .Name("ListUsers")
+                                  .ToolBar(a=>a.ClientTemplateId("ToolbarPanel"))
                                   .DefaultSettings(Localizer)
                                   .Columns(col=> {
                                       col.Bound(a => a.Id).Hidden().HtmlAttributes(new { @class = "RowId" }).Sortable(false);
-                                      col.Bound(a => a.FullName).Sortable(false);
-                                      col.Bound(a => a.Email).Sortable(false).Width(150);
-                                      col.Bound(a => a.PhoneNumber).Sortable(false).Width(150);
-                                      col.Bound(a => a.AccessLevelName).Sortable(false).Width(150);
-                                      col.Bound(a => a.Date).Sortable(false).Width(150);
-                                      col.Bound(a => a.IsActive).Sortable(false).Width(150);
+                                      col.Bound(a => a.FullName).Width(150).Sortable(false);
+                                      col.Bound(a => a.Email).HtmlAttributes(new { @class= "text-left" }).Width(150).Sortable(false);
+                                      col.Bound(a => a.PhoneNumber).HtmlAttributes(new { @class = "text-left" }).Width(80).Sortable(false);
+                                      col.Bound(a => a.AccessLevelName).HtmlAttributes(new { @class = "text-left" }).Width(100).Sortable(false);
+                                      col.Bound(a => a.Date).Width(90).HtmlAttributes(new { @class = "text-left" }).Sortable(false);
+                                      col.Bound(a => a.IsActive).HtmlAttributes(new {style = "text-align:center;" }).ClientTemplate("<img style='width:32px' src='/Shared/img/#=IsActive#.png'/>").Width(50).Sortable(false);
                                       col.Bound(a => a).Width(50).Title(" ")
                                                                  .HtmlAttributes(new { style= "overflow: visible; text-align: center;" })
                                                                  .ClientHeaderTemplate(User.IsInRole(Roles.CanAddUsers)? "<button class='btn btn-success btn-sm' onclick='Add()'><i class='fa fa-plus'></i></button>" : "")
@@ -78,6 +79,20 @@
         </div>
     </div>
 </script>
+
+<div id="ToolbarPanel">
+    <div class="row">
+        <div class="col-md-2">
+            <input type="text" id="" class="form-control form-control-sm" placeholder="@Localizer["FullName"]"/>
+        </div>
+        <div class="col-md-2">
+            <input type="text" id="" class="form-control form-control-sm" placeholder="@Localizer["Email"]"/>
+        </div>
+        <div class="col-md-2">
+            <input type="text" id="" class="form-control form-control-sm" placeholder="@Localizer["PhoneNumber"]"/>
+        </div>
+    </div>
+</div>
 
 @if (User.IsInRole(Roles.CanAddUsers))
 {

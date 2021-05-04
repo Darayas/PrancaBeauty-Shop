@@ -24,7 +24,7 @@ namespace PrancaBeauty.Application.Contracts.Users
         public string AccessLevelName { get; set; }
 
         [Display(Name = "RegDate")]
-        public DateTime Date { get; set; }
+        public string Date { get; set; }
 
         [Display(Name = "IsActive")]
         public bool IsActive { get; set; }

@@ -456,6 +456,21 @@
   <data name="SmsSenderNotRespond" xml:space="preserve">
     <value>سرویس دهنده ی پیامک پاسخ گو نیست</value>
   </data>
+  <data name="SortEmailAes" xml:space="preserve">
+    <value>بر اساس ایمیل(صعودی)</value>
+  </data>
+  <data name="SortEmailDes" xml:space="preserve">
+    <value>بر اساس ایمیل(نزولی)</value>
+  </data>
+  <data name="SortFullNameAes" xml:space="preserve">
+    <value>بر اساس نام (صعودی)</value>
+  </data>
+  <data name="SortFullNameDes" xml:space="preserve">
+    <value>بر اساس نام (نزولی)</value>
+  </data>
+  <data name="Sorting" xml:space="preserve">
+    <value>مرتب سازی</value>
+  </data>
   <data name="StringLengthMsg" xml:space="preserve">
     <value>{0} باید بین {2} تا {1} کاراکتر باشد</value>
   </data>

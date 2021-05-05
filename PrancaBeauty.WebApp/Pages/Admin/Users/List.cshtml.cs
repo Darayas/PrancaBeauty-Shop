@@ -32,9 +32,9 @@ namespace PrancaBeauty.WebApp.Pages.Admin.Users
             return Page();
         }
 
-        public async Task<IActionResult> OnPostReadDataAsync([DataSourceRequest] DataSourceRequest request)
+        public async Task<IActionResult> OnPostReadDataAsync([DataSourceRequest] DataSourceRequest request, string FullName, string Email, string PhoneNumber, string Sort)
         {
-            var qData = await _UsersApplication.GetListForAdminPageAsync(null, null, null, request.Page, request.PageSize);
+            var qData = await _UsersApplication.GetListForAdminPageAsync(Email, PhoneNumber, FullName, request.Page, request.PageSize);
 
 
             var _DataGrid = qData.Item2.ToDataSourceResult(request);

@@ -11,3 +11,7 @@
     .k-grid .dropdown-menu .dropdown-icon {
         margin: 0 5px;
     }
+
+.k-widget * {
+    box-sizing: border-box !important;
+}

@@ -11,6 +11,7 @@ using PrancaBeauty.Application.Apps.Users;
 using PrancaBeauty.WebApp.Authentication;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
 using PrancaBeauty.WebApp.Localization;
+using PrancaBeauty.WebApp.Models.ViewModel;
 
 namespace PrancaBeauty.WebApp.Pages.Admin.Users
 {
@@ -32,12 +33,25 @@ namespace PrancaBeauty.WebApp.Pages.Admin.Users
             return Page();
         }
 
-        public async Task<IActionResult> OnPostReadDataAsync([DataSourceRequest] DataSourceRequest request, string FullName, string Email, string PhoneNumber, string Sort)
+        public async Task<IActionResult> OnPostReadDataAsync([DataSourceRequest] DataSourceRequest request, string FullName, string Email, string PhoneNumber, string FieldSort)
         {
-            var qData = await _UsersApplication.GetListForAdminPageAsync(Email, PhoneNumber, FullName, request.Page, request.PageSize);
+            var qData = await _UsersApplication.GetListForAdminPageAsync(Email, PhoneNumber, FullName, FieldSort, request.Page, request.PageSize);
 
 
-            var _DataGrid = qData.Item2.ToDataSourceResult(request);
+            var _DataGrid = qData.Item2
+                                 .Select(a => new vmListUsers
+                                 {
+                                     Id = a.Id,
+                                     FullName = a.FullName,
+                                     AccessLevelName = a.AccessLevelName,
+                                     Date = a.Date.ToString("yyyy/MM/dd HH:mm"),
+                                     Email = a.Email,
+                                     IsActive = a.IsActive,
+                                     IsEmailConfirmed = a.IsEmailConfirmed,
+                                     IsPhoneNumberConfirmed = a.IsPhoneNumberConfirmed,
+                                     PhoneNumber = a.PhoneNumber
+                                 })
+                                 .ToDataSourceResult(request);
             _DataGrid.Total = (int)qData.Item1.CountAllItem;
             _DataGrid.Data = qData.Item2;
 

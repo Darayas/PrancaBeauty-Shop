@@ -162,14 +162,32 @@
   <data name="ConcurrencyFailure" xml:space="preserve">
     <value>رکورد جاری پیشتر ویرایش شده‌است و تغییرات شما آن‌را بازنویسی خواهد کرد</value>
   </data>
+  <data name="ConfirmAccountDes" xml:space="preserve">
+    <value>وضعیت ایمیل (نزولی)</value>
+  </data>
+  <data name="ConfirmEmailAes" xml:space="preserve">
+    <value>وضعیت ایمیل (صعودی)</value>
+  </data>
   <data name="ConfirmPassword" xml:space="preserve">
     <value>تایید کلمه عبور</value>
+  </data>
+  <data name="ConfirmPhoneNumberAes" xml:space="preserve">
+    <value>وضعیت موبایل (صعودی)</value>
+  </data>
+  <data name="ConfirmPhoneNumberDes" xml:space="preserve">
+    <value>وضعیت موبایل (نزولی)</value>
   </data>
   <data name="CountUser" xml:space="preserve">
     <value>تعداد کاربران</value>
   </data>
   <data name="Dashborad" xml:space="preserve">
     <value>پیشخوان</value>
+  </data>
+  <data name="DateAes" xml:space="preserve">
+    <value>تاریخ (صعودی)</value>
+  </data>
+  <data name="DateDes" xml:space="preserve">
+    <value>تاریخ (نزولی)</value>
   </data>
   <data name="DefaultError" xml:space="preserve">
     <value>خطایی ناشناخته رخ داد. لطفا بعدا مجدد امتحان کنید</value>
@@ -266,6 +284,18 @@
   </data>
   <data name="IsActive" xml:space="preserve">
     <value>وضعیت</value>
+  </data>
+  <data name="IsActiveAes" xml:space="preserve">
+    <value>وضعیت (صعودی)</value>
+  </data>
+  <data name="IsActiveDes" xml:space="preserve">
+    <value>وضعیت (نزولی)</value>
+  </data>
+  <data name="IsEmailConfirmed" xml:space="preserve">
+    <value>وضعیت تایید ایمیل</value>
+  </data>
+  <data name="IsPhoneNumberConfirmed" xml:space="preserve">
+    <value>وضعیت تایید موبایل</value>
   </data>
   <data name="ItemsPerPage" xml:space="preserve">
     <value>مورد بر صفحه</value>

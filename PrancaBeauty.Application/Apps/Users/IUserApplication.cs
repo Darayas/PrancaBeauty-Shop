@@ -16,7 +16,7 @@ namespace PrancaBeauty.Application.Apps.Users
         Task<OperationResult> EmailConfirmationAsync(string UserId, string Token);
         Task<string> GenerateEmailConfirmationTokenAsync(string UserId);
         Task<OutGetAllUserDetails> GetAllUserDetailsAsync(string UserId);
-        Task<(OutPagingData, List<OutGetListForAdminPage>)> GetListForAdminPageAsync(string Email, string PhoneNumber, string FullName, int PageNum, int Take);
+        Task<(OutPagingData, List<OutGetListForAdminPage>)> GetListForAdminPageAsync(string Email, string PhoneNumber, string FullName, string Sort, int PageNum, int Take);
         Task<tblUsers> GetUserByEmailAsync(string Email);
         Task<tblUsers> GetUserByIdAsync(string UserId);
         Task<tblUsers> GetUserByPhoneNumberAsync(string PhoneNumber);

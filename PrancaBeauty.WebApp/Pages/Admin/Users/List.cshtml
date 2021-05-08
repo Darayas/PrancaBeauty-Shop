@@ -33,7 +33,7 @@
                         <div class="card-body">
                             <div class="k-lang">
                                 @(Html.Kendo()
-                                  .Grid<PrancaBeauty.Application.Contracts.Users.OutGetListForAdminPage>()
+                                  .Grid<vmListUsers>()
                                   .Name("ListUsers")
                                   .ToolBar(a=>a.ClientTemplateId("ToolbarPanel"))
                                   .DefaultSettings(Localizer)
@@ -44,6 +44,8 @@
                                       col.Bound(a => a.PhoneNumber).HtmlAttributes(new { @class = "text-left" }).Width(80).Sortable(false);
                                       col.Bound(a => a.AccessLevelName).HtmlAttributes(new { @class = "text-left" }).Width(100).Sortable(false);
                                       col.Bound(a => a.Date).Width(90).HtmlAttributes(new { @class = "text-left" }).Sortable(false);
+                                      col.Bound(a => a.IsEmailConfirmed).HtmlAttributes(new {style = "text-align:center;" }).ClientTemplate("<img style='width:32px' src='/Shared/img/#=IsEmailConfirmed#.png'/>").Width(50).Sortable(false);
+                                      col.Bound(a => a.IsPhoneNumberConfirmed).HtmlAttributes(new {style = "text-align:center;" }).ClientTemplate("<img style='width:32px' src='/Shared/img/#=IsPhoneNumberConfirmed#.png'/>").Width(50).Sortable(false);
                                       col.Bound(a => a.IsActive).HtmlAttributes(new {style = "text-align:center;" }).ClientTemplate("<img style='width:32px' src='/Shared/img/#=IsActive#.png'/>").Width(50).Sortable(false);
                                       col.Bound(a => a).Width(50).Title(" ")
                                                                  .HtmlAttributes(new { style= "overflow: visible; text-align: center;" })
@@ -98,6 +100,14 @@
                 <option value="FullNameAes">@Localizer["SortFullNameAes"]</option>
                 <option value="EmailDes">@Localizer["SortEmailDes"]</option>
                 <option value="EmailAes">@Localizer["SortEmailAes"]</option>
+                <option value="IsActiveDes">@Localizer["IsActiveDes"]</option>
+                <option value="IsActiveAes">@Localizer["IsActiveAes"]</option>
+                <option value="DateDes">@Localizer["DateDes"]</option>
+                <option value="DateAes">@Localizer["DateAes"]</option>
+                <option value="ConfirmEmailDes">@Localizer["ConfirmEmailDes"]</option>
+                <option value="ConfirmEmailAes">@Localizer["ConfirmEmailAes"]</option>
+                <option value="ConfirmPhoneNumberDes">@Localizer["ConfirmPhoneNumberDes"]</option>
+                <option value="ConfirmPhoneNumberAes">@Localizer["ConfirmPhoneNumberAes"]</option>
             </select>
         </div>
     </div>
@@ -130,10 +140,10 @@
         var _FullName = $('#txtSearchFullName').val();
         var _Email = $('#txtSearchEmail').val();
         var _PhoneNumber = $('#txtSerachPhoneNumber').val();
-        var _txtSort = $('#txtSort').val();
+        var _txtSort = $('#txtSort option:selected').val();
 
         var _Grid = $('#ListUsers').data('kendoGrid');
-        _Grid.dataSource.transport.options.read.url = '/@CultureInfo.CurrentCulture.Parent.Name/Admin/Users/List?handler=ReadData&FullName=' + _FullName + '&Email=' + _Email + '&PhoneNumber=' + _PhoneNumber + '&Sort=' + _txtSort;
+        _Grid.dataSource.transport.options.read.url = '/@CultureInfo.CurrentCulture.Parent.Name/Admin/Users/List?handler=ReadData&FullName=' + _FullName + '&Email=' + _Email + '&PhoneNumber=' + _PhoneNumber + '&FieldSort=' + _txtSort;
         _Grid.dataSource.read();
         _Grid.refresh();
     }

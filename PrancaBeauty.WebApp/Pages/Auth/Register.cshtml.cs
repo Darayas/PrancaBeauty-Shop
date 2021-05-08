@@ -77,10 +77,10 @@ namespace PrancaBeauty.WebApp.Pages.Auth
                     }
                     #endregion
 
-                    return Redirect("/Auth/UserCreatedSuccessfully");
+                    return Redirect($"/{CultureInfo.CurrentCulture.Parent.Name}/Auth/AccountCreate");
                 }
                 else
-                    return Redirect("/Auth/UserCreatedSuccessfully");
+                    return Redirect($"/{CultureInfo.CurrentCulture.Parent.Name}/Auth/AccountCreate");
             }
             else
             {

@@ -259,3 +259,7 @@ ul {
     direction: ltr;
     text-align: left;
 }
+
+a:not([href]){
+    cursor:pointer;
+}

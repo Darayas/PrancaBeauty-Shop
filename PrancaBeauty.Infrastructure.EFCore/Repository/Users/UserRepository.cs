@@ -140,5 +140,10 @@ namespace PrancaBeauty.Infrastructure.EFCore.Repository.Users
             // افزودن عضویت
             return await _UserManager.AddToRolesAsync(user, Roles);
         }
+
+        public async Task<IdentityResult> RemoveAsync(tblUsers user)
+        {
+            return await _UserManager.DeleteAsync(user);
+        }
     }
 }

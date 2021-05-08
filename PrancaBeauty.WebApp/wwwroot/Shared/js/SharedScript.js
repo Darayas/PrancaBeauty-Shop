@@ -93,3 +93,7 @@ function RefreshGrid(_GridId) {
     $('#' + _GridId).data("kendoGrid").dataSource.read();
     $('#' + _GridId).data("kendoGrid").refresh();
 }
+
+function ChangeUrl(_NewUrl) {
+    history.pushState({}, null, _NewUrl);
+}

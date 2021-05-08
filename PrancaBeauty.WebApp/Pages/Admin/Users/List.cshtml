@@ -85,16 +85,16 @@
 <div id="ToolbarPanel">
     <div class="row">
         <div class="col-md-2">
-            <input type="text" onchange="Search()" id="txtSearchFullName" class="form-control form-control-sm" placeholder="@Localizer["FullName"]" />
+            <input type="text" onchange="Search()" asp-for="Input.FullName" id="txtSearchFullName" class="form-control form-control-sm" placeholder="@Localizer["FullName"]" />
         </div>
         <div class="col-md-2">
-            <input type="text" onchange="Search()" id="txtSearchEmail" class="form-control form-control-sm text-left" placeholder="@Localizer["Email"]" />
+            <input type="text" onchange="Search()" asp-for="Input.Email" id="txtSearchEmail" class="form-control form-control-sm text-left" placeholder="@Localizer["Email"]" />
         </div>
         <div class="col-md-2">
-            <input type="text" onchange="Search()" id="txtSerachPhoneNumber" class="form-control form-control-sm text-left" placeholder="@Localizer["PhoneNumber"]" />
+            <input type="text" onchange="Search()" asp-for="Input.PhoneNumber" id="txtSerachPhoneNumber" class="form-control form-control-sm text-left" placeholder="@Localizer["PhoneNumber"]" />
         </div>
         <div class="col-md-2">
-            <select onchange="Search()" id="txtSort" class="form-control form-control-sm">
+            <select onchange="Search()" asp-for="Input.FieldSort" id="txtSort" class="form-control form-control-sm">
                 <option value="">@Localizer["Sorting"]</option>
                 <option value="FullNameDes">@Localizer["SortFullNameDes"]</option>
                 <option value="FullNameAes">@Localizer["SortFullNameAes"]</option>
@@ -146,5 +146,11 @@
         _Grid.dataSource.transport.options.read.url = '/@CultureInfo.CurrentCulture.Parent.Name/Admin/Users/List?handler=ReadData&FullName=' + _FullName + '&Email=' + _Email + '&PhoneNumber=' + _PhoneNumber + '&FieldSort=' + _txtSort;
         _Grid.dataSource.read();
         _Grid.refresh();
+
+        ChangeUrl(_Grid.dataSource.transport.options.read.url);
     }
+
+    $(document).ready(function () {
+        Search();
+    });
 </script>

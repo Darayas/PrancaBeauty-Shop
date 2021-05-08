@@ -534,6 +534,9 @@
   <data name="Yes" xml:space="preserve">
     <value>بله</value>
   </data>
+  <data name="YouCantDeleteUser" xml:space="preserve">
+    <value>امکان حذف این کاربر وجود ندارد. میتوانید کاربر جاری را غیرفعال کنید.</value>
+  </data>
   <data name="YourAccountIsDisabled" xml:space="preserve">
     <value>حساب کاربری شما غیرفعال شده است. لطفا با مدیریت در ارتباط باشید.</value>
   </data>

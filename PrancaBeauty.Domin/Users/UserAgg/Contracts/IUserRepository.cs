@@ -28,6 +28,7 @@ namespace PrancaBeauty.Domin.Users.UserAgg.Contracts
         Task<bool> IsEmailConfirmedAsync(tblUsers User);
         Task<SignInResult> PasswordSignInAsync(tblUsers user, string password, bool isPersistent, bool lockoutOnFailure);
         Task<IdentityResult> RemoveAllRolesAsync(tblUsers user);
+        Task<IdentityResult> RemoveAsync(tblUsers user);
         Task<IdentityResult> RemovePasswordAsync(tblUsers entity);
         Task<IdentityResult> RemovePhoneNumberPasswordAsync(tblUsers entity);
         bool RequireConfirmedEmail();

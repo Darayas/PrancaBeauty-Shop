@@ -29,5 +29,6 @@ namespace PrancaBeauty.Application.Apps.Users
         Task<OperationResult> ReCreatePasswordAsync(tblUsers User);
         Task<OperationResult> RemoveAllRolesAsync(tblUsers user);
         Task<bool> RemoveUnConfirmedUserAsync(string UserId);
+        Task<OperationResult> RemoveUserAsync(string UserId);
     }
 }

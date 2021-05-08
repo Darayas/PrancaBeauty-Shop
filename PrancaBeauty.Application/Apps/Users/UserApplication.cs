@@ -693,5 +693,37 @@ namespace PrancaBeauty.Application.Apps.Users
                 return (null, null);
             }
         }
+
+        public async Task<OperationResult> RemoveUserAsync(string UserId)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(UserId))
+                    throw new ArgumentInvalidException($"UserId cannot be null.");
+
+                var qUser = await _UserRepository.FindByIdAsync(UserId);
+                if (qUser == null)
+                    return new OperationResult().Failed("UserNotFound");
+
+                // برسی تایید نشده بودن کاربر
+                if (qUser.EmailConfirmed || qUser.PhoneNumberConfirmed)
+                    return new OperationResult().Failed("YouCantDeleteUser");
+
+                var Result = await _UserRepository.RemoveAsync(qUser);
+                if (Result.Succeeded)
+                {
+
+                }
+                else
+                {
+
+                }
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
     }
 }

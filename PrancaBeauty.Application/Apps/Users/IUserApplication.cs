@@ -12,6 +12,7 @@ namespace PrancaBeauty.Application.Apps.Users
     {
         Task<OperationResult> AddRolesAsync(tblUsers user, string[] Roles);
         Task<OperationResult> AddUserAsync(InpAddUser Input);
+        Task<OperationResult> ChangeUserStatusAsync(string UserId, string SelfUserId);
         Task<OperationResult> EditUsersRoleByAccIdAsync(string AccessLevelId, string[] Roles);
         Task<OperationResult> EmailConfirmationAsync(string UserId, string Token);
         Task<string> GenerateEmailConfirmationTokenAsync(string UserId);

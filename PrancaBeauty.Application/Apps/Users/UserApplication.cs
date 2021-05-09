@@ -712,12 +712,43 @@ namespace PrancaBeauty.Application.Apps.Users
                 var Result = await _UserRepository.RemoveAsync(qUser);
                 if (Result.Succeeded)
                 {
-
+                    return new OperationResult().Succeeded("UserDeleted");
                 }
                 else
                 {
-
+                    return new OperationResult().Failed(string.Join(" | ", Result.Errors.Select(a => a.Description)));
                 }
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
+
+        public async Task<OperationResult> ChangeUserStatusAsync(string UserId, string SelfUserId)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(UserId))
+                    throw new ArgumentInvalidException($"UserId cannot be null.");
+
+                // جلوگیری از تغییر وضعیت حساب خود
+                if (UserId == SelfUserId)
+                    return new OperationResult().Failed("YouCantChanageYourAccountStatus");
+
+                var qUser = await _UserRepository.FindByIdAsync(UserId);
+                if (qUser == null)
+                    return new OperationResult().Failed("UserNotFound");
+
+                if (qUser.Email.ToLower() == "reza9025@gmail.com")
+                    return new OperationResult().Failed("YouCantChanageAdminAccountStatus");
+
+                qUser.IsActive = !qUser.IsActive;
+
+                await _UserRepository.UpdateAsync(qUser, default, true);
+
+                return new OperationResult().Succeeded("UserChangeStatus");
             }
             catch (Exception ex)
             {

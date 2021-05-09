@@ -78,6 +78,10 @@
             {
                 <a onClick="Remove('#:Id#')" class="dropdown-item"><i class="dropdown-icon fa fa-times"></i>@Localizer["Remove"]</a>
             }
+            @if (User.IsInRole(Roles.CanChangeUsersStatus))
+            {
+                <a onClick="ChangeStatus('#:Id#')" class="dropdown-item"><i class="dropdown-icon fa #=IsActive==true?'fa-ban':'fa-badge-check'#"></i>#=IsActive==true?"@Localizer["ChangeStatusDisable"]":"@Localizer["ChangeStatusEnable"]"#</a>
+            }
         </div>
     </div>
 </script>
@@ -127,6 +131,15 @@
     <script>
         function Remove(_Id) {
             RemoveData('/@ViewData["Culture"]/Admin/Users/List?handler=Remove', {Id:_Id});
+        }
+    </script>
+}
+
+@if (User.IsInRole(Roles.CanChangeUsersStatus))
+{
+    <script>
+        function ChangeStatus(_Id) {
+            RemoveData('/@ViewData["Culture"]/Admin/Users/List?handler=ChanageStatus', {Id:_Id});
         }
     </script>
 }

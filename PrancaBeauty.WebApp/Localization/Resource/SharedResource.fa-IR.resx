@@ -150,6 +150,12 @@
   <data name="AreYouSure" xml:space="preserve">
     <value>ایا مطمعن هستید؟</value>
   </data>
+  <data name="ChangeStatusDisable" xml:space="preserve">
+    <value>غیر فعال کردن</value>
+  </data>
+  <data name="ChangeStatusEnable" xml:space="preserve">
+    <value>فعال کردن</value>
+  </data>
   <data name="Code" xml:space="preserve">
     <value>کد</value>
   </data>
@@ -513,8 +519,14 @@
   <data name="UserAlreadyInRole" xml:space="preserve">
     <value>کاربر از قبل عضو این Role می باشد</value>
   </data>
+  <data name="UserChangeStatus" xml:space="preserve">
+    <value>وضعیت کاربر با موفقیت تغییر کرد.</value>
+  </data>
   <data name="UserCreatedSuccessfully" xml:space="preserve">
     <value>کاربر با موفقیت ایجاد شد.</value>
+  </data>
+  <data name="UserDeleted" xml:space="preserve">
+    <value>کاربر با موفقیت حذف شد.</value>
   </data>
   <data name="UserLockoutNotEnabled" xml:space="preserve">
     <value>این کاربر قفل نشده است و فعال می باشد</value>
@@ -533,6 +545,12 @@
   </data>
   <data name="Yes" xml:space="preserve">
     <value>بله</value>
+  </data>
+  <data name="YouCantChanageAdminAccountStatus" xml:space="preserve">
+    <value>شما نمیتوانید وضعیت حساب کابر مدیر کل را تغییر دهید.</value>
+  </data>
+  <data name="YouCantChanageYourAccountStatus" xml:space="preserve">
+    <value>شما نمیتوانید وضعیت حساب کاربری خود را تغییر دهید.</value>
   </data>
   <data name="YouCantDeleteUser" xml:space="preserve">
     <value>امکان حذف این کاربر وجود ندارد. میتوانید کاربر جاری را غیرفعال کنید.</value>

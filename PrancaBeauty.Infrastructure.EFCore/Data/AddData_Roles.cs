@@ -185,7 +185,21 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                         Sort = 90,
                         Name = "CanRemoveUsers",
                         NormalizedName = "CanRemoveUsers".ToUpper(),
-                        Description = "توانایی حذف سطح دسترسی"
+                        Description = "توانایی حذف کاربر"
+                    }, default, false).Wait();
+                }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanChangeUsersStatus"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageUsersPage",
+                        Sort = 100,
+                        Name = "CanChangeUsersStatus",
+                        NormalizedName = "CanChangeUsersStatus".ToUpper(),
+                        Description = "توانایی تغییر وضعیت کاربر"
                     }, default, false).Wait();
                 }
             }

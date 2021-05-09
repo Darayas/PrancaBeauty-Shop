@@ -23,6 +23,7 @@ namespace PrancaBeauty.WebApp.Authentication
         public const string CanAddUsers = "CanAddUsers";
         public const string CanEditUsers = "CanEditUsers";
         public const string CanRemoveUsers = "CanRemoveUsers";
+        public const string CanChangeUsersStatus = "CanChangeUsersStatus";
         #endregion
     }
 }

@@ -5342,7 +5342,7 @@ button.close, button.mailbox-attachment-close {
 
     .modal-header .close, .modal-header .mailbox-attachment-close {
         padding: 1rem;
-        margin: -1rem -1rem -1rem auto;
+        margin: -1rem auto -1rem -1rem;
     }
 
 .modal-title {
@@ -5365,11 +5365,11 @@ button.close, button.mailbox-attachment-close {
 }
 
     .modal-footer > :not(:first-child) {
-        margin-left: .25rem;
+        margin-right: .25rem;
     }
 
     .modal-footer > :not(:last-child) {
-        margin-right: .25rem;
+        margin-left: .25rem;
     }
 
 .modal-scrollbar-measure {

@@ -80,7 +80,11 @@
             }
             @if (User.IsInRole(Roles.CanChangeUsersStatus))
             {
-                <a onClick="ChangeStatus('#:Id#')" class="dropdown-item"><i class="dropdown-icon fa #=IsActive==true?'fa-ban':'fa-badge-check'#"></i>#=IsActive==true?"@Localizer["ChangeStatusDisable"]":"@Localizer["ChangeStatusEnable"]"#</a>
+                <a onClick="ChangeStatus('#:Id#')" class="dropdown-item"><i class="dropdown-icon fa #=IsActive==true?'fa-ban':'fa-check'#"></i>#=IsActive==true?"@Localizer["ChangeStatusDisable"]":"@Localizer["ChangeStatusEnable"]"#</a>
+            }
+             @if (User.IsInRole(Roles.CanChangeUsersAccessLevel))
+            {
+                <a onClick="ChangeAccessLevel('#:Id#')" class="dropdown-item"><i class="dropdown-icon fa fa-shield"></i>@Localizer["ChangeAccessLevel"]</a>
             }
         </div>
     </div>
@@ -140,6 +144,19 @@
     <script>
         function ChangeStatus(_Id) {
             RemoveData('/@ViewData["Culture"]/Admin/Users/List?handler=ChanageStatus', {Id:_Id});
+        }
+    </script>
+}
+
+@if (User.IsInRole(Roles.CanChangeUsersAccessLevel))
+{
+    <script>
+        function ChangeAccessLevel(_Id) {
+            LoadComponenet('/@ViewData["culture"]/Admin/Users/Compo/ChangeAccessLevel', { UserId: _Id}, function (res) {
+                $('body').append(res);
+                $('#ChangeAccessLevel').modal();
+            });
+
         }
     </script>
 }

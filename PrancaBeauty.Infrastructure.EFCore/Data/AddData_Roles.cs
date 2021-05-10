@@ -202,6 +202,20 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                         Description = "توانایی تغییر وضعیت کاربر"
                     }, default, false).Wait();
                 }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanChangeUsersAccessLevel"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageUsersPage",
+                        Sort = 110,
+                        Name = "CanChangeUsersAccessLevel",
+                        NormalizedName = "CanChangeUsersAccessLevel".ToUpper(),
+                        Description = "توانایی تغییر سطح دسترسی کاربر"
+                    }, default, false).Wait();
+                }
             }
             #endregion
 

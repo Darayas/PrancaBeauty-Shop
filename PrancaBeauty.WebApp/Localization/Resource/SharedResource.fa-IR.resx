@@ -123,6 +123,9 @@
   <data name="AccessLevelHasUser" xml:space="preserve">
     <value>سطح دسترسی جاری، حاوی کاربرانی میباشد که ابتدا باید آن ها از عضویت این سطح دسترسی خارج شوند.</value>
   </data>
+  <data name="AccessLevelId" xml:space="preserve">
+    <value>سطح دسترسی</value>
+  </data>
   <data name="AccessLevelName" xml:space="preserve">
     <value>نقش کاربر</value>
   </data>
@@ -149,6 +152,9 @@
   </data>
   <data name="AreYouSure" xml:space="preserve">
     <value>ایا مطمعن هستید؟</value>
+  </data>
+  <data name="ChangeAccessLevel" xml:space="preserve">
+    <value>تغییر سطح دسترسی</value>
   </data>
   <data name="ChangeStatusDisable" xml:space="preserve">
     <value>غیر فعال کردن</value>
@@ -527,6 +533,9 @@
   </data>
   <data name="UserDeleted" xml:space="preserve">
     <value>کاربر با موفقیت حذف شد.</value>
+  </data>
+  <data name="UserId" xml:space="preserve">
+    <value>کاربر</value>
   </data>
   <data name="UserLockoutNotEnabled" xml:space="preserve">
     <value>این کاربر قفل نشده است و فعال می باشد</value>

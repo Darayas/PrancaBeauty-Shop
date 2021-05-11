@@ -34,5 +34,11 @@
     "inputFiles": [
       "wwwroot/Admin/css/adminlte.css"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/lib/KendoUI/css/kendo.rtl.min.css",
+    "inputFiles": [
+      "wwwroot/lib/KendoUI/css/kendo.rtl.css"
+    ]
   }
 ]

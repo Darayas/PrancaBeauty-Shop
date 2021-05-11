@@ -781,3 +781,18 @@
     background-color: #79add9 !important;
     color: #fff !important;
 }
+
+.k-lang .k-combobox-clearable .k-input {
+    padding-left: 1.9em !important;
+    padding-right: unset !important;
+}
+
+.k-lang .k-dropdown-wrap, .k-numeric-wrap, .k-picker-wrap {
+    padding-left: 2.28571428em;
+    padding-right: unset !important;
+}
+
+.k-combobox > .k-dropdown-wrap > .k-i-close {
+    left: calc(3.23571428em - 8px) !important;
+    right: unset !important;
+}

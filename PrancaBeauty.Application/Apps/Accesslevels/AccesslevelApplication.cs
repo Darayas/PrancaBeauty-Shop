@@ -239,6 +239,24 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Name">بخشی از نام برای جستوجو</param>
+        /// <returns></returns>
+        public async Task<List<OutGetForChangeUserAccesssLevel>> GetForChangeUserAccesssLevelAsync(string Name)
+        {
+            var qData = await _AccessLevelRepository.Get
+                                                    .Select(a => new OutGetForChangeUserAccesssLevel
+                                                    {
+                                                        Id = a.Id.ToString(),
+                                                        Name = a.Name
+                                                    })
+                                                    .Where(a => Name != null ? a.Name.Contains(Name) : true)
+                                                    .ToListAsync();
 
+            return qData;
+
+        }
     }
 }

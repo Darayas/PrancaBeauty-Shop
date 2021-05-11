@@ -162,6 +162,9 @@
   <data name="ChangeStatusEnable" xml:space="preserve">
     <value>فعال کردن</value>
   </data>
+  <data name="Close" xml:space="preserve">
+    <value>خروج</value>
+  </data>
   <data name="Code" xml:space="preserve">
     <value>کد</value>
   </data>
@@ -443,6 +446,9 @@
   </data>
   <data name="PleaseConfirmYourPhoneNumber" xml:space="preserve">
     <value>شماره موبایل شمت تایید نشده است لطفا ابتدا آن را تایید نمایید</value>
+  </data>
+  <data name="PleseSelect" xml:space="preserve">
+    <value>لطفا انتخاب کنید</value>
   </data>
   <data name="Previous" xml:space="preserve">
     <value>قبلی</value>

@@ -592,6 +592,7 @@ namespace PrancaBeauty.Application.Apps.Users
                     .Select(a => new OutGetListForAdminPage
                     {
                         Id = a.Id.ToString(),
+                        AccessLevelId = a.AccessLevelId.ToString(),
                         FullName = a.FirstName + " " + a.LastName,
                         Email = a.Email,
                         PhoneNumber = a.PhoneNumber,
@@ -749,6 +750,53 @@ namespace PrancaBeauty.Application.Apps.Users
                 await _UserRepository.UpdateAsync(qUser, default, true);
 
                 return new OperationResult().Succeeded("UserChangeStatus");
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
+
+        public async Task<OperationResult> ChanageUserAccessLevelAsync(string UserId, string SelfUserId, string AccessLevelId)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(UserId))
+                {
+                    throw new ArgumentInvalidException($"'{nameof(UserId)}' cannot be null.");
+                }
+
+                if (string.IsNullOrWhiteSpace(SelfUserId))
+                {
+                    throw new ArgumentInvalidException($"'{nameof(SelfUserId)}' cannot be null.");
+                }
+
+                if (string.IsNullOrWhiteSpace(AccessLevelId))
+                {
+                    throw new ArgumentInvalidException($"'{nameof(AccessLevelId)}' cannot be null.");
+                }
+
+                // جلوگیری از تغییر سطح دسترسی حساب خود
+                if (UserId == SelfUserId)
+                    return new OperationResult().Failed("YouCantChanageYourAccountAccessLevel");
+
+                var qUser = await _UserRepository.FindByIdAsync(UserId);
+                if (qUser == null)
+                    return new OperationResult().Failed("UserNotFound");
+
+                if (qUser.Email.ToLower() == "reza9025@gmail.com")
+                    return new OperationResult().Failed("YouCantChanageAdminAccountAceessLevel");
+
+                qUser.AccessLevelId = Guid.Parse(AccessLevelId);
+
+                await _UserRepository.UpdateAsync(qUser, default, true);
+
+                return new OperationResult().Succeeded("UserChangeAccessLevel");
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                return new OperationResult().Failed(ex.Message);
             }
             catch (Exception ex)
             {

@@ -11,12 +11,12 @@
                 <div class="k-lang">
                     @(Html.Kendo()
                       .ComboBox()
-                      .Name("ComboChangeAccessLevel")
+                      .Name("Input.AccessLevelId")
                       .HtmlAttributes(new { @class= "form-control",style="width:100%;height:35px;" })
                       .Placeholder(Localizer["PleseSelect"])
                       .DataTextField("Name")
                       .DataValueField("Id")
-                      //.Value("0")
+                      .Value(Model.Input.AccessLevelId)
                       .DataSource(sr => {
                           sr.Read(read =>
                           {
@@ -26,9 +26,21 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#ChangeAccessLevel').remove(); $('.modal-backdrop').remove()">@Localizer["Close"]</button>
-                <button type="button" class="btn btn-primary">@Localizer["Save"]</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="Close()">@Localizer["Close"]</button>
+                <button type="button" onclick="SaveAccessLevel()" class="btn btn-primary">@Localizer["Save"]</button>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    function SaveAccessLevel() {
+        var _AccessLeveId = $('#Input_AccessLevelId').val();
+        SendData('/@ViewData["Culture"]/Admin/Users/Compo/ChangeAccessLevel', { UserId: '@Model.Input.UserId', AccessLevelId: _AccessLeveId });
+    }
+
+    function Close() {
+        $('#ChangeAccessLevel').remove();
+        $('.modal-backdrop').remove()
+    }
+</script>

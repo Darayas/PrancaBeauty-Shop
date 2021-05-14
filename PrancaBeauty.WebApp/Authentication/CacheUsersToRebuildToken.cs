@@ -17,6 +17,14 @@ namespace PrancaBeauty.WebApp.Authentication
             UserIds.AddRange(UsersId);
         }
 
+        public static void Add(string UsersId)
+        {
+            if (UserIds == null)
+                UserIds = new List<string>();
+
+            UserIds.Add(UsersId);
+        }
+
         public static bool Any(string UserId)
         {
             if (UserIds == null)

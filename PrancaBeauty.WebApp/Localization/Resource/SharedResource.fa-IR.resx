@@ -531,6 +531,9 @@
   <data name="UserAlreadyInRole" xml:space="preserve">
     <value>کاربر از قبل عضو این Role می باشد</value>
   </data>
+  <data name="UserChangeAccessLevel" xml:space="preserve">
+    <value>سطح دسترسی کاربر جاری با موفقت تغییر کرد.</value>
+  </data>
   <data name="UserChangeStatus" xml:space="preserve">
     <value>وضعیت کاربر با موفقیت تغییر کرد.</value>
   </data>
@@ -561,8 +564,14 @@
   <data name="Yes" xml:space="preserve">
     <value>بله</value>
   </data>
+  <data name="YouCantChanageAdminAccountAceessLevel" xml:space="preserve">
+    <value>شما نمیتوانید سطح دسترسی حساب کاربری مدیر را تغییر دهید.</value>
+  </data>
   <data name="YouCantChanageAdminAccountStatus" xml:space="preserve">
     <value>شما نمیتوانید وضعیت حساب کابر مدیر کل را تغییر دهید.</value>
+  </data>
+  <data name="YouCantChanageYourAccountAccessLevel" xml:space="preserve">
+    <value>شما نمیتوانید سطح دسترسی حساب کاربری خود را تغییر دهید.</value>
   </data>
   <data name="YouCantChanageYourAccountStatus" xml:space="preserve">
     <value>شما نمیتوانید وضعیت حساب کاربری خود را تغییر دهید.</value>

@@ -50,7 +50,8 @@ namespace PrancaBeauty.WebApp.Pages.Admin.Users
                                  IsActive = a.IsActive,
                                  IsEmailConfirmed = a.IsEmailConfirmed,
                                  IsPhoneNumberConfirmed = a.IsPhoneNumberConfirmed,
-                                 PhoneNumber = a.PhoneNumber
+                                 PhoneNumber = a.PhoneNumber,
+                                 AccessLevelId = a.AccessLevelId
                              });
 
             var _DataGrid = Items.ToDataSourceResult(request);

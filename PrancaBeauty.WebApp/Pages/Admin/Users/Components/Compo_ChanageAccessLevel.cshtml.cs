@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Accesslevels;
 using PrancaBeauty.Application.Apps.Users;
 using PrancaBeauty.Domin.Users.UserAgg.Contracts;
+using PrancaBeauty.WebApp.Authentication;
+using PrancaBeauty.WebApp.Common.ExMethod;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
 using PrancaBeauty.WebApp.Localization;
 using PrancaBeauty.WebApp.Models.ViewInput;
@@ -28,7 +30,7 @@ namespace PrancaBeauty.WebApp.Pages.Admin.Users.Components
             _AccesslevelApplication = accesslevelApplication;
         }
 
-        public async Task<IActionResult> OnGetAsync()
+        public IActionResult OnGet()
         {
             return Page();
         }
@@ -37,6 +39,21 @@ namespace PrancaBeauty.WebApp.Pages.Admin.Users.Components
         {
             var qData = await _AccesslevelApplication.GetForChangeUserAccesssLevelAsync(Text);
             return new JsonResult(qData);
+        }
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            var Result = await _UserApplication.ChanageUserAccessLevelAsync(Input.UserId, User.GetUserDetails().UserId, Input.AccessLevelId);
+            if (Result.IsSucceeded)
+            {
+                CacheUsersToRebuildToken.Add(Input.UserId);
+
+                return _MsgBox.SuccessMsg(_Localizer[Result.Message], "Close(); RefreshData();");
+            }
+            else
+            {
+                return _MsgBox.FaildMsg(_Localizer[Result.Message]);
+            }
         }
 
         [BindProperty(SupportsGet = true)]

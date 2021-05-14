@@ -39,6 +39,7 @@
                                   .DefaultSettings(Localizer)
                                   .Columns(col=> {
                                       col.Bound(a => a.Id).Hidden().HtmlAttributes(new { @class = "RowId" }).Sortable(false);
+                                      col.Bound(a => a.AccessLevelId).Hidden().HtmlAttributes(new { @class = "AccessLevelId" }).Sortable(false);
                                       col.Bound(a => a.FullName).Width(150).Sortable(false);
                                       col.Bound(a => a.Email).HtmlAttributes(new { @class= "text-left" }).Width(150).Sortable(false);
                                       col.Bound(a => a.PhoneNumber).HtmlAttributes(new { @class = "text-left" }).Width(80).Sortable(false);
@@ -84,7 +85,7 @@
             }
              @if (User.IsInRole(Roles.CanChangeUsersAccessLevel))
             {
-                <a onClick="ChangeAccessLevel('#:Id#')" class="dropdown-item"><i class="dropdown-icon fa fa-shield"></i>@Localizer["ChangeAccessLevel"]</a>
+                <a onClick="ChangeAccessLevel('#:Id#','#:AccessLevelId#')" class="dropdown-item"><i class="dropdown-icon fa fa-shield"></i>@Localizer["ChangeAccessLevel"]</a>
             }
         </div>
     </div>
@@ -151,10 +152,10 @@
 @if (User.IsInRole(Roles.CanChangeUsersAccessLevel))
 {
     <script>
-        function ChangeAccessLevel(_Id) {
-            LoadComponenet('/@ViewData["culture"]/Admin/Users/Compo/ChangeAccessLevel', { UserId: _Id}, function (res) {
+        function ChangeAccessLevel(_Id,_AccessLevelId) {
+            LoadComponenet('/@ViewData["culture"]/Admin/Users/Compo/ChangeAccessLevel', { UserId: _Id, AccessLevelId: _AccessLevelId}, function (res) {
                 $('body').append(res);
-                $('#ChangeAccessLevel').modal();
+                $('#ChangeAccessLevel').modal({ backdrop: 'static', keyboard: false });
             });
 
         }

@@ -1,4 +1,4 @@
-﻿@page "/Auth/Login/Components/LoginByPhoneNumber"
+﻿@page "/{culture}/Auth/Login/Components/LoginByPhoneNumber"
 @model PrancaBeauty.WebApp.Pages.Auth.Login.Components.PhoneNumberLogin.Compo_Login_PhoneNumberModel
 
 <div class="account_form">
@@ -10,7 +10,7 @@
         </p>
         <div class="login_submit">
             <a onclick="LoginByUserNamePassword()" href="#LoginPhoneNumber">@Localizer["LoginByUserNamePassword"]</a>
-            <button onclick="SendForm('/Auth/Login/Components/LoginByPhoneNumber','compo_Login')" type="button">@Localizer["SendAuthCode"]</button>
+            <button onclick="SendForm('/@ViewData["culture"]/Auth/Login/Components/LoginByPhoneNumber','compo_Login')" type="button">@Localizer["SendAuthCode"]</button>
         </div>
     </form>
 </div>
@@ -28,13 +28,13 @@
     }
 
     function LoginByUserNamePassword() {
-        LoadComponenet('/Auth/Login/Components/LoginByUsernamePassword', { ReturnUrl: null }, function (data) {
+        LoadComponenet('/@ViewData["culture"]/Auth/Login/Components/LoginByUsernamePassword', { ReturnUrl: null }, function (data) {
             $('#CompoLogin').html(data);
         });
     }
 
     function GotoOtpPage() {
-        LoadComponenet('/Auth/Login/Components/LoginByPhoneNumber/OTP', { ReturnUrl: null, PhoneNumber: $('#Input_PhoneNumber').val() }, function (data) {
+        LoadComponenet('/@ViewData["culture"]/Auth/Login/Components/LoginByPhoneNumber/OTP', { ReturnUrl: null, PhoneNumber: $('#Input_PhoneNumber').val() }, function (data) {
             $('#CompoLogin').html(data);
         });
     }

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.WebEncoders;
 using PrancaBeauty.Application.Apps.Languages;
@@ -16,6 +17,7 @@ using PrancaBeauty.WebApp.Middlewares;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
@@ -108,6 +110,49 @@ namespace PrancaBeauty.WebApp.Config
         public static IApplicationBuilder UseRedirectNotRobots(this IApplicationBuilder app)
         {
             return app.UseMiddleware<RedirectWhenNotRobotsMiddleware>();
+        }
+
+        public static IApplicationBuilder RedirectStatusCode(this IApplicationBuilder app)
+        {
+            return app.Use(async (context, next) =>
+            {
+                await next.Invoke();
+
+                if (context.Response.StatusCode == 401)
+                {
+                    var rqf = context.Request.HttpContext.Features.Get<IRequestCultureFeature>();
+                    string culture = rqf.RequestCulture.Culture.Parent.Name;
+
+                    context.Response.Redirect($"/{culture}/Auth/Login");
+                }
+            });
+        }
+
+        public static IApplicationBuilder RedirectToValidLang(this IApplicationBuilder app)
+        {
+            app.Use(async (context, next) =>
+            {
+                await next.Invoke();
+
+                string[] Paths = context.Request.Path.HasValue ? context.Request.Path.Value.Trim(new char[] { '/' }).Split("/") : new string[] { };
+
+                var _LanguageApplication = (ILanguageApplication)context.RequestServices.GetService(typeof(ILanguageApplication));
+
+
+                if (Paths.Any())
+                {
+                    string LangAbbr = Paths.First();
+                    var isValid = await _LanguageApplication.IsValidAbbrForSiteLangAsync(LangAbbr);
+                    if (!isValid)
+                    {
+                        string SiteUrl = "";
+                        Paths[0] = "fa";
+
+                        context.Response.StatusCode = 301;
+                        context.Response.Redirect(SiteUrl + "/" + string.Join("/", Paths));
+                    }
+                }
+            });
         }
     }
 }

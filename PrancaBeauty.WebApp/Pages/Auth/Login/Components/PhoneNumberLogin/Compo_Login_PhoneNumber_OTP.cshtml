@@ -1,4 +1,4 @@
-﻿@page "/Auth/Login/Components/LoginByPhoneNumber/OTP"
+﻿@page "/{culture}/Auth/Login/Components/LoginByPhoneNumber/OTP"
 @model PrancaBeauty.WebApp.Pages.Auth.Login.Components.PhoneNumberLogin.Compo_Login_PhoneNumber_OTPModel
 
 <div class="account_form">
@@ -19,7 +19,7 @@
                 <input asp-for="Input.RemmeberMe">
                 @Localizer["RemmeberMe"]
             </label>
-            <button onclick="SendForm('/Auth/Login/Components/LoginByPhoneNumber/OTP','compo_Login')" type="button">@Localizer["Login"]</button>
+            <button onclick="SendForm('/@ViewData["culture"]/Auth/Login/Components/LoginByPhoneNumber/OTP','compo_Login')" type="button">@Localizer["Login"]</button>
         </div>
     </form>
 </div>
@@ -45,7 +45,7 @@
     }
 
     function Resend() {
-        SendData('/Auth/Login/Components/LoginByPhoneNumber/OTP?handler=Resend', { PhoneNumber: $('#Input_PhoneNumber').val() });
+        SendData('/@ViewData["culture"]/Auth/Login/Components/LoginByPhoneNumber/OTP?handler=Resend', { PhoneNumber: $('#Input_PhoneNumber').val() });
     }
 
     function StartTimer() {

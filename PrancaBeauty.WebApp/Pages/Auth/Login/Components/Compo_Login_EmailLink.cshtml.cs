@@ -56,7 +56,7 @@ namespace PrancaBeauty.WebApp.Pages.Auth.Login.Components
             if (Result.IsSucceeded)
             {
                 string Token = (Result.Message + ", " + Input.RemmeberMe).AesEncrypt(AuthConst.SecretKey);
-                string _Url = (await _SettingApplication.GetSettingAsync(CultureInfo.CurrentCulture.Name)).SiteUrl + $"/EmailLogin?Token={WebUtility.UrlEncode(Token)}";
+                string _Url = (await _SettingApplication.GetSettingAsync(CultureInfo.CurrentCulture.Name)).SiteUrl + $"/{CultureInfo.CurrentCulture.Parent.Name}/EmailLogin?Token={WebUtility.UrlEncode(Token)}";
 
                 await _EmailSender.SendAsync(Input.Email, _Localizer["EmailLoginSubject"], await _TemplateApplication.GetEmailLoginTemplateAsync(CultureInfo.CurrentCulture.Name, _Url));
 

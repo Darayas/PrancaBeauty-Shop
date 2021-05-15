@@ -57,6 +57,8 @@ namespace PrancaBeauty.WebApp
                 app.UseDeveloperExceptionPage();
             }
 
+            app.RedirectStatusCode();
+
             app.UseRouting();
 
             app.UseStaticFiles();

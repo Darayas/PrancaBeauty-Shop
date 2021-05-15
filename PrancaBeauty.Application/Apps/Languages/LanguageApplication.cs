@@ -101,5 +101,14 @@ namespace PrancaBeauty.Application.Apps.Languages
             return SiteLangCache;
         }
 
+        public async Task<bool> IsValidAbbrForSiteLangAsync(string Abbr)
+        {
+            await LoadCacheAsync();
+
+            return SiteLangCache
+                        .Where(a => a.Abbr == Abbr)
+                        .Any();
+        }
+
     }
 }

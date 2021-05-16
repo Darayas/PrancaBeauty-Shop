@@ -1,7 +1,9 @@
+using AspNetCoreRateLimit;
 using Framework.Application.Consts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.WebEncoders;
@@ -11,6 +13,7 @@ using PrancaBeauty.Infrastructure.EFCore.Data;
 using PrancaBeauty.WebApp.Authentication;
 using PrancaBeauty.WebApp.Config;
 using PrancaBeauty.WebApp.Localization.Resource;
+using PrancaBeauty.WebApp.Middlewares;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -23,6 +26,13 @@ namespace PrancaBeauty.WebApp
 {
     public class Startup
     {
+        public IConfiguration configuration { get; set; }
+
+        public Startup(IConfiguration configuration)
+        {
+            this.configuration = configuration;
+        }
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddLocalization("Localization/Resource");
@@ -41,6 +51,8 @@ namespace PrancaBeauty.WebApp
             services.Config();
 
             services.AddInject();
+
+            services.RateLimitConfig(configuration);
 
             services.AddCustomIdentity()
                     .AddErrorDescriber<CustomErrorDescriber>();
@@ -70,6 +82,10 @@ namespace PrancaBeauty.WebApp
             app.UseMiddleware<NeedToRebuildTokenMiddleware>();
 
             app.UseRedirectNotRobots();
+
+            app.UseMiddleware<RedirectToValidLangMiddleware>();
+
+            app.UseIpRateLimiting();
 
             app.UseEndpoints(endpoints =>
             {

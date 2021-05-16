@@ -71,7 +71,7 @@ namespace PrancaBeauty.WebApp.Pages.Auth
 
                         string SiteUrl = (await _SettingApplication.GetSettingAsync(CultureInfo.CurrentCulture.Name)).SiteUrl;
 
-                        string _Url = $"{SiteUrl}/Auth/EmailConfirmation?Token={WebUtility.UrlEncode(EncToken)}";
+                        string _Url = $"{SiteUrl}/{CultureInfo.CurrentCulture.Parent.Name}/Auth/EmailConfirmation?Token={WebUtility.UrlEncode(EncToken)}";
 
                         await _EmailSender.SendAsync(Input.Email, _Localizer["RegistrationEmailSubject"], await _TemplateApplication.GetEmailConfirmationTemplateAsync(CultureInfo.CurrentCulture.Name, _Url));
                     }

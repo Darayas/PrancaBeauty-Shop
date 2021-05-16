@@ -1,11 +1,15 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using AspNetCoreRateLimit;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.WebEncoders;
 using PrancaBeauty.Application.Apps.Languages;
+using PrancaBeauty.Application.Apps.Settings;
 using PrancaBeauty.Domin.Users.RoleAgg.Entities;
 using PrancaBeauty.Domin.Users.UserAgg.Entities;
 using PrancaBeauty.Infrastructure.EFCore.Context;
@@ -128,31 +132,23 @@ namespace PrancaBeauty.WebApp.Config
             });
         }
 
-        public static IApplicationBuilder RedirectToValidLang(this IApplicationBuilder app)
+        public static IServiceCollection RateLimitConfig(this IServiceCollection services, IConfiguration configuration)
         {
-            app.Use(async (context, next) =>
-            {
-                await next.Invoke();
+            services.AddOptions();
 
-                string[] Paths = context.Request.Path.HasValue ? context.Request.Path.Value.Trim(new char[] { '/' }).Split("/") : new string[] { };
+            services.AddMemoryCache();
 
-                var _LanguageApplication = (ILanguageApplication)context.RequestServices.GetService(typeof(ILanguageApplication));
+            services.Configure<IpRateLimitOptions>(configuration.GetSection("IpRateLimiting"));
 
+            services.Configure<IpRateLimitPolicies>(configuration.GetSection("IpRateLimitPolicies"));
 
-                if (Paths.Any())
-                {
-                    string LangAbbr = Paths.First();
-                    var isValid = await _LanguageApplication.IsValidAbbrForSiteLangAsync(LangAbbr);
-                    if (!isValid)
-                    {
-                        string SiteUrl = "";
-                        Paths[0] = "fa";
+            services.AddSingleton<IIpPolicyStore, MemoryCacheIpPolicyStore>();
+            services.AddSingleton<IRateLimitCounterStore, MemoryCacheRateLimitCounterStore>();
 
-                        context.Response.StatusCode = 301;
-                        context.Response.Redirect(SiteUrl + "/" + string.Join("/", Paths));
-                    }
-                }
-            });
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
+
+            return services;
         }
     }
 }

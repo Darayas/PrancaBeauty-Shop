@@ -21,6 +21,7 @@ using System.Linq;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
 using System.Threading.Tasks;
+using WebMarkupMin.AspNetCore5;
 
 namespace PrancaBeauty.WebApp
 {
@@ -48,6 +49,8 @@ namespace PrancaBeauty.WebApp
                     .AddCustomDataAnnotationLocalization(services, typeof(SharedResource))
                     .AddNewtonsoftJson(opt => opt.SerializerSettings.ContractResolver = new DefaultContractResolver());
 
+            services.AddCustomWebMarkupMin();
+
             services.Config();
 
             services.AddInject();
@@ -70,6 +73,8 @@ namespace PrancaBeauty.WebApp
             }
 
             app.RedirectStatusCode();
+
+            app.UseWebMarkupMin();
 
             app.UseRouting();
 

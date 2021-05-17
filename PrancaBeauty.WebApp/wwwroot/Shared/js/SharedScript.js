@@ -1,5 +1,4 @@
-﻿
-window.confirm = function (_text, _title, _yesAction = function () { }) {
+﻿window.confirm = function (_text, _title, _yesAction = function () { }) {
     swal.fire({
         title: _title,
         text: _text,
@@ -35,6 +34,11 @@ function SendData(_url, _data, _Funcs_Success = function (res) { }) {
         },
         complete: function (data) {
             $('.loading').hide(100);
+        },
+        error: function (data) {
+            if (data.status == 429) {
+                Alert429();
+            }
         }
     });
 }
@@ -63,6 +67,11 @@ function SendForm(_url, _FormId, _Funcs_Success = function (res) { }) {
         },
         complete: function (data) {
             $('.loading').hide(100);
+        },
+        error: function (data) {
+            if (data.status == 429) {
+                Alert429();
+            }
         }
     });
 }
@@ -77,6 +86,11 @@ function LoadComponenet(_Url, _Data, _CallbackFuncs = function (data) { }) {
         },
         complete: function (data) {
             $('.loading').hide(100);
+        },
+        error: function (data) {
+            if (data.status == 429) {
+                Alert429();
+            }
         }
     }).done(function (data) {
         _CallbackFuncs(data);
@@ -96,4 +110,13 @@ function RefreshGrid(_GridId) {
 
 function ChangeUrl(_NewUrl) {
     history.pushState({}, null, _NewUrl);
+}
+
+function Alert429() {
+    return swal.fire({
+        title: '429',
+        html: $.parseHTML(Err429Msg)[0].data,
+        icon: 'warning',
+        confirmButtonText: OkText
+    });
 }

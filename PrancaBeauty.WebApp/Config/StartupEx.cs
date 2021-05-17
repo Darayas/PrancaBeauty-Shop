@@ -26,6 +26,8 @@ using System.Linq;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
 using System.Threading.Tasks;
+using WebMarkupMin.AspNetCore5;
+using WebMarkupMin.Core;
 
 namespace PrancaBeauty.WebApp.Config
 {
@@ -129,6 +131,30 @@ namespace PrancaBeauty.WebApp.Config
 
                     context.Response.Redirect($"/{culture}/Auth/Login");
                 }
+
+                //if (context.Response.StatusCode == 429)
+                //{
+                //    var rqf = context.Request.HttpContext.Features.Get<IRequestCultureFeature>();
+                //    string culture = rqf.RequestCulture.Culture.Parent.Name;
+
+                //    context.Response.Redirect($"/{culture}/Error/429");
+                //}
+
+                if (context.Response.StatusCode == 404)
+                {
+                    var rqf = context.Request.HttpContext.Features.Get<IRequestCultureFeature>();
+                    string culture = rqf.RequestCulture.Culture.Parent.Name;
+
+                    context.Response.Redirect($"/{culture}/Error/404");
+                }
+
+                if (context.Response.StatusCode == 400)
+                {
+                    var rqf = context.Request.HttpContext.Features.Get<IRequestCultureFeature>();
+                    string culture = rqf.RequestCulture.Culture.Parent.Name;
+
+                    context.Response.Redirect($"/{culture}/Error/400");
+                }
             });
         }
 
@@ -149,6 +175,18 @@ namespace PrancaBeauty.WebApp.Config
             services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
 
             return services;
+        }
+
+        public static void AddCustomWebMarkupMin(this IServiceCollection services)
+        {
+            services.AddWebMarkupMin(opt =>
+            {
+                opt.AllowMinificationInDevelopmentEnvironment = true;
+                opt.AllowCompressionInDevelopmentEnvironment = true;
+            }).AddHtmlMinification(opt =>
+            {
+                opt.MinificationSettings.WhitespaceMinificationMode = WhitespaceMinificationMode.None;
+            });
         }
     }
 }

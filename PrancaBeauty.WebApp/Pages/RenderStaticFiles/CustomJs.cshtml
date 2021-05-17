@@ -1,6 +1,7 @@
 ﻿@page "/{culture}/RenderStaticFiles/Custom.js"
 @model PrancaBeauty.WebApp.Pages.RenderStaticFiles.CustomJsModel
-
-    var YesText = '@Html.Raw(Localizer["Yes"])';
-    var NoText = '@Html.Raw(Localizer["No"])';
-    var DeleteMsg = '@Html.Raw(Localizer["AreYouSure"])';
+    var OkText = '@Localizer["OK"]';
+    var YesText = '@Localizer["Yes"]';
+    var NoText = '@Localizer["No"]';
+    var DeleteMsg = '@Localizer["AreYouSure"]';
+    var Err429Msg  = '@Localizer["Err429Msg"]';

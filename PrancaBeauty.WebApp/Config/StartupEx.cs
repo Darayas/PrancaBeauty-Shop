@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
@@ -186,6 +188,90 @@ namespace PrancaBeauty.WebApp.Config
             }).AddHtmlMinification(opt =>
             {
                 opt.MinificationSettings.WhitespaceMinificationMode = WhitespaceMinificationMode.None;
+            });
+        }
+
+        public static IServiceCollection GZipConfig(this IServiceCollection services)
+        {
+            services.Configure<BrotliCompressionProviderOptions>(opt =>
+            {
+                opt.Level = CompressionLevel.Optimal;
+            });
+
+            services.AddResponseCompression(opt =>
+            {
+                opt.EnableForHttps = true;
+                opt.MimeTypes = new List<string> {
+                    "application/javascript",
+                    "application/rss+xml",
+                    "application/vnd.ms-fontobject",
+                    "application/x-font",
+                    "application/x-font-opentype",
+                    "application/x-font-otf",
+                    "application/x-font-truetype",
+                    "application/x-font-ttf",
+                    "application/x-javascript",
+                    "application/xhtml+xml",
+                    "application/xml",
+                    "font/opentype",
+                    "font/otf",
+                    "font/ttf",
+                    "image/svg+xml",
+                    "image/x-icon",
+                    "text/css",
+                    "text/html",
+                    "text/javascript",
+                    "text/plain",
+                    "text/xml"
+                };
+                opt.Providers.Add<BrotliCompressionProvider>();
+            });
+
+            return services;
+        }
+
+        public static IApplicationBuilder UseCustomCaching(this IApplicationBuilder application)
+        {
+            return application.Use(async (context, next) =>
+            {
+                string path = context.Request.Path;
+
+                // css, js
+                if (path.EndsWith(".css") || path.EndsWith(".js"))
+                {
+                    TimeSpan maxAge = new TimeSpan(365, 0, 0, 0);
+                    context.Request.Headers.Append("Cache-Control", "max-age=" + maxAge.TotalSeconds.ToString("0"));
+                }
+
+                // fonts
+                else if (path.EndsWith(".woff") || path.EndsWith(".woff2") || path.EndsWith(".tff") || path.EndsWith(".svg") || path.EndsWith(".eot"))
+                {
+                    TimeSpan maxAge = new TimeSpan(365, 0, 0, 0);
+                    context.Request.Headers.Append("Cache-Control", "max-age=" + maxAge.TotalSeconds.ToString("0"));
+                }
+
+                // Directory
+                else if (path.Contains("/lib/"))
+                {
+                    TimeSpan maxAge = new TimeSpan(365, 0, 0, 0);
+                    context.Request.Headers.Append("Cache-Control", "max-age=" + maxAge.TotalSeconds.ToString("0"));
+                }
+
+                // Images
+                else if (path.EndsWith(".png") || path.EndsWith(".jpg") || path.EndsWith(".jpeg") || path.EndsWith(".bmp") || path.EndsWith(".gif"))
+                {
+                    TimeSpan maxAge = new TimeSpan(365, 0, 0, 0);
+                    context.Response.Headers.Append("Cache-Control", "max-age=" + maxAge.TotalSeconds.ToString("0"));
+                }
+
+                // View
+                else
+                {
+                    context.Response.Headers.Append("Cache-Control", "no-cache");
+                    context.Response.Headers.Append("Cache-Control", "private, no-store");
+                }
+
+                await next();
             });
         }
     }

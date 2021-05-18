@@ -36,7 +36,7 @@
             <div class="col-lg-6 col-md-6">
                 <div class="account_form register">
                     <h2>@ViewData["Tilte"]</h2>
-                    <form action="/@ViewData["Culture"]/Auth/Register" method="post">
+                    <form action="/@ViewData["Culture"]/Auth/Register" method="post" asp-antiforgery="false">
                         @Html.AntiForgeryToken()
 
                         @if (!ModelState.IsValid)

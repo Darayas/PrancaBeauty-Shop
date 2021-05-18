@@ -1,4 +1,4 @@
-﻿@page "/Admin/AccessLevel/Compo/ListGridRoles"
+﻿@page "/{culture}/Admin/AccessLevel/Compo/ListGridRoles"
 @model PrancaBeauty.WebApp.Pages.Admin.AccessLevels.Componenets.Compo_ListGridRolesModel
 
 @if (Model.Input.AccessLevelId == null)
@@ -61,7 +61,7 @@ else
           .ClientDetailTemplateId("ListAccessLevelTmpl")
           .DataSource(ds=> ds.Ajax()
                              .Model(model=> model.Id(a=>a.Id))
-                             .Read(read=> read.Url("/Admin/AccessLevel/Compo/ListGridRoles?handler=Read").Data("forgeryToken"))))
+                             .Read(read=> read.Url($"/{ViewData["Culture"]}/Admin/AccessLevel/Compo/ListGridRoles?handler=Read").Data("forgeryToken"))))
 </div>
 
 <script id="ListAccessLevelTmpl" type="text/kendo-tmpl">
@@ -84,7 +84,7 @@ else
           .ClientDetailTemplateId("ListAccessLevelTmpl_ChildTmpl")
           .DataSource(ds=> ds.Ajax()
                              .Model(model=> model.Id(a=>a.Id))
-                             .Read(read=> read.Url("/Admin/AccessLevel/Compo/ListGridRoles?handler=Read&ParentId=#=Id#").Data("forgeryToken")))
+                             .Read(read=> read.Url($"/{ViewData["Culture"]}/Admin/AccessLevel/Compo/ListGridRoles?handler=Read&ParentId=#=Id#").Data("forgeryToken")))
           .ToClientTemplate())
 </script>
 
@@ -108,7 +108,7 @@ else
           .ClientDetailTemplateId("ListAccessLevelTmpl_ChildTmpl_Child")
           .DataSource(ds=> ds.Ajax()
                              .Model(model=> model.Id(a=>a.Id))
-                             .Read(read=> read.Url("/Admin/AccessLevel/Compo/ListGridRoles?handler=Read&ParentId=#=Id#").Data("forgeryToken")))
+                             .Read(read=> read.Url($"/{ViewData["Culture"]}/Admin/AccessLevel/Compo/ListGridRoles?handler=Read&ParentId=#=Id#").Data("forgeryToken")))
           .ToClientTemplate())
 </script>
 
@@ -131,6 +131,6 @@ else
           })
           .DataSource(ds=> ds.Ajax()
                              .Model(model=> model.Id(a=>a.Id))
-                             .Read(read=> read.Url("/Admin/AccessLevel/Compo/ListGridRoles?handler=Read&ParentId=#=Id#").Data("forgeryToken")))
+                             .Read(read=> read.Url($"/{ViewData["Culture"]}/Admin/AccessLevel/Compo/ListGridRoles?handler=Read&ParentId=#=Id#").Data("forgeryToken")))
           .ToClientTemplate())
 </script>

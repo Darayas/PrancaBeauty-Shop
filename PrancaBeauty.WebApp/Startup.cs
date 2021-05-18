@@ -38,6 +38,8 @@ namespace PrancaBeauty.WebApp
         {
             services.AddLocalization("Localization/Resource");
 
+            services.GZipConfig();
+
             services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
 
             services.WebEncoderConfig();
@@ -72,10 +74,14 @@ namespace PrancaBeauty.WebApp
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCustomCaching();
+
             app.RedirectStatusCode();
 
-            app.UseWebMarkupMin();
+            app.UseResponseCompression();
 
+            app.UseWebMarkupMin();
+           
             app.UseRouting();
 
             app.UseStaticFiles();
@@ -91,6 +97,7 @@ namespace PrancaBeauty.WebApp
             app.UseMiddleware<RedirectToValidLangMiddleware>();
 
             app.UseIpRateLimiting();
+
 
             app.UseEndpoints(endpoints =>
             {

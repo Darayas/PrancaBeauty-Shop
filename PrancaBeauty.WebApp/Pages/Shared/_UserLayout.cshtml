@@ -12,12 +12,16 @@
                     <!-- Nav tabs -->
                     <div class="dashboard_tab_button">
                         <ul class="nav flex-column dashboard-list">
-                            <li><a href="#dashboard" class="nav-link">Dashboard</a></li>
+                            @if (User.IsInRole(Roles.AdminPage))
+                            {
+                                <li><a href="/@ViewData["Culture"]/Admin/Index" class="nav-link">@Localizer["AdminPanel"]</a></li>
+                            }
+                            <li><a href="/@ViewData["Culture"]/User/Index" class="nav-link">@Localizer["Dashboard"]</a></li>
                             <li> <a href="#orders" class="nav-link">Orders</a></li>
                             <li><a href="#downloads" class="nav-link active">Downloads</a></li>
                             <li><a href="#address" class="nav-link">Addresses</a></li>
                             <li><a href="#account-details" class="nav-link">Account details</a></li>
-                            <li><a href="#Logout" class="nav-link">logout</a></li>
+                            <li><a onclick="Logout('@Context.Request.GetCurrentUrl()')" href="#Logout" class="nav-link">@Localizer["Logout"]</a></li>
                         </ul>
                     </div>
                 </div>

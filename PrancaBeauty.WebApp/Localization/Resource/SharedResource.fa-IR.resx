@@ -195,7 +195,7 @@
   <data name="CountUser" xml:space="preserve">
     <value>تعداد کاربران</value>
   </data>
-  <data name="Dashborad" xml:space="preserve">
+  <data name="Dashboard" xml:space="preserve">
     <value>پیشخوان</value>
   </data>
   <data name="DateAes" xml:space="preserve">
@@ -359,6 +359,9 @@
   </data>
   <data name="LoginEmailSuccess" xml:space="preserve">
     <value>لاگین با موفقیت انجام شد.&lt;br/&gt; شما در حال انتقال به صفحه ی کاربری هستید</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>خروج از سایت</value>
   </data>
   <data name="LostYourPassword?" xml:space="preserve">
     <value>کلمه عبور را فراموش کرده اید؟</value>

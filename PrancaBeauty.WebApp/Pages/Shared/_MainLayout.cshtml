@@ -248,13 +248,18 @@
                                 @if (User.Identity.IsAuthenticated)
                                 {
                                     <li>
-                                        <a href="#"><img class="lang-flag" src="/Main/img/user.png" /> محمدرضا احمدی <i class="icon-right ion-ios-arrow-down"></i></a>
+                                        <a href="#"><img class="lang-flag" src="/Main/img/user.png" /> @User.GetUserDetails().GivenName @User.GetUserDetails().SurName <i class="icon-right ion-ios-arrow-down"></i></a>
                                         <ul class="dropdown_language">
-                                            <li><a href="#">@Localizer["UserPanel"]</a></li>
+                                            <li><a href="/@ViewData["Culture"]/User/Index">@Localizer["UserPanel"]</a></li>
                                             @if (User.IsInRole(Roles.AdminPage))
                                             {
-                                                <li><a href="#">@Localizer["AdminPanel"]</a></li>
+                                                <li><a href="/@ViewData["Culture"]/Admin/Index">@Localizer["AdminPanel"]</a></li>
                                             }
+                                            <li class="dropdown-divider"></li>
+                                            <li><a href="/@ViewData["Culture"]/User/EditProfile">@Localizer["EditProfile"]</a></li>
+                                            <li><a href="/@ViewData["Culture"]/User/Index">@Localizer["EditPassword"]</a></li>
+                                            <li><a href="/@ViewData["Culture"]/User/Index">@Localizer["Orders"]</a></li>
+                                            <li class="dropdown-divider"></li>
                                             <li><a onclick="Logout('@Context.Request.GetCurrentUrl()')" href="#Logout">@Localizer["Logout"]</a></li>
                                         </ul>
                                     </li>

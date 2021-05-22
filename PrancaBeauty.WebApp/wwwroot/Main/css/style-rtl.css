@@ -786,7 +786,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   z-index: 9999;
   border-radius: 3px;
   visibility: hidden;
-  max-height: 0; }
+  max-height: unset !important; }
   @media only screen and (min-width: 768px) and (max-width: 991px) {
     .dropdown_currency, .dropdown_language {
       left: 0;
@@ -809,6 +809,8 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
     text-align: right; }
     .dropdown_currency li a:hover, .dropdown_language li a:hover {
       color: #d52121; }
+  .dropdown_currency .dropdown-divider, .dropdown_language .dropdown-divider {
+    margin: .5rem -15px; }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   .bottom_drop_c {

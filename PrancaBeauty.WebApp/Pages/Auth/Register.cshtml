@@ -1,7 +1,7 @@
 ﻿@page "/{culture}/Auth/Register"
 @model PrancaBeauty.WebApp.Pages.Auth.RegisterModel
 @{
-    ViewData["Tilte"] = Localizer["Register"];
+    ViewData["Title"] = Localizer["Register"];
     Layout = "~/Pages/Shared/_MainLayout.cshtml";
 }
 
@@ -13,7 +13,7 @@
                 <div class="breadcrumb_content">
                     <ul>
                         <li><a href="/">@Localizer["Home"]</a></li>
-                        <li>@ViewData["Tilte"]</li>
+                        <li>@ViewData["Title"]</li>
                     </ul>
                 </div>
             </div>
@@ -35,7 +35,7 @@
             <!--register area start-->
             <div class="col-lg-6 col-md-6">
                 <div class="account_form register">
-                    <h2>@ViewData["Tilte"]</h2>
+                    <h2>@ViewData["Title"]</h2>
                     <form action="/@ViewData["Culture"]/Auth/Register" method="post" asp-antiforgery="false">
                         @Html.AntiForgeryToken()
 

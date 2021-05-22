@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Framework.Application.Services.Sms;
@@ -31,9 +32,8 @@ namespace PrancaBeauty.WebApp.Pages.Auth.Login.Components.PhoneNumberLogin
             _SmsSender = smsSender;
         }
 
-        public IActionResult OnGet(string ReturnUrl)
+        public IActionResult OnGet()
         {
-            ViewData["ReturnUrl"] = ReturnUrl ?? "/Auth/User/Index";
             return Page();
         }
 

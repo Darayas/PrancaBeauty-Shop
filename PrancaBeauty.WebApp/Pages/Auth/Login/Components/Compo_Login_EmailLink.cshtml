@@ -27,10 +27,6 @@
             });
         });
 
-    function GotoReturnUrl() {
-        location.href = '@(System.Net.WebUtility.UrlDecode(ViewData["ReturnUrl"].ToString()))';
-    }
-
     function LoginByPhoneNumber() {
         LoadComponenet('/@ViewData["culture"]/Auth/Login/Components/LoginByPhoneNumber', { ReturnUrl: null }, function (data) {
             $('#CompoLogin').html(data);

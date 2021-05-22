@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -28,9 +29,8 @@ namespace PrancaBeauty.WebApp.Pages.Auth.Login.Components
             _Localizer = localizer;
         }
 
-        public IActionResult OnGet(string ReturnUrl = null)
+        public IActionResult OnGet()
         {
-            ViewData["ReturnUrl"] = ReturnUrl ?? "/Auth/User/Index";
             return Page();
         }
 

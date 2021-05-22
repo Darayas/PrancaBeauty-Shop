@@ -39,9 +39,8 @@ namespace PrancaBeauty.WebApp.Pages.Auth.Login.Components
             _TemplateApplication = templateApplication;
         }
 
-        public IActionResult OnGet(string ReturnUrl)
+        public IActionResult OnGet()
         {
-            ViewData["ReturnUrl"] = ReturnUrl ?? "/Auth/User/Index";
             return Page();
         }
 

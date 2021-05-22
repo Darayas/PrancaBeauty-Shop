@@ -40,10 +40,6 @@
             StartTimer();
         });
 
-    function GotoReturnUrl() {
-        location.href = '@(System.Net.WebUtility.UrlDecode(ViewData["ReturnUrl"].ToString()))';
-    }
-
     function Resend() {
         SendData('/@ViewData["culture"]/Auth/Login/Components/LoginByPhoneNumber/OTP?handler=Resend', { PhoneNumber: $('#Input_PhoneNumber').val() });
     }

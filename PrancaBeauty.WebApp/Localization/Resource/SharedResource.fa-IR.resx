@@ -222,6 +222,12 @@
   <data name="Edit" xml:space="preserve">
     <value>ویرایش</value>
   </data>
+  <data name="EditPassword" xml:space="preserve">
+    <value>ویرایش کلمه عبور</value>
+  </data>
+  <data name="EditProfile" xml:space="preserve">
+    <value>ویرایش پروفایل</value>
+  </data>
   <data name="Email" xml:space="preserve">
     <value>ایمیل</value>
   </data>
@@ -398,6 +404,9 @@
   </data>
   <data name="Operation was successded" xml:space="preserve">
     <value>عملیات با موفقیت انجام شد.</value>
+  </data>
+  <data name="Orders" xml:space="preserve">
+    <value>سفارشات</value>
   </data>
   <data name="Page" xml:space="preserve">
     <value>صفحه</value>

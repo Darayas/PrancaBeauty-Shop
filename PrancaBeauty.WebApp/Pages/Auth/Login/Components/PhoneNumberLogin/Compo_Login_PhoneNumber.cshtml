@@ -23,10 +23,6 @@
             });
         });
 
-    function GotoReturnUrl() {
-        location.href = '@(System.Net.WebUtility.UrlDecode(ViewData["ReturnUrl"].ToString()))';
-    }
-
     function LoginByUserNamePassword() {
         LoadComponenet('/@ViewData["culture"]/Auth/Login/Components/LoginByUsernamePassword', { ReturnUrl: null }, function (data) {
             $('#CompoLogin').html(data);
@@ -34,7 +30,7 @@
     }
 
     function GotoOtpPage() {
-        LoadComponenet('/@ViewData["culture"]/Auth/Login/Components/LoginByPhoneNumber/OTP', { ReturnUrl: null, PhoneNumber: $('#Input_PhoneNumber').val() }, function (data) {
+        LoadComponenet('/@ViewData["culture"]/Auth/Login/Components/LoginByPhoneNumber/OTP', { PhoneNumber: $('#Input_PhoneNumber').val() }, function (data) {
             $('#CompoLogin').html(data);
         });
     }

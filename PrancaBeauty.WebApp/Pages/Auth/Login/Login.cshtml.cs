@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -9,8 +10,10 @@ namespace PrancaBeauty.WebApp.Pages.Auth.Login
 {
     public class LoginModel : PageModel
     {
-        public void OnGet(string ReturnUrl)
+        public IActionResult OnGet(string ReturnUrl = null)
         {
+            ViewData["ReturnUrl"] = ReturnUrl ?? $"/{CultureInfo.CurrentCulture.Parent.Name}/User/Index";
+            return Page();
         }
     }
 }

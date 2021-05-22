@@ -1,7 +1,7 @@
 ﻿@page "/{culture}/Auth/Login"
 @model PrancaBeauty.WebApp.Pages.Auth.Login.LoginModel
 @{
-    ViewData["Tilte"] = Localizer["Login"];
+    ViewData["Title"] = Localizer["Login"];
     Layout = "~/Pages/Shared/_MainLayout.cshtml";
 }
 
@@ -13,7 +13,7 @@
                 <div class="breadcrumb_content">
                     <ul>
                         <li><a href="/">@Localizer["Home"]</a></li>
-                        <li>@ViewData["Tilte"]</li>
+                        <li>@ViewData["Title"]</li>
                     </ul>
                 </div>
             </div>
@@ -118,4 +118,9 @@
 @section scripts{
     <script src="~/lib/input-mask/jquery.inputmask.min.js"></script>
     <script src="~/lib/sweetalert/sweetalert.min.js"></script>
+    <script>
+        function GotoReturnUrl() {
+            location.href = '@ViewData["ReturnUrl"]';
+        }
+    </script>
 }

@@ -21,7 +21,7 @@ namespace PrancaBeauty.WebApp.Common.ExMethod
                 Email = user.Claims.Where(a => a.Type == ClaimTypes.Email).Select(a => a.Value).SingleOrDefault() ?? "",
                 MobileNumber = user.Claims.Where(a => a.Type == ClaimTypes.MobilePhone).Select(a => a.Value).SingleOrDefault() ?? "",
                 GivenName = user.Claims.Where(a => a.Type == ClaimTypes.GivenName).Select(a => a.Value).SingleOrDefault() ?? "",
-                Surname = user.Claims.Where(a => a.Type == ClaimTypes.Surname).Select(a => a.Value).SingleOrDefault() ?? "",
+                SurName = user.Claims.Where(a => a.Type == ClaimTypes.Surname).Select(a => a.Value).SingleOrDefault() ?? "",
                 AccessLevel = user.Claims.Where(a => a.Type == "AccessLevel").Select(a => a.Value).SingleOrDefault() ?? "",
                 Date = DateTime.Parse(user.Claims.Where(a => a.Type == "Date").Select(a => a.Value).SingleOrDefault() ?? DateTime.MinValue.ToString()),
             };

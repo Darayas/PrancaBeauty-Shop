@@ -498,7 +498,7 @@
     z-index: 9999;
     border-radius: 3px;
     visibility: hidden;
-    max-height: 0;
+    max-height: unset !important;
 
     @media #{$tablet-device} {
         left: 0;
@@ -528,6 +528,10 @@
                 color: $secondary_color;
             }
         }
+    }
+
+    .dropdown-divider {
+        margin: .5rem -15px;
     }
 }
 

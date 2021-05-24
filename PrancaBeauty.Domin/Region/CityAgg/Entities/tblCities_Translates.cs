@@ -6,16 +6,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PrancaBeauty.Domin.Region.CountryAgg.Entities
+namespace PrancaBeauty.Domin.Region.CityAgg.Entities
 {
-    public class tblCountries_Translates : IEntity
+    public class tblCities_Translates : IEntity
     {
         public Guid Id { get; set; }
-        public Guid CountryId { get; set; }
+        public Guid CityId { get; set; }
         public Guid LangId { get; set; }
         public string Title { get; set; }
 
-        public virtual tblCountries tblCountries { get; set; }
-        public virtual tblLanguages tblLanguages { get; set; }
+        public virtual tblCities tblCity { get; set; }
+        public virtual tblLanguages tblLanguage { get; set; }
     }
 }

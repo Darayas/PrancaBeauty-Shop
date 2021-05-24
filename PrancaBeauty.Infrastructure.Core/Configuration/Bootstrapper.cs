@@ -7,24 +7,36 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using PrancaBeauty.Application.Apps.Accesslevels;
 using PrancaBeauty.Application.Apps.AccesslevelsRoles;
+using PrancaBeauty.Application.Apps.Address;
+using PrancaBeauty.Application.Apps.Cities;
+using PrancaBeauty.Application.Apps.Countries;
 using PrancaBeauty.Application.Apps.Files;
 using PrancaBeauty.Application.Apps.FileServer;
 using PrancaBeauty.Application.Apps.Languages;
+using PrancaBeauty.Application.Apps.Province;
 using PrancaBeauty.Application.Apps.Roles;
 using PrancaBeauty.Application.Apps.Settings;
 using PrancaBeauty.Application.Apps.Templates;
 using PrancaBeauty.Application.Apps.Users;
 using PrancaBeauty.Domin.FileServer.FileAgg.Contracts;
 using PrancaBeauty.Domin.FileServer.ServerAgg.Contracts;
+using PrancaBeauty.Domin.Region.CityAgg.Contracts;
+using PrancaBeauty.Domin.Region.CountryAgg.Contracts;
 using PrancaBeauty.Domin.Region.LanguagesAgg.Contracts;
+using PrancaBeauty.Domin.Region.ProvinceAgg.Contracts;
 using PrancaBeauty.Domin.StettingsAgg.Contracts;
 using PrancaBeauty.Domin.TemplatesAgg.Contracts;
 using PrancaBeauty.Domin.Users.AccessLevelAgg.Contracts;
+using PrancaBeauty.Domin.Users.AddressAgg.Contracts;
 using PrancaBeauty.Domin.Users.RoleAgg.Contracts;
 using PrancaBeauty.Domin.Users.UserAgg.Contracts;
 using PrancaBeauty.Infrastructure.EFCore.Context;
 using PrancaBeauty.Infrastructure.EFCore.Repository.AccessLevel;
+using PrancaBeauty.Infrastructure.EFCore.Repository.Address;
+using PrancaBeauty.Infrastructure.EFCore.Repository.Cities;
+using PrancaBeauty.Infrastructure.EFCore.Repository.Counties;
 using PrancaBeauty.Infrastructure.EFCore.Repository.FileServer;
+using PrancaBeauty.Infrastructure.EFCore.Repository.Province;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Region;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Roles;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Settings;
@@ -61,6 +73,10 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddScoped<IFileServerRepository, FileServerRepository>();
             services.AddScoped<IFileRepository, FileRepository>();
             services.AddScoped<IAccesslevelRolesRepository, AccesslevelRolesRepository>();
+            services.AddScoped<IAddressRepository, AddressRepository>();
+            services.AddScoped<ICountryRepository, CountryRepository>();
+            services.AddScoped<IProvinceRepository, ProvinceRepository>();
+            services.AddScoped<ICityRepository, CityRepository>();
 
             // Applications
             services.AddScoped<IUserApplication, UserApplication>();
@@ -72,6 +88,10 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddScoped<IFileServerApplication, FileServerApplication>();
             services.AddScoped<IFileApplication, FileApplication>();
             services.AddScoped<IAccesslevelRolesApplication, AccesslevelRolesApplication>();
+            services.AddScoped<IAddressApplication, AddressApplication>();
+            services.AddScoped<ICountryApplication, CountryApplication>();
+            services.AddScoped<IProvinceApplication, ProvinceApplication>();
+            services.AddScoped<ICityApplication, CityApplication>();
         }
     }
 }

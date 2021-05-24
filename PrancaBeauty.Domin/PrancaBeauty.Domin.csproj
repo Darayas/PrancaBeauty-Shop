@@ -8,13 +8,4 @@
     <ProjectReference Include="..\Framework\Framework.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Region\CityAgg\Entities\" />
-    <Folder Include="Region\CityAgg\Contracts\" />
-    <Folder Include="Region\CountryAgg\Contracts\" />
-    <Folder Include="Region\ProvinceAgg\Contracts\" />
-    <Folder Include="Region\ProvinceAgg\Entities\" />
-    <Folder Include="Users\AddressAgg\Contracts\" />
-  </ItemGroup>
-
 </Project>

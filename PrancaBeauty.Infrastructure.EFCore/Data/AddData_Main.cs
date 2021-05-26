@@ -19,6 +19,9 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                 //new AddData_languages().Run();
                 //new AddData_Settings().Run();
                 //new AddData_Template().Run();
+                new AddData_Countris().Run();
+                new AddData_Province().Run();
+                new AddData_Cities().Run();
             }
             catch (Exception ex)
             {

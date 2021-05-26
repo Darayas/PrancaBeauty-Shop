@@ -153,6 +153,9 @@
   <data name="AreYouSure" xml:space="preserve">
     <value>ایا مطمعن هستید؟</value>
   </data>
+  <data name="BirthDate" xml:space="preserve">
+    <value>تاریخ تولد</value>
+  </data>
   <data name="ChangeAccessLevel" xml:space="preserve">
     <value>تغییر سطح دسترسی</value>
   </data>
@@ -173,6 +176,9 @@
   </data>
   <data name="CodeIsInvalid" xml:space="preserve">
     <value>کد وارد شده استباه است</value>
+  </data>
+  <data name="CodeMelli" xml:space="preserve">
+    <value />
   </data>
   <data name="ConcurrencyFailure" xml:space="preserve">
     <value>رکورد جاری پیشتر ویرایش شده‌است و تغییرات شما آن‌را بازنویسی خواهد کرد</value>

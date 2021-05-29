@@ -138,6 +138,9 @@
   <data name="AccountCreateMsg" xml:space="preserve">
     <value>حساب کاربر با موفیت ایجاد شد. لطفا ایمیل خود را برسی کنید و &lt;b&gt;روی لینک فعالسازی کلیک نمایید&lt;/b&gt;.</value>
   </data>
+  <data name="AccountSetting" xml:space="preserve">
+    <value>تنظیمات حساب</value>
+  </data>
   <data name="AddAccessLevel" xml:space="preserve">
     <value>افزودن سطح دسترسی جدید</value>
   </data>
@@ -210,8 +213,17 @@
   <data name="DateDes" xml:space="preserve">
     <value>تاریخ (نزولی)</value>
   </data>
+  <data name="DateMsg" xml:space="preserve">
+    <value>قالب {0} اشتباه است</value>
+  </data>
+  <data name="DatePattern" xml:space="preserve">
+    <value>[1][3-4][0-9][0-1][\/\-][0-1][0-9][\/\-][0-3][0-9]</value>
+  </data>
   <data name="DefaultError" xml:space="preserve">
     <value>خطایی ناشناخته رخ داد. لطفا بعدا مجدد امتحان کنید</value>
+  </data>
+  <data name="DefaultLangId" xml:space="preserve">
+    <value>زبان پیشفرض</value>
   </data>
   <data name="Description" xml:space="preserve">
     <value>توضیحات</value>
@@ -227,6 +239,9 @@
   </data>
   <data name="Edit" xml:space="preserve">
     <value>ویرایش</value>
+  </data>
+  <data name="EditAddress" xml:space="preserve">
+    <value>ویرایش آدرس ها</value>
   </data>
   <data name="EditPassword" xml:space="preserve">
     <value>ویرایش کلمه عبور</value>
@@ -459,6 +474,9 @@
   <data name="PhoneNumberIsInvalid" xml:space="preserve">
     <value>شماره موبایل وارد شده اشتباه است</value>
   </data>
+  <data name="PhoneNumberMsg" xml:space="preserve">
+    <value>قالب {0} اشتباه است.</value>
+  </data>
   <data name="PhoneNumberNotFound" xml:space="preserve">
     <value>شماره موبایل یافت نشد</value>
   </data>
@@ -515,6 +533,9 @@
   </data>
   <data name="Save" xml:space="preserve">
     <value>ذخیره</value>
+  </data>
+  <data name="Security" xml:space="preserve">
+    <value>امنیت</value>
   </data>
   <data name="SendAuthCode" xml:space="preserve">
     <value>ارسال کد احراز هویت</value>

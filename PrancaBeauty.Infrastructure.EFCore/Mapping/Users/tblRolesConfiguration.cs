@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using PrancaBeauty.Domin.Users.RoleAgg.Entities;
 using PrancaBeauty.Infrastructure.EFCore.Contracts;
-using PrancaBeauty.Infrastructure.EFCore.Seed;
 using System;
 using System.Collections.Generic;
 using System.Linq;

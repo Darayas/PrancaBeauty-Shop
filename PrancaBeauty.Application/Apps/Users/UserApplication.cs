@@ -804,5 +804,36 @@ namespace PrancaBeauty.Application.Apps.Users
                 return new OperationResult().Failed("Error500");
             }
         }
+
+        public async Task<OutGetUserDetailsForAccountSettings> GetUserDetailsForAccountSettingsAsync(string UserId)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(UserId))
+                    throw new ArgumentInvalidException($"UserId cannot be null or whitespace.");
+
+                var qData = await _UserRepository.Get
+                                               .Where(a => a.Id == Guid.Parse(UserId))
+                                               .Select(a => new OutGetUserDetailsForAccountSettings
+                                               {
+                                                   LangId = a.LangId.ToString(),
+                                                   Email = a.Email,
+                                                   PhoneNumber = a.PhoneNumber,
+                                                   FirstName = a.FirstName,
+                                                   LastName = a.LastName,
+                                                   BirthDate = a.BirthDate
+                                               }).SingleOrDefaultAsync();
+
+                //if (qData == null)
+                //    return null;
+
+                return qData;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
+            }
+        }
     }
 }

@@ -27,7 +27,6 @@
     23. newsletter popup css here
     24. modal css here
 -----------------------------------------------------------------------------------*/
-@import url("https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900&display=swap");
 * {
   box-sizing: border-box; }
 
@@ -39,6 +38,7 @@
 /*  01. Theme default CSS
 /*----------------------------------------*/
 /*-- Google Font --*/
+/*@import url('https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900&display=swap');*/
 /*-- Common Style --*/
 *, *::after, *::before {
   box-sizing: border-box; }

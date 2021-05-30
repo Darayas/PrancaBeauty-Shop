@@ -22,6 +22,7 @@ namespace PrancaBeauty.Application.Apps.Users
         Task<tblUsers> GetUserByEmailAsync(string Email);
         Task<tblUsers> GetUserByIdAsync(string UserId);
         Task<tblUsers> GetUserByPhoneNumberAsync(string PhoneNumber);
+        Task<OutGetUserDetailsForAccountSettings> GetUserDetailsForAccountSettingsAsync(string UserId);
         Task<List<string>> GetUserIdsByAccIdAsync(string AccessLevelId);
         Task<OperationResult> LoginByEmailLinkStep1Async(string Email, string IP);
         Task<OperationResult> LoginByEmailLinkStep2Async(string UserId, string Password, string LinkIP, string UserIP, DateTime Date);

@@ -14,6 +14,8 @@ namespace PrancaBeauty.Infrastructure.EFCore.Mapping.Users
     {
         public void Configure(EntityTypeBuilder<tblUsers> builder)
         {
+            builder.Property(a => a.LangId).IsRequired(false).HasMaxLength(150);
+            builder.Property(a => a.AccessLevelId).IsRequired().HasMaxLength(150);
             builder.Property(a => a.FirstName).IsRequired().HasMaxLength(100);
             builder.Property(a => a.LastName).IsRequired().HasMaxLength(100);
             builder.Property(a => a.PasswordPhoneNumber).IsRequired(false).HasMaxLength(5000);
@@ -22,6 +24,12 @@ namespace PrancaBeauty.Infrastructure.EFCore.Mapping.Users
                    .WithMany(a => a.tblUsers)
                    .HasPrincipalKey(a => a.Id)
                    .HasForeignKey(a => a.AccessLevelId)
+                   .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(a => a.tblLanguages)
+                   .WithMany(a => a.tblUsers)
+                   .HasPrincipalKey(a => a.Id)
+                   .HasForeignKey(a => a.LangId)
                    .OnDelete(DeleteBehavior.Restrict);
         }
     }

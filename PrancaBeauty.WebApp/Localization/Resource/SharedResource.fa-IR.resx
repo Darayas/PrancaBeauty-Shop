@@ -534,6 +534,9 @@
   <data name="Save" xml:space="preserve">
     <value>ذخیره</value>
   </data>
+  <data name="SaveAccountSettings" xml:space="preserve">
+    <value>ذخیره تنظیمات حساب</value>
+  </data>
   <data name="Security" xml:space="preserve">
     <value>امنیت</value>
   </data>

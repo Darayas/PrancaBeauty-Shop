@@ -29,7 +29,11 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">@Localizer["AccountSetting"]</div>
-                    <div class="card-body"></div>
+                    <div class="card-body">
+                        <LoadComponent url="/@ViewData["Culture"]/User/EditProfile/Compo/AccountSettings"
+                                       id="CompoAccountSetting"
+                                       context="HttpContext"></LoadComponent>
+                    </div>
                 </div>
             </div>
         </div>

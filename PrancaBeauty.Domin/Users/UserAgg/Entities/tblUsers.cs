@@ -1,6 +1,7 @@
 ﻿using Framework.Domain;
 using Microsoft.AspNetCore.Identity;
 using PrancaBeauty.Domin.FileServer.FileAgg.Entities;
+using PrancaBeauty.Domin.Region.LanguagesAgg.Entities;
 using PrancaBeauty.Domin.Users.AccessLevelAgg.Entities;
 using PrancaBeauty.Domin.Users.AddressAgg.Entities;
 using System;
@@ -11,6 +12,7 @@ namespace PrancaBeauty.Domin.Users.UserAgg.Entities
 {
     public class tblUsers : IdentityUser<Guid>, IEntity
     {
+        public Guid? LangId { get; set; }
         public Guid AccessLevelId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -21,6 +23,7 @@ namespace PrancaBeauty.Domin.Users.UserAgg.Entities
         public bool IsActive { get; set; }
 
         public virtual tblAccessLevels tblAccessLevels { get; set; }
+        public virtual tblLanguages tblLanguages { get; set; }
         public virtual ICollection<tblFiles> tblFiles { get; set; }
         public virtual ICollection<tblAddress> tblAddress { get; set; }
 

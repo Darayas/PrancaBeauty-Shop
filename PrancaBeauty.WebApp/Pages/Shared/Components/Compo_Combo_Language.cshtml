@@ -1,0 +1,19 @@
+﻿@page "/{culture}/Admin/Shared/Compo/ComboLanguage"
+@model PrancaBeauty.WebApp.Pages.Shared.Components.Compo_Combo_LanguageModel
+
+<div class="k-lang">
+    @(Html.Kendo()
+          .ComboBox()
+          .Name("Input.LangId")
+          .HtmlAttributes(new { @class= "form-control",style="width:100%;height:35px;" })
+          .Placeholder(Localizer["PleseSelect"])
+          .DataTextField("Name")
+          .DataValueField("Id")
+          .Value(Model.Input.LangId)
+          .DataSource(sr => {
+              sr.Read(read =>
+              {
+                  read.Url($"/{ViewData["culture"]}/Admin/Shared/Compo/ComboLanguage?handler=Read");
+              });
+          }).Template("<div class='Hello'>#=Name#</div>"))
+</div>

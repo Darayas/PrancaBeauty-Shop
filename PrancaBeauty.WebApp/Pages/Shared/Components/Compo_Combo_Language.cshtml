@@ -7,7 +7,7 @@
           .Name("Input.LangId")
           .HtmlAttributes(new { @class= "form-control",style="width:100%;height:35px;" })
           .Placeholder(Localizer["PleseSelect"])
-          .DataTextField("Name")
+          .DataTextField("NativeName")
           .DataValueField("Id")
           .Value(Model.Input.LangId)
           .DataSource(sr => {
@@ -15,5 +15,5 @@
               {
                   read.Url($"/{ViewData["culture"]}/Admin/Shared/Compo/ComboLanguage?handler=Read");
               });
-          }).Template("<div class='Hello'>#=Name#</div>"))
+          }).Template("<div class='d-inline'><img src='#=FlagUrl#'/></div><div class='d-inline ml-2 mr-2'>#=NativeName#</div>"))
 </div>

@@ -181,7 +181,7 @@
     <value>کد وارد شده استباه است</value>
   </data>
   <data name="CodeMelli" xml:space="preserve">
-    <value />
+    <value>کد ملی</value>
   </data>
   <data name="ConcurrencyFailure" xml:space="preserve">
     <value>رکورد جاری پیشتر ویرایش شده‌است و تغییرات شما آن‌را بازنویسی خواهد کرد</value>
@@ -217,7 +217,7 @@
     <value>قالب {0} اشتباه است</value>
   </data>
   <data name="DatePattern" xml:space="preserve">
-    <value>[1][3-4][0-9][0-1][\/\-][0-1][0-9][\/\-][0-3][0-9]</value>
+    <value>[1][3-4][0-9][0-9][\/\-]([0][1-9])|([1][0-2])[\/\-]([0][1-9])|([1-2][0-9])|([3][0-1])</value>
   </data>
   <data name="DefaultError" xml:space="preserve">
     <value>خطایی ناشناخته رخ داد. لطفا بعدا مجدد امتحان کنید</value>

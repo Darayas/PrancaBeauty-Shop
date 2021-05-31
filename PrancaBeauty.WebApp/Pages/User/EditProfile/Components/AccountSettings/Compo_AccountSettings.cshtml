@@ -1,61 +1,73 @@
 ﻿@page "/{Culture}/User/EditProfile/Compo/AccountSettings"
 @model PrancaBeauty.WebApp.Pages.User.EditProfile.Components.AccountSettings.Compo_AccountSettingsModel
 
-    <form id="frmAccountSettings">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-group">
-                    <label asp-for="Input.LangId"></label>
-                    <input asp-for="Input.LangId" class="form-control text-left" />
-                </div>
+<form id="frmAccountSettings">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label asp-for="Input.LangId"></label>
+                <LoadComponent id="CompoLanguage"
+                               url="/@ViewData["culture"]/Admin/Shared/Compo/ComboLanguage"
+                               context="HttpContext"
+                               data="new { }"></LoadComponent>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-group">
-                    <label asp-for="Input.Email"></label>
-                    <input asp-for="Input.Email" readonly class="form-control text-left" />
-                </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label asp-for="Input.Email"></label>
+                <input asp-for="Input.Email" readonly class="form-control text-left" />
             </div>
         </div>
+    </div>
 
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-group">
-                    <label asp-for="Input.PhoneNumber"></label>
-                    <input asp-for="Input.PhoneNumber" readonly class="form-control text-left" />
-                </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label asp-for="Input.PhoneNumber"></label>
+                <input asp-for="Input.PhoneNumber" readonly class="form-control text-left" />
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-group">
-                    <label asp-for="Input.FirstName"></label>
-                    <input asp-for="Input.FirstName" class="form-control" />
-                </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label asp-for="Input.FirstName"></label>
+                <input asp-for="Input.FirstName" class="form-control" />
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-group">
-                    <label asp-for="Input.LastName"></label>
-                    <input asp-for="Input.LastName" class="form-control" />
-                </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label asp-for="Input.LastName"></label>
+                <input asp-for="Input.LastName" class="form-control" />
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-group">
-                    <label asp-for="Input.BirthDate"></label>
-                    <input asp-for="Input.BirthDate" class="form-control text-left" />
-                </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label asp-for="Input.BirthDate"></label>
+                <input asp-for="Input.BirthDate" placeholder="____/__/__" class="form-control text-left" />
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-group text-left mt-4">
-                    <button class="btn btn-primary">@Localizer["SaveAccountSettings"]</button>
-                </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group text-left mt-4">
+                <button onclick="SendForm('/@ViewData["Culture"]/User/EditProfile/Compo/AccountSettings', 'frmAccountSettings')" type="button" class="btn btn-primary">@Localizer["SaveAccountSettings"]</button>
             </div>
         </div>
-    </form>
+    </div>
+</form>
+
+<script>
+    $(document).ready(function () {
+        $('#Input_BirthDate').inputmask({
+            regex: '@Localizer["DatePattern"]',
+            placeholder: ''
+        });
+    });
+</script>

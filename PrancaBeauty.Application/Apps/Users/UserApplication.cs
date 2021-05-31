@@ -835,5 +835,19 @@ namespace PrancaBeauty.Application.Apps.Users
                 return null;
             }
         }
+
+        public async Task<OperationResult> SaveAccountSettingUserDetailsAsync(string UserId, InpSaveAccountSettingUserDetails Input)
+        {
+            try
+            {
+
+                return new OperationResult().Succeeded();
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
     }
 }

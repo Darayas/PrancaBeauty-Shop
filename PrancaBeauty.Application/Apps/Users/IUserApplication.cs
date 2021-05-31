@@ -33,5 +33,6 @@ namespace PrancaBeauty.Application.Apps.Users
         Task<OperationResult> RemoveAllRolesAsync(tblUsers user);
         Task<bool> RemoveUnConfirmedUserAsync(string UserId);
         Task<OperationResult> RemoveUserAsync(string UserId);
+        Task<OperationResult> SaveAccountSettingUserDetailsAsync(string UserId, InpSaveAccountSettingUserDetails Input);
     }
 }

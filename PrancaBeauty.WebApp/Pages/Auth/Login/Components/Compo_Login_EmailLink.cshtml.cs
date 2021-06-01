@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Framework.Application.Consts;
 using Framework.Application.Services.Email;
 using Framework.Common.ExMethods;
+using Framework.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Settings;
@@ -15,7 +16,6 @@ using PrancaBeauty.Application.Apps.Templates;
 using PrancaBeauty.Application.Apps.Users;
 using PrancaBeauty.WebApp.Common.ExMethod;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
-using PrancaBeauty.WebApp.Localization;
 using PrancaBeauty.WebApp.Models.ViewInput;
 
 namespace PrancaBeauty.WebApp.Pages.Auth.Login.Components

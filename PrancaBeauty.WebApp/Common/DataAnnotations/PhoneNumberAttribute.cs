@@ -1,5 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using PrancaBeauty.WebApp.Localization;
+﻿using Framework.Infrastructure;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

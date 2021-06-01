@@ -1,5 +1,5 @@
-﻿using Kendo.Mvc.UI.Fluent;
-using PrancaBeauty.WebApp.Localization;
+﻿using Framework.Infrastructure;
+using Kendo.Mvc.UI.Fluent;
 using System;
 using System.Collections.Generic;
 using System.Linq;

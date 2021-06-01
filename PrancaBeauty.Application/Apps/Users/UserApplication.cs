@@ -1,9 +1,11 @@
 ﻿using Framework.Application.Consts;
+using Framework.Application.Services.Email;
 using Framework.Common.ExMethods;
 using Framework.Common.Utilities.Paging;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Apps.Accesslevels;
+using PrancaBeauty.Application.Apps.Templates;
 using PrancaBeauty.Application.Contracts.Results;
 using PrancaBeauty.Application.Contracts.Users;
 using PrancaBeauty.Application.Exceptions;
@@ -11,8 +13,10 @@ using PrancaBeauty.Domin.Users.UserAgg.Contracts;
 using PrancaBeauty.Domin.Users.UserAgg.Entities;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO.Pipelines;
 using System.Linq;
+using System.Net;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,14 +26,20 @@ namespace PrancaBeauty.Application.Apps.Users
     public class UserApplication : IUserApplication
     {
         private readonly ILogger _Logger;
+        private readonly IEmailSender _EmailSender;
+        private readonly ILocalizer _Localizer;
         private readonly IUserRepository _UserRepository;
         private readonly IAccesslevelApplication _AccesslevelApplication;
+        private readonly ITemplateApplication _TemplateApplication;
 
-        public UserApplication(ILogger logger, IUserRepository userRepository, IAccesslevelApplication accesslevelApplication)
+        public UserApplication(ILogger logger, IUserRepository userRepository, IAccesslevelApplication accesslevelApplication, IEmailSender emailSender, ILocalizer localizer, ITemplateApplication templateApplication)
         {
             _Logger = logger;
             _UserRepository = userRepository;
             _AccesslevelApplication = accesslevelApplication;
+            _EmailSender = emailSender;
+            _Localizer = localizer;
+            _TemplateApplication = templateApplication;
         }
 
         public async Task<OperationResult> AddUserAsync(InpAddUser Input)
@@ -829,6 +839,10 @@ namespace PrancaBeauty.Application.Apps.Users
 
                 return qData;
             }
+            catch (ArgumentInvalidException ex)
+            {
+                return null;
+            }
             catch (Exception ex)
             {
                 _Logger.Error(ex);
@@ -836,12 +850,54 @@ namespace PrancaBeauty.Application.Apps.Users
             }
         }
 
-        public async Task<OperationResult> SaveAccountSettingUserDetailsAsync(string UserId, InpSaveAccountSettingUserDetails Input)
+        public async Task<OperationResult> SaveAccountSettingUserDetailsAsync(string UserId, InpSaveAccountSettingUserDetails Input, string UrlToChangeEmail)
         {
             try
             {
+                if (string.IsNullOrWhiteSpace(UserId))
+                    throw new ArgumentInvalidException($"UserId cannot be null or whitespace.");
+
+                if (Input is null)
+                    throw new ArgumentInvalidException($"Input cannot be null.");
+
+                var qUser = await _UserRepository.FindByIdAsync(UserId);
+
+                if (qUser == null)
+                    return new OperationResult().Failed("User Not Found.");
+
+                qUser.LangId = Guid.Parse(Input.LangId);
+                qUser.FirstName = Input.FirstName;
+                qUser.LastName = Input.LastName;
+                qUser.BirthDate = Input.BirthDate;
+
+                await _UserRepository.UpdateAsync(qUser, default, true);
+
+                #region تغییر ایمیل
+                if (qUser.Email != Input.Email)
+                {
+                    string NewEmail = Input.Email;
+                    string Token = await _UserRepository.GenerateChangeEmailTokenAsync(qUser, NewEmail);
+
+                    string EncryptedData = $"{UserId}, {NewEmail}, {Token}".AesEncrypt(AuthConst.SecretKey);
+
+                    string _Url = UrlToChangeEmail.Replace("[Token]", WebUtility.UrlEncode(EncryptedData));
+
+                    await _EmailSender.SendAsync(qUser.Email, _Localizer["ChangeEmailSubject"], await _TemplateApplication.GetEmailChangeTemplateAsync(CultureInfo.CurrentCulture.Name, _Url));
+                }
+                #endregion
+
+                #region تغییر شماره موبایل
+                if (qUser.PhoneNumber != Input.PhoneNumber)
+                {
+
+                }
+                #endregion
 
                 return new OperationResult().Succeeded();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                return new OperationResult().Failed(ex.Message);
             }
             catch (Exception ex)
             {

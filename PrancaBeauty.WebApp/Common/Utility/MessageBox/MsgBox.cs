@@ -1,5 +1,5 @@
-﻿using PrancaBeauty.WebApp.Common.Types;
-using PrancaBeauty.WebApp.Localization;
+﻿using Framework.Infrastructure;
+using PrancaBeauty.WebApp.Common.Types;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -4,12 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Framework.Application.Consts;
 using Framework.Common.ExMethods;
+using Framework.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Users;
 using PrancaBeauty.WebApp.Authentication;
 using PrancaBeauty.WebApp.Common.ExMethod;
-using PrancaBeauty.WebApp.Localization;
 
 namespace PrancaBeauty.WebApp.Pages.Auth.Login
 {

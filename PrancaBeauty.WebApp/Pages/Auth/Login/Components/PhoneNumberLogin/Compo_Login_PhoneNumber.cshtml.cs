@@ -4,12 +4,12 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Framework.Application.Services.Sms;
+using Framework.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Users;
 using PrancaBeauty.WebApp.Common.ExMethod;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
-using PrancaBeauty.WebApp.Localization;
 using PrancaBeauty.WebApp.Models.ViewInput;
 
 namespace PrancaBeauty.WebApp.Pages.Auth.Login.Components.PhoneNumberLogin

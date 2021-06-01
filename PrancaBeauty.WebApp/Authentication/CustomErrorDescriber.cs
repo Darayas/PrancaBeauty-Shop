@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
-using PrancaBeauty.WebApp.Localization;
+﻿using Framework.Infrastructure;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Localization;
+﻿using Framework.Infrastructure;
+using Microsoft.Extensions.Localization;
 using PrancaBeauty.WebApp.Localization.Resource;
 using System;
 using System.Collections.Generic;

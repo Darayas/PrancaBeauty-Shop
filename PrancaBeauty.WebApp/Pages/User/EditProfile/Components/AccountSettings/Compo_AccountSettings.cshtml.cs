@@ -1,15 +1,17 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Framework.Infrastructure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using PrancaBeauty.Application.Apps.Settings;
 using PrancaBeauty.Application.Apps.Users;
 using PrancaBeauty.Application.Contracts.Users;
 using PrancaBeauty.WebApp.Common.ExMethod;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
-using PrancaBeauty.WebApp.Localization;
 using PrancaBeauty.WebApp.Models.ViewInput;
 
 namespace PrancaBeauty.WebApp.Pages.User.EditProfile.Components.AccountSettings
@@ -20,11 +22,13 @@ namespace PrancaBeauty.WebApp.Pages.User.EditProfile.Components.AccountSettings
         private readonly IMsgBox _MsgBox;
         private readonly ILocalizer _Localizer;
         private readonly IUserApplication _UserApplication;
-        public Compo_AccountSettingsModel(IMsgBox msgBox, IUserApplication userApplication, ILocalizer localizer)
+        private readonly ISettingApplication _SettingApplication;
+        public Compo_AccountSettingsModel(IMsgBox msgBox, IUserApplication userApplication, ILocalizer localizer, ISettingApplication settingApplication)
         {
             _MsgBox = msgBox;
             _UserApplication = userApplication;
             _Localizer = localizer;
+            _SettingApplication = settingApplication;
         }
 
         public async Task<IActionResult> OnGetAsync()
@@ -49,7 +53,9 @@ namespace PrancaBeauty.WebApp.Pages.User.EditProfile.Components.AccountSettings
 
         public async Task<IActionResult> OnPostAsync()
         {
-            var Result = await _UserApplication.SaveAccountSettingUserDetailsAsync("", new InpSaveAccountSettingUserDetails());
+            string SiteUrl = (await _SettingApplication.GetSettingAsync(CultureInfo.CurrentCulture.Name)).SiteUrl;
+
+            var Result = await _UserApplication.SaveAccountSettingUserDetailsAsync(User.GetUserDetails().UserId, new InpSaveAccountSettingUserDetails(), $"{SiteUrl}/{CultureInfo.CurrentCulture.Parent.Name}/Auth/ChangeEmail?Token=[Token]");
             if (Result.IsSucceeded)
             {
                 return _MsgBox.SuccessMsg(_Localizer[Result.Message]);

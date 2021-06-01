@@ -12,7 +12,7 @@ using PrancaBeauty.WebApp.Authentication;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
 using PrancaBeauty.WebApp.Common.ExMethod;
 using PrancaBeauty.Application.Contracts.AccessLevels;
-using PrancaBeauty.WebApp.Localization;
+using Framework.Infrastructure;
 
 namespace PrancaBeauty.WebApp.Pages.Admin.AccessLevels
 {

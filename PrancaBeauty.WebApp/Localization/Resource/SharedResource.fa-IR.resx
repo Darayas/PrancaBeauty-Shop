@@ -162,6 +162,9 @@
   <data name="ChangeAccessLevel" xml:space="preserve">
     <value>تغییر سطح دسترسی</value>
   </data>
+  <data name="ChangeEmail" xml:space="preserve">
+    <value>تغییر ایمیل</value>
+  </data>
   <data name="ChangeEmailSubject" xml:space="preserve">
     <value>تغییر ایمیل حساب</value>
   </data>

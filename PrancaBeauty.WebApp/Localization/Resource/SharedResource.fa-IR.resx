@@ -432,6 +432,15 @@
   <data name="Operation was successded" xml:space="preserve">
     <value>عملیات با موفقیت انجام شد.</value>
   </data>
+  <data name="Operation was successded,ChangeEmail" xml:space="preserve">
+    <value>عملیات با موفقیت انجام شد&lt;br/&gt; تغییر ایمیل با موفقیت انجام شد لطفا بر روی لینک ارسال شده به ایمیل جدید کلیک نمایید</value>
+  </data>
+  <data name="Operation was successded,ChangeEmail,ChangePhoneNumber" xml:space="preserve">
+    <value>عملیات با موفقیت انجام شد&lt;br/&gt; تغییر ایمیل با موفقیت انجام شد لطفا بر روی لینک ارسال شده به ایمیل جدید کلیک نمایید&lt;br/&gt; تغییر شماره موبایل با موفقیت انجام شد. لطفا مجددا اقدام به تایید نمایید.</value>
+  </data>
+  <data name="Operation was successded,ChangePhoneNumber" xml:space="preserve">
+    <value>عملیات با موفقیت انجام شد&lt;br/&gt; تغییر شماره موبایل با موفقیت انجام شد. لطفا مجددا اقدام به تایید نمایید.</value>
+  </data>
   <data name="Orders" xml:space="preserve">
     <value>سفارشات</value>
   </data>
@@ -485,6 +494,9 @@
   </data>
   <data name="PhoneNumberNotFound" xml:space="preserve">
     <value>شماره موبایل یافت نشد</value>
+  </data>
+  <data name="PleaseClickToConfirmPhoneNumber" xml:space="preserve">
+    <value>لطفا برای تایید شماره موبایل، کلیک نمایید.</value>
   </data>
   <data name="PleaseConfirmYourEmail" xml:space="preserve">
     <value>لطفا بر روی لینک ارسال شده کلیک نمایید. درصورتی که ایمیلی را دریافت نکرده اید لطفا با همان مشخصات، یکبار دیگر اقدام به ثبت نام کنید</value>

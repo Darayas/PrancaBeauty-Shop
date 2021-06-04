@@ -17,7 +17,7 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label asp-for="Input.Email"></label>
-                <input asp-for="Input.Email" readonly class="form-control text-left" />
+                <input asp-for="Input.Email" class="form-control text-left" />
             </div>
         </div>
     </div>
@@ -26,7 +26,19 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label asp-for="Input.PhoneNumber"></label>
-                <input asp-for="Input.PhoneNumber" readonly class="form-control text-left" />
+                @if (Model.Input.PhoneNumberConfirmed)
+                {
+                    <input asp-for="Input.PhoneNumber" class="form-control text-left" />
+                }
+                else
+                {
+                    <div class="input-group dir-ltr">
+                        <input asp-for="Input.PhoneNumber" class="form-control text-left" />
+                        <div class="input-group-append">
+                            <button type="button" onclick="ConfirmPhoneNumber()" title="@Localizer["PleaseClickToConfirmPhoneNumber"]" class="btn btn-danger"><i class="fa fa-check"></i></button>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
     </div>
@@ -71,3 +83,12 @@
         });
     });
 </script>
+
+@if (!Model.Input.PhoneNumberConfirmed)
+{
+    <script>
+        function ConfirmPhoneNumber() {
+
+        }
+    </script>
+}

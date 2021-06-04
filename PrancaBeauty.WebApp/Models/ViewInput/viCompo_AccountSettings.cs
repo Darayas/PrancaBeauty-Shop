@@ -25,6 +25,7 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
         [StringLength(30, MinimumLength = 6, ErrorMessage = "StringLengthMsg")]
         [PhoneNumber(ErrorMessage = "PhoneNumberMsg")]
         public string PhoneNumber { get; set; }
+        public bool PhoneNumberConfirmed { get; set; }
 
         [Display(Name = "FirstName")]
         [Required(ErrorMessage = "RequiredMsg")]

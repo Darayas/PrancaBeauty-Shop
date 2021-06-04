@@ -831,7 +831,8 @@ namespace PrancaBeauty.Application.Apps.Users
                                                    PhoneNumber = a.PhoneNumber,
                                                    FirstName = a.FirstName,
                                                    LastName = a.LastName,
-                                                   BirthDate = a.BirthDate
+                                                   BirthDate = a.BirthDate,
+                                                   PhoneNumberConfirmed = a.PhoneNumberConfirmed
                                                }).SingleOrDefaultAsync();
 
                 //if (qData == null)
@@ -865,10 +866,23 @@ namespace PrancaBeauty.Application.Apps.Users
                 if (qUser == null)
                     return new OperationResult().Failed("User Not Found.");
 
+                bool FlgChangeEmail = false;
+                bool FlgChangePhoneNumber = false;
+
                 qUser.LangId = Guid.Parse(Input.LangId);
                 qUser.FirstName = Input.FirstName;
                 qUser.LastName = Input.LastName;
                 qUser.BirthDate = Input.BirthDate;
+
+                #region تغییر شماره موبایل
+                if (qUser.PhoneNumber != Input.PhoneNumber)
+                {
+                    qUser.PhoneNumber = Input.PhoneNumber;
+                    qUser.PhoneNumberConfirmed = false;
+
+                    FlgChangePhoneNumber = true;
+                }
+                #endregion
 
                 await _UserRepository.UpdateAsync(qUser, default, true);
 
@@ -882,18 +896,21 @@ namespace PrancaBeauty.Application.Apps.Users
 
                     string _Url = UrlToChangeEmail.Replace("[Token]", WebUtility.UrlEncode(EncryptedData));
 
-                    await _EmailSender.SendAsync(qUser.Email, _Localizer["ChangeEmailSubject"], await _TemplateApplication.GetEmailChangeTemplateAsync(CultureInfo.CurrentCulture.Name, _Url));
+                    await _EmailSender.SendAsync(NewEmail, _Localizer["ChangeEmailSubject"], await _TemplateApplication.GetEmailChangeTemplateAsync(CultureInfo.CurrentCulture.Name, _Url));
+
+                    FlgChangeEmail = true;
                 }
                 #endregion
 
-                #region تغییر شماره موبایل
-                if (qUser.PhoneNumber != Input.PhoneNumber)
-                {
-
-                }
-                #endregion
-
-                return new OperationResult().Succeeded();
+                // نمایش پیغام ها
+                if (FlgChangeEmail && FlgChangePhoneNumber)
+                    return new OperationResult().Succeeded("Operation was successded,ChangeEmail,ChangePhoneNumber");
+                else if (FlgChangeEmail && !FlgChangePhoneNumber)
+                    return new OperationResult().Succeeded("Operation was successded,ChangeEmail");
+                else if (!FlgChangeEmail && FlgChangePhoneNumber)
+                    return new OperationResult().Succeeded("Operation was successded,ChangePhoneNumber");
+                else
+                    return new OperationResult().Succeeded();
             }
             catch (ArgumentInvalidException ex)
             {
@@ -924,6 +941,10 @@ namespace PrancaBeauty.Application.Apps.Users
                 var Result = await _UserRepository.ChangeEmailAsync(qUser, _NewEmail, _Token);
                 if (Result.Succeeded)
                 {
+                    qUser.UserName = _NewEmail;
+                    qUser.NormalizedUserName = _NewEmail.ToUpper();
+                    await _UserRepository.UpdateAsync(qUser, default, true);
+
                     return new OperationResult().Succeeded();
                 }
                 else

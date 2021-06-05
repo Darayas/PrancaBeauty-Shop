@@ -28,7 +28,12 @@
                 <label asp-for="Input.PhoneNumber"></label>
                 @if (Model.Input.PhoneNumberConfirmed)
                 {
-                    <input asp-for="Input.PhoneNumber" class="form-control text-left" />
+                    <div class="input-group dir-ltr">
+                        <input asp-for="Input.PhoneNumber" class="form-control text-left" />
+                        <div class="input-group-append">
+                            <div style="padding:7px 15px;" class="bg-success"><i class="fa fa-check text-white"></i></div>
+                        </div>
+                    </div>
                 }
                 else
                 {
@@ -87,8 +92,11 @@
 @if (!Model.Input.PhoneNumberConfirmed)
 {
     <script>
-        function ConfirmPhoneNumber() {
-
+    function ConfirmPhoneNumber() {
+        LoadComponenet('/@ViewData["culture"]/User/EditProfile/Compo/PhoneNumberConfirmation', { PhoneNumber: '@Model.Input.PhoneNumber' }, function (res) {
+                $('body').append(res);
+                $('#PhoneNumberConfirmation').modal({ backdrop: 'static', keyboard: false });
+            });
         }
     </script>
 }

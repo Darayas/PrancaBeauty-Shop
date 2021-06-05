@@ -962,5 +962,40 @@ namespace PrancaBeauty.Application.Apps.Users
                 return new OperationResult().Failed("Error500");
             }
         }
+
+        public async Task<OperationResult> ReSendSmsCodeAsync(string PhoneNumber)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(PhoneNumber))
+                    throw new ArgumentInvalidException($"PhoneNumber cannot be null or whitespace.");
+
+                var qUser = await _UserRepository.FindByPhoneNumberAsync(PhoneNumber);
+                if (qUser == null)
+                    return new OperationResult().Failed("PhoneNumberNotFound");
+
+                if (qUser.IsActive == false)
+                    return new OperationResult().Failed("YourAccountIsDisabled");
+
+                if (qUser.LastTrySentSms.HasValue)
+                    if (qUser.LastTrySentSms.Value.AddMinutes(10) < DateTime.Now)
+                        return new OperationResult().Failed("CodeIsExpired");
+
+                // تولید کد جدید
+
+                // ارسال کد جدید
+
+
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
     }
 }

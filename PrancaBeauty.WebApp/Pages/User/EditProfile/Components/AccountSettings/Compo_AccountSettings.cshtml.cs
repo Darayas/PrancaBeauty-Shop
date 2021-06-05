@@ -48,6 +48,7 @@ namespace PrancaBeauty.WebApp.Pages.User.EditProfile.Components.AccountSettings
                 FirstName = qData.FirstName,
                 LastName = qData.LastName,
                 PhoneNumber = qData.PhoneNumber,
+                PhoneNumberConfirmed = qData.PhoneNumberConfirmed,
                 BirthDate = qData.BirthDate.HasValue ? qData.BirthDate.Value.ToString("yyyy/MM/dd") : DateTime.Now.ToString("yyyy/MM/dd")
             };
 

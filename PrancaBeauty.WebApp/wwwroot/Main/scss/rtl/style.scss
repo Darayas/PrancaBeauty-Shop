@@ -133,3 +133,11 @@ err500 {
     position: relative;
     top: 6px;
 }
+
+.modal-footer > :not(:first-child) {
+    margin-right: .25rem !important;
+}
+
+.modal-footer > :not(:last-child) {
+    margin-left: .25rem !important;
+}

@@ -22,6 +22,8 @@ namespace PrancaBeauty.Domin.Users.UserAgg.Entities
         public DateTime? LastTrySentSms { get; set; }
         public bool IsActive { get; set; }
 
+
+
         public virtual tblAccessLevels tblAccessLevels { get; set; }
         public virtual tblLanguages tblLanguages { get; set; }
         public virtual ICollection<tblFiles> tblFiles { get; set; }

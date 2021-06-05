@@ -201,6 +201,9 @@
   <data name="ConfirmPassword" xml:space="preserve">
     <value>تایید کلمه عبور</value>
   </data>
+  <data name="ConfirmPhoneNumber" xml:space="preserve">
+    <value>تایید شماره موبایل</value>
+  </data>
   <data name="ConfirmPhoneNumberAes" xml:space="preserve">
     <value>وضعیت موبایل (صعودی)</value>
   </data>
@@ -486,6 +489,9 @@
   <data name="PhoneNumberCantBeNull" xml:space="preserve">
     <value>شماره موبایل الزامی میباشد</value>
   </data>
+  <data name="PhoneNumberConfirmation" xml:space="preserve">
+    <value>تایید شماره موبایل</value>
+  </data>
   <data name="PhoneNumberIsInvalid" xml:space="preserve">
     <value>شماره موبایل وارد شده اشتباه است</value>
   </data>
@@ -502,7 +508,7 @@
     <value>لطفا بر روی لینک ارسال شده کلیک نمایید. درصورتی که ایمیلی را دریافت نکرده اید لطفا با همان مشخصات، یکبار دیگر اقدام به ثبت نام کنید</value>
   </data>
   <data name="PleaseConfirmYourPhoneNumber" xml:space="preserve">
-    <value>شماره موبایل شمت تایید نشده است لطفا ابتدا آن را تایید نمایید</value>
+    <value>شماره موبایل شما تایید نشده است لطفا ابتدا آن را تایید نمایید</value>
   </data>
   <data name="PleseSelect" xml:space="preserve">
     <value>لطفا انتخاب کنید</value>

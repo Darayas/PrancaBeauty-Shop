@@ -7,6 +7,7 @@ using Framework.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Users;
+using PrancaBeauty.WebApp.Common.ExMethod;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
 using PrancaBeauty.WebApp.Models.ViewInput;
 
@@ -25,10 +26,19 @@ namespace PrancaBeauty.WebApp.Pages.User.EditProfile.Components.PhoneNumberConfi
             _Localizer = localizer;
             _SmsSender = smsSender;
         }
-        public IActionResult OnGet()
+        public async Task<IActionResult> OnGetAsync()
         {
+            if (string.IsNullOrWhiteSpace(Input.PhoneNumber))
+                return StatusCode(400);
 
-            return Page();
+            var Result = await _UserApplication.ReSendSmsCodeAsync(Input.PhoneNumber);
+            if (Result.IsSucceeded)
+                return Page();
+            else
+            {
+                ViewData["ErrMsg"] = _Localizer["PhoneNumberConfirmationCodeNotSent"];
+                return Page();
+            }
         }
 
         public async Task<IActionResult> OnPostResendAsync(string PhoneNumber)
@@ -36,18 +46,10 @@ namespace PrancaBeauty.WebApp.Pages.User.EditProfile.Components.PhoneNumberConfi
             if (string.IsNullOrWhiteSpace(PhoneNumber))
                 return _MsgBox.ModelStateMsg(_Localizer["PhoneNumberCantBeNull"]);
 
-            var qUser = await _UserApplication.GetUserByPhoneNumberAsync(PhoneNumber);
-            if (qUser == null)
-                return _MsgBox.ModelStateMsg(_Localizer["PhoneNumberIsInvalid"]);
-
-            var Result = await _UserApplication.ReCreatePasswordAsync(qUser);
+            var Result = await _UserApplication.ReSendSmsCodeAsync(PhoneNumber);
             if (Result.IsSucceeded)
             {
-                var IsSend = _SmsSender.SendLoginCode(Input.PhoneNumber, Result.Message);
-                if (IsSend)
-                    return _MsgBox.SuccessMsg(_Localizer["LoginCodeIsSent"], "StartTimer()");
-                else
-                    return _MsgBox.FaildMsg(_Localizer["SmsSenderNotRespond"]);
+                return _MsgBox.SuccessMsg(_Localizer[Result.Message], "StartTimer()");
             }
             else
             {
@@ -57,7 +59,19 @@ namespace PrancaBeauty.WebApp.Pages.User.EditProfile.Components.PhoneNumberConfi
 
         public async Task<IActionResult> OnPostAsync()
         {
-            return Page();
+            if (!ModelState.IsValid)
+                return _MsgBox.ModelStateMsg(ModelState.GetErrors());
+
+            var UserId = User.GetUserDetails().UserId;
+            var Result = await _UserApplication.PhoneConfirmationBySmsCodeAsync(UserId, Input.PhoneNumber, Input.Code);
+            if (Result.IsSucceeded)
+            {
+                return _MsgBox.SuccessMsg(_Localizer[Result.Message], "ReloadPage()");
+            }
+            else
+            {
+                return _MsgBox.FaildMsg(_Localizer[Result.Message]);
+            }
         }
 
         [BindProperty(SupportsGet = true)]

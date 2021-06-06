@@ -30,10 +30,12 @@ namespace PrancaBeauty.Application.Apps.Users
         Task<OperationResult> LoginByPhoneNumberStep1Async(string PhoneNumber);
         Task<OperationResult> LoginByPhoneNumberStep2Async(string PhoneNumber, string Code);
         Task<OperationResult> LoginByUserNamePasswordAsync(string UserName, string Pawword);
+        Task<OperationResult> PhoneConfirmationBySmsCodeAsync(string UserId, string PhoneNumber, string Code);
         Task<OperationResult> ReCreatePasswordAsync(tblUsers User);
         Task<OperationResult> RemoveAllRolesAsync(tblUsers user);
         Task<bool> RemoveUnConfirmedUserAsync(string UserId);
         Task<OperationResult> RemoveUserAsync(string UserId);
+        Task<OperationResult> ReSendSmsCodeAsync(string PhoneNumber);
         Task<OperationResult> SaveAccountSettingUserDetailsAsync(string UserId, InpSaveAccountSettingUserDetails Input, string UrlToChangeEmail);
     }
 }

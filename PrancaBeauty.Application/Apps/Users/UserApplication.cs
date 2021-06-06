@@ -1,5 +1,6 @@
 ﻿using Framework.Application.Consts;
 using Framework.Application.Services.Email;
+using Framework.Application.Services.Sms;
 using Framework.Common.ExMethods;
 using Framework.Common.Utilities.Paging;
 using Framework.Infrastructure;
@@ -27,12 +28,13 @@ namespace PrancaBeauty.Application.Apps.Users
     {
         private readonly ILogger _Logger;
         private readonly IEmailSender _EmailSender;
+        private readonly ISmsSender _SmsSender;
         private readonly ILocalizer _Localizer;
         private readonly IUserRepository _UserRepository;
         private readonly IAccesslevelApplication _AccesslevelApplication;
         private readonly ITemplateApplication _TemplateApplication;
 
-        public UserApplication(ILogger logger, IUserRepository userRepository, IAccesslevelApplication accesslevelApplication, IEmailSender emailSender, ILocalizer localizer, ITemplateApplication templateApplication)
+        public UserApplication(ILogger logger, IUserRepository userRepository, IAccesslevelApplication accesslevelApplication, IEmailSender emailSender, ILocalizer localizer, ITemplateApplication templateApplication, ISmsSender smsSender)
         {
             _Logger = logger;
             _UserRepository = userRepository;
@@ -40,6 +42,7 @@ namespace PrancaBeauty.Application.Apps.Users
             _EmailSender = emailSender;
             _Localizer = localizer;
             _TemplateApplication = templateApplication;
+            _SmsSender = smsSender;
         }
 
         public async Task<OperationResult> AddUserAsync(InpAddUser Input)
@@ -978,14 +981,67 @@ namespace PrancaBeauty.Application.Apps.Users
                     return new OperationResult().Failed("YourAccountIsDisabled");
 
                 if (qUser.LastTrySentSms.HasValue)
-                    if (qUser.LastTrySentSms.Value.AddMinutes(10) < DateTime.Now)
-                        return new OperationResult().Failed("CodeIsExpired");
+                    if (qUser.LastTrySentSms.Value.AddMinutes(AuthConst.LimitToResendSmsInMinute) > DateTime.Now)
+                        return new OperationResult().Failed("LimitToResendSms2Minute");
 
-                // تولید کد جدید
+                var ReNewPasswordResult = await ReCreatePasswordAsync(qUser);
+                if (ReNewPasswordResult.IsSucceeded)
+                {
+                    var IsSend = _SmsSender.SendLoginCode(PhoneNumber, ReNewPasswordResult.Message);
+                    if (IsSend)
+                        return new OperationResult().Succeeded("SmsCodeIsSent");
+                    else
+                        return new OperationResult().Failed("SmsSenderNotRespond");
+                }
+                else
+                {
+                    return new OperationResult().Failed(ReNewPasswordResult.Message);
+                }
 
-                // ارسال کد جدید
 
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
 
+        public async Task<OperationResult> PhoneConfirmationBySmsCodeAsync(string UserId, string PhoneNumber, string Code)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(UserId))
+                    throw new ArgumentInvalidException($"'UserId' cannot be null or whitespace.");
+
+                if (string.IsNullOrWhiteSpace(PhoneNumber))
+                    throw new ArgumentInvalidException($"'PhoneNumber' cannot be null or whitespace.");
+
+                if (string.IsNullOrWhiteSpace(Code))
+                    throw new ArgumentInvalidException($"'Code' cannot be null or whitespace.");
+
+                var qUser = await _UserRepository.FindByIdAsync(UserId);
+                if (qUser == null)
+                    return new OperationResult().Failed("UserIdNotFound");
+
+                if (qUser.PhoneNumber != PhoneNumber)
+                    return new OperationResult().Failed("PhoneNumberNotFound");
+
+                if (qUser.PhoneNumberConfirmed)
+                    return new OperationResult().Failed("PhoneNumberNotFound");
+
+                if(qUser.PasswordPhoneNumber!=Code.ToMD5())
+                    return new OperationResult().Failed("CodeIsInvalid");
+
+                qUser.PhoneNumberConfirmed = true;
+
+                await _UserRepository.UpdateAsync(qUser, default, true);
+
+                return new OperationResult().Succeeded();
             }
             catch (ArgumentInvalidException ex)
             {

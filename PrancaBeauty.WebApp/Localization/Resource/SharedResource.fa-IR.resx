@@ -492,6 +492,9 @@
   <data name="PhoneNumberConfirmation" xml:space="preserve">
     <value>تایید شماره موبایل</value>
   </data>
+  <data name="PhoneNumberConfirmationCodeNotSent" xml:space="preserve">
+    <value>مشکلی در ارسال کد ایجاد شد. لطفا بعدا تلاش نمایید.</value>
+  </data>
   <data name="PhoneNumberIsInvalid" xml:space="preserve">
     <value>شماره موبایل وارد شده اشتباه است</value>
   </data>
@@ -570,6 +573,9 @@
   <data name="ShopMainPage" xml:space="preserve">
     <value>فروشگاه</value>
   </data>
+  <data name="SmsCodeIsSent" xml:space="preserve">
+    <value>کد پیامک شد.</value>
+  </data>
   <data name="SmsSenderNotRespond" xml:space="preserve">
     <value>سرویس دهنده ی پیامک پاسخ گو نیست</value>
   </data>
@@ -587,6 +593,9 @@
   </data>
   <data name="Sorting" xml:space="preserve">
     <value>مرتب سازی</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value />
   </data>
   <data name="StringLengthMsg" xml:space="preserve">
     <value>{0} باید بین {2} تا {1} کاراکتر باشد</value>

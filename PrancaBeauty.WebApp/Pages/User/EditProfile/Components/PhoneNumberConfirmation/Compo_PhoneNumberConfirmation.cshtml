@@ -9,6 +9,12 @@
             </div>
             <div class="modal-body">
                 <div class="account_form">
+                    @if (ViewData["ErrMsg"] != null)
+                    {
+                        <div class="alert alert-warning">
+                            @Html.Raw(ViewData["ErrMsg"].ToString());
+                        </div>
+                    }
                     <form id="frmConfirmPhoneNumber" method="post" asp-antiforgery="false">
                         <p>
                             <input type="hidden" asp-for="Input.PhoneNumber" class="text-left">
@@ -49,7 +55,7 @@
         });
 
     function Resend() {
-        SendData('/@ViewData["culture"]/Auth/Login/Components/LoginByPhoneNumber/OTP?handler=Resend', { PhoneNumber: $('#Input_PhoneNumber').val() });
+        SendData('/@ViewData["culture"]/User/EditProfile/Compo/PhoneNumberConfirmation?handler=Resend', { PhoneNumber: $('#Input_PhoneNumber').val() });
     }
 
     function StartTimer() {

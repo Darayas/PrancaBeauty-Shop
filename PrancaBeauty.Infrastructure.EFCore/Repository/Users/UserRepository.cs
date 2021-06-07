@@ -155,5 +155,10 @@ namespace PrancaBeauty.Infrastructure.EFCore.Repository.Users
         {
             return await _UserManager.ChangeEmailAsync(user, newEmail, token);
         }
+
+        public async Task<IdentityResult> ChangePasswordAsync(tblUsers user, string currentPassword, string newPassword)
+        {
+            return await _UserManager.ChangePasswordAsync(user, currentPassword, newPassword);
+        }
     }
 }

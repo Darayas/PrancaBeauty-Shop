@@ -168,6 +168,9 @@
   <data name="ChangeEmailSubject" xml:space="preserve">
     <value>تغییر ایمیل حساب</value>
   </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>تغییر کلمه عبور</value>
+  </data>
   <data name="ChangeStatusDisable" xml:space="preserve">
     <value>غیر فعال کردن</value>
   </data>
@@ -212,6 +215,9 @@
   </data>
   <data name="CountUser" xml:space="preserve">
     <value>تعداد کاربران</value>
+  </data>
+  <data name="CurrentPassword" xml:space="preserve">
+    <value>کلمه عبور فعلی</value>
   </data>
   <data name="Dashboard" xml:space="preserve">
     <value>پیشخوان</value>
@@ -422,6 +428,9 @@
   </data>
   <data name="Name is duplicate." xml:space="preserve">
     <value>نام تکراری است.</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>کلمه عبور جدید</value>
   </data>
   <data name="Next" xml:space="preserve">
     <value>بعدی</value>

@@ -37,11 +37,15 @@
                 </div>
             </div>
         </div>
-        <div class="row mt-4">
+        <div class="row mt-4" id="CompoChangePasswordAnchor">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">@Localizer["Security"]</div>
-                    <div class="card-body"></div>
+                    <div class="card-body">
+                        <LoadComponent url="/@ViewData["Culture"]/User/EditProfile/Compo/ChangePassword"
+                                       id="CompoChangePassword"
+                                       context="HttpContext"></LoadComponent>
+                    </div>
                 </div>
             </div>
         </div>

@@ -1034,7 +1034,7 @@ namespace PrancaBeauty.Application.Apps.Users
                 if (qUser.PhoneNumberConfirmed)
                     return new OperationResult().Failed("PhoneNumberNotFound");
 
-                if(qUser.PasswordPhoneNumber!=Code.ToMD5())
+                if (qUser.PasswordPhoneNumber != Code.ToMD5())
                     return new OperationResult().Failed("CodeIsInvalid");
 
                 qUser.PhoneNumberConfirmed = true;
@@ -1051,6 +1051,45 @@ namespace PrancaBeauty.Application.Apps.Users
             {
                 _Logger.Error(ex);
                 return new OperationResult().Failed("Error500");
+            }
+        }
+
+        public async Task<OperationResult> ChanagePasswordAsync(string UserId, string CurrentPassword, string NewPassword)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(UserId))
+                    throw new ArgumentInvalidException($"'{nameof(UserId)}' cannot be null or whitespace.");
+
+                if (string.IsNullOrWhiteSpace(CurrentPassword))
+                    throw new ArgumentInvalidException($"'{nameof(CurrentPassword)}' cannot be null or whitespace.");
+
+                if (string.IsNullOrWhiteSpace(NewPassword))
+                    throw new ArgumentInvalidException($"'{nameof(NewPassword)}' cannot be null or whitespace.");
+
+                var qUser = await _UserRepository.FindByIdAsync(UserId);
+                if (qUser == null)
+                    return new OperationResult().Failed("UserNotFound");
+
+                var Result = await _UserRepository.ChangePasswordAsync(qUser, CurrentPassword, NewPassword);
+                if (Result.Succeeded)
+                {
+                    return new OperationResult().Succeeded();
+                }
+                else
+                {
+                    return new OperationResult().Failed(string.Join(", ", Result.Errors.Select(a => a.Description)));
+                }
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed(ex.Message);
+
             }
         }
     }

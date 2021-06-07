@@ -15,6 +15,7 @@ namespace PrancaBeauty.Application.Apps.Users
         Task<OperationResult> ChanageUserAccessLevelAsync(string UserId, string SelfUserId, string AccessLevelId);
         Task<OperationResult> ChangeEmailAsync(string Token);
         Task<OperationResult> ChangeUserStatusAsync(string UserId, string SelfUserId);
+        Task<OperationResult> ChanagePasswordAsync(string UserId, string CurrentPassword, string NewPassword);
         Task<OperationResult> EditUsersRoleByAccIdAsync(string AccessLevelId, string[] Roles);
         Task<OperationResult> EmailConfirmationAsync(string UserId, string Token);
         Task<string> GenerateEmailConfirmationTokenAsync(string UserId);

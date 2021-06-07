@@ -15,6 +15,7 @@ namespace PrancaBeauty.Domin.Users.UserAgg.Contracts
         Task<IdentityResult> AddPhoneNumberPasswordAsync(tblUsers entity, string Password);
         Task<IdentityResult> AddToRolesAsync(tblUsers user, string[] Roles);
         Task<IdentityResult> ChangeEmailAsync(tblUsers user, string newEmail, string token);
+        Task<IdentityResult> ChangePasswordAsync(tblUsers user, string currentPassword, string newPassword);
         Task<IdentityResult> CreateUserAsync(tblUsers User, string Password);
         Task<IdentityResult> DeleteAsync(tblUsers entity);
         Task<IdentityResult> EmailConfirmationAsync(tblUsers User, string Token);

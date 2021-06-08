@@ -1,5 +1,7 @@
 ﻿using Framework.Domain;
+using PrancaBeauty.Domin.Region.CityAgg.Entities;
 using PrancaBeauty.Domin.Region.CountryAgg.Entities;
+using PrancaBeauty.Domin.Region.ProvinceAgg.Entities;
 using PrancaBeauty.Domin.Users.UserAgg.Entities;
 using System;
 using System.Collections.Generic;
@@ -25,8 +27,11 @@ namespace PrancaBeauty.Domin.Users.AddressAgg.Entities
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string PhoneNumber { get; set; }
+        public DateTime Date { get; set; }
 
         public virtual tblUsers tblUsers { get; set; }
         public virtual tblCountries tblCountries { get; set; }
+        public virtual tblProvinces tblProvinces { get; set; }
+        public virtual tblCities tblCities { get; set; }
     }
 }

@@ -150,6 +150,9 @@
   <data name="AddNewUsers" xml:space="preserve">
     <value>افزودن کاربر جدید</value>
   </data>
+  <data name="Address" xml:space="preserve">
+    <value>آدرس</value>
+  </data>
   <data name="AdminPanel" xml:space="preserve">
     <value>پنل مدیریت</value>
   </data>
@@ -212,6 +215,9 @@
   </data>
   <data name="ConfirmPhoneNumberDes" xml:space="preserve">
     <value>وضعیت موبایل (نزولی)</value>
+  </data>
+  <data name="CountBills" xml:space="preserve">
+    <value>تعداد صورت حساب</value>
   </data>
   <data name="CountUser" xml:space="preserve">
     <value>تعداد کاربران</value>
@@ -513,6 +519,9 @@
   <data name="PhoneNumberNotFound" xml:space="preserve">
     <value>شماره موبایل یافت نشد</value>
   </data>
+  <data name="Plaque" xml:space="preserve">
+    <value>پلاک</value>
+  </data>
   <data name="PleaseClickToConfirmPhoneNumber" xml:space="preserve">
     <value>لطفا برای تایید شماره موبایل، کلیک نمایید.</value>
   </data>
@@ -611,6 +620,9 @@
   </data>
   <data name="Title" xml:space="preserve">
     <value>عنوان</value>
+  </data>
+  <data name="Unit" xml:space="preserve">
+    <value>واحد</value>
   </data>
   <data name="UserAlreadyHasPassword" xml:space="preserve">
     <value>کاربر از قبل دارای کلمه عبور می باشد</value>

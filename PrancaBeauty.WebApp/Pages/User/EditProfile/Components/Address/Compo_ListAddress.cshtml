@@ -1,0 +1,30 @@
+﻿@page  "/{Culture}/User/EditProfile/Compo/ListAddress"
+@model PrancaBeauty.WebApp.Pages.User.EditProfile.Components.Address.Compo_ListAddressModel
+<div class="k-lang">
+    @(Html.Kendo()
+          .Grid<vmCompo_ListAddress>()
+          .Name("ListAddress")
+          .DefaultSettings(Localizer)
+          .Columns(col=> {
+              col.Bound(a => a.Id).Hidden().HtmlAttributes(new { @class = "RowId" }).Sortable(false);
+              col.Bound(a => a.Address).Sortable(false);
+              col.Bound(a => a.CountBills).Sortable(false).Width(100);
+              col.Bound(a => a).Width(50).Title(" ")
+                                         .HtmlAttributes(new { style= "overflow: visible; text-align: center;" })
+                                         .ClientHeaderTemplate(User.IsInRole(Roles.CanAddAccessLevel)? "<button class='btn btn-success btn-sm' onclick='Add()'><i class='fa fa-plus'></i></button>" : "")
+                                         .ClientTemplateId("DropDownCmd");
+          })
+          .DataSource(ds=>ds.Ajax()
+                            .PageSize(10)
+                            .Read(read=>read.Url($"/{CultureInfo.CurrentCulture.Parent.Name}/User/EditProfile/Compo/ListAddress?handler=ReadData").Data("forgeryToken"))))
+</div>
+
+<script id="DropDownCmd">
+    <div class="item-action dropdown">
+        <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fa fa-bars fs-16 text-dark"></i></a>
+        <div class="dropdown-menu dropdown-menu-left">
+             <a href="/@ViewData["Culture"]/Admin/AccessLevel/Edit/#:Id#" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i>@Localizer["Edit"]</a>
+             <a onClick="Remove('#:Id#')" class="dropdown-item"><i class="dropdown-icon fa fa-times"></i>@Localizer["Remove"]</a>
+        </div>
+    </div>
+</script>

@@ -2944,7 +2944,7 @@ button.k-button-expand, input[type=submit].k-button-expand, input[type=button].k
 }
 
 .k-grid-header th.k-header {
-    vertical-align: bottom;
+    vertical-align: middle;
     cursor: default
 }
 

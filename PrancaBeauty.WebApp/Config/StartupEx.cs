@@ -18,6 +18,7 @@ using PrancaBeauty.Infrastructure.EFCore.Context;
 using PrancaBeauty.WebApp.Authentication;
 using PrancaBeauty.WebApp.Common.Utility.IpAddress;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
+using PrancaBeauty.WebApp.Fillters;
 using PrancaBeauty.WebApp.Localization;
 using PrancaBeauty.WebApp.Middlewares;
 using System;
@@ -58,6 +59,13 @@ namespace PrancaBeauty.WebApp.Config
             {
                 a.Conventions.AddPageRoute("/Home/RobotIndex", "");
                 a.Conventions.AuthorizeFolder("/Admin/", "AdminPanelPolicy");
+            });
+        }
+
+        public static IMvcBuilder AddFilters(this IMvcBuilder mvcBuilder)
+        {
+            return mvcBuilder.AddMvcOptions(opt => {
+                opt.Filters.Add(new FillLangIdParametrFilter());
             });
         }
 

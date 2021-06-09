@@ -47,6 +47,7 @@ namespace PrancaBeauty.WebApp
             services.AddCustomAuthorization();
 
             services.AddRazorPage()
+                    .AddFilters()
                     .AddCustomViewLocalization("Localization/Resource")
                     .AddCustomDataAnnotationLocalization(services, typeof(SharedResource))
                     .AddNewtonsoftJson(opt => opt.SerializerSettings.ContractResolver = new DefaultContractResolver());
@@ -83,7 +84,7 @@ namespace PrancaBeauty.WebApp
             app.UseResponseCompression();
 
             app.UseWebMarkupMin();
-           
+
             app.UseRouting();
 
             app.UseStaticFiles();

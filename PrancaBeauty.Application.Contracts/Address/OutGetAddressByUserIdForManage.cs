@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Contracts.Address
 {
-    public class GetAddressByUserIdForManage
+    public class OutGetAddressByUserIdForManage
     {
         public string Id { get; set; }
         public string Address { get; set; }

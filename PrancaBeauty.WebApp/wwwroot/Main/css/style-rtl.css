@@ -7954,3 +7954,6 @@ err500 {
 
 .modal-footer > :not(:last-child) {
   margin-left: .25rem !important; }
+
+.dropdown-item {
+  text-align: right !important; }

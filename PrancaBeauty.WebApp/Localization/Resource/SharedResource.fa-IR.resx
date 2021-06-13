@@ -141,8 +141,14 @@
   <data name="AccountSetting" xml:space="preserve">
     <value>تنظیمات حساب</value>
   </data>
+  <data name="Add" xml:space="preserve">
+    <value>افزودن</value>
+  </data>
   <data name="AddAccessLevel" xml:space="preserve">
     <value>افزودن سطح دسترسی جدید</value>
+  </data>
+  <data name="AddAddress" xml:space="preserve">
+    <value>افزودن آدرس</value>
   </data>
   <data name="AddNewAccessLevel" xml:space="preserve">
     <value>افزودن</value>
@@ -179,6 +185,9 @@
   </data>
   <data name="ChangeStatusEnable" xml:space="preserve">
     <value>فعال کردن</value>
+  </data>
+  <data name="CityId" xml:space="preserve">
+    <value>شهر</value>
   </data>
   <data name="Close" xml:space="preserve">
     <value>خروج</value>
@@ -219,6 +228,9 @@
   <data name="CountBills" xml:space="preserve">
     <value>تعداد صورت حساب</value>
   </data>
+  <data name="CountryId" xml:space="preserve">
+    <value>کشور</value>
+  </data>
   <data name="CountUser" xml:space="preserve">
     <value>تعداد کاربران</value>
   </data>
@@ -248,6 +260,9 @@
   </data>
   <data name="Description" xml:space="preserve">
     <value>توضیحات</value>
+  </data>
+  <data name="District" xml:space="preserve">
+    <value>محله</value>
   </data>
   <data name="DuplicateEmail" xml:space="preserve">
     <value>ایمیل تکراری میبشاد</value>
@@ -435,6 +450,12 @@
   <data name="Name is duplicate." xml:space="preserve">
     <value>نام تکراری است.</value>
   </data>
+  <data name="NationalCode" xml:space="preserve">
+    <value>کد ملی</value>
+  </data>
+  <data name="NationalCodePattern" xml:space="preserve">
+    <value>[0-9]{10}</value>
+  </data>
   <data name="NewPassword" xml:space="preserve">
     <value>کلمه عبور جدید</value>
   </data>
@@ -534,8 +555,17 @@
   <data name="PleseSelect" xml:space="preserve">
     <value>لطفا انتخاب کنید</value>
   </data>
+  <data name="PostalCode" xml:space="preserve">
+    <value>کد پستی</value>
+  </data>
+  <data name="PostalCodePattern" xml:space="preserve">
+    <value>[0-9]{10}</value>
+  </data>
   <data name="Previous" xml:space="preserve">
     <value>قبلی</value>
+  </data>
+  <data name="ProviceId" xml:space="preserve">
+    <value>استان</value>
   </data>
   <data name="RecoveryCodeRedemptionFailed" xml:space="preserve">
     <value>بازیابی ناموفق بود</value>

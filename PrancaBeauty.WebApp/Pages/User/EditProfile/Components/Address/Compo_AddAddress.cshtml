@@ -1,0 +1,120 @@
+﻿@page  "/{Culture}/User/EditProfile/Compo/AddAddress"
+@model PrancaBeauty.WebApp.Pages.User.EditProfile.Components.Address.Compo_AddAddressModel
+
+<div class="modal fade" id="AddAddress" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">@Localizer["AddAddress"]</h5>
+            </div>
+            <div class="modal-body">
+                <div class="account_form">
+                    <form id="frmAddAddress" method="post" asp-antiforgery="false">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label asp-for="Input.FirstName"></label>
+                                    <input asp-for="Input.FirstName" class="form-control" />
+                                </div>
+                                <div class="col-md-6">
+                                    <label asp-for="Input.LastName"></label>
+                                    <input asp-for="Input.LastName" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label asp-for="Input.NationalCode"></label>
+                                    <input asp-for="Input.NationalCode" class="form-control text-left" />
+                                </div>
+                                <div class="col-md-6">
+                                    <label asp-for="Input.PhoneNumber"></label>
+                                    <input asp-for="Input.PhoneNumber" class="form-control text-left" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label asp-for="Input.CountryId"></label>
+                                    <input asp-for="Input.CountryId" class="form-control" />
+                                </div>
+                                <div class="col-md-4">
+                                    <label asp-for="Input.ProviceId"></label>
+                                    <input asp-for="Input.ProviceId" class="form-control" />
+                                </div>
+                                <div class="col-md-4">
+                                    <label asp-for="Input.CityId"></label>
+                                    <input asp-for="Input.CityId" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label asp-for="Input.District"></label>
+                                    <input asp-for="Input.District" class="form-control" />
+                                </div>
+                                <div class="col-md-3">
+                                    <label asp-for="Input.Plaque"></label>
+                                    <input asp-for="Input.Plaque" class="form-control text-left" />
+                                </div>
+                                <div class="col-md-2">
+                                    <label asp-for="Input.Unit"></label>
+                                    <input asp-for="Input.Unit" class="form-control text-left" />
+                                </div>
+                                <div class="col-md-4">
+                                    <label asp-for="Input.PostalCode"></label>
+                                    <input asp-for="Input.PostalCode" class="form-control text-left" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label asp-for="Input.Address"></label>
+                                    <textarea asp-for="Input.Address" rows="2" class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="Close()">@Localizer["Close"]</button>
+                <button type="button" onclick="SendForm('/@ViewData["culture"]/User/EditProfile/Compo/AddAddress','frmAddAddress')" class="btn btn-primary">@Localizer["Add"]</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('#Input_PhoneNumber').inputmask({
+                regex: '@Localizer["MobilePattern"]',
+                placeholder: '_'
+            });
+
+            $('#Input_NationalCode').inputmask({
+                regex: '@Localizer["NationalCodePattern"]',
+                placeholder: '_'
+            });
+
+            $('#Input_PostalCode').inputmask({
+                regex: '@Localizer["PostalCodePattern"]',
+                placeholder: '_'
+            });
+        });
+
+        function Close() {
+            $('#AddAddress').remove();
+            $('.modal-backdrop').remove()
+        }
+    </script>
+</div>
+

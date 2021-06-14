@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Languages;
 using PrancaBeauty.WebApp.Models.ViewInput;
 
-namespace PrancaBeauty.WebApp.Pages.Shared.Components
+namespace PrancaBeauty.WebApp.Pages.Shared.Components.Combo_Language
 {
     public class Compo_Combo_LanguageModel : PageModel
     {

@@ -1,5 +1,5 @@
-﻿@page "/{culture}/Admin/Shared/Compo/ComboLanguage"
-@model PrancaBeauty.WebApp.Pages.Shared.Components.Compo_Combo_LanguageModel
+﻿@page "/{culture}/Shared/Compo/ComboLanguage"
+@model PrancaBeauty.WebApp.Pages.Shared.Components.Combo_Language.Compo_Combo_LanguageModel
 
 <div class="k-lang">
     @(Html.Kendo()
@@ -13,7 +13,7 @@
           .DataSource(sr => {
               sr.Read(read =>
               {
-                  read.Url($"/{ViewData["culture"]}/Admin/Shared/Compo/ComboLanguage?handler=Read");
+                  read.Url($"/{ViewData["culture"]}/Shared/Compo/ComboLanguage?handler=Read");
               });
           }).Template("<div class='d-inline'><img src='#=FlagUrl#'/></div><div class='d-inline ml-2 mr-2'>#=NativeName#</div>"))
 </div>

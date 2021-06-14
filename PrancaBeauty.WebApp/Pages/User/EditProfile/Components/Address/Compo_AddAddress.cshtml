@@ -30,8 +30,8 @@
                                     <input asp-for="Input.NationalCode" class="form-control text-left" />
                                 </div>
                                 <div class="col-md-6">
-                                    <label asp-for="Input.PhoneNumber"></label>
-                                    <input asp-for="Input.PhoneNumber" class="form-control text-left" />
+                                    <label asp-for="Input.PhoneNumber" for="IdInput_PhoneNumber"></label>
+                                    <input asp-for="Input.PhoneNumber" id="IdInput_PhoneNumber" class="form-control text-left" />
                                 </div>
                             </div>
                         </div>
@@ -95,7 +95,7 @@
 
     <script>
         $(document).ready(function () {
-            $('#Input_PhoneNumber').inputmask({
+            $('#IdInput_PhoneNumber').inputmask({
                 regex: '@Localizer["MobilePattern"]',
                 placeholder: '_'
             });

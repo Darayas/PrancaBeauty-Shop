@@ -3,6 +3,7 @@ using Framework.Common.Utilities.Paging;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Contracts.Address;
+using PrancaBeauty.Application.Contracts.Results;
 using PrancaBeauty.Application.Exceptions;
 using PrancaBeauty.Domin.Users.AddressAgg.Contracts;
 using System;
@@ -66,6 +67,23 @@ namespace PrancaBeauty.Application.Apps.Address
             {
                 _Logger.Error(ex);
                 return (null, null);
+            }
+        }
+
+        public async Task<OperationResult> AddAddressAsync(InpAddAddress Input)
+        {
+            try
+            {
+                return new OperationResult().Failed("");
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+
+                throw;
             }
         }
     }

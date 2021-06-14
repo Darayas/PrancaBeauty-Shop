@@ -16,10 +16,11 @@ namespace PrancaBeauty.WebApp.Pages.User.EditProfile.Components.Address
         private readonly IMsgBox _MsgBox;
         private readonly ILocalizer _Localizer;
         private readonly IAddressApplication _AddressApplication;
-        public Compo_AddAddressModel(ILocalizer localizer, IMsgBox msgBox)
+        public Compo_AddAddressModel(ILocalizer localizer, IMsgBox msgBox, IAddressApplication addressApplication)
         {
             _Localizer = localizer;
             _MsgBox = msgBox;
+            _AddressApplication = addressApplication;
         }
 
         public IActionResult OnGet()

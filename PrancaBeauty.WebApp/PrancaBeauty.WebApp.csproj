@@ -29,6 +29,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Pages\Shared\Components\Region\Combo_Province\" />
+    <Folder Include="Pages\Shared\Components\Region\Combo_City\" />
     <Folder Include="wwwroot\Admin\css\" />
     <Folder Include="wwwroot\FileServer\Flags\" />
     <Folder Include="wwwroot\Shared\img\" />

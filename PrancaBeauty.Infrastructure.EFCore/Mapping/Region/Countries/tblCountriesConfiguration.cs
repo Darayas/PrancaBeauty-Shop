@@ -18,6 +18,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Mapping.Region.Countries
             builder.Property(a => a.Id).IsRequired().HasMaxLength(150);
             builder.Property(a => a.FlagImgId).IsRequired().HasMaxLength(150);
             builder.Property(a => a.Name).IsRequired().HasMaxLength(150);
+            builder.Property(a => a.PhoneCode).IsRequired().HasMaxLength(50);
 
             builder.HasOne(a => a.tblFiles)
                    .WithMany(a => a.tblCountries)

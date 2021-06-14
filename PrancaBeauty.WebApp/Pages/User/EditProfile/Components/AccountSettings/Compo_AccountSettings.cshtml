@@ -7,7 +7,7 @@
             <div class="form-group">
                 <label asp-for="Input.LangId"></label>
                 <LoadComponent id="CompoLanguage"
-                               url="/@ViewData["culture"]/Admin/Shared/Compo/ComboLanguage"
+                               url="/@ViewData["culture"]/Shared/Compo/ComboLanguage"
                                context="HttpContext"
                                data="new viCompo_Combo_Language() { LangId=Model.Input.LangId }"></LoadComponent>
             </div>

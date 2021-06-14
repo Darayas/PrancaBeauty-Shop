@@ -15,6 +15,7 @@ namespace PrancaBeauty.Domin.Region.CountryAgg.Entities
         public Guid Id { get; set; }
         public Guid FlagImgId { get; set; }
         public string Name { get; set; }
+        public string PhoneCode { get; set; }
         public bool IsActive { get; set; }
 
         public virtual tblFiles tblFiles { get; set; }

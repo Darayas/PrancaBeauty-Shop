@@ -36,26 +36,10 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <LoadComponent url="/@ViewData["Culture"]/Shared/Compo/Region/ComboCountris"
-                                                   id="CompoCountries"
-                                                   context="HttpContext"
-                                                   data='new viCompo_Combo_Countries { CountryId=null,FieldName="Input.CountryId" }'></LoadComponent>
-                                </div>
-                                <div class="col-md-4">
-                                    <LoadComponent url="/@ViewData["Culture"]/Shared/Compo/Region/ComboProvince"
-                                                   id="CompoProvince"
-                                                   context="HttpContext"
-                                                   data='new viCompo_Combo_Province { CountryId="0ab16c0b-d782-4026-b170-ad340115fb2c",ProvinceId=null,FieldName="Input.ProvinceId" }'></LoadComponent>
-                                </div>
-                                <div class="col-md-4">
-                                    <label asp-for="Input.CityId"></label>
-                                    <input asp-for="Input.CityId" class="form-control" />
-                                </div>
-                            </div>
-                        </div>
+                        <LoadComponent url="/@ViewData["Culture"]/Shared/Compo/Region/Area"
+                                       id="CompoArea"
+                                       context="HttpContext"
+                                       data='new viCompo_Area { CountryId=null,CountyFieldName="Input.CountryId",ProvinceId=null,ProvinceFieldName="Input.ProvinceId",CityId=null,CityFieldName="Input.CityId" }'></LoadComponent>
 
                         <div class="form-group">
                             <div class="row">

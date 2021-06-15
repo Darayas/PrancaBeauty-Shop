@@ -567,6 +567,9 @@
   <data name="ProviceId" xml:space="preserve">
     <value>استان</value>
   </data>
+  <data name="ProvinceId" xml:space="preserve">
+    <value>استان</value>
+  </data>
   <data name="RecoveryCodeRedemptionFailed" xml:space="preserve">
     <value>بازیابی ناموفق بود</value>
   </data>

@@ -1,5 +1,5 @@
-﻿@page "/{culture}/Shared/Compo/Region/ComboProvince"
-@model PrancaBeauty.WebApp.Pages.Shared.Components.Region.Combo_Province.Compo_Combo_ProvinceModel
+﻿@page "/{culture}/Shared/Compo/Region/ComboCity"
+@model PrancaBeauty.WebApp.Pages.Shared.Components.Region.Combo_City.Compo_Combo_CitiesModel
 
 @{
     string FieldName = Model.Input.FieldName;
@@ -10,7 +10,7 @@
     function Filter_@(FieldId)()
     {
         var ItemCombo = $('#@(FieldId)').data("kendoComboBox");
-        return { Text: ItemCombo.text(), CountryId: '@Model.Input.CountryId' };
+        return { Text: ItemCombo.text(), ProvinceId: '@Model.Input.ProvinceId' };
     }
 </script>
 <label for="@FieldId">@FieldTitle</label>
@@ -24,11 +24,11 @@
           .DataValueField("Id")
           .Filter(FilterType.Contains)
           .MinLength(2)
-          .Value(Model.Input.ProvinceId)
+          .Value(Model.Input.CityId)
           .DataSource(sr => {
               sr.Read(read =>
               {
-                  read.Url($"/{ViewData["culture"]}/Shared/Compo/Region/ComboProvince?handler=Read").Data($"Filter_{FieldId}");
+                  read.Url($"/{ViewData["culture"]}/Shared/Compo/Region/ComboCity?handler=Read").Data($"Filter_{FieldId}");
               }).ServerFiltering(true);
           }).Template("<div class='d-inline ml-2 mr-2'>#=Title#</div>"))
 </div>

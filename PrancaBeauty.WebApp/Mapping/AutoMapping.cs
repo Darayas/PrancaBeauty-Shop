@@ -18,6 +18,7 @@ namespace PrancaBeauty.WebApp.Mapping
             CreateMap<OutGetAddressByUserIdForManage, vmCompo_ListAddress>();
             CreateMap<PrancaBeauty.Application.Contracts.Countries.OutGetListForCombo, vmCompo_Combo_Countries>();
             CreateMap<PrancaBeauty.Application.Contracts.Province.OutGetListForCombo, vmCompo_Combo_Province>();
+            CreateMap<PrancaBeauty.Application.Contracts.City.OutGetListForCombo, vmCompo_Combo_Cities>();
         }
     }
 }

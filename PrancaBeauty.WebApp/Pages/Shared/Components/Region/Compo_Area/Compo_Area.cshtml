@@ -1,0 +1,25 @@
+﻿@page "/{culture}/Shared/Compo/Region/Area"
+@model PrancaBeauty.WebApp.Pages.Shared.Components.Region.Compo_Area.Compo_AreaModel
+
+<div class="form-group">
+    <div class="row">
+        <div class="col-md-4">
+            <LoadComponent url="/@ViewData["Culture"]/Shared/Compo/Region/ComboCountris"
+                           id="CompoCountries"
+                           context="HttpContext"
+                           data='new viCompo_Combo_Countries { CountryId=Model.Input.CountryId,FieldName=Model.Input.CountyFieldName }'></LoadComponent>
+        </div>
+        <div class="col-md-4">
+            <LoadComponent url="/@ViewData["Culture"]/Shared/Compo/Region/ComboProvince"
+                           id="CompoProvince"
+                           context="HttpContext"
+                           data='new viCompo_Combo_Province { CountryId=Model.Input.CountryId,ProvinceId=Model.Input.ProvinceId,FieldName=Model.Input.ProvinceFieldName }'></LoadComponent>
+        </div>
+        <div class="col-md-4">
+            <LoadComponent url="/@ViewData["Culture"]/Shared/Compo/Region/ComboCity"
+                           id="CompoCity"
+                           context="HttpContext"
+                           data='new viCompo_Combo_Cities { ProvinceId=Model.Input.ProvinceId,CityId=Model.Input.ProvinceId,FieldName=Model.Input.CityFieldName }'></LoadComponent>
+        </div>
+    </div>
+</div>

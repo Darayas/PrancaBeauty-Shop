@@ -29,7 +29,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\Shared\Components\Region\Combo_Province\" />
     <Folder Include="Pages\Shared\Components\Region\Combo_City\" />
     <Folder Include="wwwroot\Admin\css\" />
     <Folder Include="wwwroot\FileServer\Flags\" />
@@ -38,6 +37,12 @@
 
   <ItemGroup>
     <None Include="wwwroot\Shared\js\SharedScript.min.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Localization\Resource\SharedResource.fa-IR.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

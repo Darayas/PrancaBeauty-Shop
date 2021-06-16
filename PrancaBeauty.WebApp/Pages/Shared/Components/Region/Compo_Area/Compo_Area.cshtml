@@ -3,19 +3,19 @@
 
 <div class="form-group">
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-4 CompoCountries">
             <LoadComponent url="/@ViewData["Culture"]/Shared/Compo/Region/ComboCountris"
                            id="CompoCountries"
                            context="HttpContext"
                            data='new viCompo_Combo_Countries { CountryId=Model.Input.CountryId,FieldName=Model.Input.CountyFieldName }'></LoadComponent>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 CompoProvince">
             <LoadComponent url="/@ViewData["Culture"]/Shared/Compo/Region/ComboProvince"
                            id="CompoProvince"
                            context="HttpContext"
                            data='new viCompo_Combo_Province { CountryId=Model.Input.CountryId,ProvinceId=Model.Input.ProvinceId,FieldName=Model.Input.ProvinceFieldName }'></LoadComponent>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 CompoCity">
             <LoadComponent url="/@ViewData["Culture"]/Shared/Compo/Region/ComboCity"
                            id="CompoCity"
                            context="HttpContext"
@@ -23,3 +23,29 @@
         </div>
     </div>
 </div>
+
+<script>
+    function OnComboSelect@(Model.Input.CountyFieldName.Replace(".","_"))(e) {
+        LoadComponenet('/@ViewData["Culture"]/Shared/Compo/Region/ComboProvince',
+            {
+                CountryId: e.dataItem.Id,
+                ProvinceId: '@Model.Input.ProvinceId',
+                FieldName:'@Model.Input.ProvinceFieldName'
+            },
+            function (res) {
+                $('.CompoProvince').html(res);
+            });
+    }
+
+    function OnComboSelect@(Model.Input.ProvinceFieldName.Replace(".","_"))(e) {
+        LoadComponenet('/@ViewData["Culture"]/Shared/Compo/Region/ComboCity',
+            {
+                ProvinceId: e.dataItem.Id,
+                CityId: '@Model.Input.CityId',
+                FieldName: '@Model.Input.CityFieldName'
+            },
+            function (res) {
+                $('.CompoCity').html(res);
+            });
+    }
+</script>

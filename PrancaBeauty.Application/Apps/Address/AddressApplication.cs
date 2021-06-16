@@ -6,6 +6,7 @@ using PrancaBeauty.Application.Contracts.Address;
 using PrancaBeauty.Application.Contracts.Results;
 using PrancaBeauty.Application.Exceptions;
 using PrancaBeauty.Domin.Users.AddressAgg.Contracts;
+using PrancaBeauty.Domin.Users.AddressAgg.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -74,16 +75,38 @@ namespace PrancaBeauty.Application.Apps.Address
         {
             try
             {
-                return new OperationResult().Failed("");
+                if (Input is null)
+                    throw new ArgumentInvalidException("Input cant e null.");
+
+                await _AddressRepository.AddAsync(new tblAddress()
+                {
+                    Id = new Guid().SequentialGuid(),
+                    UserId = Guid.Parse(Input.UserId),
+                    FirstName = Input.FirstName,
+                    LastName = Input.LastName,
+                    PhoneNumber = Input.PhoneNumber,
+                    PostalCode = Input.PostalCode,
+                    Address = Input.Address,
+                    CityId = Guid.Parse(Input.CityId),
+                    ProviceId = Guid.Parse(Input.ProviceId),
+                    CountryId = Guid.Parse(Input.CountryId),
+                    Date = DateTime.Now,
+                    District = Input.District,
+                    NationalCode = Input.NationalCode,
+                    Plaque = Input.Plaque,
+                    Unit = Input.Unit
+                }, default, true);
+
+                return new OperationResult().Succeeded();
             }
             catch (ArgumentInvalidException ex)
             {
-                throw;
+                return new OperationResult().Failed(ex.Message);
             }
             catch (Exception ex)
             {
-
-                throw;
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
             }
         }
     }

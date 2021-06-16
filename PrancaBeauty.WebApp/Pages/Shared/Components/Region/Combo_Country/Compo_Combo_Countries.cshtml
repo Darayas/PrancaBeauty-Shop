@@ -12,6 +12,13 @@
         var ItemCombo = $('#@(FieldId)').data("kendoComboBox");
         return { Text: ItemCombo.text() };
     }
+
+    function onSelect@(FieldId)(e) {
+        if (typeof OnComboSelect@(FieldId)=== "function")
+        {
+            OnComboSelect@(FieldId)(e);
+        }
+    }
 </script>
 <label for="@FieldId">@FieldTitle</label>
 <div class="k-lang">
@@ -25,6 +32,9 @@
           .Filter(FilterType.Contains)
           .MinLength(2)
           .Value(Model.Input.CountryId)
+          .Events(a=> {
+              a.Select($"onSelect{FieldId}");
+          })
           .DataSource(sr => {
               sr.Read(read =>
               {

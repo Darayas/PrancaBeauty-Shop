@@ -30,7 +30,15 @@ namespace PrancaBeauty.WebApp.Pages.User.EditProfile.Components.Address
 
         public async Task<IActionResult> OnPostAsync()
         {
-            return Page();
+            var Result = await _AddressApplication.AddAddressAsync(new Application.Contracts.Address.InpAddAddress());
+            if (Result.IsSucceeded)
+            {
+                return _MsgBox.SuccessMsg(_Localizer[Result.Message], "RefreshGrid('ListAddress')");
+            }
+            else
+            {
+                return _MsgBox.FaildMsg(_Localizer[Result.Message]);
+            }
         }
 
         [BindProperty]

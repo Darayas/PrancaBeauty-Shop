@@ -88,7 +88,7 @@ namespace PrancaBeauty.Application.Apps.Address
                     PostalCode = Input.PostalCode,
                     Address = Input.Address,
                     CityId = Guid.Parse(Input.CityId),
-                    ProviceId = Guid.Parse(Input.ProviceId),
+                    ProviceId = Guid.Parse(Input.ProvinceId),
                     CountryId = Guid.Parse(Input.CountryId),
                     Date = DateTime.Now,
                     District = Input.District,
@@ -96,6 +96,40 @@ namespace PrancaBeauty.Application.Apps.Address
                     Plaque = Input.Plaque,
                     Unit = Input.Unit
                 }, default, true);
+
+                return new OperationResult().Succeeded();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
+
+        public async Task<OperationResult> RemoveAddressAsync(string UserId, string Id)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(UserId))
+                    throw new ArgumentInvalidException($"'{nameof(UserId)}' cannot be null or whitespace.");
+
+                if (string.IsNullOrWhiteSpace(Id))
+                    throw new ArgumentInvalidException($"'{nameof(Id)}' cannot be null or whitespace.");
+
+                var qData = await _AddressRepository.Get
+                                                   .Where(a => a.Id == Guid.Parse(Id))
+                                                   .Where(a => a.UserId == Guid.Parse(UserId))
+                                                   //.Where(a=> a.tblBills.Count()==0)
+                                                   .SingleOrDefaultAsync();
+
+                if (qData == null)
+                    return new OperationResult().Failed("AddressHasFactors");
+
+                await _AddressRepository.DeleteAsync(qData, default);
 
                 return new OperationResult().Succeeded();
             }

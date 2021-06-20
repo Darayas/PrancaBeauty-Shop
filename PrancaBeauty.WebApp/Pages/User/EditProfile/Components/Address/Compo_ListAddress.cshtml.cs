@@ -57,5 +57,22 @@ namespace PrancaBeauty.WebApp.Pages.User.EditProfile.Components.Address
 
             return new JsonResult(_DataGrid);
         }
+
+        public async Task<IActionResult> OnPostRemoveAsync(string Id)
+        {
+            if (string.IsNullOrWhiteSpace(Id))
+                return _MsgBox.ModelStateMsg("NotFound");
+
+            string UserId = User.GetUserDetails().UserId;
+            var Result = await _AddressApplication.RemoveAddressAsync(UserId, Id);
+            if (Result.IsSucceeded)
+            {
+                return _MsgBox.SuccessMsg(_Localizer[Result.Message], "RefreshGrid('ListAddress');");
+            }
+            else
+            {
+                return _MsgBox.FaildMsg(_Localizer[Result.Message]);
+            }
+        }
     }
 }

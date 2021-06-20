@@ -12,7 +12,7 @@ namespace PrancaBeauty.Application.Contracts.Address
 
         public string CountryId { get; set; }
 
-        public string ProviceId { get; set; }
+        public string ProvinceId { get; set; }
 
         public string CityId { get; set; }
 

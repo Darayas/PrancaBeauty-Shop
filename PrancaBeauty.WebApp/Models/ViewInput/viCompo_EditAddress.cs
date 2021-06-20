@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace PrancaBeauty.WebApp.Models.ViewInput
 {
-    public class viCompo_AddAddress
+    public class viCompo_EditAddress
     {
+        [Required(ErrorMessage = "RequiredMsg")]
+        public string Id { get; set; }
+
         public string UserId { get; set; }
 
         [Display(Name = "CountryId")]

@@ -15,6 +15,7 @@ namespace PrancaBeauty.WebApp.Mapping
         public AutoMapping()
         {
             CreateMap<viCompo_AccountSettings, InpSaveAccountSettingUserDetails>();
+            CreateMap<viCompo_AddAddress, InpAddAddress>();
             CreateMap<OutGetAddressByUserIdForManage, vmCompo_ListAddress>();
             CreateMap<PrancaBeauty.Application.Contracts.Countries.OutGetListForCombo, vmCompo_Combo_Countries>();
             CreateMap<PrancaBeauty.Application.Contracts.Province.OutGetListForCombo, vmCompo_Combo_Province>();

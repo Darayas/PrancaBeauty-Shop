@@ -159,6 +159,9 @@
   <data name="Address" xml:space="preserve">
     <value>آدرس</value>
   </data>
+  <data name="AddressHasFactors" xml:space="preserve">
+    <value>آدرس دارای فاکتورهایی میباشد که امکان حذف آن وجود ندارد.</value>
+  </data>
   <data name="AdminPanel" xml:space="preserve">
     <value>پنل مدیریت</value>
   </data>
@@ -465,6 +468,9 @@
   <data name="No" xml:space="preserve">
     <value>خیر</value>
   </data>
+  <data name="NotFound" xml:space="preserve">
+    <value>موردی یافت نشد.</value>
+  </data>
   <data name="OK" xml:space="preserve">
     <value>باشه</value>
   </data>
@@ -563,9 +569,6 @@
   </data>
   <data name="Previous" xml:space="preserve">
     <value>قبلی</value>
-  </data>
-  <data name="ProviceId" xml:space="preserve">
-    <value>استان</value>
   </data>
   <data name="ProvinceId" xml:space="preserve">
     <value>استان</value>

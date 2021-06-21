@@ -38,7 +38,10 @@
     }
 
     function Edit(_Id) {
-
+        LoadComponenet('/@ViewData["Culture"]/User/EditProfile/Compo/EditAddress', { Id: _Id}, function (res) {
+            $('body').append(res);
+            $('#EditAddress').modal({ backdrop: 'static', keyboard: false });
+        });
     }
 
     function Remove(_Id) {

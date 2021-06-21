@@ -7,6 +7,8 @@ using Framework.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Address;
+using PrancaBeauty.Application.Contracts.Address;
+using PrancaBeauty.WebApp.Common.ExMethod;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
 using PrancaBeauty.WebApp.Models.ViewInput;
 
@@ -26,9 +28,31 @@ namespace PrancaBeauty.WebApp.Pages.User.EditProfile.Components.Address
             _Mapper = mapper;
         }
 
-        public IActionResult OnGet()
+        public async Task<IActionResult> OnGetAsync()
         {
+            string UserId = User.GetUserDetails().UserId;
+            var qData = await _AddressApplication.GetAddressDetailsAsync(UserId, Input.Id);
+
+            Input = _Mapper.Map<viCompo_EditAddress>(qData);
+
             return Page();
+        }
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            if (!ModelState.IsValid)
+                return _MsgBox.ModelStateMsg(ModelState.GetErrors());
+
+            Input.UserId = User.GetUserDetails().UserId;
+            var Result = await _AddressApplication.EditAddressAsync(_Mapper.Map<InpEditAddress>(Input));
+            if (Result.IsSucceeded)
+            {
+                return _MsgBox.SuccessMsg(_Localizer[Result.Message], "RefreshGrid('ListAddress');Close();");
+            }
+            else
+            {
+                return _MsgBox.FaildMsg(_Localizer[Result.Message]);
+            }
         }
 
         [BindProperty(SupportsGet = true)]

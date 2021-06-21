@@ -1,15 +1,15 @@
 ﻿@page "/{Culture}/User/EditProfile/Compo/EditAddress"
 @model PrancaBeauty.WebApp.Pages.User.EditProfile.Components.Address.Compo_EditAddressModel
 
-<div class="modal fade" id="AddAddress" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="EditAddress" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">@Localizer["AddAddress"]</h5>
+                <h5 class="modal-title">@Localizer["EditAddress"]</h5>
             </div>
             <div class="modal-body">
                 <div class="account_form">
-                    <form id="frmAddAddress" method="post" asp-antiforgery="false">
+                    <form id="frmEditAddress" method="post" asp-antiforgery="false">
                         <input type="hidden" asp-for="Input.Id" />
                         <div class="form-group">
                             <div class="row">
@@ -40,7 +40,7 @@
                         <LoadComponent url="/@ViewData["Culture"]/Shared/Compo/Region/Area"
                                        id="CompoArea"
                                        context="HttpContext"
-                                       data='new viCompo_Area { CountryId=null,CountyFieldName="Input.CountryId",ProvinceId=null,ProvinceFieldName="Input.ProvinceId",CityId=null,CityFieldName="Input.CityId" }'></LoadComponent>
+                                       data='new viCompo_Area { CountryId=Model.Input.CountryId,CountyFieldName="Input.CountryId",ProvinceId=Model.Input.ProvinceId,ProvinceFieldName="Input.ProvinceId",CityId=Model.Input.CityId,CityFieldName="Input.CityId" }'></LoadComponent>
 
                         <div class="form-group">
                             <div class="row">
@@ -77,7 +77,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="Close()">@Localizer["Close"]</button>
-                <button type="button" onclick="SendForm('/@ViewData["culture"]/User/EditProfile/Compo/AddAddress','frmAddAddress')" class="btn btn-primary">@Localizer["Add"]</button>
+                <button type="button" onclick="SendForm('/@ViewData["culture"]/User/EditProfile/Compo/EditAddress','frmEditAddress')" class="btn btn-primary">@Localizer["Edit"]</button>
             </div>
         </div>
     </div>
@@ -101,7 +101,7 @@
         });
 
         function Close() {
-            $('#AddAddress').remove();
+            $('#EditAddress').remove();
             $('.modal-backdrop').remove()
         }
     </script>

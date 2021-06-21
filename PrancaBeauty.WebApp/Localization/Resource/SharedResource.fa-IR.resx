@@ -351,6 +351,9 @@
   <data name="Id cant be null." xml:space="preserve">
     <value>شناسه نمیتواند خالی باشد</value>
   </data>
+  <data name="IdIsInvalid" xml:space="preserve">
+    <value>شناسه مورد نظر یافت نشد.</value>
+  </data>
   <data name="Input cant be null." xml:space="preserve">
     <value>اطلاعات لازم را وارد کنید</value>
   </data>

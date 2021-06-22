@@ -405,6 +405,9 @@
   <data name="ListAccessLevel" xml:space="preserve">
     <value>لیست سطوح دسترسی</value>
   </data>
+  <data name="ListCategories" xml:space="preserve">
+    <value>لیست دسته بندی ها</value>
+  </data>
   <data name="ListUsers" xml:space="preserve">
     <value>لیست کاربران</value>
   </data>

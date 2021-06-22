@@ -29,7 +29,7 @@
         LoadComponenet('/@ViewData["Culture"]/Shared/Compo/Region/ComboProvince',
             {
                 CountryId: e.dataItem.Id,
-                ProvinceId: '@Model.Input.ProvinceId',
+                ProvinceId: null,
                 FieldName:'@Model.Input.ProvinceFieldName'
             },
             function (res) {
@@ -41,7 +41,7 @@
         LoadComponenet('/@ViewData["Culture"]/Shared/Compo/Region/ComboCity',
             {
                 ProvinceId: e.dataItem.Id,
-                CityId: '@Model.Input.CityId',
+                CityId: null,
                 FieldName: '@Model.Input.CityFieldName'
             },
             function (res) {

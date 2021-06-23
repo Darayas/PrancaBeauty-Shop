@@ -504,6 +504,9 @@
   <data name="PageName" xml:space="preserve">
     <value>عنوان بخش</value>
   </data>
+  <data name="ParentTitle" xml:space="preserve">
+    <value>عنوان دسته پدر</value>
+  </data>
   <data name="PassCompareMsg" xml:space="preserve">
     <value>کلمه عبور با تکرار آن یکسان نیست.</value>
   </data>

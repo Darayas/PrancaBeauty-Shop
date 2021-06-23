@@ -219,6 +219,86 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
             }
             #endregion
 
+
+            #region ManageCategories
+            {
+                Guid _Id = new Guid().SequentialGuid();
+                if (!_repRoles.Get.Any(a => a.Name == "CanManageCategories"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = _Id,
+                        ParentId = null,
+                        PageName = "ManageCategoriesPage",
+                        Sort = 120,
+                        Name = "CanManageCategories",
+                        NormalizedName = "CanManageCategories".ToUpper(),
+                        Description = "توانایی مدیریت دسته بندی ها"
+                    }, default, false).Wait();
+                }
+                else
+                {
+                    _Id = _repRoles.Get.Where(a => a.Name == "CanManageCategories").Select(a => a.Id).Single();
+                }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanViewListCategories"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageCategoriesPage",
+                        Sort = 130,
+                        Name = "CanViewListCategories",
+                        NormalizedName = "CanViewListCategories".ToUpper(),
+                        Description = "توانایی مشاهده لیست دسته بندی ها"
+                    }, default, false).Wait();
+                }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanAddCategory"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageCategoriesPage",
+                        Sort = 140,
+                        Name = "CanAddCategory",
+                        NormalizedName = "CanAddCategory".ToUpper(),
+                        Description = "توانایی افزودن دسته بندی جدید"
+                    }, default, false).Wait();
+                }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanEditCategory"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageCategoriesPage",
+                        Sort = 150,
+                        Name = "CanEditCategory",
+                        NormalizedName = "CanEditCategory".ToUpper(),
+                        Description = "توانایی ویرایش دسته بندی"
+                    }, default, false).Wait();
+                }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanRemoveCategory"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageCategoriesPage",
+                        Sort = 160,
+                        Name = "CanRemoveCategory",
+                        NormalizedName = "CanRemoveCategory".ToUpper(),
+                        Description = "توانایی حذف دسته بندی"
+                    }, default, false).Wait();
+                }
+            }
+            #endregion
+
             _repRoles.SaveChangeAsync().Wait();
         }
     }

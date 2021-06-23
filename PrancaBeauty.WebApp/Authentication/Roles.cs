@@ -26,5 +26,13 @@ namespace PrancaBeauty.WebApp.Authentication
         public const string CanChangeUsersStatus = "CanChangeUsersStatus";
         public const string CanChangeUsersAccessLevel = "CanChangeUsersAccessLevel";
         #endregion
+
+        #region Categories
+        public const string CanManageCategories = "CanManageCategories";
+        public const string CanViewListCategories = "CanViewListCategories";
+        public const string CanAddCategory = "CanAddCategory";
+        public const string CanEditCategory = "CanEditCategory";
+        public const string CanRemoveCategory = "CanRemoveCategory";
+        #endregion
     }
 }

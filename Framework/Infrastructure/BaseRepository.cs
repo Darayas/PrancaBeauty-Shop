@@ -77,6 +77,5 @@ namespace Framework.Infrastructure
                 await dbContext.SaveChangesAsync(cancellationToken);
         }
 
-
     }
 }

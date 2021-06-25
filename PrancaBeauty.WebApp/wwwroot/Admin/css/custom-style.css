@@ -280,3 +280,12 @@ a:not([href]) {
         left: calc(50% - 100px);
         top: calc(50vh - 100px);
     }
+
+.FotnIconCategory {
+    text-align: center;
+    display: block;
+}
+
+    .FotnIconCategory:before {
+        content: attr(fontIcon);
+    }

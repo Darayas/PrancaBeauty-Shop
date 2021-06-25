@@ -34,13 +34,14 @@
                                 @(Html.Kendo()
                                   .Grid<vmCategoriesList>()
                                   .Name("ListCategories")
+                                  .ToolBar(a => a.ClientTemplateId("ToolbarPanel"))
                                   .DefaultSettings(Localizer)
                                   .Columns(col=> {
                                       col.Bound(a => a.Id).Hidden().HtmlAttributes(new { @class = "RowId" }).Sortable(false);
-                                      col.Bound(a => a.FontIconCode).ClientTemplate("<span style='content:#=FontIconCode#'></span>").Sortable(false);
-                                      col.Bound(a => a.ParentTitle).Sortable(false);
+                                      col.Bound(a => a.FontIconCode).Width(60).Title(" ").ClientTemplate("<span class='FotnIconCategory' fontIcon='#=FontIconCode#'></span>").Sortable(false);
                                       col.Bound(a => a.Name).Sortable(false);
                                       col.Bound(a => a.Title).Sortable(false);
+                                      col.Bound(a => a.ParentTitle).Sortable(false);
                                       col.Bound(a => a).Width(50).Title(" ")
                                                                  .HtmlAttributes(new { style= "overflow: visible; text-align: center;" })
                                                                  .ClientHeaderTemplate(User.IsInRole(Roles.CanAddCategory)? "<button class='btn btn-success btn-sm' onclick='Add()'><i class='fa fa-plus'></i></button>" : "")
@@ -58,6 +59,18 @@
         </div><!-- /.container-fluid -->
     </div>
     <!-- /.content -->
+</div>
+
+<div class="hide" id="ToolbarPanel">
+    <div class="row">
+        <div class="col-md-2">
+            <input type="text" onchange="Search()" asp-for="Input.Title" id="txtSearchTitle" class="form-control form-control-sm" placeholder="@Localizer["Title"]" />
+        </div>
+
+        <div class="col-md-2">
+            <input type="text" onchange="Search()" asp-for="Input.ParentTitle" id="txtSearchParentTitle" class="form-control form-control-sm" placeholder="@Localizer["ParentTitle"]" />
+        </div>
+    </div>
 </div>
 
 <script id="DropDownCmd">
@@ -97,5 +110,15 @@
 <script>
     function RefreshData() {
         RefreshGrid('ListCategories');
+    }
+
+    function Search() {
+        var _Title = $('#txtSearchTitle').val();
+        var _ParentTitle = $('#txtSearchPartentTitle').val();
+
+        var _Grid = $('#ListCategories').data('kendoGrid');
+        _Grid.dataSource.transport.options.read.url = '/@CultureInfo.CurrentCulture.Parent.Name/Admin/Category/List?handler=ReadData&Title=' + _Title + '&ParentTitle=' + _ParentTitle;
+        _Grid.dataSource.read();
+        _Grid.refresh();
     }
 </script>

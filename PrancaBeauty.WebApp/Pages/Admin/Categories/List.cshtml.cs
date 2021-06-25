@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Categories;
 using PrancaBeauty.WebApp.Authentication;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
+using PrancaBeauty.WebApp.Models.ViewInput;
 using PrancaBeauty.WebApp.Models.ViewModel;
 
 namespace PrancaBeauty.WebApp.Pages.Admin.Categories
@@ -49,5 +50,8 @@ namespace PrancaBeauty.WebApp.Pages.Admin.Categories
 
             return new JsonResult(_DataGrid);
         }
+
+        [BindProperty(SupportsGet = true)]
+        public viListCategories Input { get; set; }
     }
 }

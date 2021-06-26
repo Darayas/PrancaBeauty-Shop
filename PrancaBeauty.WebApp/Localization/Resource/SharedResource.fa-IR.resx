@@ -150,6 +150,9 @@
   <data name="AddAddress" xml:space="preserve">
     <value>افزودن آدرس</value>
   </data>
+  <data name="AddCategory" xml:space="preserve">
+    <value>افزودن دسته جدید</value>
+  </data>
   <data name="AddNewAccessLevel" xml:space="preserve">
     <value>افزودن</value>
   </data>
@@ -333,6 +336,9 @@
   <data name="FirstName" xml:space="preserve">
     <value>نام</value>
   </data>
+  <data name="FontIconCode" xml:space="preserve">
+    <value>کد فونت ایکن مورد نظر</value>
+  </data>
   <data name="FullName" xml:space="preserve">
     <value>نام کاربر</value>
   </data>
@@ -389,6 +395,9 @@
   </data>
   <data name="KendoOf" xml:space="preserve">
     <value>از {0}</value>
+  </data>
+  <data name="LangId" xml:space="preserve">
+    <value>زبان</value>
   </data>
   <data name="Last" xml:space="preserve">
     <value>آخرین</value>
@@ -503,6 +512,9 @@
   </data>
   <data name="PageName" xml:space="preserve">
     <value>عنوان بخش</value>
+  </data>
+  <data name="ParentId" xml:space="preserve">
+    <value>دسته پدر</value>
   </data>
   <data name="ParentTitle" xml:space="preserve">
     <value>عنوان دسته پدر</value>
@@ -641,6 +653,9 @@
   </data>
   <data name="SmsSenderNotRespond" xml:space="preserve">
     <value>سرویس دهنده ی پیامک پاسخ گو نیست</value>
+  </data>
+  <data name="Sort" xml:space="preserve">
+    <value>ترتیب</value>
   </data>
   <data name="SortEmailAes" xml:space="preserve">
     <value>بر اساس ایمیل(صعودی)</value>

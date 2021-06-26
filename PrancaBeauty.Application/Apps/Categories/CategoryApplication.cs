@@ -23,7 +23,7 @@ namespace PrancaBeauty.Application.Apps.Categories
             _Logger = logger;
         }
 
-        public async Task<(OutPagingData, List<OutGetListForAdminPage>)> GetListForAdminPageAsync(string LangId, string Title, int PageNum, int Take)
+        public async Task<(OutPagingData, List<OutGetListForAdminPage>)> GetListForAdminPageAsync(string LangId, string Title,string ParentTitle, int PageNum, int Take)
         {
             try
             {
@@ -46,7 +46,8 @@ namespace PrancaBeauty.Application.Apps.Categories
                     Sort = a.Sort,
                     ParentTitle = a.tblCategory_Parent.tblCategory_Translates.Where(b => b.LangId == Guid.Parse(LangId)).Select(b => b.Title).Single(),
                 })
-                .Where(a => Title != null ? a.Name.Contains(Title) : true)
+                .Where(a => Title != null ? a.Title.Contains(Title) : true)
+                .Where(a => ParentTitle != null ? a.ParentTitle.Contains(ParentTitle) : true)
                 .OrderBy(a => a.ParentId)
                 .ThenBy(a => a.Sort);
 

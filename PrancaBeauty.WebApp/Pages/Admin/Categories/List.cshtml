@@ -114,7 +114,7 @@
 
     function Search() {
         var _Title = $('#txtSearchTitle').val();
-        var _ParentTitle = $('#txtSearchPartentTitle').val();
+        var _ParentTitle = $('#txtSearchParentTitle').val();
 
         var _Grid = $('#ListCategories').data('kendoGrid');
         _Grid.dataSource.transport.options.read.url = '/@CultureInfo.CurrentCulture.Parent.Name/Admin/Category/List?handler=ReadData&Title=' + _Title + '&ParentTitle=' + _ParentTitle;

@@ -40,7 +40,7 @@ namespace PrancaBeauty.WebApp.Pages.Admin.Categories
 
         public async Task<IActionResult> OnPostReadDataAsync([DataSourceRequest] DataSourceRequest request, string LangId)
         {
-            var qData = await _CategoryApplication.GetListForAdminPageAsync(LangId, null, request.Page, request.PageSize);
+            var qData = await _CategoryApplication.GetListForAdminPageAsync(LangId, Input.Title, Input.ParentTitle, request.Page, request.PageSize);
 
             var qListData = _Mapper.Map<List<vmCategoriesList>>(qData.Item2);
 

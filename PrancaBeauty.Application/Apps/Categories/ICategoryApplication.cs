@@ -7,6 +7,6 @@ namespace PrancaBeauty.Application.Apps.Categories
 {
     public interface ICategoryApplication
     {
-        Task<(OutPagingData, List<OutGetListForAdminPage>)> GetListForAdminPageAsync(string LangId, string Title, int PageNum, int Take);
+        Task<(OutPagingData, List<OutGetListForAdminPage>)> GetListForAdminPageAsync(string LangId, string Title, string ParentTitle, int PageNum, int Take);
     }
 }

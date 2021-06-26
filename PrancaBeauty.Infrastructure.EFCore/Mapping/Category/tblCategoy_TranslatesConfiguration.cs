@@ -19,6 +19,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Mapping.Category
             builder.Property(a => a.CategoryId).IsRequired().HasMaxLength(150);
             builder.Property(a => a.LangId).IsRequired().HasMaxLength(150);
             builder.Property(a => a.Title).IsRequired().HasMaxLength(200);
+            builder.Property(a => a.Description).IsRequired(false);
 
             builder.HasOne(a => a.tblCategoris)
                    .WithMany(a => a.tblCategory_Translates)

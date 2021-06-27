@@ -156,6 +156,9 @@
   <data name="AddNewAccessLevel" xml:space="preserve">
     <value>افزودن</value>
   </data>
+  <data name="AddNewCategory" xml:space="preserve">
+    <value>افزودن دسته جدید</value>
+  </data>
   <data name="AddNewUsers" xml:space="preserve">
     <value>افزودن کاربر جدید</value>
   </data>
@@ -337,7 +340,7 @@
     <value>نام</value>
   </data>
   <data name="FontIconCode" xml:space="preserve">
-    <value>کد فونت ایکن مورد نظر</value>
+    <value>کد فونت ایکن</value>
   </data>
   <data name="FullName" xml:space="preserve">
     <value>نام کاربر</value>
@@ -449,6 +452,9 @@
   </data>
   <data name="ManageAccessLevel" xml:space="preserve">
     <value>مدریت سطوح دسترسی</value>
+  </data>
+  <data name="ManageCategories" xml:space="preserve">
+    <value>مدیرت دسته بندی ها</value>
   </data>
   <data name="ManageUsers" xml:space="preserve">
     <value>مدیریت کاربران</value>

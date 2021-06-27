@@ -185,7 +185,7 @@
                     <nav class="mt-2">
                         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                             <!-- Add icons to the links using the .nav-icon class
-                            with font-awesome or any other icon font library -->
+    with font-awesome or any other icon font library -->
                             <li class="nav-item">
                                 <a href="/@ViewData["Culture"]/Admin/Index" class="nav-link active">
                                     <i class="nav-icon fa fa-dashboard"></i>
@@ -194,6 +194,39 @@
                                     </p>
                                 </a>
                             </li>
+
+                            @if (User.IsInRole(Roles.CanManageCategories))
+                            {
+                                <li class="nav-item has-treeview">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon fa fa-shield"></i>
+                                        <p>
+                                            @Localizer["ManageCategories"]
+                                            <i class="right fa fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        @if (User.IsInRole(Roles.CanAddCategory))
+                                        {
+                                            <li class="nav-item">
+                                                <a href="/@CultureInfo.CurrentCulture.Parent.Name/Admin/Category/Add" class="nav-link active">
+                                                    <i class="fa fa-circle-o nav-icon"></i>
+                                                    <p>@Localizer["AddNewCategory"]</p>
+                                                </a>
+                                            </li>
+                                        }
+                                        @if (User.IsInRole(Roles.CanViewListCategories))
+                                        {
+                                            <li class="nav-item">
+                                                <a href="/@CultureInfo.CurrentCulture.Parent.Name/Admin/Category/List" class="nav-link">
+                                                    <i class="fa fa-circle-o nav-icon"></i>
+                                                    <p>@Localizer["ListCategories"]</p>
+                                                </a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </li>
+                            }
 
                             @if (User.IsInRole(Roles.CanManageAccessLevel))
                             {
@@ -209,7 +242,7 @@
                                         @if (User.IsInRole(Roles.CanAddAccessLevel))
                                         {
                                             <li class="nav-item">
-                                                <a href="#" class="nav-link active">
+                                                <a href="/@CultureInfo.CurrentCulture.Parent.Name/Admin/AccessLevel/Add" class="nav-link active">
                                                     <i class="fa fa-circle-o nav-icon"></i>
                                                     <p>@Localizer["AddNewAccessLevel"]</p>
                                                 </a>
@@ -239,7 +272,7 @@
                                         </p>
                                     </a>
                                     <ul class="nav nav-treeview">
-                                        @if (User.IsInRole(Roles.CanAddUsers))
+                                        @*@if (User.IsInRole(Roles.CanAddUsers))
                                         {
                                             <li class="nav-item">
                                                 <a href="#" class="nav-link active">
@@ -247,7 +280,7 @@
                                                     <p>@Localizer["AddNewUsers"]</p>
                                                 </a>
                                             </li>
-                                        }
+                                        }*@
                                         @if (User.IsInRole(Roles.CanViewListUsers))
                                         {
                                             <li class="nav-item">

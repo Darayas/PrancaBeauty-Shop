@@ -120,5 +120,9 @@ namespace PrancaBeauty.Application.Apps.Languages
                          .SingleOrDefault();
         }
 
+        public async Task<OutSiteLangCache> GetLangDetailsByIdAsync(string LangId)
+        {
+            return (await GetAllLanguageForSiteLangAsync()).Where(a => a.Id == LangId).SingleOrDefault();
+        }
     }
 }

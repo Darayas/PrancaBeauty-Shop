@@ -29,7 +29,9 @@ namespace PrancaBeauty.WebApp.Pages.Admin.Categories
             ViewData["ReturnUrl"] = ReturnUrl ?? $"/{CultureInfo.CurrentCulture.Parent.Name}/Admin/Category/List";
 
             var qLang = await _LanguageApplication.GetAllLanguageForSiteLangAsync();
-            Input.LstTranslate = new List<viAddCategory_Translate>();
+
+            Input = new viAddCategory() { LstTranslate = new List<viAddCategory_Translate>() };
+
             foreach (var item in qLang)
             {
                 Input.LstTranslate.Add(new viAddCategory_Translate()

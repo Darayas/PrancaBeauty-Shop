@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -11,8 +12,8 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
         [Display(Name = "ParentId")]
         public string ParentId { get; set; }
 
-        [Display(Name = "FontIconCode")]
-        public string FontIconCode { get; set; }
+        [Display(Name = "CategoryImage")]
+        public IFormFile Image { get; set; }
 
         [Display(Name = "Name")]
         [Required(ErrorMessage = "RequiredMsg")]

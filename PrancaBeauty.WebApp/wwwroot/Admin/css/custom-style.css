@@ -289,3 +289,7 @@ a:not([href]) {
     .FotnIconCategory:before {
         content: attr(fontIcon);
     }
+
+Input.form-control {
+    height: 44px;
+}

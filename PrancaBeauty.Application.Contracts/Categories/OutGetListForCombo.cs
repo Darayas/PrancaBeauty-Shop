@@ -6,15 +6,13 @@ using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Contracts.Categories
 {
-    public class OutGetListForAdminPage
+    public class OutGetListForCombo
     {
         public string Id { get; set; }
         public string ParentId { get; set; }
-        public string ImgUrl { get; set; }
-        public string ParentTitle  { get; set; }
         public string Name { get; set; }
         public string Title { get; set; }
+        public string ImgUrl { get; set; }
         public int Sort { get; set; }
-
     }
 }

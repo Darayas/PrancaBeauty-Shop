@@ -38,7 +38,7 @@
                                   .DefaultSettings(Localizer)
                                   .Columns(col=> {
                                       col.Bound(a => a.Id).Hidden().HtmlAttributes(new { @class = "RowId" }).Sortable(false);
-                                      col.Bound(a => a.FontIconCode).Width(60).Title(" ").ClientTemplate("<span class='FotnIconCategory' fontIcon='#=FontIconCode#'></span>").Sortable(false);
+                                      col.Bound(a => a.ImgUrl).Width(60).Title(" ").ClientTemplate("<img src='#=ImgUrl#' />").Sortable(false);
                                       col.Bound(a => a.Name).Sortable(false);
                                       col.Bound(a => a.Title).Sortable(false);
                                       col.Bound(a => a.ParentTitle).Sortable(false);

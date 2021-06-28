@@ -177,6 +177,9 @@
   <data name="BirthDate" xml:space="preserve">
     <value>تاریخ تولد</value>
   </data>
+  <data name="CategoryImage" xml:space="preserve">
+    <value>ایکن دسته</value>
+  </data>
   <data name="ChangeAccessLevel" xml:space="preserve">
     <value>تغییر سطح دسترسی</value>
   </data>

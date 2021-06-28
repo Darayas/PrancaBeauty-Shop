@@ -11,8 +11,8 @@ namespace PrancaBeauty.WebApp.Models.ViewModel
         public string Id { get; set; }
         public string ParentId { get; set; }
 
-        [Display(Name = "FontIconCode")]
-        public string FontIconCode { get; set; }
+        [Display(Name = "ImgUrl")]
+        public string ImgUrl { get; set; }
 
         [Display(Name = "ParentTitle")]
         public string ParentTitle { get; set; }

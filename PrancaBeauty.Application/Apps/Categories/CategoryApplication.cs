@@ -23,7 +23,7 @@ namespace PrancaBeauty.Application.Apps.Categories
             _Logger = logger;
         }
 
-        public async Task<(OutPagingData, List<OutGetListForAdminPage>)> GetListForAdminPageAsync(string LangId, string Title,string ParentTitle, int PageNum, int Take)
+        public async Task<(OutPagingData, List<OutGetListForAdminPage>)> GetListForAdminPageAsync(string LangId, string Title, string ParentTitle, int PageNum, int Take)
         {
             try
             {
@@ -42,7 +42,10 @@ namespace PrancaBeauty.Application.Apps.Categories
                     ParentId = a.ParentId.ToString(),
                     Name = a.Name,
                     Title = a.tblCategory_Translates.Where(b => b.LangId == Guid.Parse(LangId)).Select(b => b.Title).Single(),
-                    FontIconCode = a.FontIconCode,
+                    ImgUrl = a.tblFiles.tblFileServer.HttpDomin
+                                + a.tblFiles.tblFileServer.HttpPath
+                                + a.tblFiles.Path
+                                + a.tblFiles.FileName,
                     Sort = a.Sort,
                     ParentTitle = a.tblCategory_Parent.tblCategory_Translates.Where(b => b.LangId == Guid.Parse(LangId)).Select(b => b.Title).Single(),
                 })
@@ -65,6 +68,27 @@ namespace PrancaBeauty.Application.Apps.Categories
                 _Logger.Error(ex);
                 return (null, null);
             }
+        }
+
+        public async Task<List<OutGetListForCombo>> GetListForComboAsync(string LangId, string ParentId)
+        {
+            var qData = await _CategoryRepository.Get
+                                                 .Where(a => ParentId != null ? a.ParentId == Guid.Parse(ParentId) /*&& a.Id != Guid.Parse(ParentId)*/ : a.ParentId == null)
+                                                .Select(a => new OutGetListForCombo
+                                                 {
+                                                     Id = a.Id.ToString(),
+                                                     ParentId = a.ParentId.ToString(),
+                                                     Name = a.Name,
+                                                     Title = a.tblCategory_Translates.Where(b => b.LangId == Guid.Parse(LangId)).Select(b => b.Title).Single(),
+                                                     Sort = a.Sort,
+                                                     ImgUrl = a.tblFiles.tblFileServer.HttpDomin
+                                                                + a.tblFiles.tblFileServer.HttpPath
+                                                                + a.tblFiles.Path
+                                                                + a.tblFiles.FileName,
+                                                 })
+                                                .ToListAsync();
+
+            return qData;
         }
     }
 }

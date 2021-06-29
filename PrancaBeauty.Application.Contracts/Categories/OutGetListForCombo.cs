@@ -10,6 +10,7 @@ namespace PrancaBeauty.Application.Contracts.Categories
     {
         public string Id { get; set; }
         public string ParentId { get; set; }
+        public bool hasChildren { get; set; }
         public string Name { get; set; }
         public string Title { get; set; }
         public string ImgUrl { get; set; }

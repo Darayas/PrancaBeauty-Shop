@@ -75,17 +75,18 @@ namespace PrancaBeauty.Application.Apps.Categories
             var qData = await _CategoryRepository.Get
                                                  .Where(a => ParentId != null ? a.ParentId == Guid.Parse(ParentId) /*&& a.Id != Guid.Parse(ParentId)*/ : a.ParentId == null)
                                                 .Select(a => new OutGetListForCombo
-                                                 {
-                                                     Id = a.Id.ToString(),
-                                                     ParentId = a.ParentId.ToString(),
-                                                     Name = a.Name,
-                                                     Title = a.tblCategory_Translates.Where(b => b.LangId == Guid.Parse(LangId)).Select(b => b.Title).Single(),
-                                                     Sort = a.Sort,
-                                                     ImgUrl = a.tblFiles.tblFileServer.HttpDomin
+                                                {
+                                                    Id = a.Id.ToString(),
+                                                    ParentId = a.ParentId.ToString(),
+                                                    Name = a.Name,
+                                                    Title = a.tblCategory_Translates.Where(b => b.LangId == Guid.Parse(LangId)).Select(b => b.Title).Single(),
+                                                    Sort = a.Sort,
+                                                    hasChildren = a.tblCategory_Childs/*.Where(b => b.Id != Guid.Parse(ParentId))*/.Any(),
+                                                    ImgUrl = a.tblFiles.tblFileServer.HttpDomin
                                                                 + a.tblFiles.tblFileServer.HttpPath
                                                                 + a.tblFiles.Path
                                                                 + a.tblFiles.FileName,
-                                                 })
+                                                })
                                                 .ToListAsync();
 
             return qData;

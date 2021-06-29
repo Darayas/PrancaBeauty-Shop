@@ -290,6 +290,20 @@ a:not([href]) {
         content: attr(fontIcon);
     }
 
-Input.form-control {
+.form-control {
+    height: 44px;
+    width: 100% !important;
+}
+
+.k-dropdown-wrap {
     height: 44px;
 }
+
+    .k-dropdown-wrap .k-input {
+        position:relative;
+        top: 5px !important;
+    }
+
+    .k-dropdown-wrap .k-select .k-icon {
+        top: 5px !important;
+    }

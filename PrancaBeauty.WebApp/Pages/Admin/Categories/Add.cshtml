@@ -38,8 +38,10 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <label asp-for="Input.ParentId"></label>
-                                            <input asp-for="Input.ParentId" class="form-control" />
+                                            <LoadComponent id="CategoryParent"
+                                                           context="HttpContext"
+                                                           url="/@ViewData["culture"]/Shared/Compo/ComboCategories"
+                                                           data='new viCompo_Combo_Categories { CategoryId=null,FieldName="Input.CategoryId" }'></LoadComponent>
                                         </div>
                                         <div class="col-md-4">
                                             <label asp-for="Input.Name"></label>

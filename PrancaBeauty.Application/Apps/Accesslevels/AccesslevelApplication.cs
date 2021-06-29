@@ -258,5 +258,13 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
             return qData;
 
         }
+
+        public async Task<List<string>> GetRolesNameByAccIdAsync(string AccessLevelId)
+        {
+            return await _AccessLevelRepository.Get
+                                               .Where(a => a.Id == Guid.Parse(AccessLevelId))
+                                               .Select(a => a.tblAccessLevel_Roles.Select(b => b.tblRoles.Name).ToList())
+                                               .SingleAsync();
+        }
     }
 }

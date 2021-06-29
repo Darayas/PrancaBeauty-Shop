@@ -805,6 +805,17 @@ namespace PrancaBeauty.Application.Apps.Users
 
                 await _UserRepository.UpdateAsync(qUser, default, true);
 
+                #region تغییر نقش های کاربر
+                // حذف کلیه نقش های کاربر
+                await RemoveAllRolesAsync(qUser);
+
+                // واکشی نقش های موجود در سطح دسترسی
+                var qRoles = await _AccesslevelApplication.GetRolesNameByAccIdAsync(qUser.AccessLevelId.ToString());
+
+                // افزودن نقش های جدید به کاربر
+                await AddRolesAsync(qUser, qRoles.ToArray());
+                #endregion
+
                 return new OperationResult().Succeeded("UserChangeAccessLevel");
             }
             catch (ArgumentInvalidException ex)

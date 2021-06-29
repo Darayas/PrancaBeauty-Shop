@@ -38,8 +38,6 @@ namespace PrancaBeauty.WebApp.Pages.Admin.Users
 
         public async Task<IActionResult> OnPostReadDataAsync([DataSourceRequest] DataSourceRequest request)
         {
-            Thread.Sleep(3000);
-
             var qData = await _UsersApplication.GetListForAdminPageAsync(Input.Email, Input.PhoneNumber, Input.FullName, Input.FieldSort, request.Page, request.PageSize);
 
             var Items = qData.Item2

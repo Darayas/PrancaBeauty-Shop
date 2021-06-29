@@ -177,6 +177,9 @@
   <data name="BirthDate" xml:space="preserve">
     <value>تاریخ تولد</value>
   </data>
+  <data name="CategoryId" xml:space="preserve">
+    <value>دسته</value>
+  </data>
   <data name="CategoryImage" xml:space="preserve">
     <value>ایکن دسته</value>
   </data>
@@ -588,6 +591,9 @@
   <data name="PleaseConfirmYourPhoneNumber" xml:space="preserve">
     <value>شماره موبایل شما تایید نشده است لطفا ابتدا آن را تایید نمایید</value>
   </data>
+  <data name="PleaseSelectCategory" xml:space="preserve">
+    <value>انتخاب دسته</value>
+  </data>
   <data name="PleseSelect" xml:space="preserve">
     <value>لطفا انتخاب کنید</value>
   </data>
@@ -680,9 +686,6 @@
   </data>
   <data name="Sorting" xml:space="preserve">
     <value>مرتب سازی</value>
-  </data>
-  <data name="String1" xml:space="preserve">
-    <value />
   </data>
   <data name="StringLengthMsg" xml:space="preserve">
     <value>{0} باید بین {2} تا {1} کاراکتر باشد</value>

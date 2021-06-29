@@ -6,6 +6,16 @@
     string FieldTitle = Localizer[FieldName.Split('.').Last()];
 }
 
+<label for="@FieldId">@FieldTitle</label>
 <div class="k-lang">
-
+    @(Html.Kendo().DropDownTree()
+                      .Name(FieldName)
+                      .Placeholder(Localizer["PleaseSelectCategory"])
+                      .HtmlAttributes(new { @class="form-control" })
+                      .DataTextField("Title")
+                      .DataValueField("id")
+                      .DataImageUrlField("ImgUrl")
+                      .LoadOnDemand(false)
+                      .Value(Model.Input.CategoryId)
+                      .DataSource(ds=> ds.Custom().Transport(t=> t.Read(r=>r.Url(Url.Page("Compo_Combo_Categories", "Read",new { culture=CultureInfo.CurrentCulture.Parent.Name }))))))
 </div>

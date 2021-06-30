@@ -1,9 +1,12 @@
-﻿using Framework.Common.Utilities.Paging;
+﻿using Framework.Common.ExMethods;
+using Framework.Common.Utilities.Paging;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Contracts.Categories;
+using PrancaBeauty.Application.Contracts.Results;
 using PrancaBeauty.Application.Exceptions;
 using PrancaBeauty.Domin.Categories.Contracts;
+using PrancaBeauty.Domin.Categories.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -90,6 +93,51 @@ namespace PrancaBeauty.Application.Apps.Categories
                                                 .ToListAsync();
 
             return qData;
+        }
+
+        public async Task<OperationResult> AddCategoryAsync(InpAddCategory Input)
+        {
+            try
+            {
+                if (Input is null)
+                    throw new ArgumentInvalidException("Input cant be null.");
+
+                if (await _CategoryRepository.Get.AnyAsync(a => a.ParentId == (Input.ParentId != null ? Guid.Parse(Input.ParentId) : null) && a.Name == Input.Name))
+                    return new OperationResult().Failed("CategoryName Is Duplicate.");
+
+                var tCategory = new tblCategoris()
+                {
+                    Id = new Guid().SequentialGuid(),
+                    ParentId = Input.ParentId != null ? Guid.Parse(Input.ParentId) : null,
+                    Name = Input.Name,
+                    Sort = Input.Sort,
+                    tblCategory_Translates = new List<tblCategory_Translates>()
+                };
+
+                foreach (var item in Input.LstTranslate)
+                {
+                    tCategory.tblCategory_Translates.Add(new tblCategory_Translates()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        LangId = Guid.Parse(item.LangId),
+                        Title = item.Title,
+                        Description = item.Description
+                    });
+                }
+
+                await _CategoryRepository.AddAsync(tCategory, default, true);
+
+                return new OperationResult().Succeeded();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
         }
     }
 }

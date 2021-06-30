@@ -20,6 +20,8 @@ namespace PrancaBeauty.WebApp.Mapping
             CreateMap<OutGetAddressByUserIdForManage, vmCompo_ListAddress>();
             CreateMap<OutGetAddressDetails, viCompo_EditAddress>();
             CreateMap<viCompo_EditAddress, InpEditAddress>();
+            CreateMap<viAddCategory, InpAddCategory>();
+            CreateMap<viAddCategory_Translate, InpAddCategory_Translate>();
 
             CreateMap<PrancaBeauty.Application.Contracts.Categories.OutGetListForAdminPage, vmCategoriesList>();
 

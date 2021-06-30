@@ -183,6 +183,9 @@
   <data name="CategoryImage" xml:space="preserve">
     <value>ایکن دسته</value>
   </data>
+  <data name="CategoryName Is Duplicate." xml:space="preserve">
+    <value>نام در دسته پدر انتخاب شده تکراری میباشد.</value>
+  </data>
   <data name="ChangeAccessLevel" xml:space="preserve">
     <value>تغییر سطح دسترسی</value>
   </data>

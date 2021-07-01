@@ -1,4 +1,5 @@
 ﻿using Framework.Application.Services.Email;
+using Framework.Application.Services.FTP;
 using Framework.Application.Services.IpList;
 using Framework.Application.Services.Sms;
 using Framework.Common.Utilities.Downloader;
@@ -19,6 +20,7 @@ using PrancaBeauty.Application.Apps.Roles;
 using PrancaBeauty.Application.Apps.Settings;
 using PrancaBeauty.Application.Apps.Templates;
 using PrancaBeauty.Application.Apps.Users;
+using PrancaBeauty.Application.Common.FtpWapper;
 using PrancaBeauty.Domin.Categories.Contracts;
 using PrancaBeauty.Domin.FileServer.FileAgg.Contracts;
 using PrancaBeauty.Domin.FileServer.ServerAgg.Contracts;
@@ -65,6 +67,8 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddScoped<ISmsSender, KaveNegarSmsSender>();
             services.AddScoped<IDownloader, Downloader>();
             services.AddScoped<IIPList, IPList>();
+            services.AddScoped<IFtpClient, FtpClient>();
+            services.AddScoped<IFtpWapper, FtpWapper>();
 
             // Repositories
             services.AddScoped<IUserRepository, UserRepository>();

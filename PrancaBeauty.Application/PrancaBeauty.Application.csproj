@@ -10,8 +10,4 @@
     <ProjectReference Include="..\PrancaBeauty.Infrastructure.Logger.Serilogger\PrancaBeauty.Infrastructure.Logger.Serilog.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Common\" />
-  </ItemGroup>
-
 </Project>

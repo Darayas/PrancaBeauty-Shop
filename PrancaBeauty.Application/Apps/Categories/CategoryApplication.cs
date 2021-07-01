@@ -125,6 +125,9 @@ namespace PrancaBeauty.Application.Apps.Categories
                     });
                 }
 
+                //var Bytes = Input.Image.OpenReadStream().ToByteArray();
+                //System.IO.File.WriteAllBytes("c:\newfolder\a.jpg", Bytes);
+
                 await _CategoryRepository.AddAsync(tCategory, default, true);
 
                 return new OperationResult().Succeeded();

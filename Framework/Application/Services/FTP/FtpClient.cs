@@ -61,5 +61,37 @@ namespace Framework.Application.Services.FTP
             }
 
         }
+
+        public async Task<bool> CheckDirectoryExistAsync(string FtpHost, int FtpPort, string Path, string FtpUserName, string FtpPassword)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(Path))
+                    throw new ArgumentException($"'{nameof(Path)}' cannot be null or whitespace.", nameof(Path));
+
+                var ftpRequest = (FtpWebRequest)FtpWebRequest.Create($"{FtpHost}:{FtpPort}/{Path.Trim('/')}");
+                /* Log in to the FTP Server with the User Name and Password Provided */
+                ftpRequest.Credentials = new NetworkCredential(FtpUserName, FtpPassword);
+                /* When in doubt, use these options */
+                ftpRequest.UseBinary = true;
+                ftpRequest.UsePassive = true;
+                ftpRequest.KeepAlive = true;
+                /* Specify the Type of FTP Request */
+                ftpRequest.Method = WebRequestMethods.Ftp.ListDirectory;
+                /* Establish Return Communication with the FTP Server */
+                var _FtpWebResponse = (FtpWebResponse)await ftpRequest.GetResponseAsync();
+
+                return true;
+            }
+            catch (ArgumentException ex)
+            {
+                return false;
+            }
+            catch (Exception ex)
+            {
+                //_Logger.Error(ex);
+                return false;
+            }
+        }
     }
 }

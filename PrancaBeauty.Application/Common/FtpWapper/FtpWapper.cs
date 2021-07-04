@@ -1,4 +1,5 @@
 ﻿using Framework.Application.Services.FTP;
+using Framework.Common.ExMethods;
 using Framework.Infrastructure;
 using Microsoft.AspNetCore.Http;
 using PrancaBeauty.Application.Apps.Files;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Common.FtpWapper
 {
-    public class FtpWapper: IFtpWapper
+    public class FtpWapper : IFtpWapper
     {
         private readonly ILogger _Logger;
         private readonly IFtpClient _FtpClient;
@@ -26,16 +27,50 @@ namespace PrancaBeauty.Application.Common.FtpWapper
             _FileApplication = fileApplication;
         }
 
-        public async Task<string> UplaodCategoryImgAsync(IFormFile _FormFile)
+        public async Task<string> UplaodCategoryImgAsync(IFormFile _FormFile, string _FileName = null)
         {
             try
             {
                 if (_FormFile is null)
                     throw new ArgumentInvalidException(nameof(_FormFile));
 
-                var qServer= await _FileServerApplication.
+                var qServer = await _FileServerApplication.GetServerDetailsAsync("Public");
+                if (qServer == null)
+                    return null;
+
+                string FileName = null;
+                if (_FileName == null)
+                {
+                    FileName = new Guid().SequentialGuid().ToString() + "." + _FormFile.FileName.Split(".").Last();
+                }
+                else
+                {
+
+                }
+
+                var _Result = await _FtpClient.UploadAsync(_FormFile.OpenReadStream(), qServer.FtpHost, qServer.FtpPort, "", "", qServer.FtpUserName, qServer.FtpPassword);
             }
             catch (ArgumentInvalidException)
+            {
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
+            }
+        }
+
+        private async Task<string> GetRealExtentionAsync(IFormFile _FormFile)
+        {
+            try
+            {
+                if (_FormFile is null)
+                    throw new ArgumentInvalidException(nameof(_FormFile));
+
+
+            }
+            catch(ArgumentInvalidException)
             {
                 return null;
             }

@@ -5,8 +5,10 @@ using Microsoft.AspNetCore.Http;
 using PrancaBeauty.Application.Apps.Files;
 using PrancaBeauty.Application.Apps.FileServer;
 using PrancaBeauty.Application.Exceptions;
+using PrancaBeauty.Domin.FileServer.FileAgg.Entities;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -61,9 +63,15 @@ namespace PrancaBeauty.Application.Common.FtpWapper
                 #region Path
                 string Path = $"/Img/Category/{DateTime.Now.Month}/{DateTime.Now.Day}";
 
+                if (!await _FtpClient.CheckDirectoryExistAsync(qServer.FtpHost, qServer.FtpPort, Path, qServer.FtpUserName, qServer.FtpPassword))
+                    await MakeDirAsync(qServer.Name, Path);
                 #endregion
 
-                var _Result = await _FtpClient.UploadAsync(_FormFile.OpenReadStream(), qServer.FtpHost, qServer.FtpPort, "/Img/Category", FileName, qServer.FtpUserName, qServer.FtpPassword);
+                var _Result = await _FtpClient.UploadAsync(_FormFile.OpenReadStream(), qServer.FtpHost, qServer.FtpPort, Path, FileName, qServer.FtpUserName, qServer.FtpPassword);
+                if (_Result == true)
+                {
+
+                }
             }
             catch (FileFormatException ex)
             {
@@ -95,18 +103,28 @@ namespace PrancaBeauty.Application.Common.FtpWapper
                 if (qServer == null)
                     return false;
 
-                var _Result = await _FtpClient.CheckDirectoryExistAsync(qServer.FtpHost, qServer.FtpPort, Path, qServer.FtpUserName, qServer.FtpPassword);
-                if (_Result)
+                string[] Dirs = Path.Split("/");
+                string DirCheck = "";
+
+                foreach (var item in Dirs)
                 {
-
+                    if (item != null && item != "")
+                    {
+                        DirCheck += $"/{item}";
+                        if (!await _FtpClient.CheckDirectoryExistAsync(qServer.FtpHost, qServer.FtpPort, Path, qServer.FtpUserName, qServer.FtpPassword))
+                        {
+                            await _FtpClient.CreateDirectoryAsync(qServer.FtpHost, qServer.FtpPort, DirCheck, qServer.FtpUserName, qServer.FtpPassword));
+                        }
+                    }
                 }
-                else
-                {
 
-                }
-
+                return true;
             }
             catch (ArgumentInvalidException ex)
+            {
+                return false;
+            }
+            catch (ArgumentException ex)
             {
                 return false;
             }
@@ -165,6 +183,33 @@ namespace PrancaBeauty.Application.Common.FtpWapper
             {
                 _Logger.Error(ex);
                 return null;
+            }
+        }
+
+        public async Task<bool> AddFileInfoToDataBaseAsync(string Title, string FileServerId, string Path, string FileName, string UserId, string MimeType, long SizeOnDisk, bool IsPrivate)
+        {
+            try
+            {
+                tblFiles tFile = new tblFiles()
+                {
+                    Id = new Guid().SequentialGuid(),
+                    Date = DateTime.Now,
+                    FileName = FileName,
+                    FileServerId = Guid.Parse(FileServerId),
+                    IsPrivate = IsPrivate,
+                    MimeType = MimeType,
+                    Path = Path,
+                    SizeOnDisk = SizeOnDisk,
+                    Title = Title,
+                    UserId = Guid.Parse(UserId)
+                };
+
+                await _FileApplication.
+            }
+            catch (Exception ex)
+            {
+
+                throw;
             }
         }
     }

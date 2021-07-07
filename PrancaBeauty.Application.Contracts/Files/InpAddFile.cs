@@ -8,6 +8,7 @@ namespace PrancaBeauty.Application.Contracts.Files
 {
     public class InpAddFile
     {
+        public string Id { get; set; }
         public string FileServerId { get; set; }
         public string UserId { get; set; }
         public string Title { get; set; }

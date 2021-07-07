@@ -342,6 +342,9 @@
   <data name="Error500" xml:space="preserve">
     <value>عملیات با شکست مواجه شد.</value>
   </data>
+  <data name="FileInfoIsDuplicated" xml:space="preserve">
+    <value>اطلاعات فایل وارد شده تکراری میباشد.</value>
+  </data>
   <data name="First" xml:space="preserve">
     <value>اولین</value>
   </data>

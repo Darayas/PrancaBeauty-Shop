@@ -1,5 +1,6 @@
 ﻿using Framework.Common.ExMethods;
 using Framework.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Contracts.Files;
 using PrancaBeauty.Application.Contracts.Results;
 using PrancaBeauty.Application.Exceptions;
@@ -30,9 +31,12 @@ namespace PrancaBeauty.Application.Apps.Files
                 if (Input is null)
                     throw new ArgumentInvalidException("Input cant be null");
 
+                if (await CheckExsitAsync(Input.FileServerId, Input.Path, Input.FileName))
+                    return new OperationResult().Failed("FileInfoIsDuplicated");
+
                 tblFiles tFile = new tblFiles()
                 {
-                    Id = new Guid().SequentialGuid(),
+                    Id = Guid.Parse(Input.Id),
                     Date = DateTime.Now,
                     FileServerId = Guid.Parse(Input.FileServerId),
                     UserId = Input.UserId != null ? Guid.Parse(Input.UserId) : null,
@@ -59,6 +63,16 @@ namespace PrancaBeauty.Application.Apps.Files
             }
         }
 
+        private async Task<bool> CheckExsitAsync(string FileServerId = null, string Path = null, string FileName = null)
+        {
+            if (FileServerId == null && Path == null && FileName == null)
+                throw new ArgumentInvalidException();
 
+            return await _FileRepository.Get
+                                        .Where(a => FileServerId != null ? a.FileServerId == Guid.Parse(FileServerId) : true)
+                                        .Where(a => Path != null ? a.Path == Path : true)
+                                        .Where(a => FileName != null ? a.FileName == FileName : true)
+                                        .AnyAsync();
+        }
     }
 }

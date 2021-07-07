@@ -4,6 +4,7 @@ using Framework.Infrastructure;
 using Microsoft.AspNetCore.Http;
 using PrancaBeauty.Application.Apps.Files;
 using PrancaBeauty.Application.Apps.FileServer;
+using PrancaBeauty.Application.Contracts.Files;
 using PrancaBeauty.Application.Exceptions;
 using PrancaBeauty.Domin.FileServer.FileAgg.Entities;
 using System;
@@ -44,7 +45,7 @@ namespace PrancaBeauty.Application.Common.FtpWapper
                 string FileName = null;
                 if (_FileName == null)
                 {
-                    string FileEx = await GetRealExtentionAsync(_FormFile);
+                    string FileEx = (await GetRealExtentionAsync(_FormFile)).Item1;
                     if (FileEx == null)
                         return null;
 
@@ -52,7 +53,7 @@ namespace PrancaBeauty.Application.Common.FtpWapper
                 }
                 else
                 {
-                    string FileEx = await GetRealExtentionAsync(_FormFile);
+                    string FileEx = (await GetRealExtentionAsync(_FormFile)).Item1;
                     if (FileEx == null)
                         return null;
 
@@ -70,7 +71,25 @@ namespace PrancaBeauty.Application.Common.FtpWapper
                 var _Result = await _FtpClient.UploadAsync(_FormFile.OpenReadStream(), qServer.FtpHost, qServer.FtpPort, Path, FileName, qServer.FtpUserName, qServer.FtpPassword);
                 if (_Result == true)
                 {
+                    var _Id = new Guid().SequentialGuid().ToString();
+                    await _FileApplication.AddFileAsync(new InpAddFile()
+                    {
+                        Id = _Id,
+                        FileServerId = qServer.Id,
+                        Path = Path,
+                        FileName = FileName,
+                        UserId = null,
+                        IsPrivate = false,
+                        Title = $"تصویر دسته - {FileName}",
+                        MimeType = (await GetRealExtentionAsync(_FormFile)).Item2,
+                        SizeOnDisk = _FormFile.Length
+                    });
 
+                    return _Id;
+                }
+                else
+                {
+                    throw new Exception("قادر به اپلود فایل دسته نبودیم. لطفا اطلاعات خطای قبلی را برسی نمایید");
                 }
             }
             catch (FileFormatException ex)
@@ -113,7 +132,7 @@ namespace PrancaBeauty.Application.Common.FtpWapper
                         DirCheck += $"/{item}";
                         if (!await _FtpClient.CheckDirectoryExistAsync(qServer.FtpHost, qServer.FtpPort, Path, qServer.FtpUserName, qServer.FtpPassword))
                         {
-                            await _FtpClient.CreateDirectoryAsync(qServer.FtpHost, qServer.FtpPort, DirCheck, qServer.FtpUserName, qServer.FtpPassword));
+                            await _FtpClient.CreateDirectoryAsync(qServer.FtpHost, qServer.FtpPort, DirCheck, qServer.FtpUserName, qServer.FtpPassword);
                         }
                     }
                 }
@@ -135,7 +154,7 @@ namespace PrancaBeauty.Application.Common.FtpWapper
             }
         }
 
-        private async Task<string> GetRealExtentionAsync(IFormFile _FormFile)
+        private async Task<(string, string)> GetRealExtentionAsync(IFormFile _FormFile)
         {
             try
             {
@@ -153,19 +172,19 @@ namespace PrancaBeauty.Application.Common.FtpWapper
 
                 if (hex.StartsWith("89 50 4E 47 0D 0A 1A 0A"))
                 {
-                    return "png";
+                    return ("png", "image/png");
                 }
                 else if (hex.StartsWith("FF D8"))
                 {
-                    return "jpg";
+                    return ("jpg", "image/jpg");
                 }
                 else if (hex.StartsWith("47 49 46 38 37 61") || hex.StartsWith("47 49 46 38 39 61"))
                 {
-                    return "gif";
+                    return ("gif", "image/gif");
                 }
                 else if (hex.StartsWith("42 4D"))
                 {
-                    return "bmp";
+                    return ("bmp", "image/bmp");
                 }
                 else
                     throw new FileFormatException("File format not found.");
@@ -173,44 +192,18 @@ namespace PrancaBeauty.Application.Common.FtpWapper
             catch (FileFormatException ex)
             {
                 _Logger.Error(ex);
-                return null;
+                return (null, null);
             }
             catch (ArgumentInvalidException)
             {
-                return null;
+                return (null, null);
             }
             catch (Exception ex)
             {
                 _Logger.Error(ex);
-                return null;
+                return (null, null);
             }
         }
 
-        public async Task<bool> AddFileInfoToDataBaseAsync(string Title, string FileServerId, string Path, string FileName, string UserId, string MimeType, long SizeOnDisk, bool IsPrivate)
-        {
-            try
-            {
-                tblFiles tFile = new tblFiles()
-                {
-                    Id = new Guid().SequentialGuid(),
-                    Date = DateTime.Now,
-                    FileName = FileName,
-                    FileServerId = Guid.Parse(FileServerId),
-                    IsPrivate = IsPrivate,
-                    MimeType = MimeType,
-                    Path = Path,
-                    SizeOnDisk = SizeOnDisk,
-                    Title = Title,
-                    UserId = Guid.Parse(UserId)
-                };
-
-                await _FileApplication.
-            }
-            catch (Exception ex)
-            {
-
-                throw;
-            }
-        }
     }
 }

@@ -2,6 +2,7 @@
 using Framework.Common.Utilities.Paging;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using PrancaBeauty.Application.Common.FtpWapper;
 using PrancaBeauty.Application.Contracts.Categories;
 using PrancaBeauty.Application.Contracts.Results;
 using PrancaBeauty.Application.Exceptions;
@@ -18,12 +19,14 @@ namespace PrancaBeauty.Application.Apps.Categories
     public class CategoryApplication : ICategoryApplication
     {
         private readonly ILogger _Logger;
+        private readonly IFtpWapper _FtpWapper;
         private readonly ICategoryRepository _CategoryRepository;
 
-        public CategoryApplication(ICategoryRepository categoryRepository, ILogger logger)
+        public CategoryApplication(ICategoryRepository categoryRepository, ILogger logger, IFtpWapper ftpWapper)
         {
             _CategoryRepository = categoryRepository;
             _Logger = logger;
+            _FtpWapper = ftpWapper;
         }
 
         public async Task<(OutPagingData, List<OutGetListForAdminPage>)> GetListForAdminPageAsync(string LangId, string Title, string ParentTitle, int PageNum, int Take)
@@ -125,9 +128,11 @@ namespace PrancaBeauty.Application.Apps.Categories
                     });
                 }
 
-                //var Bytes = Input.Image.OpenReadStream().ToByteArray();
-                //System.IO.File.WriteAllBytes("c:\newfolder\a.jpg", Bytes);
+                var FileUploadResult = await _FtpWapper.UplaodCategoryImgAsync(Input.Image, Input.Name);
+                if (FileUploadResult == null)
+                    return new OperationResult().Failed("Error500");
 
+                tCategory.ImageId = Guid.Parse(FileUploadResult);
                 await _CategoryRepository.AddAsync(tCategory, default, true);
 
                 return new OperationResult().Succeeded();

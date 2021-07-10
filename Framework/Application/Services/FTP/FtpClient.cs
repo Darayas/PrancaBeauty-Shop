@@ -1,4 +1,5 @@
-﻿using Framework.Infrastructure;
+﻿using Framework.Common.ExMethods;
+using Framework.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -19,13 +20,13 @@ namespace Framework.Application.Services.FTP
             _Logger = logger;
         }
 
-        public async Task<bool> UploadAsync(Stream _File, string FtpHost, int FtpPort, string Path, string FileName, string FtpUserName, string FtpPassword)
+        public async Task<bool> UploadAsync(Stream _File, string FtpHost, int FtpPort, string FtpPath, string Path, string FileName, string FtpUserName, string FtpPassword)
         {
             try
             {
                 _File.Position = 0;
                 /* Create an FTP Request */
-                var ftpRequest = (FtpWebRequest)FtpWebRequest.Create($"{FtpHost}:{FtpPort}/{Path.Trim('/')}/{FileName}");
+                var ftpRequest = (FtpWebRequest)FtpWebRequest.Create($"{FtpHost}:{FtpPort}/{FtpPath.Trim('/')}/{Path.Trim('/')}/{FileName}".ReplaceRegex("^[/]{2,100}$","/"));
                 /* Log in to the FTP Server with the User Name and Password Provided */
                 ftpRequest.Credentials = new NetworkCredential(FtpUserName, FtpPassword);
                 /* When in doubt, use these options */
@@ -62,14 +63,14 @@ namespace Framework.Application.Services.FTP
 
         }
 
-        public async Task<bool> CheckDirectoryExistAsync(string FtpHost, int FtpPort, string Path, string FtpUserName, string FtpPassword)
+        public async Task<bool> CheckDirectoryExistAsync(string FtpHost, int FtpPort, string FtpPath, string Path, string FtpUserName, string FtpPassword)
         {
             try
             {
                 if (string.IsNullOrWhiteSpace(Path))
                     throw new ArgumentException($"'{nameof(Path)}' cannot be null or whitespace.", nameof(Path));
 
-                var ftpRequest = (FtpWebRequest)FtpWebRequest.Create($"{FtpHost}:{FtpPort}/{Path.Trim('/')}");
+                var ftpRequest = (FtpWebRequest)FtpWebRequest.Create($"{FtpHost}:{FtpPort}/{FtpPath.Trim('/')}/{Path.Trim('/')}");
                 /* Log in to the FTP Server with the User Name and Password Provided */
                 ftpRequest.Credentials = new NetworkCredential(FtpUserName, FtpPassword);
                 /* When in doubt, use these options */
@@ -93,14 +94,14 @@ namespace Framework.Application.Services.FTP
             }
         }
 
-        public async Task<bool> CreateDirectoryAsync(string FtpHost, int FtpPort, string Path, string FtpUserName, string FtpPassword)
+        public async Task<bool> CreateDirectoryAsync(string FtpHost, int FtpPort, string FtpPath, string Path, string FtpUserName, string FtpPassword)
         {
             try
             {
                 if (string.IsNullOrWhiteSpace(Path))
                     throw new ArgumentException($"'{nameof(Path)}' cannot be null or whitespace.", nameof(Path));
 
-                var ftpRequest = (FtpWebRequest)FtpWebRequest.Create($"{FtpHost}:{FtpPort}/{Path.Trim('/')}");
+                var ftpRequest = (FtpWebRequest)FtpWebRequest.Create($"{FtpHost}:{FtpPort}/{FtpPath.Trim('/')}/{Path.Trim('/')}");
                 /* Log in to the FTP Server with the User Name and Password Provided */
                 ftpRequest.Credentials = new NetworkCredential(FtpUserName, FtpPassword);
                 /* When in doubt, use these options */

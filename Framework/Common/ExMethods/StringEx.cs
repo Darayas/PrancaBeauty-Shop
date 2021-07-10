@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Framework.Common.ExMethods
@@ -33,6 +34,11 @@ namespace Framework.Common.ExMethods
         {
             string Md5Hash = EncryptProvider.Md5(text);
             return Md5Hash;
+        }
+
+        public static string ReplaceRegex(this string text, string Pattern, string NewText)
+        {
+            return Regex.Replace(text, Pattern, NewText);
         }
     }
 }

@@ -64,11 +64,11 @@ namespace PrancaBeauty.Application.Common.FtpWapper
                 #region Path
                 string Path = $"/Img/Category/{DateTime.Now.Month}/{DateTime.Now.Day}";
 
-                if (!await _FtpClient.CheckDirectoryExistAsync(qServer.FtpHost, qServer.FtpPort, Path, qServer.FtpUserName, qServer.FtpPassword))
+                if (!await _FtpClient.CheckDirectoryExistAsync(qServer.FtpHost, qServer.FtpPort, qServer.FtpPath, Path, qServer.FtpUserName, qServer.FtpPassword))
                     await MakeDirAsync(qServer.Name, Path);
                 #endregion
 
-                var _Result = await _FtpClient.UploadAsync(_FormFile.OpenReadStream(), qServer.FtpHost, qServer.FtpPort, Path, FileName, qServer.FtpUserName, qServer.FtpPassword);
+                var _Result = await _FtpClient.UploadAsync(_FormFile.OpenReadStream(), qServer.FtpHost, qServer.FtpPort, qServer.FtpPath, Path, FileName, qServer.FtpUserName, qServer.FtpPassword);
                 if (_Result == true)
                 {
                     var _Id = new Guid().SequentialGuid().ToString();
@@ -76,7 +76,7 @@ namespace PrancaBeauty.Application.Common.FtpWapper
                     {
                         Id = _Id,
                         FileServerId = qServer.Id,
-                        Path = Path,
+                        Path = $"/{Path.Trim('/')}/",
                         FileName = FileName,
                         UserId = null,
                         IsPrivate = false,
@@ -130,9 +130,9 @@ namespace PrancaBeauty.Application.Common.FtpWapper
                     if (item != null && item != "")
                     {
                         DirCheck += $"/{item}";
-                        if (!await _FtpClient.CheckDirectoryExistAsync(qServer.FtpHost, qServer.FtpPort, Path, qServer.FtpUserName, qServer.FtpPassword))
+                        if (!await _FtpClient.CheckDirectoryExistAsync(qServer.FtpHost, qServer.FtpPort, qServer.FtpPath, Path, qServer.FtpUserName, qServer.FtpPassword))
                         {
-                            await _FtpClient.CreateDirectoryAsync(qServer.FtpHost, qServer.FtpPort, DirCheck, qServer.FtpUserName, qServer.FtpPassword);
+                            await _FtpClient.CreateDirectoryAsync(qServer.FtpHost, qServer.FtpPort, qServer.FtpPath, DirCheck, qServer.FtpUserName, qServer.FtpPassword);
                         }
                     }
                 }

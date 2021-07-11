@@ -51,6 +51,11 @@ namespace PrancaBeauty.WebApp.Pages.Admin.Categories
             return new JsonResult(_DataGrid);
         }
 
+        public async Task<IActionResult> OnPostRemoveAsync(string Id)
+        {
+
+        }
+
         [BindProperty(SupportsGet = true)]
         public viListCategories Input { get; set; }
     }

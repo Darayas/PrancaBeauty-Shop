@@ -205,5 +205,25 @@ namespace PrancaBeauty.Application.Common.FtpWapper
             }
         }
 
+        public async Task<bool> RemoveFileAsync(string ImgId, string UserId = null)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(ImgId))
+                    throw new ArgumentInvalidException($"'{nameof(ImgId)}' cannot be null or whitespace.");
+
+                var qFile= await _FileApplication.
+
+            }
+            catch (ArgumentInvalidException)
+            {
+                return false;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return false;
+            }
+        }
     }
 }

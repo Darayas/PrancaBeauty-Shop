@@ -74,5 +74,36 @@ namespace PrancaBeauty.Application.Apps.Files
                                         .Where(a => FileName != null ? a.FileName == FileName : true)
                                         .AnyAsync();
         }
+
+        public async Task<OutGetFileInfo> GetFileInfoAsync(string FileId)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(FileId))
+                    throw new ArgumentInvalidException($"'{nameof(FileId)}' cannot be null or whitespace.");
+
+                var qData = await _FileRepository.Get
+                                                .Where(a => a.Id == Guid.Parse(FileId))
+                                                .Select(a => new OutGetFileInfo
+                                                {
+
+                                                })
+                                                .SingleOrDefaultAsync();
+
+                if (qData == null)
+                    return null;
+
+                return qData;
+            }
+            catch (ArgumentInvalidException)
+            {
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
+            }
+        }
     }
 }

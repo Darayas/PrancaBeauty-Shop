@@ -177,6 +177,12 @@
   <data name="BirthDate" xml:space="preserve">
     <value>تاریخ تولد</value>
   </data>
+  <data name="CategoryHasChild,CantRemove" xml:space="preserve">
+    <value>دسته مورد نظر دارای فرزندانی میباشد که برای حذف، ابتدا باید آن ها حذف شوند</value>
+  </data>
+  <data name="CategoryHasProduct,CantRemove" xml:space="preserve">
+    <value>دسته مورد نظر دارای محصولاتی میباشد که برای حذف، ابتدا باید آن ها حذف شوند</value>
+  </data>
   <data name="CategoryId" xml:space="preserve">
     <value>دسته</value>
   </data>

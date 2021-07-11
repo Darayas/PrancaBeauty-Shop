@@ -809,3 +809,8 @@
     left: calc(3.23571428em - 8px) !important;
     right: unset !important;
 }
+
+.k-treeview .k-image {
+    width: 20px;
+    margin-left: 5px;
+}

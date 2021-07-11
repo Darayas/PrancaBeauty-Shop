@@ -147,5 +147,51 @@ namespace PrancaBeauty.Application.Apps.Categories
                 return new OperationResult().Failed("Error500");
             }
         }
+
+        public async Task<OperationResult> RemoveAsync(string Id)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(Id))
+                    throw new ArgumentInvalidException($"'{nameof(Id)}' cannot be null or whitespace.");
+
+                var qData = await _CategoryRepository.Get
+                                                     .Where(a => a.Id == Guid.Parse(Id))
+                                                     .Select(a => new
+                                                     {
+                                                         HasChild = a.tblCategory_Childs.Any(),
+                                                         HasProduct = false
+                                                     })
+                                                     .SingleOrDefaultAsync();
+
+                if (qData == null)
+                    return new OperationResult().Failed("IdNotFound");
+
+                // برسی وجود فرزند
+                if (qData.HasChild)
+                    return new OperationResult().Failed("CategoryHasChild,CantRemove");
+
+                // برسی وجود محصول عضو دسته جاری
+                if (qData.HasProduct)
+                    return new OperationResult().Failed("CategoryHasProduct,CantRemove");
+
+                // حذف دسته
+                var _Category = await _CategoryRepository.Get.SingleAsync(a => a.Id == Guid.Parse(Id));
+                await _CategoryRepository.DeleteAsync(_Category, default);
+
+                // حذف فایل
+
+
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
     }
 }

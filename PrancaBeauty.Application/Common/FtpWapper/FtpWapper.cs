@@ -205,15 +205,38 @@ namespace PrancaBeauty.Application.Common.FtpWapper
             }
         }
 
-        public async Task<bool> RemoveFileAsync(string ImgId, string UserId = null)
+        public async Task<bool> RemoveFileAsync(string FileId, string UserId = null)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(ImgId))
-                    throw new ArgumentInvalidException($"'{nameof(ImgId)}' cannot be null or whitespace.");
+                if (string.IsNullOrWhiteSpace(FileId))
+                    throw new ArgumentInvalidException($"'{nameof(FileId)}' cannot be null or whitespace.");
 
-                var qFile= await _FileApplication.
+                var qFile = await _FileApplication.GetFileInfoAsync(FileId);
+                if (qFile == null)
+                    return false;
 
+                var qServer = await _FileServerApplication.GetServerDetailsAsync(qFile.FileServerName);
+                if (qServer == null)
+                    return false;
+
+                // برسی وجود فایل در ftp سرور
+                if (!await _FtpClient.CheckFileExistAsync(qServer.FtpHost, qServer.FtpPort, qServer.FtpPath, qFile.Path, qFile.FileName, qServer.FtpUserName, qServer.FtpPassword))
+                    return false;
+
+                // حذف فایل در Ftp سرور
+                if (!await _FtpClient.RemoveAsync(qServer.FtpHost, qServer.FtpPort, qServer.FtpPath, qFile.Path, qFile.FileName, qServer.FtpUserName, qServer.FtpPassword))
+                    return false;
+
+                // حذف فایل از دیتابیس
+                var _Result = await _FileApplication.RemoveFileAsync(FileId, UserId);
+                if (_Result.IsSucceeded)
+                    return true;
+                else
+                {
+                    _Logger.Warning($"فایل از روی حافظه با موفقیت پاک شد اما حذف اطلاعات مربوط به فایل در دیتابیس با شکست مواجه شد. شناسه رکورد فایل: {FileId}");
+                    return false;
+                }
             }
             catch (ArgumentInvalidException)
             {

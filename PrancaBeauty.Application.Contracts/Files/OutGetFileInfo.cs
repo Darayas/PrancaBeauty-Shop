@@ -9,6 +9,7 @@ namespace PrancaBeauty.Application.Contracts.Files
     public class OutGetFileInfo
     {
         public string FileServerId { get; set; }
+        public string FileServerName { get; set; }
         public string UserId { get; set; }
         public string Title { get; set; }
         public string Path { get; set; }

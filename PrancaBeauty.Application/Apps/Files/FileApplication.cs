@@ -75,7 +75,7 @@ namespace PrancaBeauty.Application.Apps.Files
                                         .AnyAsync();
         }
 
-        public async Task<OutGetFileInfo> GetFileInfoAsync(string FileId)
+        public async Task<OutGetFileInfo> GetFileInfoAsync(string FileId,string UserId=null)
         {
             try
             {
@@ -84,9 +84,19 @@ namespace PrancaBeauty.Application.Apps.Files
 
                 var qData = await _FileRepository.Get
                                                 .Where(a => a.Id == Guid.Parse(FileId))
+                                                .Where(a => UserId != null ? a.UserId == Guid.Parse(UserId) : true)
                                                 .Select(a => new OutGetFileInfo
                                                 {
-
+                                                    Title = a.Title,
+                                                    UserId = a.UserId.ToString(),
+                                                    FileName = a.FileName,
+                                                    FileServerId = a.FileServerId.ToString(),
+                                                    FileServerName = a.tblFileServer.Name,
+                                                    Date = a.Date,
+                                                    IsPrivate = a.IsPrivate,
+                                                    MimeType = a.MimeType,
+                                                    Path = a.Path,
+                                                    SizeOnDisk = a.SizeOnDisk
                                                 })
                                                 .SingleOrDefaultAsync();
 
@@ -103,6 +113,36 @@ namespace PrancaBeauty.Application.Apps.Files
             {
                 _Logger.Error(ex);
                 return null;
+            }
+        }
+
+        public async Task<OperationResult> RemoveFileAsync(string FileId, string UserId = null)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(FileId))
+                    throw new ArgumentInvalidException($"'{nameof(FileId)}' cannot be null or whitespace.");
+
+                var qData = await _FileRepository.Get
+                                                 .Where(a => a.Id == Guid.Parse(FileId))
+                                                 .Where(a => UserId != null ? a.UserId == Guid.Parse(UserId) : true)
+                                                 .SingleOrDefaultAsync();
+
+                if (qData == null)
+                    return new OperationResult().Failed("IdNotFound");
+
+                await _FileRepository.DeleteAsync(qData, default, true);
+
+                return new OperationResult().Succeeded();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
             }
         }
     }

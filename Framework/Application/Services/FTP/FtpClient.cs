@@ -26,7 +26,7 @@ namespace Framework.Application.Services.FTP
             {
                 _File.Position = 0;
                 /* Create an FTP Request */
-                var ftpRequest = (FtpWebRequest)FtpWebRequest.Create($"{FtpHost}:{FtpPort}/{FtpPath.Trim('/')}/{Path.Trim('/')}/{FileName}".ReplaceRegex("^[/]{2,100}$","/"));
+                var ftpRequest = (FtpWebRequest)FtpWebRequest.Create($"{FtpHost}:{FtpPort}/{FtpPath.Trim('/')}/{Path.Trim('/')}/{FileName}".ReplaceRegex("^[/]{2,100}$", "/"));
                 /* Log in to the FTP Server with the User Name and Password Provided */
                 ftpRequest.Credentials = new NetworkCredential(FtpUserName, FtpPassword);
                 /* When in doubt, use these options */
@@ -121,6 +121,72 @@ namespace Framework.Application.Services.FTP
             catch (Exception ex)
             {
                 //_Logger.Error(ex);
+                return false;
+            }
+        }
+
+        public async Task<bool> RemoveAsync(string FtpHost, int FtpPort, string FtpPath, string Path, string FileName, string FtpUserName, string FtpPassword)
+        {
+            try
+            {
+                var ftpRequest = (FtpWebRequest)FtpWebRequest.Create($"{FtpHost}:{FtpPort}/{FtpPath.Trim('/')}/{Path.Trim('/')}/{FileName}".ReplaceRegex("^[/]{2,100}$", "/"));
+                /* Log in to the FTP Server with the User Name and Password Provided */
+                ftpRequest.Credentials = new NetworkCredential(FtpUserName, FtpPassword);
+                /* When in doubt, use these options */
+                ftpRequest.UseBinary = true;
+                ftpRequest.UsePassive = true;
+                ftpRequest.KeepAlive = true;
+                /* Specify the Type of FTP Request */
+                ftpRequest.Method = WebRequestMethods.Ftp.DeleteFile;
+                /* Establish Return Communication with the FTP Server */
+                var _FtpWebResponse = (FtpWebResponse)await ftpRequest.GetResponseAsync();
+
+                _FtpWebResponse.Close();
+                ftpRequest = null;
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return false;
+            }
+        }
+
+        public async Task<bool> CheckFileExistAsync(string FtpHost, int FtpPort, string FtpPath, string Path, string FileName, string FtpUserName, string FtpPassword)
+        {
+            try
+            {
+                var ftpRequest = (FtpWebRequest)FtpWebRequest.Create($"{FtpHost}:{FtpPort}/{FtpPath.Trim('/')}/{Path.Trim('/')}");
+                /* Log in to the FTP Server with the User Name and Password Provided */
+                ftpRequest.Credentials = new NetworkCredential(FtpUserName, FtpPassword);
+                /* When in doubt, use these options */
+                ftpRequest.UseBinary = true;
+                ftpRequest.UsePassive = true;
+                ftpRequest.KeepAlive = true;
+
+                /* Establish Return Communication with the FTP Server */
+                var _FtpWebResponse = (FtpWebResponse)await ftpRequest.GetResponseAsync();
+
+                _FtpWebResponse.Close();
+                ftpRequest = null;
+
+                return true;
+            }
+            catch (WebException ex)
+            {
+                FtpWebResponse _Response = (FtpWebResponse)ex.Response;
+                if (_Response.StatusCode == FtpStatusCode.ActionNotTakenFileUnavailable)
+                {
+                    return false;
+                }
+
+                _Logger.Error(ex);
+                return false;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
                 return false;
             }
         }

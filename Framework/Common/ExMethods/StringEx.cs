@@ -38,7 +38,8 @@ namespace Framework.Common.ExMethods
 
         public static string ReplaceRegex(this string text, string Pattern, string NewText)
         {
-            return Regex.Replace(text, Pattern, NewText);
+            string ReplaceTxt = Regex.Replace(text, Pattern, NewText, RegexOptions.Multiline | RegexOptions.Singleline);
+            return ReplaceTxt;
         }
     }
 }

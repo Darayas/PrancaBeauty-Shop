@@ -180,8 +180,10 @@ namespace PrancaBeauty.Application.Apps.Categories
                 await _CategoryRepository.DeleteAsync(_Category, default);
 
                 // حذف فایل
+                if (_Category.ImageId != null)
+                    await _FtpWapper.RemoveFileAsync(_Category.ImageId.Value.ToString());
 
-
+                return new OperationResult().Succeeded();
             }
             catch (ArgumentInvalidException ex)
             {

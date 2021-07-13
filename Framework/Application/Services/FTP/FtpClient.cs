@@ -26,7 +26,7 @@ namespace Framework.Application.Services.FTP
             {
                 _File.Position = 0;
                 /* Create an FTP Request */
-                var ftpRequest = (FtpWebRequest)FtpWebRequest.Create($"{FtpHost}:{FtpPort}/{FtpPath.Trim('/')}/{Path.Trim('/')}/{FileName}".ReplaceRegex("^[/]{2,100}$", "/"));
+                var ftpRequest = (FtpWebRequest)FtpWebRequest.Create($"{FtpHost}:{FtpPort}" + $"/{FtpPath.Trim('/')}/{Path.Trim('/')}/{FileName}".ReplaceRegex(@"[\/]{2,100}", "/"));
                 /* Log in to the FTP Server with the User Name and Password Provided */
                 ftpRequest.Credentials = new NetworkCredential(FtpUserName, FtpPassword);
                 /* When in doubt, use these options */
@@ -70,7 +70,7 @@ namespace Framework.Application.Services.FTP
                 if (string.IsNullOrWhiteSpace(Path))
                     throw new ArgumentException($"'{nameof(Path)}' cannot be null or whitespace.", nameof(Path));
 
-                var ftpRequest = (FtpWebRequest)FtpWebRequest.Create($"{FtpHost}:{FtpPort}/{FtpPath.Trim('/')}/{Path.Trim('/')}");
+                var ftpRequest = (FtpWebRequest)FtpWebRequest.Create($"{FtpHost}:{FtpPort}" + $"/{FtpPath.Trim('/')}/{Path.Trim('/')}".ReplaceRegex(@"[\/]{2,100}", "/"));
                 /* Log in to the FTP Server with the User Name and Password Provided */
                 ftpRequest.Credentials = new NetworkCredential(FtpUserName, FtpPassword);
                 /* When in doubt, use these options */
@@ -101,7 +101,7 @@ namespace Framework.Application.Services.FTP
                 if (string.IsNullOrWhiteSpace(Path))
                     throw new ArgumentException($"'{nameof(Path)}' cannot be null or whitespace.", nameof(Path));
 
-                var ftpRequest = (FtpWebRequest)FtpWebRequest.Create($"{FtpHost}:{FtpPort}/{FtpPath.Trim('/')}/{Path.Trim('/')}");
+                var ftpRequest = (FtpWebRequest)FtpWebRequest.Create($"{FtpHost}:{FtpPort}"+$"/{FtpPath.Trim('/')}/{Path.Trim('/')}".ReplaceRegex(@"[\/]{2,100}", "/"));
                 /* Log in to the FTP Server with the User Name and Password Provided */
                 ftpRequest.Credentials = new NetworkCredential(FtpUserName, FtpPassword);
                 /* When in doubt, use these options */
@@ -129,7 +129,7 @@ namespace Framework.Application.Services.FTP
         {
             try
             {
-                var ftpRequest = (FtpWebRequest)FtpWebRequest.Create($"{FtpHost}:{FtpPort}/{FtpPath.Trim('/')}/{Path.Trim('/')}/{FileName}".ReplaceRegex("^[/]{2,100}$", "/"));
+                var ftpRequest = (FtpWebRequest)FtpWebRequest.Create($"{FtpHost}:{FtpPort}"+$"/{FtpPath.Trim('/')}/{Path.Trim('/')}/{FileName}".ReplaceRegex(@"[\/]{2,100}", "/"));
                 /* Log in to the FTP Server with the User Name and Password Provided */
                 ftpRequest.Credentials = new NetworkCredential(FtpUserName, FtpPassword);
                 /* When in doubt, use these options */
@@ -157,7 +157,7 @@ namespace Framework.Application.Services.FTP
         {
             try
             {
-                var ftpRequest = (FtpWebRequest)FtpWebRequest.Create($"{FtpHost}:{FtpPort}/{FtpPath.Trim('/')}/{Path.Trim('/')}");
+                var ftpRequest = (FtpWebRequest)FtpWebRequest.Create($"{FtpHost}:{FtpPort}" + $"/{FtpPath.Trim('/')}/{Path.Trim('/')}/{FileName}".ReplaceRegex(@"[\/]{2,100}", "/"));
                 /* Log in to the FTP Server with the User Name and Password Provided */
                 ftpRequest.Credentials = new NetworkCredential(FtpUserName, FtpPassword);
                 /* When in doubt, use these options */

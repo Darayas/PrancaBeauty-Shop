@@ -651,6 +651,9 @@
   <data name="Remove" xml:space="preserve">
     <value>حذف</value>
   </data>
+  <data name="RequiredFileMsg" xml:space="preserve">
+    <value>{0} را وارد نمایید</value>
+  </data>
   <data name="RequiredMsg" xml:space="preserve">
     <value>{0} را وارد نمایید.</value>
   </data>

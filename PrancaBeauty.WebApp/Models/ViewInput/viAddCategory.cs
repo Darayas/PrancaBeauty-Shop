@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using PrancaBeauty.WebApp.Common.DataAnnotations;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -13,6 +14,7 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
         public string ParentId { get; set; }
 
         [Display(Name = "CategoryImage")]
+        [RequiredFile(ErrorMessage = "RequiredFileMsg")]
         public IFormFile Image { get; set; }
 
         [Display(Name = "Name")]

@@ -171,6 +171,9 @@
   <data name="AdminPanel" xml:space="preserve">
     <value>پنل مدیریت</value>
   </data>
+  <data name="AllowExtentionsMsg" xml:space="preserve">
+    <value>{0} انتخاب شده با نام '{1}' دارای فرمت غیرمجار میباشد. پسوند های مجاز: {2}</value>
+  </data>
   <data name="AreYouSure" xml:space="preserve">
     <value>ایا مطمعن هستید؟</value>
   </data>
@@ -352,8 +355,7 @@
     <value>اطلاعات فایل وارد شده تکراری میباشد.</value>
   </data>
   <data name="FileSizeMsg" xml:space="preserve">
-    <value>{0} باید بین {2} تا {3} باشد
-</value>
+    <value>{0} انتخاب شده با نام '{1}' باید بین {2} تا {3} باشد</value>
   </data>
   <data name="First" xml:space="preserve">
     <value>اولین</value>

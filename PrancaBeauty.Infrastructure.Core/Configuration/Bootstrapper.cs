@@ -1,6 +1,7 @@
 ﻿using Framework.Application.Services.Email;
 using Framework.Application.Services.FTP;
 using Framework.Application.Services.IpList;
+using Framework.Application.Services.Security.AntiShell;
 using Framework.Application.Services.Sms;
 using Framework.Common.Utilities.Downloader;
 using Framework.Infrastructure;
@@ -67,6 +68,7 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddScoped<ISmsSender, KaveNegarSmsSender>();
             services.AddScoped<IDownloader, Downloader>();
             services.AddScoped<IIPList, IPList>();
+            services.AddScoped<IAniShell, AniShell>();
             services.AddScoped<IFtpClient, FtpClient>();
             services.AddScoped<IFtpWapper, FtpWapper>();
 

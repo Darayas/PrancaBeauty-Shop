@@ -1,11 +1,12 @@
 ﻿using Framework.Application.Services.FTP;
+using Framework.Application.Services.Security.AntiShell;
 using Framework.Common.ExMethods;
+using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.AspNetCore.Http;
 using PrancaBeauty.Application.Apps.Files;
 using PrancaBeauty.Application.Apps.FileServer;
 using PrancaBeauty.Application.Contracts.Files;
-using PrancaBeauty.Application.Exceptions;
 using PrancaBeauty.Domin.FileServer.FileAgg.Entities;
 using System;
 using System.Collections.Generic;
@@ -22,12 +23,14 @@ namespace PrancaBeauty.Application.Common.FtpWapper
         private readonly IFtpClient _FtpClient;
         private readonly IFileServerApplication _FileServerApplication;
         private readonly IFileApplication _FileApplication;
-        public FtpWapper(IFtpClient ftpClient, ILogger logger, IFileServerApplication fileServerApplication, IFileApplication fileApplication)
+        private readonly IAniShell _AniShell;
+        public FtpWapper(IFtpClient ftpClient, ILogger logger, IFileServerApplication fileServerApplication, IFileApplication fileApplication, IAniShell aniShell)
         {
             _FtpClient = ftpClient;
             _Logger = logger;
             _FileServerApplication = fileServerApplication;
             _FileApplication = fileApplication;
+            _AniShell = aniShell;
         }
 
         public async Task<string> UplaodCategoryImgAsync(IFormFile _FormFile, string _FileName = null)
@@ -45,7 +48,7 @@ namespace PrancaBeauty.Application.Common.FtpWapper
                 string FileName = null;
                 if (_FileName == null)
                 {
-                    string FileEx = (await GetRealExtentionAsync(_FormFile)).Item1;
+                    string FileEx = (await _AniShell.GetRealExtentionAsync(_FormFile)).Item1;
                     if (FileEx == null)
                         return null;
 
@@ -53,7 +56,7 @@ namespace PrancaBeauty.Application.Common.FtpWapper
                 }
                 else
                 {
-                    string FileEx = (await GetRealExtentionAsync(_FormFile)).Item1;
+                    string FileEx = (await _AniShell.GetRealExtentionAsync(_FormFile)).Item1;
                     if (FileEx == null)
                         return null;
 
@@ -81,7 +84,7 @@ namespace PrancaBeauty.Application.Common.FtpWapper
                         UserId = null,
                         IsPrivate = false,
                         Title = $"تصویر دسته - {FileName}",
-                        MimeType = (await GetRealExtentionAsync(_FormFile)).Item2,
+                        MimeType = (await _AniShell.GetRealExtentionAsync(_FormFile)).Item2,
                         SizeOnDisk = _FormFile.Length
                     });
 
@@ -154,56 +157,7 @@ namespace PrancaBeauty.Application.Common.FtpWapper
             }
         }
 
-        private async Task<(string, string)> GetRealExtentionAsync(IFormFile _FormFile)
-        {
-            try
-            {
-                if (_FormFile is null)
-                    throw new ArgumentInvalidException(nameof(_FormFile));
-
-                byte[] buffer = new byte[50];
-                await _FormFile.OpenReadStream().ReadAsync(buffer, 0, 50);
-
-                string hex = "";
-                foreach (var item in buffer)
-                {
-                    hex += string.Format("{0:X}", item) + " ";
-                }
-
-                if (hex.StartsWith("89 50 4E 47 0D 0A 1A 0A"))
-                {
-                    return ("png", "image/png");
-                }
-                else if (hex.StartsWith("FF D8"))
-                {
-                    return ("jpg", "image/jpg");
-                }
-                else if (hex.StartsWith("47 49 46 38 37 61") || hex.StartsWith("47 49 46 38 39 61"))
-                {
-                    return ("gif", "image/gif");
-                }
-                else if (hex.StartsWith("42 4D"))
-                {
-                    return ("bmp", "image/bmp");
-                }
-                else
-                    throw new FileFormatException("File format not found.");
-            }
-            catch (FileFormatException ex)
-            {
-                _Logger.Error(ex);
-                return (null, null);
-            }
-            catch (ArgumentInvalidException)
-            {
-                return (null, null);
-            }
-            catch (Exception ex)
-            {
-                _Logger.Error(ex);
-                return (null, null);
-            }
-        }
+       
 
         public async Task<bool> RemoveFileAsync(string FileId, string UserId = null)
         {

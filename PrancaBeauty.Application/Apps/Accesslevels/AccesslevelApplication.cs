@@ -1,5 +1,6 @@
 ﻿using Framework.Common.ExMethods;
 using Framework.Common.Utilities.Paging;
+using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Apps.AccesslevelsRoles;
@@ -7,7 +8,6 @@ using PrancaBeauty.Application.Apps.Roles;
 using PrancaBeauty.Application.Apps.Users;
 using PrancaBeauty.Application.Contracts.AccessLevels;
 using PrancaBeauty.Application.Contracts.Results;
-using PrancaBeauty.Application.Exceptions;
 using PrancaBeauty.Domin.Users.AccessLevelAgg.Contracts;
 using PrancaBeauty.Domin.Users.AccessLevelAgg.Entities;
 using System;

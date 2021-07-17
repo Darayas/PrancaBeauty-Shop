@@ -1,10 +1,10 @@
 ﻿using Framework.Common.ExMethods;
 using Framework.Common.Utilities.Paging;
+using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Contracts.Address;
 using PrancaBeauty.Application.Contracts.Results;
-using PrancaBeauty.Application.Exceptions;
 using PrancaBeauty.Domin.Users.AddressAgg.Contracts;
 using PrancaBeauty.Domin.Users.AddressAgg.Entities;
 using System;

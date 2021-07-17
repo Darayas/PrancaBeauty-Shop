@@ -1,11 +1,11 @@
 ﻿using Framework.Common.ExMethods;
 using Framework.Common.Utilities.Paging;
+using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Common.FtpWapper;
 using PrancaBeauty.Application.Contracts.Categories;
 using PrancaBeauty.Application.Contracts.Results;
-using PrancaBeauty.Application.Exceptions;
 using PrancaBeauty.Domin.Categories.Contracts;
 using PrancaBeauty.Domin.Categories.Entities;
 using System;

@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PrancaBeauty.Application.Exceptions
+namespace Framework.Exceptions
 {
     public class FileFormatException : Exception
     {

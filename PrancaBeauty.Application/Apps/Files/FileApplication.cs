@@ -1,9 +1,9 @@
 ﻿using Framework.Common.ExMethods;
+using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Contracts.Files;
 using PrancaBeauty.Application.Contracts.Results;
-using PrancaBeauty.Application.Exceptions;
 using PrancaBeauty.Domin.FileServer.FileAgg.Contracts;
 using PrancaBeauty.Domin.FileServer.FileAgg.Entities;
 using System;

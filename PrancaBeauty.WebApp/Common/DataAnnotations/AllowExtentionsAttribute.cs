@@ -1,4 +1,4 @@
-﻿using Framework.Common.ExMethods;
+﻿using Framework.Application.Services.Security.AntiShell;
 using Framework.Infrastructure;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -9,20 +9,20 @@ using System.Threading.Tasks;
 
 namespace PrancaBeauty.WebApp.Common.DataAnnotations
 {
-    public class FileSizeAttribute : ValidationAttribute
+    public class AllowExtentionsAttribute : ValidationAttribute
     {
-        private long _MaxFileSize { get; set; }
-        private long _MinFileSize { get; set; }
-        public FileSizeAttribute(long MaxFileSize, long MinFileSize = 1)
+        private readonly string _MimeTypes;
+        public AllowExtentionsAttribute(string MimeTypes)
         {
-            _MaxFileSize = MaxFileSize;
-            _MinFileSize = MinFileSize;
+            _MimeTypes = MimeTypes;
         }
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             if (value == null)
                 return ValidationResult.Success;
+
+            var _AntiShell = (IAniShell)validationContext.GetService(typeof(IAniShell));
 
             if (value is List<IFormFile> || value is IFormFile[])
             {
@@ -36,9 +36,14 @@ namespace PrancaBeauty.WebApp.Common.DataAnnotations
                 {
                     if (item != null)
                     {
-                        if (item.Length < _MinFileSize || item.Length > _MaxFileSize)
-                        {
+                        if (!_AntiShell.ValidationExtentionAsync(item).Result)
                             _Message += Environment.NewLine + GetMessage(validationContext, item.FileName);
+                        else
+                        {
+                            if (!_MimeTypes.Contains(item.ContentType))
+                            {
+                                _Message += Environment.NewLine + GetMessage(validationContext, item.FileName);
+                            }
                         }
                     }
                 }
@@ -52,9 +57,14 @@ namespace PrancaBeauty.WebApp.Common.DataAnnotations
                 if (_FormFile == null)
                     return ValidationResult.Success;
 
-                if (_FormFile.Length < _MinFileSize || _FormFile.Length > _MaxFileSize)
-                {
+                if (!_AntiShell.ValidationExtentionAsync(_FormFile).Result)
                     return new ValidationResult(GetMessage(validationContext, _FormFile.FileName));
+                else
+                {
+                    if (_MimeTypes.Contains(_FormFile.ContentType))
+                    {
+                        return new ValidationResult(GetMessage(validationContext, _FormFile.FileName));
+                    }
                 }
             }
 
@@ -75,13 +85,9 @@ namespace PrancaBeauty.WebApp.Common.DataAnnotations
             if (ErrorMessage.Contains("{1}"))
                 ErrorMessage.Replace("{1}", FileName);
 
-            // MinFileSize
+            // MimeTypes
             if (ErrorMessage.Contains("{2}"))
-                ErrorMessage.Replace("{2}", _MinFileSize.ToString() + "byte");
-
-            // MaxFileSize
-            if (ErrorMessage.Contains("{3}"))
-                ErrorMessage.Replace("{3}", _MaxFileSize.GetFileSizeName());
+                ErrorMessage.Replace("{2}", _MimeTypes);
 
             return ErrorMessage;
         }

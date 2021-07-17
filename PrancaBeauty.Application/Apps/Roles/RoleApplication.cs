@@ -1,8 +1,8 @@
-﻿using Framework.Infrastructure;
+﻿using Framework.Exceptions;
+using Framework.Infrastructure;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Contracts.Roles;
-using PrancaBeauty.Application.Exceptions;
 using PrancaBeauty.Domin.Users.RoleAgg.Contracts;
 using PrancaBeauty.Domin.Users.RoleAgg.Entities;
 using PrancaBeauty.Domin.Users.UserAgg.Entities;

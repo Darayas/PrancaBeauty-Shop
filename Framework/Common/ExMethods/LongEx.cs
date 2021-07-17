@@ -11,25 +11,17 @@ namespace Framework.Common.ExMethods
     {
         public static string GetFileSizeName(this long FileSize)
         {
-            // Byte
-            if (FileSize < 1024)
+            string[] Names = { "B", "KB", "MB", "GB", "TB", "ExB" };
+            double Number = FileSize;
+            int index = 0;
+
+            while (Number > 1024)
             {
-                return $"{FileSize} Byte";
-            }
-            else if (FileSize >= 1024 && FileSize < 1048576)
-            {
-                return $"{FileSize / 1024} KB";
-            }
-            else if (FileSize >= 1048576 && FileSize < ‭1073741824‬)
-            {
-                return $"{FileSize / 1024 / 1024}.{(FileSize % 1048576).ToString().Trim('0')} MB";
-            }
-            else if (FileSize >= 1073741824 && FileSize < ‭‭1099511627776‬‬)
-            {
-                return $"{(FileSize / 1024 / 1024/1024)}.{(FileSize % 1073741824).ToString().Trim('0')} MB";
+                Number = Number / 1024;
+                index++;
             }
 
-            return "~";
+            return Number.ToString("0.#") + " " + Names[index];
         }
     }
 }

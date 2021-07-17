@@ -351,6 +351,10 @@
   <data name="FileInfoIsDuplicated" xml:space="preserve">
     <value>اطلاعات فایل وارد شده تکراری میباشد.</value>
   </data>
+  <data name="FileSizeMsg" xml:space="preserve">
+    <value>{0} باید بین {2} تا {3} باشد
+</value>
+  </data>
   <data name="First" xml:space="preserve">
     <value>اولین</value>
   </data>

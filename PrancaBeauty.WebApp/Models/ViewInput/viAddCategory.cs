@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using PrancaBeauty.WebApp.Common.DataAnnotations;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PrancaBeauty.WebApp.Models.ViewInput
 {
@@ -15,6 +12,7 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
 
         [Display(Name = "CategoryImage")]
         [RequiredFile(ErrorMessage = "RequiredFileMsg")]
+        [FileSize(102400, ErrorMessage = "FileSizeMsg")]
         public IFormFile Image { get; set; }
 
         [Display(Name = "Name")]

@@ -25,6 +25,8 @@ namespace PrancaBeauty.WebApp
                     if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == Environments.Development)
                     {
                         webBuilder.UseSeriLog_Console();
+                        webBuilder.UseSeriLog_SqlServer();
+
                     }
                     else
                     {

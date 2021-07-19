@@ -20,6 +20,8 @@ namespace Framework.Application.Services.Security.AntiShell
         public async Task<bool> ValidationExtentionAsync(IFormFile _FormFile)
         {
             var _FileInfo = await GetRealExtentionAsync(_FormFile);
+            if (_FileInfo.Item1 == null)
+                return false;
 
             if (_FileInfo.Item1 == "png")
             {
@@ -28,7 +30,7 @@ namespace Framework.Application.Services.Security.AntiShell
             }
             else if (_FileInfo.Item1 == "jpg")
             {
-                if (_FormFile.ContentType != _FileInfo.Item2)
+                if (_FormFile.ContentType != _FileInfo.Item2 /*jpg*/ && _FormFile.ContentType != "image/jpeg")
                     return false;
             }
             else if (_FileInfo.Item1 == "gif")

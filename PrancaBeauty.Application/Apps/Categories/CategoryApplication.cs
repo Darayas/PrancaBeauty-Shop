@@ -195,5 +195,25 @@ namespace PrancaBeauty.Application.Apps.Categories
                 return new OperationResult().Failed("Error500");
             }
         }
+
+        public async Task<OutGetForEdit> GetForEditAsync(string Id)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(Id))
+                    throw new ArgumentInvalidException($"'{nameof(Id)}' cannot be null or whitespace.");
+
+
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
+            }
+        }
     }
 }

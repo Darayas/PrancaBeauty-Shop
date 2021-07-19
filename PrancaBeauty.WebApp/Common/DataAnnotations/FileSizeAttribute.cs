@@ -65,25 +65,25 @@ namespace PrancaBeauty.WebApp.Common.DataAnnotations
         {
             var _Localizer = (ILocalizer)validationContext.GetService(typeof(ILocalizer));
 
-            ErrorMessage = _Localizer[ErrorMessage];
+           var ErrMessage = _Localizer[ErrorMessage];
 
             // DisplayName
-            if (ErrorMessage.Contains("{0}"))
-                ErrorMessage.Replace("{0}", validationContext.DisplayName);
+            if (ErrMessage.Contains("{0}"))
+                ErrMessage = ErrMessage.Replace("{0}", validationContext.DisplayName);
 
             // FileName
-            if (ErrorMessage.Contains("{1}"))
-                ErrorMessage.Replace("{1}", FileName);
+            if (ErrMessage.Contains("{1}"))
+                ErrMessage = ErrMessage.Replace("{1}", FileName);
 
             // MinFileSize
-            if (ErrorMessage.Contains("{2}"))
-                ErrorMessage.Replace("{2}", _MinFileSize.ToString() + "byte");
+            if (ErrMessage.Contains("{2}"))
+                ErrMessage = ErrMessage.Replace("{2}", _MinFileSize.ToString() + "byte");
 
             // MaxFileSize
-            if (ErrorMessage.Contains("{3}"))
-                ErrorMessage.Replace("{3}", _MaxFileSize.GetFileSizeName());
+            if (ErrMessage.Contains("{3}"))
+                ErrMessage = ErrMessage.Replace("{3}", _MaxFileSize.GetFileSizeName());
 
-            return ErrorMessage;
+            return ErrMessage;
         }
     }
 }

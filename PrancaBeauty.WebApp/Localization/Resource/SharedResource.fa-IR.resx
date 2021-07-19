@@ -306,6 +306,9 @@
   <data name="EditAddress" xml:space="preserve">
     <value>ویرایش آدرس ها</value>
   </data>
+  <data name="EditCategory" xml:space="preserve">
+    <value>ویرایش دسته</value>
+  </data>
   <data name="EditPassword" xml:space="preserve">
     <value>ویرایش کلمه عبور</value>
   </data>

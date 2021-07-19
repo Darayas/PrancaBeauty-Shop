@@ -61,7 +61,7 @@ namespace PrancaBeauty.WebApp.Common.DataAnnotations
                     return new ValidationResult(GetMessage(validationContext, _FormFile.FileName));
                 else
                 {
-                    if (_MimeTypes.Contains(_FormFile.ContentType))
+                    if (!_MimeTypes.Contains(_FormFile.ContentType))
                     {
                         return new ValidationResult(GetMessage(validationContext, _FormFile.FileName));
                     }
@@ -75,21 +75,21 @@ namespace PrancaBeauty.WebApp.Common.DataAnnotations
         {
             var _Localizer = (ILocalizer)validationContext.GetService(typeof(ILocalizer));
 
-            ErrorMessage = _Localizer[ErrorMessage];
+            var ErrMessage = _Localizer[ErrorMessage];
 
             // DisplayName
-            if (ErrorMessage.Contains("{0}"))
-                ErrorMessage.Replace("{0}", validationContext.DisplayName);
+            if (ErrMessage.Contains("{0}"))
+                ErrMessage = ErrMessage.Replace("{0}", validationContext.DisplayName);
 
             // FileName
-            if (ErrorMessage.Contains("{1}"))
-                ErrorMessage.Replace("{1}", FileName);
+            if (ErrMessage.Contains("{1}"))
+                ErrMessage = ErrMessage.Replace("{1}", FileName);
 
             // MimeTypes
-            if (ErrorMessage.Contains("{2}"))
-                ErrorMessage.Replace("{2}", _MimeTypes);
+            if (ErrMessage.Contains("{2}"))
+                ErrMessage = ErrMessage.Replace("{2}", _MimeTypes);
 
-            return ErrorMessage;
+            return ErrMessage;
         }
     }
 }

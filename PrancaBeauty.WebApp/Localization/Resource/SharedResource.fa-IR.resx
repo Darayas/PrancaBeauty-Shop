@@ -759,6 +759,9 @@
   <data name="UserPanel" xml:space="preserve">
     <value>پنل کاربری</value>
   </data>
+  <data name="View" xml:space="preserve">
+    <value>نمایش</value>
+  </data>
   <data name="Yes" xml:space="preserve">
     <value>بله</value>
   </data>

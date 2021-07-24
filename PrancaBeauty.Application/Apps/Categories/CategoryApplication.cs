@@ -21,12 +21,14 @@ namespace PrancaBeauty.Application.Apps.Categories
         private readonly ILogger _Logger;
         private readonly IFtpWapper _FtpWapper;
         private readonly ICategoryRepository _CategoryRepository;
+        private readonly ICategory_TranslateRepository _Category_TranslateRepository;
 
-        public CategoryApplication(ICategoryRepository categoryRepository, ILogger logger, IFtpWapper ftpWapper)
+        public CategoryApplication(ICategoryRepository categoryRepository, ILogger logger, IFtpWapper ftpWapper, ICategory_TranslateRepository category_TranslateRepository)
         {
             _CategoryRepository = categoryRepository;
             _Logger = logger;
             _FtpWapper = ftpWapper;
+            _Category_TranslateRepository = category_TranslateRepository;
         }
 
         public async Task<(OutPagingData, List<OutGetListForAdminPage>)> GetListForAdminPageAsync(string LangId, string Title, string ParentTitle, int PageNum, int Take)
@@ -237,6 +239,67 @@ namespace PrancaBeauty.Application.Apps.Categories
             {
                 _Logger.Error(ex);
                 return null;
+            }
+        }
+
+        public async Task<OperationResult> SaveEditAsync(InpSaveEdit Input)
+        {
+            try
+            {
+                if (Input is null)
+                    throw new ArgumentInvalidException(nameof(Input));
+
+                var qData = await _CategoryRepository.Get
+                                                     .Where(a => a.Id == Guid.Parse(Input.Id))
+                                                     .SingleOrDefaultAsync();
+
+                if (qData == null)
+                    return new OperationResult().Failed("IdNotFound");
+
+                qData.Name = Input.Name;
+                qData.ParentId = Guid.Parse(Input.ParentId);
+                qData.Sort = Input.Sort;
+
+                #region ویرایش ترجمه
+                {
+                    // حذف کلیه ی ترجمه ها
+                    var qTranslates = await _Category_TranslateRepository.Get.Where(a => a.CategoryId == Guid.Parse(Input.Id)).ToListAsync();
+                    await _Category_TranslateRepository.DeleteRangeAsync(qTranslates, default);
+
+                    // افزودن ترجمه های جدید
+                    await _Category_TranslateRepository.AddRangeAsync(Input.LstTranslate.Select(a => new tblCategory_Translates
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        CategoryId = Guid.Parse(Input.Id),
+                        Description = a.Description,
+                        LangId = Guid.Parse(a.LangId),
+                        Title = a.Title
+                    }).AsEnumerable(), default);
+                }
+                #endregion
+
+                #region ویرایش تصویر
+                if (Input.Image != null)
+                {
+                    if (qData.ImageId != null)
+                    {
+                        // حذف تصویر قبلی
+                    }
+
+                    // اپلود تصویر جدید
+                }
+                #endregion
+
+
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
             }
         }
     }

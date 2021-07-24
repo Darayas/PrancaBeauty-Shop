@@ -87,6 +87,7 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddScoped<IProvinceRepository, ProvinceRepository>();
             services.AddScoped<ICityRepository, CityRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<ICategory_TranslateRepository, Category_TranslateRepository>();
 
             // Applications
             services.AddScoped<IUserApplication, UserApplication>();

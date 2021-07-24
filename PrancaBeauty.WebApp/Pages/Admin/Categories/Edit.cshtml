@@ -33,21 +33,28 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <form id="frmAddCategory">
+                            <form id="frmEditCategory">
+                                <input asp-for="Input.Id" type="hidden" />
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-4">
                                             <LoadComponent id="CategoryParent"
                                                            context="HttpContext"
                                                            url="/@ViewData["culture"]/Shared/Compo/ComboCategories"
-                                                           data='new viCompo_Combo_Categories { CategoryId=Model.Input.ParentId,FieldName="Input.ParentId" }'></LoadComponent>
+                                                           data='new viCompo_Combo_Categories { CategoryId = Model.Input.ParentId, FieldName = "Input.ParentId" }'></LoadComponent>
                                         </div>
                                         <div class="col-md-4">
                                             <label asp-for="Input.Name"></label>
                                             <input asp-for="Input.Name" class="form-control" />
                                         </div>
                                         <div class="col-md-3">
-                                            <label asp-for="Input.Image"></label>@(Model.Input.ImgCategoryUrl!=null? $"<span>(<a onclick=\"ShowImgInModal('{Model.Input.ImgCategoryUrl}')\">{Localizer["View"].ToString()}</a>)</span>":"")
+                                            <label asp-for="Input.Image"></label>@{
+                                                if (Model.Input.ImgCategoryUrl != null)
+                                                {
+                                                    <span>
+                                                        (<a onclick="ShowImgInModal('@Model.Input.ImgCategoryUrl')">@Localizer["View"].ToString()</a>)
+                                                    </span>
+                                                }}
                                             <input asp-for="Input.Image" class="form-control" />
                                         </div>
                                         <div class="col-md-1">
@@ -106,7 +113,7 @@
                                     <div class="row">
                                         <div class="col-md-12 text-left">
                                             <hr />
-                                            <button onclick="SendForm('/@ViewData["Culture"]/Admin/Category/Add', 'frmAddCategory')" type="button" class="btn btn-success">@Localizer["Save"]</button>
+                                            <button onclick="SendForm('/@ViewData["Culture"]/Admin/Category/Edit/@Model.Input.Id', 'frmEditCategory')" type="button" class="btn btn-success">@Localizer["Save"]</button>
                                             <button onclick="GotoList()" type="button" class="btn btn-warning">@Localizer["GotoList"]</button>
                                         </div>
                                     </div>
@@ -137,7 +144,18 @@
         }
 
         function ShowImgInModal(_ImgUrl) {
-
+            $('#ShowImgModal img').attr('src', _ImgUrl);
+            $('#ShowImgModal').modal();
         }
     </script>
 }
+
+<div id="ShowImgModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <img src="" />
+            </div>
+        </div>
+    </div>
+</div>

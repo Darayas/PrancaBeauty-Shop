@@ -79,7 +79,7 @@
         <div class="dropdown-menu dropdown-menu-left">
             @if (User.IsInRole(Roles.CanEditCategory))
             {
-                <a href="/@ViewData["Culture"]/Admin/Category/Edit/#:Id#" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i>@Localizer["Edit"]</a>
+                <a href="/@ViewData["Culture"]/Admin/Category/Edit/#:Id#?ReturnUrl=@Request.GetCurrentUrl()" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i>@Localizer["Edit"]</a>
             }
             @if (User.IsInRole(Roles.CanRemoveCategory))
             {

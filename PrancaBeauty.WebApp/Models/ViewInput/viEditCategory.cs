@@ -21,6 +21,8 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
         [AllowExtentions("image/jpg,image/jpeg", ErrorMessage = "AllowExtentionsMsg")]
         public IFormFile Image { get; set; }
 
+        public string ImgCategoryUrl { get; set; }
+
         [Display(Name = "Name")]
         [Required(ErrorMessage = "RequiredMsg")]
         [StringLength(100, MinimumLength = 1, ErrorMessage = "StringLengthMsg")]

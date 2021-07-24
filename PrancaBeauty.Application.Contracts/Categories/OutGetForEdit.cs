@@ -10,7 +10,7 @@ namespace PrancaBeauty.Application.Contracts.Categories
     {
         public string Id { get; set; }
         public string ParentId { get; set; }
-        public string ImgCategoryUrll { get; set; }
+        public string ImgCategoryUrl { get; set; }
         public string Name { get; set; }
         public int Sort { get; set; }
         public List<OutGetForEdit_Translate> LstTranslate { get; set; }

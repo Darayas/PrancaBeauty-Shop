@@ -37,22 +37,23 @@ namespace PrancaBeauty.WebApp.Pages.Admin.Categories
         {
             ViewData["ReturnUrl"] = ReturnUrl ?? $"/{CultureInfo.CurrentCulture.Parent.Name}/Admin/Category/List";
 
+            var qData = await _CategoryApplication.GetForEditAsync(Input.Id);
+            Input = _Mapper.Map<viEditCategory>(qData);
+
             var qLang = await _LanguageApplication.GetAllLanguageForSiteLangAsync();
-
-            
-
             foreach (var item in qLang)
             {
-                Input.LstTranslate.Add(new viEditCategory_Translate()
-                {
-                    LangId = item.Id
-                });
+                if (!Input.LstTranslate.Any(a => a.LangId == item.Id))
+                    Input.LstTranslate.Add(new viEditCategory_Translate()
+                    {
+                        LangId = item.Id
+                    });
             }
 
             return Page();
         }
 
-        [BindProperty]
+        [BindProperty(SupportsGet = true)]
         public viEditCategory Input { get; set; }
     }
 }

@@ -4,3 +4,140 @@
     ViewData["Title"] = Localizer["EditCategory"];
     Layout = "~/pages/shared/_AdminLayout.cshtml";
 }
+
+@inject PrancaBeauty.Application.Apps.Languages.ILanguageApplication _LanguageApplication
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">@ViewData["Title"]</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-left">
+                        <li class="breadcrumb-item"><a href="/@CultureInfo.CurrentCulture.Parent.Name/admin/index">@Localizer["Dashborad"]</a></li>
+                        <li class="breadcrumb-item"><a href="/@CultureInfo.CurrentCulture.Parent.Name/Admin/Category/List">@Localizer["ListCategories"]</a></li>
+                        <li class="breadcrumb-item active">@ViewData["Title"]</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <form id="frmAddCategory">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <LoadComponent id="CategoryParent"
+                                                           context="HttpContext"
+                                                           url="/@ViewData["culture"]/Shared/Compo/ComboCategories"
+                                                           data='new viCompo_Combo_Categories { CategoryId=Model.Input.ParentId,FieldName="Input.ParentId" }'></LoadComponent>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label asp-for="Input.Name"></label>
+                                            <input asp-for="Input.Name" class="form-control" />
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label asp-for="Input.Image"></label>@(Model.Input.ImgCategoryUrl!=null? $"<span>(<a onclick=\"ShowImgInModal('{Model.Input.ImgCategoryUrl}')\">{Localizer["View"].ToString()}</a>)</span>":"")
+                                            <input asp-for="Input.Image" class="form-control" />
+                                        </div>
+                                        <div class="col-md-1">
+                                            <label asp-for="Input.Sort"></label>
+                                            <input asp-for="Input.Sort" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="k-lang">
+                                    @(Html.Kendo().TabStrip()
+                                          .Name("Tab_Lang")
+                                          .TabPosition(TabStripTabPosition.Top)
+                                          .Animation(animation =>
+                                          {
+                                              animation.Open(config =>
+                                              {
+                                                  config.Fade(FadeDirection.In);
+                                              });
+                                          })
+                                          .SelectedIndex(0)
+                                          .Items(async items =>
+                                          {
+                                              int i = 0;
+                                              foreach (var item in Model.Input.LstTranslate)
+                                              {
+                                                  var qLang =await _LanguageApplication.GetLangDetailsByIdAsync(item.LangId);
+                                                  items.Add()
+                                                           .ImageUrl(qLang.FlagUrl)
+                                                           .Text(qLang.NativeName)
+                                                           .Content(@<text>
+                                                                          <input type="hidden" asp-for="Input.LstTranslate[i].LangId" />
+                                                                          <div class="form-group">
+                                                                              <div class="row">
+                                                                                  <div class="col-md-6">
+                                                                                      <label asp-for="Input.LstTranslate[i].Title"></label>
+                                                                                      <input asp-for="Input.LstTranslate[i].Title" class="form-control" />
+                                                                                  </div>
+                                                                              </div>
+                                                                          </div>
+                                                                          <div class="form-group">
+                                                                              <div class="row">
+                                                                                  <div class="col-md-12">
+                                                                                      <label asp-for="Input.LstTranslate[i].Description"></label>
+                                                                                      <textarea asp-for="Input.LstTranslate[i].Description" class="form-control" rows="4"></textarea>
+                                                                                  </div>
+                                                                              </div>
+                                                                          </div>
+                                                                      @{ i++;}
+                                                                      </text>);
+                                              }
+
+                                          }))
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-12 text-left">
+                                            <hr />
+                                            <button onclick="SendForm('/@ViewData["Culture"]/Admin/Category/Add', 'frmAddCategory')" type="button" class="btn btn-success">@Localizer["Save"]</button>
+                                            <button onclick="GotoList()" type="button" class="btn btn-warning">@Localizer["GotoList"]</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
+</div>
+
+@section scripts{
+    <script src="~/lib/input-mask/jquery.inputmask.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#Input_Name').inputmask({
+                regex: '[a-zA-Z_]*',
+                placeholder: ''
+            });
+        });
+
+        function GotoList() {
+            location.href = '@ViewData["ReturnUrl"]';
+        }
+
+        function ShowImgInModal(_ImgUrl) {
+
+        }
+    </script>
+}

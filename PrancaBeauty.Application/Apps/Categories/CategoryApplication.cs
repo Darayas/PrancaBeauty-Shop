@@ -203,7 +203,31 @@ namespace PrancaBeauty.Application.Apps.Categories
                 if (string.IsNullOrWhiteSpace(Id))
                     throw new ArgumentInvalidException($"'{nameof(Id)}' cannot be null or whitespace.");
 
+                var qData = await _CategoryRepository.Get
+                                                    .Where(a => a.Id == Guid.Parse(Id))
+                                                    .Select(a => new OutGetForEdit
+                                                    {
+                                                        Id = a.Id.ToString(),
+                                                        Name = a.Name,
+                                                        ParentId = a.ParentId.ToString(),
+                                                        Sort = a.Sort,
+                                                        ImgCategoryUrl = a.tblFiles.tblFileServer.HttpDomin
+                                                                            + a.tblFiles.tblFileServer.HttpPath
+                                                                            + a.tblFiles.Path
+                                                                            + a.tblFiles.FileName,
+                                                        LstTranslate = a.tblCategory_Translates.Select(b => new OutGetForEdit_Translate
+                                                        {
+                                                            LangId = b.LangId.ToString(),
+                                                            Title = b.Title,
+                                                            Description = b.Description
+                                                        }).ToList()
+                                                    })
+                                                    .SingleOrDefaultAsync();
 
+                if (qData == null)
+                    return null;
+
+                return qData;
             }
             catch (ArgumentInvalidException ex)
             {

@@ -24,6 +24,8 @@ namespace PrancaBeauty.WebApp.Mapping
             CreateMap<viAddCategory_Translate, InpAddCategory_Translate>();
 
             CreateMap<PrancaBeauty.Application.Contracts.Categories.OutGetListForAdminPage, vmCategoriesList>();
+            CreateMap<OutGetForEdit, viEditCategory>();
+            CreateMap<OutGetForEdit_Translate, viEditCategory_Translate>();
 
             CreateMap<PrancaBeauty.Application.Contracts.Countries.OutGetListForCombo, vmCompo_Combo_Countries>();
             CreateMap<PrancaBeauty.Application.Contracts.Province.OutGetListForCombo, vmCompo_Combo_Province>();

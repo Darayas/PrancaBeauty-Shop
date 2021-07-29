@@ -12,27 +12,49 @@
 
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="/Admin/css/adminlte.min.css">
+
     <!-- Google Font: Source Sans Pro -->
     @*<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">*@
-
-    <!-- bootstrap rtl -->
-    <link rel="stylesheet" href="/Admin/css/bootstrap-rtl.min.css">
 
     <!-- KendoUI CSS -->
     <link href="~/lib/KendoUI/css/kendo.common-bootstrap.min.css" rel="stylesheet" />
     <link href="~/lib/KendoUI/css/kendo.bootstrap.min.css" rel="stylesheet" />
-    <link href="~/lib/KendoUI/css/kendo.rtl.min.css" rel="stylesheet" />
+
     <link href="~/lib/KendoUI/css/kendo.theme.min.css" rel="stylesheet" />
+
+    @if (ViewData["LangDir"].ToString() == "rtl")
+    {
+        <!-- bootstrap rtl -->
+        <link rel="stylesheet" href="/Admin/css/bootstrap-rtl.min.css">
+
+        <!-- Theme style -->
+        <link rel="stylesheet" href="/Admin/css/adminlte.min.css">
+
+        <!-- template rtl version -->
+        <link rel="stylesheet" href="/Admin/css/custom-style-rtl.css">
+
+        <!-- Kendo Rtl -->
+        <link href="~/lib/KendoUI/css/kendo.rtl.min.css" rel="stylesheet" />
+    }
+    else
+    {
+        <!-- bootstrap -->
+        <link href="~/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
+
+        <!-- Theme style -->
+        <link rel="stylesheet" href="/Admin/css/adminlte.min.css">
+
+        <!-- template rtl version -->
+        <link rel="stylesheet" href="/Admin/css/custom-style-ltr.css">
+
+        <!-- Kendo Ltr -->
+        <link href="~/lib/KendoUI/css/kendo.ltr.min.css" rel="stylesheet" />
+    }
 
     <!-- SweetAlert -->
     <link href="~/lib/sweetalert/sweetalert.min.css" rel="stylesheet" />
 
     @RenderSection("Styles", false)
-
-    <!-- template rtl version -->
-    <link rel="stylesheet" href="/Admin/css/custom-style.css">
 
     <!-- jQuery -->
     <script src="/lib/jquery/jquery.min.js"></script>
@@ -185,7 +207,7 @@
                     <nav class="mt-2">
                         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                             <!-- Add icons to the links using the .nav-icon class
-    with font-awesome or any other icon font library -->
+                            with font-awesome or any other icon font library -->
                             <li class="nav-item">
                                 <a href="/@ViewData["Culture"]/Admin/Index" class="nav-link active">
                                     <i class="nav-icon fa fa-dashboard"></i>
@@ -273,14 +295,14 @@
                                     </a>
                                     <ul class="nav nav-treeview">
                                         @*@if (User.IsInRole(Roles.CanAddUsers))
-                                        {
-                                            <li class="nav-item">
-                                                <a href="#" class="nav-link active">
-                                                    <i class="fa fa-circle-o nav-icon"></i>
-                                                    <p>@Localizer["AddNewUsers"]</p>
-                                                </a>
-                                            </li>
-                                        }*@
+                                            {
+                                                <li class="nav-item">
+                                                    <a href="#" class="nav-link active">
+                                                        <i class="fa fa-circle-o nav-icon"></i>
+                                                        <p>@Localizer["AddNewUsers"]</p>
+                                                    </a>
+                                                </li>
+                                            }*@
                                         @if (User.IsInRole(Roles.CanViewListUsers))
                                         {
                                             <li class="nav-item">

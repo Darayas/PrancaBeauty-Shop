@@ -46,5 +46,11 @@
     "inputFiles": [
       "wwwroot/lib/KendoUI/css/kendo.common-bootstrap.css"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/lib/KendoUI/css/kendo.ltr.min.css",
+    "inputFiles": [
+      "wwwroot/lib/KendoUI/css/kendo.ltr.css"
+    ]
   }
 ]

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using PrancaBeauty.Application.Apps.Languages;
 using PrancaBeauty.Application.Apps.Settings;
+using PrancaBeauty.WebApp.Common.Utility.IpAddress;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -27,6 +28,7 @@ namespace PrancaBeauty.WebApp.Middlewares
                 var _SettingApplication = (ISettingApplication)context.RequestServices.GetService(typeof(ISettingApplication));
                 var _LanguageApplication = (ILanguageApplication)context.RequestServices.GetService(typeof(ILanguageApplication));
 
+
                 if (Paths.Any())
                 {
                     // زبان انتخاب شده
@@ -37,7 +39,7 @@ namespace PrancaBeauty.WebApp.Middlewares
                     {
                         string SiteUrl = (await _SettingApplication.GetSettingAsync(CultureInfo.CurrentCulture.Name)).SiteUrl;
 
-                        Paths[0] = "fa";
+                        Paths[0] = GetLangByIpAddress(context);
 
                         context.Response.StatusCode = 301;
                         context.Response.Redirect(SiteUrl + "/" + string.Join("/", Paths));
@@ -46,11 +48,26 @@ namespace PrancaBeauty.WebApp.Middlewares
                 else
                 {
                     string SiteUrl = (await _SettingApplication.GetSettingAsync(CultureInfo.CurrentCulture.Name)).SiteUrl;
-                    context.Response.Redirect(SiteUrl + "/fa");
+
+                    string _LangAbbr = GetLangByIpAddress(context);
+
+                    context.Response.Redirect(SiteUrl + $"/{_LangAbbr}");
                 }
             }
 
             await _Next(context);
+        }
+
+        private string GetLangByIpAddress(HttpContext context)
+        {
+            var _IpAddressChecker = (IIpAddressChecker)context.RequestServices.GetService(typeof(IIpAddressChecker));
+            
+            var _LangAbbrByIpAddress = _IpAddressChecker.GetLangAbbr(context.Connection.RemoteIpAddress.ToString());
+            
+            if (_LangAbbrByIpAddress == null)
+                return "fa";
+            else
+                return _LangAbbrByIpAddress;
         }
     }
 }

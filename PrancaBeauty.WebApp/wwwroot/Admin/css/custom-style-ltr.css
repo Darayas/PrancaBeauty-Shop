@@ -44,6 +44,7 @@
 
 body {
     font-family: 'Vazir', sans-serif !important;
+    text-align: left;
 }
 
 .ltr {
@@ -83,11 +84,11 @@ ul {
 /* sidebar */
 
 .sidebar {
-    direction: ltr;
+    direction: rtl;
 }
 
     .sidebar > div:first-child {
-        direction: rtl;
+        direction: ltr;
     }
 
 .control-sidebar, .control-sidebar:before {
@@ -107,8 +108,9 @@ ul {
 }
 
 .nav-sidebar .nav-link > p > .right {
-    left: 1rem;
-    right: auto;
+    right: 1rem;
+    left: auto;
+    transform: rotate(-180deg);
 }
 
 .nav-sidebar > .nav-item .nav-icon {
@@ -118,15 +120,15 @@ ul {
 
 @media (min-width: 992px) {
     .sidebar-mini.sidebar-collapse .content-wrapper, .sidebar-mini.sidebar-collapse .main-footer, .sidebar-mini.sidebar-collapse .main-header {
-        margin-right: 4.6rem;
-        margin-left: 0;
+        margin-left: 4.6rem;
+        margin-right: 0;
     }
 }
 
 @media (min-width: 992px) {
     .sidebar-mini.sidebar-collapse .content-wrapper, .sidebar-mini.sidebar-collapse .main-footer, .sidebar-mini.sidebar-collapse .main-header {
-        margin-left: 0rem !important;
-        margin-right: 4.6rem !important;
+        margin-right: 0rem !important;
+        margin-left: 4.6rem !important;
         z-index: 100;
     }
 
@@ -139,9 +141,9 @@ ul {
 
 @media (min-width: 768px) {
     .content-wrapper, .main-footer, .main-header {
-        transition: margin-right .3s ease-in-out;
-        margin-right: 250px;
-        margin-left: 0;
+        transition: margin-left .3s ease-in-out;
+        margin-left: 250px;
+        margin-right: 0;
         z-index: 1000;
     }
 }
@@ -149,8 +151,8 @@ ul {
 @media (max-width: 991.98px) {
     .main-sidebar, .main-sidebar:before {
         box-shadow: none !important;
-        margin-right: -250px;
-        margin-left: 0;
+        margin-left: -250px;
+        margin-right: 0;
     }
 
     .content-wrapper, .content-wrapper:before, .main-footer, .main-footer:before, .main-header, .main-header:before {
@@ -168,8 +170,8 @@ ul {
 }
 
 .main-sidebar {
-    left: auto;
-    right: 0;
+    left: 0;
+    right: auto;
 }
 
 /* Cards */
@@ -300,10 +302,20 @@ a:not([href]) {
 }
 
     .k-dropdown-wrap .k-input {
-        position:relative;
+        position: relative;
         top: 5px !important;
     }
 
     .k-dropdown-wrap .k-select .k-icon {
         top: 5px !important;
     }
+
+.content-header .breadcrumb {
+    float: right;
+}
+
+@media (max-width: 576px) {
+    .content-header .breadcrumb {
+        float: left;
+    }
+}

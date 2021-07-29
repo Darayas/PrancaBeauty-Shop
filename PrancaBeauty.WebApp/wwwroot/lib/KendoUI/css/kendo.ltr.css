@@ -617,7 +617,7 @@
 }
 
     .k-lang .k-panelbar .k-tabstrip-items .k-item .k-image, .k-lang .k-panelbar .k-tabstrip-items .k-item .k-sprite, .k-lang .k-tabstrip-items .k-item .k-image, .k-lang .k-tabstrip-items .k-item .k-sprite {
-        margin: -3px -6px 0 3px
+        margin: -3px 3px 0 3px
     }
 
 .k-lang .k-tabstrip-prev {

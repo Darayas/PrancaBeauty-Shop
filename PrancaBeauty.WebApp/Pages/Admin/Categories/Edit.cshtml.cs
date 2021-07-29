@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Categories;
 using PrancaBeauty.Application.Apps.Languages;
+using PrancaBeauty.Application.Contracts.Categories;
 using PrancaBeauty.WebApp.Authentication;
 using PrancaBeauty.WebApp.Common.ExMethod;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
@@ -71,7 +72,15 @@ namespace PrancaBeauty.WebApp.Pages.Admin.Categories
                 if (!ModelState.IsValid)
                     return _MsgBox.ModelStateMsg(ModelState.GetErrors());
 
-
+                var _Result = await _CategoryApplication.SaveEditAsync(_Mapper.Map<InpSaveEdit>(Input));
+                if (_Result.IsSucceeded)
+                {
+                    return _MsgBox.SuccessMsg(_Localizer[_Result.Message], "GotoList()");
+                }
+                else
+                {
+                    return _MsgBox.FaildMsg(_Localizer[_Result.Message]);
+                }
             }
             catch (Exception ex)
             {

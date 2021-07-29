@@ -16,6 +16,7 @@
                       .DataValueField("id")
                       .DataImageUrlField("ImgUrl")
                       .LoadOnDemand(false)
+                      .ValuePrimitive(false)
                       .Value(Model.Input.CategoryId)
                       .DataSource(ds=> ds.Custom().Transport(t=> t.Read(r=>r.Url(Url.Page("Compo_Combo_Categories", "Read",new { culture=CultureInfo.CurrentCulture.Parent.Name }))))))
 </div>

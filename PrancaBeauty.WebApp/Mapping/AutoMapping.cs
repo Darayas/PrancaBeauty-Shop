@@ -22,6 +22,8 @@ namespace PrancaBeauty.WebApp.Mapping
             CreateMap<viCompo_EditAddress, InpEditAddress>();
             CreateMap<viAddCategory, InpAddCategory>();
             CreateMap<viAddCategory_Translate, InpAddCategory_Translate>();
+            CreateMap<viEditCategory, InpSaveEdit>();
+            CreateMap<viEditCategory_Translate, InpSaveEdit_Translate>();
 
             CreateMap<PrancaBeauty.Application.Contracts.Categories.OutGetListForAdminPage, vmCategoriesList>();
             CreateMap<OutGetForEdit, viEditCategory>();

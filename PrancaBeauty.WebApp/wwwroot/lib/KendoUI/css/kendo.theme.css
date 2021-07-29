@@ -15,3 +15,7 @@
 .k-widget * {
     box-sizing: border-box !important;
 }
+
+.k-widget.k-treeview {
+    color: #4e4e4e;
+}

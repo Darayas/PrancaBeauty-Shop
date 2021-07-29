@@ -130,11 +130,15 @@ namespace PrancaBeauty.Application.Apps.Categories
                     });
                 }
 
-                var FileUploadResult = await _FtpWapper.UplaodCategoryImgAsync(Input.Image, Input.Name);
-                if (FileUploadResult == null)
-                    return new OperationResult().Failed("Error500");
+                if (Input.Image != null)
+                {
+                    var FileUploadResult = await _FtpWapper.UplaodCategoryImgAsync(Input.Image, Input.Name);
+                    if (FileUploadResult == null)
+                        return new OperationResult().Failed("Error500");
 
-                tCategory.ImageId = Guid.Parse(FileUploadResult);
+                    tCategory.ImageId = Guid.Parse(FileUploadResult);
+                }
+
                 await _CategoryRepository.AddAsync(tCategory, default, true);
 
                 return new OperationResult().Succeeded();
@@ -257,8 +261,12 @@ namespace PrancaBeauty.Application.Apps.Categories
                     return new OperationResult().Failed("IdNotFound");
 
                 qData.Name = Input.Name;
-                qData.ParentId = Guid.Parse(Input.ParentId);
                 qData.Sort = Input.Sort;
+
+                if (Input.ParentId != null)
+                    qData.ParentId = Guid.Parse(Input.ParentId);
+                else
+                    qData.ParentId = null;
 
                 #region ویرایش ترجمه
                 {
@@ -284,13 +292,19 @@ namespace PrancaBeauty.Application.Apps.Categories
                     if (qData.ImageId != null)
                     {
                         // حذف تصویر قبلی
+                        await _FtpWapper.RemoveFileAsync(qData.ImageId.Value.ToString());
+                        qData.tblFiles = null;
                     }
 
                     // اپلود تصویر جدید
+                    string _FileId = await _FtpWapper.UplaodCategoryImgAsync(Input.Image, qData.Name);
+                    qData.ImageId = Guid.Parse(_FileId);
                 }
                 #endregion
 
+                await _CategoryRepository.UpdateAsync(qData, default);
 
+                return new OperationResult().Succeeded();
             }
             catch (ArgumentInvalidException ex)
             {

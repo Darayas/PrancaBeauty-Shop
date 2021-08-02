@@ -1,6 +1,7 @@
 ﻿using Framework.Domain;
 using Microsoft.AspNetCore.Identity;
 using PrancaBeauty.Domin.FileServer.FileAgg.Entities;
+using PrancaBeauty.Domin.Product.ProductAgg.Entities;
 using PrancaBeauty.Domin.Region.LanguagesAgg.Entities;
 using PrancaBeauty.Domin.Users.AccessLevelAgg.Entities;
 using PrancaBeauty.Domin.Users.AddressAgg.Entities;
@@ -28,6 +29,7 @@ namespace PrancaBeauty.Domin.Users.UserAgg.Entities
         public virtual tblLanguages tblLanguages { get; set; }
         public virtual ICollection<tblFiles> tblFiles { get; set; }
         public virtual ICollection<tblAddress> tblAddress { get; set; }
+        public virtual ICollection<tblProducts> tblProducts { get; set; }
 
     }
 }

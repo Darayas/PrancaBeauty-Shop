@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PrancaBeauty.Domin.TemplatesAgg.Entitis
+namespace PrancaBeauty.Domin.Templates.TemplatesAgg.Entitis
 {
     public class tblTamplates : IEntity
     {

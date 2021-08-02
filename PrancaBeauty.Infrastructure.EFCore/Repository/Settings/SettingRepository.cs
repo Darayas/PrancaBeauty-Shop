@@ -1,6 +1,6 @@
 ﻿using Framework.Infrastructure;
-using PrancaBeauty.Domin.StettingsAgg.Contracts;
-using PrancaBeauty.Domin.StettingsAgg.Entities;
+using PrancaBeauty.Domin.Settings.SettingsAgg.Contracts;
+using PrancaBeauty.Domin.Settings.SettingsAgg.Entities;
 using PrancaBeauty.Infrastructure.EFCore.Context;
 using System;
 using System.Collections.Generic;

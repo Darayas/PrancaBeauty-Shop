@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PrancaBeauty.Domin.StettingsAgg.Entities
+namespace PrancaBeauty.Domin.Settings.SettingsAgg.Entities
 {
     public class tblSettings : IEntity
     {

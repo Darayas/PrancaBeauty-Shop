@@ -1,7 +1,7 @@
 ﻿using Framework.Common.ExMethods;
 using Framework.Infrastructure;
 using PrancaBeauty.Domin.Region.LanguagesAgg.Entities;
-using PrancaBeauty.Domin.StettingsAgg.Entities;
+using PrancaBeauty.Domin.Settings.SettingsAgg.Entities;
 using PrancaBeauty.Infrastructure.EFCore.Context;
 using System;
 using System.Collections.Generic;

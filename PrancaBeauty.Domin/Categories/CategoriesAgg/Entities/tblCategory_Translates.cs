@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PrancaBeauty.Domin.Categories.Entities
+namespace PrancaBeauty.Domin.Categories.CategoriesAgg.Entities
 {
     public class tblCategory_Translates : IEntity
     {

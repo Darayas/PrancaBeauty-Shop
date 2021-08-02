@@ -1,6 +1,6 @@
 ﻿using Framework.Infrastructure;
-using PrancaBeauty.Domin.Categories.Contracts;
-using PrancaBeauty.Domin.Categories.Entities;
+using PrancaBeauty.Domin.Categories.CategoriesAgg.Contracts;
+using PrancaBeauty.Domin.Categories.CategoriesAgg.Entities;
 using PrancaBeauty.Infrastructure.EFCore.Context;
 using System;
 using System.Collections.Generic;

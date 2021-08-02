@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PrancaBeauty.Domin.KeywordAgg.Contracts
+namespace PrancaBeauty.Domin.Keywords.KeywordAgg.Contracts
 {
     public interface IKeywordRepository : IRepository<tblProducts>
     {

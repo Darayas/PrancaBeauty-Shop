@@ -1,5 +1,5 @@
 ﻿using Framework.Domain;
-using PrancaBeauty.Domin.Categories.Entities;
+using PrancaBeauty.Domin.Categories.CategoriesAgg.Entities;
 using PrancaBeauty.Domin.FileServer.ServerAgg.Entities;
 using PrancaBeauty.Domin.Region.CountryAgg.Entities;
 using PrancaBeauty.Domin.Region.LanguagesAgg.Entities;

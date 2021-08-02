@@ -1,12 +1,12 @@
 ﻿using Framework.Domain;
-using PrancaBeauty.Domin.TemplatesAgg.Entitis;
+using PrancaBeauty.Domin.Templates.TemplatesAgg.Entitis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PrancaBeauty.Domin.TemplatesAgg.Contracts
+namespace PrancaBeauty.Domin.Templates.TemplatesAgg.Contracts
 {
     public interface ITemplateRepository : IRepository<tblTamplates>
     {

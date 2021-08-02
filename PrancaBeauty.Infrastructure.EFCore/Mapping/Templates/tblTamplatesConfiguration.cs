@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using PrancaBeauty.Domin.TemplatesAgg.Entitis;
+using PrancaBeauty.Domin.Templates.TemplatesAgg.Entitis;
 using PrancaBeauty.Infrastructure.EFCore.Contracts;
 using System;
 using System.Collections.Generic;

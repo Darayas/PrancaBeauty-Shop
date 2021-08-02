@@ -1,11 +1,11 @@
 ﻿using Framework.Domain;
-using PrancaBeauty.Domin.Categories.Entities;
+using PrancaBeauty.Domin.Categories.CategoriesAgg.Entities;
 using PrancaBeauty.Domin.FileServer.FileAgg.Entities;
 using PrancaBeauty.Domin.Region.CityAgg.Entities;
 using PrancaBeauty.Domin.Region.CountryAgg.Entities;
 using PrancaBeauty.Domin.Region.ProvinceAgg.Entities;
-using PrancaBeauty.Domin.StettingsAgg.Entities;
-using PrancaBeauty.Domin.TemplatesAgg.Entitis;
+using PrancaBeauty.Domin.Settings.SettingsAgg.Entities;
+using PrancaBeauty.Domin.Templates.TemplatesAgg.Entitis;
 using PrancaBeauty.Domin.Users.UserAgg.Entities;
 using System;
 using System.Collections.Generic;

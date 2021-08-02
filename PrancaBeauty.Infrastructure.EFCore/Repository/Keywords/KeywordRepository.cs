@@ -1,5 +1,5 @@
 ﻿using Framework.Infrastructure;
-using PrancaBeauty.Domin.KeywordAgg.Contracts;
+using PrancaBeauty.Domin.Keywords.KeywordAgg.Contracts;
 using PrancaBeauty.Domin.Product.ProductAgg.Entities;
 using PrancaBeauty.Infrastructure.EFCore.Context;
 using System;

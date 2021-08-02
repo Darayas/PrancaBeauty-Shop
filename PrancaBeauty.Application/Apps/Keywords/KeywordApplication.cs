@@ -1,4 +1,4 @@
-﻿using PrancaBeauty.Domin.KeywordAgg.Contracts;
+﻿using PrancaBeauty.Domin.Keywords.KeywordAgg.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;

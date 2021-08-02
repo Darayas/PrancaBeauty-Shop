@@ -1,7 +1,7 @@
 ﻿using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Contracts.Settings;
-using PrancaBeauty.Domin.StettingsAgg.Contracts;
+using PrancaBeauty.Domin.Settings.SettingsAgg.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;

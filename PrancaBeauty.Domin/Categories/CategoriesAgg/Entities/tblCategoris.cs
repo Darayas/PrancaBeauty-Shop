@@ -1,12 +1,13 @@
 ﻿using Framework.Domain;
 using PrancaBeauty.Domin.FileServer.FileAgg.Entities;
+using PrancaBeauty.Domin.Product.ProductAgg.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PrancaBeauty.Domin.Categories.Entities
+namespace PrancaBeauty.Domin.Categories.CategoriesAgg.Entities
 {
     public class tblCategoris : IEntity
     {
@@ -20,5 +21,6 @@ namespace PrancaBeauty.Domin.Categories.Entities
         public virtual tblFiles tblFiles { get; set; }
         public virtual ICollection<tblCategoris> tblCategory_Childs { get; set; }
         public virtual ICollection<tblCategory_Translates> tblCategory_Translates { get; set; }
+        public virtual ICollection<tblProducts> tblProducts { get; set; }
     }
 }

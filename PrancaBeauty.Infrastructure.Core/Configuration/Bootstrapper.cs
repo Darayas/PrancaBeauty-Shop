@@ -15,7 +15,9 @@ using PrancaBeauty.Application.Apps.Cities;
 using PrancaBeauty.Application.Apps.Countries;
 using PrancaBeauty.Application.Apps.Files;
 using PrancaBeauty.Application.Apps.FileServer;
+using PrancaBeauty.Application.Apps.Keywords;
 using PrancaBeauty.Application.Apps.Languages;
+using PrancaBeauty.Application.Apps.Products;
 using PrancaBeauty.Application.Apps.Province;
 using PrancaBeauty.Application.Apps.Roles;
 using PrancaBeauty.Application.Apps.Settings;
@@ -25,6 +27,8 @@ using PrancaBeauty.Application.Common.FtpWapper;
 using PrancaBeauty.Domin.Categories.Contracts;
 using PrancaBeauty.Domin.FileServer.FileAgg.Contracts;
 using PrancaBeauty.Domin.FileServer.ServerAgg.Contracts;
+using PrancaBeauty.Domin.KeywordAgg.Contracts;
+using PrancaBeauty.Domin.Product.ProductAgg.Contracts;
 using PrancaBeauty.Domin.Region.CityAgg.Contracts;
 using PrancaBeauty.Domin.Region.CountryAgg.Contracts;
 using PrancaBeauty.Domin.Region.LanguagesAgg.Contracts;
@@ -42,6 +46,8 @@ using PrancaBeauty.Infrastructure.EFCore.Repository.Categories;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Cities;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Counties;
 using PrancaBeauty.Infrastructure.EFCore.Repository.FileServer;
+using PrancaBeauty.Infrastructure.EFCore.Repository.Keywords;
+using PrancaBeauty.Infrastructure.EFCore.Repository.Product;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Province;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Region;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Roles;
@@ -88,6 +94,8 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddScoped<ICityRepository, CityRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<ICategory_TranslateRepository, Category_TranslateRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IKeywordRepository, KeywordRepository>();
 
             // Applications
             services.AddScoped<IUserApplication, UserApplication>();
@@ -104,6 +112,8 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddScoped<IProvinceApplication, ProvinceApplication>();
             services.AddScoped<ICityApplication, CityApplication>();
             services.AddScoped<ICategoryApplication, CategoryApplication>();
+            services.AddScoped<IProductApplication, ProductApplication>();
+            services.AddScoped<IKeywordApplication, KeywordApplication>();
         }
     }
 }

@@ -26,7 +26,6 @@ namespace PrancaBeauty.WebApp
                     {
                         webBuilder.UseSeriLog_Console();
                         webBuilder.UseSeriLog_SqlServer();
-
                     }
                     else
                     {

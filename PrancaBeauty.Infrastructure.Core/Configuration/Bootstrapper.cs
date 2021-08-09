@@ -18,6 +18,7 @@ using PrancaBeauty.Application.Apps.FileServer;
 using PrancaBeauty.Application.Apps.Keywords;
 using PrancaBeauty.Application.Apps.KeywordsProducts;
 using PrancaBeauty.Application.Apps.Languages;
+using PrancaBeauty.Application.Apps.ProductPrices;
 using PrancaBeauty.Application.Apps.Products;
 using PrancaBeauty.Application.Apps.Province;
 using PrancaBeauty.Application.Apps.Roles;
@@ -31,6 +32,7 @@ using PrancaBeauty.Domin.FileServer.ServerAgg.Contracts;
 using PrancaBeauty.Domin.Keywords.KeywordAgg.Contracts;
 using PrancaBeauty.Domin.Keywords.Keywords_Products.Contracts;
 using PrancaBeauty.Domin.Product.ProductAgg.Contracts;
+using PrancaBeauty.Domin.Product.ProductPricesAgg.Contracts;
 using PrancaBeauty.Domin.Region.CityAgg.Contracts;
 using PrancaBeauty.Domin.Region.CountryAgg.Contracts;
 using PrancaBeauty.Domin.Region.LanguagesAgg.Contracts;
@@ -51,6 +53,7 @@ using PrancaBeauty.Infrastructure.EFCore.Repository.FileServer;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Keywords;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Keywords_Products;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Product;
+using PrancaBeauty.Infrastructure.EFCore.Repository.ProductPrices;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Province;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Region;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Roles;
@@ -100,6 +103,7 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IKeywordRepository, KeywordRepository>();
             services.AddScoped<IKeywords_ProductsRepository, Keywords_ProductsRepository>();
+            services.AddScoped<IProductPricesRepository, ProductPricesRepository>();
 
             // Applications
             services.AddScoped<IUserApplication, UserApplication>();
@@ -119,6 +123,7 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddScoped<IProductApplication, ProductApplication>();
             services.AddScoped<IKeywordApplication, KeywordApplication>();
             services.AddScoped<IKeywordProductsApplication, KeywordProductsApplication>();
+            services.AddScoped<IProductPriceApplication, ProductPriceApplication>();
         }
     }
 }

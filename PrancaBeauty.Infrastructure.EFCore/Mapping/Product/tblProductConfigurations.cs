@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace PrancaBeauty.Infrastructure.EFCore.Mapping.Product
 {
-    public class ProductConfigurations : IEntityTypeConfiguration<tblProducts>, IEntityConf
+    public class tblProductConfigurations : IEntityTypeConfiguration<tblProducts>, IEntityConf
     {
         public void Configure(EntityTypeBuilder<tblProducts> builder)
         {

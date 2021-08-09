@@ -1,6 +1,7 @@
 ﻿using Framework.Domain;
 using PrancaBeauty.Domin.Categories.CategoriesAgg.Entities;
 using PrancaBeauty.Domin.FileServer.ServerAgg.Entities;
+using PrancaBeauty.Domin.Product.ProductImagesAgg.Entities;
 using PrancaBeauty.Domin.Region.CountryAgg.Entities;
 using PrancaBeauty.Domin.Region.LanguagesAgg.Entities;
 using PrancaBeauty.Domin.Users.UserAgg.Entities;
@@ -28,6 +29,7 @@ namespace PrancaBeauty.Domin.FileServer.FileAgg.Entities
 
         public virtual tblFileServers tblFileServer { get; set; }
         public virtual tblUsers tblUser { get; set; }
+        public virtual tblProductImages tblProductImages { get; set; }
         public virtual ICollection<tblLanguages> tblLanguages { get; set; }
         public virtual ICollection<tblCountries> tblCountries { get; set; }
         public virtual ICollection<tblCategoris> tblCategoris { get; set; }

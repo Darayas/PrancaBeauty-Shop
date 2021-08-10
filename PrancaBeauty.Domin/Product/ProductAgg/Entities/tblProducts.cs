@@ -3,6 +3,7 @@ using PrancaBeauty.Domin.Categories.CategoriesAgg.Entities;
 using PrancaBeauty.Domin.Keywords.Keywords_Products.Entities;
 using PrancaBeauty.Domin.Product.ProductImagesAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductPricesAgg.Entities;
+using PrancaBeauty.Domin.Product.ProductReviewsAgg.Entities;
 using PrancaBeauty.Domin.Users.UserAgg.Entities;
 using System;
 using System.Collections.Generic;
@@ -27,5 +28,6 @@ namespace PrancaBeauty.Domin.Product.ProductAgg.Entities
         public virtual ICollection<tblKeywords_Products> tblKeywords_Products { get; set; }
         public virtual ICollection<tblProductPrices> tblProductPrices { get; set; }
         public virtual ICollection<tblProductImages> tblProductImages { get; set; }
+        public virtual ICollection<tblProductReviews> tblProductReviews { get; set; }
     }
 }

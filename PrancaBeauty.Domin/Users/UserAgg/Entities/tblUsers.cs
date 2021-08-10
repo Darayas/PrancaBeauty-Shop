@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Identity;
 using PrancaBeauty.Domin.FileServer.FileAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductPricesAgg.Entities;
+using PrancaBeauty.Domin.Product.ProductReviewsAgg.Entities;
+using PrancaBeauty.Domin.Product.ProductReviewsLikesAgg.Entities;
 using PrancaBeauty.Domin.Region.LanguagesAgg.Entities;
 using PrancaBeauty.Domin.Users.AccessLevelAgg.Entities;
 using PrancaBeauty.Domin.Users.AddressAgg.Entities;
@@ -32,6 +34,9 @@ namespace PrancaBeauty.Domin.Users.UserAgg.Entities
         public virtual ICollection<tblAddress> tblAddress { get; set; }
         public virtual ICollection<tblProducts> tblProducts { get; set; }
         public virtual ICollection<tblProductPrices> tblProductPrices { get; set; }
+        public virtual ICollection<tblProductReviews> tblProductReviews { get; set; }
+        public virtual ICollection<tblProductReviewsLikes> tblProductReviewsLikes { get; set; }
+
 
     }
 }

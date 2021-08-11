@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Identity;
 using PrancaBeauty.Domin.FileServer.FileAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductAgg.Entities;
+using PrancaBeauty.Domin.Product.ProductAskAgg.Entities;
+using PrancaBeauty.Domin.Product.ProductAskLikesAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductPricesAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductReviewsAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductReviewsLikesAgg.Entities;
@@ -26,8 +28,6 @@ namespace PrancaBeauty.Domin.Users.UserAgg.Entities
         public DateTime? LastTrySentSms { get; set; }
         public bool IsActive { get; set; }
 
-
-
         public virtual tblAccessLevels tblAccessLevels { get; set; }
         public virtual tblLanguages tblLanguages { get; set; }
         public virtual ICollection<tblFiles> tblFiles { get; set; }
@@ -36,7 +36,7 @@ namespace PrancaBeauty.Domin.Users.UserAgg.Entities
         public virtual ICollection<tblProductPrices> tblProductPrices { get; set; }
         public virtual ICollection<tblProductReviews> tblProductReviews { get; set; }
         public virtual ICollection<tblProductReviewsLikes> tblProductReviewsLikes { get; set; }
-
-
+        public virtual ICollection<tblProductAsk> tblProductAsk { get; set; }
+        public virtual ICollection<tblProductAskLikes> tblProductAskLikes { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Framework.Domain;
 using PrancaBeauty.Domin.Product.ProductAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductReviewsLikesAgg.Entities;
+using PrancaBeauty.Domin.Product.ProductReviewsMediaAgg.Entities;
 using PrancaBeauty.Domin.Users.UserAgg.Entities;
 using System;
 using System.Collections.Generic;
@@ -25,5 +26,6 @@ namespace PrancaBeauty.Domin.Product.ProductReviewsAgg.Entities
         public virtual tblProducts tblProducts { get; set; }
         public virtual tblUsers tblUsers { get; set; }
         public virtual ICollection<tblProductReviewsLikes> tblProductReviewsLikes { get; set; }
+        public virtual ICollection<tblProductReviewsMedia> tblProductReviewsMedia { get; set; }
     }
 }

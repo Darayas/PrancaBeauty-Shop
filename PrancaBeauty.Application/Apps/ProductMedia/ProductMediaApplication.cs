@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PrancaBeauty.Application.Apps.ProductImages
+namespace PrancaBeauty.Application.Apps.ProductMedia
 {
-    public class ProductImagesApplication : IProductImagesApplication
+    public class ProductMediaApplication : IProductMediaApplication
     {
 
     }

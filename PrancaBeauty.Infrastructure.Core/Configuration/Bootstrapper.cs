@@ -19,10 +19,12 @@ using PrancaBeauty.Application.Apps.Keywords;
 using PrancaBeauty.Application.Apps.KeywordsProducts;
 using PrancaBeauty.Application.Apps.Languages;
 using PrancaBeauty.Application.Apps.ProductAsk;
-using PrancaBeauty.Application.Apps.ProductImages;
+using PrancaBeauty.Application.Apps.ProductAskLikes;
+using PrancaBeauty.Application.Apps.ProductMedia;
 using PrancaBeauty.Application.Apps.ProductPrices;
 using PrancaBeauty.Application.Apps.ProductReviews;
 using PrancaBeauty.Application.Apps.ProductReviewsLike;
+using PrancaBeauty.Application.Apps.ProductReviewsMedia;
 using PrancaBeauty.Application.Apps.Products;
 using PrancaBeauty.Application.Apps.Province;
 using PrancaBeauty.Application.Apps.Roles;
@@ -37,10 +39,12 @@ using PrancaBeauty.Domin.Keywords.KeywordAgg.Contracts;
 using PrancaBeauty.Domin.Keywords.Keywords_Products.Contracts;
 using PrancaBeauty.Domin.Product.ProductAgg.Contracts;
 using PrancaBeauty.Domin.Product.ProductAskAgg.Contarcts;
-using PrancaBeauty.Domin.Product.ProductImagesAgg.Contracts;
+using PrancaBeauty.Domin.Product.ProductAskLikesAgg.Contracts;
+using PrancaBeauty.Domin.Product.ProductMediaAgg.Contracts;
 using PrancaBeauty.Domin.Product.ProductPricesAgg.Contracts;
 using PrancaBeauty.Domin.Product.ProductReviewsAgg.Contracts;
 using PrancaBeauty.Domin.Product.ProductReviewsLikesAgg.Contracts;
+using PrancaBeauty.Domin.Product.ProductReviewsMediaAgg.Contracts;
 using PrancaBeauty.Domin.Region.CityAgg.Contracts;
 using PrancaBeauty.Domin.Region.CountryAgg.Contracts;
 using PrancaBeauty.Domin.Region.LanguagesAgg.Contracts;
@@ -62,10 +66,12 @@ using PrancaBeauty.Infrastructure.EFCore.Repository.Keywords;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Keywords_Products;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Product;
 using PrancaBeauty.Infrastructure.EFCore.Repository.ProductAsk;
-using PrancaBeauty.Infrastructure.EFCore.Repository.ProductImages;
+using PrancaBeauty.Infrastructure.EFCore.Repository.ProductAskLikes;
+using PrancaBeauty.Infrastructure.EFCore.Repository.ProductMedia;
 using PrancaBeauty.Infrastructure.EFCore.Repository.ProductPrices;
 using PrancaBeauty.Infrastructure.EFCore.Repository.ProductReviews;
 using PrancaBeauty.Infrastructure.EFCore.Repository.ProductReviewsLike;
+using PrancaBeauty.Infrastructure.EFCore.Repository.ProductReviewsMedia;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Province;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Region;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Roles;
@@ -116,10 +122,12 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddScoped<IKeywordRepository, KeywordRepository>();
             services.AddScoped<IKeywords_ProductsRepository, Keywords_ProductsRepository>();
             services.AddScoped<IProductPricesRepository, ProductPricesRepository>();
-            services.AddScoped<IProductImagesRepository, ProductImagesRepository>();
+            services.AddScoped<IProductMediaRepository, ProductMediaRepository>();
             services.AddScoped<IProductReviewsRepository, ProductReviewsRepository>();
             services.AddScoped<IProductReviewsLikeRepository, ProductReviewsLikeRepository>();
             services.AddScoped<IProductAskRepository, ProductAskRepository>();
+            services.AddScoped<IProductAskLikesRepository, ProductAskLikesRepository>();
+            services.AddScoped<IProductReviewsMediaRepository, ProductReviewsMediaRepository>();
 
             // Applications
             services.AddScoped<IUserApplication, UserApplication>();
@@ -140,10 +148,12 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddScoped<IKeywordApplication, KeywordApplication>();
             services.AddScoped<IKeywordProductsApplication, KeywordProductsApplication>();
             services.AddScoped<IProductPriceApplication, ProductPriceApplication>();
-            services.AddScoped<IProductImagesApplication, ProductImagesApplication>();
+            services.AddScoped<IProductMediaApplication, ProductMediaApplication>();
             services.AddScoped<IProductReviewsApplication, ProductReviewsApplication>();
             services.AddScoped<IProductReviewsLikeApplication, ProductReviewsLikeApplication>();
             services.AddScoped<IProductAskApplication, ProductAskApplication>();
+            services.AddScoped<IProductAskLikesApplication, ProductAskLikesApplication>();
+            services.AddScoped<IProductReviewsMediaApplication, ProductReviewsMediaApplication>();
         }
     }
 }

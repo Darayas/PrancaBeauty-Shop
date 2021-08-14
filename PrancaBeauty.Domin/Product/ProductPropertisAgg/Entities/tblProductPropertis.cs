@@ -1,4 +1,5 @@
 ﻿using Framework.Domain;
+using PrancaBeauty.Domin.Product.ProductPropertiesValuesAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductTopicAgg.Entities;
 using System;
 using System.Collections.Generic;
@@ -17,5 +18,6 @@ namespace PrancaBeauty.Domin.Product.ProductPropertisAgg.Entities
 
         public virtual tblProductTopic tblProductTopic { get; set; }
         public virtual ICollection<tblProductPropertis_Translates> tblProductPropertis_Translates { get; set; }
+        public virtual ICollection<tblProductPropertiesValues> tblProductPropertiesValues { get; set; }
     }
 }

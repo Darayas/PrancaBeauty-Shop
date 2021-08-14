@@ -4,6 +4,7 @@ using PrancaBeauty.Domin.Keywords.Keywords_Products.Entities;
 using PrancaBeauty.Domin.Product.ProductAskAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductMediaAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductPricesAgg.Entities;
+using PrancaBeauty.Domin.Product.ProductPropertiesValuesAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductReviewsAgg.Entities;
 using PrancaBeauty.Domin.Users.UserAgg.Entities;
 using System;
@@ -31,6 +32,8 @@ namespace PrancaBeauty.Domin.Product.ProductAgg.Entities
         public virtual ICollection<tblProductMedia> tblProductMedia { get; set; }
         public virtual ICollection<tblProductReviews> tblProductReviews { get; set; }
         public virtual ICollection<tblProductAsk> tblProductAsk { get; set; }
+        public virtual ICollection<tblProductPropertiesValues> tblProductPropertiesValues { get; set; }
+
 
     }
 }

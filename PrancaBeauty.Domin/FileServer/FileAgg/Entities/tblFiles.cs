@@ -3,7 +3,7 @@ using PrancaBeauty.Domin.Categories.CategoriesAgg.Entities;
 using PrancaBeauty.Domin.FileServer.ServerAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductMediaAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductReviewsMediaAgg.Entities;
-using PrancaBeauty.Domin.Product.ProductTopic;
+using PrancaBeauty.Domin.Product.ProductTopicAgg.Entities;
 using PrancaBeauty.Domin.Region.CountryAgg.Entities;
 using PrancaBeauty.Domin.Region.LanguagesAgg.Entities;
 using PrancaBeauty.Domin.Users.UserAgg.Entities;

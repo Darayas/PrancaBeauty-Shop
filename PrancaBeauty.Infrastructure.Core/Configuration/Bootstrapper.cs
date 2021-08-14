@@ -22,10 +22,12 @@ using PrancaBeauty.Application.Apps.ProductAsk;
 using PrancaBeauty.Application.Apps.ProductAskLikes;
 using PrancaBeauty.Application.Apps.ProductMedia;
 using PrancaBeauty.Application.Apps.ProductPrices;
+using PrancaBeauty.Application.Apps.ProductPropertis;
 using PrancaBeauty.Application.Apps.ProductReviews;
 using PrancaBeauty.Application.Apps.ProductReviewsLike;
 using PrancaBeauty.Application.Apps.ProductReviewsMedia;
 using PrancaBeauty.Application.Apps.Products;
+using PrancaBeauty.Application.Apps.ProductTopic;
 using PrancaBeauty.Application.Apps.Province;
 using PrancaBeauty.Application.Apps.Roles;
 using PrancaBeauty.Application.Apps.Settings;
@@ -42,9 +44,11 @@ using PrancaBeauty.Domin.Product.ProductAskAgg.Contarcts;
 using PrancaBeauty.Domin.Product.ProductAskLikesAgg.Contracts;
 using PrancaBeauty.Domin.Product.ProductMediaAgg.Contracts;
 using PrancaBeauty.Domin.Product.ProductPricesAgg.Contracts;
+using PrancaBeauty.Domin.Product.ProductPropertisAgg.Contracts;
 using PrancaBeauty.Domin.Product.ProductReviewsAgg.Contracts;
 using PrancaBeauty.Domin.Product.ProductReviewsLikesAgg.Contracts;
 using PrancaBeauty.Domin.Product.ProductReviewsMediaAgg.Contracts;
+using PrancaBeauty.Domin.Product.ProductTopicAgg.Contracts;
 using PrancaBeauty.Domin.Region.CityAgg.Contracts;
 using PrancaBeauty.Domin.Region.CountryAgg.Contracts;
 using PrancaBeauty.Domin.Region.LanguagesAgg.Contracts;
@@ -69,9 +73,11 @@ using PrancaBeauty.Infrastructure.EFCore.Repository.ProductAsk;
 using PrancaBeauty.Infrastructure.EFCore.Repository.ProductAskLikes;
 using PrancaBeauty.Infrastructure.EFCore.Repository.ProductMedia;
 using PrancaBeauty.Infrastructure.EFCore.Repository.ProductPrices;
+using PrancaBeauty.Infrastructure.EFCore.Repository.ProductProperties;
 using PrancaBeauty.Infrastructure.EFCore.Repository.ProductReviews;
 using PrancaBeauty.Infrastructure.EFCore.Repository.ProductReviewsLike;
 using PrancaBeauty.Infrastructure.EFCore.Repository.ProductReviewsMedia;
+using PrancaBeauty.Infrastructure.EFCore.Repository.ProductTopic;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Province;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Region;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Roles;
@@ -128,6 +134,9 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddScoped<IProductAskRepository, ProductAskRepository>();
             services.AddScoped<IProductAskLikesRepository, ProductAskLikesRepository>();
             services.AddScoped<IProductReviewsMediaRepository, ProductReviewsMediaRepository>();
+            services.AddScoped<IProductTopicRepository, ProductTopicRepository>();
+            services.AddScoped<IProductTopic_TranslatesRepository, ProductTopic_TranslatesRepository>();
+            services.AddScoped<IProductPropertisRepository, ProductPropertisRepository>();
 
             // Applications
             services.AddScoped<IUserApplication, UserApplication>();
@@ -154,6 +163,8 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddScoped<IProductAskApplication, ProductAskApplication>();
             services.AddScoped<IProductAskLikesApplication, ProductAskLikesApplication>();
             services.AddScoped<IProductReviewsMediaApplication, ProductReviewsMediaApplication>();
+            services.AddScoped<IProductTopicApplication, ProductTopicApplication>();
+            services.AddScoped<IProductPropertisApplication, ProductPropertisApplication>();
         }
     }
 }

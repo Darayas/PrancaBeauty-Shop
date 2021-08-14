@@ -1,6 +1,8 @@
 ﻿using Framework.Domain;
 using PrancaBeauty.Domin.Categories.CategoriesAgg.Entities;
 using PrancaBeauty.Domin.FileServer.FileAgg.Entities;
+using PrancaBeauty.Domin.Product.ProductPropertisAgg.Entities;
+using PrancaBeauty.Domin.Product.ProductTopicAgg.Entities;
 using PrancaBeauty.Domin.Region.CityAgg.Entities;
 using PrancaBeauty.Domin.Region.CountryAgg.Entities;
 using PrancaBeauty.Domin.Region.ProvinceAgg.Entities;
@@ -9,9 +11,6 @@ using PrancaBeauty.Domin.Templates.TemplatesAgg.Entitis;
 using PrancaBeauty.Domin.Users.UserAgg.Entities;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PrancaBeauty.Domin.Region.LanguagesAgg.Entities
 {
@@ -34,6 +33,8 @@ namespace PrancaBeauty.Domin.Region.LanguagesAgg.Entities
         public virtual ICollection<tblCities_Translates> tblCities_Translates { get; set; }
         public virtual ICollection<tblUsers> tblUsers { get; set; }
         public virtual ICollection<tblCategory_Translates> tblCategory_Translates { get; set; }
+        public virtual ICollection<tblProductTopic_Translates> tblProductTopic_Translates { get; set; }
+        public virtual ICollection<tblProductPropertis_Translates> tblProductPropertis_Translates { get; set; }
 
 
 

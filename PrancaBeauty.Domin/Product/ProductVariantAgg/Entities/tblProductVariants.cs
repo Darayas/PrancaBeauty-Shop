@@ -1,4 +1,5 @@
 ﻿using Framework.Domain;
+using PrancaBeauty.Domin.Product.ProductVariantsItemsAgg.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +13,8 @@ namespace PrancaBeauty.Domin.Product.ProductVariantAgg.Entities
         public Guid Id { get; set; }
         public string VariantType { get; set; }
         public string Name { get; set; }
+
+        public virtual ICollection<tblProductVariants_Translates> tblProductVariants_Translates { get; set; }
+        public virtual ICollection<tblProductVariantItems> tblProductVariantItems { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using PrancaBeauty.Domin.Categories.CategoriesAgg.Entities;
 using PrancaBeauty.Domin.FileServer.FileAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductPropertisAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductTopicAgg.Entities;
+using PrancaBeauty.Domin.Product.ProductVariantAgg.Entities;
 using PrancaBeauty.Domin.Region.CityAgg.Entities;
 using PrancaBeauty.Domin.Region.CountryAgg.Entities;
 using PrancaBeauty.Domin.Region.ProvinceAgg.Entities;
@@ -35,6 +36,7 @@ namespace PrancaBeauty.Domin.Region.LanguagesAgg.Entities
         public virtual ICollection<tblCategory_Translates> tblCategory_Translates { get; set; }
         public virtual ICollection<tblProductTopic_Translates> tblProductTopic_Translates { get; set; }
         public virtual ICollection<tblProductPropertis_Translates> tblProductPropertis_Translates { get; set; }
+        public virtual ICollection<tblProductVariants_Translates> tblProductVariants_Translates { get; set; }
 
 
 

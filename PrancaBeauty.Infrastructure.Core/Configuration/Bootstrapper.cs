@@ -29,6 +29,7 @@ using PrancaBeauty.Application.Apps.ProductReviewsLike;
 using PrancaBeauty.Application.Apps.ProductReviewsMedia;
 using PrancaBeauty.Application.Apps.Products;
 using PrancaBeauty.Application.Apps.ProductTopic;
+using PrancaBeauty.Application.Apps.ProductVariantItems;
 using PrancaBeauty.Application.Apps.ProductVariants;
 using PrancaBeauty.Application.Apps.Province;
 using PrancaBeauty.Application.Apps.Roles;
@@ -53,6 +54,7 @@ using PrancaBeauty.Domin.Product.ProductReviewsLikesAgg.Contracts;
 using PrancaBeauty.Domin.Product.ProductReviewsMediaAgg.Contracts;
 using PrancaBeauty.Domin.Product.ProductTopicAgg.Contracts;
 using PrancaBeauty.Domin.Product.ProductVariantAgg.Contracts;
+using PrancaBeauty.Domin.Product.ProductVariantItemsAgg.Contracts;
 using PrancaBeauty.Domin.Region.CityAgg.Contracts;
 using PrancaBeauty.Domin.Region.CountryAgg.Contracts;
 using PrancaBeauty.Domin.Region.LanguagesAgg.Contracts;
@@ -83,6 +85,7 @@ using PrancaBeauty.Infrastructure.EFCore.Repository.ProductReviews;
 using PrancaBeauty.Infrastructure.EFCore.Repository.ProductReviewsLike;
 using PrancaBeauty.Infrastructure.EFCore.Repository.ProductReviewsMedia;
 using PrancaBeauty.Infrastructure.EFCore.Repository.ProductTopic;
+using PrancaBeauty.Infrastructure.EFCore.Repository.ProductVariantItems;
 using PrancaBeauty.Infrastructure.EFCore.Repository.ProductVariants;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Province;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Region;
@@ -146,6 +149,8 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddScoped<IProductPropertisRepository, ProductPropertisRepository>();
             services.AddScoped<IProductPropertiesValuesRepository, ProductPropertiesValuesRepository>();
             services.AddScoped<IProductVariantsRepository, ProductVariantsRepository>();
+            services.AddScoped<IProductVariants_TranslatesRepository, ProductVariants_TranslatesRepository>();
+            services.AddScoped<IProductVariantItemsRepository, ProductVariantItemsRepository>();
 
             // Applications
             services.AddScoped<IUserApplication, UserApplication>();
@@ -176,6 +181,7 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddScoped<IProductPropertisApplication, ProductPropertisApplication>();
             services.AddScoped<IProductPropertiesValuesApplication, ProductPropertiesValuesApplication>();
             services.AddScoped<IProductVariantsApplication, ProductVariantsApplication>();
+            services.AddScoped<IProductVariantItemsApplication, ProductVariantItemsApplication>();
         }
     }
 }

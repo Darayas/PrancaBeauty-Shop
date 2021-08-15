@@ -17,14 +17,15 @@ namespace PrancaBeauty.Infrastructure.EFCore.Mapping.ProductReviews
             builder.HasKey(a => a.Id);
             builder.Property(a => a.Id).IsRequired().HasMaxLength(150);
             builder.Property(a => a.ProductId).IsRequired().HasMaxLength(150);
-            builder.Property(a => a.UserId).IsRequired().HasMaxLength(450);
+            builder.Property(a => a.ProductSellerId).IsRequired(false).HasMaxLength(150);
+            builder.Property(a => a.AuthorUserId).IsRequired().HasMaxLength(450);
             builder.Property(a => a.IpAddress).IsRequired().HasMaxLength(50);
             builder.Property(a => a.Text).IsRequired();
 
             builder.HasOne(a => a.tblUsers)
                    .WithMany(a => a.tblProductReviews)
                    .HasPrincipalKey(a => a.Id)
-                   .HasForeignKey(a => a.UserId)
+                   .HasForeignKey(a => a.AuthorUserId)
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(a => a.tblProducts)
@@ -32,6 +33,12 @@ namespace PrancaBeauty.Infrastructure.EFCore.Mapping.ProductReviews
                    .HasPrincipalKey(a => a.Id)
                    .HasForeignKey(a => a.ProductId)
                    .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasOne(a => a.tblProductSellers)
+                   .WithMany(a => a.tblProductReviews)
+                   .HasPrincipalKey(a => a.Id)
+                   .HasForeignKey(a => a.ProductSellerId)
+                   .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

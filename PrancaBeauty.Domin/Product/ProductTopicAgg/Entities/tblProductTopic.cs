@@ -1,6 +1,7 @@
 ﻿using Framework.Domain;
 using PrancaBeauty.Domin.FileServer.FileAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductPropertisAgg.Entities;
+using PrancaBeauty.Domin.Product.ProductReviewsAttributeAgg.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,5 +19,6 @@ namespace PrancaBeauty.Domin.Product.ProductTopicAgg.Entities
         public virtual tblFiles tblFiles { get; set; }
         public virtual ICollection<tblProductTopic_Translates> tblProductTopic_Translates { get; set; }
         public virtual ICollection<tblProductPropertis> tblProductPropertis { get; set; }
+        public virtual ICollection<tblProductReviewsAttribute> tblProductReviewsAttribute { get; set; }
     }
 }

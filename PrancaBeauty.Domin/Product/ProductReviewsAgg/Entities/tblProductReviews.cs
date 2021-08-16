@@ -1,5 +1,6 @@
 ﻿using Framework.Domain;
 using PrancaBeauty.Domin.Product.ProductAgg.Entities;
+using PrancaBeauty.Domin.Product.ProductReviewsAttributeValuesAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductReviewsLikesAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductReviewsMediaAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductSellerAgg.Entities;
@@ -24,11 +25,13 @@ namespace PrancaBeauty.Domin.Product.ProductReviewsAgg.Entities
         public DateTime Date { get; set; }
         public string IpAddress { get; set; }
         public int CountStar { get; set; }
-
+        public string Advantages { get; set; } // نقاط قوت
+        public string DisAdvantages { get; set; } // نقاط ضعف
         public virtual tblProducts tblProducts { get; set; }
         public virtual tblProductSellers tblProductSellers { get; set; }
         public virtual tblUsers tblUsers { get; set; }
         public virtual ICollection<tblProductReviewsLikes> tblProductReviewsLikes { get; set; }
         public virtual ICollection<tblProductReviewsMedia> tblProductReviewsMedia { get; set; }
+        public virtual ICollection<tblProductReviewsAttributeValues> tblProductReviewsAttributeValues { get; set; }
     }
 }

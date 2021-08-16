@@ -25,6 +25,8 @@ using PrancaBeauty.Application.Apps.ProductPrices;
 using PrancaBeauty.Application.Apps.ProductPropertiesValues;
 using PrancaBeauty.Application.Apps.ProductPropertis;
 using PrancaBeauty.Application.Apps.ProductReviews;
+using PrancaBeauty.Application.Apps.ProductReviewsAttribute;
+using PrancaBeauty.Application.Apps.ProductReviewsAttributeValues;
 using PrancaBeauty.Application.Apps.ProductReviewsLike;
 using PrancaBeauty.Application.Apps.ProductReviewsMedia;
 using PrancaBeauty.Application.Apps.Products;
@@ -51,6 +53,8 @@ using PrancaBeauty.Domin.Product.ProductPricesAgg.Contracts;
 using PrancaBeauty.Domin.Product.ProductPropertiesValuesAgg.Contracts;
 using PrancaBeauty.Domin.Product.ProductPropertisAgg.Contracts;
 using PrancaBeauty.Domin.Product.ProductReviewsAgg.Contracts;
+using PrancaBeauty.Domin.Product.ProductReviewsAttributeAgg.Contracts;
+using PrancaBeauty.Domin.Product.ProductReviewsAttributeValuesAgg.Contracts;
 using PrancaBeauty.Domin.Product.ProductReviewsLikesAgg.Contracts;
 using PrancaBeauty.Domin.Product.ProductReviewsMediaAgg.Contracts;
 using PrancaBeauty.Domin.Product.ProductSellerAgg.Contracts;
@@ -66,6 +70,7 @@ using PrancaBeauty.Domin.Templates.TemplatesAgg.Contracts;
 using PrancaBeauty.Domin.Users.AccessLevelAgg.Contracts;
 using PrancaBeauty.Domin.Users.AddressAgg.Contracts;
 using PrancaBeauty.Domin.Users.RoleAgg.Contracts;
+using PrancaBeauty.Domin.Users.SellerAgg.Contracts;
 using PrancaBeauty.Domin.Users.UserAgg.Contracts;
 using PrancaBeauty.Infrastructure.EFCore.Context;
 using PrancaBeauty.Infrastructure.EFCore.Repository.AccessLevel;
@@ -84,6 +89,9 @@ using PrancaBeauty.Infrastructure.EFCore.Repository.ProductPrices;
 using PrancaBeauty.Infrastructure.EFCore.Repository.ProductProperties;
 using PrancaBeauty.Infrastructure.EFCore.Repository.ProductPropertiesValues;
 using PrancaBeauty.Infrastructure.EFCore.Repository.ProductReviews;
+using PrancaBeauty.Infrastructure.EFCore.Repository.ProductReviewsAttribute;
+using PrancaBeauty.Infrastructure.EFCore.Repository.ProductReviewsAttribute_Translate;
+using PrancaBeauty.Infrastructure.EFCore.Repository.ProductReviewsAttributeValues;
 using PrancaBeauty.Infrastructure.EFCore.Repository.ProductReviewsLike;
 using PrancaBeauty.Infrastructure.EFCore.Repository.ProductReviewsMedia;
 using PrancaBeauty.Infrastructure.EFCore.Repository.ProductSellers;
@@ -93,6 +101,7 @@ using PrancaBeauty.Infrastructure.EFCore.Repository.ProductVariants;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Province;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Region;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Roles;
+using PrancaBeauty.Infrastructure.EFCore.Repository.Sellers;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Settings;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Templates;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Users;
@@ -155,6 +164,11 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddScoped<IProductVariants_TranslatesRepository, ProductVariants_TranslatesRepository>();
             services.AddScoped<IProductVariantItemsRepository, ProductVariantItemsRepository>();
             services.AddScoped<IProductSellersRepsoitory, ProductSellersRepsoitory>();
+            services.AddScoped<ISellersRepository, SellersRepository>();
+            services.AddScoped<ISeller_TranslatesRepository, Seller_TranslatesRepository>();
+            services.AddScoped<IProductReviewsAttributeRepository, ProductReviewsAttributeRepository>();
+            services.AddScoped<IProductReviewsAttribute_TranslateRepository, ProductReviewsAttribute_TranslateRepository>();
+            services.AddScoped<IProductReviewsAttributeValuesRepository, ProductReviewsAttributeValuesRepository>();
 
             // Applications
             services.AddScoped<IUserApplication, UserApplication>();
@@ -187,6 +201,8 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddScoped<IProductVariantsApplication, ProductVariantsApplication>();
             services.AddScoped<IProductVariantItemsApplication, ProductVariantItemsApplication>();
             services.AddScoped<IProductSellersApplication, ProductSellersApplication>();
+            services.AddScoped<IProductReviewsAttributeApplication, ProductReviewsAttributeApplication>();
+            services.AddScoped<IProductReviewsAttributeValuesApplication, ProductReviewsAttributeValuesApplication>();
         }
     }
 }

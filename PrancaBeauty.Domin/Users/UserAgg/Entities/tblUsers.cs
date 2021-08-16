@@ -11,6 +11,7 @@ using PrancaBeauty.Domin.Product.ProductSellerAgg.Entities;
 using PrancaBeauty.Domin.Region.LanguagesAgg.Entities;
 using PrancaBeauty.Domin.Users.AccessLevelAgg.Entities;
 using PrancaBeauty.Domin.Users.AddressAgg.Entities;
+using PrancaBeauty.Domin.Users.SellerAgg.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -28,9 +29,11 @@ namespace PrancaBeauty.Domin.Users.UserAgg.Entities
         public string PasswordPhoneNumber { get; set; }
         public DateTime? LastTrySentSms { get; set; }
         public bool IsActive { get; set; }
+        public bool IsSeller { get; set; }
 
         public virtual tblAccessLevels tblAccessLevels { get; set; }
         public virtual tblLanguages tblLanguages { get; set; }
+        public virtual tblSellers tblSellers { get; set; }
         public virtual ICollection<tblFiles> tblFiles { get; set; }
         public virtual ICollection<tblAddress> tblAddress { get; set; }
         public virtual ICollection<tblProducts> tblProducts { get; set; }

@@ -2,6 +2,7 @@
 using PrancaBeauty.Domin.Categories.CategoriesAgg.Entities;
 using PrancaBeauty.Domin.FileServer.FileAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductPropertisAgg.Entities;
+using PrancaBeauty.Domin.Product.ProductReviewsAttributeAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductTopicAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductVariantAgg.Entities;
 using PrancaBeauty.Domin.Region.CityAgg.Entities;
@@ -9,6 +10,7 @@ using PrancaBeauty.Domin.Region.CountryAgg.Entities;
 using PrancaBeauty.Domin.Region.ProvinceAgg.Entities;
 using PrancaBeauty.Domin.Settings.SettingsAgg.Entities;
 using PrancaBeauty.Domin.Templates.TemplatesAgg.Entitis;
+using PrancaBeauty.Domin.Users.SellerAgg.Entities;
 using PrancaBeauty.Domin.Users.UserAgg.Entities;
 using System;
 using System.Collections.Generic;
@@ -37,6 +39,8 @@ namespace PrancaBeauty.Domin.Region.LanguagesAgg.Entities
         public virtual ICollection<tblProductTopic_Translates> tblProductTopic_Translates { get; set; }
         public virtual ICollection<tblProductPropertis_Translates> tblProductPropertis_Translates { get; set; }
         public virtual ICollection<tblProductVariants_Translates> tblProductVariants_Translates { get; set; }
+        public virtual ICollection<tblSeller_Translates> tblSeller_Translates { get; set; }
+        public virtual ICollection<tblProductReviewsAttribute_Translate> tblProductReviewsAttribute_Translate { get; set; }
 
 
 

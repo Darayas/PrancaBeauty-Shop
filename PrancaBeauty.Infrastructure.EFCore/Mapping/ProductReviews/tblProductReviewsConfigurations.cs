@@ -20,6 +20,8 @@ namespace PrancaBeauty.Infrastructure.EFCore.Mapping.ProductReviews
             builder.Property(a => a.ProductSellerId).IsRequired(false).HasMaxLength(150);
             builder.Property(a => a.AuthorUserId).IsRequired().HasMaxLength(450);
             builder.Property(a => a.IpAddress).IsRequired().HasMaxLength(50);
+            builder.Property(a => a.Advantages).IsRequired(false).HasMaxLength(1000);
+            builder.Property(a => a.DisAdvantages).IsRequired(false).HasMaxLength(1000);
             builder.Property(a => a.Text).IsRequired();
 
             builder.HasOne(a => a.tblUsers)

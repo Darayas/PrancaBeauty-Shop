@@ -12,6 +12,9 @@ namespace PrancaBeauty.WebApp.Pages.Auth.Login
     {
         public IActionResult OnGet(string ReturnUrl = null)
         {
+            if (User.Identity.IsAuthenticated)
+                return Redirect($"/{CultureInfo.CurrentCulture.Parent.Name}/User/Index");
+
             ViewData["ReturnUrl"] = ReturnUrl ?? $"/{CultureInfo.CurrentCulture.Parent.Name}/User/Index";
             return Page();
         }

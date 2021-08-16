@@ -1,0 +1,30 @@
+﻿@page "/{culture}/User/ListProducts"
+@model PrancaBeauty.WebApp.Pages.User.Products.ListModel
+@{
+    ViewData["Title"] = Localizer["ProductList"];
+    Layout = "~/Pages/Shared/_UserLayout.cshtml";
+}
+
+@section breadcrumbs{
+    <div class="breadcrumbs_area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumb_content">
+                        <ul>
+                            <li><a href="/@ViewData["Culture"]">@Localizer["Home"]</a></li>
+                            <li><a href="/@ViewData["Culture"]/User/Index">@Localizer["Dashboard"]</a></li>
+                            <li>@Localizer["ProductList"]</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="row">
+    <div class="col-md-12">
+
+    </div>
+</div>

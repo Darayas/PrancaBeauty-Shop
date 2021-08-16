@@ -630,6 +630,9 @@
   <data name="Previous" xml:space="preserve">
     <value>قبلی</value>
   </data>
+  <data name="ProductList" xml:space="preserve">
+    <value>لیست محصولات</value>
+  </data>
   <data name="ProvinceId" xml:space="preserve">
     <value>استان</value>
   </data>

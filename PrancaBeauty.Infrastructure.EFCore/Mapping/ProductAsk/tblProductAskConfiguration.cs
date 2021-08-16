@@ -25,7 +25,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Mapping.ProductAsk
                    .WithMany(a => a.tblProductAsk_Childs)
                    .HasPrincipalKey(a => a.Id)
                    .HasForeignKey(a => a.AskId)
-                   .OnDelete(DeleteBehavior.Cascade);
+                   .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(a => a.tblProducts)
                    .WithMany(a => a.tblProductAsk)

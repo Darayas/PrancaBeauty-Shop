@@ -39,6 +39,8 @@ namespace PrancaBeauty.WebApp.Pages.Auth
 
         public IActionResult OnGet()
         {
+            if (User.Identity.IsAuthenticated)
+                return Redirect($"/{CultureInfo.CurrentCulture.Parent.Name}/User/Index");
 
             return Page();
         }

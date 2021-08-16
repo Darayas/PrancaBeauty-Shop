@@ -17,7 +17,7 @@ namespace PrancaBeauty.Domin.Product.ProductReviewsAgg.Entities
     {
         public Guid Id { get; set; }
         public Guid ProductId { get; set; }
-        public Guid ProductSellerId { get; set; } // کاربر فروشنده
+        public Guid? ProductSellerId { get; set; } // کاربر فروشنده
         public Guid AuthorUserId { get; set; } // کاربر نویسنده دیدگاه
         public bool IsRead { get; set; }
         public bool IsConfirm { get; set; }

@@ -219,7 +219,6 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
             }
             #endregion
 
-
             #region ManageCategories
             {
                 Guid _Id = new Guid().SequentialGuid();
@@ -299,7 +298,59 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
             }
             #endregion
 
+            #region ManageProducts
+            {
+                Guid _Id = new Guid().SequentialGuid();
+                if (!_repRoles.Get.Any(a => a.Name == "CanManageProducts"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = _Id,
+                        ParentId = null,
+                        PageName = "ManageProductPage",
+                        Sort = 170,
+                        Name = "CanManageProducts",
+                        NormalizedName = "CanManageProducts".ToUpper(),
+                        Description = "توانایی مدیریت محصولات"
+                    }, default, false).Wait();
+                }
+                else
+                {
+                    _Id = _repRoles.Get.Where(a => a.Name == "CanManageProducts").Select(a => a.Id).Single();
+                }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanViewListProducts"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageProductsPage",
+                        Sort = 180,
+                        Name = "CanViewListProducts",
+                        NormalizedName = "CanViewListProducts".ToUpper(),
+                        Description = "توانایی مشاهده لیست محصولات"
+                    }, default, false).Wait();
+                }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanViewListAllUserProducts"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageProductsPage",
+                        Sort = 190,
+                        Name = "CanViewListAllUserProducts",
+                        NormalizedName = "CanViewListAllUserProducts".ToUpper(),
+                        Description = "توانایی مشاهده لیست محصولات همه ی کاربران"
+                    }, default, false).Wait();
+                }
+            }
+            #endregion
+
             _repRoles.SaveChangeAsync().Wait();
+
         }
     }
 }

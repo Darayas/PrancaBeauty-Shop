@@ -31,6 +31,7 @@ namespace PrancaBeauty.Application.Contracts.Products
         IsDelete = 0,
         IsDraft = 1,
         IsConfirm = 2,
-        IsSchedule = 3
+        IsSchedule = 3,
+        UnKnown = 4
     }
 }

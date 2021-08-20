@@ -21,13 +21,13 @@ namespace PrancaBeauty.Infrastructure.EFCore.Mapping.Product
             builder.Property(a => a.Title).IsRequired().HasMaxLength(250);
             builder.Property(a => a.Descreption).IsRequired();
 
-            builder.HasOne(a => a.tblUsers)
+            builder.HasOne(a => a.tblAuthorUser)
                    .WithMany(a => a.tblProducts)
                    .HasPrincipalKey(a => a.Id)
                    .HasForeignKey(a => a.AuthorUserId)
                    .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasOne(a => a.tblCategoris)
+            builder.HasOne(a => a.tblCategory)
                    .WithMany(a => a.tblProducts)
                    .HasPrincipalKey(a => a.Id)
                    .HasForeignKey(a => a.CategoryId)

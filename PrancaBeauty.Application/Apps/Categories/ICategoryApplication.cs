@@ -12,6 +12,7 @@ namespace PrancaBeauty.Application.Apps.Categories
         Task<OutGetForEdit> GetForEditAsync(string Id);
         Task<(OutPagingData, List<OutGetListForAdminPage>)> GetListForAdminPageAsync(string LangId, string Title, string ParentTitle, int PageNum, int Take);
         Task<List<OutGetListForCombo>> GetListForComboAsync(string LangId, string ParentId);
+        Task<IEnumerable<OutGetParentsByChildId>> GetParentsByChildIdAsync(string ChildId);
         Task<OperationResult> RemoveAsync(string Id);
         Task<OperationResult> SaveEditAsync(InpSaveEdit Input);
     }

@@ -30,8 +30,8 @@ namespace PrancaBeauty.Domin.Product.ProductAgg.Entities
         public bool IsDraft { get; set; }
         public bool IsDelete { get; set; }
 
-        public virtual tblUsers tblUsers { get; set; }
-        public virtual tblCategoris tblCategoris { get; set; }
+        public virtual tblUsers tblAuthorUser { get; set; }
+        public virtual tblCategoris tblCategory { get; set; }
         public virtual ICollection<tblKeywords_Products> tblKeywords_Products { get; set; }
         public virtual ICollection<tblProductPrices> tblProductPrices { get; set; }
         public virtual ICollection<tblProductMedia> tblProductMedia { get; set; }

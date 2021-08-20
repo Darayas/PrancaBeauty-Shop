@@ -316,5 +316,40 @@ namespace PrancaBeauty.Application.Apps.Categories
                 return new OperationResult().Failed("Error500");
             }
         }
+
+        public async Task<IEnumerable<OutGetParentsByChildId>> GetParentsByChildIdAsync(string ChildId)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(ChildId))
+                    throw new ArgumentInvalidException($"'{nameof(ChildId)}' cannot be null or whitespace.");
+
+                Guid? ParentId = Guid.Parse(ChildId);
+
+                while (ParentId != null)
+                {
+                    var qData = await _CategoryRepository.Get
+                                                        .Where(a => a.Id == ParentId.Value)
+                                                        .Include(a => a.tblCategory_Parent)
+                                                        .SingleOrDefaultAsync();
+                    if (qData == null)
+                        break;
+
+
+
+                    ParentId = qData.ParentId;
+                }
+
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
+            }
+        }
     }
 }

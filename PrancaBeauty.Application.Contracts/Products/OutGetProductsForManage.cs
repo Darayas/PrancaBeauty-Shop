@@ -15,10 +15,14 @@ namespace PrancaBeauty.Application.Contracts.Products
         public string AuthorImageUrl { get; set; }
         public string Name { get; set; }
         public string Title { get; set; }
+        public string ImgUrl { get; set; }
         public string CategoryName { get; set; }
         public string CategoryTitle { get; set; }
-        public string CategoryMapTitle { get; set; }
+        public string CategoryId { get; set; }
         public OutGetProductsForManage_Status Status { get; set; }
+        public bool IsDelete { get; set; }
+        public bool IsConfirm { get; set; }
+        public bool IsDraft { get; set; }
         public DateTime Date { get; set; }
         public int CountSellers { get; set; }
         public int CountReviews { get; set; }

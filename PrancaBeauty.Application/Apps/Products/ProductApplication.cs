@@ -23,15 +23,21 @@ namespace PrancaBeauty.Application.Apps.Products
             _CategoryApplication = categoryApplication;
         }
 
-        public async Task<(OutPagingData, List<OutGetProductsForManage>)> GetProductsForManageAsync(string LangId, string SellerUserId, string Title, string Name, bool? IsConfirmed, bool? IsDraft, bool? IsDelete)
+        public async Task<(OutPagingData, List<OutGetProductsForManage>)> GetProductsForManageAsync(string LangId, string SellerUserId, string AuthorUserId, string Title, string Name, bool? IsDelete, bool? IsDraft, bool? IsConfirmed, bool? IsSchedule)
         {
             try
             {
                 var qData = _ProductRepository.Get
                                               .Where(a => SellerUserId != null ? a.tblProductSellers.Where(b => b.SellerUserId == Guid.Parse(SellerUserId)).Any() : true)
-                                              .Select(a => new OutGetProductsForManage()
+                                              .Where(a => AuthorUserId != null ? a.AuthorUserId == Guid.Parse(AuthorUserId) : true)
+                                              .Select(a => new OutGetProductsForManage
                                               {
                                                   Id = a.Id.ToString(),
+                                                  ImgUrl = a.tblProductMedia.Where(b => b.tblFiles.MimeType.StartsWith("image"))
+                                                                            .Select(b => b.tblFiles.tblFileServer.HttpDomin
+                                                                                         + b.tblFiles.tblFileServer.HttpPath
+                                                                                         + b.tblFiles.Path
+                                                                                         + b.tblFiles.FileName).First(),
                                                   Name = a.Name,
                                                   Title = a.Title,
                                                   Date = a.Date,
@@ -46,8 +52,34 @@ namespace PrancaBeauty.Application.Apps.Products
                                                   AuthorUserName = a.tblAuthorUser.UserName,
                                                   CategoryName = a.tblCategory.Name,
                                                   CategoryTitle = a.tblCategory.tblCategory_Translates.Where(b => b.LangId == Guid.Parse(LangId)).Select(b => b.Title).Single(),
-                                                  CategoryMapTitle=a.tblCategory.tblCategory_Parent.tblCategory_Parent.tblCategory_Parent
+                                                  CategoryId = a.CategoryId.ToString(),
+                                                  IsDelete = a.IsDelete,
+                                                  IsConfirm = a.IsConfirmed,
+                                                  IsDraft = a.IsDraft
                                               });
+
+                #region جستوجو
+                {
+                    if (Title != null)
+                        qData = qData.Where(a => a.Title.Contains(Title));
+
+                    if (Name != null)
+                        qData = qData.Where(a => a.Name.Contains(Name));
+
+                    if (IsDelete != null)
+                        qData = qData.Where(a => IsDelete.Value ? a.IsDelete == true : a.IsDelete == false);
+
+                    if (IsDraft != null)
+                        qData = qData.Where(a => IsDraft.Value ? a.IsDraft == true : a.IsDraft == false);
+
+                    if (IsConfirmed != null)
+                        qData = qData.Where(a => IsConfirmed.Value ? a.IsConfirm == true : a.IsConfirm == false);
+
+                    if (IsSchedule != null)
+                        qData = qData.Where(a => IsSchedule.Value ? a.Status == OutGetProductsForManage_Status.IsSchedule : a.Status != OutGetProductsForManage_Status.IsSchedule);
+                }
+                #endregion
+
             }
             catch (Exception ex)
             {

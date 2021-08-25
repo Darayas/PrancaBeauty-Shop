@@ -1,5 +1,7 @@
 ﻿using Framework.Common.Utilities.Paging;
+using Framework.Exceptions;
 using Framework.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Apps.Categories;
 using PrancaBeauty.Application.Contracts.Products;
 using PrancaBeauty.Domin.Product.ProductAgg.Contracts;
@@ -23,13 +25,16 @@ namespace PrancaBeauty.Application.Apps.Products
             _CategoryApplication = categoryApplication;
         }
 
-        public async Task<(OutPagingData, List<OutGetProductsForManage>)> GetProductsForManageAsync(string LangId, string SellerUserId, string AuthorUserId, string Title, string Name, bool? IsDelete, bool? IsDraft, bool? IsConfirmed, bool? IsSchedule)
+        public async Task<(OutPagingData, List<OutGetProductsForManage>)> GetProductsForManageAsync(int Page, int Take, string LangId, string SellerUserId, string AuthorUserId, string Title, string Name, bool? IsDelete, bool? IsDraft, bool? IsConfirmed, bool? IsSchedule)
         {
             try
             {
+                if (string.IsNullOrWhiteSpace(LangId))
+                    throw new ArgumentInvalidException($"'{nameof(LangId)}' cannot be null or whitespace.");
+
                 var qData = _ProductRepository.Get
                                               .Where(a => SellerUserId != null ? a.tblProductSellers.Where(b => b.SellerUserId == Guid.Parse(SellerUserId)).Any() : true)
-                                              .Where(a => AuthorUserId != null ? a.AuthorUserId == Guid.Parse(AuthorUserId) : true)
+                                              .Where(a => a.LangId == Guid.Parse(LangId))
                                               .Select(a => new OutGetProductsForManage
                                               {
                                                   Id = a.Id.ToString(),
@@ -60,6 +65,9 @@ namespace PrancaBeauty.Application.Apps.Products
 
                 #region جستوجو
                 {
+                    if (AuthorUserId != null)
+                        qData = qData.Where(a => a.AuthorUserId == AuthorUserId);
+
                     if (Title != null)
                         qData = qData.Where(a => a.Title.Contains(Title));
 
@@ -80,11 +88,28 @@ namespace PrancaBeauty.Application.Apps.Products
                 }
                 #endregion
 
+                #region مرتب سازی
+
+                #endregion
+
+                #region صفحه بندی
+                var _PagingData = PagingData.Calc(await qData.LongCountAsync(), Page, Take);
+                #endregion
+
+                return (_PagingData,
+                                await qData.OrderByDescending(a => a.Date)
+                                           .Skip((int)_PagingData.Skip)
+                                           .Take((int)_PagingData.Take)
+                                           .ToListAsync());
+            }
+            catch (ArgumentInvalidException)
+            {
+                return default;
             }
             catch (Exception ex)
             {
                 _Logger.Error(ex);
-                throw;
+                return default;
             }
         }
     }

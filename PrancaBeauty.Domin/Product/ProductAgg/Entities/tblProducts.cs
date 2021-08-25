@@ -8,6 +8,7 @@ using PrancaBeauty.Domin.Product.ProductPropertiesValuesAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductReviewsAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductSellerAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductVariantsItemsAgg.Entities;
+using PrancaBeauty.Domin.Region.LanguagesAgg.Entities;
 using PrancaBeauty.Domin.Users.UserAgg.Entities;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,7 @@ namespace PrancaBeauty.Domin.Product.ProductAgg.Entities
         public Guid Id { get; set; }
         public Guid AuthorUserId { get; set; }
         public Guid CategoryId { get; set; }
+        public Guid LangId { get; set; }
         public DateTime Date { get; set; }
         public string Name { get; set; } // Uniqe Name
         public string Title { get; set; }
@@ -32,6 +34,7 @@ namespace PrancaBeauty.Domin.Product.ProductAgg.Entities
 
         public virtual tblUsers tblAuthorUser { get; set; }
         public virtual tblCategoris tblCategory { get; set; }
+        public virtual tblLanguages tblLanguage { get; set; }
         public virtual ICollection<tblKeywords_Products> tblKeywords_Products { get; set; }
         public virtual ICollection<tblProductPrices> tblProductPrices { get; set; }
         public virtual ICollection<tblProductMedia> tblProductMedia { get; set; }

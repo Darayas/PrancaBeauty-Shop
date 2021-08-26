@@ -13,6 +13,7 @@ namespace PrancaBeauty.Application.Contracts.Products
         public string AuthorUserName { get; set; }
         public string AuthorName { get; set; }
         public string AuthorImageUrl { get; set; }
+        public string UniqueNumber { get; set; }
         public string Name { get; set; }
         public string Title { get; set; }
         public string ImgUrl { get; set; }

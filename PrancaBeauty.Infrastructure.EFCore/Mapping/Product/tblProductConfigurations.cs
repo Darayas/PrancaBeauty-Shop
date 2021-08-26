@@ -17,6 +17,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Mapping.Product
             builder.HasKey(a => a.Id);
             builder.Property(a => a.Id).IsRequired().HasMaxLength(150);
             builder.Property(a => a.AuthorUserId).IsRequired().HasMaxLength(450);
+            builder.Property(a => a.UniqueNumber).IsRequired().HasMaxLength(250);
             builder.Property(a => a.Name).IsRequired().HasMaxLength(250);
             builder.Property(a => a.Title).IsRequired().HasMaxLength(250);
             builder.Property(a => a.Descreption).IsRequired();

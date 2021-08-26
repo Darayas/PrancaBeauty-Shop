@@ -43,6 +43,7 @@ namespace PrancaBeauty.Application.Apps.Products
                                                                                          + b.tblFiles.tblFileServer.HttpPath
                                                                                          + b.tblFiles.Path
                                                                                          + b.tblFiles.FileName).First(),
+                                                  UniqueNumber = a.UniqueNumber,
                                                   Name = a.Name,
                                                   Title = a.Title,
                                                   Date = a.Date,

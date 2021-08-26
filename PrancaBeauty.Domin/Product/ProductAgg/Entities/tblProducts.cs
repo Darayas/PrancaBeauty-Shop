@@ -25,6 +25,7 @@ namespace PrancaBeauty.Domin.Product.ProductAgg.Entities
         public Guid CategoryId { get; set; }
         public Guid LangId { get; set; }
         public DateTime Date { get; set; }
+        public string UniqueNumber { get; set; } // Uniqe Name
         public string Name { get; set; } // Uniqe Name
         public string Title { get; set; }
         public string Descreption { get; set; }

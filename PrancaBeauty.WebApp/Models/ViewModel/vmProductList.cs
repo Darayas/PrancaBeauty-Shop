@@ -12,11 +12,13 @@ namespace PrancaBeauty.WebApp.Models.ViewModel
         public string AuthorUserName { get; set; }
         public string AuthorName { get; set; }
         public string AuthorImageUrl { get; set; }
+        public string UniqueNumber { get; set; }
         public string Name { get; set; }
         public string Title { get; set; }
         public string ImgUrl { get; set; }
         public string CategoryName { get; set; }
         public string CategoryTitle { get; set; }
+        public string CategoryMap { get; set; }
         public string CategoryId { get; set; }
         public vmProductList_Status Status { get; set; }
         public bool IsDelete { get; set; }

@@ -7,6 +7,7 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
 {
     public class viProductList
     {
+        public string LangId { get; set; }
         public string SellerUserId { get; set; }
         public string AuthorUserId { get; set; }
         public string Title { get; set; }

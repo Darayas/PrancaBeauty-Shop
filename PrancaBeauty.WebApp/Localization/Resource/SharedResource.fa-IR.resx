@@ -177,6 +177,9 @@
   <data name="AreYouSure" xml:space="preserve">
     <value>ایا مطمعن هستید؟</value>
   </data>
+  <data name="AuthorName" xml:space="preserve">
+    <value>نویسنده</value>
+  </data>
   <data name="BirthDate" xml:space="preserve">
     <value>تاریخ تولد</value>
   </data>
@@ -393,6 +396,9 @@
   <data name="IdIsInvalid" xml:space="preserve">
     <value>شناسه مورد نظر یافت نشد.</value>
   </data>
+  <data name="ImgUrl" xml:space="preserve">
+    <value>تصویر شاخص</value>
+  </data>
   <data name="Input cant be null." xml:space="preserve">
     <value>اطلاعات لازم را وارد کنید</value>
   </data>
@@ -417,11 +423,23 @@
   <data name="IsActiveDes" xml:space="preserve">
     <value>وضعیت (نزولی)</value>
   </data>
+  <data name="IsConfirm" xml:space="preserve">
+    <value>منتشر شده</value>
+  </data>
+  <data name="IsDelete" xml:space="preserve">
+    <value>حذف شده</value>
+  </data>
+  <data name="IsDraft" xml:space="preserve">
+    <value>پیش نویس</value>
+  </data>
   <data name="IsEmailConfirmed" xml:space="preserve">
     <value>وضعیت تایید ایمیل</value>
   </data>
   <data name="IsPhoneNumberConfirmed" xml:space="preserve">
     <value>وضعیت تایید موبایل</value>
+  </data>
+  <data name="IsSchedule" xml:space="preserve">
+    <value>زمانبندی شده</value>
   </data>
   <data name="ItemsPerPage" xml:space="preserve">
     <value>مورد بر صفحه</value>
@@ -717,6 +735,9 @@
   <data name="Sorting" xml:space="preserve">
     <value>مرتب سازی</value>
   </data>
+  <data name="Status" xml:space="preserve">
+    <value>وضعیت</value>
+  </data>
   <data name="StringLengthMsg" xml:space="preserve">
     <value>{0} باید بین {2} تا {1} کاراکتر باشد</value>
   </data>
@@ -725,6 +746,9 @@
   </data>
   <data name="Unit" xml:space="preserve">
     <value>واحد</value>
+  </data>
+  <data name="UnKnown" xml:space="preserve">
+    <value>ناشناخته</value>
   </data>
   <data name="UserAlreadyHasPassword" xml:space="preserve">
     <value>کاربر از قبل دارای کلمه عبور می باشد</value>

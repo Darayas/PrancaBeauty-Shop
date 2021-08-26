@@ -20,6 +20,7 @@ namespace PrancaBeauty.Domin.Product.ProductSellerAgg.Entities
         public string Guarantee { get; set; } // گارانتی
         public string SendFrom { get; set; } // ارسال از
         public DateTime Date { get; set; }
+        public bool IsConfirm { get; set; }
 
         public virtual tblProducts tblProducts { get; set; }
         public virtual tblUsers tblUsers { get; set; }

@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Products;
 using PrancaBeauty.WebApp.Authentication;
+using PrancaBeauty.WebApp.Common.ExMethod;
 using PrancaBeauty.WebApp.Models.ViewInput;
 using PrancaBeauty.WebApp.Models.ViewModel;
 
@@ -32,11 +33,14 @@ namespace PrancaBeauty.WebApp.Pages.User.Products
             return Page();
         }
 
-        public async Task<IActionResult> OnPostReadAsync([DataSourceRequest] DataSourceRequest request, string LangId)
+        public async Task<IActionResult> OnPostReadAsync([DataSourceRequest] DataSourceRequest request)
         {
+            if (!User.IsInRole(Roles.CanViewListAllUserProducts))
+                Input.SellerUserId = User.GetUserDetails().UserId;
+
             var qData = await _ProductApplication.GetProductsForManageAsync(request.Page,
                                                                              request.PageSize,
-                                                                             LangId,
+                                                                             Input.LangId,
                                                                              Input.SellerUserId,
                                                                              Input.AuthorUserId,
                                                                              Input.Title,

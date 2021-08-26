@@ -346,6 +346,48 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                         Description = "توانایی مشاهده لیست محصولات همه ی کاربران"
                     }, default, false).Wait();
                 }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanAddProduct"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageProductsPage",
+                        Sort = 200,
+                        Name = "CanAddProduct",
+                        NormalizedName = "CanAddProduct".ToUpper(),
+                        Description = "توانایی افزودن محصول جدید"
+                    }, default, false).Wait();
+                }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanEditProduct"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageProductsPage",
+                        Sort = 210,
+                        Name = "CanEditProduct",
+                        NormalizedName = "CanEditProduct".ToUpper(),
+                        Description = "توانایی ویرایش محصول"
+                    }, default, false).Wait();
+                }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanRemoveProduct"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageProductsPage",
+                        Sort = 220,
+                        Name = "CanRemoveProduct",
+                        NormalizedName = "CanRemoveProduct".ToUpper(),
+                        Description = "توانایی حذف محصول"
+                    }, default, false).Wait();
+                }
             }
             #endregion
 

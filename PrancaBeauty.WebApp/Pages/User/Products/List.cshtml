@@ -36,9 +36,10 @@
                        col.Bound(a => a.ImgUrl).HtmlAttributes(new { style = "text-align:center;" }).ClientTemplate("<img style='width:128px' src='#=ImgUrl#'/>");
                        col.Bound(a => a.Title).ClientTemplateId("TitleCell");
                        col.Bound(a => a.AuthorName).ClientTemplateId("AuthorCell");
+                       col.Bound(a => a.Status).ClientTemplateId("StatusCell");
                        col.Bound(a => a).Width(50).Title(" ")
                                                   .HtmlAttributes(new { style= "overflow: visible; text-align: center;" })
-                                                  .ClientHeaderTemplate(User.IsInRole(Roles.CanAddUsers)? "<button class='btn btn-success btn-sm' onclick='Add()'><i class='fa fa-plus'></i></button>" : "")
+                                                  .ClientHeaderTemplate(User.IsInRole(Roles.CanAddProduct)? "<button class='btn btn-success btn-sm' onclick='Add()'><i class='fa fa-plus'></i></button>" : "")
                                                   .ClientTemplateId("DropDownCmd");
                    })
                    .DataSource(ds=>ds.Ajax()
@@ -66,10 +67,10 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <div class="d-inline"><i class="fa fa-comment mr-1 ml-1"></i><span>#=CountReviews#</span></div>
-            <div class="d-inline"><i class="fa fa-question mr-1 ml-1"></i><span>#=CountAsks#</span></div>
-            <div class="d-inline"><i class="fa fa-users mr-1 ml-1"></i><span>#=CountSellers#</span></div>
-            <div class="d-inline"><i class="fa fa-eye mr-1 ml-1"></i><span>#=CountVisit#</span></div>
+            <div class='d-inline #=HasUnConfirmedReviews?"font-weight-bold":""#'><i class="fa fa-comment mr-1 ml-1"></i><span>#=CountReviews#</span></div>
+            <div class='d-inline #=HasUnConfirmedAsk?"font-weight-bold":""#'><i class="fa fa-question mr-1 ml-1"></i><span>#=CountAsks#</span></div>
+            <div class='d-inline #=HasUnConfirmedSellerRequest?"font-weight-bold":""#'><i class="fa fa-users mr-1 ml-1"></i><span>#=CountSellers#</span></div>
+            <div class='d-inline'><i class="fa fa-eye mr-1 ml-1"></i><span>#=CountVisit#</span></div>
         </div>
     </div>
 </div>
@@ -81,13 +82,24 @@
     </a>
 </div>
 
+<div class="hide" id="AuthorCell">
+    <span class='badge badge-#=Status==0?"danger":(Status==1?"info":(Status==2?"success":(Status==3?"warning":(Status==4?"dark":"primary"))))#'>
+        #=Status==0?"@Localizer["IsDelete"]":(Status==1?"@Localizer["IsDraft"]":(Status==2?"@Localizer["IsConfirm"]":(Status==3?"@Localizer["IsSchedule"]":(Status==4?"@Localizer["UnKnown"]":"@Localizer["UnKnown"]"))))#
+    </span>
+</div>
+
 <script id="DropDownCmd">
     <div class="item-action dropdown">
         <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fa fa-bars fs-16 text-dark"></i></a>
         <div class="dropdown-menu dropdown-menu-left">
-            @if (User.IsInRole(Roles.CanEditUsers))
+            @if (User.IsInRole(Roles.CanEditProduct))
             {
                 <a href="/@ViewData["Culture"]/Admin/Users/Edit/#:Id#" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i>@Localizer["Edit"]</a>
+            }
+
+            @if (User.IsInRole(Roles.CanRemoveProduct))
+            {
+                <a href="/@ViewData["Culture"]/Admin/Users/Edit/#:Id#" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i>@Localizer["Remove"]</a>
             }
         </div>
     </div>
@@ -101,3 +113,12 @@
 
     </div>
 </div>
+
+@if (User.IsInRole(Roles.CanAddProduct))
+{
+    <script>
+        function Add() {
+
+        }
+    </script>
+}

@@ -35,8 +35,18 @@ namespace PrancaBeauty.WebApp.Pages.User.Products
 
         public async Task<IActionResult> OnPostReadAsync([DataSourceRequest] DataSourceRequest request)
         {
-            if (!User.IsInRole(Roles.CanViewListAllUserProducts))
-                Input.SellerUserId = User.GetUserDetails().UserId;
+            if (!User.IsInRole(Roles.CanViewListAllAuthorUserProducts))
+            {
+                if (!User.IsInRole(Roles.CanViewListAllSellerUserProducts))
+                {
+                    Input.SellerUserId = User.GetUserDetails().UserId;
+                    Input.AuthorUserId = null;
+                }
+                else
+                {
+                    Input.AuthorUserId = User.GetUserDetails().UserId;
+                }
+            }
 
             var qData = await _ProductApplication.GetProductsForManageAsync(request.Page,
                                                                              request.PageSize,

@@ -333,7 +333,21 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     }, default, false).Wait();
                 }
 
-                if (!_repRoles.Get.Any(a => a.Name == "CanViewListAllUserProducts"))
+                if (!_repRoles.Get.Any(a => a.Name == "CanViewListAllAuthorUserProducts"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageProductsPage",
+                        Sort = 185,
+                        Name = "CanViewListAllAuthorUserProducts",
+                        NormalizedName = "CanViewListAllAuthorUserProducts".ToUpper(),
+                        Description = "توانایی مشاهده لیست محصولات همه ی نویسندگان"
+                    }, default, false).Wait();
+                }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanViewListAllSellerUserProducts"))
                 {
                     _repRoles.AddAsync(new tblRoles()
                     {
@@ -341,11 +355,12 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                         ParentId = _Id,
                         PageName = "ManageProductsPage",
                         Sort = 190,
-                        Name = "CanViewListAllUserProducts",
-                        NormalizedName = "CanViewListAllUserProducts".ToUpper(),
-                        Description = "توانایی مشاهده لیست محصولات همه ی کاربران"
+                        Name = "CanViewListAllSellerUserProducts",
+                        NormalizedName = "CanViewListAllSellerUserProducts".ToUpper(),
+                        Description = "توانایی مشاهده لیست محصولات همه ی فروشندگان"
                     }, default, false).Wait();
                 }
+
 
                 if (!_repRoles.Get.Any(a => a.Name == "CanAddProduct"))
                 {

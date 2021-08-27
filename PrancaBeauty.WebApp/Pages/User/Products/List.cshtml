@@ -25,11 +25,23 @@
 
 <div class="row">
     <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <LoadComponent id="LangSearch"
+                                       url="/@ViewData["culture"]/Shared/Compo/ComboLanguage"
+                                       context="HttpContext"
+                                       data='new viCompo_Combo_Language { }'></LoadComponent>
+                        @*<input type="text" onchange="Search()" id="txtSearchFullName" class="form-control form-control-sm" placeholder="@Localizer["FullName"]" />*@
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="k-lang">
             @(Html.Kendo()
                    .Grid<vmProductList>()
                    .Name("ListProducts")
-                   .ToolBar(a=>a.ClientTemplateId("ToolbarPanel"))
                    .DefaultSettings(Localizer)
                    .Columns(col=> {
                        col.Bound(a => a.Id).Hidden().HtmlAttributes(new { @class = "RowId" }).Sortable(false);
@@ -49,44 +61,44 @@
     </div>
 </div>
 
-<div class="hide" id="TitleCell">
-    <div class="row">
-        <div class="col-md-12">
-            <a href="/Product/#=UniqueNumber#/#=Name#">#=Title#</a>
+<script id="TitleCell">
+        <div class="row">
+            <div class="col-md-12">
+                <a href="/Product/#=UniqueNumber#/#=Name#">#=Title#</a>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <a href="/Category/#=CategoryMap#">#=CategoryTitle#</a>
+        <div class="row">
+            <div class="col-md-12">
+                <a href="/Category/#=CategoryMap#">#=CategoryTitle#</a>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <span>#=Date#</span>
+        <div class="row">
+            <div class="col-md-12">
+                <span>#=Date#</span>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class='d-inline #=HasUnConfirmedReviews?"font-weight-bold":""#'><i class="fa fa-comment mr-1 ml-1"></i><span>#=CountReviews#</span></div>
-            <div class='d-inline #=HasUnConfirmedAsk?"font-weight-bold":""#'><i class="fa fa-question mr-1 ml-1"></i><span>#=CountAsks#</span></div>
-            <div class='d-inline #=HasUnConfirmedSellerRequest?"font-weight-bold":""#'><i class="fa fa-users mr-1 ml-1"></i><span>#=CountSellers#</span></div>
-            <div class='d-inline'><i class="fa fa-eye mr-1 ml-1"></i><span>#=CountVisit#</span></div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="d-inline #:HasUnConfirmedReviews==true?'font-weight-bold':''#"><i class="fa fa-comment mr-1 ml-1"></i><span>#:CountReviews#</span></div>
+                <div class="d-inline #:HasUnConfirmedAsk==true?'font-weight-bold':''#"><i class="fa fa-question mr-1 ml-1"></i><span>#:CountAsks#</span></div>
+                <div class="d-inline #:HasUnConfirmedSellerRequest==true?'font-weight-bold':''#"><i class="fa fa-users mr-1 ml-1"></i><span>#:CountSellers#</span></div>
+                <div class='d-inline'><i class="fa fa-eye mr-1 ml-1"></i><span>#:CountVisit#</span></div>
+            </div>
         </div>
-    </div>
-</div>
+</script>
 
-<div class="hide" id="AuthorCell">
-    <a href="">
-        <div class="d-inline"><img class="img-responcive img-circle" src="#=AuthorImageUrl#" /></div>
-        <div class="d-inline">#=AuthorName#</div>
-    </a>
-</div>
+<script id="AuthorCell">
+        <a href="">
+            <div class="d-inline"><img class="img-responcive img-circle" src="#=AuthorImageUrl#" /></div>
+            <div class="d-inline">#=AuthorName#</div>
+        </a>
+</script>
 
-<div class="hide" id="AuthorCell">
-    <span class='badge badge-#=Status==0?"danger":(Status==1?"info":(Status==2?"success":(Status==3?"warning":(Status==4?"dark":"primary"))))#'>
-        #=Status==0?"@Localizer["IsDelete"]":(Status==1?"@Localizer["IsDraft"]":(Status==2?"@Localizer["IsConfirm"]":(Status==3?"@Localizer["IsSchedule"]":(Status==4?"@Localizer["UnKnown"]":"@Localizer["UnKnown"]"))))#
+<script id="StatusCell">
+    <span class="badge badge-#:Status==0?'danger':(Status==1?'info':(Status==2?'success':(Status==3?'warning':(Status==4?'dark':'primary'))))#">
+        #:Status==0?'@Localizer["IsDelete"]':(Status==1?'@Localizer["IsDraft"]':(Status==2?'@Localizer["IsConfirm"]':(Status==3?'@Localizer["IsSchedule"]':(Status==4?'@Localizer["UnKnown"]':'@Localizer["UnKnown"]'))))#
     </span>
-</div>
+</script>
 
 <script id="DropDownCmd">
     <div class="item-action dropdown">
@@ -104,15 +116,6 @@
         </div>
     </div>
 </script>
-
-<div class="hide" id="ToolbarPanel">
-    <div class="row">
-        <div class="col-md-2">
-            <input type="text" onchange="Search()" id="txtSearchFullName" class="form-control form-control-sm" placeholder="@Localizer["FullName"]" />
-        </div>
-
-    </div>
-</div>
 
 @if (User.IsInRole(Roles.CanAddProduct))
 {

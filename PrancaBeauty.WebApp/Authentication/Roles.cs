@@ -38,7 +38,8 @@ namespace PrancaBeauty.WebApp.Authentication
         #region Products
         public const string CanManageProducts = "CanManageProducts";
         public const string CanViewListProducts = "CanViewListProducts";
-        public const string CanViewListAllUserProducts = "CanViewListAllUserProducts";
+        public const string CanViewListAllAuthorUserProducts = "CanViewListAllAuthorUserProducts";
+        public const string CanViewListAllSellerUserProducts = "CanViewListAllSellerUserProducts";
         public const string CanAddProduct = "CanAddProduct";
         public const string CanEditProduct = "CanEditProduct";
         public const string CanRemoveProduct = "CanRemoveProduct";

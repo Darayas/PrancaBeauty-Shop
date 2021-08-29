@@ -1,15 +1,32 @@
 ﻿@page "/{culture}/Shared/Compo/ComboLanguage"
 @model PrancaBeauty.WebApp.Pages.Shared.Components.Combo_Language.Compo_Combo_LanguageModel
 
+@{
+    string FieldName = Model.Input.FieldName;
+    string FieldId = FieldName.Replace(".", "_").Replace("[", "_").Replace("]", "_");
+}
+
+<script>
+    function onSelect@(FieldId)(e) {
+        if (typeof OnComboSelect@(FieldId)=== "function")
+        {
+            OnComboSelect@(FieldId)(e);
+        }
+    }
+</script>
 <div class="k-lang">
     @(Html.Kendo()
           .ComboBox()
-          .Name("Input.LangId")
+          .Name(FieldName)
           .HtmlAttributes(new { @class= "form-control",style="width:100%;height:35px;" })
           .Placeholder(Localizer["PleseSelect"])
           .DataTextField("NativeName")
           .DataValueField("Id")
           .Value(Model.Input.LangId)
+          .Events(a =>
+          {
+              a.Select($"onSelect{FieldId}");
+          })
           .DataSource(sr => {
               sr.Read(read =>
               {

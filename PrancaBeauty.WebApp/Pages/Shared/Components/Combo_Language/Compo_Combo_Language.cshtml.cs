@@ -19,6 +19,9 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.Combo_Language
 
         public IActionResult OnGet()
         {
+            if (Input.FieldName == null)
+                Input.FieldName = "Input.LangId";
+
             return Page();
         }
 

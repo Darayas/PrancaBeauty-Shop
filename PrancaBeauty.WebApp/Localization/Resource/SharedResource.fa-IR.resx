@@ -177,6 +177,9 @@
   <data name="AreYouSure" xml:space="preserve">
     <value>ایا مطمعن هستید؟</value>
   </data>
+  <data name="Author" xml:space="preserve">
+    <value>نویسنده</value>
+  </data>
   <data name="AuthorName" xml:space="preserve">
     <value>نویسنده</value>
   </data>
@@ -704,6 +707,9 @@
   </data>
   <data name="Security" xml:space="preserve">
     <value>امنیت</value>
+  </data>
+  <data name="Seller" xml:space="preserve">
+    <value>فروشنده</value>
   </data>
   <data name="SendAuthCode" xml:space="preserve">
     <value>ارسال کد احراز هویت</value>

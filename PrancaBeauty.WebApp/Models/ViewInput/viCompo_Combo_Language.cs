@@ -8,5 +8,6 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
     public class viCompo_Combo_Language
     {
         public string LangId { get; set; }
+        public string FieldName { get; set; }
     }
 }

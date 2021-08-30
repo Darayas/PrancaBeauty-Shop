@@ -171,6 +171,9 @@
   <data name="AdminPanel" xml:space="preserve">
     <value>پنل مدیریت</value>
   </data>
+  <data name="All" xml:space="preserve">
+    <value>همه</value>
+  </data>
   <data name="AllowExtentionsMsg" xml:space="preserve">
     <value>{0} انتخاب شده با نام '{1}' دارای فرمت غیرمجار میباشد. پسوند های مجاز: {2}</value>
   </data>
@@ -181,6 +184,9 @@
     <value>نویسنده</value>
   </data>
   <data name="AuthorName" xml:space="preserve">
+    <value>نویسنده</value>
+  </data>
+  <data name="AuthorUserId" xml:space="preserve">
     <value>نویسنده</value>
   </data>
   <data name="BirthDate" xml:space="preserve">
@@ -432,6 +438,9 @@
   <data name="IsConfirm" xml:space="preserve">
     <value>منتشر شده</value>
   </data>
+  <data name="IsConfirmed" xml:space="preserve">
+    <value>تایید شده </value>
+  </data>
   <data name="IsDelete" xml:space="preserve">
     <value>حذف شده</value>
   </data>
@@ -440,6 +449,15 @@
   </data>
   <data name="IsEmailConfirmed" xml:space="preserve">
     <value>وضعیت تایید ایمیل</value>
+  </data>
+  <data name="IsNotConfirmed" xml:space="preserve">
+    <value>تایید نشده</value>
+  </data>
+  <data name="IsNotDelete" xml:space="preserve">
+    <value>حذف نشده </value>
+  </data>
+  <data name="IsNotSchedule" xml:space="preserve">
+    <value>زمانبندی نشده</value>
   </data>
   <data name="IsPhoneNumberConfirmed" xml:space="preserve">
     <value>وضعیت تایید موبایل</value>
@@ -715,6 +733,9 @@
     <value>امنیت</value>
   </data>
   <data name="Seller" xml:space="preserve">
+    <value>فروشنده</value>
+  </data>
+  <data name="SellerUserId" xml:space="preserve">
     <value>فروشنده</value>
   </data>
   <data name="SendAuthCode" xml:space="preserve">

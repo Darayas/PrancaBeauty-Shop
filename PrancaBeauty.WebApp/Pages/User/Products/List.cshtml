@@ -61,17 +61,19 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-4">
+                            <label asp-for="Input.LangId"></label>
                             <LoadComponent id="LangSearch"
                                            url="/@ViewData["culture"]/Shared/Compo/ComboLanguage"
                                            context="HttpContext"
-                                           data='new viCompo_Combo_Language { FieldName="LangId" }'></LoadComponent>
-                            @*<input type="text" onchange="Search()" id="txtSearchFullName" class="form-control" placeholder="@Localizer["FullName"]" />*@
+                                           data='new viCompo_Combo_Language { FieldName="Input.LangId",LangId=Model.Input.LangId }'></LoadComponent>
                         </div>
                         <div class="col-md-4">
-                            <input type="text" onchange="Search()" id="txtTitle" class="form-control" placeholder="@Localizer["Title"]" />
+                            <label asp-for="Input.Title"></label>
+                            <input type="text" id="txtTitle" class="form-control" placeholder="@Localizer["Title"]" />
                         </div>
                         <div class="col-md-4">
-                            <input type="text" onchange="Search()" id="txtName" class="form-control" placeholder="@Localizer["Name"]" />
+                            <label asp-for="Input.Name"></label>
+                            <input type="text" id="txtName" class="form-control" placeholder="@Localizer["Name"]" />
                         </div>
                     </div>
                 </div>
@@ -80,10 +82,12 @@
                         @if (User.IsInRole(Roles.CanViewListAllAuthorUserProducts))
                         {
                             <div class="col-md-6">
-                                <input type="text" onchange="Search()" id="txtAuthor" class="form-control" placeholder="@Localizer["Author"]" />
+                                <label asp-for="Input.AuthorUserId"></label>
+                                <input type="text" id="txtAuthor" class="form-control" placeholder="@Localizer["Author"]" />
                             </div>
                             <div class="col-md-6">
-                                <input type="text" onchange="Search()" id="txtSeller" class="form-control" placeholder="@Localizer["Seller"]" />
+                                <label asp-for="Input.SellerUserId"></label>
+                                <input type="text" id="txtSeller" class="form-control" placeholder="@Localizer["Seller"]" />
                             </div>
                         }
                         else
@@ -91,62 +95,89 @@
                             if (!User.IsInRole(Roles.CanViewListAllSellerUserProducts))
                             {
                                 <div class="col-md-12">
-                                    <input type="text" onchange="Search()" id="txtSeller" class="form-control" placeholder="@Localizer["Seller"]" />
+                                    <label asp-for="Input.SellerUserId"></label>
+                                    <input type="text" id="txtSeller" class="form-control" placeholder="@Localizer["Seller"]" />
                                 </div>
                             }
                         }
-
                     </div>
 
                 </div>
                 <div class="form-group">
                     <div class="row">
-                        <div class="col-md-12">
-                            <select onchange="Search()" id="CmbStatus" class="form-control">
-                                <option>@Localizer["Status"]</option>
+                        <div class="col-md-3">
+                            <label asp-for="Input.IsDelete"></label>
+                            <select id="CmbIsDelete" class="form-control">
+                                <option>@Localizer["All"]</option>
+                                <option value="true">@Localizer["IsDelete"]</option>
+                                <option value="false">@Localizer["IsNotDelete"]</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label asp-for="Input.IsConfirmed"></label>
+                            <select id="CmbIsConfirmed" class="form-control">
+                                <option>@Localizer["All"]</option>
+                                <option value="true">@Localizer["IsConfirmed"]</option>
+                                <option value="false">@Localizer["IsNotConfirmed"]</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label asp-for="Input.IsDraft"></label>
+                            <select id="CmbIsDraft" class="form-control">
+                                <option>@Localizer["All"]</option>
+                                <option value="true">@Localizer["IsDraft"]</option>
+                                <option value="false">@Localizer["IsNotDraft"]</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label asp-for="Input.IsSchedule"></label>
+                            <select id="CmbIsSchedule" class="form-control">
+                                <option>@Localizer["All"]</option>
+                                <option value="true">@Localizer["IsSchedule"]</option>
+                                <option value="false">@Localizer["IsNotSchedule"]</option>
                             </select>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">@Localizer["Filter"]</button>
+                <button onclick="Search()" type="button" class="btn btn-primary">@Localizer["Filter"]</button>
             </div>
         </div>
     </div>
 </div>
 
 <script id="TitleCell">
-                                                            <div class="row">
-                                                                <div class="col-md-12">
-                                                                    <a href="/Product/#=UniqueNumber#/#=Name#">#=Title#</a>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-md-12">
-                                                                    <a href="/Category/#=CategoryMap#">#=CategoryTitle#</a>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-md-12">
-                                                                    <span>#=Date#</span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-md-12">
-                                                                    <div class="d-inline #:HasUnConfirmedReviews==true?'font-weight-bold':''#"><i class="fa fa-comment mr-1 ml-1"></i><span>#:CountReviews#</span></div>
-                                                                    <div class="d-inline #:HasUnConfirmedAsk==true?'font-weight-bold':''#"><i class="fa fa-question mr-1 ml-1"></i><span>#:CountAsks#</span></div>
-                                                                    <div class="d-inline #:HasUnConfirmedSellerRequest==true?'font-weight-bold':''#"><i class="fa fa-users mr-1 ml-1"></i><span>#:CountSellers#</span></div>
-                                                                    <div class='d-inline'><i class="fa fa-eye mr-1 ml-1"></i><span>#:CountVisit#</span></div>
-                                                                </div>
-                                                            </div>
+                 <div class="row">
+                     <div class="col-md-12">
+                         <a href="/Product/#=UniqueNumber#/#=Name#">#=Title#</a>
+                     </div>
+                 </div>
+                 <div class="row">
+                     <div class="col-md-12">
+                         <a href="/Category/#=CategoryMap#">#=CategoryTitle#</a>
+                     </div>
+                 </div>
+                 <div class="row">
+                     <div class="col-md-12">
+                         <span>#=Date#</span>
+                     </div>
+                 </div>
+                 <div class="row">
+                     <div class="col-md-12">
+                         <div class="d-inline #:HasUnConfirmedReviews==true?'font-weight-bold':''#"><i class="fa fa-comment mr-1 ml-1"></i><span>#:CountReviews#</span></div>
+                         <div class="d-inline #:HasUnConfirmedAsk==true?'font-weight-bold':''#"><i class="fa fa-question mr-1 ml-1"></i><span>#:CountAsks#</span></div>
+                         <div class="d-inline #:HasUnConfirmedSellerRequest==true?'font-weight-bold':''#"><i class="fa fa-users mr-1 ml-1"></i><span>#:CountSellers#</span></div>
+                         <div class='d-inline'><i class="fa fa-eye mr-1 ml-1"></i><span>#:CountVisit#</span></div>
+                     </div>
+                 </div>
 </script>
 
 <script id="AuthorCell">
-                                                            <a href="">
-                                                                <div class="d-inline"><img class="img-responcive img-circle" src="#=AuthorImageUrl#" /></div>
-                                                                <div class="d-inline">#=AuthorName#</div>
-                                                            </a>
+                <a href="">
+                    <div class="d-inline"><img class="img-responcive img-circle" src="#=AuthorImageUrl#" /></div>
+                    <div class="d-inline">#=AuthorName#</div>
+                </a>
 </script>
 
 <script id="StatusCell">
@@ -183,19 +214,18 @@
 }
 
 <script>
-    var _LangId;
-    function OnComboSelect@("LangId")(e) {
-        _LangId = e.dataItem.Id;
-    }
-
     function ShowSearchModal() {
         $('#SearchModal').modal();
     }
 
     function Search() {
+        var _LangId = $('#Input_LangId').val();
         var _Title = $('#txtTitle').val();
         var _Name = $('#txtName').val();
-        var _Status = $('#CmbStatus option:selected').val();
+        var _IsDelete = $('#CmbIsDelete option:selected').val();
+        var _IsConfirmed = $('#CmbIsConfirmed option:selected').val();
+        var _IsDraft = $('#CmbIsDraft option:selected').val();
+        var _IsSchedule = $('#CmbIsSchedule option:selected').val();
         var _Author="";
         var _Seller="";
         @if (User.IsInRole(Roles.CanViewListAllAuthorUserProducts))
@@ -211,9 +241,8 @@
             }
         }
 
-
-        var _Grid = $('#ListUsers').data('kendoGrid');
-        _Grid.dataSource.transport.options.read.url = '/@CultureInfo.CurrentCulture.Parent.Name/User/Products/List?handler=ReadData?LangId=' + _LangId + "&Title=" + _Title + "&Name=" + _Name + "&Author=" + _Author + "&Seeler=" + _Seller + "&Status=" + _Status;
+        var _Grid = $('#ListProducts').data('kendoGrid');
+        _Grid.dataSource.transport.options.read.url = '/@CultureInfo.CurrentCulture.Parent.Name/User/Products/List?handler=ReadData&Input.LangId=' + _LangId + "&Input.Title=" + _Title + "&Input.Name=" + _Name + "&Input.AuthorUserId=" + _Author + "&Input.SellerUserId=" + _Seller + "&Input.IsDelete=" + _IsDelete + "&Input.IsConfirmed=" + _IsConfirmed + "&Input.IsDraft=" + _IsDraft + "&Input.IsSchedule=" + _IsSchedule;
         _Grid.dataSource.read();
         _Grid.refresh();
 

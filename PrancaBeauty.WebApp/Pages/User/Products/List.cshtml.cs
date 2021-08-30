@@ -28,12 +28,15 @@ namespace PrancaBeauty.WebApp.Pages.User.Products
             _Mapper = mapper;
         }
 
-        public IActionResult OnGet()
+        public IActionResult OnGet(string LangId)
         {
+            if (Input.LangId == null)
+                Input.LangId = LangId;
+
             return Page();
         }
 
-        public async Task<IActionResult> OnPostReadAsync([DataSourceRequest] DataSourceRequest request)
+        public async Task<IActionResult> OnPostReadDataAsync([DataSourceRequest] DataSourceRequest request,string LangId)
         {
             if (!User.IsInRole(Roles.CanViewListAllAuthorUserProducts))
             {
@@ -47,6 +50,9 @@ namespace PrancaBeauty.WebApp.Pages.User.Products
                     Input.AuthorUserId = User.GetUserDetails().UserId;
                 }
             }
+
+            if (Input.LangId == null)
+                Input.LangId = LangId;
 
             var qData = await _ProductApplication.GetProductsForManageAsync(request.Page,
                                                                              request.PageSize,

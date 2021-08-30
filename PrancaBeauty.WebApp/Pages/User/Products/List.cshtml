@@ -25,49 +25,6 @@
 
 <div class="row">
     <div class="col-md-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-2">
-                        <LoadComponent id="LangSearch"
-                                       url="/@ViewData["culture"]/Shared/Compo/ComboLanguage"
-                                       context="HttpContext"
-                                       data='new viCompo_Combo_Language { FieldName="LangId" }'></LoadComponent>
-                        @*<input type="text" onchange="Search()" id="txtSearchFullName" class="form-control" placeholder="@Localizer["FullName"]" />*@
-                    </div>
-                    <div class="col-md-2">
-                        <input type="text" onchange="Search()" id="txtTitle" class="form-control" placeholder="@Localizer["Title"]" />
-                    </div>
-                    <div class="col-md-2">
-                        <input type="text" onchange="Search()" id="txtName" class="form-control" placeholder="@Localizer["Name"]" />
-                    </div>
-                    @if (User.IsInRole(Roles.CanViewListAllAuthorUserProducts))
-                    {
-                        <div class="col-md-2">
-                            <input type="text" onchange="Search()" id="txtAuthor" class="form-control" placeholder="@Localizer["Author"]" />
-                        </div>
-                        <div class="col-md-2">
-                            <input type="text" onchange="Search()" id="txtName" class="form-control" placeholder="@Localizer["Seller"]" />
-                        </div>
-                    }
-                    else
-                    {
-                        if (!User.IsInRole(Roles.CanViewListAllSellerUserProducts))
-                        {
-                            <div class="col-md-2">
-                                <input type="text" onchange="Search()" id="txtName" class="form-control" placeholder="@Localizer["Seller"]" />
-                            </div>
-                        }
-                    }
-                    <div class="col-md-2">
-                        <select onchange="Search()" id="txtName" class="form-control">
-                            <option>@Localizer["Status"]</option>
-                        </select>
-                    </div>
-                </div>
-
-            </div>
-        </div>
         <div class="k-lang">
             @(Html.Kendo()
                    .Grid<vmProductList>()
@@ -81,7 +38,7 @@
                        col.Bound(a => a.Status).ClientTemplateId("StatusCell");
                        col.Bound(a => a).Width(50).Title(" ")
                                                   .HtmlAttributes(new { style= "overflow: visible; text-align: center;" })
-                                                  .ClientHeaderTemplate(User.IsInRole(Roles.CanAddProduct)? "<button class='btn btn-success btn-sm' onclick='Add()'><i class='fa fa-plus'></i></button>" : "")
+                                                  .ClientHeaderTemplate((User.IsInRole(Roles.CanAddProduct)? "<button class='btn btn-success btn-sm' onclick='Add()'><i class='fa fa-plus'></i></button>" : "") + "<button class='btn btn-primary btn-sm ml-1 mr-1' onclick='ShowSearchModal()'><i class='fa fa-search'></i></button>")
                                                   .ClientTemplateId("DropDownCmd");
                    })
                    .DataSource(ds=>ds.Ajax()
@@ -91,37 +48,105 @@
     </div>
 </div>
 
+<div id="SearchModal" class="modal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">@Localizer["Search"]</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <LoadComponent id="LangSearch"
+                                           url="/@ViewData["culture"]/Shared/Compo/ComboLanguage"
+                                           context="HttpContext"
+                                           data='new viCompo_Combo_Language { FieldName="LangId" }'></LoadComponent>
+                            @*<input type="text" onchange="Search()" id="txtSearchFullName" class="form-control" placeholder="@Localizer["FullName"]" />*@
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" onchange="Search()" id="txtTitle" class="form-control" placeholder="@Localizer["Title"]" />
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" onchange="Search()" id="txtName" class="form-control" placeholder="@Localizer["Name"]" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        @if (User.IsInRole(Roles.CanViewListAllAuthorUserProducts))
+                        {
+                            <div class="col-md-6">
+                                <input type="text" onchange="Search()" id="txtAuthor" class="form-control" placeholder="@Localizer["Author"]" />
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" onchange="Search()" id="txtSeller" class="form-control" placeholder="@Localizer["Seller"]" />
+                            </div>
+                        }
+                        else
+                        {
+                            if (!User.IsInRole(Roles.CanViewListAllSellerUserProducts))
+                            {
+                                <div class="col-md-12">
+                                    <input type="text" onchange="Search()" id="txtSeller" class="form-control" placeholder="@Localizer["Seller"]" />
+                                </div>
+                            }
+                        }
+
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <select onchange="Search()" id="CmbStatus" class="form-control">
+                                <option>@Localizer["Status"]</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">@Localizer["Filter"]</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script id="TitleCell">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <a href="/Product/#=UniqueNumber#/#=Name#">#=Title#</a>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <a href="/Category/#=CategoryMap#">#=CategoryTitle#</a>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <span>#=Date#</span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="d-inline #:HasUnConfirmedReviews==true?'font-weight-bold':''#"><i class="fa fa-comment mr-1 ml-1"></i><span>#:CountReviews#</span></div>
-                            <div class="d-inline #:HasUnConfirmedAsk==true?'font-weight-bold':''#"><i class="fa fa-question mr-1 ml-1"></i><span>#:CountAsks#</span></div>
-                            <div class="d-inline #:HasUnConfirmedSellerRequest==true?'font-weight-bold':''#"><i class="fa fa-users mr-1 ml-1"></i><span>#:CountSellers#</span></div>
-                            <div class='d-inline'><i class="fa fa-eye mr-1 ml-1"></i><span>#:CountVisit#</span></div>
-                        </div>
-                    </div>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <a href="/Product/#=UniqueNumber#/#=Name#">#=Title#</a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <a href="/Category/#=CategoryMap#">#=CategoryTitle#</a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <span>#=Date#</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="d-inline #:HasUnConfirmedReviews==true?'font-weight-bold':''#"><i class="fa fa-comment mr-1 ml-1"></i><span>#:CountReviews#</span></div>
+                                                                    <div class="d-inline #:HasUnConfirmedAsk==true?'font-weight-bold':''#"><i class="fa fa-question mr-1 ml-1"></i><span>#:CountAsks#</span></div>
+                                                                    <div class="d-inline #:HasUnConfirmedSellerRequest==true?'font-weight-bold':''#"><i class="fa fa-users mr-1 ml-1"></i><span>#:CountSellers#</span></div>
+                                                                    <div class='d-inline'><i class="fa fa-eye mr-1 ml-1"></i><span>#:CountVisit#</span></div>
+                                                                </div>
+                                                            </div>
 </script>
 
 <script id="AuthorCell">
-                    <a href="">
-                        <div class="d-inline"><img class="img-responcive img-circle" src="#=AuthorImageUrl#" /></div>
-                        <div class="d-inline">#=AuthorName#</div>
-                    </a>
+                                                            <a href="">
+                                                                <div class="d-inline"><img class="img-responcive img-circle" src="#=AuthorImageUrl#" /></div>
+                                                                <div class="d-inline">#=AuthorName#</div>
+                                                            </a>
 </script>
 
 <script id="StatusCell">
@@ -163,19 +188,39 @@
         _LangId = e.dataItem.Id;
     }
 
+    function ShowSearchModal() {
+        $('#SearchModal').modal();
+    }
+
     function Search() {
-        var _FullName = $('#txtSearchFullName').val();
-        var _Email = $('#txtSearchEmail').val();
-        var _PhoneNumber = $('#txtSerachPhoneNumber').val();
-        var _txtSort = $('#txtSort option:selected').val();
+        var _Title = $('#txtTitle').val();
+        var _Name = $('#txtName').val();
+        var _Status = $('#CmbStatus option:selected').val();
+        var _Author="";
+        var _Seller="";
+        @if (User.IsInRole(Roles.CanViewListAllAuthorUserProducts))
+        {
+            @Html.Raw("_Author = $('#txtAuthor').val();")
+            @Html.Raw("_Seller = $('#txtSeller').val();")
+        }
+        else
+        {
+            if (!User.IsInRole(Roles.CanViewListAllSellerUserProducts))
+            {
+                @Html.Raw("_Seller = $('#txtSeller').val();")
+            }
+        }
+
 
         var _Grid = $('#ListUsers').data('kendoGrid');
-        _Grid.dataSource.transport.options.read.url = '/@CultureInfo.CurrentCulture.Parent.Name/User/Products/List?handler=ReadData?LangId='+_LangId;
+        _Grid.dataSource.transport.options.read.url = '/@CultureInfo.CurrentCulture.Parent.Name/User/Products/List?handler=ReadData?LangId=' + _LangId + "&Title=" + _Title + "&Name=" + _Name + "&Author=" + _Author + "&Seeler=" + _Seller + "&Status=" + _Status;
         _Grid.dataSource.read();
         _Grid.refresh();
 
         ChangeUrl(_Grid.dataSource.transport.options.read.url);
     }
+
+
 
     //$(document).ready(function () {
     //    Search();

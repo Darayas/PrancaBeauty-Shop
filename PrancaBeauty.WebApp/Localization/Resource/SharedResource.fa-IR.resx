@@ -366,6 +366,9 @@
   <data name="FileSizeMsg" xml:space="preserve">
     <value>{0} انتخاب شده با نام '{1}' باید بین {2} تا {3} باشد</value>
   </data>
+  <data name="Filter" xml:space="preserve">
+    <value>فیلتر</value>
+  </data>
   <data name="First" xml:space="preserve">
     <value>اولین</value>
   </data>
@@ -704,6 +707,9 @@
   </data>
   <data name="SaveAccountSettings" xml:space="preserve">
     <value>ذخیره تنظیمات حساب</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>جستوجو</value>
   </data>
   <data name="Security" xml:space="preserve">
     <value>امنیت</value>

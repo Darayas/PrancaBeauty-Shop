@@ -229,12 +229,11 @@
 }
 .modal-content button.close {
 	position: absolute;
-	left: 94%;
+	right: 94%;
 	width: 35px;
     height: 35px;
     line-height: 34px;
 	display: block;
-	border: 1px solid $grey_color;
 	top: 10px;
 	border-radius: 50%;
 	cursor: pointer;

@@ -7525,12 +7525,11 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 
 .modal-content button.close {
   position: absolute;
-  left: 94%;
+  right: 94%;
   width: 35px;
   height: 35px;
   line-height: 34px;
   display: block;
-  border: 1px solid #ededed;
   top: 10px;
   border-radius: 50%;
   cursor: pointer;

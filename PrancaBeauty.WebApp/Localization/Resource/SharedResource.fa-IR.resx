@@ -456,6 +456,9 @@
   <data name="IsNotDelete" xml:space="preserve">
     <value>حذف نشده </value>
   </data>
+  <data name="IsNotDraft" xml:space="preserve">
+    <value>پیش نویس نشده</value>
+  </data>
   <data name="IsNotSchedule" xml:space="preserve">
     <value>زمانبندی نشده</value>
   </data>

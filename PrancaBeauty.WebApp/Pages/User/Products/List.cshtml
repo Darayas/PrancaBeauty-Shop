@@ -82,12 +82,16 @@
                         @if (User.IsInRole(Roles.CanViewListAllAuthorUserProducts))
                         {
                             <div class="col-md-6">
-                                <label asp-for="Input.AuthorUserId"></label>
-                                <input type="text" id="txtAuthor" class="form-control" placeholder="@Localizer["Author"]" />
+                                <LoadComponent id="AuthorUserId"
+                                               url="/@ViewData["culture"]/Shared/Compo/ComboUsers"
+                                               context="HttpContext"
+                                               data='new viCompo_Combo_Users{ FieldName="Input.AuthorUserId",UserId=Model.Input.AuthorUserId,LangId=null  }'></LoadComponent>
                             </div>
                             <div class="col-md-6">
-                                <label asp-for="Input.SellerUserId"></label>
-                                <input type="text" id="txtSeller" class="form-control" placeholder="@Localizer["Seller"]" />
+                                <LoadComponent id="SellerUserId"
+                                               url="/@ViewData["culture"]/Shared/Compo/ComboUsers"
+                                               context="HttpContext"
+                                               data='new viCompo_Combo_Users{ FieldName="Input.SellerUserId",UserId=Model.Input.SellerUserId,LangId=null  }'></LoadComponent>
                             </div>
                         }
                         else
@@ -148,36 +152,36 @@
 </div>
 
 <script id="TitleCell">
-                 <div class="row">
-                     <div class="col-md-12">
-                         <a href="/Product/#=UniqueNumber#/#=Name#">#=Title#</a>
-                     </div>
-                 </div>
-                 <div class="row">
-                     <div class="col-md-12">
-                         <a href="/Category/#=CategoryMap#">#=CategoryTitle#</a>
-                     </div>
-                 </div>
-                 <div class="row">
-                     <div class="col-md-12">
-                         <span>#=Date#</span>
-                     </div>
-                 </div>
-                 <div class="row">
-                     <div class="col-md-12">
-                         <div class="d-inline #:HasUnConfirmedReviews==true?'font-weight-bold':''#"><i class="fa fa-comment mr-1 ml-1"></i><span>#:CountReviews#</span></div>
-                         <div class="d-inline #:HasUnConfirmedAsk==true?'font-weight-bold':''#"><i class="fa fa-question mr-1 ml-1"></i><span>#:CountAsks#</span></div>
-                         <div class="d-inline #:HasUnConfirmedSellerRequest==true?'font-weight-bold':''#"><i class="fa fa-users mr-1 ml-1"></i><span>#:CountSellers#</span></div>
-                         <div class='d-inline'><i class="fa fa-eye mr-1 ml-1"></i><span>#:CountVisit#</span></div>
-                     </div>
-                 </div>
+                                 <div class="row">
+                                     <div class="col-md-12">
+                                         <a href="/Product/#=UniqueNumber#/#=Name#">#=Title#</a>
+                                     </div>
+                                 </div>
+                                 <div class="row">
+                                     <div class="col-md-12">
+                                         <a href="/Category/#=CategoryMap#">#=CategoryTitle#</a>
+                                     </div>
+                                 </div>
+                                 <div class="row">
+                                     <div class="col-md-12">
+                                         <span>#=Date#</span>
+                                     </div>
+                                 </div>
+                                 <div class="row">
+                                     <div class="col-md-12">
+                                         <div class="d-inline #:HasUnConfirmedReviews==true?'font-weight-bold':''#"><i class="fa fa-comment mr-1 ml-1"></i><span>#:CountReviews#</span></div>
+                                         <div class="d-inline #:HasUnConfirmedAsk==true?'font-weight-bold':''#"><i class="fa fa-question mr-1 ml-1"></i><span>#:CountAsks#</span></div>
+                                         <div class="d-inline #:HasUnConfirmedSellerRequest==true?'font-weight-bold':''#"><i class="fa fa-users mr-1 ml-1"></i><span>#:CountSellers#</span></div>
+                                         <div class='d-inline'><i class="fa fa-eye mr-1 ml-1"></i><span>#:CountVisit#</span></div>
+                                     </div>
+                                 </div>
 </script>
 
 <script id="AuthorCell">
-                <a href="">
-                    <div class="d-inline"><img class="img-responcive img-circle" src="#=AuthorImageUrl#" /></div>
-                    <div class="d-inline">#=AuthorName#</div>
-                </a>
+                                <a href="">
+                                    <div class="d-inline"><img class="img-responcive img-circle" src="#=AuthorImageUrl#" /></div>
+                                    <div class="d-inline">#=AuthorName#</div>
+                                </a>
 </script>
 
 <script id="StatusCell">
@@ -230,14 +234,14 @@
         var _Seller="";
         @if (User.IsInRole(Roles.CanViewListAllAuthorUserProducts))
         {
-            @Html.Raw("_Author = $('#txtAuthor').val();")
-            @Html.Raw("_Seller = $('#txtSeller').val();")
+            @Html.Raw("_Author = $('#Input_AuthorUserId').val();")
+            @Html.Raw("_Seller = $('#Input_SellerUserId').val();")
         }
         else
         {
             if (!User.IsInRole(Roles.CanViewListAllSellerUserProducts))
             {
-                @Html.Raw("_Seller = $('#txtSeller').val();")
+                @Html.Raw("_Seller = $('#Input_SellerUserId').val();")
             }
         }
 

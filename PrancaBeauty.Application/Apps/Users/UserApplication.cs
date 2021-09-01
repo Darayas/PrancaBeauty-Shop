@@ -1103,5 +1103,30 @@ namespace PrancaBeauty.Application.Apps.Users
 
             }
         }
+
+        public async Task<List<OutGetListForCombo>> GetListForComboAsync(string LangId, string Name)
+        {
+            try
+            {
+                var qData = await _UserRepository.Get
+                                                 .Where(a => LangId != null ? a.LangId == Guid.Parse(LangId) : true)
+                                                 .Select(a => new OutGetListForCombo
+                                                 {
+                                                     Id = a.Id.ToString(),
+                                                     FullName = a.FirstName + " " + a.LastName,
+                                                     ImgUrl = null
+                                                 })
+                                                 .Where(a => Name != null ? a.FullName.Contains(Name) : true)
+                                                 .OrderBy(a => a.FullName)
+                                                 .ToListAsync();
+
+                return qData;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
+            }
+        }
     }
 }

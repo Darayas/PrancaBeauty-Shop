@@ -1,4 +1,5 @@
-﻿using PrancaBeauty.WebApp.Common.DataAnnotations;
+﻿using Microsoft.AspNetCore.Http;
+using PrancaBeauty.WebApp.Common.DataAnnotations;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -9,6 +10,12 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
 {
     public class viCompo_AccountSettings
     {
+        [Display(Name = "ProfileImage")]
+        //[RequiredFile(ErrorMessage = "RequiredFileMsg")]
+        [FileSize(1572864, 102400, ErrorMessage = "FileSizeMsg")] // MaxSize: 1.5 MB , MinSize: 100 KB
+        [AllowExtentions("image/jpg, image/png, image/jpeg", ErrorMessage = "AllowExtentionsMsg")]
+        public IFormFile ProfileImage { get; set; }
+
         [Display(Name = "DefaultLangId")]
         [Required(ErrorMessage = "RequiredMsg")]
         [StringLength(100, MinimumLength = 1, ErrorMessage = "StringLengthMsg")]

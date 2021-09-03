@@ -111,6 +111,84 @@ namespace PrancaBeauty.Application.Common.FtpWapper
             }
         }
 
+        public async Task<string> UplaodProfileImgAsync(IFormFile _FormFile, string _FileName = null)
+        {
+            try
+            {
+                if (_FormFile is null)
+                    throw new ArgumentInvalidException(nameof(_FormFile));
+
+                var qServer = await _FileServerApplication.GetServerDetailsAsync("Public");
+                if (qServer == null)
+                    return null;
+
+                #region File Name
+                string FileName = null;
+                if (_FileName == null)
+                {
+                    string FileEx = (await _AniShell.GetRealExtentionAsync(_FormFile)).Item1;
+                    if (FileEx == null)
+                        return null;
+
+                    FileName = new Guid().SequentialGuid().ToString() + "." + FileEx;
+                }
+                else
+                {
+                    string FileEx = (await _AniShell.GetRealExtentionAsync(_FormFile)).Item1;
+                    if (FileEx == null)
+                        return null;
+
+                    FileName = _FileName + "-" + new Random().Next(1000, 99999) + "." + FileEx;
+                }
+                #endregion
+
+                #region Path
+                string Path = $"/Img/Profile/{DateTime.Now.Month}";
+
+                if (!await _FtpClient.CheckDirectoryExistAsync(qServer.FtpHost, qServer.FtpPort, qServer.FtpPath, Path, qServer.FtpUserName, qServer.FtpPassword))
+                    await MakeDirAsync(qServer.Name, Path);
+                #endregion
+
+                var _Result = await _FtpClient.UploadAsync(_FormFile.OpenReadStream(), qServer.FtpHost, qServer.FtpPort, qServer.FtpPath, Path, FileName, qServer.FtpUserName, qServer.FtpPassword);
+                if (_Result == true)
+                {
+                    var _Id = new Guid().SequentialGuid().ToString();
+                    await _FileApplication.AddFileAsync(new InpAddFile()
+                    {
+                        Id = _Id,
+                        FileServerId = qServer.Id,
+                        Path = $"/{Path.Trim('/')}/",
+                        FileName = FileName,
+                        UserId = null,
+                        IsPrivate = false,
+                        Title = $"تصویر پروفایل - {FileName}",
+                        MimeType = (await _AniShell.GetRealExtentionAsync(_FormFile)).Item2,
+                        SizeOnDisk = _FormFile.Length
+                    });
+
+                    return _Id;
+                }
+                else
+                {
+                    throw new Exception("قادر به اپلود پروفایل کاربر نبودیم. لطفا اطلاعات خطای قبلی را برسی نمایید");
+                }
+            }
+            catch (FileFormatException ex)
+            {
+                _Logger.Error(ex);
+                return null;
+            }
+            catch (ArgumentInvalidException)
+            {
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
+            }
+        }
+
         private async Task<bool> MakeDirAsync(string ServerName, string Path)
         {
             try
@@ -156,8 +234,6 @@ namespace PrancaBeauty.Application.Common.FtpWapper
                 return false;
             }
         }
-
-       
 
         public async Task<bool> RemoveFileAsync(string FileId, string UserId = null)
         {

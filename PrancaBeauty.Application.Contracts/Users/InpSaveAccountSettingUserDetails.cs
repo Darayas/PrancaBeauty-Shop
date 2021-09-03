@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,8 @@ namespace PrancaBeauty.Application.Contracts.Users
     public class InpSaveAccountSettingUserDetails
     {
         public string LangId { get; set; }
+
+        public IFormFile ProfileImage { get; set; }
 
         public string Email { get; set; }
 

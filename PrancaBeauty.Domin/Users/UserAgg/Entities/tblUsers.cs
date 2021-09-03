@@ -21,6 +21,7 @@ namespace PrancaBeauty.Domin.Users.UserAgg.Entities
     public class tblUsers : IdentityUser<Guid>, IEntity
     {
         public Guid? LangId { get; set; }
+        public Guid? ProfileImgId { get; set; }
         public Guid AccessLevelId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -32,6 +33,7 @@ namespace PrancaBeauty.Domin.Users.UserAgg.Entities
         public bool IsSeller { get; set; }
 
         public virtual tblAccessLevels tblAccessLevels { get; set; }
+        public virtual tblFiles tblProfileImage { get; set; }
         public virtual tblLanguages tblLanguages { get; set; }
         public virtual tblSellers tblSellers { get; set; }
         public virtual ICollection<tblFiles> tblFiles { get; set; }

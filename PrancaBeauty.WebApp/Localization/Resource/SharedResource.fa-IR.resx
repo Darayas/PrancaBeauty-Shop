@@ -678,6 +678,9 @@
   <data name="ProductList" xml:space="preserve">
     <value>لیست محصولات</value>
   </data>
+  <data name="ProfileImage" xml:space="preserve">
+    <value>تصویر پروفایل</value>
+  </data>
   <data name="ProvinceId" xml:space="preserve">
     <value>استان</value>
   </data>

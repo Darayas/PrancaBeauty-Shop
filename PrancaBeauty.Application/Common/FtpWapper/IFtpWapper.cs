@@ -7,5 +7,6 @@ namespace PrancaBeauty.Application.Common.FtpWapper
     {
         Task<bool> RemoveFileAsync(string FileId, string UserId = null);
         Task<string> UplaodCategoryImgAsync(IFormFile _FormFile, string _FileName = null);
+        Task<string> UplaodProfileImgAsync(IFormFile _FormFile, string _FileName = null);
     }
 }

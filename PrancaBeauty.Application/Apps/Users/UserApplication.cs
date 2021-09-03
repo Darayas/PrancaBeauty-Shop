@@ -8,6 +8,7 @@ using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Apps.Accesslevels;
 using PrancaBeauty.Application.Apps.Templates;
+using PrancaBeauty.Application.Common.FtpWapper;
 using PrancaBeauty.Application.Contracts.Results;
 using PrancaBeauty.Application.Contracts.Users;
 using PrancaBeauty.Domin.Users.UserAgg.Contracts;
@@ -33,8 +34,9 @@ namespace PrancaBeauty.Application.Apps.Users
         private readonly IUserRepository _UserRepository;
         private readonly IAccesslevelApplication _AccesslevelApplication;
         private readonly ITemplateApplication _TemplateApplication;
+        private readonly IFtpWapper _FtpWapper;
 
-        public UserApplication(ILogger logger, IUserRepository userRepository, IAccesslevelApplication accesslevelApplication, IEmailSender emailSender, ILocalizer localizer, ITemplateApplication templateApplication, ISmsSender smsSender)
+        public UserApplication(ILogger logger, IUserRepository userRepository, IAccesslevelApplication accesslevelApplication, IEmailSender emailSender, ILocalizer localizer, ITemplateApplication templateApplication, ISmsSender smsSender, IFtpWapper ftpWapper)
         {
             _Logger = logger;
             _UserRepository = userRepository;
@@ -43,6 +45,7 @@ namespace PrancaBeauty.Application.Apps.Users
             _Localizer = localizer;
             _TemplateApplication = templateApplication;
             _SmsSender = smsSender;
+            _FtpWapper = ftpWapper;
         }
 
         public async Task<OperationResult> AddUserAsync(InpAddUser Input)
@@ -887,6 +890,24 @@ namespace PrancaBeauty.Application.Apps.Users
                 qUser.FirstName = Input.FirstName;
                 qUser.LastName = Input.LastName;
                 qUser.BirthDate = Input.BirthDate;
+
+                #region ویرایش تصویر پروفایل
+                {
+                    if (Input.ProfileImage != null)
+                    {
+                        if (qUser.ProfileImgId != null)
+                        {
+                            // حذف تصویر قبلی
+                            await _FtpWapper.RemoveFileAsync(qUser.ProfileImgId.Value.ToString());
+                            qUser.tblFiles = null;
+                        }
+
+                        // اپلود تصویر جدید
+                        string _FileId = await _FtpWapper.UplaodCategoryImgAsync(Input.ProfileImage, qUser.FirstName + "-" + qUser.LastName);
+                        qUser.ProfileImgId = Guid.Parse(_FileId);
+                    }
+                }
+                #endregion
 
                 #region تغییر شماره موبایل
                 if (qUser.PhoneNumber != Input.PhoneNumber)

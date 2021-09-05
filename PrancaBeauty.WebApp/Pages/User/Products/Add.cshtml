@@ -5,7 +5,8 @@
     Layout = "~/Pages/Shared/_UserLayout.cshtml";
 }
 
-@inject PrancaBeauty.Application.Apps.Languages.ILanguageApplication  _LanguageApplication;
+@inject PrancaBeauty.Application.Apps.Languages.ILanguageApplication  _LanguageApplication
+@inject PrancaBeauty.Application.Apps.Settings.ISettingApplication _SettingApplication
 
 @section breadcrumbs{
     <div class="breadcrumbs_area">
@@ -30,17 +31,63 @@
     <div class="col-md-12">
         <div class="form-group">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <label asp-for="Input.LangId"></label>
                     <LoadComponent id="ProductLang"
                                    context="HttpContext"
                                    data='new viCompo_Combo_Language { FieldName="Input.LangId",LangId= await _LanguageApplication.GetLangIdByLangCodeAsync(CultureInfo.CurrentCulture.Name)}'
                                    url="/@ViewData["culture"]/Shared/Compo/ComboLanguage"></LoadComponent>
                 </div>
-                <div class="col-md-6">
-
+                <div class="col-md-4">
+                    <LoadComponent id="ProductCategory"
+                                   context="HttpContext"
+                                   data='new viCompo_Combo_Categories { FieldName="Input.CategoryId"}'
+                                   url="/@ViewData["culture"]/Shared/Compo/ComboCategories"></LoadComponent>
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="Input.Date"></label>
+                    <input asp-for="Input.Date" class="form-control Date text-center dir-ltr" />
                 </div>
             </div>
         </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-12">
+                    <label asp-for="Input.Title"></label>
+                    <input asp-for="Input.Title" class="form-control" />
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-12">
+                    <label asp-for="Input.Name"></label>
+                    <div class="input-group mb-3 dir-ltr">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon3">@((await _SettingApplication.GetSettingAsync(CultureInfo.CurrentCulture.Name)).SiteUrl)/xxxxx/</span>
+                        </div>
+                        <input asp-for="Input.Name" class="form-control">
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
 </div>
+
+
+
+@section styles{
+    <link href="~/lib/PersianDatePicker/persian-datepicker.min.css" rel="stylesheet" />
+}
+
+@section scripts{
+    <script src="~/lib/PersianDatePicker/persian-date.min.js"></script>
+    <script src="~/lib/PersianDatePicker/persian-datepicker.min.js"></script>
+    <script>
+        $(".Date").persianDatepicker({
+            observer: true,
+            format: 'YYYY/MM/DD HH:mm:ss',
+        });
+    </script>
+}

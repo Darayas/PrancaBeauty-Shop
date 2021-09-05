@@ -22,5 +22,19 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
         [GUID(ErrorMessage = "GUIDMsg")]
         public string CategoryId { get; set; }
 
+        [Display(Name = "ProductName")]
+        [Required(ErrorMessage = "RequiredMsg")]
+        [StringLength(250,MinimumLength =3,ErrorMessage = "StringLengthMsg")]
+        public string Name { get; set; } // Uniqe Name
+
+        [Display(Name = "ProductTitle")]
+        [Required(ErrorMessage = "RequiredMsg")]
+        [StringLength(250, MinimumLength = 3, ErrorMessage = "StringLengthMsg")]
+        public string Title { get; set; }
+
+        [Display(Name = "ProductDate")]
+        [Required(ErrorMessage = "RequiredMsg")]
+        public string Date { get; set; }
+
     }
 }

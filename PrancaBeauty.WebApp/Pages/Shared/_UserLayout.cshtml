@@ -50,6 +50,8 @@
     <link href="~/lib/KendoUI/css/kendo.bootstrap.min.css" rel="stylesheet" />
     <link href="~/lib/KendoUI/css/kendo.rtl.min.css" rel="stylesheet" />
     <link href="~/lib/KendoUI/css/kendo.theme.min.css" rel="stylesheet" />
+
+    @RenderSection("styles", false)
 }
 
 @section scripts{
@@ -59,6 +61,8 @@
 
     <!-- SweetAlert -->
     <script src="~/lib/sweetalert/sweetalert.min.js"></script>
+
+    @RenderSection("scripts", false)
 }
 
 @section KendoScripts{

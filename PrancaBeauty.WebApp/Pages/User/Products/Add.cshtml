@@ -1,0 +1,46 @@
+﻿@page "/{cultuer}/User/Products/Add"
+@model PrancaBeauty.WebApp.Pages.User.Products.AddModel
+@{
+    ViewData["Title"] = Localizer["AddProduct"];
+    Layout = "~/Pages/Shared/_UserLayout.cshtml";
+}
+
+@inject PrancaBeauty.Application.Apps.Languages.ILanguageApplication  _LanguageApplication;
+
+@section breadcrumbs{
+    <div class="breadcrumbs_area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumb_content">
+                        <ul>
+                            <li><a href="/@ViewData["Culture"]">@Localizer["Home"]</a></li>
+                            <li><a href="/@ViewData["Culture"]/User/Index">@Localizer["Dashboard"]</a></li>
+                            <li><a href="/@ViewData["Culture"]/User/Products/List">@Localizer["ProductList"]</a></li>
+                            <li>@Localizer["AddProduct"]</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-6">
+                    <label asp-for="Input.LangId"></label>
+                    <LoadComponent id="ProductLang"
+                                   context="HttpContext"
+                                   data='new viCompo_Combo_Language { FieldName="Input.LangId",LangId= await _LanguageApplication.GetLangIdByLangCodeAsync(CultureInfo.CurrentCulture.Name)}'
+                                   url="/@ViewData["culture"]/Shared/Compo/ComboLanguage"></LoadComponent>
+                </div>
+                <div class="col-md-6">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

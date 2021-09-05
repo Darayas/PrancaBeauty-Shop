@@ -25,6 +25,7 @@ namespace PrancaBeauty.WebApp.Authentication
         public const string CanRemoveUsers = "CanRemoveUsers";
         public const string CanChangeUsersStatus = "CanChangeUsersStatus";
         public const string CanChangeUsersAccessLevel = "CanChangeUsersAccessLevel";
+        public const string CanChangeProfileImage = "CanChangeProfileImage";
         #endregion
 
         #region Categories

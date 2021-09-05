@@ -3,12 +3,15 @@
 
 <form id="frmAccountSettings">
     <div class="row">
-        <div class="col-md-12">
-            <div class="form-group">
-                <label asp-for="Input.ProfileImage"></label>
-                <input asp-for="Input.ProfileImage" class="form-control" />
+        @if (User.IsInRole(Roles.CanChangeProfileImage))
+        {
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label asp-for="Input.ProfileImage"></label>
+                    <input asp-for="Input.ProfileImage" class="form-control" />
+                </div>
             </div>
-        </div>
+        }
         <div class="col-md-12">
             <div class="form-group">
                 <label asp-for="Input.LangId"></label>

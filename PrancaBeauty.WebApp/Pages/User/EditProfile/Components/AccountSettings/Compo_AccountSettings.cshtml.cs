@@ -8,9 +8,11 @@ using Framework.Infrastructure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using PrancaBeauty.Application.Apps.Roles;
 using PrancaBeauty.Application.Apps.Settings;
 using PrancaBeauty.Application.Apps.Users;
 using PrancaBeauty.Application.Contracts.Users;
+using PrancaBeauty.WebApp.Authentication;
 using PrancaBeauty.WebApp.Common.ExMethod;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
 using PrancaBeauty.WebApp.Models.ViewInput;
@@ -59,6 +61,9 @@ namespace PrancaBeauty.WebApp.Pages.User.EditProfile.Components.AccountSettings
         {
             try
             {
+                if (!User.IsInRole(Roles.CanChangeProfileImage))
+                    Input.ProfileImage = null;
+
                 string SiteUrl = (await _SettingApplication.GetSettingAsync(CultureInfo.CurrentCulture.Name)).SiteUrl;
 
                 var Result = await _UserApplication.SaveAccountSettingUserDetailsAsync(User.GetUserDetails().UserId, _Mapper.Map<InpSaveAccountSettingUserDetails>(Input), $"{SiteUrl}/{CultureInfo.CurrentCulture.Parent.Name}/Auth/ChangeEmail?Token=[Token]");

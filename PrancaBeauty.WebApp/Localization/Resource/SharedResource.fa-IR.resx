@@ -162,6 +162,9 @@
   <data name="AddNewUsers" xml:space="preserve">
     <value>افزودن کاربر جدید</value>
   </data>
+  <data name="AddProduct" xml:space="preserve">
+    <value>افزودن محصول جدید</value>
+  </data>
   <data name="Address" xml:space="preserve">
     <value>آدرس</value>
   </data>
@@ -392,6 +395,9 @@
   </data>
   <data name="GridIsEmpty" xml:space="preserve">
     <value>رکوردی به جهت نمایش وجود ندارد</value>
+  </data>
+  <data name="GUIDMsg" xml:space="preserve">
+    <value>مقدار ارسال شده در {0} باید از نوع GUID باشد.</value>
   </data>
   <data name="Hello" xml:space="preserve">
     <value>سلام</value>

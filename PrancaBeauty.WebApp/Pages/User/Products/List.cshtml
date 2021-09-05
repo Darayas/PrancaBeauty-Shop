@@ -212,7 +212,7 @@
 {
     <script>
         function Add() {
-
+            location.href = '/@ViewData["culture"]/User/Products/Add?ReturnUrl=@Request.GetCurrentUrlEncoded()';
         }
     </script>
 }

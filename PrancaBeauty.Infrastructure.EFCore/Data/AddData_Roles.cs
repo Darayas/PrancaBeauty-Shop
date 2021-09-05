@@ -216,6 +216,20 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                         Description = "توانایی تغییر سطح دسترسی کاربر"
                     }, default, false).Wait();
                 }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanChangeProfileImage"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageUsersPage",
+                        Sort = 115,
+                        Name = "CanChangeProfileImage",
+                        NormalizedName = "CanChangeProfileImage".ToUpper(),
+                        Description = "توانایی تغییر تصویر پروفایل"
+                    }, default, false).Wait();
+                }
             }
             #endregion
 

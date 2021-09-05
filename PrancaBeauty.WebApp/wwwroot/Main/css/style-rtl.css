@@ -7956,3 +7956,6 @@ err500 {
 
 .dropdown-item {
   text-align: right !important; }
+
+.img-circle {
+  border-radius: 50%; }

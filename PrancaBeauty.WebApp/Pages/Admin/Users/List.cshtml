@@ -40,6 +40,7 @@
                                   .Columns(col=> {
                                       col.Bound(a => a.Id).Hidden().HtmlAttributes(new { @class = "RowId" }).Sortable(false);
                                       col.Bound(a => a.AccessLevelId).Hidden().HtmlAttributes(new { @class = "AccessLevelId" }).Sortable(false);
+                                      col.Bound(a => a.ImgUrl).Title(" ").HtmlAttributes(new { style = "text-align:center;" }).ClientTemplate("<img class='img-circle' style='width:64px; height:64px;' src='#=ImgUrl#'/>").Width(70).Sortable(false);
                                       col.Bound(a => a.FullName).Width(150).Sortable(false);
                                       col.Bound(a => a.Email).HtmlAttributes(new { @class= "text-left" }).Width(150).Sortable(false);
                                       col.Bound(a => a.PhoneNumber).HtmlAttributes(new { @class = "text-left" }).Width(80).Sortable(false);

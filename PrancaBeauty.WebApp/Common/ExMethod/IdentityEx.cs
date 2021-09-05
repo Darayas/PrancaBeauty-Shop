@@ -1,4 +1,7 @@
-﻿using PrancaBeauty.WebApp.Models.ViewModel;
+﻿using Framework.Application.Consts;
+using Microsoft.AspNetCore.Http;
+using PrancaBeauty.Application.Apps.Users;
+using PrancaBeauty.WebApp.Models.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +30,24 @@ namespace PrancaBeauty.WebApp.Common.ExMethod
             };
 
             return UserData;
+        }
+
+        public static async Task<string> GetUserProfileImgUrlAsync(this ClaimsPrincipal user, HttpContext Context)
+        {
+            try
+            {
+                var _UserApplication = (IUserApplication)Context.RequestServices.GetService(typeof(IUserApplication));
+
+                var ImgUrl = await _UserApplication.GetUserProfileImgUrlByIdAsync(user.GetUserDetails().UserId);
+
+                return ImgUrl;
+            }
+            catch (Exception)
+            {
+                return PublicConst.DefaultUserProfileImg;
+            }
+
+
         }
     }
 }

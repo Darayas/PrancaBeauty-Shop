@@ -52,7 +52,8 @@ namespace PrancaBeauty.WebApp.Pages.Admin.Users
                                  IsEmailConfirmed = a.IsEmailConfirmed,
                                  IsPhoneNumberConfirmed = a.IsPhoneNumberConfirmed,
                                  PhoneNumber = a.PhoneNumber,
-                                 AccessLevelId = a.AccessLevelId
+                                 AccessLevelId = a.AccessLevelId,
+                                 ImgUrl = a.ImgUrl
                              });
 
             var _DataGrid = Items.ToDataSourceResult(request);

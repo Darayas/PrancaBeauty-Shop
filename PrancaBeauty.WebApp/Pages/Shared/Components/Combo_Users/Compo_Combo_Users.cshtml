@@ -31,5 +31,5 @@
               {
                   read.Url($"/{ViewData["culture"]}/Shared/Compo/ComboUsers?handler=Read&_LangId={Model.Input.LangId}").Data($"Filter_{FieldId}");
               }).ServerFiltering(true);
-          }).Template("<div class='d-inline'><img src='#=ImgUrl#'/></div><div class='d-inline ml-2 mr-2'>#=FullName#</div>"))
+          }).Template("<div class='d-inline'><img class='img-circle' style='width:32px; height:32px;' src='#=ImgUrl#'/></div><div class='d-inline ml-2 mr-2'>#=FullName#</div>"))
 </div>

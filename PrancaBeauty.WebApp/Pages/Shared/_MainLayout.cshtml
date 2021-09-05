@@ -248,7 +248,7 @@
                                 @if (User.Identity.IsAuthenticated)
                                 {
                                     <li>
-                                        <a href="#"><img class="lang-flag" src="/Main/img/user.png" /> @User.GetUserDetails().GivenName @User.GetUserDetails().SurName <i class="icon-right ion-ios-arrow-down"></i></a>
+                                        <a href="#"><img class="lang-flag" src="@(await User.GetUserProfileImgUrlAsync(Context))" /> @User.GetUserDetails().GivenName @User.GetUserDetails().SurName <i class="icon-right ion-ios-arrow-down"></i></a>
                                         <ul class="dropdown_language">
                                             <li><a href="/@ViewData["Culture"]/User/Index">@Localizer["UserPanel"]</a></li>
                                             @if (User.IsInRole(Roles.AdminPage))

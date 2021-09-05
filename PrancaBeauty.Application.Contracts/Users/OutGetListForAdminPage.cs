@@ -13,6 +13,8 @@ namespace PrancaBeauty.Application.Contracts.Users
 
         public string AccessLevelId { get; set; }
 
+        public string ImgUrl { get; set; }
+
         public string FullName { get; set; }
 
         public string Email { get; set; }

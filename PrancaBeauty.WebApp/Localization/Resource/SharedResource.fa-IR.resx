@@ -448,7 +448,7 @@
     <value>پیش نویس</value>
   </data>
   <data name="IsEmailConfirmed" xml:space="preserve">
-    <value>وضعیت تایید ایمیل</value>
+    <value>تایید ایمیل</value>
   </data>
   <data name="IsNotConfirmed" xml:space="preserve">
     <value>تایید نشده</value>
@@ -463,7 +463,7 @@
     <value>زمانبندی نشده</value>
   </data>
   <data name="IsPhoneNumberConfirmed" xml:space="preserve">
-    <value>وضعیت تایید موبایل</value>
+    <value>تایید موبایل</value>
   </data>
   <data name="IsSchedule" xml:space="preserve">
     <value>زمانبندی شده</value>

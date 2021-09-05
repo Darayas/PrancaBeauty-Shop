@@ -196,7 +196,7 @@
                     <!-- Sidebar user panel (optional) -->
                     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                         <div class="image">
-                            <img src="~/Admin//img/avatar5.png" class="img-circle elevation-2" alt="User Image">
+                            <img src="@(await User.GetUserProfileImgUrlAsync(Context))" class="img-circle elevation-2" style="width:32px; height:32px;" alt="@User.GetUserDetails().GivenName @User.GetUserDetails().SurName">
                         </div>
                         <div class="info">
                             <a href="#" class="d-block">@User.GetUserDetails().GivenName @User.GetUserDetails().SurName</a>

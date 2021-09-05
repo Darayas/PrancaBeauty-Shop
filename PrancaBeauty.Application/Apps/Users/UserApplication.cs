@@ -616,7 +616,13 @@ namespace PrancaBeauty.Application.Apps.Users
                         Date = a.Date,
                         IsActive = a.IsActive,
                         IsEmailConfirmed = a.EmailConfirmed,
-                        IsPhoneNumberConfirmed = a.PhoneNumberConfirmed
+                        IsPhoneNumberConfirmed = a.PhoneNumberConfirmed,
+                        ImgUrl = a.ProfileImgId != null ?
+                                    a.tblProfileImage.tblFileServer.HttpDomin
+                                    + a.tblProfileImage.tblFileServer.HttpPath
+                                    + a.tblProfileImage.Path
+                                    + a.tblProfileImage.FileName
+                                : PublicConst.DefaultUserProfileImg
                     })
                 .Where(a => FullName != null ? a.FullName.Contains(FullName) : true)
                 .Where(a => Email != null ? a.Email.Contains(Email) : true)
@@ -1135,7 +1141,12 @@ namespace PrancaBeauty.Application.Apps.Users
                                                  {
                                                      Id = a.Id.ToString(),
                                                      FullName = a.FirstName + " " + a.LastName,
-                                                     ImgUrl = null
+                                                     ImgUrl = a.ProfileImgId != null ?
+                                                                    a.tblProfileImage.tblFileServer.HttpDomin
+                                                                    + a.tblProfileImage.tblFileServer.HttpPath
+                                                                    + a.tblProfileImage.Path
+                                                                    + a.tblProfileImage.FileName
+                                                                : PublicConst.DefaultUserProfileImg
                                                  })
                                                  .Where(a => Name != null ? a.FullName.Contains(Name) : true)
                                                  .OrderBy(a => a.FullName)
@@ -1147,6 +1158,42 @@ namespace PrancaBeauty.Application.Apps.Users
             {
                 _Logger.Error(ex);
                 return null;
+            }
+        }
+
+        public async Task<string> GetUserProfileImgUrlByIdAsync(string UserId)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(UserId))
+                    throw new ArgumentInvalidException($"'{nameof(UserId)}' cannot be null or whitespace.");
+
+                var qData = await _UserRepository.Get
+                                                 .Where(a => a.Id == Guid.Parse(UserId))
+                                                 .Select(a => new
+                                                 {
+                                                     ImgUrl = a.ProfileImgId != null ?
+                                                                    a.tblProfileImage.tblFileServer.HttpDomin
+                                                                    + a.tblProfileImage.tblFileServer.HttpPath
+                                                                    + a.tblProfileImage.Path
+                                                                    + a.tblProfileImage.FileName
+                                                                : PublicConst.DefaultUserProfileImg
+                                                 })
+                                                 .SingleOrDefaultAsync();
+
+                if (qData == null)
+                    return PublicConst.DefaultUserProfileImg;
+
+                return qData.ImgUrl;
+            }
+            catch (ArgumentInvalidException)
+            {
+                return PublicConst.DefaultUserProfileImg;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return PublicConst.DefaultUserProfileImg;
             }
         }
     }

@@ -11,6 +11,9 @@ namespace PrancaBeauty.WebApp.Models.ViewModel
         public string Id { get; set; }
         public string AccessLevelId { get; set; }
 
+        [Display(Name = "ImgUrl")]
+        public string ImgUrl { get; set; }
+
         [Display(Name = "FullName")]
         public string FullName { get; set; }
 

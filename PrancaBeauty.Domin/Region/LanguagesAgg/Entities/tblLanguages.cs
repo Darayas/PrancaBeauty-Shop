@@ -8,6 +8,7 @@ using PrancaBeauty.Domin.Product.ProductTopicAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductVariantAgg.Entities;
 using PrancaBeauty.Domin.Region.CityAgg.Entities;
 using PrancaBeauty.Domin.Region.CountryAgg.Entities;
+using PrancaBeauty.Domin.Region.CurrnencyAgg.Entities;
 using PrancaBeauty.Domin.Region.ProvinceAgg.Entities;
 using PrancaBeauty.Domin.Settings.SettingsAgg.Entities;
 using PrancaBeauty.Domin.Templates.TemplatesAgg.Entitis;
@@ -21,8 +22,7 @@ namespace PrancaBeauty.Domin.Region.LanguagesAgg.Entities
     public class tblLanguages : IEntity
     {
         public Guid Id { get; set; }
-        public Guid? CountryId { get; set; }
-        public Guid FlagImgId { get; set; }
+        public Guid CountryId { get; set; }
         public string Name { get; set; }
         public string Code { get; set; }
         public string Abbr { get; set; }
@@ -44,10 +44,8 @@ namespace PrancaBeauty.Domin.Region.LanguagesAgg.Entities
         public virtual ICollection<tblSeller_Translates> tblSeller_Translates { get; set; }
         public virtual ICollection<tblProductReviewsAttribute_Translate> tblProductReviewsAttribute_Translate { get; set; }
         public virtual ICollection<tblProducts> tblProducts { get; set; }
+        public virtual ICollection<tblCurrency_Translates> tblCurrency_Translates { get; set; }
 
-
-
-        public virtual tblFiles tblFile { get; set; }
         public virtual tblCountries tblCountries { get; set; }
     }
 }

@@ -18,6 +18,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Mapping.ProductPrices
             builder.Property(a => a.Id).IsRequired().HasMaxLength(150);
             builder.Property(a => a.ProductId).IsRequired().HasMaxLength(150);
             builder.Property(a => a.UserId).IsRequired().HasMaxLength(450);
+            builder.Property(a => a.CurrencyId).IsRequired().HasMaxLength(150);
 
             builder.HasOne(a => a.tblProducts)
                    .WithMany(a => a.tblProductPrices)
@@ -29,6 +30,12 @@ namespace PrancaBeauty.Infrastructure.EFCore.Mapping.ProductPrices
                    .WithMany(a => a.tblProductPrices)
                    .HasPrincipalKey(a => a.Id)
                    .HasForeignKey(a => a.UserId)
+                   .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(a => a.tblCurrency)
+                   .WithMany(a => a.tblProductPrices)
+                   .HasPrincipalKey(a => a.Id)
+                   .HasForeignKey(a => a.CurrencyId)
                    .OnDelete(DeleteBehavior.Restrict);
         }
     }

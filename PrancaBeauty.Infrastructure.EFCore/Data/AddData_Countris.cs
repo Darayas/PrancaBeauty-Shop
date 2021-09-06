@@ -59,6 +59,39 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     }
                 }, default).Wait();
             }
+
+            if (!_Countries.Get.Any(a => a.Name == "USA"))
+            {
+                _Countries.AddAsync(new tblCountries()
+                {
+                    Id = new Guid().SequentialGuid(),
+                    Name = "USA",
+                    IsActive = true,
+                    tblFiles = new tblFiles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        Title = "USACountryFlag",
+                        Date = DateTime.Now,
+                        FileName = "USACountryFlag.png",
+                        FileServerId = _FileServer.GetNoTraking.Where(a => a.Name == "Public").Select(a => a.Id).Single(),
+                        MimeType = "image/png",
+                        Path = "/Img/flags/",
+                        SizeOnDisk = 0
+                    },
+                    tblCountries_Translates = new List<tblCountries_Translates> {
+                        new tblCountries_Translates{
+                            Id= new Guid().SequentialGuid(),
+                            LangId= _Language.Get.Where(a=>a.Code=="fa-IR").Select(a=>a.Id).Single(),
+                            Title="امریکا"
+                        },
+                        new tblCountries_Translates{
+                            Id= new Guid().SequentialGuid(),
+                            LangId= _Language.Get.Where(a=>a.Code=="en-US").Select(a=>a.Id).Single(),
+                            Title="USA"
+                        }
+                    }
+                }, default).Wait();
+            }
         }
     }
 }

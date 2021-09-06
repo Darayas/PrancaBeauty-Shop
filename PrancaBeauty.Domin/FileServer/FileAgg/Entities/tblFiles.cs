@@ -34,7 +34,6 @@ namespace PrancaBeauty.Domin.FileServer.FileAgg.Entities
         public virtual tblUsers tblUser { get; set; }
         public virtual tblProductMedia tblProductMedia { get; set; }
         public virtual tblProductReviewsMedia tblProductReviewsMedia { get; set; }
-        public virtual ICollection<tblLanguages> tblLanguages { get; set; }
         public virtual ICollection<tblCountries> tblCountries { get; set; }
         public virtual ICollection<tblCategoris> tblCategoris { get; set; }
         public virtual ICollection<tblProductTopic> tblProductTopic { get; set; }

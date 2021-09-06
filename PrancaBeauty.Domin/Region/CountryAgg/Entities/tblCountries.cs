@@ -1,5 +1,7 @@
 ﻿using Framework.Domain;
 using PrancaBeauty.Domin.FileServer.FileAgg.Entities;
+using PrancaBeauty.Domin.Product.ProductPricesAgg.Entities;
+using PrancaBeauty.Domin.Region.CurrnencyAgg.Entities;
 using PrancaBeauty.Domin.Region.LanguagesAgg.Entities;
 using PrancaBeauty.Domin.Region.ProvinceAgg.Entities;
 using PrancaBeauty.Domin.Users.AddressAgg.Entities;
@@ -24,5 +26,6 @@ namespace PrancaBeauty.Domin.Region.CountryAgg.Entities
         public virtual ICollection<tblAddress> tblAddress { get; set; }
         public virtual ICollection<tblProvinces> tblProvinces { get; set; }
         public virtual ICollection<tblLanguages> tblLanguages { get; set; }
+        public virtual ICollection<tblCurrencies> tblCurrencies { get; set; }
     }
 }

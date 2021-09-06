@@ -13,6 +13,7 @@ using PrancaBeauty.Application.Apps.Address;
 using PrancaBeauty.Application.Apps.Categories;
 using PrancaBeauty.Application.Apps.Cities;
 using PrancaBeauty.Application.Apps.Countries;
+using PrancaBeauty.Application.Apps.Currency;
 using PrancaBeauty.Application.Apps.Files;
 using PrancaBeauty.Application.Apps.FileServer;
 using PrancaBeauty.Application.Apps.Keywords;
@@ -63,6 +64,7 @@ using PrancaBeauty.Domin.Product.ProductVariantAgg.Contracts;
 using PrancaBeauty.Domin.Product.ProductVariantItemsAgg.Contracts;
 using PrancaBeauty.Domin.Region.CityAgg.Contracts;
 using PrancaBeauty.Domin.Region.CountryAgg.Contracts;
+using PrancaBeauty.Domin.Region.CurrnencyAgg.Contracts;
 using PrancaBeauty.Domin.Region.LanguagesAgg.Contracts;
 using PrancaBeauty.Domin.Region.ProvinceAgg.Contracts;
 using PrancaBeauty.Domin.Settings.SettingsAgg.Contracts;
@@ -78,6 +80,7 @@ using PrancaBeauty.Infrastructure.EFCore.Repository.Address;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Categories;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Cities;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Counties;
+using PrancaBeauty.Infrastructure.EFCore.Repository.Currency;
 using PrancaBeauty.Infrastructure.EFCore.Repository.FileServer;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Keywords;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Keywords_Products;
@@ -169,6 +172,8 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddScoped<IProductReviewsAttributeRepository, ProductReviewsAttributeRepository>();
             services.AddScoped<IProductReviewsAttribute_TranslateRepository, ProductReviewsAttribute_TranslateRepository>();
             services.AddScoped<IProductReviewsAttributeValuesRepository, ProductReviewsAttributeValuesRepository>();
+            services.AddScoped<ICurrencyRepository, CurrencyRepository>();
+            services.AddScoped<ICurrency_TranslatesRepository, Currency_TranslatesRepository>();
 
             // Applications
             services.AddScoped<IUserApplication, UserApplication>();
@@ -203,6 +208,7 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddScoped<IProductSellersApplication, ProductSellersApplication>();
             services.AddScoped<IProductReviewsAttributeApplication, ProductReviewsAttributeApplication>();
             services.AddScoped<IProductReviewsAttributeValuesApplication, ProductReviewsAttributeValuesApplication>();
+            services.AddScoped<ICurrencyApplication, CurrencyApplication>();
         }
     }
 }

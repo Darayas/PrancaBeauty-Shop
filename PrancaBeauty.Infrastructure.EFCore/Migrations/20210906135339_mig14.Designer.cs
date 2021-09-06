@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PrancaBeauty.Infrastructure.EFCore.Context;
 
 namespace PrancaBeauty.Infrastructure.EFCore.Migrations
 {
     [DbContext(typeof(MainContext))]
-    partial class MainContextModelSnapshot : ModelSnapshot
+    [Migration("20210906135339_mig14")]
+    partial class mig14
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1177,7 +1179,12 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<Guid>("CountryId")
+                    b.Property<Guid?>("CountryId")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("FlagImgId")
                         .HasMaxLength(150)
                         .HasColumnType("uniqueidentifier");
 
@@ -1203,6 +1210,8 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CountryId");
+
+                    b.HasIndex("FlagImgId");
 
                     b.ToTable("tblLanguages");
                 });
@@ -2282,7 +2291,15 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("PrancaBeauty.Domin.FileServer.FileAgg.Entities.tblFiles", "tblFile")
+                        .WithMany("tblLanguages")
+                        .HasForeignKey("FlagImgId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.Navigation("tblCountries");
+
+                    b.Navigation("tblFile");
                 });
 
             modelBuilder.Entity("PrancaBeauty.Domin.Region.ProvinceAgg.Entities.tblProvinces", b =>
@@ -2477,6 +2494,8 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                     b.Navigation("tblCategoris");
 
                     b.Navigation("tblCountries");
+
+                    b.Navigation("tblLanguages");
 
                     b.Navigation("tblProductMedia");
 

@@ -690,6 +690,9 @@
   <data name="ProductName" xml:space="preserve">
     <value>نام محصول</value>
   </data>
+  <data name="ProductPrice" xml:space="preserve">
+    <value>قیمت اولیه ی محصول</value>
+  </data>
   <data name="ProductTitle" xml:space="preserve">
     <value>عنوان محصول</value>
   </data>

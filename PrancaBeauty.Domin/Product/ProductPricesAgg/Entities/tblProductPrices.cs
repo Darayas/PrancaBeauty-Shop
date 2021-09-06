@@ -16,6 +16,7 @@ namespace PrancaBeauty.Domin.Product.ProductPricesAgg.Entities
         public Guid UserId { get; set; }
         public DateTime Date { get; set; }
         public double Price { get; set; }
+        public bool IsActive { get; set; }
 
         public virtual tblProducts tblProducts { get; set; }
         public virtual tblUsers tblUsers { get; set; }

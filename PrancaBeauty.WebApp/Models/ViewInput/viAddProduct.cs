@@ -36,5 +36,8 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
         [Required(ErrorMessage = "RequiredMsg")]
         public string Date { get; set; }
 
+        [Display(Name = "ProductPrice")]
+        [Required(ErrorMessage = "RequiredMsg")]
+        public string Price { get; set; }
     }
 }

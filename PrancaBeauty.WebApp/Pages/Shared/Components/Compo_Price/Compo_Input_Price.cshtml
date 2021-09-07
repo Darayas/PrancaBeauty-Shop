@@ -1,0 +1,15 @@
+﻿@page "/{culture}/Shared/Compo/ComboInputPrice"
+@model PrancaBeauty.WebApp.Pages.Shared.Components.Compo_Price.Compo_Input_PriceModel
+@{
+    string FieldName = Model.Input.FieldName;
+    string FieldId = FieldName.Replace(".", "_").Replace("[", "_").Replace("]", "_");
+    string FieldTitle = Localizer[FieldName.Split('.').Last()];
+}
+
+<label for="@FieldId">@FieldTitle</label>
+<div class="input-group mb-3 dir-ltr">
+    <div class="input-group-prepend">
+        <span class="input-group-text" title="@Model.Data.Title">@Model.Data.Symbol</span>
+    </div>
+    <input name="@FieldName" id="@FieldId" class="form-control Price text-center dir-ltr" value="@Model.Input.Price" />
+</div>

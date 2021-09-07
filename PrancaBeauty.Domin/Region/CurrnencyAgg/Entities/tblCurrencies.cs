@@ -15,6 +15,7 @@ namespace PrancaBeauty.Domin.Region.CurrnencyAgg.Entities
         public Guid CountryId { get; set; }
         public string Name { get; set; }
         public string Symbol { get; set; }
+        public bool IsDefault { get; set; }
 
         public virtual tblCountries tblCountry { get; set; }
         public virtual ICollection<tblCurrency_Translates> tblCurrency_Translates { get; set; }

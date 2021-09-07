@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Framework.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Contracts.Languages;
 using PrancaBeauty.Domin.Region.LanguagesAgg.Contracts;
 using System;
@@ -11,12 +12,14 @@ namespace PrancaBeauty.Application.Apps.Languages
 {
     public class LanguageApplication : ILanguageApplication
     {
+        private readonly ILogger _Logger;
         private readonly ILanguageRepository _LanguageRepository;
         private List<OutSiteLangCache> SiteLangCache;
 
-        public LanguageApplication(ILanguageRepository languageRepository)
+        public LanguageApplication(ILanguageRepository languageRepository, ILogger logger)
         {
             _LanguageRepository = languageRepository;
+            _Logger = logger;
         }
 
         public async Task<string> GetCodeByAbbrAsync(string Abbr)
@@ -71,27 +74,34 @@ namespace PrancaBeauty.Application.Apps.Languages
 
         private async Task LoadCacheAsync()
         {
-            if (SiteLangCache == null)
+            try
             {
-                SiteLangCache = await _LanguageRepository.Get
-                                                     .Where(a => a.IsActive)
-                                                     .Where(a => a.UseForSiteLanguage)
-                                                     .Select(a => new OutSiteLangCache
-                                                     {
-                                                         Id = a.Id.ToString(),
-                                                         Abbr = a.Abbr,
-                                                         Code = a.Code,
-                                                         IsRtl = a.IsRtl,
-                                                         Name = a.Name,
-                                                         NativeName = a.NativeName,
-                                                         FlagUrl = a.tblCountries.tblFiles.tblFileServer.HttpDomin +
-                                                                    a.tblCountries.tblFiles.tblFileServer.HttpPath +
-                                                                    a.tblCountries.tblFiles.Path +
-                                                                    a.tblCountries.tblFiles.FileName
-                                                     })
-                                                     .ToListAsync();
+                if (SiteLangCache == null)
+                {
+                    SiteLangCache = await _LanguageRepository.Get
+                                                         .Where(a => a.IsActive)
+                                                         .Where(a => a.UseForSiteLanguage)
+                                                         .Select(a => new OutSiteLangCache
+                                                         {
+                                                             Id = a.Id.ToString(),
+                                                             CountryId = a.CountryId.ToString(),
+                                                             Abbr = a.Abbr,
+                                                             Code = a.Code,
+                                                             IsRtl = a.IsRtl,
+                                                             Name = a.Name,
+                                                             NativeName = a.NativeName,
+                                                             FlagUrl = a.tblCountries.tblFiles.tblFileServer.HttpDomin +
+                                                                        a.tblCountries.tblFiles.tblFileServer.HttpPath +
+                                                                        a.tblCountries.tblFiles.Path +
+                                                                        a.tblCountries.tblFiles.FileName
+                                                         })
+                                                         .ToListAsync();
+                }
             }
-
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+            }
         }
 
         public async Task<List<OutSiteLangCache>> GetAllLanguageForSiteLangAsync()
@@ -123,6 +133,16 @@ namespace PrancaBeauty.Application.Apps.Languages
         public async Task<OutSiteLangCache> GetLangDetailsByIdAsync(string LangId)
         {
             return (await GetAllLanguageForSiteLangAsync()).Where(a => a.Id == LangId).SingleOrDefault();
+        }
+
+        public async Task<string> GetCountryIdByLangIdAsync(string LangId)
+        {
+            await LoadCacheAsync();
+
+            return SiteLangCache
+                                .Where(a => a.Id == LangId)
+                                .Select(a => a.CountryId)
+                                .SingleOrDefault();
         }
     }
 }

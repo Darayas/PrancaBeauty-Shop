@@ -9,6 +9,7 @@ namespace PrancaBeauty.Application.Contracts.Languages
     public class OutSiteLangCache
     {
         public string Id { get; set; }
+        public string CountryId { get; set; }
         public string FlagUrl { get; set; }
         public string Name { get; set; }
         public string Code { get; set; }

@@ -32,7 +32,14 @@ namespace PrancaBeauty.WebApp.Middlewares
                 ClientInfo clientInfo = Parser.GetDefault().Parse(context.Request.Headers["User-Agent"].ToString());
                 if (!clientInfo.Device.IsSpider)
                 {
-                    string SiteUrl = (await _SettingApplication.GetSettingAsync(CultureInfo.CurrentCulture.Name)).SiteUrl;
+                    var _SiteSetting = await _SettingApplication.GetSettingAsync(CultureInfo.CurrentCulture.Name);
+                    string SiteUrl = "";
+
+                    if (_SiteSetting == null)
+                        SiteUrl = context.Request.Scheme + "://" + context.Request.Host;
+                    else
+                        SiteUrl = _SiteSetting.SiteUrl;
+
                     string LangAbbr = await _LanguageApplication.GetAbbrByCodeAsync(CultureInfo.CurrentCulture.Name);
 
                     context.Response.Redirect(SiteUrl + "/" + LangAbbr);

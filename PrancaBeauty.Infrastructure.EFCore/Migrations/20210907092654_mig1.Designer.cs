@@ -10,8 +10,8 @@ using PrancaBeauty.Infrastructure.EFCore.Context;
 namespace PrancaBeauty.Infrastructure.EFCore.Migrations
 {
     [DbContext(typeof(MainContext))]
-    [Migration("20210816174031_mig11")]
-    partial class mig11
+    [Migration("20210907092654_mig1")]
+    partial class mig1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -344,6 +344,19 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDelete")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDraft")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("LangId")
+                        .HasMaxLength(450)
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(250)
@@ -354,11 +367,18 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
+                    b.Property<string>("UniqueNumber")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AuthorUserId");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("LangId");
 
                     b.ToTable("tblProducts");
                 });
@@ -469,8 +489,15 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("CurrencyId")
+                        .HasMaxLength(150)
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<double>("Price")
                         .HasColumnType("float");
@@ -484,6 +511,8 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CurrencyId");
 
                     b.HasIndex("ProductId");
 
@@ -788,6 +817,9 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
+                    b.Property<bool>("IsConfirm")
+                        .HasColumnType("bit");
+
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
@@ -1074,6 +1106,62 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                     b.ToTable("tblCountries_Translates");
                 });
 
+            modelBuilder.Entity("PrancaBeauty.Domin.Region.CurrnencyAgg.Entities.tblCurrencies", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(150)
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CountryId")
+                        .HasMaxLength(150)
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("Symbol")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CountryId");
+
+                    b.ToTable("tblCurrencies");
+                });
+
+            modelBuilder.Entity("PrancaBeauty.Domin.Region.CurrnencyAgg.Entities.tblCurrency_Translates", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(150)
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CurrencyId")
+                        .HasMaxLength(150)
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("LangId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CurrencyId");
+
+                    b.HasIndex("LangId");
+
+                    b.ToTable("tblCurrency_Translates");
+                });
+
             modelBuilder.Entity("PrancaBeauty.Domin.Region.LanguagesAgg.Entities.tblLanguages", b =>
                 {
                     b.Property<Guid>("Id")
@@ -1091,7 +1179,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<Guid>("FlagImgId")
+                    b.Property<Guid>("CountryId")
                         .HasMaxLength(150)
                         .HasColumnType("uniqueidentifier");
 
@@ -1116,7 +1204,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FlagImgId");
+                    b.HasIndex("CountryId");
 
                     b.ToTable("tblLanguages");
                 });
@@ -1566,6 +1654,10 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<Guid?>("ProfileImgId")
+                        .HasMaxLength(150)
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -1589,6 +1681,8 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.HasIndex("ProfileImgId");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -1719,21 +1813,29 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
 
             modelBuilder.Entity("PrancaBeauty.Domin.Product.ProductAgg.Entities.tblProducts", b =>
                 {
-                    b.HasOne("PrancaBeauty.Domin.Users.UserAgg.Entities.tblUsers", "tblUsers")
+                    b.HasOne("PrancaBeauty.Domin.Users.UserAgg.Entities.tblUsers", "tblAuthorUser")
                         .WithMany("tblProducts")
                         .HasForeignKey("AuthorUserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("PrancaBeauty.Domin.Categories.CategoriesAgg.Entities.tblCategoris", "tblCategoris")
+                    b.HasOne("PrancaBeauty.Domin.Categories.CategoriesAgg.Entities.tblCategoris", "tblCategory")
                         .WithMany("tblProducts")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("tblCategoris");
+                    b.HasOne("PrancaBeauty.Domin.Region.LanguagesAgg.Entities.tblLanguages", "tblLanguage")
+                        .WithMany("tblProducts")
+                        .HasForeignKey("LangId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
-                    b.Navigation("tblUsers");
+                    b.Navigation("tblAuthorUser");
+
+                    b.Navigation("tblCategory");
+
+                    b.Navigation("tblLanguage");
                 });
 
             modelBuilder.Entity("PrancaBeauty.Domin.Product.ProductAskAgg.Entities.tblProductAsk", b =>
@@ -1741,7 +1843,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                     b.HasOne("PrancaBeauty.Domin.Product.ProductAskAgg.Entities.tblProductAsk", "tblProductAsk_Parent")
                         .WithMany("tblProductAsk_Childs")
                         .HasForeignKey("AskId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("PrancaBeauty.Domin.Product.ProductAgg.Entities.tblProducts", "tblProducts")
                         .WithMany("tblProductAsk")
@@ -1802,6 +1904,12 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
 
             modelBuilder.Entity("PrancaBeauty.Domin.Product.ProductPricesAgg.Entities.tblProductPrices", b =>
                 {
+                    b.HasOne("PrancaBeauty.Domin.Region.CurrnencyAgg.Entities.tblCurrencies", "tblCurrency")
+                        .WithMany("tblProductPrices")
+                        .HasForeignKey("CurrencyId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("PrancaBeauty.Domin.Product.ProductAgg.Entities.tblProducts", "tblProducts")
                         .WithMany("tblProductPrices")
                         .HasForeignKey("ProductId")
@@ -1813,6 +1921,8 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("tblCurrency");
 
                     b.Navigation("tblProducts");
 
@@ -2136,15 +2246,45 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                     b.Navigation("tblLanguages");
                 });
 
-            modelBuilder.Entity("PrancaBeauty.Domin.Region.LanguagesAgg.Entities.tblLanguages", b =>
+            modelBuilder.Entity("PrancaBeauty.Domin.Region.CurrnencyAgg.Entities.tblCurrencies", b =>
                 {
-                    b.HasOne("PrancaBeauty.Domin.FileServer.FileAgg.Entities.tblFiles", "tblFile")
-                        .WithMany("tblLanguages")
-                        .HasForeignKey("FlagImgId")
+                    b.HasOne("PrancaBeauty.Domin.Region.CountryAgg.Entities.tblCountries", "tblCountry")
+                        .WithMany("tblCurrencies")
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("tblCountry");
+                });
+
+            modelBuilder.Entity("PrancaBeauty.Domin.Region.CurrnencyAgg.Entities.tblCurrency_Translates", b =>
+                {
+                    b.HasOne("PrancaBeauty.Domin.Region.CurrnencyAgg.Entities.tblCurrencies", "tblCurrency")
+                        .WithMany("tblCurrency_Translates")
+                        .HasForeignKey("CurrencyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PrancaBeauty.Domin.Region.LanguagesAgg.Entities.tblLanguages", "tblLanguage")
+                        .WithMany("tblCurrency_Translates")
+                        .HasForeignKey("LangId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("tblFile");
+                    b.Navigation("tblCurrency");
+
+                    b.Navigation("tblLanguage");
+                });
+
+            modelBuilder.Entity("PrancaBeauty.Domin.Region.LanguagesAgg.Entities.tblLanguages", b =>
+                {
+                    b.HasOne("PrancaBeauty.Domin.Region.CountryAgg.Entities.tblCountries", "tblCountries")
+                        .WithMany("tblLanguages")
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("tblCountries");
                 });
 
             modelBuilder.Entity("PrancaBeauty.Domin.Region.ProvinceAgg.Entities.tblProvinces", b =>
@@ -2313,9 +2453,16 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                         .HasForeignKey("LangId")
                         .OnDelete(DeleteBehavior.Restrict);
 
+                    b.HasOne("PrancaBeauty.Domin.FileServer.FileAgg.Entities.tblFiles", "tblProfileImage")
+                        .WithMany("tblUserProfile")
+                        .HasForeignKey("ProfileImgId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.Navigation("tblAccessLevels");
 
                     b.Navigation("tblLanguages");
+
+                    b.Navigation("tblProfileImage");
                 });
 
             modelBuilder.Entity("PrancaBeauty.Domin.Categories.CategoriesAgg.Entities.tblCategoris", b =>
@@ -2333,8 +2480,6 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
 
                     b.Navigation("tblCountries");
 
-                    b.Navigation("tblLanguages");
-
                     b.Navigation("tblProductMedia");
 
                     b.Navigation("tblProductReviewsMedia");
@@ -2342,6 +2487,8 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                     b.Navigation("tblProductTopic");
 
                     b.Navigation("tblSeller_Translates");
+
+                    b.Navigation("tblUserProfile");
                 });
 
             modelBuilder.Entity("PrancaBeauty.Domin.FileServer.ServerAgg.Entities.tblFileServers", b =>
@@ -2439,7 +2586,18 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
 
                     b.Navigation("tblCountries_Translates");
 
+                    b.Navigation("tblCurrencies");
+
+                    b.Navigation("tblLanguages");
+
                     b.Navigation("tblProvinces");
+                });
+
+            modelBuilder.Entity("PrancaBeauty.Domin.Region.CurrnencyAgg.Entities.tblCurrencies", b =>
+                {
+                    b.Navigation("tblCurrency_Translates");
+
+                    b.Navigation("tblProductPrices");
                 });
 
             modelBuilder.Entity("PrancaBeauty.Domin.Region.LanguagesAgg.Entities.tblLanguages", b =>
@@ -2450,9 +2608,13 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
 
                     b.Navigation("tblCountries_Translates");
 
+                    b.Navigation("tblCurrency_Translates");
+
                     b.Navigation("tblProductPropertis_Translates");
 
                     b.Navigation("tblProductReviewsAttribute_Translate");
+
+                    b.Navigation("tblProducts");
 
                     b.Navigation("tblProductTopic_Translates");
 

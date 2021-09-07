@@ -34,6 +34,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     Id = new Guid().SequentialGuid(),
                     Name = "Iran",
                     IsActive = true,
+                    PhoneCode = "098",
                     tblFiles = new tblFiles()
                     {
                         Id = new Guid().SequentialGuid(),
@@ -44,18 +45,6 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                         MimeType = "image/png",
                         Path = "/Img/flags/",
                         SizeOnDisk = 0
-                    },
-                    tblCountries_Translates = new List<tblCountries_Translates> {
-                        new tblCountries_Translates{
-                            Id= new Guid().SequentialGuid(),
-                            LangId= _Language.Get.Where(a=>a.Code=="fa-IR").Select(a=>a.Id).Single(),
-                            Title="ایران"
-                        },
-                        new tblCountries_Translates{
-                            Id= new Guid().SequentialGuid(),
-                            LangId= _Language.Get.Where(a=>a.Code=="en-US").Select(a=>a.Id).Single(),
-                            Title="Iran"
-                        }
                     }
                 }, default).Wait();
             }
@@ -67,6 +56,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     Id = new Guid().SequentialGuid(),
                     Name = "USA",
                     IsActive = true,
+                    PhoneCode = "001",
                     tblFiles = new tblFiles()
                     {
                         Id = new Guid().SequentialGuid(),
@@ -77,18 +67,6 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                         MimeType = "image/png",
                         Path = "/Img/flags/",
                         SizeOnDisk = 0
-                    },
-                    tblCountries_Translates = new List<tblCountries_Translates> {
-                        new tblCountries_Translates{
-                            Id= new Guid().SequentialGuid(),
-                            LangId= _Language.Get.Where(a=>a.Code=="fa-IR").Select(a=>a.Id).Single(),
-                            Title="امریکا"
-                        },
-                        new tblCountries_Translates{
-                            Id= new Guid().SequentialGuid(),
-                            LangId= _Language.Get.Where(a=>a.Code=="en-US").Select(a=>a.Id).Single(),
-                            Title="USA"
-                        }
                     }
                 }, default).Wait();
             }

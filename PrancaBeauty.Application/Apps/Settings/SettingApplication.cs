@@ -27,11 +27,14 @@ namespace PrancaBeauty.Application.Apps.Settings
         {
             if (_ListSettings != null)
                 if (_ListSettings.Any(a => a.LangCode == LangCode))
-                    return _ListSettings.Where(a => a.LangCode == LangCode).Single();
+                    return _ListSettings.Where(a => a.LangCode == LangCode).SingleOrDefault();
 
             var qSetting = await LoadSettingAsync(LangCode);
             if (qSetting == null)
-                throw new Exception("");
+            {
+                // log
+                return null;
+            }
 
             _ListSettings.Add(qSetting);
             return qSetting;
@@ -60,7 +63,10 @@ namespace PrancaBeauty.Application.Apps.Settings
                                                     .SingleOrDefaultAsync();
 
                 if (qData == null)
-                    throw new Exception($"qData is null, LangCode: [{LangCode}]");
+                {
+                    // throw new Exception($"qData is null, LangCode: [{LangCode}]");
+                    return null;
+                }
 
 
 

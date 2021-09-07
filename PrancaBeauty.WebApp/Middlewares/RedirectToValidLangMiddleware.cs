@@ -37,7 +37,14 @@ namespace PrancaBeauty.WebApp.Middlewares
                     var isValid = await _LanguageApplication.IsValidAbbrForSiteLangAsync(LangAbbr);
                     if (!isValid)
                     {
-                        string SiteUrl = (await _SettingApplication.GetSettingAsync(CultureInfo.CurrentCulture.Name)).SiteUrl;
+                        var _SiteSetting = await _SettingApplication.GetSettingAsync(CultureInfo.CurrentCulture.Name);
+                        string SiteUrl = "";
+
+                        if (_SiteSetting == null)
+                            SiteUrl = context.Request.Scheme + "://" + context.Request.Host;
+                        else
+                            SiteUrl = _SiteSetting.SiteUrl;
+
 
                         Paths[0] = GetLangByIpAddress(context);
 
@@ -47,7 +54,13 @@ namespace PrancaBeauty.WebApp.Middlewares
                 }
                 else
                 {
-                    string SiteUrl = (await _SettingApplication.GetSettingAsync(CultureInfo.CurrentCulture.Name)).SiteUrl;
+                    var _SiteSetting = await _SettingApplication.GetSettingAsync(CultureInfo.CurrentCulture.Name);
+                    string SiteUrl = "";
+
+                    if (_SiteSetting == null)
+                        SiteUrl = context.Request.Scheme + "://" + context.Request.Host;
+                    else
+                        SiteUrl = _SiteSetting.SiteUrl;
 
                     string _LangAbbr = GetLangByIpAddress(context);
 
@@ -61,9 +74,9 @@ namespace PrancaBeauty.WebApp.Middlewares
         private string GetLangByIpAddress(HttpContext context)
         {
             var _IpAddressChecker = (IIpAddressChecker)context.RequestServices.GetService(typeof(IIpAddressChecker));
-            
+
             var _LangAbbrByIpAddress = _IpAddressChecker.GetLangAbbr(context.Connection.RemoteIpAddress.ToString());
-            
+
             if (_LangAbbrByIpAddress == null)
                 return "fa";
             else

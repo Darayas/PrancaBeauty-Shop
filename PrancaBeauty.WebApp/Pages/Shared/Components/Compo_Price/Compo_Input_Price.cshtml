@@ -13,3 +13,9 @@
     </div>
     <input name="@FieldName" id="@FieldId" class="form-control Price text-center dir-ltr" value="@Model.Input.Price" />
 </div>
+
+
+<script src="~/lib/autoNumeric/autoNumeric.min.js"></script>
+<script>
+    $('.Price').autoNumeric('init', { vMax: '@Model.Data.vMax', mDec: '@Model.Data.mDec', lZero: 'deny', aDec: '@Model.Data.aDec', aSep: '@Model.Data.aSep' });
+</script>

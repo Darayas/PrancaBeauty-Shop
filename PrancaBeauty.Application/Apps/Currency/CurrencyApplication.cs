@@ -39,6 +39,10 @@ namespace PrancaBeauty.Application.Apps.Currency
                                                      {
                                                          Id = a.Id.ToString(),
                                                          Symbol = a.Symbol,
+                                                         aDec = a.aDec,
+                                                         aSep = a.aSep,
+                                                         mDec = a.mDec,
+                                                         vMax = a.vMax,
                                                          Title = a.tblCurrency_Translates.Where(b => b.LangId == Guid.Parse(LangId)).Select(b => b.Title).Single()
                                                      })
                                                      .SingleOrDefaultAsync();

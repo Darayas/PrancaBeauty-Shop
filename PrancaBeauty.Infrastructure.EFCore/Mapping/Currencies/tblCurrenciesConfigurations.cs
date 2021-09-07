@@ -19,6 +19,10 @@ namespace PrancaBeauty.Infrastructure.EFCore.Mapping.Currencies
             builder.Property(a => a.CountryId).IsRequired().HasMaxLength(150);
             builder.Property(a => a.Name).IsRequired().HasMaxLength(150);
             builder.Property(a => a.Symbol).IsRequired().HasMaxLength(50);
+            builder.Property(a => a.aDec).IsRequired().HasMaxLength(5);
+            builder.Property(a => a.aSep).IsRequired().HasMaxLength(5);
+            builder.Property(a => a.mDec).IsRequired().HasMaxLength(5);
+            builder.Property(a => a.vMax).IsRequired().HasMaxLength(15);
 
             builder.HasOne(a => a.tblCountry)
                    .WithMany(a => a.tblCurrencies)

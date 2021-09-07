@@ -33,13 +33,13 @@
             <div class="row">
                 <div class="col-md-3">
                     <label asp-for="Input.LangId"></label>
-                    <LoadComponent id="ProductLang"
+                    <LoadComponent id="ProductLangCompo"
                                    context="HttpContext"
                                    data='new viCompo_Combo_Language { FieldName="Input.LangId",LangId= await _LanguageApplication.GetLangIdByLangCodeAsync(CultureInfo.CurrentCulture.Name)}'
                                    url="/@ViewData["culture"]/Shared/Compo/ComboLanguage"></LoadComponent>
                 </div>
                 <div class="col-md-3">
-                    <LoadComponent id="ProductCategory"
+                    <LoadComponent id="ProductCategoryCompo"
                                    context="HttpContext"
                                    data='new viCompo_Combo_Categories { FieldName="Input.CategoryId"}'
                                    url="/@ViewData["culture"]/Shared/Compo/ComboCategories"></LoadComponent>
@@ -48,8 +48,8 @@
                     <label asp-for="Input.Date"></label>
                     <input asp-for="Input.Date" class="form-control Date text-center dir-ltr" />
                 </div>
-                <div class="col-md-3">
-                    <LoadComponent id="ProductPrice"
+                <div class="col-md-3" id="ProductPrice">
+                    <LoadComponent id="ProductPriceCompo"
                                    context="HttpContext"
                                    data='new viCompo_Input_Price { FieldName="Input.ProductPrice",Price="0",LangId=await _LanguageApplication.GetLangIdByLangCodeAsync(CultureInfo.CurrentCulture.Name)}'
                                    url="/@ViewData["culture"]/Shared/Compo/ComboInputPrice"></LoadComponent>
@@ -90,7 +90,7 @@
 @section scripts{
     <script src="~/lib/PersianDatePicker/persian-date.min.js"></script>
     <script src="~/lib/PersianDatePicker/persian-datepicker.min.js"></script>
-    <script src="~/lib/autoNumeric/autoNumeric.min.js"></script>
+
     <script>
         $(".Date").persianDatepicker({
             format: 'YYYY/MM/DD HH:mm:ss',
@@ -109,11 +109,16 @@
             }
         });
 
-        $('.Price').autoNumeric('init', { vMax: '9999999999', mDec: '0', lZero: 'deny' });
-
         function OnComboSelectInput_LangId(e) {
-            var _LangId = e.dataItem.value;
-            
+            var _LangId = e.dataItem.Id;
+
+            LoadComponenet('/@ViewData["culture"]/Shared/Compo/ComboInputPrice', {
+                FieldName:'Input.ProductPrice',
+                Price:'0',
+                LangId: _LangId
+            }, function (res) {
+                $('#ProductPrice').html(res);
+            });
         }
     </script>
 }

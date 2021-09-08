@@ -7,17 +7,46 @@
 }
 
 <div class="row">
+    <script>
+        function LoadSimilarity(_Id) {
+            $('#' + _Id).autoNumeric('init', { vMax: '99.99', lZero: 'deny', aDec: '.', aSep: ',' });
+        }
+    </script>
+
     <div class="col-md-12">
         <div class="CompoSectionHeader">
             <div class="Header"><span class="fs-16px font-weight-bold">@Localizer["Keywords"]</span></div>
-            <div class="BtnAdd"><button class="btn btn-success btn-sm"><i class="fa fa-plus"></i></button></div>
+            <div class="BtnAdd"><button onclick="AddKeywordInput()" type="button" class="btn btn-success btn-sm"><i class="fa fa-plus"></i></button></div>
         </div>
         <hr />
         <div id="CompoAddSection">
-            <LoadComponent id="ProductKeywordsInputCompo"
+            <LoadComponent class="ProductKeywordsInputCompo"
                            context="HttpContext"
-                           data='new viCompo_Input_Keywords_Input { FieldName="Input.ProductKeywordsInput"}'
+                           data='new viCompo_Input_Keywords_Input { Index=0}'
                            url="/@ViewData["culture"]/User/Products/Compo/CompoInputKeywordInput"></LoadComponent>
+
         </div>
     </div>
+
+    <script src="~/lib/autoNumeric/autoNumeric.min.js"></script>
+    <script>
+
+        function AddKeywordInput() {
+
+            var _Count = $('.ProductKeywordsInputCompo').length;
+
+            LoadComponenet('/@ViewData["culture"]/User/Products/Compo/CompoInputKeywordInput', {
+                Index: _Count
+            }, function (res) {
+                $('#CompoAddSection').append("<div class='ProductKeywordsInputCompo'>" + res + "</div>");
+            });
+        }
+
+        function RemoveKeyword(_Index) {
+            $('#Keyword' + _Index).hide();
+            $('#Input_Title_' + _Index + '_').val("");
+            $('#Input_Similarity_' + _Index + '_').val("");
+
+        }
+    </script>
 </div>

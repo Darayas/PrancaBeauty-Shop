@@ -1,26 +1,24 @@
 ﻿@page "/{culture}/User/Products/Compo/CompoInputKeywordInput"
 @model PrancaBeauty.WebApp.Pages.User.Products.Components.Compo_Keywords.Compo_Input_Keywords_InputModel
 
-<div class="form-group">
+<div class="form-group" id="Keyword@(Model.Input.Index)">
     <div class="row">
         <div class="col-md-8">
-            <input class="form-control" asp-for="Input.Title" type="text" placeholder="@Localizer["KeywordTitle"]" />
+            <input class="form-control" asp-for="Input.Title[Model.Input.Index]" type="text" placeholder="@Localizer["KeywordTitle"]" />
         </div>
         <div class="col-md-3">
             <div class="input-group mb-3 dir-ltr">
                 <div class="input-group-prepend">
                     <span class="input-group-text">%</span>
                 </div>
-                <input class="form-control Price text-center dir-ltr Similarity" asp-for="Input.Similarity" type="text" placeholder="@Localizer["KeywordSimilarity"]" />
+                <input class="form-control Price text-center dir-ltr" asp-for="Input.Similarity[Model.Input.Index]" type="text" placeholder="@Localizer["KeywordSimilarity"]" />
             </div>
         </div>
         <div class="col-md-1">
-            <button class="btn btn-danger"><i class="fa fa-times"></i></button>
+            <button type="button" onclick="RemoveKeyword('@Model.Input.Index')" class="btn btn-danger"><i class="fa fa-times"></i></button>
         </div>
     </div>
-
-    <script src="~/lib/autoNumeric/autoNumeric.min.js"></script>
     <script>
-        //$('.Similarity').autoNumeric('init', { vMax: '999', mDec: '2', lZero: 'deny', aDec: '.', aSep: ',' });
+        LoadSimilarity('Input_Similarity_@(Model.Input.Index)_');
     </script>
 </div>

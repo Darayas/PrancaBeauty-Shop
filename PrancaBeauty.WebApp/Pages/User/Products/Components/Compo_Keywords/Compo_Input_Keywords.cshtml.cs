@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Keywords;
 using PrancaBeauty.WebApp.Models.ViewInput;
 
-namespace PrancaBeauty.WebApp.Pages.Shared.Components.Compo_Keywords
+namespace PrancaBeauty.WebApp.Pages.User.Products.Components.Compo_Keywords
 {
     public class Compo_Input_KeywordsModel : PageModel
     {
@@ -23,6 +23,7 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.Compo_Keywords
             return Page();
         }
 
+        [BindProperty(SupportsGet = true)]
         public viCompo_Input_Keywords Input { get; set; }
     }
 }

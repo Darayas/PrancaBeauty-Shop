@@ -1,0 +1,23 @@
+﻿@page "/{culture}/User/Products/Compo/CompoInputKeyword"
+@model PrancaBeauty.WebApp.Pages.User.Products.Components.Compo_Keywords.Compo_Input_KeywordsModel
+@{
+    string FieldName = Model.Input.FieldName;
+    string FieldId = FieldName.Replace(".", "_").Replace("[", "_").Replace("]", "_");
+    string FieldTitle = Localizer[FieldName.Split('.').Last()];
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="CompoSectionHeader">
+            <div class="Header"><span class="fs-16px font-weight-bold">@Localizer["Keywords"]</span></div>
+            <div class="BtnAdd"><button class="btn btn-success btn-sm"><i class="fa fa-plus"></i></button></div>
+        </div>
+        <hr />
+        <div id="CompoAddSection">
+            <LoadComponent id="ProductKeywordsInputCompo"
+                           context="HttpContext"
+                           data='new viCompo_Input_Keywords_Input { FieldName="Input.ProductKeywordsInput"}'
+                           url="/@ViewData["culture"]/User/Products/Compo/CompoInputKeywordInput"></LoadComponent>
+        </div>
+    </div>
+</div>

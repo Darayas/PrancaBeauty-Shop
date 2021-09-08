@@ -7959,3 +7959,21 @@ err500 {
 
 .img-circle {
   border-radius: 50%; }
+
+.fs-16px {
+  font-size: 16px; }
+
+.fs-14px {
+  font-size: 14px; }
+
+.fs-12px {
+  font-size: 12px; }
+
+.CompoSectionHeader {
+  padding: 0px 0px 20px 0; }
+  .CompoSectionHeader div {
+    display: inline-block; }
+  .CompoSectionHeader .Header {
+    float: right; }
+  .CompoSectionHeader .BtnAdd {
+    float: left; }

@@ -24,6 +24,7 @@ namespace PrancaBeauty.Domin.Users.UserAgg.Contracts
         Task<tblUsers> FindByPhoneNumberAsync(string PhoneNumber);
         Task<string> GenerateChangeEmailTokenAsync(tblUsers user, string newEmail);
         Task<string> GenerateEmailConfirmationTokenAsync(tblUsers user);
+        Task<string> GeneratePasswordResetTokenAsync(tblUsers user);
         Task<string> GetUserIdByEmailAsync(string Email);
         Task<string> GetUserIdByPhoneNumberAsync(string PhoneNumber);
         Task<string> GetUserIdByUserNameAsync(string UserName);

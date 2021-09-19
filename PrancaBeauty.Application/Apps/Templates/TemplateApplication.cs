@@ -39,6 +39,14 @@ namespace PrancaBeauty.Application.Apps.Templates
                                                         .Replace("[Url]", Url);
         }
 
+        public async Task<string> GetEmailRecoveryPasswordTemplateAsync(string LangCode, string Url)
+        {
+            string _Template = await GetTemplateAsync(LangCode, "RecoveryPassword");
+
+            return (await SetGeneralParameters(_Template, LangCode))
+                                                        .Replace("[Url]", Url);
+        }
+
         public async Task<string> GetEmailLoginTemplateAsync(string LangCode, string Url)
         {
             string _Template = await GetTemplateAsync(LangCode, "EmailLogin");

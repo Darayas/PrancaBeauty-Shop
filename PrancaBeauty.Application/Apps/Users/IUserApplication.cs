@@ -41,5 +41,6 @@ namespace PrancaBeauty.Application.Apps.Users
         Task<List<OutGetListForCombo>> GetListForComboAsync(string LangId, string Name);
         Task<string> GetUserProfileImgUrlByIdAsync(string UserId);
         Task<OperationResult> LoginByEmailPasswordAsync(string Email, string Password);
+        Task<OperationResult> RecoveryPasswordByEmailStep1Async(string Email, string ResetLinkTemplate);
     }
 }

@@ -95,6 +95,30 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     Template = "<a href='[Url]'>Click</a>"
                 }, default, true).Wait();
             }
+
+            // RecoveryPassword  fa-IR
+            if (!_repTemplate.GetNoTraking.Any(a => a.tblLanguages.Code == "fa-IR" && a.Name == "RecoveryPassword"))
+            {
+                _repTemplate.AddAsync(new tblTamplates()
+                {
+                    Id = new Guid().SequentialGuid(),
+                    LangId = _repLang.GetNoTraking.Where(a => a.Code == "fa-IR").Select(a => a.Id).Single(),
+                    Name = "RecoveryPassword",
+                    Template = "<a href='[Url]'>کلیک</a>"
+                }, default, true).Wait();
+            }
+
+            // RecoveryPassword  en-US
+            if (!_repTemplate.GetNoTraking.Any(a => a.tblLanguages.Code == "en-US" && a.Name == "RecoveryPassword"))
+            {
+                _repTemplate.AddAsync(new tblTamplates()
+                {
+                    Id = new Guid().SequentialGuid(),
+                    LangId = _repLang.GetNoTraking.Where(a => a.Code == "en-US").Select(a => a.Id).Single(),
+                    Name = "RecoveryPassword",
+                    Template = "<a href='[Url]'>Click</a>"
+                }, default, true).Wait();
+            }
         }
 
     }

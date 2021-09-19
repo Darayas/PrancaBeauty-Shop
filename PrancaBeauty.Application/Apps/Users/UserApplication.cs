@@ -1220,9 +1220,40 @@ namespace PrancaBeauty.Application.Apps.Users
             }
         }
 
-        public async Task RecoveryPasswordByEmailStep1Async()
+        public async Task<OperationResult> RecoveryPasswordByEmailStep1Async(string Email, string ResetLinkTemplate)
         {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(Email))
+                    throw new ArgumentInvalidException($"'{nameof(Email)}' cannot be null or whitespace.");
 
+                var qUser = await _UserRepository.FindByEmailAsync(Email);
+                if (qUser == null)
+                    return new OperationResult().Failed("EmailNotFound");
+
+                // ایجاد توکن بازیابی
+                var _Token = await _UserRepository.GeneratePasswordResetTokenAsync(qUser);
+
+                // رمز نگاری توکن
+                string _EncryptedToken = $"{qUser.Id}, {_Token}".AesEncrypt(AuthConst.SecretKey);
+
+                // ایجاد لینک بازیابی
+                string _Url = ResetLinkTemplate.Replace("[Token]", WebUtility.UrlEncode(_EncryptedToken));
+
+                // ایجاد قالب ایمیل
+                await _EmailSender.SendAsync(qUser.Email, _Localizer["RecoveryPassword"], await _TemplateApplication.GetEmailRecoveryPasswordTemplateAsync(CultureInfo.CurrentCulture.Name, _Url));
+
+                return new OperationResult().Succeeded();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
         }
     }
 }

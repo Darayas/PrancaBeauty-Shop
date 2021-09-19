@@ -7,6 +7,7 @@ namespace PrancaBeauty.Application.Apps.Templates
         Task<string> GetEmailChangeTemplateAsync(string LangCode, string Url);
         Task<string> GetEmailConfirmationTemplateAsync(string LangCode, string Url);
         Task<string> GetEmailLoginTemplateAsync(string LangCode, string Url);
+        Task<string> GetEmailRecoveryPasswordTemplateAsync(string LangCode, string Url);
         Task<string> GetTemplateAsync(string LangCode, string Name);
     }
 }

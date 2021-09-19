@@ -29,6 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Pages\Auth\RecoveryPassword\Components\RecoveryBySMS\" />
     <Folder Include="wwwroot\FileServer\Flags\" />
     <Folder Include="wwwroot\Shared\img\" />
   </ItemGroup>

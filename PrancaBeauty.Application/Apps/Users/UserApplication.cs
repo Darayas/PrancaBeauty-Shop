@@ -138,6 +138,29 @@ namespace PrancaBeauty.Application.Apps.Users
             }
         }
 
+        public async Task<OperationResult> LoginByEmailPasswordAsync(string Email, string Password)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(Email))
+                    throw new ArgumentNullException("Email cant be null.");
+
+                if (string.IsNullOrWhiteSpace(Password))
+                    throw new ArgumentNullException("Paswword cant be null.");
+
+                var userId = await _UserRepository.GetUserIdByEmailAsync(Email);
+                if (userId == null)
+                    return new OperationResult().Failed("EmailOrPasswordIsInvalid");
+
+                return await LoginAsync(userId, Password);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
+
         public async Task<OperationResult> LoginByUserNamePasswordAsync(string UserName, string Password)
         {
             try
@@ -1195,6 +1218,11 @@ namespace PrancaBeauty.Application.Apps.Users
                 _Logger.Error(ex);
                 return PublicConst.DefaultUserProfileImg;
             }
+        }
+
+        public async Task RecoveryPasswordByEmailStep1Async()
+        {
+
         }
     }
 }

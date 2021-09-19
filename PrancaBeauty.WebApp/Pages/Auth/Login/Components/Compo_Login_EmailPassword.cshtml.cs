@@ -15,13 +15,13 @@ using PrancaBeauty.WebApp.Models.ViewInput;
 
 namespace PrancaBeauty.WebApp.Pages.Auth.Login.Components
 {
-    public class Compo_Login_UsernamePasswordModel : PageModel
+    public class Compo_Login_EmailPasswordModel : PageModel
     {
         private readonly IMsgBox _MsgBox;
         private readonly IUserApplication _UserApplication;
         private readonly IJWTBuilder _JWTBuilder;
         private readonly ILocalizer _Localizer;
-        public Compo_Login_UsernamePasswordModel(IUserApplication userApplication, IMsgBox msgBox, IJWTBuilder jWTBuilder, ILocalizer localizer)
+        public Compo_Login_EmailPasswordModel(IUserApplication userApplication, IMsgBox msgBox, IJWTBuilder jWTBuilder, ILocalizer localizer)
         {
             _UserApplication = userApplication;
             _MsgBox = msgBox;
@@ -39,7 +39,7 @@ namespace PrancaBeauty.WebApp.Pages.Auth.Login.Components
             if (!ModelState.IsValid)
                 return _MsgBox.ModelStateMsg(ModelState.GetErrors());
 
-            var Result = await _UserApplication.LoginByUserNamePasswordAsync(Input.Email, Input.Password);
+            var Result = await _UserApplication.LoginByEmailPasswordAsync(Input.Email, Input.Password);
 
             if (Result.IsSucceeded)
             {

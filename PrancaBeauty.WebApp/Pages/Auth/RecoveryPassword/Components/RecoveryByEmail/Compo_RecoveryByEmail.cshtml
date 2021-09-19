@@ -1,0 +1,34 @@
+﻿@page "/{Culture}/Auth/RecoverPassword/Components/RecoveryByEmail"
+@model PrancaBeauty.WebApp.Pages.Auth.RecoveryPassword.Components.RecoveryByEmail.Compo_RecoveryByEmailModel
+
+<div class="account_form">
+    <h2>@Localizer["RecoveryByEmail"]</h2>
+    <form id="compo_Recovery" method="post" asp-antiforgery="false">
+        <p>
+            <label asp-for="Input.Email"></label>
+            <input type="text" autocomplete="off" asp-for="Input.Email" class="text-left">
+        </p>
+        
+        <div class="login_submit">
+            @*<a onclick="RecoveryBySMS()" href="#LoginEmailLink">@Localizer["RecoveryBySMS"]</a>
+            <br />
+            <br>*@           
+            <button onclick="SendForm('/@ViewData["culture"]/Auth/RecoverPassword/Components/RecoveryByEmail','compo_Recovery')" type="button">@Localizer["Recovery"]</button>
+        </div>
+    </form>
+</div>
+
+<script>
+        $(document).ready(function () {
+            $('#Input_Email').inputmask({
+                regex: '@Localizer["EmailPattern"]',
+                placeholder: ''
+            });
+        });
+
+    @*function RecoveryBySMS() {
+        LoadComponenet('/@ViewData["culture"]/Auth/Login/Components/LoginByEmailLink', { ReturnUrl: null }, function (data) {
+            $('#CompoLogin').html(data);
+        });
+    }*@
+</script>

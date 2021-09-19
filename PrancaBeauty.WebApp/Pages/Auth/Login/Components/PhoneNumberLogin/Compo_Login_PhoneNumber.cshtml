@@ -9,7 +9,7 @@
             <input autocomplete="off" asp-for="Input.PhoneNumber" class="text-left">
         </p>
         <div class="login_submit">
-            <a onclick="LoginByUserNamePassword()" href="#LoginPhoneNumber">@Localizer["LoginByUserNamePassword"]</a>
+            <a onclick="LoginByEmailPassword()" href="#LoginPhoneNumber">@Localizer["LoginByEmailPassword"]</a>
             <button onclick="SendForm('/@ViewData["culture"]/Auth/Login/Components/LoginByPhoneNumber','compo_Login')" type="button">@Localizer["SendAuthCode"]</button>
         </div>
     </form>
@@ -23,8 +23,8 @@
             });
         });
 
-    function LoginByUserNamePassword() {
-        LoadComponenet('/@ViewData["culture"]/Auth/Login/Components/LoginByUsernamePassword', { ReturnUrl: null }, function (data) {
+    function LoginByEmailPassword() {
+        LoadComponenet('/@ViewData["culture"]/Auth/Login/Components/LoginByEmailPassword', { ReturnUrl: null }, function (data) {
             $('#CompoLogin').html(data);
         });
     }

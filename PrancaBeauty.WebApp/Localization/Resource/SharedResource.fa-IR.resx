@@ -357,6 +357,9 @@
   <data name="EmailNotFound" xml:space="preserve">
     <value>کاربری با این ایمیل یافت نشد</value>
   </data>
+  <data name="EmailOrPasswordIsInvalid" xml:space="preserve">
+    <value>ایمیل یا کلمه ی عبور اشتباه است.</value>
+  </data>
   <data name="EmailPattern" xml:space="preserve">
     <value>^[a-zA-Z0-9\-\._]{3,100}[@][a-zA-Z0-9\-\._]{3,100}$</value>
   </data>
@@ -521,6 +524,9 @@
   </data>
   <data name="LoginByEmailLink" xml:space="preserve">
     <value>لاگین با لینک یکبار مصرف</value>
+  </data>
+  <data name="LoginByEmailPassword" xml:space="preserve">
+    <value>لاگین با ایمل و کلمه عبور</value>
   </data>
   <data name="LoginByPhoneNumber" xml:space="preserve">
     <value>لاگین با تلفن همراه</value>
@@ -711,8 +717,20 @@
   <data name="ProvinceId" xml:space="preserve">
     <value>استان</value>
   </data>
+  <data name="Recovery" xml:space="preserve">
+    <value>بازیابی</value>
+  </data>
+  <data name="RecoveryByEmail" xml:space="preserve">
+    <value>بازیابی کلمه عبور با ایمیل</value>
+  </data>
+  <data name="RecoveryBySMS" xml:space="preserve">
+    <value>بازیابی با پیامک</value>
+  </data>
   <data name="RecoveryCodeRedemptionFailed" xml:space="preserve">
     <value>بازیابی ناموفق بود</value>
+  </data>
+  <data name="RecoveryPassword" xml:space="preserve">
+    <value>بازیابی حساب</value>
   </data>
   <data name="Refresh" xml:space="preserve">
     <value>بارگزاری مجدد</value>

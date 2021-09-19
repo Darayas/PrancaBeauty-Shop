@@ -40,5 +40,6 @@ namespace PrancaBeauty.Application.Apps.Users
         Task<OperationResult> SaveAccountSettingUserDetailsAsync(string UserId, InpSaveAccountSettingUserDetails Input, string UrlToChangeEmail);
         Task<List<OutGetListForCombo>> GetListForComboAsync(string LangId, string Name);
         Task<string> GetUserProfileImgUrlByIdAsync(string UserId);
+        Task<OperationResult> LoginByEmailPasswordAsync(string Email, string Password);
     }
 }

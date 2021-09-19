@@ -42,15 +42,15 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     LastName = "احمدی",
                     IsActive = true,
                     Date = DateTime.Now,
-                    UserName = "RezaAhmadi",
-                    NormalizedUserName = "RezaAhmadi".ToUpper(),
+                    UserName = "reza9025@gmail.com",
+                    NormalizedUserName = "reza9025@gmail.com".ToUpper(),
                     Email = "reza9025@gmail.com",
                     NormalizedEmail = "reza9025@gmail.com".ToUpper(),
                     EmailConfirmed = true,
-                    PasswordHash = "AQAAAAEAACcQAAAAELVlHmEilr3l0mizs5GxKWdCQIL8ys6zuHdVro+hNsU7RxYC9HtJqdajundVGRFC5Q==",
+                    PasswordHash = "AQAAAAEAACcQAAAAEO3Ro+1N3qaDwJUK02Qih+FlDMKZxhO0Z2JPMgd3rgrQSPeFLQh3txpgkEvlFMRUXA==", // 123456
                     SecurityStamp = "QHZXXDN4PZUNNXGC6LQRVNOZ5EGGIKWH",
                     ConcurrencyStamp = "37116a3b-0da5-460e-b266-d5243f62e5c8",
-                    PhoneNumber = "9010112829",
+                    PhoneNumber = "09010112829",
                     PhoneNumberConfirmed = true,
                 }, default, true).Wait();
 

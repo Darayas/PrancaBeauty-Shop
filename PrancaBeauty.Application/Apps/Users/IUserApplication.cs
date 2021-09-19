@@ -42,5 +42,6 @@ namespace PrancaBeauty.Application.Apps.Users
         Task<string> GetUserProfileImgUrlByIdAsync(string UserId);
         Task<OperationResult> LoginByEmailPasswordAsync(string Email, string Password);
         Task<OperationResult> RecoveryPasswordByEmailStep1Async(string Email, string ResetLinkTemplate);
+        Task<OperationResult> RecoveryPasswordByEmailStep2Async(string Token, string NewPassword);
     }
 }

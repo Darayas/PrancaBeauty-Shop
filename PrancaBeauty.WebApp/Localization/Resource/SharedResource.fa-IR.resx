@@ -765,6 +765,15 @@
   <data name="Resend" xml:space="preserve">
     <value>ارسال مجدد</value>
   </data>
+  <data name="Reset" xml:space="preserve">
+    <value>بازنشانی</value>
+  </data>
+  <data name="ResetPassword" xml:space="preserve">
+    <value>تنظیم کلمه عبور جدید</value>
+  </data>
+  <data name="RetypeNewPassword" xml:space="preserve">
+    <value>تایید کلمه عبور</value>
+  </data>
   <data name="Roles" xml:space="preserve">
     <value>نقش ها</value>
   </data>
@@ -827,6 +836,9 @@
   </data>
   <data name="Title" xml:space="preserve">
     <value>عنوان</value>
+  </data>
+  <data name="TokenIsInvalid" xml:space="preserve">
+    <value>توکن ارسال شده معتبر نمیباشد</value>
   </data>
   <data name="Unit" xml:space="preserve">
     <value>واحد</value>

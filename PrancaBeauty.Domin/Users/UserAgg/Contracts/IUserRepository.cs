@@ -36,5 +36,6 @@ namespace PrancaBeauty.Domin.Users.UserAgg.Contracts
         Task<IdentityResult> RemovePasswordAsync(tblUsers entity);
         Task<IdentityResult> RemovePhoneNumberPasswordAsync(tblUsers entity);
         bool RequireConfirmedEmail();
+        Task<IdentityResult> ResetPasswordAsync(tblUsers user, string token, string newPassword);
     }
 }

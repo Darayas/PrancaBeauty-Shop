@@ -25,7 +25,7 @@ namespace Framework.Application.Services.Email
 
             SenderTitle = "PrancaBeauty";
             UserName = "testdllearn@gmail.com";
-            Password = "123456Aabcdefg!@";
+            Password = "123456zxc789!@#$";
             Port = 587;
             UseSSL = true;
         }

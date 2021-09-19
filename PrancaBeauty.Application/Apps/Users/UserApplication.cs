@@ -1227,6 +1227,9 @@ namespace PrancaBeauty.Application.Apps.Users
                 if (string.IsNullOrWhiteSpace(Email))
                     throw new ArgumentInvalidException($"'{nameof(Email)}' cannot be null or whitespace.");
 
+                if (string.IsNullOrWhiteSpace(ResetLinkTemplate))
+                    throw new ArgumentInvalidException($"'{nameof(ResetLinkTemplate)}' cannot be null or whitespace.");
+
                 var qUser = await _UserRepository.FindByEmailAsync(Email);
                 if (qUser == null)
                     return new OperationResult().Failed("EmailNotFound");
@@ -1244,6 +1247,48 @@ namespace PrancaBeauty.Application.Apps.Users
                 await _EmailSender.SendAsync(qUser.Email, _Localizer["RecoveryPassword"], await _TemplateApplication.GetEmailRecoveryPasswordTemplateAsync(CultureInfo.CurrentCulture.Name, _Url));
 
                 return new OperationResult().Succeeded();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
+
+        public async Task<OperationResult> RecoveryPasswordByEmailStep2Async(string Token, string NewPassword)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(Token))
+                    throw new ArgumentInvalidException($"'{nameof(Token)}' cannot be null or whitespace.");
+
+                if (string.IsNullOrWhiteSpace(NewPassword))
+                    throw new ArgumentInvalidException($"'{nameof(NewPassword)}' cannot be null or whitespace.");
+
+                // رمزگشایی توکن
+                string _DecryptToken = Token.AesDecrypt(AuthConst.SecretKey);
+                string _UserId = _DecryptToken.Split(", ")[0];
+                string _Token = _DecryptToken.Split(", ")[1];
+
+                // واکشی کاربر
+                var qUser = await _UserRepository.FindByIdAsync(_UserId);
+                if (qUser == null)
+                    return new OperationResult().Failed("TokenIsInvalid");
+
+                // بازنشانی
+                var Result = await _UserRepository.ResetPasswordAsync(qUser, _Token, NewPassword);
+                if (Result.Succeeded)
+                {
+                    return new OperationResult().Succeeded();
+                }
+                else
+                {
+                    return new OperationResult().Failed(string.Join(", ", Result.Errors.Select(a => a.Description)));
+                }
             }
             catch (ArgumentInvalidException ex)
             {

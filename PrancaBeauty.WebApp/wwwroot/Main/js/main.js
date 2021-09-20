@@ -750,3 +750,21 @@
     /*---product dl column3 activation---*/
 })(jQuery);
 
+$('.cart-arrow-down').click(function () {
+
+    var _ParentCard = $(this).parents('.card');
+
+    if (_ParentCard.hasClass("tiny")) {
+        _ParentCard.animate({ "height": _ParentCard.attr('height') }, "medium").removeClass("tiny");
+        _ParentCard.children('.card-body').slideDown('medium');
+
+        setTimeout(function () {
+            _ParentCard.css('height', 'auto');
+        }, 1000);
+    }
+    else {
+        _ParentCard.attr("height", _ParentCard.height());
+        _ParentCard.animate({ "height": "50px" }, "medium").addClass("tiny");
+        _ParentCard.children('.card-body').slideUp('medium');
+    }
+});

@@ -558,6 +558,15 @@
   <data name="ManageUsers" xml:space="preserve">
     <value>مدیریت کاربران</value>
   </data>
+  <data name="MetaTagCanonical" xml:space="preserve">
+    <value>متاتگ Canonical</value>
+  </data>
+  <data name="MetaTagDescreption" xml:space="preserve">
+    <value>متاتگ توضیحات</value>
+  </data>
+  <data name="MetaTagKeyword" xml:space="preserve">
+    <value>متاتگ کلمات کلیدی</value>
+  </data>
   <data name="MobilePattern" xml:space="preserve">
     <value>^[0][9][0-9]{9}$</value>
   </data>
@@ -806,6 +815,9 @@
   </data>
   <data name="SendAuthCode" xml:space="preserve">
     <value>ارسال کد احراز هویت</value>
+  </data>
+  <data name="SEO" xml:space="preserve">
+    <value>سئو</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>تنظیمات</value>

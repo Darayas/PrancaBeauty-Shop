@@ -28,10 +28,13 @@ namespace PrancaBeauty.Domin.Product.ProductAgg.Entities
         public string UniqueNumber { get; set; } // Uniqe Name
         public string Name { get; set; } // Uniqe Name
         public string Title { get; set; }
-        public string Descreption { get; set; }
         public bool IsConfirmed { get; set; }
         public bool IsDraft { get; set; }
         public bool IsDelete { get; set; }
+
+        public string MetaTagKeyword { get; set; }
+        public string MetaTagCanonical { get; set; }
+        public string MetaTagDescreption { get; set; }
 
         public virtual tblUsers tblAuthorUser { get; set; }
         public virtual tblCategoris tblCategory { get; set; }

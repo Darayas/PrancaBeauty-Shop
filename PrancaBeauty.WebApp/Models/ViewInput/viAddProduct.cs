@@ -39,5 +39,20 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
         [Display(Name = "ProductPrice")]
         [Required(ErrorMessage = "RequiredMsg")]
         public string Price { get; set; }
+
+        [Display(Name = "MetaTagKeyword")]
+        [Required(ErrorMessage = "RequiredMsg")]
+        [StringLength(300, MinimumLength = 1, ErrorMessage = "StringLengthMsg")]
+        public string MetaTagKeyword { get; set; }
+
+        [Display(Name = "MetaTagCanonical")]
+        [Required(ErrorMessage = "RequiredMsg")]
+        [StringLength(150, MinimumLength = 1, ErrorMessage = "StringLengthMsg")]
+        public string MetaTagCanonical { get; set; }
+
+        [Display(Name = "MetaTagDescreption")]
+        [Required(ErrorMessage = "RequiredMsg")]
+        [StringLength(300, MinimumLength = 1, ErrorMessage = "StringLengthMsg")]
+        public string MetaTagDescreption { get; set; }
     }
 }

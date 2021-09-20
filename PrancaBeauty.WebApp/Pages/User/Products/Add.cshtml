@@ -35,6 +35,7 @@
                 <div class="card">
                     <div class="card-header">
                         @Localizer["PublicDetials"]
+                        <div class="cart-arrow-down"><i class="fa fa-angle-down"></i></div>
                     </div>
                     <div class="card-body">
                         <div class="form-group">
@@ -75,9 +76,10 @@
 
         <div class="row">
             <div class="col-md-12">
-                <div class="card mt-2">
+                <div class="card mt-4">
                     <div class="card-header">
                         @Localizer["Settings"]
+                        <div class="cart-arrow-down"><i class="fa fa-angle-down"></i></div>
                     </div>
                     <div class="card-body">
 
@@ -97,12 +99,38 @@
                 <div class="card">
                     <div class="card-header">
                         @Localizer["Keywords"]
+                        <div class="cart-arrow-down"><i class="fa fa-angle-down"></i></div>
                     </div>
                     <div class="card-body">
                         <LoadComponent id="ProductKeywordsCompo"
                                        context="HttpContext"
                                        data='new viCompo_Input_Keywords { FieldName="Input.ProductKeywords"}'
                                        url="/@ViewData["culture"]/User/Products/Compo/CompoInputKeyword"></LoadComponent>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card mt-4">
+                    <div class="card-header">
+                        @Localizer["SEO"]
+                        <div class="cart-arrow-down"><i class="fa fa-angle-down"></i></div>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label asp-for="Input.MetaTagCanonical"></label>
+                            <input asp-for="Input.MetaTagCanonical" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Input.MetaTagKeyword"></label>
+                            <textarea rows="2" asp-for="Input.MetaTagKeyword" class="form-control"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Input.MetaTagDescreption"></label>
+                            <textarea rows="4" asp-for="Input.MetaTagDescreption" class="form-control"></textarea>
+                        </div>
                     </div>
                 </div>
             </div>

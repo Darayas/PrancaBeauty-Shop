@@ -3,15 +3,15 @@
 
 <div class="form-group" id="Keyword@(Model.Input.Index)">
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-7">
             <input class="form-control" asp-for="Input.Title[Model.Input.Index]" type="text" placeholder="@Localizer["KeywordTitle"]" />
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="input-group mb-3 dir-ltr">
                 <div class="input-group-prepend">
                     <span class="input-group-text">%</span>
                 </div>
-                <input class="form-control Price text-center dir-ltr" asp-for="Input.Similarity[Model.Input.Index]" type="text" placeholder="@Localizer["KeywordSimilarity"]" />
+                <input class="form-control fs-14px text-center dir-ltr" asp-for="Input.Similarity[Model.Input.Index]" type="text" placeholder="@Localizer["KeywordSimilarity"]" />
             </div>
         </div>
         <div class="col-md-1">

@@ -1,0 +1,12 @@
+﻿.card {
+    border: #e4e4e4;
+    border-radius: 0px;
+    box-shadow: 0 1px 6px 0 #cacaca;
+
+    .card-header {
+        background-color: unset !important;
+        border-bottom: unset !important;
+        font-weight: 700;
+        font-size: 18px;
+    }
+}

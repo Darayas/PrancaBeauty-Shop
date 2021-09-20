@@ -28,60 +28,84 @@
 }
 
 <div class="row">
-    <div class="col-md-12">
-        <div class="form-group">
-            <div class="row">
-                <div class="col-md-3">
-                    <label asp-for="Input.LangId"></label>
-                    <LoadComponent id="ProductLangCompo"
-                                   context="HttpContext"
-                                   data='new viCompo_Combo_Language { FieldName="Input.LangId",LangId= await _LanguageApplication.GetLangIdByLangCodeAsync(CultureInfo.CurrentCulture.Name)}'
-                                   url="/@ViewData["culture"]/Shared/Compo/ComboLanguage"></LoadComponent>
-                </div>
-                <div class="col-md-3">
-                    <LoadComponent id="ProductCategoryCompo"
-                                   context="HttpContext"
-                                   data='new viCompo_Combo_Categories { FieldName="Input.CategoryId"}'
-                                   url="/@ViewData["culture"]/Shared/Compo/ComboCategories"></LoadComponent>
-                </div>
-                <div class="col-md-3">
-                    <label asp-for="Input.Date"></label>
-                    <input asp-for="Input.Date" class="form-control Date text-center dir-ltr" />
-                </div>
-                <div class="col-md-3" id="ProductPrice">
-                    <LoadComponent id="ProductPriceCompo"
-                                   context="HttpContext"
-                                   data='new viCompo_Input_Price { FieldName="Input.ProductPrice",Price="0",LangId=await _LanguageApplication.GetLangIdByLangCodeAsync(CultureInfo.CurrentCulture.Name)}'
-                                   url="/@ViewData["culture"]/Shared/Compo/ComboInputPrice"></LoadComponent>
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="row">
-                <div class="col-md-12">
-                    <label asp-for="Input.Title"></label>
-                    <input asp-for="Input.Title" class="form-control" />
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="row">
-                <div class="col-md-12">
-                    <label asp-for="Input.Name"></label>
-                    <div class="input-group mb-3 dir-ltr">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">@((await _SettingApplication.GetSettingAsync(CultureInfo.CurrentCulture.Name)).SiteUrl)/xxxxx/</span>
+    <div class="col-md-4">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        @Localizer["PublicDetials"]
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label asp-for="Input.LangId"></label>
+                            <LoadComponent id="ProductLangCompo"
+                                           context="HttpContext"
+                                           data='new viCompo_Combo_Language { FieldName="Input.LangId",LangId= await _LanguageApplication.GetLangIdByLangCodeAsync(CultureInfo.CurrentCulture.Name)}'
+                                           url="/@ViewData["culture"]/Shared/Compo/ComboLanguage"></LoadComponent>
                         </div>
-                        <input asp-for="Input.Name" class="form-control">
+
+                        <div class="form-group">
+                            <LoadComponent id="ProductCategoryCompo"
+                                           context="HttpContext"
+                                           data='new viCompo_Combo_Categories { FieldName="Input.CategoryId"}'
+                                           url="/@ViewData["culture"]/Shared/Compo/ComboCategories"></LoadComponent>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Input.Name"></label>
+                            <input asp-for="Input.Name" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Input.Title"></label>
+                            <input asp-for="Input.Title" class="form-control" />
+                        </div>
+
+                        <div class="form-group">
+                            <LoadComponent id="ProductPriceCompo"
+                                           context="HttpContext"
+                                           data='new viCompo_Input_Price { FieldName="Input.ProductPrice",Price="0",LangId=await _LanguageApplication.GetLangIdByLangCodeAsync(CultureInfo.CurrentCulture.Name)}'
+                                           url="/@ViewData["culture"]/Shared/Compo/ComboInputPrice"></LoadComponent>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="form-group">
-            <LoadComponent id="ProductKeywordsCompo"
-                           context="HttpContext"
-                           data='new viCompo_Input_Keywords { FieldName="Input.ProductKeywords"}'
-                           url="/@ViewData["culture"]/User/Products/Compo/CompoInputKeyword"></LoadComponent>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card mt-2">
+                    <div class="card-header">
+                        @Localizer["Settings"]
+                    </div>
+                    <div class="card-body">
+
+                        <div class="form-group">
+                            <label asp-for="Input.Date"></label>
+                            <input asp-for="Input.Date" class="form-control Date text-center dir-ltr" />
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        @Localizer["Keywords"]
+                    </div>
+                    <div class="card-body">
+                        <LoadComponent id="ProductKeywordsCompo"
+                                       context="HttpContext"
+                                       data='new viCompo_Input_Keywords { FieldName="Input.ProductKeywords"}'
+                                       url="/@ViewData["culture"]/User/Products/Compo/CompoInputKeyword"></LoadComponent>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

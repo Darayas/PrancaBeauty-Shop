@@ -153,6 +153,9 @@
   <data name="AddCategory" xml:space="preserve">
     <value>افزودن دسته جدید</value>
   </data>
+  <data name="AddKeyword" xml:space="preserve">
+    <value>افزودن</value>
+  </data>
   <data name="AddNewAccessLevel" xml:space="preserve">
     <value>افزودن</value>
   </data>
@@ -717,6 +720,9 @@
   <data name="ProvinceId" xml:space="preserve">
     <value>استان</value>
   </data>
+  <data name="PublicDetials" xml:space="preserve">
+    <value>جزئیات عمومی</value>
+  </data>
   <data name="Recovery" xml:space="preserve">
     <value>بازیابی</value>
   </data>
@@ -800,6 +806,9 @@
   </data>
   <data name="SendAuthCode" xml:space="preserve">
     <value>ارسال کد احراز هویت</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>تنظیمات</value>
   </data>
   <data name="ShopMainPage" xml:space="preserve">
     <value>فروشگاه</value>

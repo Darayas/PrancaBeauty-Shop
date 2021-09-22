@@ -31,7 +31,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
 
         public void Run()
         {
-            if (!_repUser.Get.Any(a => a.UserName == "RezaAhmadi"))
+            if (!_repUser.Get.Any(a => a.UserName == "reza9025@gmail.com"))
             {
                 Guid UserId = new Guid().SequentialGuid();
                 _repUser.AddAsync(new tblUsers()

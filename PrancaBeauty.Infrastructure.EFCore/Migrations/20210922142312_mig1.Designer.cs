@@ -10,8 +10,8 @@ using PrancaBeauty.Infrastructure.EFCore.Context;
 namespace PrancaBeauty.Infrastructure.EFCore.Migrations
 {
     [DbContext(typeof(MainContext))]
-    [Migration("20210907115028_mig2")]
-    partial class mig2
+    [Migration("20210922142312_mig1")]
+    partial class mig1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -200,22 +200,16 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<Guid>("FileServerId")
+                    b.Property<Guid>("FilePathId")
+                        .HasMaxLength(150)
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("FileTypeId")
                         .HasMaxLength(150)
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("IsPrivate")
                         .HasColumnType("bit");
-
-                    b.Property<string>("MimeType")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Path")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
 
                     b.Property<long>("SizeOnDisk")
                         .HasColumnType("bigint");
@@ -231,11 +225,63 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FileServerId");
+                    b.HasIndex("FilePathId");
+
+                    b.HasIndex("FileTypeId");
 
                     b.HasIndex("UserId");
 
                     b.ToTable("tblFiles");
+                });
+
+            modelBuilder.Entity("PrancaBeauty.Domin.FileServer.FilePathAgg.Entities.tblFilePaths", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(150)
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("FileServerId")
+                        .HasMaxLength(150)
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Path")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FileServerId");
+
+                    b.ToTable("tblFilePaths");
+                });
+
+            modelBuilder.Entity("PrancaBeauty.Domin.FileServer.FileTypeAgg.Entities.tblFileTypes", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(150)
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Extentions")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("IconUrl")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<string>("MimeType")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("tblFileTypes");
                 });
 
             modelBuilder.Entity("PrancaBeauty.Domin.FileServer.ServerAgg.Entities.tblFileServers", b =>
@@ -340,10 +386,6 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Descreption")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("IsConfirmed")
                         .HasColumnType("bit");
 
@@ -356,6 +398,19 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                     b.Property<Guid>("LangId")
                         .HasMaxLength(450)
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("MetaTagCanonical")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("MetaTagDescreption")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<string>("MetaTagKeyword")
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -1130,6 +1185,26 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<string>("aDec")
+                        .IsRequired()
+                        .HasMaxLength(5)
+                        .HasColumnType("nvarchar(5)");
+
+                    b.Property<string>("aSep")
+                        .IsRequired()
+                        .HasMaxLength(5)
+                        .HasColumnType("nvarchar(5)");
+
+                    b.Property<string>("mDec")
+                        .IsRequired()
+                        .HasMaxLength(5)
+                        .HasColumnType("nvarchar(5)");
+
+                    b.Property<string>("vMax")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CountryId");
@@ -1779,9 +1854,15 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
 
             modelBuilder.Entity("PrancaBeauty.Domin.FileServer.FileAgg.Entities.tblFiles", b =>
                 {
-                    b.HasOne("PrancaBeauty.Domin.FileServer.ServerAgg.Entities.tblFileServers", "tblFileServer")
+                    b.HasOne("PrancaBeauty.Domin.FileServer.FilePathAgg.Entities.tblFilePaths", "tblFilePaths")
                         .WithMany("tblFiles")
-                        .HasForeignKey("FileServerId")
+                        .HasForeignKey("FilePathId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("PrancaBeauty.Domin.FileServer.FileTypeAgg.Entities.tblFileTypes", "tblFileTypes")
+                        .WithMany("tblFiles")
+                        .HasForeignKey("FileTypeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -1790,9 +1871,22 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.Navigation("tblFileServer");
+                    b.Navigation("tblFilePaths");
+
+                    b.Navigation("tblFileTypes");
 
                     b.Navigation("tblUser");
+                });
+
+            modelBuilder.Entity("PrancaBeauty.Domin.FileServer.FilePathAgg.Entities.tblFilePaths", b =>
+                {
+                    b.HasOne("PrancaBeauty.Domin.FileServer.ServerAgg.Entities.tblFileServers", "tblFileServer")
+                        .WithMany("tblFilePaths")
+                        .HasForeignKey("FileServerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("tblFileServer");
                 });
 
             modelBuilder.Entity("PrancaBeauty.Domin.Keywords.Keywords_Products.Entities.tblKeywords_Products", b =>
@@ -2494,9 +2588,19 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                     b.Navigation("tblUserProfile");
                 });
 
-            modelBuilder.Entity("PrancaBeauty.Domin.FileServer.ServerAgg.Entities.tblFileServers", b =>
+            modelBuilder.Entity("PrancaBeauty.Domin.FileServer.FilePathAgg.Entities.tblFilePaths", b =>
                 {
                     b.Navigation("tblFiles");
+                });
+
+            modelBuilder.Entity("PrancaBeauty.Domin.FileServer.FileTypeAgg.Entities.tblFileTypes", b =>
+                {
+                    b.Navigation("tblFiles");
+                });
+
+            modelBuilder.Entity("PrancaBeauty.Domin.FileServer.ServerAgg.Entities.tblFileServers", b =>
+                {
+                    b.Navigation("tblFilePaths");
                 });
 
             modelBuilder.Entity("PrancaBeauty.Domin.Keywords.KeywordAgg.Entities.tblKeywords", b =>

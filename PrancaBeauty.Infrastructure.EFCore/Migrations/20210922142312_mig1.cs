@@ -62,6 +62,20 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "tblFileTypes",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", maxLength: 150, nullable: false),
+                    IconUrl = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
+                    MimeType = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Extentions = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tblFileTypes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "tblKeywords",
                 columns: table => new
                 {
@@ -132,6 +146,25 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                         principalTable: "tblAccessLevels",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "tblFilePaths",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", maxLength: 150, nullable: false),
+                    FileServerId = table.Column<Guid>(type: "uniqueidentifier", maxLength: 150, nullable: false),
+                    Path = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tblFilePaths", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_tblFilePaths_tblFileServers_FileServerId",
+                        column: x => x.FileServerId,
+                        principalTable: "tblFileServers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -225,13 +258,12 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", maxLength: 150, nullable: false),
-                    FileServerId = table.Column<Guid>(type: "uniqueidentifier", maxLength: 150, nullable: false),
+                    FilePathId = table.Column<Guid>(type: "uniqueidentifier", maxLength: 150, nullable: false),
+                    FileTypeId = table.Column<Guid>(type: "uniqueidentifier", maxLength: 150, nullable: false),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", maxLength: 450, nullable: true),
                     Title = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    Path = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     FileName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     SizeOnDisk = table.Column<long>(type: "bigint", nullable: false),
-                    MimeType = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsPrivate = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -239,9 +271,15 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                 {
                     table.PrimaryKey("PK_tblFiles", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_tblFiles_tblFileServers_FileServerId",
-                        column: x => x.FileServerId,
-                        principalTable: "tblFileServers",
+                        name: "FK_tblFiles_tblFilePaths_FilePathId",
+                        column: x => x.FilePathId,
+                        principalTable: "tblFilePaths",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_tblFiles_tblFileTypes_FileTypeId",
+                        column: x => x.FileTypeId,
+                        principalTable: "tblFileTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -320,7 +358,12 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", maxLength: 150, nullable: false),
                     CountryId = table.Column<Guid>(type: "uniqueidentifier", maxLength: 150, nullable: false),
                     Name = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
-                    Symbol = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                    Symbol = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    vMax = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    mDec = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: false),
+                    aDec = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: false),
+                    aSep = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: false),
+                    IsDefault = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -758,10 +801,12 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                     UniqueNumber = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     Name = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     Title = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    Descreption = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsConfirmed = table.Column<bool>(type: "bit", nullable: false),
                     IsDraft = table.Column<bool>(type: "bit", nullable: false),
-                    IsDelete = table.Column<bool>(type: "bit", nullable: false)
+                    IsDelete = table.Column<bool>(type: "bit", nullable: false),
+                    MetaTagKeyword = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: true),
+                    MetaTagCanonical = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
+                    MetaTagDescreption = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1379,9 +1424,19 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                 column: "LangId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_tblFiles_FileServerId",
-                table: "tblFiles",
+                name: "IX_tblFilePaths_FileServerId",
+                table: "tblFilePaths",
                 column: "FileServerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_tblFiles_FilePathId",
+                table: "tblFiles",
+                column: "FilePathId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_tblFiles_FileTypeId",
+                table: "tblFiles",
+                column: "FileTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_tblFiles_UserId",
@@ -1873,6 +1928,12 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
 
             migrationBuilder.DropTable(
                 name: "tblFiles");
+
+            migrationBuilder.DropTable(
+                name: "tblFilePaths");
+
+            migrationBuilder.DropTable(
+                name: "tblFileTypes");
 
             migrationBuilder.DropTable(
                 name: "tblFileServers");

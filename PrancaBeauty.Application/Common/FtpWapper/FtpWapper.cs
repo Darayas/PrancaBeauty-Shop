@@ -4,6 +4,7 @@ using Framework.Common.ExMethods;
 using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.AspNetCore.Http;
+using PrancaBeauty.Application.Apps.FilePath;
 using PrancaBeauty.Application.Apps.Files;
 using PrancaBeauty.Application.Apps.FileServer;
 using PrancaBeauty.Application.Contracts.Files;
@@ -23,14 +24,16 @@ namespace PrancaBeauty.Application.Common.FtpWapper
         private readonly IFtpClient _FtpClient;
         private readonly IFileServerApplication _FileServerApplication;
         private readonly IFileApplication _FileApplication;
+        private readonly IFilePathApplication _FilePathApplication;
         private readonly IAniShell _AniShell;
-        public FtpWapper(IFtpClient ftpClient, ILogger logger, IFileServerApplication fileServerApplication, IFileApplication fileApplication, IAniShell aniShell)
+        public FtpWapper(IFtpClient ftpClient, ILogger logger, IFileServerApplication fileServerApplication, IFileApplication fileApplication, IAniShell aniShell, IFilePathApplication filePathApplication)
         {
             _FtpClient = ftpClient;
             _Logger = logger;
             _FileServerApplication = fileServerApplication;
             _FileApplication = fileApplication;
             _AniShell = aniShell;
+            _FilePathApplication = filePathApplication;
         }
 
         public async Task<string> UplaodCategoryImgAsync(IFormFile _FormFile, string _FileName = null)
@@ -67,8 +70,13 @@ namespace PrancaBeauty.Application.Common.FtpWapper
                 #region Path
                 string Path = $"/Img/Category/{DateTime.Now.Month}/{DateTime.Now.Day}";
 
+                // برسی وجود دایرکتوری روی سرور
                 if (!await _FtpClient.CheckDirectoryExistAsync(qServer.FtpHost, qServer.FtpPort, qServer.FtpPath, Path, qServer.FtpUserName, qServer.FtpPassword))
                     await MakeDirAsync(qServer.Name, Path);
+
+                // برسی وجود دایرکتوری در دیتابیس
+                if (!await _FilePathApplication.CheckDirectoryExistAsync(qServer.Id, Path))
+                    await _FilePathApplication.MakePathAsync(qServer.Id, Path);
                 #endregion
 
                 var _Result = await _FtpClient.UploadAsync(_FormFile.OpenReadStream(), qServer.FtpHost, qServer.FtpPort, qServer.FtpPath, Path, FileName, qServer.FtpUserName, qServer.FtpPassword);
@@ -147,6 +155,11 @@ namespace PrancaBeauty.Application.Common.FtpWapper
 
                 if (!await _FtpClient.CheckDirectoryExistAsync(qServer.FtpHost, qServer.FtpPort, qServer.FtpPath, Path, qServer.FtpUserName, qServer.FtpPassword))
                     await MakeDirAsync(qServer.Name, Path);
+
+                // برسی وجود دایرکتوری در دیتابیس
+                if (!await _FilePathApplication.CheckDirectoryExistAsync(qServer.Id, Path))
+                    await _FilePathApplication.MakePathAsync(qServer.Id, Path);
+
                 #endregion
 
                 var _Result = await _FtpClient.UploadAsync(_FormFile.OpenReadStream(), qServer.FtpHost, qServer.FtpPort, qServer.FtpPath, Path, FileName, qServer.FtpUserName, qServer.FtpPassword);
@@ -188,6 +201,7 @@ namespace PrancaBeauty.Application.Common.FtpWapper
                 return null;
             }
         }
+
 
         private async Task<bool> MakeDirAsync(string ServerName, string Path)
         {

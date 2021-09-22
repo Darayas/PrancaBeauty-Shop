@@ -50,9 +50,9 @@ namespace PrancaBeauty.Application.Apps.Categories
                     ParentId = a.ParentId.ToString(),
                     Name = a.Name,
                     Title = a.tblCategory_Translates.Where(b => b.LangId == Guid.Parse(LangId)).Select(b => b.Title).Single(),
-                    ImgUrl = a.tblFiles.tblFileServer.HttpDomin
-                                + a.tblFiles.tblFileServer.HttpPath
-                                + a.tblFiles.Path
+                    ImgUrl = a.tblFiles.tblFilePaths.tblFileServer.HttpDomin
+                                + a.tblFiles.tblFilePaths.tblFileServer.HttpPath
+                                + a.tblFiles.tblFilePaths.Path
                                 + a.tblFiles.FileName,
                     Sort = a.Sort,
                     ParentTitle = a.tblCategory_Parent.tblCategory_Translates.Where(b => b.LangId == Guid.Parse(LangId)).Select(b => b.Title).Single(),
@@ -90,9 +90,9 @@ namespace PrancaBeauty.Application.Apps.Categories
                                                     Title = a.tblCategory_Translates.Where(b => b.LangId == Guid.Parse(LangId)).Select(b => b.Title).Single(),
                                                     Sort = a.Sort,
                                                     hasChildren = a.tblCategory_Childs/*.Where(b => b.Id != Guid.Parse(ParentId))*/.Any(),
-                                                    ImgUrl = a.tblFiles.tblFileServer.HttpDomin
-                                                                + a.tblFiles.tblFileServer.HttpPath
-                                                                + a.tblFiles.Path
+                                                    ImgUrl = a.tblFiles.tblFilePaths.tblFileServer.HttpDomin
+                                                                + a.tblFiles.tblFilePaths.tblFileServer.HttpPath
+                                                                + a.tblFiles.tblFilePaths.Path
                                                                 + a.tblFiles.FileName,
                                                 })
                                                 .ToListAsync();
@@ -217,9 +217,9 @@ namespace PrancaBeauty.Application.Apps.Categories
                                                         Name = a.Name,
                                                         ParentId = a.ParentId.ToString(),
                                                         Sort = a.Sort,
-                                                        ImgCategoryUrl = a.tblFiles.tblFileServer.HttpDomin
-                                                                            + a.tblFiles.tblFileServer.HttpPath
-                                                                            + a.tblFiles.Path
+                                                        ImgCategoryUrl = a.tblFiles.tblFilePaths.tblFileServer.HttpDomin
+                                                                            + a.tblFiles.tblFilePaths.tblFileServer.HttpPath
+                                                                            + a.tblFiles.tblFilePaths.Path
                                                                             + a.tblFiles.FileName,
                                                         LstTranslate = a.tblCategory_Translates.Select(b => new OutGetForEdit_Translate
                                                         {

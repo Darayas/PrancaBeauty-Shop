@@ -1,5 +1,6 @@
 ﻿using Framework.Domain;
 using PrancaBeauty.Domin.FileServer.FileAgg.Entities;
+using PrancaBeauty.Domin.FileServer.FilePathAgg.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,6 @@ namespace PrancaBeauty.Domin.FileServer.ServerAgg.Entities
         public bool IsActive { get; set; }
 
 
-        public virtual ICollection<tblFiles> tblFiles { get; set; }
+        public virtual ICollection<tblFilePaths> tblFilePaths { get; set; }
     }
 }

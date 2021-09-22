@@ -14,6 +14,7 @@ using PrancaBeauty.Application.Apps.Categories;
 using PrancaBeauty.Application.Apps.Cities;
 using PrancaBeauty.Application.Apps.Countries;
 using PrancaBeauty.Application.Apps.Currency;
+using PrancaBeauty.Application.Apps.FilePath;
 using PrancaBeauty.Application.Apps.Files;
 using PrancaBeauty.Application.Apps.FileServer;
 using PrancaBeauty.Application.Apps.FileTypes;
@@ -44,6 +45,7 @@ using PrancaBeauty.Application.Apps.Users;
 using PrancaBeauty.Application.Common.FtpWapper;
 using PrancaBeauty.Domin.Categories.CategoriesAgg.Contracts;
 using PrancaBeauty.Domin.FileServer.FileAgg.Contracts;
+using PrancaBeauty.Domin.FileServer.FilePathAgg.Contracts;
 using PrancaBeauty.Domin.FileServer.FileTypeAgg.Contracts;
 using PrancaBeauty.Domin.FileServer.ServerAgg.Contracts;
 using PrancaBeauty.Domin.Keywords.KeywordAgg.Contracts;
@@ -83,6 +85,7 @@ using PrancaBeauty.Infrastructure.EFCore.Repository.Categories;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Cities;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Counties;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Currency;
+using PrancaBeauty.Infrastructure.EFCore.Repository.FilePath;
 using PrancaBeauty.Infrastructure.EFCore.Repository.FileServer;
 using PrancaBeauty.Infrastructure.EFCore.Repository.FileType;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Keywords;
@@ -178,6 +181,7 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddScoped<ICurrencyRepository, CurrencyRepository>();
             services.AddScoped<ICurrency_TranslatesRepository, Currency_TranslatesRepository>();
             services.AddScoped<IFileTypeRepository, FileTypeRepository>();
+            services.AddScoped<IFilePathRepository, FilePathRepository>();
 
             // Applications
             services.AddScoped<IUserApplication, UserApplication>();
@@ -214,6 +218,7 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddScoped<IProductReviewsAttributeValuesApplication, ProductReviewsAttributeValuesApplication>();
             services.AddScoped<ICurrencyApplication, CurrencyApplication>();
             services.AddScoped<IFileTypeApplication, FileTypeApplication>();
+            services.AddScoped<IFilePathApplication, FilePathApplication>();
         }
     }
 }

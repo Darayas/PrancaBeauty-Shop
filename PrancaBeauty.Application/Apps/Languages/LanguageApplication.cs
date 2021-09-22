@@ -90,9 +90,9 @@ namespace PrancaBeauty.Application.Apps.Languages
                                                              IsRtl = a.IsRtl,
                                                              Name = a.Name,
                                                              NativeName = a.NativeName,
-                                                             FlagUrl = a.tblCountries.tblFiles.tblFileServer.HttpDomin +
-                                                                        a.tblCountries.tblFiles.tblFileServer.HttpPath +
-                                                                        a.tblCountries.tblFiles.Path +
+                                                             FlagUrl = a.tblCountries.tblFiles.tblFilePaths.tblFileServer.HttpDomin +
+                                                                        a.tblCountries.tblFiles.tblFilePaths.tblFileServer.HttpPath +
+                                                                        a.tblCountries.tblFiles.tblFilePaths.Path +
                                                                         a.tblCountries.tblFiles.FileName
                                                          })
                                                          .ToListAsync();

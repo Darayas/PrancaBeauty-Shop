@@ -16,17 +16,16 @@ namespace PrancaBeauty.Infrastructure.EFCore.Mapping.FileServer
         {
             builder.HasKey(a => a.Id);
             builder.Property(a => a.Id).IsRequired().HasMaxLength(150);
-            builder.Property(a => a.FileServerId).IsRequired().HasMaxLength(150);
+            builder.Property(a => a.FilePathId).IsRequired().HasMaxLength(150);
             builder.Property(a => a.FileTypeId).IsRequired().HasMaxLength(150);
             builder.Property(a => a.UserId).IsRequired(false).HasMaxLength(450);
             builder.Property(a => a.Title).IsRequired().HasMaxLength(200);
-            builder.Property(a => a.Path).IsRequired().HasMaxLength(250);
             builder.Property(a => a.FileName).IsRequired().HasMaxLength(200);
 
-            builder.HasOne(a => a.tblFileServer)
+            builder.HasOne(a => a.tblFilePaths)
                    .WithMany(a => a.tblFiles)
                    .HasPrincipalKey(a => a.Id)
-                   .HasForeignKey(a => a.FileServerId)
+                   .HasForeignKey(a => a.FilePathId)
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(a => a.tblUser)

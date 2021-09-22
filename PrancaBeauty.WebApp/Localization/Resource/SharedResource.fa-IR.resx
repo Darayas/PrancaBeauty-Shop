@@ -378,6 +378,9 @@
   <data name="FileInfoIsDuplicated" xml:space="preserve">
     <value>اطلاعات فایل وارد شده تکراری میباشد.</value>
   </data>
+  <data name="FilePathIsInvalid" xml:space="preserve">
+    <value>ادرس پوشه معتبر نمیباشد</value>
+  </data>
   <data name="FileSizeMsg" xml:space="preserve">
     <value>{0} انتخاب شده با نام '{1}' باید بین {2} تا {3} باشد</value>
   </data>
@@ -567,7 +570,7 @@
   <data name="MetaTagKeyword" xml:space="preserve">
     <value>متاتگ کلمات کلیدی</value>
   </data>
-  <data name="MimemyTypeIsInvalid" xml:space="preserve">
+  <data name="MimeTypeIsInvalid" xml:space="preserve">
     <value>نوع فایل ارسال شده معتبر نمیباشد.</value>
   </data>
   <data name="MobilePattern" xml:space="preserve">

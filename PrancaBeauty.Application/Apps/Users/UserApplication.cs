@@ -641,9 +641,9 @@ namespace PrancaBeauty.Application.Apps.Users
                         IsEmailConfirmed = a.EmailConfirmed,
                         IsPhoneNumberConfirmed = a.PhoneNumberConfirmed,
                         ImgUrl = a.ProfileImgId != null ?
-                                    a.tblProfileImage.tblFileServer.HttpDomin
-                                    + a.tblProfileImage.tblFileServer.HttpPath
-                                    + a.tblProfileImage.Path
+                                    a.tblProfileImage.tblFilePaths.tblFileServer.HttpDomin
+                                    + a.tblProfileImage.tblFilePaths.tblFileServer.HttpPath
+                                    + a.tblProfileImage.tblFilePaths.Path
                                     + a.tblProfileImage.FileName
                                 : PublicConst.DefaultUserProfileImg
                     })
@@ -1165,9 +1165,9 @@ namespace PrancaBeauty.Application.Apps.Users
                                                      Id = a.Id.ToString(),
                                                      FullName = a.FirstName + " " + a.LastName,
                                                      ImgUrl = a.ProfileImgId != null ?
-                                                                    a.tblProfileImage.tblFileServer.HttpDomin
-                                                                    + a.tblProfileImage.tblFileServer.HttpPath
-                                                                    + a.tblProfileImage.Path
+                                                                    a.tblProfileImage.tblFilePaths.tblFileServer.HttpDomin
+                                                                    + a.tblProfileImage.tblFilePaths.tblFileServer.HttpPath
+                                                                    + a.tblProfileImage.tblFilePaths.Path
                                                                     + a.tblProfileImage.FileName
                                                                 : PublicConst.DefaultUserProfileImg
                                                  })
@@ -1196,9 +1196,9 @@ namespace PrancaBeauty.Application.Apps.Users
                                                  .Select(a => new
                                                  {
                                                      ImgUrl = a.ProfileImgId != null ?
-                                                                    a.tblProfileImage.tblFileServer.HttpDomin
-                                                                    + a.tblProfileImage.tblFileServer.HttpPath
-                                                                    + a.tblProfileImage.Path
+                                                                    a.tblProfileImage.tblFilePaths.tblFileServer.HttpDomin
+                                                                    + a.tblProfileImage.tblFilePaths.tblFileServer.HttpPath
+                                                                    + a.tblProfileImage.tblFilePaths.Path
                                                                     + a.tblProfileImage.FileName
                                                                 : PublicConst.DefaultUserProfileImg
                                                  })

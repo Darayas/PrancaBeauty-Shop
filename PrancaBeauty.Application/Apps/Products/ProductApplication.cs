@@ -39,9 +39,9 @@ namespace PrancaBeauty.Application.Apps.Products
                                               {
                                                   Id = a.Id.ToString(),
                                                   ImgUrl = a.tblProductMedia.Where(b => b.tblFiles.tblFileTypes.MimeType.StartsWith("image"))
-                                                                            .Select(b => b.tblFiles.tblFileServer.HttpDomin
-                                                                                         + b.tblFiles.tblFileServer.HttpPath
-                                                                                         + b.tblFiles.Path
+                                                                            .Select(b => b.tblFiles.tblFilePaths.tblFileServer.HttpDomin
+                                                                                         + b.tblFiles.tblFilePaths.tblFileServer.HttpPath
+                                                                                         + b.tblFiles.tblFilePaths.Path
                                                                                          + b.tblFiles.FileName).First(),
                                                   UniqueNumber = a.UniqueNumber,
                                                   Name = a.Name,

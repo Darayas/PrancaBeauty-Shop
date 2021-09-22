@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PrancaBeauty.Infrastructure.EFCore.Mapping.FileTypes
+namespace PrancaBeauty.Infrastructure.EFCore.Mapping.FileServer
 {
     public class tblFileTypesConfigurations : IEntityTypeConfiguration<tblFileTypes>, IEntityConf
     {

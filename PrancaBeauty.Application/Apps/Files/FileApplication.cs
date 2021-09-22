@@ -2,6 +2,7 @@
 using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using PrancaBeauty.Application.Apps.FilePath;
 using PrancaBeauty.Application.Apps.FileTypes;
 using PrancaBeauty.Application.Contracts.Files;
 using PrancaBeauty.Application.Contracts.Results;
@@ -20,11 +21,13 @@ namespace PrancaBeauty.Application.Apps.Files
         private readonly ILogger _Logger;
         private readonly IFileRepository _FileRepository;
         private readonly IFileTypeApplication _FileTypeApplication;
-        public FileApplication(IFileRepository fileRepository, ILogger logger, IFileTypeApplication fileTypeApplication)
+        private readonly IFilePathApplication _FilePathApplication;
+        public FileApplication(IFileRepository fileRepository, ILogger logger, IFileTypeApplication fileTypeApplication, IFilePathApplication filePathApplication)
         {
             _FileRepository = fileRepository;
             _Logger = logger;
             _FileTypeApplication = fileTypeApplication;
+            _FilePathApplication = filePathApplication;
         }
 
         public async Task<OperationResult> AddFileAsync(InpAddFile Input)
@@ -40,18 +43,22 @@ namespace PrancaBeauty.Application.Apps.Files
                 // اعتبار سنجی نوع فایل
                 string FileTypeId = await _FileTypeApplication.GetIdByMimeTypeAsync(Input.MimeType.ToLower());
                 if (FileTypeId == null)
-                    return new OperationResult().Failed("MimemyTypeIsInvalid");
+                    return new OperationResult().Failed("MimeTypeIsInvalid");
+
+                // اعتبار سنجی پوشه
+                string FilePathId = await _FilePathApplication.GetIdByPathAsync(Input.FileServerId, Input.Path);
+                if (FilePathId == null)
+                    return new OperationResult().Failed("FilePathIsInvalid");
 
                 tblFiles tFile = new tblFiles()
                 {
                     Id = Guid.Parse(Input.Id),
                     Date = DateTime.Now,
-                    FileServerId = Guid.Parse(Input.FileServerId),
+                    FilePathId = Guid.Parse(FilePathId),
                     FileTypeId = Guid.Parse(FileTypeId),
                     UserId = Input.UserId != null ? Guid.Parse(Input.UserId) : null,
                     FileName = Input.FileName,
                     IsPrivate = Input.IsPrivate,
-                    Path = Input.Path,
                     SizeOnDisk = Input.SizeOnDisk,
                     Title = Input.Title
                 };
@@ -77,8 +84,8 @@ namespace PrancaBeauty.Application.Apps.Files
                 throw new ArgumentInvalidException();
 
             return await _FileRepository.Get
-                                        .Where(a => FileServerId != null ? a.FileServerId == Guid.Parse(FileServerId) : true)
-                                        .Where(a => Path != null ? a.Path == Path : true)
+                                        .Where(a => FileServerId != null ? a.tblFilePaths.FileServerId == Guid.Parse(FileServerId) : true)
+                                        .Where(a => Path != null ? a.tblFilePaths.Path == Path : true)
                                         .Where(a => FileName != null ? a.FileName == FileName : true)
                                         .AnyAsync();
         }
@@ -98,12 +105,12 @@ namespace PrancaBeauty.Application.Apps.Files
                                                     Title = a.Title,
                                                     UserId = a.UserId.ToString(),
                                                     FileName = a.FileName,
-                                                    FileServerId = a.FileServerId.ToString(),
-                                                    FileServerName = a.tblFileServer.Name,
+                                                    FileServerId = a.tblFilePaths.FileServerId.ToString(),
+                                                    FileServerName = a.tblFilePaths.tblFileServer.Name,
                                                     Date = a.Date,
                                                     IsPrivate = a.IsPrivate,
                                                     MimeType = a.tblFileTypes.MimeType,
-                                                    Path = a.Path,
+                                                    Path = a.tblFilePaths.Path,
                                                     SizeOnDisk = a.SizeOnDisk
                                                 })
                                                 .SingleOrDefaultAsync();

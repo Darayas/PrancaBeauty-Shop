@@ -1,6 +1,7 @@
 ﻿using Framework.Common.ExMethods;
 using Framework.Infrastructure;
 using PrancaBeauty.Domin.FileServer.FileAgg.Entities;
+using PrancaBeauty.Domin.FileServer.FilePathAgg.Entities;
 using PrancaBeauty.Domin.FileServer.FileTypeAgg.Entities;
 using PrancaBeauty.Domin.FileServer.ServerAgg.Entities;
 using PrancaBeauty.Domin.Region.CountryAgg.Entities;
@@ -17,16 +18,15 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
     public class AddData_Countris
     {
         BaseRepository<tblCountries> _Countries;
-        BaseRepository<tblFileServers> _FileServer;
         BaseRepository<tblLanguages> _Language;
         BaseRepository<tblFileTypes> _FileTypes;
+        BaseRepository<tblFilePaths> _FilePaths;
         public AddData_Countris()
         {
             _Countries = new BaseRepository<tblCountries>(new MainContext());
-            _FileServer = new BaseRepository<tblFileServers>(new MainContext());
             _Language = new BaseRepository<tblLanguages>(new MainContext());
             _FileTypes = new BaseRepository<tblFileTypes>(new MainContext());
-
+            _FilePaths = new BaseRepository<tblFilePaths>(new MainContext());
         }
 
         public void Run()
@@ -42,12 +42,11 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     tblFiles = new tblFiles()
                     {
                         Id = new Guid().SequentialGuid(),
+                        FilePathId = _FilePaths.Get.Where(a => a.Path == "/Img/flags/").Where(a => a.tblFileServer.Name == "Public").Select(a => a.Id).Single(),
                         Title = "IranCountryFlag",
                         Date = DateTime.Now,
                         FileName = "IranCountryFlag.png",
-                        FileServerId = _FileServer.GetNoTraking.Where(a => a.Name == "Public").Select(a => a.Id).Single(),
                         FileTypeId = _FileTypes.Get.Where(a => a.MimeType == "image/png").Select(a => a.Id).Single(),
-                        Path = "/Img/flags/",
                         SizeOnDisk = 0
                     }
                 }, default).Wait();
@@ -64,12 +63,11 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     tblFiles = new tblFiles()
                     {
                         Id = new Guid().SequentialGuid(),
+                        FilePathId = _FilePaths.Get.Where(a => a.Path == "/Img/flags/").Where(a => a.tblFileServer.Name == "Public").Select(a => a.Id).Single(),
                         Title = "USACountryFlag",
                         Date = DateTime.Now,
                         FileName = "USACountryFlag.png",
-                        FileServerId = _FileServer.GetNoTraking.Where(a => a.Name == "Public").Select(a => a.Id).Single(),
                         FileTypeId = _FileTypes.Get.Where(a => a.MimeType == "image/png").Select(a => a.Id).Single(),
-                        Path = "/Img/flags/",
                         SizeOnDisk = 0
                     }
                 }, default).Wait();

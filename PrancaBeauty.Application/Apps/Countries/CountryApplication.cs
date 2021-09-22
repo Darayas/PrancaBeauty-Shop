@@ -36,9 +36,9 @@ namespace PrancaBeauty.Application.Apps.Countries
                                                        Id = a.Id.ToString(),
                                                        Name = a.Name,
                                                        Title = a.tblCountries_Translates.Where(b => b.LangId == Guid.Parse(LangId)).Select(b => b.Title).Single(),
-                                                       FlagUrl = a.tblFiles.tblFileServer.HttpDomin +
-                                                                  a.tblFiles.tblFileServer.HttpPath +
-                                                                  a.tblFiles.Path +
+                                                       FlagUrl = a.tblFiles.tblFilePaths.tblFileServer.HttpDomin +
+                                                                  a.tblFiles.tblFilePaths.tblFileServer.HttpPath +
+                                                                  a.tblFiles.tblFilePaths.Path +
                                                                   a.tblFiles.FileName
                                                    })
                                                    .Where(a => Search != null ? a.Title.Contains(Search) : true)

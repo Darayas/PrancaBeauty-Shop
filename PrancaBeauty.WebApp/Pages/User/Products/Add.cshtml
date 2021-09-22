@@ -144,7 +144,10 @@
                         <div class="cart-arrow-down"><i class="fa fa-angle-down"></i></div>
                     </div>
                     <div class="card-body">
-                        
+                        <LoadComponent id="ProductImagesCompo"
+                                       context="HttpContext"
+                                       data='new viCompo_FileSelector { FieldName="Input.ProductImage"}'
+                                       url="/@ViewData["culture"]/Shared/Compo/ComboFileSelector"></LoadComponent>
                     </div>
                 </div>
             </div>

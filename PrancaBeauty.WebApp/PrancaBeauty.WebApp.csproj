@@ -30,7 +30,6 @@
 
   <ItemGroup>
     <Folder Include="Pages\Auth\RecoveryPassword\Components\RecoveryBySMS\" />
-    <Folder Include="Pages\Shared\Components\CompoFileManager\CompoFileSelector\" />
     <Folder Include="Pages\Shared\Components\CompoFileManager\CompoModalFileManager\" />
     <Folder Include="wwwroot\FileServer\Flags\" />
   </ItemGroup>

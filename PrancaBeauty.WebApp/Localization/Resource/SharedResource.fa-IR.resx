@@ -378,11 +378,23 @@
   <data name="FileInfoIsDuplicated" xml:space="preserve">
     <value>اطلاعات فایل وارد شده تکراری میباشد.</value>
   </data>
+  <data name="FileName" xml:space="preserve">
+    <value>نام فایل</value>
+  </data>
   <data name="FilePathIsInvalid" xml:space="preserve">
     <value>ادرس پوشه معتبر نمیباشد</value>
   </data>
+  <data name="FileServerName" xml:space="preserve">
+    <value>نام سرور</value>
+  </data>
+  <data name="FileSize" xml:space="preserve">
+    <value>حجم فایل</value>
+  </data>
   <data name="FileSizeMsg" xml:space="preserve">
     <value>{0} انتخاب شده با نام '{1}' باید بین {2} تا {3} باشد</value>
+  </data>
+  <data name="FileTitle" xml:space="preserve">
+    <value>عنوان فایل</value>
   </data>
   <data name="Filter" xml:space="preserve">
     <value>فیلتر</value>
@@ -570,6 +582,9 @@
   <data name="MetaTagKeyword" xml:space="preserve">
     <value>متاتگ کلمات کلیدی</value>
   </data>
+  <data name="MimeType" xml:space="preserve">
+    <value>نوع فایل</value>
+  </data>
   <data name="MimeTypeIsInvalid" xml:space="preserve">
     <value>نوع فایل ارسال شده معتبر نمیباشد.</value>
   </data>
@@ -602,6 +617,9 @@
   </data>
   <data name="No" xml:space="preserve">
     <value>خیر</value>
+  </data>
+  <data name="NoFileSeleted" xml:space="preserve">
+    <value>فایلی انتخاب نشده است.</value>
   </data>
   <data name="NotFound" xml:space="preserve">
     <value>موردی یافت نشد.</value>

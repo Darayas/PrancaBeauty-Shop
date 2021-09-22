@@ -1,0 +1,42 @@
+﻿@page "/{culture}/Shared/Compo/ComboFileSelector"
+@model PrancaBeauty.WebApp.Pages.Shared.Components.CompoFileManager.CompoFileSelector.Compo_FileSelectorModel
+
+<div id="CompoFileSelector">
+    <div class="row">
+        <div class="col-md-12">
+            @if (Model.Data.Count() == 0)
+            {
+                <div class="alert alert-info mt-2">
+                    @Localizer["NoFileSeleted"]
+                </div>
+            }
+            else
+            {
+                <table class="table table-borderless">
+                    <thead>
+                        <tr>
+                            <td></td>
+                            <td>@Localizer["FileTitle"]</td>
+                            <td>@Localizer["FileName"]</td>
+                            <td>@Localizer["MimeType"]</td>
+                            <td>@Localizer["FileSize"]</td>
+                            <td>@Localizer["FileServerName"]</td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in Model.Data)
+                        {
+                            <tr>
+                                <td></td>
+
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+</div>

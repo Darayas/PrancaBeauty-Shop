@@ -2,6 +2,7 @@
 using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using PrancaBeauty.Application.Apps.FileTypes;
 using PrancaBeauty.Application.Contracts.Files;
 using PrancaBeauty.Application.Contracts.Results;
 using PrancaBeauty.Domin.FileServer.FileAgg.Contracts;
@@ -18,10 +19,12 @@ namespace PrancaBeauty.Application.Apps.Files
     {
         private readonly ILogger _Logger;
         private readonly IFileRepository _FileRepository;
-        public FileApplication(IFileRepository fileRepository, ILogger logger)
+        private readonly IFileTypeApplication _FileTypeApplication;
+        public FileApplication(IFileRepository fileRepository, ILogger logger, IFileTypeApplication fileTypeApplication)
         {
             _FileRepository = fileRepository;
             _Logger = logger;
+            _FileTypeApplication = fileTypeApplication;
         }
 
         public async Task<OperationResult> AddFileAsync(InpAddFile Input)
@@ -34,15 +37,20 @@ namespace PrancaBeauty.Application.Apps.Files
                 if (await CheckExsitAsync(Input.FileServerId, Input.Path, Input.FileName))
                     return new OperationResult().Failed("FileInfoIsDuplicated");
 
+                // اعتبار سنجی نوع فایل
+                string FileTypeId = await _FileTypeApplication.GetIdByMimeTypeAsync(Input.MimeType.ToLower());
+                if (FileTypeId == null)
+                    return new OperationResult().Failed("MimemyTypeIsInvalid");
+
                 tblFiles tFile = new tblFiles()
                 {
                     Id = Guid.Parse(Input.Id),
                     Date = DateTime.Now,
                     FileServerId = Guid.Parse(Input.FileServerId),
+                    FileTypeId = Guid.Parse(FileTypeId),
                     UserId = Input.UserId != null ? Guid.Parse(Input.UserId) : null,
                     FileName = Input.FileName,
                     IsPrivate = Input.IsPrivate,
-                    MimeType = Input.MimeType,
                     Path = Input.Path,
                     SizeOnDisk = Input.SizeOnDisk,
                     Title = Input.Title
@@ -75,7 +83,7 @@ namespace PrancaBeauty.Application.Apps.Files
                                         .AnyAsync();
         }
 
-        public async Task<OutGetFileInfo> GetFileInfoAsync(string FileId,string UserId=null)
+        public async Task<OutGetFileInfo> GetFileInfoAsync(string FileId, string UserId = null)
         {
             try
             {
@@ -94,7 +102,7 @@ namespace PrancaBeauty.Application.Apps.Files
                                                     FileServerName = a.tblFileServer.Name,
                                                     Date = a.Date,
                                                     IsPrivate = a.IsPrivate,
-                                                    MimeType = a.MimeType,
+                                                    MimeType = a.tblFileTypes.MimeType,
                                                     Path = a.Path,
                                                     SizeOnDisk = a.SizeOnDisk
                                                 })

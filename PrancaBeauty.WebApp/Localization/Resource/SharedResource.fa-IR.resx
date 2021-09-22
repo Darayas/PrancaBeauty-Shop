@@ -567,6 +567,9 @@
   <data name="MetaTagKeyword" xml:space="preserve">
     <value>متاتگ کلمات کلیدی</value>
   </data>
+  <data name="MimemyTypeIsInvalid" xml:space="preserve">
+    <value>نوع فایل ارسال شده معتبر نمیباشد.</value>
+  </data>
   <data name="MobilePattern" xml:space="preserve">
     <value>^[0][9][0-9]{9}$</value>
   </data>
@@ -710,6 +713,9 @@
   </data>
   <data name="ProductDate" xml:space="preserve">
     <value>تاریخ انتشار محصول</value>
+  </data>
+  <data name="ProductImages" xml:space="preserve">
+    <value>تصاویر محصول</value>
   </data>
   <data name="ProductList" xml:space="preserve">
     <value>لیست محصولات</value>

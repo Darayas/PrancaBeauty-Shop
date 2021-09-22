@@ -38,7 +38,7 @@ namespace PrancaBeauty.Application.Apps.Products
                                               .Select(a => new OutGetProductsForManage
                                               {
                                                   Id = a.Id.ToString(),
-                                                  ImgUrl = a.tblProductMedia.Where(b => b.tblFiles.MimeType.StartsWith("image"))
+                                                  ImgUrl = a.tblProductMedia.Where(b => b.tblFiles.tblFileTypes.MimeType.StartsWith("image"))
                                                                             .Select(b => b.tblFiles.tblFileServer.HttpDomin
                                                                                          + b.tblFiles.tblFileServer.HttpPath
                                                                                          + b.tblFiles.Path

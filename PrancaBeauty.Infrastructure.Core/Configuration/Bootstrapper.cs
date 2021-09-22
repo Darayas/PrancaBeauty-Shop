@@ -16,6 +16,7 @@ using PrancaBeauty.Application.Apps.Countries;
 using PrancaBeauty.Application.Apps.Currency;
 using PrancaBeauty.Application.Apps.Files;
 using PrancaBeauty.Application.Apps.FileServer;
+using PrancaBeauty.Application.Apps.FileTypes;
 using PrancaBeauty.Application.Apps.Keywords;
 using PrancaBeauty.Application.Apps.KeywordsProducts;
 using PrancaBeauty.Application.Apps.Languages;
@@ -43,6 +44,7 @@ using PrancaBeauty.Application.Apps.Users;
 using PrancaBeauty.Application.Common.FtpWapper;
 using PrancaBeauty.Domin.Categories.CategoriesAgg.Contracts;
 using PrancaBeauty.Domin.FileServer.FileAgg.Contracts;
+using PrancaBeauty.Domin.FileServer.FileTypeAgg.Contracts;
 using PrancaBeauty.Domin.FileServer.ServerAgg.Contracts;
 using PrancaBeauty.Domin.Keywords.KeywordAgg.Contracts;
 using PrancaBeauty.Domin.Keywords.Keywords_Products.Contracts;
@@ -82,6 +84,7 @@ using PrancaBeauty.Infrastructure.EFCore.Repository.Cities;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Counties;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Currency;
 using PrancaBeauty.Infrastructure.EFCore.Repository.FileServer;
+using PrancaBeauty.Infrastructure.EFCore.Repository.FileType;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Keywords;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Keywords_Products;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Product;
@@ -174,6 +177,7 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddScoped<IProductReviewsAttributeValuesRepository, ProductReviewsAttributeValuesRepository>();
             services.AddScoped<ICurrencyRepository, CurrencyRepository>();
             services.AddScoped<ICurrency_TranslatesRepository, Currency_TranslatesRepository>();
+            services.AddScoped<IFileTypeRepository, FileTypeRepository>();
 
             // Applications
             services.AddScoped<IUserApplication, UserApplication>();
@@ -209,6 +213,7 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddScoped<IProductReviewsAttributeApplication, ProductReviewsAttributeApplication>();
             services.AddScoped<IProductReviewsAttributeValuesApplication, ProductReviewsAttributeValuesApplication>();
             services.AddScoped<ICurrencyApplication, CurrencyApplication>();
+            services.AddScoped<IFileTypeApplication, FileTypeApplication>();
         }
     }
 }

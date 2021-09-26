@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Files;
@@ -12,6 +13,7 @@ using PrancaBeauty.WebApp.Models.ViewModel;
 
 namespace PrancaBeauty.WebApp.Pages.Shared.Components.CompoFileManager.CompoFileSelector
 {
+    [Authorize]
     public class Compo_FileSelectorModel : PageModel
     {
         private readonly IMsgBox _MsgBox;

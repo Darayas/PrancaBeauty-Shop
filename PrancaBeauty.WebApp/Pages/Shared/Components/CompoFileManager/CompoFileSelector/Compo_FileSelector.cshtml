@@ -21,7 +21,7 @@
                             <th>@*@Localizer["FileName"]*@</th>
                             <th>@Localizer["MimeType"]</th>
                             <th>@Localizer["FileSize"]</th>
-                            <th>@Localizer["FileServerName"]</th>
+                            <th>@*@Localizer["FileServerName"]*@</th>
                             <th class="thBtnAdd"><button type="button" class="btn btn-success btn-sm" onclick="AddFile()"><i class="fa fa-plus"></i></button></th>
                         </tr>
                     </thead>
@@ -44,7 +44,7 @@
                                 <td>@*@item.FileName*@</td>
                                 <td>@item.MimeType</td>
                                 <td>@item.FileSize.GetFileSizeName()</td>
-                                <td>@item.FileServerName</td>
+                                <td>@*@item.FileServerName*@</td>
                                 <td>
                                     <a class="text-info mr-1 ml-1" onclick="location.href = '@item.DownloadUrl'"><i class="fa fa-download"></i></a>
                                     <a class="text-danger mr-1 ml-1" onclick=""><i class="fa fa-times"></i></a>

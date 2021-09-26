@@ -7,22 +7,16 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.WebApp.Models.ViewInput;
 
-namespace PrancaBeauty.WebApp.Pages.Shared.Components.CompoFileManager.CompoModalFileManager
+namespace PrancaBeauty.WebApp.Pages.Shared.Components.Combo_FileType
 {
     [Authorize]
-    public class Compo_ModalFileManagerModel : PageModel
+    public class Compo_ComboFileTypesModel : PageModel
     {
-        public Compo_ModalFileManagerModel()
+        public void OnGet()
         {
-
-        }
-
-        public IActionResult OnGet()
-        {
-            return Page();
         }
 
         [BindProperty(SupportsGet = true)]
-        public viCompo_ModalFileManager Input { get; set; }
+        public viCompo_ComboFileTypes Input { get; set; }
     }
 }

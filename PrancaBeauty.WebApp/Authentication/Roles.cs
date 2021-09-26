@@ -46,5 +46,9 @@ namespace PrancaBeauty.WebApp.Authentication
         public const string CanRemoveProduct = "CanRemoveProduct";
 
         #endregion
+
+        #region Files
+        public const string CanManageAllUserFliles = "CanManageAllUserFliles";
+        #endregion
     }
 }

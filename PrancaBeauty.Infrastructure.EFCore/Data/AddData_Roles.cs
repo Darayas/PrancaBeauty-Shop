@@ -420,6 +420,57 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
             }
             #endregion
 
+            #region ManageFiles
+            {
+                Guid _Id = new Guid().SequentialGuid();
+                if (!_repRoles.Get.Any(a => a.Name == "CanManageFiles"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = _Id,
+                        ParentId = null,
+                        PageName = "ManageFilePage",
+                        Sort = 350,
+                        Name = "CanManageFiles",
+                        NormalizedName = "CanManageFiles".ToUpper(),
+                        Description = "توانایی مدیریت فایل ها"
+                    }, default, false).Wait();
+                }
+                else
+                {
+                    _Id = _repRoles.Get.Where(a => a.Name == "CanManageFiles").Select(a => a.Id).Single();
+                }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanViewListFiles"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageFilePage",
+                        Sort = 360,
+                        Name = "CanViewListFiles",
+                        NormalizedName = "CanViewListFiles".ToUpper(),
+                        Description = "توانایی مشاهده لیست فایل ها"
+                    }, default, false).Wait();
+                }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanManageAllUserFliles"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageFilePage",
+                        Sort = 370,
+                        Name = "CanManageAllUserFliles",
+                        NormalizedName = "CanManageAllUserFliles".ToUpper(),
+                        Description = "یتوانایی مدیریت لیست فایل های دیگر کاربران"
+                    }, default, false).Wait();
+                }
+            }
+            #endregion
+
             _repRoles.SaveChangeAsync().Wait();
 
         }

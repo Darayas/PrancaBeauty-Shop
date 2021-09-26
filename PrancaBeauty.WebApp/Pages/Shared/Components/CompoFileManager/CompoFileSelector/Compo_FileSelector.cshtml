@@ -1,5 +1,6 @@
 ﻿@page "/{culture}/Shared/Compo/ComboFileSelector"
 @model PrancaBeauty.WebApp.Pages.Shared.Components.CompoFileManager.CompoFileSelector.Compo_FileSelectorModel
+@using Framework.Common.ExMethods
 
 <div id="CompoFileSelector">
     <div class="row">
@@ -17,7 +18,7 @@
                         <tr>
                             <th></th>
                             <th>@Localizer["FileTitle"]</th>
-                            <th>@Localizer["FileName"]</th>
+                            <th>@*@Localizer["FileName"]*@</th>
                             <th>@Localizer["MimeType"]</th>
                             <th>@Localizer["FileSize"]</th>
                             <th>@Localizer["FileServerName"]</th>
@@ -29,14 +30,23 @@
                         @foreach (var item in Model.Data)
                         {
                             <tr>
-                                <td></td>
+                                <td>
+                                    @if (item.MimeType == "image/png" || item.MimeType == "image/jpg" || item.MimeType == "image/gif" || item.MimeType == "image/jpeg" || item.MimeType == "image/bmp")
+                                    {
+                                        <img src="@item.DownloadUrl" style="height:32px; width:32px;" />
+                                    }
+                                    else
+                                    {
+                                        <img src="@item.FileTypeIconUrl" style="height:32px; width:32px;" />
+                                    }
+                                </td>
                                 <td>@item.Title</td>
-                                <td>@item.FileName</td>
+                                <td>@*@item.FileName*@</td>
                                 <td>@item.MimeType</td>
-                                <td>@item.FileSize</td>
+                                <td>@item.FileSize.GetFileSizeName()</td>
                                 <td>@item.FileServerName</td>
                                 <td>
-                                    <a class="text-info mr-1 ml-1" onclick=""><i class="fa fa-download"></i></a>
+                                    <a class="text-info mr-1 ml-1" onclick="location.href = '@item.DownloadUrl'"><i class="fa fa-download"></i></a>
                                     <a class="text-danger mr-1 ml-1" onclick=""><i class="fa fa-times"></i></a>
                                 </td>
 
@@ -51,6 +61,9 @@
 </div>
 <script>
     function AddFile() {
-
+        LoadComponenet('/@ViewData["culture"]/Shared/Compo/ComboModalFileManager', {}, function (res) {
+            $('body').append(res);
+            $('#CompoModalFileManager').modal();
+        });
     }
 </script>

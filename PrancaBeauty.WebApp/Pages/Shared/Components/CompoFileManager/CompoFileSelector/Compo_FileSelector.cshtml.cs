@@ -26,6 +26,9 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.CompoFileManager.CompoFile
 
         public async Task<IActionResult> OnGetAsync()
         {
+            if (Input.SelectedFilesId == null)
+                Input.SelectedFilesId = string.Empty;
+
             var qData = await _FileApplication.GetFileDetailsForFileSelectorAsync(Input.SelectedFilesId.Split(','));
 
             Data = _Mapper.Map<List<vmCompo_FileSelector>>(qData);

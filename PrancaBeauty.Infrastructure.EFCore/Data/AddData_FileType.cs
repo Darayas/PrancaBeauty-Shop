@@ -25,7 +25,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                 _FileType.AddAsync(new tblFileTypes()
                 {
                     Id = new Guid().SequentialGuid(),
-                    IconUrl = "/shared/image/filetype/png.png",
+                    IconUrl = "/shared/img/filetype/png.png",
                     MimeType = "image/png",
                     Extentions = "png"
                 }, default, false).Wait();
@@ -36,7 +36,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                 _FileType.AddAsync(new tblFileTypes()
                 {
                     Id = new Guid().SequentialGuid(),
-                    IconUrl = "/shared/image/filetype/jpg.png",
+                    IconUrl = "/shared/img/filetype/jpg.png",
                     MimeType = "image/jpg",
                     Extentions = "jpg"
                 }, default, false).Wait();
@@ -47,20 +47,20 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                 _FileType.AddAsync(new tblFileTypes()
                 {
                     Id = new Guid().SequentialGuid(),
-                    IconUrl = "/shared/image/filetype/jpg.png",
-                    MimeType = "image/image/jpeg",
-                    Extentions = "image/jpeg"
+                    IconUrl = "/shared/img/filetype/jpg.png",
+                    MimeType = "image/jpeg",
+                    Extentions = "jpg"
                 }, default, false).Wait();
             }
 
-            if (!_FileType.Get.Where(a => a.MimeType == "image/mp4").Any())
+            if (!_FileType.Get.Where(a => a.MimeType == "video/mp4").Any())
             {
                 _FileType.AddAsync(new tblFileTypes()
                 {
                     Id = new Guid().SequentialGuid(),
-                    IconUrl = "/shared/image/filetype/mp4.png",
-                    MimeType = "image/image/mp4",
-                    Extentions = "image/mp4"
+                    IconUrl = "/shared/img/filetype/mp4.png",
+                    MimeType = "video/mp4",
+                    Extentions = "mp4"
                 }, default, false).Wait();
             }
 

@@ -378,6 +378,9 @@
   <data name="FileInfoIsDuplicated" xml:space="preserve">
     <value>اطلاعات فایل وارد شده تکراری میباشد.</value>
   </data>
+  <data name="FileManager" xml:space="preserve">
+    <value>مدیریت فایل ها</value>
+  </data>
   <data name="FileName" xml:space="preserve">
     <value>نام فایل</value>
   </data>
@@ -440,6 +443,9 @@
   </data>
   <data name="Input cant be null." xml:space="preserve">
     <value>اطلاعات لازم را وارد کنید</value>
+  </data>
+  <data name="Insert" xml:space="preserve">
+    <value>افزودن</value>
   </data>
   <data name="InvalidEmail" xml:space="preserve">
     <value>ایمیل '{email}' نامعتبر است</value>

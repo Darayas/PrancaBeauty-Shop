@@ -7,7 +7,7 @@
             @if (Model.Data.Count() == 0)
             {
                 <div class="alert alert-info mt-2">
-                    @Localizer["NoFileSeleted"]
+                    @Html.Raw(Localizer["NoFileSeleted", "AddFile()"])
                 </div>
             }
             else
@@ -15,13 +15,13 @@
                 <table class="table table-borderless">
                     <thead>
                         <tr>
-                            <td></td>
-                            <td>@Localizer["FileTitle"]</td>
-                            <td>@Localizer["FileName"]</td>
-                            <td>@Localizer["MimeType"]</td>
-                            <td>@Localizer["FileSize"]</td>
-                            <td>@Localizer["FileServerName"]</td>
-                            <td></td>
+                            <th></th>
+                            <th>@Localizer["FileTitle"]</th>
+                            <th>@Localizer["FileName"]</th>
+                            <th>@Localizer["MimeType"]</th>
+                            <th>@Localizer["FileSize"]</th>
+                            <th>@Localizer["FileServerName"]</th>
+                            <th class="thBtnAdd"><button type="button" class="btn btn-success btn-sm" onclick="AddFile()"><i class="fa fa-plus"></i></button></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -30,6 +30,15 @@
                         {
                             <tr>
                                 <td></td>
+                                <td>@item.Title</td>
+                                <td>@item.FileName</td>
+                                <td>@item.MimeType</td>
+                                <td>@item.FileSize</td>
+                                <td>@item.FileServerName</td>
+                                <td>
+                                    <a class="text-info mr-1 ml-1" onclick=""><i class="fa fa-download"></i></a>
+                                    <a class="text-danger mr-1 ml-1" onclick=""><i class="fa fa-times"></i></a>
+                                </td>
 
                             </tr>
                         }
@@ -40,3 +49,8 @@
         </div>
     </div>
 </div>
+<script>
+    function AddFile() {
+
+    }
+</script>

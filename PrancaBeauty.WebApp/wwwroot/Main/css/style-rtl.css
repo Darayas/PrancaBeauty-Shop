@@ -7995,3 +7995,7 @@ err500 {
     float: right; }
   .CompoSectionHeader .BtnAdd {
     float: left; }
+
+.thBtnAdd {
+  text-align: left;
+  direction: ltr; }

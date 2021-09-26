@@ -160,5 +160,42 @@ namespace PrancaBeauty.Application.Apps.Files
                 return new OperationResult().Failed("Error500");
             }
         }
+
+        public async Task<List<outGetFileDetailsForFileSelector>> GetFileDetailsForFileSelectorAsync(string[] FilesId)
+        {
+            try
+            {
+                if (FilesId is null)
+                    throw new ArgumentInvalidException("FilesId cant be null.");
+
+                var qData = await _FileRepository.Get
+                                                 .Where(a => FilesId.Contains(a.Id.ToString()))
+                                                 .Select(a => new outGetFileDetailsForFileSelector()
+                                                 {
+                                                     Id = a.Id.ToString(),
+                                                     Title = a.Title,
+                                                     FileName = a.FileName,
+                                                     FileSize = a.SizeOnDisk,
+                                                     MimeType = a.tblFileTypes.MimeType,
+                                                     FileTypeIconUrl = a.tblFileTypes.IconUrl,
+                                                     FileServerName = a.tblFilePaths.tblFileServer.Name,
+                                                     DownloadUrl = a.tblFilePaths.tblFileServer.HttpDomin
+                                                                   + a.tblFilePaths.tblFileServer.HttpPath
+                                                                   + a.tblFilePaths.Path
+                                                                   + a.FileName
+                                                 })
+                                                 .ToListAsync();
+
+                if (qData == null)
+                    return null;
+
+                return qData;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
+            }
+        }
     }
 }

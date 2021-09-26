@@ -15,23 +15,18 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="row">
-                            <div class="col-md-12">
-                                <div class="card card-light p-3 mb-4">
-                                    Sort
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-4">
                                 <div class="card card-light p-3">
                                     <form id="frmFileManager">
                                         <div class="form-group">
                                             <label>@Localizer["Title"]</label>
-                                            <input id="" class="form-control" />
+                                            <input id="Title" class="form-control" />
                                         </div>
                                         <div class="form-group">
-                                            <label>@Localizer["FileType"]</label>
-                                            <input id="" class="form-control" />
+                                            <LoadComponent id="ComboFileType"
+                                                           context="HttpContext"
+                                                           data='new viCompo_ComboFileTypes { FieldName = "Input.FileTypeId" }'
+                                                           url="/@ViewData["culture"]/Shared/Compo/ComboFileType"></LoadComponent>
                                         </div>
 
                                         @if (User.IsInRole(Roles.CanManageAllUserFliles))
@@ -43,6 +38,19 @@
                                                                url="/@ViewData["culture"]/Shared/Compo/ComboUsers"></LoadComponent>
                                             </div>
                                         }
+                                        <div class="form-group">
+                                            <label>@Localizer["Sort"]</label>
+                                            <select id="Sort" class="form-control">
+                                                <option value="0">@Localizer["Sorting"]</option>
+                                                <option value="1">@Localizer["TitleAes"]</option>
+                                                <option value="1">@Localizer["TitleDes"]</option>
+                                                <option value="1">@Localizer["FileTypeAes"]</option>
+                                                <option value="1">@Localizer["FileTypeDes"]</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group form-btn">
+                                            <button type="button" onclick="" class="btn btn-primary">@Localizer["Affect"]</button>
+                                        </div>
                                     </form>
                                 </div>
                             </div>

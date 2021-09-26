@@ -177,6 +177,9 @@
   <data name="AdminPanel" xml:space="preserve">
     <value>پنل مدیریت</value>
   </data>
+  <data name="Affect" xml:space="preserve">
+    <value>اعمال</value>
+  </data>
   <data name="All" xml:space="preserve">
     <value>همه</value>
   </data>
@@ -398,6 +401,15 @@
   </data>
   <data name="FileTitle" xml:space="preserve">
     <value>عنوان فایل</value>
+  </data>
+  <data name="FileTypeAes" xml:space="preserve">
+    <value>نوع فایل(صعودی)</value>
+  </data>
+  <data name="FileTypeDes" xml:space="preserve">
+    <value>نوع فایل (نزولی)</value>
+  </data>
+  <data name="FileTypeId" xml:space="preserve">
+    <value>نوع فایل</value>
   </data>
   <data name="Filter" xml:space="preserve">
     <value>فیلتر</value>
@@ -890,6 +902,12 @@
   </data>
   <data name="Title" xml:space="preserve">
     <value>عنوان</value>
+  </data>
+  <data name="TitleAes" xml:space="preserve">
+    <value>عنوان(صعودی)</value>
+  </data>
+  <data name="TitleDes" xml:space="preserve">
+    <value>عنوان (نزولی)</value>
   </data>
   <data name="TokenIsInvalid" xml:space="preserve">
     <value>توکن ارسال شده معتبر نمیباشد</value>

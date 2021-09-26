@@ -38,6 +38,7 @@ namespace PrancaBeauty.WebApp.Mapping
             CreateMap<PrancaBeauty.Application.Contracts.City.OutGetListForCombo, vmCompo_Combo_Cities>();
             CreateMap<PrancaBeauty.Application.Contracts.Categories.OutGetListForCombo, vmCompo_Combo_Categories>();
             CreateMap<PrancaBeauty.Application.Contracts.Users.OutGetListForCombo, vmCompo_Combo_Users>();
+            CreateMap<PrancaBeauty.Application.Contracts.FileTypes.outGetListForCombo, vmCompo_ComboFileTypes>();
             CreateMap<OutGetMainByCountryId, vmCompo_Input_Price>();
             CreateMap<outGetFileDetailsForFileSelector, vmCompo_FileSelector>();
         }

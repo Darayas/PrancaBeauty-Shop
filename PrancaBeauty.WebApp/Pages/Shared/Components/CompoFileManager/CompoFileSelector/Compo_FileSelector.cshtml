@@ -31,7 +31,7 @@
                         {
                             <tr>
                                 <td>
-                                    @if (item.MimeType == "image/png" || item.MimeType == "image/jpg" || item.MimeType == "image/gif" || item.MimeType == "image/jpeg" || item.MimeType == "image/bmp")
+                                    @if (item.MimeType.ToLower().StartsWith("image/"))
                                     {
                                         <img src="@item.DownloadUrl" style="height:32px; width:32px;" />
                                     }

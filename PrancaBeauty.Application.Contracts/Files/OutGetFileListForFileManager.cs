@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
-namespace PrancaBeauty.WebApp.Models.ViewModel
+namespace PrancaBeauty.Application.Contracts.Files
 {
-    public class vmCompo_ModalFileList
+    public class OutGetFileListForFileManager
     {
         public string Id { get; set; }
         public string FileTypeIconUrl { get; set; }

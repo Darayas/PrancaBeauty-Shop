@@ -1,4 +1,5 @@
 ﻿using Framework.Common.ExMethods;
+using Framework.Common.Utilities.Paging;
 using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
@@ -195,6 +196,80 @@ namespace PrancaBeauty.Application.Apps.Files
             {
                 _Logger.Error(ex);
                 return null;
+            }
+        }
+
+        public async Task<(OutPagingData, List<OutGetFileListForFileManager>)> GetFileListForFileManagerAsync(InpGetFileListForFileManager Input)
+        {
+            try
+            {
+                if (Input is null)
+                    throw new ArgumentInvalidException("Input cant be null.");
+
+                var qData = _FileRepository.Get
+                                           .Where(a => Input.UserId != null ? a.UserId == Guid.Parse(Input.UserId) : true)
+                                           .Where(a => Input.FileTypeId != null ? a.FileTypeId == Guid.Parse(Input.FileTypeId) : true)
+                                           .Where(a => Input.Title != null ? a.Title.Contains(Input.Title) : true)
+                                           .OrderByDescending(a => a.Date)
+                                           .Select(a => new OutGetFileListForFileManager
+                                           {
+                                               Id = a.Id.ToString(),
+                                               Title = a.Title,
+                                               FileSize = a.SizeOnDisk,
+                                               MimeType = a.tblFileTypes.MimeType,
+                                               FileTypeIconUrl = a.tblFileTypes.IconUrl,
+                                               Date=a.Date,
+                                               DownloadLink = a.tblFilePaths.tblFileServer.HttpDomin
+                                                                    + a.tblFilePaths.tblFileServer.HttpPath
+                                                                    + a.tblFilePaths.Path
+                                                                    + a.FileName,
+                                           });
+
+                #region Sorting
+                {
+                    switch (Input.Sort)
+                    {
+                        case InpGetFileListForFileManagerSort.TitleAes:
+                            {
+                                qData = qData.OrderBy(a => a.Title);
+                                break;
+                            }
+                        case InpGetFileListForFileManagerSort.TitleDes:
+                            {
+                                qData = qData.OrderByDescending(a => a.Title);
+                                break;
+                            }
+                        case InpGetFileListForFileManagerSort.FileTypeAes:
+                            {
+                                qData = qData.OrderBy(a => a.MimeType);
+                                break;
+                            }
+                        case InpGetFileListForFileManagerSort.FileTypeDes:
+                            {
+                                qData = qData.OrderByDescending(a => a.MimeType);
+                                break;
+                            }
+                        default:
+                            {
+                                qData = qData.OrderByDescending(a => a.Date);
+                                break;
+                            }
+                    }
+                }
+                #endregion
+
+                var qPagingData = PagingData.Calc(await qData.LongCountAsync(), Input.Page, Input.Take);
+                return (qPagingData, await qData.Skip((int)qPagingData.Skip).Take(Input.Take).ToListAsync());
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return default;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return default;
             }
         }
     }

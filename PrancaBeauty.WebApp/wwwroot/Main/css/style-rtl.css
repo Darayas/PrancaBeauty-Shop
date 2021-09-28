@@ -8001,4 +8001,5 @@ err500 {
   direction: ltr; }
 
 .form-btn {
-  text-align: left; }
+  text-align: left;
+  direction: ltr; }

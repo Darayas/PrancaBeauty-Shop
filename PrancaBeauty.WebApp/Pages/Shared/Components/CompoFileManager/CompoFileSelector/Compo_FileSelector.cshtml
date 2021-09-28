@@ -58,12 +58,25 @@
             }
         </div>
     </div>
+    <input type="hidden" asp-for="Input.SelectedFilesId" name="@Model.Input.FieldName" id="@Model.Input.FieldName.Replace(".","_")" />
 </div>
 <script>
     function AddFile() {
-        LoadComponenet('/@ViewData["culture"]/Shared/Compo/ComboModalFileManager', {}, function (res) {
+        LoadComponenet('/@ViewData["culture"]/Shared/Compo/ComboModalFileManager', { FieldName: '@Model.Input.FieldName', SelectedFilesId: $('#@Model.Input.FieldName.Replace(".","_")').val() }, function (res) {
             $('body').append(res);
-            $('#CompoModalFileManager').modal();
+            $('#CompoModalFileManager').modal({backdrop: 'static', keyboard: false });
+        });
+    }
+
+    function RefreshFileSelector(_SelectedFilesId) {
+        LoadComponenet('/@ViewData["culture"]/Shared/Compo/ComboFileSelector', {
+            FieldName: '@Model.Input.FieldName',
+            SelectedFilesId: _SelectedFilesId,
+            MaxFileCount: @Model.Input.MaxFileCount,
+            AllowedMimeType: '@Model.Input.AllowedMimeType',
+            MaxFileSize:@Model.Input.MaxFileSize
+        }, function (res) {
+            $('#ProductImagesCompo').html(res);
         });
     }
 </script>

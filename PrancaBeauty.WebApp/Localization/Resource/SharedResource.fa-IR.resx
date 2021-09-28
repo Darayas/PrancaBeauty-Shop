@@ -639,6 +639,9 @@
   <data name="NoFileSeleted" xml:space="preserve">
     <value>&lt;span&gt;فایلی انتخاب نشده است. (&lt;a style="color:#d52121" onclick="{0}"&gt;افزودن&lt;/a&gt;)&lt;/span&gt;</value>
   </data>
+  <data name="NoItemFound" xml:space="preserve">
+    <value>موردی یافت نشد.</value>
+  </data>
   <data name="NotFound" xml:space="preserve">
     <value>موردی یافت نشد.</value>
   </data>
@@ -851,6 +854,9 @@
   </data>
   <data name="Security" xml:space="preserve">
     <value>امنیت</value>
+  </data>
+  <data name="SelectedFileIsDuplicate" xml:space="preserve">
+    <value>فایل انتخاب شده تکراری میباشد</value>
   </data>
   <data name="Seller" xml:space="preserve">
     <value>فروشنده</value>

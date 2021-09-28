@@ -8,7 +8,7 @@
             <div class="modal-header">
                 <h5 class="modal-title">@Localizer["FileManager"]</h5>
                 <button type="button" class="close">
-                    <span aria-hidden="true">&times;</span>
+                    <span onclick="CloseModalFileManager()" aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
@@ -25,15 +25,15 @@
                             </div>
                             <div class="col-md-8">
                                 <div class="card card-light p-3">
-                                    Search
+                                    <LoadComponent id="ComboContent"
+                                                   context="HttpContext"
+                                                   data='new viCompo_ModalFileList { Take=10,Page=1,SelectedFilesId=Model.Input.SelectedFilesId  }'
+                                                   url="/@ViewData["culture"]/Shared/Compo/ComboModalFileList"></LoadComponent>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary">@Localizer["Insert"]</button>
             </div>
         </div>
     </div>
@@ -47,6 +47,25 @@
             }, function (res) {
                 $('#ComboFileListFilter').html(res);
             });
+        }
+
+        function AddToFileSelector(_FileId) {
+            var _SelectedFilesId = $('#@(Model.Input.FieldName.Replace(".","_"))').val();
+
+            if (!_SelectedFilesId.includes(_FileId)) {
+                _SelectedFilesId += "," + _FileId;
+
+                RefreshFileSelector(_SelectedFilesId);
+
+                CloseModalFileManager();
+            } else {
+                Alert('', '@Localizer["SelectedFileIsDuplicate"]')
+            }
+        }
+
+        function CloseModalFileManager() {
+            $('#CompoModalFileManager').remove();
+            $('.modal-backdrop').remove();
         }
     </script>
 </div>

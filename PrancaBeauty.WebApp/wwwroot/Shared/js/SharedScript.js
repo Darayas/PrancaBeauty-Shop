@@ -121,6 +121,15 @@ function Alert429() {
     });
 }
 
+function Alert(_Title, _Text,_Type='info') {
+    return swal.fire({
+        title: _Title,
+        html: $.parseHTML(_Text)[0].data,
+        icon: _Type, // warning, info, succcess, error
+        confirmButtonText: OkText
+    });
+}
+
 function Logout(_ReturnUrl) {
     document.cookie = 'PrancaBeautyAuth=; expires=Thu, 01-Jan-70 00:00:01 GMT; path=/;';
     location.href = _ReturnUrl;

@@ -28,6 +28,7 @@ namespace PrancaBeauty.WebApp.Mapping
             CreateMap<viAddCategory_Translate, InpAddCategory_Translate>();
             CreateMap<viEditCategory, InpSaveEdit>();
             CreateMap<viEditCategory_Translate, InpSaveEdit_Translate>();
+            CreateMap<viCompo_ModalFileList, InpGetFileListForFileManager>();
 
             CreateMap<PrancaBeauty.Application.Contracts.Categories.OutGetListForAdminPage, vmCategoriesList>();
             CreateMap<OutGetForEdit, viEditCategory>();
@@ -41,6 +42,7 @@ namespace PrancaBeauty.WebApp.Mapping
             CreateMap<PrancaBeauty.Application.Contracts.FileTypes.outGetListForCombo, vmCompo_ComboFileTypes>();
             CreateMap<OutGetMainByCountryId, vmCompo_Input_Price>();
             CreateMap<outGetFileDetailsForFileSelector, vmCompo_FileSelector>();
+            CreateMap<OutGetFileListForFileManager, vmCompo_ModalFileList>();
         }
     }
 }

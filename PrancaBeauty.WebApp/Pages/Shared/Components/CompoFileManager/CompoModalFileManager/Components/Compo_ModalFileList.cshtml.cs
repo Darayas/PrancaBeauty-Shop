@@ -32,8 +32,6 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.CompoFileManager.CompoModa
             if (!User.IsInRole(Roles.CanManageAllUserFliles))
                 Input.UserId = User.GetUserDetails().UserId;
 
-
-
             var qData = await _FileApplication.GetFileListForFileManagerAsync(_Mapper.Map<InpGetFileListForFileManager>(Input));
 
             PagingData = qData.Item1;

@@ -8,13 +8,13 @@
     string FieldTitle = Localizer[FieldName.Split('.').Last()];
 }
 
-<div id="CompoModalFileManager" class="modal" tabindex="-1" role="dialog">
+<div id="CompoModalFileManager@(FieldId)" class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">@Localizer["FileManager"]</h5>
                 <button type="button" class="close">
-                    <span onclick="CloseModalFileManager()" aria-hidden="true">&times;</span>
+                    <span onclick="CloseModalFileManager@(FieldId)()" aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
@@ -32,17 +32,17 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="card card-light p-3">
-                                    <LoadComponent id="ComboFileListFilter"
+                                    <LoadComponent id="ComboFileListFilter@(FieldId)"
                                                    context="HttpContext"
-                                                   data='new viCompo_ModalFileListFilter { Title=null,UserId=null,FileTypeId=null,Sort=null }'
+                                                   data='new viCompo_ModalFileListFilter { Title=null,UserId=null,FileTypeId=null,Sort=null,FieldName=Model.Input.FieldName }'
                                                    url="/@ViewData["culture"]/Shared/Compo/ComboModalFileManagerFilter"></LoadComponent>
                                 </div>
                             </div>
                             <div class="col-md-8">
                                 <div class="card card-light p-3">
-                                    <LoadComponent id="ComboContent"
+                                    <LoadComponent id="ComboContent@(FieldId)"
                                                    context="HttpContext"
-                                                   data='new viCompo_ModalFileList { Take=10,Page=1,SelectedFilesId=Model.Input.SelectedFilesId  }'
+                                                   data='new viCompo_ModalFileList { Take=10,Page=1,SelectedFilesId=Model.Input.SelectedFilesId,FieldName=Model.Input.FieldName  }'
                                                    url="/@ViewData["culture"]/Shared/Compo/ComboModalFileList"></LoadComponent>
                                 </div>
                             </div>
@@ -53,18 +53,19 @@
         </div>
     </div>
     <script>
-        function ResetFilters() {
+        function ResetFilters@(FieldId)() {
             LoadComponenet('/@ViewData["culture"]/Shared/Compo/ComboModalFileManagerFilter', {
                 Title: null,
                 UserId: null,
                 FileTypeId: null,
-                Sort: null
+                Sort: null,
+                FieldName:'@Model.Input.FieldName'
             }, function (res) {
-                $('#ComboFileListFilter').html(res);
+                $('#ComboFileListFilter@(FieldId)').html(res);
             });
         }
 
-        function AddToFileSelector(_FileId,_FileSize,_FileMimeType) {
+        function AddToFileSelector@(FieldId)(_FileId,_FileSize,_FileMimeType) {
             var _SelectedFilesId = $('#@FieldId').val();
 
             // #region برسی تعداد فایل های انتخاب شده
@@ -80,7 +81,7 @@
             }
             // #endregion
 
-            // #region برسی حجم فایل انخاب شده
+            // #region برسی حجم فایل انتخاب شده
             {
                 if (_FileSize > @Model.Input.MaxFileSize) {
                     Alert('', '@Localizer["ModalFileManagerErrorFileSize", Model.Input.MaxFileSize.GetFileSizeName()]');
@@ -98,11 +99,22 @@
             }
             // #endregion
 
-            RefreshFileSelector(_SelectedFilesId);
+            // #region برسی تکراری نبودن فایل
+            {
+                if (_SelectedFilesId.includes(_FileId)) {
+                    Alert('',@Localizer["SelectedFileIsDuplicate"]);
+                    return;
+                }
+            }
+            // #endregion
+
+            RefreshFileSelector@(FieldId)(_SelectedFilesId, function () {
+                RefreshFileList@(FieldId)();
+            });
         }
 
-        function CloseModalFileManager() {
-            $('#CompoModalFileManager').remove();
+        function CloseModalFileManager@(FieldId)() {
+            $('#CompoModalFileManager@(FieldId)').remove();
             $('.modal-backdrop').remove();
         }
     </script>

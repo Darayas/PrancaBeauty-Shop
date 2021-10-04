@@ -2,6 +2,12 @@
 @model PrancaBeauty.WebApp.Pages.Shared.Components.CompoFileManager.CompoModalFileManager.Components.Compo_ModalFileListModel
 @using Framework.Common.ExMethods
 
+@{
+    string FieldName = Model.Input.FieldName;
+    string FieldId = FieldName.Replace(".", "_").Replace("[", "_").Replace("]", "_");
+    string FieldTitle = Localizer[FieldName.Split('.').Last()];
+}
+
 <div class="row">
     @if (Model.Data.Count() == 0)
     {
@@ -28,8 +34,22 @@
                 </div>
                 <div style="font-weight:700;text-align:center;">@item.Title</div>
                 <div style="text-align:center;">@item.FileSize.GetFileSizeName()</div>
-                <div style="margin-top:5px; text-align:center;"><button onclick="AddToFileSelector('@item.Id')" type="button" class="btn btn-primary btn-sm">@Localizer["Insert"]</button></div>
+                <div style="margin-top:5px; text-align:center;"><button onclick="AddToFileSelector@(FieldId)('@item.Id')" type="button" class="btn btn-primary btn-sm">@Localizer["Insert"]</button></div>
             </div>
         }
     }
 </div>
+
+<script>
+    function RefreshFileList@(FieldId)(_Page = @Model.Input.Page) {
+        LoadComponenet('/@ViewData["culture"]/Shared/Compo/ComboModalFileList', {
+            UserId: '@Model.Input.UserId',
+            FileTypeId: '@Model.Input.FileTypeId',
+            Title: '@Model.Input.Title',
+            SelectedFilesId: $('#@(FieldId)').val(),
+            Page: _Page
+        }, function (res) {
+            $('#ComboContent@(FieldId)').html(res);
+        });
+    }
+</script>

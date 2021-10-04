@@ -42,7 +42,7 @@
                                 <div class="card card-light p-3">
                                     <LoadComponent id="ComboContent@(FieldId)"
                                                    context="HttpContext"
-                                                   data='new viCompo_ModalFileList { Take=10,Page=1,SelectedFilesId=Model.Input.SelectedFilesId,FieldName=Model.Input.FieldName  }'
+                                                   data='new viCompo_ModalFileList { Page=1,SelectedFilesId=Model.Input.SelectedFilesId,FieldName=Model.Input.FieldName  }'
                                                    url="/@ViewData["culture"]/Shared/Compo/ComboModalFileList"></LoadComponent>
                                 </div>
                             </div>
@@ -66,11 +66,11 @@
         }
 
         function AddToFileSelector@(FieldId)(_FileId,_FileSize,_FileMimeType) {
-            var _SelectedFilesId = $('#@FieldId').val();
+            var _SelectedFilesId = $('#@(FieldId)').val();
 
             // #region برسی تعداد فایل های انتخاب شده
             {
-                var _Count = _SelectedFilesId.split(",").lenght;
+                var _Count = _SelectedFilesId.split(",").length;
                 if (_SelectedFilesId == "")
                     _Count = 0;
 
@@ -102,13 +102,13 @@
             // #region برسی تکراری نبودن فایل
             {
                 if (_SelectedFilesId.includes(_FileId)) {
-                    Alert('',@Localizer["SelectedFileIsDuplicate"]);
+                    Alert('','@Localizer["SelectedFileIsDuplicate"]');
                     return;
                 }
             }
             // #endregion
 
-            RefreshFileSelector@(FieldId)(_SelectedFilesId, function () {
+            RefreshFileSelector@(FieldId)(trim(_SelectedFilesId+","+_FileId ,','), function () {
                 RefreshFileList@(FieldId)();
             });
         }

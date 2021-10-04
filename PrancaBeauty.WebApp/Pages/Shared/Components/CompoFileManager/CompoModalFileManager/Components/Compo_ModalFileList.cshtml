@@ -34,7 +34,14 @@
                 </div>
                 <div style="font-weight:700;text-align:center;">@item.Title</div>
                 <div style="text-align:center;">@item.FileSize.GetFileSizeName()</div>
-                <div style="margin-top:5px; text-align:center;"><button onclick="AddToFileSelector@(FieldId)('@item.Id')" type="button" class="btn btn-primary btn-sm">@Localizer["Insert"]</button></div>
+                @if (Model.Input.SelectedFilesId.Contains(item.Id))
+                {
+                    <div style="margin-top:5px; text-align:center;"><button onclick="RemoveFromFileSelector@(FieldId)('@item.Id')" type="button" class="btn btn-danger btn-sm">@Localizer["Remove"]</button></div>
+                }
+                else
+                {
+                    <div style="margin-top:5px; text-align:center;"><button onclick="AddToFileSelector@(FieldId)('@item.Id',@item.FileSize, '@item.MimeType')" type="button" class="btn btn-primary btn-sm">@Localizer["Insert"]</button></div>
+                }
             </div>
         }
     }
@@ -47,7 +54,8 @@
             FileTypeId: '@Model.Input.FileTypeId',
             Title: '@Model.Input.Title',
             SelectedFilesId: $('#@(FieldId)').val(),
-            Page: _Page
+            Page: _Page,
+            FieldName: '@Model.Input.FieldName'
         }, function (res) {
             $('#ComboContent@(FieldId)').html(res);
         });

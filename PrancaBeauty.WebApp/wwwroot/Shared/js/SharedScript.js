@@ -138,3 +138,16 @@ function Logout(_ReturnUrl) {
 function ReloadPage() {
     location.reload();
 }
+
+function trim(Text, char) {
+    var start = 0,
+        end = Text.length;
+
+    while (start < end && Text[start] === char)
+        ++start;
+
+    while (end > start && Text[end - 1] === char)
+        --end;
+
+    return (start > 0 || end < Text.length) ? Text.substring(start, end) : Text;
+}

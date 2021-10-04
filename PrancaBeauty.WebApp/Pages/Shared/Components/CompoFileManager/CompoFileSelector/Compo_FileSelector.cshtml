@@ -14,7 +14,7 @@
             @if (Model.Data.Count() == 0)
             {
                 <div class="alert alert-info mt-2">
-                    @Html.Raw(Localizer["NoFileSeleted", "AddFile()"])
+                    @Html.Raw(Localizer["NoFileSeleted", $"AddFile{FieldId}()"])
                 </div>
             }
             else
@@ -86,7 +86,8 @@
             SelectedFilesId: _SelectedFilesId,
             MaxFileCount: @Model.Input.MaxFileCount,
             AllowedMimeType: '@Model.Input.AllowedMimeType',
-            MaxFileSize:@Model.Input.MaxFileSize
+            MaxFileSize:@Model.Input.MaxFileSize,
+            ContainerId: '@Model.Input.ContainerId'
         }, function (res) {
             $('#@(Model.Input.ContainerId)').html(res);
             _CallbackFuncs();

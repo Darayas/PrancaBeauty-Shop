@@ -2,6 +2,12 @@
 @model PrancaBeauty.WebApp.Pages.Shared.Components.CompoFileManager.CompoModalFileManager.Compo_ModalFileManagerModel
 @inject PrancaBeauty.Application.Apps.Languages.ILanguageApplication _LanguageApplication
 
+@{
+    string FieldName = Model.Input.FieldName;
+    string FieldId = FieldName.Replace(".", "_").Replace("[", "_").Replace("]", "_");
+    string FieldTitle = Localizer[FieldName.Split('.').Last()];
+}
+
 <div id="CompoModalFileManager" class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
@@ -14,6 +20,15 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12">
+                        <div class="row mb-4">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        @Html.Raw(Localizer["ModalFileManagerRoles", Model.Input.MaxFileCount, Model.Input.MaxFileSize.GetFileSizeName(), Model.Input.AllowedMimeType])
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="card card-light p-3">
@@ -49,18 +64,41 @@
             });
         }
 
-        function AddToFileSelector(_FileId) {
-            var _SelectedFilesId = $('#@(Model.Input.FieldName.Replace(".","_"))').val();
+        function AddToFileSelector(_FileId,_FileSize,_FileMimeType) {
+            var _SelectedFilesId = $('#@FieldId').val();
 
-            if (!_SelectedFilesId.includes(_FileId)) {
-                _SelectedFilesId += "," + _FileId;
+            // #region برسی تعداد فایل های انتخاب شده
+            {
+                var _Count = _SelectedFilesId.split(",").lenght;
+                if (_SelectedFilesId == "")
+                    _Count = 0;
 
-                RefreshFileSelector(_SelectedFilesId);
-
-                CloseModalFileManager();
-            } else {
-                Alert('', '@Localizer["SelectedFileIsDuplicate"]')
+                if (_Count >=@Model.Input.MaxFileCount) {
+                    Alert('', '@Localizer["ModalFileManagerMaxFileCount", Model.Input.MaxFileCount]');
+                    return;
+                }
             }
+            // #endregion
+
+            // #region برسی حجم فایل انخاب شده
+            {
+                if (_FileSize > @Model.Input.MaxFileSize) {
+                    Alert('', '@Localizer["ModalFileManagerErrorFileSize", Model.Input.MaxFileSize.GetFileSizeName()]');
+                    return;
+                }
+            }
+            // #endregion
+
+            // #region برسی نوع فایل ها
+            {
+                if (!'@Model.Input.AllowedMimeType'.includes(_FileMimeType)) {
+                    Alert('', '@Html.Raw(Localizer["ModalFileManagerErrorMimeType", Model.Input.AllowedMimeType])');
+                    return;
+                }
+            }
+            // #endregion
+
+            RefreshFileSelector(_SelectedFilesId);
         }
 
         function CloseModalFileManager() {
@@ -69,3 +107,4 @@
         }
     </script>
 </div>
+

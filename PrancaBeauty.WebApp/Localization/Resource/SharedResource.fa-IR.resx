@@ -609,6 +609,18 @@
   <data name="MobilePattern" xml:space="preserve">
     <value>^[0][9][0-9]{9}$</value>
   </data>
+  <data name="ModalFileManagerErrorFileSize" xml:space="preserve">
+    <value>حداکثر حجم فایل انتخاب شده باید {0} باشد.</value>
+  </data>
+  <data name="ModalFileManagerErrorMimeType" xml:space="preserve">
+    <value>فایل انتخاب شده باید دارای یکی از نوع های زیر باشد: &lt;br/&gt;{0}</value>
+  </data>
+  <data name="ModalFileManagerMaxFileCount" xml:space="preserve">
+    <value>شما حداکثر میتوانید {0} فایل را انتخاب نمایید.</value>
+  </data>
+  <data name="ModalFileManagerRoles" xml:space="preserve">
+    <value>&lt;span class="fs-14"&gt;&lt;span class="font-weight-bold"&gt;شما مجاز به انتخاب حداکثر:&lt;/span&gt;&lt;span class="text-primary"&gt; {0} &lt;/span&gt;&lt;span class="font-weight-bold"&gt; فایل میباشید که حداکثر حجم&lt;/span&gt;&lt;span class="text-primary"&gt; {1} &lt;/span&gt;&lt;span class="font-weight-bold"&gt; را داشته باشند و دارای یکی از پسوند های &lt;/span&gt;&lt;span class="text-primary"&gt; {2} &lt;/span&gt;&lt;span class="font-weight-bold"&gt;باشند.&lt;/span&gt;&lt;/span&gt;</value>
+  </data>
   <data name="MorePages" xml:space="preserve">
     <value>صفحات بیشتر</value>
   </data>

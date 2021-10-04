@@ -2,6 +2,12 @@
 @model PrancaBeauty.WebApp.Pages.Shared.Components.CompoFileManager.CompoFileSelector.Compo_FileSelectorModel
 @using Framework.Common.ExMethods
 
+@{ 
+    string FieldName = Model.Input.FieldName;
+    string FieldId = FieldName.Replace(".", "_").Replace("[", "_").Replace("]", "_");
+    string FieldTitle = Localizer[FieldName.Split('.').Last()];
+}
+
 <div id="CompoFileSelector">
     <div class="row">
         <div class="col-md-12">
@@ -62,7 +68,13 @@
 </div>
 <script>
     function AddFile() {
-        LoadComponenet('/@ViewData["culture"]/Shared/Compo/ComboModalFileManager', { FieldName: '@Model.Input.FieldName', SelectedFilesId: $('#@Model.Input.FieldName.Replace(".","_")').val() }, function (res) {
+        LoadComponenet('/@ViewData["culture"]/Shared/Compo/ComboModalFileManager', {
+            FieldName: '@Model.Input.FieldName',
+            SelectedFilesId: $('#@Model.Input.FieldName.Replace(".","_")').val(),
+            MaxFileCount:@Model.Input.MaxFileCount,
+            AllowedMimeType: '@Model.Input.AllowedMimeType',
+            MaxFileSize:@Model.Input.MaxFileSize
+        }, function (res) {
             $('body').append(res);
             $('#CompoModalFileManager').modal({backdrop: 'static', keyboard: false });
         });

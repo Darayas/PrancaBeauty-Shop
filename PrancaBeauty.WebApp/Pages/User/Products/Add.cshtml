@@ -146,7 +146,7 @@
                     <div class="card-body">
                         <LoadComponent id="ProductImagesCompo"
                                        context="HttpContext"
-                                       data='new viCompo_FileSelector { FieldName="Input.ProductImage"}'
+                                       data='new viCompo_FileSelector { FieldName="Input.ProductImage",MaxFileCount=3, MaxFileSize=2097152,AllowedMimeType="image/jpg, image/jpeg, image/png"}'
                                        url="/@ViewData["culture"]/Shared/Compo/ComboFileSelector"></LoadComponent>
                     </div>
                 </div>

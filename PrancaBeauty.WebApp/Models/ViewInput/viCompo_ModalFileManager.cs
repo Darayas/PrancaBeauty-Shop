@@ -9,5 +9,8 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
     {
         public string FieldName { get; set; }
         public string SelectedFilesId { get; set; }
+        public int MaxFileCount { get; set; }
+        public string AllowedMimeType { get; set; }
+        public long MaxFileSize { get; set; }
     }
 }

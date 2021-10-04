@@ -110,6 +110,9 @@ namespace Framework.Common.Utilities.Downloader
 
                     if (value.GetType() == typeof(float))
                         LstParameter.Add(prop.Name, value.ToString());
+
+                    if (value.GetType() == typeof(long))
+                        LstParameter.Add(prop.Name, value.ToString());
                 }
             }
 

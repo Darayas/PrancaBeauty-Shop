@@ -936,6 +936,9 @@
   <data name="UnKnown" xml:space="preserve">
     <value>ناشناخته</value>
   </data>
+  <data name="UploaderUserId" xml:space="preserve">
+    <value>کاربر آپلود کننده</value>
+  </data>
   <data name="UserAlreadyHasPassword" xml:space="preserve">
     <value>کاربر از قبل دارای کلمه عبور می باشد</value>
   </data>

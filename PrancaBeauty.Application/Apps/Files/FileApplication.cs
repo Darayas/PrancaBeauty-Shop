@@ -258,7 +258,7 @@ namespace PrancaBeauty.Application.Apps.Files
                 }
                 #endregion
 
-                var qPagingData = PagingData.Calc(await qData.LongCountAsync(), Input.Page, Input.Take);
+                var qPagingData = PagingData.Calc(await qData.LongCountAsync(), Input.CurrentPage, Input.Take);
                 return (qPagingData, await qData.Skip((int)qPagingData.Skip).Take(Input.Take).ToListAsync());
             }
             catch (ArgumentInvalidException ex)

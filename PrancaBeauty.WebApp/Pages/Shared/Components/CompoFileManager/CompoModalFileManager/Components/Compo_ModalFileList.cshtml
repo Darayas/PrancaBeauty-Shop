@@ -44,17 +44,28 @@
                 }
             </div>
         }
+
+
+        <div class="col-md-12 mt-3">
+            <hr />
+            <ul class="pagination">
+                @for (int i = 1; i <= Model.PagingData.CountAllPage; i++)
+                {
+                    <li class="page-item @(Model.PagingData.Page==i?"active":"")"><a class="page-link" onclick="RefreshFileList@(FieldId)(@i)">@i</a></li>
+                }
+            </ul>
+        </div>
     }
 </div>
 
 <script>
-    function RefreshFileList@(FieldId)(_Page = @Model.Input.Page) {
+    function RefreshFileList@(FieldId)(_Page = @Model.Input.CurrentPage) {
         LoadComponenet('/@ViewData["culture"]/Shared/Compo/ComboModalFileList', {
             UploaderUserId: '@Model.Input.UploaderUserId',
             FileTypeId: '@Model.Input.FileTypeId',
             FileTitle: '@Model.Input.FileTitle',
             SelectedFilesId: $('#@(FieldId)').val(),
-            Page: _Page,
+            CurrentPage: _Page,
             FieldName: '@Model.Input.FieldName'
         }, function (res) {
             $('#ComboContent@(FieldId)').html(res);

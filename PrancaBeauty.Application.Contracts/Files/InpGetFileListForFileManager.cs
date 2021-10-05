@@ -13,7 +13,7 @@ namespace PrancaBeauty.Application.Contracts.Files
         public InpGetFileListForFileManagerSort Sort { get; set; }
         public string FileTitle { get; set; }
         public int Take { get; set; }
-        public int Page { get; set; }
+        public int CurrentPage { get; set; }
     }
 
     public enum InpGetFileListForFileManagerSort

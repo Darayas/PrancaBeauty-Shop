@@ -8003,3 +8003,16 @@ err500 {
 .form-btn {
   text-align: left;
   direction: ltr; }
+
+.page-item:first-child .page-link {
+  margin-right: 0;
+  border-top-right-radius: .25rem;
+  border-bottom-right-radius: .25rem;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0; }
+
+.page-item:last-child .page-link {
+  border-top-left-radius: .25rem;
+  border-bottom-left-radius: .25rem;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0; }

@@ -13,7 +13,7 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
         public string UploaderUserId { get; set; }
         public viCompo_ModalFileListSort Sort { get; set; }
 
-        public int Page { get; set; }
+        public int CurrentPage { get; set; }
         public int Take { get; set; }
 
         public string SelectedFilesId { get; set; }

@@ -8,9 +8,9 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
     public class viCompo_ModalFileListFilter
     {
         public string FieldName { get; set; }
-        public string Title { get; set; }
+        public string FileTitle { get; set; }
         public string FileTypeId { get; set; }
-        public string UserId { get; set; }
+        public string UploaderUserId { get; set; }
         public int? Sort { get; set; }
     }
 }

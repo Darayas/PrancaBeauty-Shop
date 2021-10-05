@@ -50,9 +50,9 @@
 <script>
     function RefreshFileList@(FieldId)(_Page = @Model.Input.Page) {
         LoadComponenet('/@ViewData["culture"]/Shared/Compo/ComboModalFileList', {
-            UserId: '@Model.Input.UserId',
+            UploaderUserId: '@Model.Input.UploaderUserId',
             FileTypeId: '@Model.Input.FileTypeId',
-            Title: '@Model.Input.Title',
+            FileTitle: '@Model.Input.FileTitle',
             SelectedFilesId: $('#@(FieldId)').val(),
             Page: _Page,
             FieldName: '@Model.Input.FieldName'

@@ -34,7 +34,7 @@
                                 <div class="card card-light p-3">
                                     <LoadComponent id="ComboFileListFilter@(FieldId)"
                                                    context="HttpContext"
-                                                   data='new viCompo_ModalFileListFilter { Title=null,UserId=null,FileTypeId=null,Sort=null,FieldName=Model.Input.FieldName }'
+                                                   data='new viCompo_ModalFileListFilter { FileTitle=null,UploaderUserId=null,FileTypeId=null,Sort=null,FieldName=Model.Input.FieldName }'
                                                    url="/@ViewData["culture"]/Shared/Compo/ComboModalFileManagerFilter"></LoadComponent>
                                 </div>
                             </div>
@@ -62,6 +62,19 @@
                 FieldName:'@Model.Input.FieldName'
             }, function (res) {
                 $('#ComboFileListFilter@(FieldId)').html(res);
+            });
+        }
+
+        function AffectFilter@(FieldId)() {
+            LoadComponenet('/@ViewData["culture"]/Shared/Compo/ComboModalFileList', {
+                FieldName: '@Model.Input.FieldName',
+                FileTitle: $('#Input_FileTitle').val(),
+                FileTypeId: $('#Input_FileTypeId').val(),
+                UploaderUserId: $('#Input_UploaderUserId').val(),
+                Page:1,
+                Sort: $('#Input_Sort').val(),
+            }, function (res) {
+                $('#ComboContent@(FieldId)').html(res);
             });
         }
 

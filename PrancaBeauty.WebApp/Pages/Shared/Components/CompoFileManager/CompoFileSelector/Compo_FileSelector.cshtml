@@ -2,7 +2,7 @@
 @model PrancaBeauty.WebApp.Pages.Shared.Components.CompoFileManager.CompoFileSelector.Compo_FileSelectorModel
 @using Framework.Common.ExMethods
 
-@{ 
+@{
     string FieldName = Model.Input.FieldName;
     string FieldId = FieldName.Replace(".", "_").Replace("[", "_").Replace("]", "_");
     string FieldTitle = Localizer[FieldName.Split('.').Last()];
@@ -28,7 +28,12 @@
                             <th>@Localizer["MimeType"]</th>
                             <th>@Localizer["FileSize"]</th>
                             <th>@*@Localizer["FileServerName"]*@</th>
-                            <th class="thBtnAdd"><button type="button" class="btn btn-success btn-sm" onclick="AddFile@(FieldId)()"><i class="fa fa-plus"></i></button></th>
+                            <th class="thBtnAdd">
+                                @if (Model.Input.SelectedFilesId.Split(',').Count() < Model.Input.MaxFileCount)
+                                {
+                                    <button type="button" class="btn btn-success btn-sm" onclick="AddFile@(FieldId)()"><i class="fa fa-plus"></i></button>
+                                }
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -53,7 +58,7 @@
                                 <td>@*@item.FileServerName*@</td>
                                 <td>
                                     <a class="text-info mr-1 ml-1" onclick="location.href = '@item.DownloadUrl'"><i class="fa fa-download"></i></a>
-                                    <a class="text-danger mr-1 ml-1" onclick=""><i class="fa fa-times"></i></a>
+                                    <a class="text-danger mr-1 ml-1" onclick="RemoveFromFileSelector@(FieldId)('@item.Id')"><i class="fa fa-times"></i></a>
                                 </td>
 
                             </tr>
@@ -91,6 +96,18 @@
         }, function (res) {
             $('#@(Model.Input.ContainerId)').html(res);
             _CallbackFuncs();
+        });
+    }
+
+    function RemoveFromFileSelector@(FieldId)(_FileId) {
+        var _SelectedFilesId = $('#@(FieldId)').val();
+
+        _SelectedFilesId = _SelectedFilesId.replace(_FileId, '');
+        _SelectedFilesId = _SelectedFilesId.replace(/,,|,,,/g, ',');
+
+        RefreshFileSelector@(FieldId)(trim(_SelectedFilesId, ','), function () {
+            if (typeof RefreshFileList@(FieldId) === "function")
+                RefreshFileList@(FieldId)();
         });
     }
 </script>

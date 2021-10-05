@@ -10,7 +10,7 @@
 <form id="frmFileManager@(FieldId)">
     <div class="form-group">
         <label>@Localizer["Title"]</label>
-        <input asp-for="Input.Title" class="form-control" />
+        <input asp-for="Input.FileTitle" class="form-control" />
     </div>
     <div class="form-group">
         <LoadComponent id="ComboFileType"
@@ -24,7 +24,7 @@
         <div class="form-group">
             <LoadComponent id="ComboListUsers"
                            context="HttpContext"
-                           data='new viCompo_Combo_Users { FieldName = "Input.UserId",UserId=Model.Input.UserId }'
+                           data='new viCompo_Combo_Users { FieldName = "Input.UploaderUserId",UserId=Model.Input.UploaderUserId }'
                            url="/@ViewData["culture"]/Shared/Compo/ComboUsers"></LoadComponent>
         </div>
     }
@@ -39,7 +39,7 @@
         </select>
     </div>
     <div class="form-group form-btn">
-        <button type="button" onclick="" class="btn btn-primary">@Localizer["Affect"]</button>
+        <button type="button" onclick="AffectFilter@(FieldId)()" class="btn btn-primary">@Localizer["Affect"]</button>
         <button type="button" onclick="ResetFilters@(FieldId)()" class="btn btn-warning">@Localizer["Reset"]</button>
     </div>
 </form>

@@ -207,9 +207,9 @@ namespace PrancaBeauty.Application.Apps.Files
                     throw new ArgumentInvalidException("Input cant be null.");
 
                 var qData = _FileRepository.Get
-                                           .Where(a => Input.UserId != null ? a.UserId == Guid.Parse(Input.UserId) : true)
+                                           .Where(a => Input.UploaderUserId != null ? a.UserId == Guid.Parse(Input.UploaderUserId) : true)
                                            .Where(a => Input.FileTypeId != null ? a.FileTypeId == Guid.Parse(Input.FileTypeId) : true)
-                                           .Where(a => Input.Title != null ? a.Title.Contains(Input.Title) : true)
+                                           .Where(a => Input.FileTitle != null ? a.Title.Contains(Input.FileTitle) : true)
                                            .OrderByDescending(a => a.Date)
                                            .Select(a => new OutGetFileListForFileManager
                                            {

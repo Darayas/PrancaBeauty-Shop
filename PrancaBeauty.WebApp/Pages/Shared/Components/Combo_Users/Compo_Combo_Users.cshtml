@@ -14,7 +14,11 @@
     }
 </script>
 
-<label for="@FieldId">@FieldTitle</label>
+@if (Model.Input.ShowLabale)
+{
+    <label for="@FieldId">@FieldTitle</label>
+}
+
 <div class="k-lang">
     @(Html.Kendo()
           .ComboBox()

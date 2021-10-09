@@ -1,4 +1,27 @@
 ﻿@page "/{culture}/Shared/Compo/ComboModalFileUploader"
 @model PrancaBeauty.WebApp.Pages.Shared.Components.CompoFileManager.CompoModalFileManager.Components.Compo_ModalFileUploaderModel
+@inject PrancaBeauty.Application.Apps.FileTypes.IFileTypeApplication _FileTypeApplication
 
-<h1>Test</h1>
+<div class="k-lang">
+    @(Html.Kendo().Upload()
+                  .Name("Input.Files")
+                  .Messages(a=> {
+                      a.Cancel(Localizer["Cancel"]);
+                      a.Select(Localizer["Select"]);
+                      a.ClearSelectedFiles(Localizer["ClearSelectedFiles"]);
+                      a.DropFilesHere(Localizer["DropFilesHere"]);
+                      a.UploadSelectedFiles(Localizer["UploadSelectedFiles"]);
+                      a.UploadFail(Localizer["UploadFail"]);
+                      a.UploadSuccess(Localizer["UploadSuccess"]);
+                      a.StatusFailed(Localizer["StatusFailed"]);
+                      a.HeaderStatusPaused(Localizer["HeaderStatusPaused"]);
+                      a.HeaderStatusUploaded(Localizer["HeaderStatusUploaded"]);
+                      a.HeaderStatusUploading(Localizer["HeaderStatusUploading"]);
+                      a.InvalidFileExtension(Localizer["InvalidFileExtension"]);
+                      a.InvalidMaxFileSize(Localizer["InvalidMaxFileSize"]);
+                      a.InvalidMinFileSize(Localizer["InvalidMinFileSize"]);
+                  })
+                  .Validation(async validation=> validation.AllowedExtensions(await _FileTypeApplication.GetAlllFileExtentionAsync()))
+                  .Async(a=> a.SaveUrl($"/{ViewData["culture"]}/Shared/Compo/ComboModalFileUploader?Input.UserId={Model.Input.UserId}")
+                              .AutoUpload(false)))
+</div>

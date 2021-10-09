@@ -201,6 +201,9 @@
   <data name="BirthDate" xml:space="preserve">
     <value>تاریخ تولد</value>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>انصراف</value>
+  </data>
   <data name="CategoryHasChild,CantRemove" xml:space="preserve">
     <value>دسته مورد نظر دارای فرزندانی میباشد که برای حذف، ابتدا باید آن ها حذف شوند</value>
   </data>
@@ -236,6 +239,9 @@
   </data>
   <data name="CityId" xml:space="preserve">
     <value>شهر</value>
+  </data>
+  <data name="ClearSelectedFiles" xml:space="preserve">
+    <value>پاک کردن</value>
   </data>
   <data name="Close" xml:space="preserve">
     <value>خروج</value>
@@ -311,6 +317,9 @@
   </data>
   <data name="District" xml:space="preserve">
     <value>محله</value>
+  </data>
+  <data name="DropFilesHere" xml:space="preserve">
+    <value>فایل(ها) را به اینجا بکشید</value>
   </data>
   <data name="DuplicateEmail" xml:space="preserve">
     <value>ایمیل تکراری میبشاد</value>
@@ -435,6 +444,15 @@
   <data name="GUIDMsg" xml:space="preserve">
     <value>مقدار ارسال شده در {0} باید از نوع GUID باشد.</value>
   </data>
+  <data name="HeaderStatusPaused" xml:space="preserve">
+    <value>توقف آپلود</value>
+  </data>
+  <data name="HeaderStatusUploaded" xml:space="preserve">
+    <value>اتمام آپلود</value>
+  </data>
+  <data name="HeaderStatusUploading" xml:space="preserve">
+    <value>درحال آپلود...</value>
+  </data>
   <data name="Hello" xml:space="preserve">
     <value>سلام</value>
   </data>
@@ -461,6 +479,15 @@
   </data>
   <data name="InvalidEmail" xml:space="preserve">
     <value>ایمیل '{email}' نامعتبر است</value>
+  </data>
+  <data name="InvalidFileExtension" xml:space="preserve">
+    <value>پسوند فایل انتخابی معتبر نمیباشد</value>
+  </data>
+  <data name="InvalidMaxFileSize" xml:space="preserve">
+    <value>حجم فایل بیش از حد مجاز میباشد</value>
+  </data>
+  <data name="InvalidMinFileSize" xml:space="preserve">
+    <value>حجم فایل کمتر از حد مجاز میباد.</value>
   </data>
   <data name="InvalidRoleName" xml:space="preserve">
     <value>نام Role معتبر نمیباشد</value>
@@ -867,6 +894,9 @@
   <data name="Security" xml:space="preserve">
     <value>امنیت</value>
   </data>
+  <data name="Select" xml:space="preserve">
+    <value>انتخاب</value>
+  </data>
   <data name="SelectedFileIsDuplicate" xml:space="preserve">
     <value>فایل انتخاب شده تکراری میباشد</value>
   </data>
@@ -915,6 +945,9 @@
   <data name="Status" xml:space="preserve">
     <value>وضعیت</value>
   </data>
+  <data name="StatusFailed" xml:space="preserve">
+    <value>خطا</value>
+  </data>
   <data name="StringLengthMsg" xml:space="preserve">
     <value>{0} باید بین {2} تا {1} کاراکتر باشد</value>
   </data>
@@ -938,6 +971,15 @@
   </data>
   <data name="UploaderUserId" xml:space="preserve">
     <value>کاربر آپلود کننده</value>
+  </data>
+  <data name="UploadFail" xml:space="preserve">
+    <value>خطا در آپلود</value>
+  </data>
+  <data name="UploadSelectedFiles" xml:space="preserve">
+    <value>آپلود</value>
+  </data>
+  <data name="UploadSuccess" xml:space="preserve">
+    <value>آپلود موفقیت آمیز</value>
   </data>
   <data name="UserAlreadyHasPassword" xml:space="preserve">
     <value>کاربر از قبل دارای کلمه عبور می باشد</value>

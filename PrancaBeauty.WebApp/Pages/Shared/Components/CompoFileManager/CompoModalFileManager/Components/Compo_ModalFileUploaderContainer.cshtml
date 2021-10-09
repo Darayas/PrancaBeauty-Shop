@@ -24,7 +24,7 @@
 
             <LoadComponent id="CompoUsers@(FieldId)"
                            context="HttpContext"
-                           data='new viCompo_Combo_Users { FieldName = "Input.Upload_UploaderUserId" + FieldId, UserId = User.GetUserDetails().UserId }'
+                           data='new viCompo_Combo_Users { FieldName = "Input.Upload_UploaderUserId" + FieldId, UserId = User.GetUserDetails().UserId,ShowLabale=false }'
                            url="/@ViewData["culture"]/Shared/Compo/ComboUsers"></LoadComponent>
         </div>
         <div class="col-md-2">
@@ -39,7 +39,7 @@ else
         LoadFileUploader@(FieldId)(null);
     </script>
 }
-<div class="row">
+<div class="row mt-3">
     <div class="col-md-12" id="CompoFileUploader@(FieldId)">
 
     </div>

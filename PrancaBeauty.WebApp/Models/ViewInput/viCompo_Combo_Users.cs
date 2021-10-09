@@ -10,6 +10,7 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
         public string UserId { get; set; }
         public string LangId { get; set; }
         public string FieldName { get; set; }
+        public bool ShowLabale { get; set; }
 
     }
 }

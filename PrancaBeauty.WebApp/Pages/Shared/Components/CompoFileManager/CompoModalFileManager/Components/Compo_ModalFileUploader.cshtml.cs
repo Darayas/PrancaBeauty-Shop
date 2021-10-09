@@ -17,7 +17,7 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.CompoFileManager.CompoModa
 
         public async Task<IActionResult> OnPostAsync()
         {
-            return Page();
+            return Content("");
         }
 
         [BindProperty(SupportsGet = true)]

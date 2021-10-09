@@ -29,7 +29,7 @@ namespace PrancaBeauty.Application.Apps.FilePath
             try
             {
                 if (string.IsNullOrWhiteSpace(FileServerId))
-                    throw new ArgumentInvalidException($"'{nameof(FileServer)}' cannot be null or whitespace.");
+                    throw new ArgumentInvalidException($"'{nameof(FileServerId)}' cannot be null or whitespace.");
 
                 if (string.IsNullOrWhiteSpace(Path))
                     throw new ArgumentInvalidException($"'{nameof(Path)}' cannot be null or whitespace.");
@@ -67,7 +67,7 @@ namespace PrancaBeauty.Application.Apps.FilePath
             try
             {
                 if (string.IsNullOrWhiteSpace(FileServerId))
-                    throw new ArgumentInvalidException($"'{nameof(FileServer)}' cannot be null or whitespace.");
+                    throw new ArgumentInvalidException($"'{nameof(FileServerId)}' cannot be null or whitespace.");
 
                 if (string.IsNullOrWhiteSpace(Path))
                     throw new ArgumentInvalidException($"'{nameof(Path)}' cannot be null or whitespace.");

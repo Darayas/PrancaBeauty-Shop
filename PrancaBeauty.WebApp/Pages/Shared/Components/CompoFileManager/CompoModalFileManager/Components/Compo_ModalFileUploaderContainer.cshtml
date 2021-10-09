@@ -1,0 +1,46 @@
+﻿@page "/{culture}/Shared/Compo/ComboModalFileUploaderContainer"
+@model PrancaBeauty.WebApp.Pages.Shared.Components.CompoFileManager.CompoModalFileManager.Components.Compo_ModalFileUploaderContainerModel
+
+@{
+    string FieldName = Model.Input.FieldName;
+    string FieldId = FieldName.Replace(".", "_").Replace("[", "_").Replace("]", "_");
+    string FieldTitle = Localizer[FieldName.Split('.').Last()];
+}
+
+<script>
+    function LoadFileUploader@(FieldId)(_UserId) {
+        LoadComponenet('/@ViewData["culture"]/Shared/Compo/ComboModalFileUploader', {
+            FieldName: '@Model.Input.FieldName',
+            UserId: _UserId
+        }, function (res) {
+            $('#CompoFileUploader@(FieldId)').html(res);
+        });
+    }
+</script>
+@if (User.IsInRole(Roles.CanManageAllUserFiles))
+{
+    <div class="row">
+        <div class="col-md-10">
+
+            <LoadComponent id="CompoUsers@(FieldId)"
+                           context="HttpContext"
+                           data='new viCompo_Combo_Users { FieldName = "Input.Upload_UploaderUserId" + FieldId, UserId = User.GetUserDetails().UserId }'
+                           url="/@ViewData["culture"]/Shared/Compo/ComboUsers"></LoadComponent>
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-warning" type="button" onclick=""><i class="fa fa-eraser"></i></button>
+            <button class="btn btn-success" type="button" onclick="LoadFileUploader@(FieldId)($('#Input_Upload_UploaderUserId@(FieldId)').val())"><i class="fa fa-plus"></i></button>
+        </div>
+    </div>
+}
+else
+{
+    <script>
+        LoadFileUploader@(FieldId)(null);
+    </script>
+}
+<div class="row">
+    <div class="col-md-12" id="CompoFileUploader@(FieldId)">
+
+    </div>
+</div>

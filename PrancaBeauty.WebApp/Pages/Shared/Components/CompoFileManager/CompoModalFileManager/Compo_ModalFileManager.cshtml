@@ -39,6 +39,14 @@
                                 </div>
                             </div>
                             <div class="col-md-8">
+                                <div class="card mb-4">
+                                    <div class="card-body">
+                                        <LoadComponent id="ComboFileUploaderContainer@(FieldId)"
+                                                       context="HttpContext"
+                                                       data='new viCompo_ModalFileUploaderContainer { FieldName=Model.Input.FieldName,UserId=User.GetUserDetails().UserId  }'
+                                                       url="/@ViewData["culture"]/Shared/Compo/ComboModalFileUploaderContainer"></LoadComponent>
+                                    </div>
+                                </div>
                                 <div class="card card-light p-3">
                                     <LoadComponent id="ComboContent@(FieldId)"
                                                    context="HttpContext"
@@ -132,7 +140,7 @@
 
         function CloseModalFileManager@(FieldId)() {
             $('#CompoModalFileManager@(FieldId)').remove();
-            $('.modal-backdrop').remove();
+            CloseModalBackdrop();
         }
     </script>
 </div>

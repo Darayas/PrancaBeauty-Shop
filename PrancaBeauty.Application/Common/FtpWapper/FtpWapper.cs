@@ -202,7 +202,6 @@ namespace PrancaBeauty.Application.Common.FtpWapper
             }
         }
 
-
         private async Task<bool> MakeDirAsync(string ServerName, string Path)
         {
             try

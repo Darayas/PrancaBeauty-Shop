@@ -48,7 +48,7 @@ namespace PrancaBeauty.WebApp.Authentication
         #endregion
 
         #region Files
-        public const string CanManageAllUserFliles = "CanManageAllUserFliles";
+        public const string CanManageAllUserFiles = "CanManageAllUserFiles";
         #endregion
     }
 }

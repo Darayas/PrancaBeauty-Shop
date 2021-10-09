@@ -151,3 +151,8 @@ function trim(Text, char) {
 
     return (start > 0 || end < Text.length) ? Text.substring(start, end) : Text;
 }
+
+function CloseModalBackdrop() {
+    $('.modal-backdrop').remove();
+    $('body').removeClass("modal-open");
+}

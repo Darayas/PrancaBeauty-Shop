@@ -29,7 +29,7 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.CompoFileManager.CompoModa
 
         public async Task<IActionResult> OnGetAsync()
         {
-            if (!User.IsInRole(Roles.CanManageAllUserFliles))
+            if (!User.IsInRole(Roles.CanManageAllUserFiles))
                 Input.UploaderUserId = User.GetUserDetails().UserId;
 
             Input.Take = Input.Take == 0 ? 1 : Input.Take;

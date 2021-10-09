@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace PrancaBeauty.WebApp.Models.ViewInput
 {
-    public class viCompo_ModalFileUploader
+    public class viCompo_ModalFileUploaderContainer
     {
         public string FieldName { get; set; }
         public string UserId { get; set; }

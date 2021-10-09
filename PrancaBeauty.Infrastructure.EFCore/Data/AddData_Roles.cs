@@ -455,7 +455,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     }, default, false).Wait();
                 }
 
-                if (!_repRoles.Get.Any(a => a.Name == "CanManageAllUserFliles"))
+                if (!_repRoles.Get.Any(a => a.Name == "CanManageAllUserFiles"))
                 {
                     _repRoles.AddAsync(new tblRoles()
                     {
@@ -463,9 +463,9 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                         ParentId = _Id,
                         PageName = "ManageFilePage",
                         Sort = 370,
-                        Name = "CanManageAllUserFliles",
-                        NormalizedName = "CanManageAllUserFliles".ToUpper(),
-                        Description = "یتوانایی مدیریت لیست فایل های دیگر کاربران"
+                        Name = "CanManageAllUserFiles",
+                        NormalizedName = "CanManageAllUserFiles".ToUpper(),
+                        Description = "توانایی مدیریت لیست فایل های دیگر کاربران"
                     }, default, false).Wait();
                 }
             }

@@ -76,5 +76,38 @@ namespace PrancaBeauty.Application.Apps.FileServer
                 return null;
             }
         }
+
+        public async Task<string> GetBestServerNameByFileSizeAsync(long FileSize)
+        {
+            try
+            {
+                if (FileSize <= 0)
+                    throw new ArgumentInvalidException("FileSize must be greater than zero bytes");
+
+                var qData = await _FileServerRepository.Get
+                                                       .Where(a => a.IsActive)
+                                                       .Select(a => new
+                                                       {
+                                                           ServerName = a.Name,
+                                                           FreeSpace = a.Capacity - (a.tblFilePaths.SelectMany(a => a.tblFiles.Select(a => a.SizeOnDisk)).Sum())
+                                                       })
+                                                       .Where(a => a.FreeSpace > FileSize)
+                                                       .FirstOrDefaultAsync();
+
+                if (qData == null)
+                    return null;
+
+                return qData.ServerName;
+            }
+            catch (ArgumentInvalidException)
+            {
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
+            }
+        }
     }
 }

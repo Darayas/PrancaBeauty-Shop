@@ -344,7 +344,77 @@ namespace PrancaBeauty.Application.Common.FtpWapper
                     throw new ArgumentInvalidException("_Title cant be null.");
                 #endregion
 
-                var qServer = await _FileServerApplication.GetServerDetailsAsync("");
+                var _BestServer = await GetBestServerNameAsync(_FormFile.Length);
+                if (_BestServer.IsSucceeded == false)
+                    return new OperationResult().Failed(_BestServer.Message);
+
+                var qServer = await _FileServerApplication.GetServerDetailsAsync(_BestServer.Message);
+
+                #region Path
+
+                if (!await _FtpClient.CheckDirectoryExistAsync(qServer.FtpHost, qServer.FtpPort, qServer.FtpPath, _Path, qServer.FtpUserName, qServer.FtpPassword))
+                    await MakeDirAsync(qServer.Name, _Path);
+
+                // برسی وجود دایرکتوری در دیتابیس
+                if (!await _FilePathApplication.CheckDirectoryExistAsync(qServer.Id, _Path))
+                    await _FilePathApplication.MakePathAsync(qServer.Id, _Path);
+
+                #endregion
+
+                var _Result = await _FtpClient.UploadAsync(_FormFile.OpenReadStream(), qServer.FtpHost, qServer.FtpPort, qServer.FtpPath, Path, FileName, qServer.FtpUserName, qServer.FtpPassword);
+                if (_Result == true)
+                {
+                    var _Id = new Guid().SequentialGuid().ToString();
+                    await _FileApplication.AddFileAsync(new InpAddFile()
+                    {
+                        Id = _Id,
+                        FileServerId = qServer.Id,
+                        Path = $"/{_Path.Trim('/')}/",
+                        FileName = _FileName,
+                        UserId = null,
+                        IsPrivate = false,
+                        Title = _Title,
+                        MimeType = (await _AniShell.GetRealExtentionAsync(_FormFile)).Item2,
+                        SizeOnDisk = _FormFile.Length
+                    });
+
+                    return new OperationResult().Succeeded(_Id);
+                }
+                else
+                {
+                    #region حذف فایل
+                    {
+                        if (await _FtpClient.CheckFileExistAsync(qServer.FtpHost, qServer.FtpPort, qServer.FtpPath, _Path, _FileName, qServer.FtpUserName, qServer.FtpPassword))
+                            if (!await _FtpClient.RemoveAsync(qServer.FtpHost, qServer.FtpPort, qServer.FtpPath, _Path, _FileName, qServer.FtpUserName, qServer.FtpPassword))
+                                _Logger.Error($"فایل با مشخصات ذیل به صورت ناقص آپلود شد. ServerId:'{qServer.Id}', ServerPath: '{qServer.FtpPath}', Path:'{_Path}', FileName: {_FileName}");
+                    }
+                    #endregion
+                    return new OperationResult().Failed("UploadWithError");
+                }
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
+
+        private async Task<OperationResult> GetBestServerNameAsync(long _FileSize)
+        {
+            try
+            {
+                if (_FileSize <= 0)
+                    throw new ArgumentInvalidException("FileSize must be greater than zero bytes");
+
+                var qData = await _FileServerApplication.GetBestServerNameByFileSizeAsync(_FileSize);
+                if (qData == null)
+                    return new OperationResult().Failed("ServersAreFull");
+
+                return new OperationResult().Succeeded(qData);
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                return new OperationResult().Failed(ex.Message);
             }
             catch (Exception ex)
             {

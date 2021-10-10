@@ -408,6 +408,9 @@
   <data name="FileSize" xml:space="preserve">
     <value>حجم فایل</value>
   </data>
+  <data name="FileSize must be greater than zero bytes" xml:space="preserve">
+    <value>سایز فایل انتخاب شده باید بیشتر از صفر بایت باشد</value>
+  </data>
   <data name="FileSizeMsg" xml:space="preserve">
     <value>{0} انتخاب شده با نام '{1}' باید بین {2} تا {3} باشد</value>
   </data>
@@ -915,6 +918,9 @@
   <data name="SEO" xml:space="preserve">
     <value>سئو</value>
   </data>
+  <data name="ServersAreFull" xml:space="preserve">
+    <value>کلیه ی فایل سرورهای موجود بدون فضای خالی هستند</value>
+  </data>
   <data name="Settings" xml:space="preserve">
     <value>تنظیمات</value>
   </data>
@@ -983,6 +989,9 @@
   </data>
   <data name="UploadSuccess" xml:space="preserve">
     <value>آپلود موفقیت آمیز</value>
+  </data>
+  <data name="UploadWithError" xml:space="preserve">
+    <value>خطا در آپلود</value>
   </data>
   <data name="UserAlreadyHasPassword" xml:space="preserve">
     <value>کاربر از قبل دارای کلمه عبور می باشد</value>

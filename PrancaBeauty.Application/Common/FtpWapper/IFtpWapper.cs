@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using PrancaBeauty.Application.Contracts.Results;
 using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Common.FtpWapper

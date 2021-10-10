@@ -37,72 +37,28 @@ namespace PrancaBeauty.Application.Common.FtpWapper
             _FilePathApplication = filePathApplication;
         }
 
-        public async Task<string> UplaodCategoryImgAsync(IFormFile _FormFile, string _FileName = null)
+        public async Task<OperationResult> UplaodCategoryImgAsync(IFormFile _FormFile, string _UserId)
         {
             try
             {
                 if (_FormFile is null)
                     throw new ArgumentInvalidException(nameof(_FormFile));
 
-                var qServer = await _FileServerApplication.GetServerDetailsAsync("Public");
-                if (qServer == null)
-                    return null;
+                if (string.IsNullOrWhiteSpace(_UserId))
+                    throw new ArgumentInvalidException(nameof(_UserId));
 
-                #region File Name
-                string FileName = null;
-                if (_FileName == null)
-                {
-                    string FileEx = (await _AniShell.GetRealExtentionAsync(_FormFile)).Item1;
-                    if (FileEx == null)
-                        return null;
+                var _ValidFileType = (await _AniShell.GetRealExtentionAsync(_FormFile));
+                if (_ValidFileType == default)
+                    return new OperationResult().Failed("FileFormatIsNotAllowed");
 
-                    FileName = new Guid().SequentialGuid().ToString() + "." + FileEx;
-                }
+                string _Path = $"/{_ValidFileType.Item2}/{DateTime.Now.Year}/{DateTime.Now.Month}/{DateTime.Now.Day}/";
+                string _FileName = new Guid().SequentialGuid().ToString().Replace("-", "") + "." + _ValidFileType.Item1;
+
+                var _Result = await UploadFileAsync(_FormFile, _UserId, _Path, _FileName, _FormFile.FileName.Split('.').First());
+                if (_Result.IsSucceeded)
+                    return new OperationResult().Succeeded(_Result.Message);
                 else
-                {
-                    string FileEx = (await _AniShell.GetRealExtentionAsync(_FormFile)).Item1;
-                    if (FileEx == null)
-                        return null;
-
-                    FileName = _FileName + "-" + new Random().Next(1000, 99999) + "." + FileEx;
-                }
-                #endregion
-
-                #region Path
-                string Path = $"/Img/Category/{DateTime.Now.Month}/{DateTime.Now.Day}";
-
-                // برسی وجود دایرکتوری روی سرور
-                if (!await _FtpClient.CheckDirectoryExistAsync(qServer.FtpHost, qServer.FtpPort, qServer.FtpPath, Path, qServer.FtpUserName, qServer.FtpPassword))
-                    await MakeDirAsync(qServer.Name, Path);
-
-                // برسی وجود دایرکتوری در دیتابیس
-                if (!await _FilePathApplication.CheckDirectoryExistAsync(qServer.Id, Path))
-                    await _FilePathApplication.MakePathAsync(qServer.Id, Path);
-                #endregion
-
-                var _Result = await _FtpClient.UploadAsync(_FormFile.OpenReadStream(), qServer.FtpHost, qServer.FtpPort, qServer.FtpPath, Path, FileName, qServer.FtpUserName, qServer.FtpPassword);
-                if (_Result == true)
-                {
-                    var _Id = new Guid().SequentialGuid().ToString();
-                    await _FileApplication.AddFileAsync(new InpAddFile()
-                    {
-                        Id = _Id,
-                        FileServerId = qServer.Id,
-                        Path = $"/{Path.Trim('/')}/",
-                        FileName = FileName,
-                        UserId = null,
-                        IsPrivate = false,
-                        Title = $"تصویر دسته - {FileName}",
-                        MimeType = (await _AniShell.GetRealExtentionAsync(_FormFile)).Item2,
-                        SizeOnDisk = _FormFile.Length
-                    });
-
-                    return _Id;
-                }
-                else
-                {
-                    throw new Exception("قادر به اپلود فایل دسته نبودیم. لطفا اطلاعات خطای قبلی را برسی نمایید");
-                }
+                    return new OperationResult().Failed(_Result.Message);
             }
             catch (FileFormatException ex)
             {
@@ -120,72 +76,28 @@ namespace PrancaBeauty.Application.Common.FtpWapper
             }
         }
 
-        public async Task<string> UplaodProfileImgAsync(IFormFile _FormFile, string _FileName = null)
+        public async Task<OperationResult> UplaodProfileImgAsync(IFormFile _FormFile, string _UserId)
         {
             try
             {
                 if (_FormFile is null)
                     throw new ArgumentInvalidException(nameof(_FormFile));
 
-                var qServer = await _FileServerApplication.GetServerDetailsAsync("Public");
-                if (qServer == null)
-                    return null;
+                if (string.IsNullOrWhiteSpace(_UserId))
+                    throw new ArgumentInvalidException(nameof(_UserId));
 
-                #region File Name
-                string FileName = null;
-                if (_FileName == null)
-                {
-                    string FileEx = (await _AniShell.GetRealExtentionAsync(_FormFile)).Item1;
-                    if (FileEx == null)
-                        return null;
+                var _ValidFileType = (await _AniShell.GetRealExtentionAsync(_FormFile));
+                if (_ValidFileType == default)
+                    return new OperationResult().Failed("FileFormatIsNotAllowed");
 
-                    FileName = new Guid().SequentialGuid().ToString() + "." + FileEx;
-                }
+                string _Path = $"/{_ValidFileType.Item2}/{DateTime.Now.Year}/{DateTime.Now.Month}/{DateTime.Now.Day}/";
+                string _FileName = new Guid().SequentialGuid().ToString().Replace("-", "") + "." + _ValidFileType.Item1;
+
+                var _Result = await UploadFileAsync(_FormFile, _UserId, _Path, _FileName, _FormFile.FileName.Split('.').First());
+                if (_Result.IsSucceeded)
+                    return new OperationResult().Succeeded(_Result.Message);
                 else
-                {
-                    string FileEx = (await _AniShell.GetRealExtentionAsync(_FormFile)).Item1;
-                    if (FileEx == null)
-                        return null;
-
-                    FileName = _FileName + "-" + new Random().Next(1000, 99999) + "." + FileEx;
-                }
-                #endregion
-
-                #region Path
-                string Path = $"/Img/Profile/{DateTime.Now.Month}";
-
-                if (!await _FtpClient.CheckDirectoryExistAsync(qServer.FtpHost, qServer.FtpPort, qServer.FtpPath, Path, qServer.FtpUserName, qServer.FtpPassword))
-                    await MakeDirAsync(qServer.Name, Path);
-
-                // برسی وجود دایرکتوری در دیتابیس
-                if (!await _FilePathApplication.CheckDirectoryExistAsync(qServer.Id, Path))
-                    await _FilePathApplication.MakePathAsync(qServer.Id, Path);
-
-                #endregion
-
-                var _Result = await _FtpClient.UploadAsync(_FormFile.OpenReadStream(), qServer.FtpHost, qServer.FtpPort, qServer.FtpPath, Path, FileName, qServer.FtpUserName, qServer.FtpPassword);
-                if (_Result == true)
-                {
-                    var _Id = new Guid().SequentialGuid().ToString();
-                    await _FileApplication.AddFileAsync(new InpAddFile()
-                    {
-                        Id = _Id,
-                        FileServerId = qServer.Id,
-                        Path = $"/{Path.Trim('/')}/",
-                        FileName = FileName,
-                        UserId = null,
-                        IsPrivate = false,
-                        Title = $"تصویر پروفایل - {FileName}",
-                        MimeType = (await _AniShell.GetRealExtentionAsync(_FormFile)).Item2,
-                        SizeOnDisk = _FormFile.Length
-                    });
-
-                    return _Id;
-                }
-                else
-                {
-                    throw new Exception("قادر به اپلود پروفایل کاربر نبودیم. لطفا اطلاعات خطای قبلی را برسی نمایید");
-                }
+                    return new OperationResult().Failed(_Result.Message);
             }
             catch (FileFormatException ex)
             {
@@ -293,14 +205,14 @@ namespace PrancaBeauty.Application.Common.FtpWapper
             }
         }
 
-        public async Task<OperationResult> UploadFromFileManagerAsync(IFormFile _FormFile, string UserId)
+        public async Task<OperationResult> UploadFromFileManagerAsync(IFormFile _FormFile, string _UserId)
         {
             try
             {
                 if (_FormFile is null)
                     throw new ArgumentInvalidException("FormFile cant be null.");
 
-                if (string.IsNullOrWhiteSpace(UserId))
+                if (string.IsNullOrWhiteSpace(_UserId))
                     throw new ArgumentInvalidException("UserId cant be null.");
 
                 var _ValidFileType = (await _AniShell.GetRealExtentionAsync(_FormFile));
@@ -310,7 +222,11 @@ namespace PrancaBeauty.Application.Common.FtpWapper
                 string _Path = $"/{_ValidFileType.Item2}/{DateTime.Now.Year}/{DateTime.Now.Month}/{DateTime.Now.Day}/";
                 string _FileName = new Guid().SequentialGuid().ToString().Replace("-", "") + "." + _ValidFileType.Item1;
 
-
+                var _Result = await UploadFileAsync(_FormFile, _UserId, _Path, _FileName, _FormFile.FileName.Split('.').First());
+                if (_Result.IsSucceeded)
+                    return new OperationResult().Succeeded(_Result.Message);
+                else
+                    return new OperationResult().Failed(_Result.Message);
             }
             catch (ArgumentInvalidException ex)
             {
@@ -323,7 +239,7 @@ namespace PrancaBeauty.Application.Common.FtpWapper
             }
         }
 
-        public async Task<OperationResult> UploadFileAsync(IFormFile _FormFile, string UserId, string _Path, string _FileName, string _Title)
+        private async Task<OperationResult> UploadFileAsync(IFormFile _FormFile, string UserId, string _Path, string _FileName, string _Title)
         {
             try
             {
@@ -361,7 +277,7 @@ namespace PrancaBeauty.Application.Common.FtpWapper
 
                 #endregion
 
-                var _Result = await _FtpClient.UploadAsync(_FormFile.OpenReadStream(), qServer.FtpHost, qServer.FtpPort, qServer.FtpPath, Path, FileName, qServer.FtpUserName, qServer.FtpPassword);
+                var _Result = await _FtpClient.UploadAsync(_FormFile.OpenReadStream(), qServer.FtpHost, qServer.FtpPort, qServer.FtpPath, _Path, _FileName, qServer.FtpUserName, qServer.FtpPassword);
                 if (_Result == true)
                 {
                     var _Id = new Guid().SequentialGuid().ToString();

@@ -9,6 +9,7 @@ namespace PrancaBeauty.Application.Contracts.Categories
 {
     public class InpAddCategory
     {
+        public string UserId { get; set; }
         public string ParentId { get; set; }
 
         public IFormFile Image { get; set; }

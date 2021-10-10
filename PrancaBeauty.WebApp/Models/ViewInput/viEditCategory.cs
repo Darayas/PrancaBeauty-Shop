@@ -13,6 +13,8 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
         [Required(ErrorMessage = "RequiredMsg")]
         public string Id { get; set; }
 
+        public string UserId { get; set; }
+
         [Display(Name = "ParentId")]
         public string ParentId { get; set; }
 

@@ -132,11 +132,11 @@ namespace PrancaBeauty.Application.Apps.Categories
 
                 if (Input.Image != null)
                 {
-                    var FileUploadResult = await _FtpWapper.UplaodCategoryImgAsync(Input.Image, Input.Name);
-                    if (FileUploadResult == null)
-                        return new OperationResult().Failed("Error500");
+                    var _FileUploadResult = await _FtpWapper.UplaodCategoryImgAsync(Input.Image, Input.UserId);
+                    if (!_FileUploadResult.IsSucceeded)
+                        return new OperationResult().Failed(_FileUploadResult.Message);
 
-                    tCategory.ImageId = Guid.Parse(FileUploadResult);
+                    tCategory.ImageId = Guid.Parse(_FileUploadResult.Message);
                 }
 
                 await _CategoryRepository.AddAsync(tCategory, default, true);
@@ -297,8 +297,11 @@ namespace PrancaBeauty.Application.Apps.Categories
                     }
 
                     // اپلود تصویر جدید
-                    string _FileId = await _FtpWapper.UplaodCategoryImgAsync(Input.Image, qData.Name);
-                    qData.ImageId = Guid.Parse(_FileId);
+                    var _FileUploadResult = await _FtpWapper.UplaodCategoryImgAsync(Input.Image, Input.UserId);
+                    if (_FileUploadResult.IsSucceeded == false)
+                        return new OperationResult().Failed(_FileUploadResult.Message);
+
+                    qData.ImageId = Guid.Parse(_FileUploadResult.Message);
                 }
                 #endregion
 

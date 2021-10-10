@@ -59,6 +59,7 @@ namespace PrancaBeauty.WebApp.Pages.Admin.Categories
             if (!ModelState.IsValid)
                 return _MsgBox.ModelStateMsg(ModelState.GetErrors());
 
+            Input.UserId = User.GetUserDetails().UserId;
             var Result = await _CategoryApplication.AddCategoryAsync(_Mapper.Map<InpAddCategory>(Input));
             if (Result.IsSucceeded)
             {

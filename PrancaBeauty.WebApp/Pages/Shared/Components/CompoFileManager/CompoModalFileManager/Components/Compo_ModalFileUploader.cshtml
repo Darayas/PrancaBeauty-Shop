@@ -2,6 +2,23 @@
 @model PrancaBeauty.WebApp.Pages.Shared.Components.CompoFileManager.CompoModalFileManager.Components.Compo_ModalFileUploaderModel
 @inject PrancaBeauty.Application.Apps.FileTypes.IFileTypeApplication _FileTypeApplication
 
+@{
+    string FieldName = Model.Input.FieldName;
+    string FieldId = FieldName.Replace(".", "_").Replace("[", "_").Replace("]", "_");
+    string FieldTitle = Localizer[FieldName.Split('.').Last()];
+}
+
+<script>
+    function OnComplete@(FieldId)(e) {
+        RefreshFileList@(FieldId)(1);
+    }
+
+    function OnError@(FieldId)(e) {
+        console.log(e);
+        $('[data-uid=' + e.files[0].uid + '] .k-file-validation-message').text(e.XMLHttpRequest.responseText);
+    }
+</script>
+
 <div class="k-lang">
     @(Html.Kendo().Upload()
                   .Name("Input.Files")
@@ -21,6 +38,8 @@
                       a.InvalidMaxFileSize(Localizer["InvalidMaxFileSize"]);
                       a.InvalidMinFileSize(Localizer["InvalidMinFileSize"]);
                   })
+                  .Events(e=>e.Complete("OnComplete"+FieldId)
+                              .Error("OnError"+FieldId))
                   .Validation(async validation=> validation.AllowedExtensions(await _FileTypeApplication.GetAllFileExtentionAsync()))
                   .Async(a=> a.SaveUrl($"/{ViewData["culture"]}/Shared/Compo/ComboModalFileUploader?Input.UserId={Model.Input.UserId}")
                               .AutoUpload(false)))

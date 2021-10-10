@@ -10,6 +10,7 @@ namespace PrancaBeauty.Application.Contracts.Categories
     public class InpSaveEdit
     {
         public string Id { get; set; }
+        public string UserId { get; set; }
         public string ParentId { get; set; }
         public IFormFile Image { get; set; }
         public string Name { get; set; }

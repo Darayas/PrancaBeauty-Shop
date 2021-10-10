@@ -26,7 +26,7 @@ namespace PrancaBeauty.WebApp.Common.DataAnnotations
             if (_MimeTypes == null)
             {
                 var _FileTypeApplication = (IFileTypeApplication)validationContext.GetService(typeof(IFileTypeApplication));
-                _MimeTypes = string.Join(",", _FileTypeApplication.GetAllFileMimeTypeAsync());
+                _MimeTypes = string.Join(",", _FileTypeApplication.GetAllFileMimeTypeAsync().Result);
             }
 
             var _AntiShell = (IAniShell)validationContext.GetService(typeof(IAniShell));

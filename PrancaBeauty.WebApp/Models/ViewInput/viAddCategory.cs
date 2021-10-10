@@ -7,6 +7,8 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
 {
     public class viAddCategory
     {
+        public string UserId { get; set; }
+
         [Display(Name = "ParentId")]
         public string ParentId { get; set; }
 

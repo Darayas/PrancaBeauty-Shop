@@ -932,8 +932,11 @@ namespace PrancaBeauty.Application.Apps.Users
                         }
 
                         // اپلود تصویر جدید
-                        string _FileId = await _FtpWapper.UplaodCategoryImgAsync(Input.ProfileImage, qUser.FirstName + "-" + qUser.LastName);
-                        qUser.ProfileImgId = Guid.Parse(_FileId);
+                        var _UploadFileResult = await _FtpWapper.UplaodProfileImgAsync(Input.ProfileImage, UserId);
+                        if (_UploadFileResult.IsSucceeded == false)
+                            return new OperationResult().Failed(_UploadFileResult.Message);
+
+                        qUser.ProfileImgId = Guid.Parse(_UploadFileResult.Message);
                     }
                 }
                 #endregion

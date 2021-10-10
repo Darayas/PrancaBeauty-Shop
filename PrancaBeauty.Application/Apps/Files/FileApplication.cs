@@ -249,6 +249,16 @@ namespace PrancaBeauty.Application.Apps.Files
                                 qData = qData.OrderByDescending(a => a.MimeType);
                                 break;
                             }
+                        case InpGetFileListForFileManagerSort.DateDes:
+                            {
+                                qData = qData.OrderByDescending(a => a.Date);
+                                break;
+                            }
+                        case InpGetFileListForFileManagerSort.DateAes:
+                            {
+                                qData = qData.OrderByDescending(a => a.Date);
+                                break;
+                            }
                         default:
                             {
                                 qData = qData.OrderByDescending(a => a.Date);

@@ -16,7 +16,7 @@ namespace PrancaBeauty.Application.Contracts.FileServer
         public long Capacity { get; set; } // byte
         public string FtpData { get; set; }
         public string FtpHost { get; set; }
-        public int FtpPort { get; set; }
+        public string FtpPort { get; set; }
         public string FtpPath { get; set; }
         public string FtpUserName { get; set; }
         public string FtpPassword { get; set; }

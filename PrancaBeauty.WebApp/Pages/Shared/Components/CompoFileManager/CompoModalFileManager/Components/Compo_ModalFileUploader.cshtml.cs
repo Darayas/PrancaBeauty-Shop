@@ -38,7 +38,9 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.CompoFileManager.CompoModa
 
             var Result = await _FtpWapper.UploadFromFileManagerAsync(Input.Files, Input.UserId);
             if (Result.IsSucceeded)
+            {
                 return Content("");
+            }
             else
                 return StatusCode(500, _Localizer[Result.Message]);
         }

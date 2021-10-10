@@ -129,7 +129,7 @@ namespace PrancaBeauty.Application.Common.FtpWapper
                 if (qServer == null)
                     return false;
 
-                string[] Dirs = Path.Split("/");
+                string[] Dirs =$"{qServer.FtpPath.Trim('/')}/{Path.Trim('/')}".Split("/");
                 string DirCheck = "";
 
                 foreach (var item in Dirs)
@@ -139,7 +139,7 @@ namespace PrancaBeauty.Application.Common.FtpWapper
                         DirCheck += $"/{item}";
                         if (!await _FtpClient.CheckDirectoryExistAsync(qServer.FtpHost, qServer.FtpPort, qServer.FtpPath, Path, qServer.FtpUserName, qServer.FtpPassword))
                         {
-                            await _FtpClient.CreateDirectoryAsync(qServer.FtpHost, qServer.FtpPort, qServer.FtpPath, DirCheck, qServer.FtpUserName, qServer.FtpPassword);
+                            await _FtpClient.CreateDirectoryAsync(qServer.FtpHost, qServer.FtpPort, DirCheck, qServer.FtpUserName, qServer.FtpPassword);
                         }
                     }
                 }

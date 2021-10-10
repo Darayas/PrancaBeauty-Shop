@@ -805,12 +805,25 @@
     padding-right: unset !important;
 }
 
-.k-combobox > .k-dropdown-wrap > .k-i-close {
+.k-lang .k-combobox > .k-dropdown-wrap > .k-i-close {
     left: calc(3.23571428em - 8px) !important;
     right: unset !important;
 }
 
-.k-treeview .k-image {
+.k-lang .k-treeview .k-image {
     width: 20px;
     margin-left: 5px;
+}
+
+.k-lang .k-upload .k-upload-button {
+    margin-left: 1.6em;
+    margin-right: 0;
+}
+
+.k-lang .k-upload .k-clear-selected {
+    border-radius: 0 0 4px 0;
+}
+
+.k-lang .k-upload .k-upload-selected {
+    border-radius: 0 0 0 4px;
 }

@@ -28,7 +28,7 @@
                            url="/@ViewData["culture"]/Shared/Compo/ComboUsers"></LoadComponent>
         </div>
         <div class="col-md-2">
-            <button class="btn btn-warning" type="button" onclick=""><i class="fa fa-eraser"></i></button>
+            <button class="btn btn-warning" type="button" onclick="ReloadFileUploader@(FieldId)()"><i class="fa fa-eraser"></i></button>
             <button class="btn btn-success" type="button" onclick="LoadFileUploader@(FieldId)($('#Input_Upload_UploaderUserId@(FieldId)').val())"><i class="fa fa-plus"></i></button>
         </div>
     </div>
@@ -44,3 +44,14 @@ else
 
     </div>
 </div>
+
+<script>
+    function ReloadFileUploader@(FieldId)() {
+        LoadComponenet('/@ViewData["culture"]/Shared/Compo/ComboModalFileUploaderContainer', {
+            FieldName: '@Model.Input.FieldName',
+            UserId: '@Model.Input.UserId'
+        }, function (res) {
+            $('#ComboFileUploaderContainer@(FieldId)').html(res);
+        });
+    }
+</script>

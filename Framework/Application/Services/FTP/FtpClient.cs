@@ -20,7 +20,7 @@ namespace Framework.Application.Services.FTP
             _Logger = logger;
         }
 
-        public async Task<bool> UploadAsync(Stream _File, string FtpHost, int FtpPort, string FtpPath, string Path, string FileName, string FtpUserName, string FtpPassword)
+        public async Task<bool> UploadAsync(Stream _File, string FtpHost, string FtpPort, string FtpPath, string Path, string FileName, string FtpUserName, string FtpPassword)
         {
             try
             {
@@ -63,7 +63,7 @@ namespace Framework.Application.Services.FTP
 
         }
 
-        public async Task<bool> CheckDirectoryExistAsync(string FtpHost, int FtpPort, string FtpPath, string Path, string FtpUserName, string FtpPassword)
+        public async Task<bool> CheckDirectoryExistAsync(string FtpHost, string FtpPort, string FtpPath, string Path, string FtpUserName, string FtpPassword)
         {
             try
             {
@@ -94,14 +94,14 @@ namespace Framework.Application.Services.FTP
             }
         }
 
-        public async Task<bool> CreateDirectoryAsync(string FtpHost, int FtpPort, string FtpPath, string Path, string FtpUserName, string FtpPassword)
+        public async Task<bool> CreateDirectoryAsync(string FtpHost, string FtpPort, string Path, string FtpUserName, string FtpPassword)
         {
             try
             {
                 if (string.IsNullOrWhiteSpace(Path))
                     throw new ArgumentException($"'{nameof(Path)}' cannot be null or whitespace.", nameof(Path));
 
-                var ftpRequest = (FtpWebRequest)FtpWebRequest.Create($"{FtpHost}:{FtpPort}"+$"/{FtpPath.Trim('/')}/{Path.Trim('/')}".ReplaceRegex(@"[\/]{2,100}", "/"));
+                var ftpRequest = (FtpWebRequest)FtpWebRequest.Create($"{FtpHost}:{FtpPort}"+$"/{Path.Trim('/')}".ReplaceRegex(@"[\/]{2,100}", "/"));
                 /* Log in to the FTP Server with the User Name and Password Provided */
                 ftpRequest.Credentials = new NetworkCredential(FtpUserName, FtpPassword);
                 /* When in doubt, use these options */
@@ -125,7 +125,7 @@ namespace Framework.Application.Services.FTP
             }
         }
 
-        public async Task<bool> RemoveAsync(string FtpHost, int FtpPort, string FtpPath, string Path, string FileName, string FtpUserName, string FtpPassword)
+        public async Task<bool> RemoveAsync(string FtpHost, string FtpPort, string FtpPath, string Path, string FileName, string FtpUserName, string FtpPassword)
         {
             try
             {
@@ -153,7 +153,7 @@ namespace Framework.Application.Services.FTP
             }
         }
 
-        public async Task<bool> CheckFileExistAsync(string FtpHost, int FtpPort, string FtpPath, string Path, string FileName, string FtpUserName, string FtpPassword)
+        public async Task<bool> CheckFileExistAsync(string FtpHost, string FtpPort, string FtpPath, string Path, string FileName, string FtpUserName, string FtpPassword)
         {
             try
             {

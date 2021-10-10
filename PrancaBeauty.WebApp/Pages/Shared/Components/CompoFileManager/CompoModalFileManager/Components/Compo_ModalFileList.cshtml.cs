@@ -32,7 +32,7 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.CompoFileManager.CompoModa
             if (!User.IsInRole(Roles.CanManageAllUserFiles))
                 Input.UploaderUserId = User.GetUserDetails().UserId;
 
-            Input.Take = Input.Take == 0 ? 1 : Input.Take;
+            Input.Take = Input.Take == 0 ? 8 : Input.Take;
 
             var qData = await _FileApplication.GetFileListForFileManagerAsync(_Mapper.Map<InpGetFileListForFileManager>(Input));
 

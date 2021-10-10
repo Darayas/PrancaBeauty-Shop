@@ -83,6 +83,22 @@ namespace Framework.Application.Services.Security.AntiShell
                 {
                     return ("bmp", "image/bmp");
                 }
+                else if (hex.StartsWith("66 74 79 70 4D 53 4E 56") || hex.StartsWith("66 74 79 70 69 73 6F 6D"))
+                {
+                    return ("mp4", "video/mp4");
+                }
+                else if (hex.StartsWith("50 4B 03 04"))
+                {
+                    return ("zip", "application/zip");
+                }
+                else if (hex.StartsWith("49 44 33"))
+                {
+                    return ("mp3", "audio/mpeg");
+                }
+                else if (hex.StartsWith("52 61 72 21 1A 07 00") || hex.StartsWith("52 61 72 21 1A 07 01 00"))
+                {
+                    return ("rar", "application/rar");
+                }
                 else
                     throw new FileFormatException("File format not found.");
             }

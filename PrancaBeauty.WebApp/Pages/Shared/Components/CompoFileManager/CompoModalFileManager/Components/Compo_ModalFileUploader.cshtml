@@ -21,7 +21,7 @@
                       a.InvalidMaxFileSize(Localizer["InvalidMaxFileSize"]);
                       a.InvalidMinFileSize(Localizer["InvalidMinFileSize"]);
                   })
-                  .Validation(async validation=> validation.AllowedExtensions(await _FileTypeApplication.GetAlllFileExtentionAsync()))
+                  .Validation(async validation=> validation.AllowedExtensions(await _FileTypeApplication.GetAllFileExtentionAsync()))
                   .Async(a=> a.SaveUrl($"/{ViewData["culture"]}/Shared/Compo/ComboModalFileUploader?Input.UserId={Model.Input.UserId}")
                               .AutoUpload(false)))
 </div>

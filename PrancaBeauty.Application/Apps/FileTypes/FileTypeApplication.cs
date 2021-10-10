@@ -65,12 +65,29 @@ namespace PrancaBeauty.Application.Apps.FileTypes
             }
         }
 
-        public async Task<string[]> GetAlllFileExtentionAsync()
+        public async Task<string[]> GetAllFileExtentionAsync()
         {
             try
             {
                 var qData = await _FileTypeRepository.Get
                                                      .Select(a => a.Extentions)
+                                                     .ToArrayAsync();
+
+                return qData;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
+            }
+        }
+
+        public async Task<string[]> GetAllFileMimeTypeAsync()
+        {
+            try
+            {
+                var qData = await _FileTypeRepository.Get
+                                                     .Select(a => a.MimeType)
                                                      .ToArrayAsync();
 
                 return qData;

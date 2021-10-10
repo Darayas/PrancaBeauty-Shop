@@ -1,6 +1,7 @@
 ﻿using Framework.Application.Services.Security.AntiShell;
 using Framework.Infrastructure;
 using Microsoft.AspNetCore.Http;
+using PrancaBeauty.Application.Apps.FileTypes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -11,8 +12,8 @@ namespace PrancaBeauty.WebApp.Common.DataAnnotations
 {
     public class AllowExtentionsAttribute : ValidationAttribute
     {
-        private readonly string _MimeTypes;
-        public AllowExtentionsAttribute(string MimeTypes)
+        private string _MimeTypes;
+        public AllowExtentionsAttribute(string MimeTypes = null)
         {
             _MimeTypes = MimeTypes;
         }
@@ -21,6 +22,12 @@ namespace PrancaBeauty.WebApp.Common.DataAnnotations
         {
             if (value == null)
                 return ValidationResult.Success;
+
+            if (_MimeTypes == null)
+            {
+                var _FileTypeApplication = (IFileTypeApplication)validationContext.GetService(typeof(IFileTypeApplication));
+                _MimeTypes = string.Join(",", _FileTypeApplication.GetAllFileMimeTypeAsync());
+            }
 
             var _AntiShell = (IAniShell)validationContext.GetService(typeof(IAniShell));
 

@@ -8,6 +8,7 @@ using PrancaBeauty.Application.Apps.FilePath;
 using PrancaBeauty.Application.Apps.Files;
 using PrancaBeauty.Application.Apps.FileServer;
 using PrancaBeauty.Application.Contracts.Files;
+using PrancaBeauty.Application.Contracts.Results;
 using PrancaBeauty.Domin.FileServer.FileAgg.Entities;
 using System;
 using System.Collections.Generic;
@@ -289,6 +290,66 @@ namespace PrancaBeauty.Application.Common.FtpWapper
             {
                 _Logger.Error(ex);
                 return false;
+            }
+        }
+
+        public async Task<OperationResult> UploadFromFileManagerAsync(IFormFile _FormFile, string UserId)
+        {
+            try
+            {
+                if (_FormFile is null)
+                    throw new ArgumentInvalidException("FormFile cant be null.");
+
+                if (string.IsNullOrWhiteSpace(UserId))
+                    throw new ArgumentInvalidException("UserId cant be null.");
+
+                var _ValidFileType = (await _AniShell.GetRealExtentionAsync(_FormFile));
+                if (_ValidFileType == default)
+                    return new OperationResult().Failed("FileFormatIsNotAllowed");
+
+                string _Path = $"/{_ValidFileType.Item2}/{DateTime.Now.Year}/{DateTime.Now.Month}/{DateTime.Now.Day}/";
+                string _FileName = new Guid().SequentialGuid().ToString().Replace("-", "") + "." + _ValidFileType.Item1;
+
+
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
+
+        public async Task<OperationResult> UploadFileAsync(IFormFile _FormFile, string UserId, string _Path, string _FileName, string _Title)
+        {
+            try
+            {
+                #region Validation Parameter
+                if (_FormFile is null)
+                    throw new ArgumentInvalidException("FormFile cant be null.");
+
+                if (string.IsNullOrWhiteSpace(UserId))
+                    throw new ArgumentInvalidException("UserId cant be null.");
+
+                if (string.IsNullOrWhiteSpace(_Path))
+                    throw new ArgumentInvalidException("_Path cant be null.");
+
+                if (string.IsNullOrWhiteSpace(_FileName))
+                    throw new ArgumentInvalidException("_FileName cant be null.");
+
+                if (string.IsNullOrWhiteSpace(_Title))
+                    throw new ArgumentInvalidException("_Title cant be null.");
+                #endregion
+
+                var qServer = await _FileServerApplication.GetServerDetailsAsync("");
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
             }
         }
     }

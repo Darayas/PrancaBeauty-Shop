@@ -54,5 +54,9 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
         [Required(ErrorMessage = "RequiredMsg")]
         [StringLength(300, MinimumLength = 1, ErrorMessage = "StringLengthMsg")]
         public string MetaTagDescreption { get; set; }
+
+        [Display(Name = "ProductDescription")]
+        [Required(ErrorMessage = "RequiredMsg")]
+        public string Description { get; set; }
     }
 }

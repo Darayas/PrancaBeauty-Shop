@@ -801,6 +801,9 @@
   <data name="ProductDate" xml:space="preserve">
     <value>تاریخ انتشار محصول</value>
   </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>توضیحات</value>
+  </data>
   <data name="ProductImages" xml:space="preserve">
     <value>تصاویر محصول</value>
   </data>

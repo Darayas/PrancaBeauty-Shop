@@ -32,7 +32,8 @@ namespace Framework.Common.Utilities.Downloader
                 HttpWebRequest ObjRequest = (HttpWebRequest)HttpWebRequest.Create(Url);
 
                 ObjRequest.ContentType = "text/html; charset=utf-8";
-                ObjRequest.UserAgent = "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; InfoPath.1; .NET CLR 2.0.50727; .NET CLR 1.1.4322)";
+                ObjRequest.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36";
+                ObjRequest.Method = "GET";
 
                 #region افزودن هدر ها
                 if (Headers != null)

@@ -121,7 +121,7 @@ function Alert429() {
     });
 }
 
-function Alert(_Title, _Text,_Type='info') {
+function Alert(_Title, _Text, _Type = 'info') {
     return swal.fire({
         title: _Title,
         html: $.parseHTML(_Text)[0].data,
@@ -155,4 +155,69 @@ function trim(Text, char) {
 function CloseModalBackdrop() {
     $('.modal-backdrop').remove();
     $('body').removeClass("modal-open");
+}
+
+function LoadCkEditor( _Lang = 'en') {
+    BalloonBlockEditor
+        .create(document.querySelector('.editor'), {
+            language: _Lang,
+            toolbar: {
+                items: [
+                    'removeFormat',
+                    '|',
+                    'bold',
+                    'italic',
+                    'underline',
+                    'code',
+                    'fontColor',
+                    '|',
+                    'link'
+                ]
+            },
+            blockToolbar: [
+                'findAndReplace',
+                '|',
+                'undo',
+                'redo',
+                '|',
+                'indent',
+                'outdent',
+                '|',
+                'heading',
+                'imageInsert',
+                'insertTable',
+                'horizontalLine',
+                '|',
+                'blockQuote',
+                'alignment',
+                '|',
+                'numberedList',
+                'bulletedList'
+            ],
+            image: {
+                toolbar: [
+                    'imageTextAlternative',
+                    'imageStyle:inline',
+                    'imageStyle:block',
+                    'imageStyle:side',
+                    'linkImage'
+                ]
+            },
+            table: {
+                contentToolbar: [
+                    'tableColumn',
+                    'tableRow',
+                    'mergeTableCells',
+                    'tableCellProperties',
+                    'tableProperties'
+                ]
+            },
+            licenseKey: '',
+        })
+        .then(editor => {
+            window.editor = editor;
+        })
+        .catch(error => {
+            console.error(error);
+        });
 }

@@ -152,6 +152,21 @@
                 </div>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card mt-4">
+                    <div class="card-header">
+                        @Localizer["ProductDescription"]
+                        <div class="cart-arrow-down"><i class="fa fa-angle-down"></i></div>
+                    </div>
+                    <div class="card-body">
+                        <label asp-for="Input.Description"></label>
+                        <div class="editor"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -164,6 +179,11 @@
 @section scripts{
     <script src="~/lib/PersianDatePicker/persian-date.min.js"></script>
     <script src="~/lib/PersianDatePicker/persian-datepicker.min.js"></script>
+    <script src="~/lib/CKEditor5/build/ckeditor.js"></script>
+    @if (CultureInfo.CurrentCulture.Parent.Name == "fa")
+    {
+        <script src="~/lib/CKEditor5/build/translations/fa.js"></script>
+    }
 
     <script>
         $(".Date").persianDatepicker({
@@ -187,12 +207,16 @@
             var _LangId = e.dataItem.Id;
 
             LoadComponenet('/@ViewData["culture"]/Shared/Compo/ComboInputPrice', {
-                FieldName:'Input.ProductPrice',
-                Price:'0',
+                FieldName: 'Input.ProductPrice',
+                Price: '0',
                 LangId: _LangId
             }, function (res) {
                 $('#ProductPrice').html(res);
             });
         }
+
+        $(document).ready(function () {
+            LoadCkEditor('Input_Description', '@CultureInfo.CurrentCulture.Parent.Name');
+        });
     </script>
 }

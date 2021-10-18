@@ -157,7 +157,7 @@ function CloseModalBackdrop() {
     $('body').removeClass("modal-open");
 }
 
-function LoadCkEditor( _Lang = 'en') {
+function LoadCkEditor(_Lang = 'en') {
     BalloonBlockEditor
         .create(document.querySelector('.editor'), {
             language: _Lang,
@@ -210,6 +210,22 @@ function LoadCkEditor( _Lang = 'en') {
                     'mergeTableCells',
                     'tableCellProperties',
                     'tableProperties'
+                ]
+            },
+            heading: {
+                options: [
+                    { model: 'Paragraph', title: 'Paragraph', view: { name: 'p', classes: '' } },
+                    { model: 'TextParagraph', title: 'Paragraph (Text)', view: { name: 'p', classes: 'text-paragraph' } },
+                    { model: 'heading2', title: 'H2 (Paragraph Header)', view: { name: 'h2', classes: 'text-heading2' } },
+                    { model: 'heading3', title: 'H3 (Paragraph Sub Header)', view: { name: 'h3', classes: 'text-heading3' } },
+                ]
+            },
+            alignment: {
+                options: [
+                    { name: 'left', className: 'text-left' },
+                    { name: 'right', className: 'text-right' },
+                    { name: 'center', className: 'text-center' },
+                    { name: 'justify', className: 'text-justify' },
                 ]
             },
             licenseKey: '',

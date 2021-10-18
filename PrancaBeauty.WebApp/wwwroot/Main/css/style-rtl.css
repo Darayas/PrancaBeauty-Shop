@@ -369,12 +369,12 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 
 @font-face {
   font-family: 'iransans';
-  font-weight: 300;
+  font-weight: 400;
   src: url("/Main/fonts/IRANSans/300/IRANSansWeb_UltraLight.eot") format("embedded-opentype"), url("/Main/fonts/IRANSans/300/IRANSansWeb_UltraLight.ttf") format("truetype"), url("/Main/fonts/IRANSans/300/IRANSansWeb_UltraLight.woff") format("woff"), url("/Main/fonts/IRANSans/300/IRANSansWeb_UltraLight.woff2") format("woff2"); }
 
 @font-face {
   font-family: 'iransans';
-  font-weight: 400;
+  font-weight: 500;
   src: url("/Main/fonts/IRANSans/400/IRANSansWeb_Light.eot") format("embedded-opentype"), url("/Main/fonts/IRANSans/400/IRANSansWeb_Light.ttf") format("truetype"), url("/Main/fonts/IRANSans/400/IRANSansWeb_Light.woff") format("woff"), url("/Main/fonts/IRANSans/400/IRANSansWeb_Light.woff2") format("woff2"); }
 
 @font-face {
@@ -404,12 +404,12 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 @font-face {
   font-family: 'iranyekan';
   font-weight: 800;
-  src: url("/Main/fonts/IranYekan/eot/IRANYekanWebExtraBlack.eot") format("embedded-opentype"), url("/Main/fonts/IranYekan/svg/iranyekanwebextrablack.svg") format("svg"), url("/Main/fonts/IranYekan/ttf/IRANYekanWebExtraBlack.ttf") format("truetype"), url("/Main/fonts/IranYekan/woff/IRANYekanWebExtraBlack.woff") format("woff"), url("/Main/fonts/IranYekan/woff2/IRANYekanWebExtraBlack.woff2") format("woff2"); }
+  src: url("/Main/fonts/IranYekan/eot/IRANYekanWebExtraBold.eot") format("embedded-opentype"), url("/Main/fonts/IranYekan/svg/iranyekanwebextrabold.svg") format("svg"), url("/Main/fonts/IranYekan/ttf/IRANYekanWebExtraBold.ttf") format("truetype"), url("/Main/fonts/IranYekan/woff/IRANYekanWebExtraBold.woff") format("woff"), url("/Main/fonts/IranYekan/woff2/IRANYekanWebExtraBold.woff2") format("woff2"); }
 
 @font-face {
   font-family: 'iranyekan';
   font-weight: 900;
-  src: url("/Main/fonts/IranYekan/eot/IRANYekanWebExtraBold.eot") format("embedded-opentype"), url("/Main/fonts/IranYekan/svg/iranyekanwebextrabold.svg") format("svg"), url("/Main/fonts/IranYekan/ttf/IRANYekanWebExtraBold.ttf") format("truetype"), url("/Main/fonts/IranYekan/woff/IRANYekanWebExtraBold.woff") format("woff"), url("/Main/fonts/IranYekan/woff2/IRANYekanWebExtraBold.woff2") format("woff2"); }
+  src: url("/Main/fonts/IranYekan/eot/IRANYekanWebExtraBlack.eot") format("embedded-opentype"), url("/Main/fonts/IranYekan/svg/iranyekanwebextrablack.svg") format("svg"), url("/Main/fonts/IranYekan/ttf/IRANYekanWebExtraBlack.ttf") format("truetype"), url("/Main/fonts/IranYekan/woff/IRANYekanWebExtraBlack.woff") format("woff"), url("/Main/fonts/IranYekan/woff2/IRANYekanWebExtraBlack.woff2") format("woff2"); }
 
 @font-face {
   font-family: 'iranyekan';
@@ -8016,3 +8016,35 @@ err500 {
   border-bottom-left-radius: .25rem;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0; }
+
+.editor {
+  min-height: 400px;
+  border: 1px solid #ced4da !important;
+  border-radius: .25rem !important;
+  margin-right: 35px; }
+
+.ck.ck-block-toolbar-button {
+  transform: translateX(calc(var(--ck-spacing-large)*.5)) !important;
+  color: #9a9a9a !important; }
+
+.text-left {
+  text-align: left;
+  direction: ltr; }
+
+.text-left {
+  text-align: right;
+  direction: rtl; }
+
+.text-paragraph {
+  font-size: 12px;
+  line-height: 1.7;
+  color: #232323; }
+
+.text-heading2 {
+  font-size: 18px;
+  color: #161616;
+  font-weight: 700; }
+
+.text-heading3 {
+  font-size: 15px;
+  color: #232323; }

@@ -218,7 +218,7 @@ namespace PrancaBeauty.Application.Apps.Files
                                                FileSize = a.SizeOnDisk,
                                                MimeType = a.tblFileTypes.MimeType,
                                                FileTypeIconUrl = a.tblFileTypes.IconUrl,
-                                               Date=a.Date,
+                                               Date = a.Date,
                                                DownloadLink = a.tblFilePaths.tblFileServer.HttpDomin
                                                                     + a.tblFilePaths.tblFileServer.HttpPath
                                                                     + a.tblFilePaths.Path
@@ -280,6 +280,41 @@ namespace PrancaBeauty.Application.Apps.Files
             {
                 _Logger.Error(ex);
                 return default;
+            }
+        }
+
+        public async Task<string> GetFileUrlAsync(string FileId, string UserId = null)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(FileId))
+                    throw new ArgumentInvalidException($"'{nameof(FileId)}' cannot be null or whitespace.");
+
+                var qData = await _FileRepository.Get
+                                                .Where(a => a.Id == Guid.Parse(FileId))
+                                                .Where(a => UserId != null ? a.UserId == Guid.Parse(UserId) : true)
+                                                .Select(a => new
+                                                {
+                                                    Url = a.tblFilePaths.tblFileServer.HttpDomin
+                                                         + a.tblFilePaths.tblFileServer.HttpPath
+                                                         + a.tblFilePaths.Path
+                                                         + a.FileName
+                                                })
+                                                .SingleOrDefaultAsync();
+
+                if (qData == null)
+                    return null;
+
+                return qData.Url;
+            }
+            catch (ArgumentInvalidException)
+            {
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
             }
         }
     }

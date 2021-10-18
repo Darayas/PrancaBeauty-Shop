@@ -12,6 +12,7 @@ namespace PrancaBeauty.Application.Apps.Files
         Task<List<outGetFileDetailsForFileSelector>> GetFileDetailsForFileSelectorAsync(string[] FilesId);
         Task<OutGetFileInfo> GetFileInfoAsync(string FileId, string UserId = null);
         Task<(OutPagingData, List<OutGetFileListForFileManager>)> GetFileListForFileManagerAsync(InpGetFileListForFileManager Input);
+        Task<string> GetFileUrlAsync(string FileId, string UserId = null);
         Task<OperationResult> RemoveFileAsync(string FileId, string UserId = null);
     }
 }

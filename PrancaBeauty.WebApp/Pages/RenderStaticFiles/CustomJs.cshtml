@@ -6,7 +6,7 @@
     var DeleteMsg = '@Localizer["AreYouSure"]';
     var Err429Msg  = '@Localizer["Err429Msg"]';
 
-    @*<script>*@
+
     function LoadCkEditor(_Lang = 'en') {
         BalloonBlockEditor
             .create(document.querySelector('.editor'), {
@@ -47,6 +47,7 @@
                 image: {
                     toolbar: [
                         'imageTextAlternative',
+                        '|',
                         'imageStyle:inline',
                         'imageStyle:block',
                         'imageStyle:side',
@@ -116,6 +117,13 @@
                         }
                     }
                 },
+                simpleUpload: {
+                    uploadUrl: '/' + _Lang + '/User/Products/Compo/CompoSimpleUploader',
+                    withCredentials:true,
+                    headers: {
+                        'XSRF-TOKEN': document.querySelector('input[name=__RequestVerificationToken]').value
+                    }
+                },
                 licenseKey: '',
             })
             .then(editor => {
@@ -125,4 +133,3 @@
                 console.error(error);
             });
     }
-    @*</script>*@

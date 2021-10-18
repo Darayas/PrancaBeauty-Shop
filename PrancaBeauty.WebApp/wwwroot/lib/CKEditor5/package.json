@@ -39,5 +39,8 @@
   },
   "scripts": {
     "build": "webpack --mode production"
+  },
+  "dependencies": {
+    "@ckeditor/ckeditor5-upload": "^30.0.0"
   }
 }

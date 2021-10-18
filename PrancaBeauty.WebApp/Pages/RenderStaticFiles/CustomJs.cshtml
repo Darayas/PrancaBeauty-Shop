@@ -5,3 +5,124 @@
     var NoText = '@Localizer["No"]';
     var DeleteMsg = '@Localizer["AreYouSure"]';
     var Err429Msg  = '@Localizer["Err429Msg"]';
+
+    @*<script>*@
+    function LoadCkEditor(_Lang = 'en') {
+        BalloonBlockEditor
+            .create(document.querySelector('.editor'), {
+                language: _Lang,
+                toolbar: {
+                    items: [
+                        'removeFormat',
+                        '|',
+                        'bold',
+                        'italic',
+                        'underline',
+                        'code',
+                        'fontColor',
+                        '|',
+                        'link'
+                    ]
+                },
+                blockToolbar: [
+                    'findAndReplace',
+                    '|',
+                    'undo',
+                    'redo',
+                    '|',
+                    'indent',
+                    'outdent',
+                    '|',
+                    'heading',
+                    'imageInsert',
+                    'insertTable',
+                    'horizontalLine',
+                    '|',
+                    'blockQuote',
+                    'alignment',
+                    '|',
+                    'numberedList',
+                    'bulletedList'
+                ],
+                image: {
+                    toolbar: [
+                        'imageTextAlternative',
+                        'imageStyle:inline',
+                        'imageStyle:block',
+                        'imageStyle:side',
+                        'linkImage'
+                    ]
+                },
+                table: {
+                    contentToolbar: [
+                        'tableColumn',
+                        'tableRow',
+                        'mergeTableCells',
+                        'tableCellProperties',
+                        'tableProperties'
+                    ]
+                },
+                heading: {
+                    options: [
+                        { model: 'Paragraph', title: 'Paragraph', view: { name: 'p', classes: '' } },
+                        { model: 'TextParagraph', title: 'Paragraph (Text)', view: { name: 'p', classes: 'text-paragraph' } },
+                        { model: 'heading2', title: 'H2 (Paragraph Header)', view: { name: 'h2', classes: 'text-heading2' } },
+                        { model: 'heading3', title: 'H3 (Paragraph Sub Header)', view: { name: 'h3', classes: 'text-heading3' } },
+                    ]
+                },
+                alignment: {
+                    options: [
+                        { name: 'left', className: 'text-left' },
+                        { name: 'right', className: 'text-right' },
+                        { name: 'center', className: 'text-center' },
+                        { name: 'justify', className: 'text-justify' },
+                    ]
+                },
+                fontColor: {
+                    colors: [
+                        {
+                            color: 'hsl(0,0%,0%)',
+                            label: 'Black',
+                        },
+                        {
+                            color: 'hsl(0,0%,30%)',
+                            label: 'Dim Grey',
+                        }
+                        , {
+                            color: 'hsl(0,0%,60%)',
+                            label: 'Grey',
+                        },
+                        {
+                            color: 'hsl(0,0%,90%)',
+                            label: 'Light Grey',
+                        }
+                    ]
+                },
+                link: {
+                    decorators: {
+                        addTargetToExternalLinks: {
+                            mode: 'manual',
+                            label: '@Localizer["AddNoRefferToExternalLink"]',
+                            attributes: {
+                                rel:'noopener norefferrer'
+                            }
+                        },
+                        openInNewTab: {
+                            mode: 'manual',
+                            label: '@Localizer["openInNewTab"]',
+                            attributes: {
+                                target: '_blank'
+                            }
+                        }
+                    }
+                },
+                licenseKey: '',
+            })
+            .then(editor => {
+                window.editor = editor;
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    }
+    @*</script>*@

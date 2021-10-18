@@ -8022,6 +8022,8 @@ err500 {
   border: 1px solid #ced4da !important;
   border-radius: .25rem !important;
   margin-right: 35px; }
+  .editor ul {
+    padding-right: 15px; }
 
 .ck.ck-block-toolbar-button {
   transform: translateX(calc(var(--ck-spacing-large)*.5)) !important;

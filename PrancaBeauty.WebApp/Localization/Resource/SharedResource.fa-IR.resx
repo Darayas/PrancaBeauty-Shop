@@ -165,6 +165,9 @@
   <data name="AddNewUsers" xml:space="preserve">
     <value>افزودن کاربر جدید</value>
   </data>
+  <data name="AddNoRefferToExternalLink" xml:space="preserve">
+    <value>افزودن NoReffer به لینک</value>
+  </data>
   <data name="AddProduct" xml:space="preserve">
     <value>افزودن محصول جدید</value>
   </data>
@@ -692,6 +695,9 @@
   </data>
   <data name="OK" xml:space="preserve">
     <value>باشه</value>
+  </data>
+  <data name="openInNewTab" xml:space="preserve">
+    <value>باز کردن در صفحه ی جدید</value>
   </data>
   <data name="Operation was successded" xml:space="preserve">
     <value>عملیات با موفقیت انجام شد.</value>

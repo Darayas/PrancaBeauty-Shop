@@ -211,6 +211,10 @@ err500 {
     border: 1px solid #ced4da !important;
     border-radius: .25rem !important;
     margin-right: 35px;
+
+    ul {
+        padding-right: 15px;
+    }
 }
 
 .ck.ck-block-toolbar-button {
@@ -237,7 +241,7 @@ err500 {
 .text-heading2 {
     font-size: 18px;
     color: #161616;
-    font-weight:700;
+    font-weight: 700;
 }
 
 .text-heading3 {

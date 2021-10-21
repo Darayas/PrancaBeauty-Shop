@@ -47,6 +47,13 @@
                         </div>
 
                         <div class="form-group">
+                            <LoadComponent id="ProductTopicCompo"
+                                           context="HttpContext"
+                                           data='new viCompo_Combo_Topics { FieldName="Input.TopicId"}'
+                                           url="/@ViewData["culture"]/Shared/Compo/ComboTopics"></LoadComponent>
+                        </div>
+
+                        <div class="form-group">
                             <LoadComponent id="ProductCategoryCompo"
                                            context="HttpContext"
                                            data='new viCompo_Combo_Categories { FieldName="Input.CategoryId"}'
@@ -87,6 +94,20 @@
                             <label asp-for="Input.Date"></label>
                             <input asp-for="Input.Date" class="form-control Date text-center dir-ltr" />
                         </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card mt-4">
+                    <div class="card-header">
+                        @Localizer["ProductProperties"]
+                        <div class="cart-arrow-down"><i class="fa fa-angle-down"></i></div>
+                    </div>
+                    <div class="card-body" id="ProductProperties">
 
                     </div>
                 </div>
@@ -185,7 +206,7 @@
         <script src="~/lib/CKEditor5/build/translations/fa.js"></script>
     }
 
-    <script>
+<script>
         $(".Date").persianDatepicker({
             format: 'YYYY/MM/DD HH:mm:ss',
             toolbox: {
@@ -218,5 +239,15 @@
         $(document).ready(function () {
             LoadCkEditor('@CultureInfo.CurrentCulture.Parent.Name');
         });
-    </script>
+
+    function OnComboSelectInput_TopicId(e) {
+        LoadComponenet('/@ViewData["Culture"]/User/Products/Compo/ComboProductProperties',
+        {
+            TopicId: e.dataItem.Id
+        },
+        function (res) {
+            $('#ProductProperties').html(res);
+        });
+    }
+</script>
 }

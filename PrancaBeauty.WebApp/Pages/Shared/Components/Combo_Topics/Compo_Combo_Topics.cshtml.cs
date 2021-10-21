@@ -2,20 +2,24 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.ProductTopic;
 using PrancaBeauty.WebApp.Models.ViewInput;
+using PrancaBeauty.WebApp.Models.ViewModel;
 
 namespace PrancaBeauty.WebApp.Pages.Shared.Components.Combo_Topics
 {
     public class Compo_Combo_TopicsModel : PageModel
     {
+        private readonly IMapper _Mapper;
         private readonly IProductTopicApplication _ProductTopicApplication;
 
-        public Compo_Combo_TopicsModel(IProductTopicApplication productTopicApplication)
+        public Compo_Combo_TopicsModel(IProductTopicApplication productTopicApplication, IMapper mapper)
         {
             _ProductTopicApplication = productTopicApplication;
+            _Mapper = mapper;
         }
 
         public IActionResult OnGet()
@@ -29,7 +33,7 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.Combo_Topics
         public async Task<IActionResult> OnGetReadAsync(string LangId, string Text)
         {
             var qData = await _ProductTopicApplication.GetListForComboAsync(LangId, Text);
-            var Data = _Mapper.Map<List<vmCompo_ComboFileTypes>>(qData);
+            var Data = _Mapper.Map<List<vmCompo_Combo_Topics>>(qData);
             return new JsonResult(Data);
         }
 

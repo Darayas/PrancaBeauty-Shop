@@ -17,6 +17,11 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
         [GUID(ErrorMessage = "GUIDMsg")]
         public string LangId { get; set; }
 
+        [Display(Name = "TopicId")]
+        [Required(ErrorMessage = "RequiredMsg")]
+        [GUID(ErrorMessage = "GUIDMsg")]
+        public string TopicId { get; set; }
+
         [Display(Name = "CategoryId")]
         [Required(ErrorMessage = "RequiredMsg")]
         [GUID(ErrorMessage = "GUIDMsg")]

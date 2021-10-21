@@ -34,6 +34,16 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                 }, default, false).Wait();
             }
 
+            if (!_FilePath.Get.Where(a => a.tblFileServer.Name == "Public").Where(a => a.Path == "/image/png/2021/1/1/").Any())
+            {
+                _FilePath.AddAsync(new tblFilePaths()
+                {
+                    Id = new Guid().SequentialGuid(),
+                    FileServerId = _FileServers.Get.Where(a => a.Name == "Public").Select(a => a.Id).Single(),
+                    Path = "/image/png/2021/1/1/"
+                }, default, false).Wait();
+            }
+
             _FilePath.SaveChangeAsync().Wait();
         }
     }

@@ -7,6 +7,7 @@ using PrancaBeauty.Domin.Product.ProductPricesAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductPropertiesValuesAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductReviewsAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductSellerAgg.Entities;
+using PrancaBeauty.Domin.Product.ProductTopicAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductVariantsItemsAgg.Entities;
 using PrancaBeauty.Domin.Region.LanguagesAgg.Entities;
 using PrancaBeauty.Domin.Users.UserAgg.Entities;
@@ -21,6 +22,7 @@ namespace PrancaBeauty.Domin.Product.ProductAgg.Entities
     public class tblProducts : IEntity
     {
         public Guid Id { get; set; }
+        public Guid TopicId { get; set; }
         public Guid AuthorUserId { get; set; }
         public Guid CategoryId { get; set; }
         public Guid LangId { get; set; }
@@ -37,6 +39,7 @@ namespace PrancaBeauty.Domin.Product.ProductAgg.Entities
         public string MetaTagDescreption { get; set; }
 
         public virtual tblUsers tblAuthorUser { get; set; }
+        public virtual tblProductTopic tblProductTopic { get; set; }
         public virtual tblCategoris tblCategory { get; set; }
         public virtual tblLanguages tblLanguage { get; set; }
         public virtual ICollection<tblKeywords_Products> tblKeywords_Products { get; set; }

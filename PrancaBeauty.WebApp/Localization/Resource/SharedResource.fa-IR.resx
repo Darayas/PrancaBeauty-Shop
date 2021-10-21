@@ -825,6 +825,9 @@
   <data name="ProductPrice" xml:space="preserve">
     <value>قیمت اولیه ی محصول</value>
   </data>
+  <data name="ProductProperties" xml:space="preserve">
+    <value>خصوصیات</value>
+  </data>
   <data name="ProductTitle" xml:space="preserve">
     <value>عنوان محصول</value>
   </data>
@@ -983,6 +986,9 @@
   </data>
   <data name="TokenIsInvalid" xml:space="preserve">
     <value>توکن ارسال شده معتبر نمیباشد</value>
+  </data>
+  <data name="TopicId" xml:space="preserve">
+    <value>موضوع </value>
   </data>
   <data name="Unit" xml:space="preserve">
     <value>واحد</value>

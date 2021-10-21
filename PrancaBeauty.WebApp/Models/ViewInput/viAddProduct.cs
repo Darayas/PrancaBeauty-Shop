@@ -63,5 +63,13 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
         [Display(Name = "ProductDescription")]
         [Required(ErrorMessage = "RequiredMsg")]
         public string Description { get; set; }
+
+        public List<viAddProduct_Properties> Properties { get; set; }
+    }
+
+    public class viAddProduct_Properties
+    {
+        public string Id { get; set; }
+        public string Value { get; set; }
     }
 }

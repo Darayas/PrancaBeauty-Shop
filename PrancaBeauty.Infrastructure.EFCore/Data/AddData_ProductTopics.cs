@@ -62,18 +62,18 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                 }, default, false).Wait();
             }
 
-            if (!_repProdcutTopic.Get.Any(a => a.Name == "Loptop"))
+            if (!_repProdcutTopic.Get.Any(a => a.Name == "Laptop"))
             {
                 _repProdcutTopic.AddAsync(new tblProductTopic()
                 {
                     Id = new Guid().SequentialGuid(),
-                    Name = "Loptop",
+                    Name = "Laptop",
                     tblFiles = new tblFiles()
                     {
                         Id = new Guid().SequentialGuid(),
                         Title = "Loptop",
                         Date = DateTime.Now,
-                        FileName = "Loptop.png",
+                        FileName = "Laptop.png",
                         IsPrivate = false,
                         SizeOnDisk = 0,
                         FileTypeId = _repFileType.Get.Where(a => a.MimeType == "image/png").Select(a => a.Id).Single(),
@@ -83,7 +83,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                         new tblProductTopic_Translates(){
                              Id = new Guid().SequentialGuid(),
                              LangId=_repLang.Get.Where(a=>a.Code=="en-US").Select(a=>a.Id).Single(),
-                             Title="Loptop"
+                             Title="Laptop"
                         },
                         new tblProductTopic_Translates(){
                              Id = new Guid().SequentialGuid(),
@@ -93,6 +93,8 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     }
                 }, default, false).Wait();
             }
+
+            _repProdcutTopic.SaveChangeAsync().Wait();
         }
     }
 }

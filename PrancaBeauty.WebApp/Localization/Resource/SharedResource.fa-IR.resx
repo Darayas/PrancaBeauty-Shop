@@ -792,6 +792,9 @@
   <data name="PleaseSelectCategory" xml:space="preserve">
     <value>انتخاب دسته</value>
   </data>
+  <data name="PleaseSelectTopic" xml:space="preserve">
+    <value>لطفا ابتدا موضوع محصول را از بخش جزئیات عمومی انتخاب نمایید</value>
+  </data>
   <data name="PleaseTryAgain" xml:space="preserve">
     <value>لطفا مجددا تلاش نمایید.</value>
   </data>

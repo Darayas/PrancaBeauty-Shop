@@ -1,4 +1,27 @@
 ﻿@page "/{culture}/User/Products/Compo/ComboProductProperties"
 @model PrancaBeauty.WebApp.Pages.User.Products.Components.Compo_Properties.Compo_PropertiesModel
-@{
-}
+
+<div class="row">
+    <div class="col-md-12">
+        @if (Model.Data.Count() == 0)
+        {
+            <div class="alert alert-info">
+                @Localizer["PleaseSelectTopic"]
+            </div>
+        }
+        else
+        {
+            int Counter = 0;
+            foreach (var item in Model.Data)
+            {
+                <div class="form-group">
+                    <label>@item.PropertyTitle</label>
+                    <input type="hidden" name="Input.Properties[@Counter].Id" value="@item.PropertyId" />
+                    <input class="form-control" name="Input.Properties[@Counter].Value" value="@item.PropertyTitle" />
+                </div>
+
+                Counter++;
+            }
+        }
+    </div>
+</div>

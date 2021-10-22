@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace PrancaBeauty.WebApp.Models.ViewInput
 {
-    public class viCompo_Input_Keywords
+    public class viCompo_Variants
     {
         public string FieldName { get; set; }
         public string ProductId { get; set; }

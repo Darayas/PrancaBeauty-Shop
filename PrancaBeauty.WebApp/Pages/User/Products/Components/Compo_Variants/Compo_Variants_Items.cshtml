@@ -1,0 +1,28 @@
+﻿@page "/{culture}/User/Products/Compo/VariantsItem"
+@model PrancaBeauty.WebApp.Pages.User.Products.Components.Compo_Variants.Compo_Variants_ItemsModel
+
+<div id="Keyword@(Model.Input.Index)">
+    <div class="row">
+        <div class="col-md-7">
+            <div class="form-group">
+                <input class="form-control" asp-for="Input.Title[Model.Input.Index]" type="text" placeholder="@Localizer["KeywordTitle"]" />
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <div class="input-group mb-3 dir-ltr">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">%</span>
+                    </div>
+                    <input class="form-control fs-14px text-center dir-ltr" asp-for="Input.Similarity[Model.Input.Index]" type="text" placeholder="@Localizer["KeywordSimilarity"]" />
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1">
+            <button type="button" onclick="RemoveKeyword('@Model.Input.Index')" class="btn btn-danger"><i class="fa fa-times"></i></button>
+        </div>
+    </div>
+    <script>
+        LoadSimilarity('Input_Similarity_@(Model.Input.Index)_');
+    </script>
+</div>

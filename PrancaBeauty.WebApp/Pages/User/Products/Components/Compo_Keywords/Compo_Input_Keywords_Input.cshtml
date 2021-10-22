@@ -5,7 +5,8 @@
     <div class="row">
         <div class="col-md-7">
             <div class="form-group">
-                <input class="form-control" asp-for="Input.Title[Model.Input.Index]" type="text" placeholder="@Localizer["KeywordTitle"]" />
+                <input asp-for="Input.Id" type="hidden" name="Input.Keywords[Model.Input.Index].Id" />
+                <input class="form-control" asp-for="Input.Title" name="Input.Keywords[Model.Input.Index].Title" type="text" placeholder="@Localizer["KeywordTitle"]" />
             </div>
         </div>
         <div class="col-md-4">
@@ -14,7 +15,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">%</span>
                     </div>
-                    <input class="form-control fs-14px text-center dir-ltr" asp-for="Input.Similarity[Model.Input.Index]" type="text" placeholder="@Localizer["KeywordSimilarity"]" />
+                    <input class="form-control fs-14px text-center dir-ltr" id="Similarity@(Model.Input.Index)" asp-for="Input.Similarity" name="Input.Keywords[Model.Input.Index].Similarity" type="text" placeholder="@Localizer["KeywordSimilarity"]" />
                 </div>
             </div>
         </div>
@@ -23,6 +24,6 @@
         </div>
     </div>
     <script>
-        LoadSimilarity('Input_Similarity_@(Model.Input.Index)_');
+        LoadSimilarity('Similarity@(Model.Input.Index)');
     </script>
 </div>

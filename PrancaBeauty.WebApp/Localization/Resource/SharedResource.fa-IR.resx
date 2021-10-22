@@ -1053,6 +1053,18 @@
   <data name="UserPanel" xml:space="preserve">
     <value>پنل کاربری</value>
   </data>
+  <data name="VariantPercentPrice" xml:space="preserve">
+    <value>درصد </value>
+  </data>
+  <data name="VariantPercentPriceMsg" xml:space="preserve">
+    <value>درصد قیمت این نوع محصول به نسبت قیمت اصلی</value>
+  </data>
+  <data name="VariantTitle" xml:space="preserve">
+    <value>عنوان </value>
+  </data>
+  <data name="VariantValue" xml:space="preserve">
+    <value>مقدار </value>
+  </data>
   <data name="View" xml:space="preserve">
     <value>نمایش</value>
   </data>

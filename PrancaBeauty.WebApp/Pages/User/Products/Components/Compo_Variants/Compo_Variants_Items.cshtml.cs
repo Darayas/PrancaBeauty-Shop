@@ -14,7 +14,7 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Components.Compo_Variants
         {
         }
 
-        [BindProperty]
+        [BindProperty(SupportsGet = true)]
         public viCompo_Variants_Items Input { get; set; }
     }
 }

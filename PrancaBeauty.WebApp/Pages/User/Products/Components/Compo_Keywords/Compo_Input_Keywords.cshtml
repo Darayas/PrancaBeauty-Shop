@@ -18,7 +18,7 @@
         <button onclick="AddKeywordInput()" type="button" class="btn btn-success btn-sm"><i class="fa fa-plus"></i></button>
 
         <hr />
-        <div id="CompoAddSection">
+        <div id="CompoAddKeywordSection">
             <LoadComponent class="ProductKeywordsInputCompo"
                            context="HttpContext"
                            data='new viCompo_Input_Keywords_Input { Index=0}'
@@ -37,15 +37,13 @@
             LoadComponenet('/@ViewData["culture"]/User/Products/Compo/CompoInputKeywordInput', {
                 Index: _Count
             }, function (res) {
-                $('#CompoAddSection').append("<div class='ProductKeywordsInputCompo'>" + res + "</div>");
+                $('#CompoAddKeywordSection').append("<div class='ProductKeywordsInputCompo'>" + res + "</div>");
             });
         }
 
         function RemoveKeyword(_Index) {
             $('#Keyword' + _Index).hide();
-            $('#Input_Title_' + _Index + '_').val("");
-            $('#Input_Similarity_' + _Index + '_').val("");
-
+            $('#Keyword' + _Index+' input').val("");
         }
     </script>
 </div>

@@ -65,11 +65,28 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
         public string Description { get; set; }
 
         public List<viAddProduct_Properties> Properties { get; set; }
+        public List<viAddProduct_Keywords> Keywords { get; set; }
+        public List<viAddProduct_Variants> Variants { get; set; }
     }
 
     public class viAddProduct_Properties
     {
         public string Id { get; set; }
         public string Value { get; set; }
+    }
+
+    public class viAddProduct_Keywords
+    {
+        public string Id { get; set; }
+        public string Title { get; set; }
+        public string Similarity { get; set; }
+    }
+
+    public class viAddProduct_Variants
+    {
+        public string Id { get; set; }
+        public string Title { get; set; }
+        public string Value { get; set; }
+        public string Percent { get; set; }
     }
 }

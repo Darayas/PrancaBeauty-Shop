@@ -9,7 +9,7 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
     {
         public int Index { get; set; }
 
-        public string ProductVariantId { get; set; }
+        public string Id { get; set; }
         public string Title { get; set; }
         public string Value { get; set; }
         public string Percent { get; set; }

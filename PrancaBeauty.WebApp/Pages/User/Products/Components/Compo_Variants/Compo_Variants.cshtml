@@ -7,20 +7,20 @@
 }
 
 <div class="row">
-    @*<script>
-        function LoadSimilarity(_Id) {
-            $('#' + _Id).autoNumeric('init', { vMax: '99.99', lZero: 'deny', aDec: '.', aSep: ',' });
+    <script>
+        function LoadVariantPercent(_Id) {
+            $('#' + _Id).autoNumeric('init', { vMax: '1000',vMin:'-100', lZero: 'deny', aDec: '.', aSep: ',' });
         }
-    </script>*@
+    </script>
 
     <div class="col-md-12">
         <button onclick="AddVariantInput()" type="button" class="btn btn-success btn-sm"><i class="fa fa-plus"></i></button>
         <hr />
-        <div id="CompoAddSection">
-            <LoadComponent class="ProductVariantsInputCompo"
+        <div id="CompoAddVariantSection">
+            <LoadComponent class="ProductVariantsItemCompo"
                            context="HttpContext"
-                           data='new viCompo_Input_Keywords_Input { Index=0}'
-                           url="/@ViewData["culture"]/User/Products/Compo/CompoInputKeywordInput"></LoadComponent>
+                           data='new viCompo_Variants_Items { Index=0}'
+                           url="/@ViewData["culture"]/User/Products/Compo/VariantsItem"></LoadComponent>
 
         </div>
     </div>
@@ -28,20 +28,18 @@
     <script src="~/lib/autoNumeric/autoNumeric.min.js"></script>
     <script>
         function AddVariantInput() {
+            var _Count = $('.ProductVariantsItemCompo').length;
 
-            var _Count = $('.ProductKeywordsInputCompo').length;
-
-            LoadComponenet('/@ViewData["culture"]/User/Products/Compo/CompoInputKeywordInput', {
+            LoadComponenet('/@ViewData["culture"]/User/Products/Compo/VariantsItem', {
                 Index: _Count
             }, function (res) {
-                $('#CompoAddSection').append("<div class='ProductKeywordsInputCompo'>" + res + "</div>");
+                $('#CompoAddVariantSection').append("<div class='ProductVariantsItemCompo'>" + res + "</div>");
             });
         }
 
-        function RemoveKeyword(_Index) {
-            $('#Variant' + _Index).hide();
-            $('#Input_Title_' + _Index + '_').val("");
-            $('#Input_Percent_' + _Index + '_').val("");
+        function RemoveVariants(_Index) {
+            $('#Variants' + _Index).hide();
+            $('#Variants' + _Index+' input').val("");
         }
     </script>
 </div>

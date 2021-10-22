@@ -33,7 +33,7 @@
           .Filter(FilterType.Contains)
           .MinLength(2)
           .Value(Model.Input.TopicId)
-          .Events(ev=> ev.Select("OnSelect"+FieldId))
+          .Events(ev=> ev.Select("onSelect"+FieldId))
           .DataSource(sr => {
               sr.Read(read =>
               {

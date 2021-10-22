@@ -108,7 +108,9 @@
                         <div class="cart-arrow-down"><i class="fa fa-angle-down"></i></div>
                     </div>
                     <div class="card-body" id="ProductProperties">
-
+                        <div class="alert alert-info text-center">
+                            @Localizer["PleaseSelectTopic"]
+                        </div>
                     </div>
                 </div>
             </div>
@@ -241,6 +243,7 @@
         });
 
     function OnComboSelectInput_TopicId(e) {
+        
         LoadComponenet('/@ViewData["Culture"]/User/Products/Compo/ComboProductProperties',
         {
             TopicId: e.dataItem.Id

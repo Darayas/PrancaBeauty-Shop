@@ -284,7 +284,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
             }
             #endregion
 
-            _repProductTopics.SaveChangeAsync().Wait();
+            _repProductPropertis.SaveChangeAsync().Wait();
         }
     }
 }

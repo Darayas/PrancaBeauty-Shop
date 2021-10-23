@@ -9,12 +9,22 @@
 <div class="row">
     <script>
         function LoadVariantPercent(_Id) {
-            $('#' + _Id).autoNumeric('init', { vMax: '1000',vMin:'-100', lZero: 'deny', aDec: '.', aSep: ',' });
+            $('#' + _Id).autoNumeric('init', { vMax: '1000.999',vMin:'-100.999', lZero: 'deny', aDec: '.', aSep: ',' });
         }
     </script>
 
     <div class="col-md-12">
-        <button onclick="AddVariantInput()" type="button" class="btn btn-success btn-sm"><i class="fa fa-plus"></i></button>
+        <div class="row">
+            <div class="col-md-11">
+                <LoadComponent class="ProductVariants"
+                               context="HttpContext"
+                               data='new viCompo_Combo_ProductVariants { FieldName="Input.ProductVariantId" }'
+                               url="/@ViewData["culture"]/Shared/Compo/ComboVariants"></LoadComponent>
+            </div>
+            <div class="col-md-1 text-left">
+                <button onclick="AddVariantInput()" type="button" class="btn btn-success btn-sm"><i class="fa fa-plus"></i></button>
+            </div>
+        </div>
         <hr />
         <div id="CompoAddVariantSection">
             <LoadComponent class="ProductVariantsItemCompo"

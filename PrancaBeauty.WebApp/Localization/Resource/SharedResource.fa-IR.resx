@@ -813,6 +813,9 @@
   <data name="PleseSelectCountry" xml:space="preserve">
     <value>انتخاب کشور</value>
   </data>
+  <data name="PleseSelectGuarantee" xml:space="preserve">
+    <value>انتخاب گارانتی</value>
+  </data>
   <data name="PleseSelectProvince" xml:space="preserve">
     <value>انتخاب استان</value>
   </data>

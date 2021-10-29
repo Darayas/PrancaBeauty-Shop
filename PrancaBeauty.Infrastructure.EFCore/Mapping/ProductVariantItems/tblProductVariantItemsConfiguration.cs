@@ -19,6 +19,8 @@ namespace PrancaBeauty.Infrastructure.EFCore.Mapping.ProductVariantItems
             builder.Property(a => a.ProductId).IsRequired().HasMaxLength(150);
             builder.Property(a => a.ProductSellerId).IsRequired().HasMaxLength(150);
             builder.Property(a => a.ProductVariantId).IsRequired().HasMaxLength(150);
+            builder.Property(a => a.GuaranteeId).IsRequired(false).HasMaxLength(150);
+            builder.Property(a => a.ProductCode).IsRequired().HasMaxLength(100);
             builder.Property(a => a.Title).IsRequired().HasMaxLength(200);
             builder.Property(a => a.Value).IsRequired().HasMaxLength(500);
 

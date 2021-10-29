@@ -17,8 +17,6 @@ namespace PrancaBeauty.Domin.Product.ProductSellerAgg.Entities
         public Guid SellerUserId { get; set; }
         public Guid ProductId { get; set; }
         public double Price { get; set; }
-        public string Guarantee { get; set; } // گارانتی
-        public string SendFrom { get; set; } // ارسال از
         public DateTime Date { get; set; }
         public bool IsConfirm { get; set; }
 

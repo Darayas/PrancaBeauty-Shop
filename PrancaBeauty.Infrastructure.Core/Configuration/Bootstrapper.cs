@@ -18,6 +18,7 @@ using PrancaBeauty.Application.Apps.FilePath;
 using PrancaBeauty.Application.Apps.Files;
 using PrancaBeauty.Application.Apps.FileServer;
 using PrancaBeauty.Application.Apps.FileTypes;
+using PrancaBeauty.Application.Apps.Guarantee;
 using PrancaBeauty.Application.Apps.Keywords;
 using PrancaBeauty.Application.Apps.KeywordsProducts;
 using PrancaBeauty.Application.Apps.Languages;
@@ -50,6 +51,7 @@ using PrancaBeauty.Domin.FileServer.FileTypeAgg.Contracts;
 using PrancaBeauty.Domin.FileServer.ServerAgg.Contracts;
 using PrancaBeauty.Domin.Keywords.KeywordAgg.Contracts;
 using PrancaBeauty.Domin.Keywords.Keywords_Products.Contracts;
+using PrancaBeauty.Domin.Product.GuaranteeAgg.Contracts;
 using PrancaBeauty.Domin.Product.ProductAgg.Contracts;
 using PrancaBeauty.Domin.Product.ProductAskAgg.Contarcts;
 using PrancaBeauty.Domin.Product.ProductAskLikesAgg.Contracts;
@@ -88,6 +90,7 @@ using PrancaBeauty.Infrastructure.EFCore.Repository.Currency;
 using PrancaBeauty.Infrastructure.EFCore.Repository.FilePath;
 using PrancaBeauty.Infrastructure.EFCore.Repository.FileServer;
 using PrancaBeauty.Infrastructure.EFCore.Repository.FileType;
+using PrancaBeauty.Infrastructure.EFCore.Repository.Guarantee;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Keywords;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Keywords_Products;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Product;
@@ -182,6 +185,8 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddScoped<ICurrency_TranslatesRepository, Currency_TranslatesRepository>();
             services.AddScoped<IFileTypeRepository, FileTypeRepository>();
             services.AddScoped<IFilePathRepository, FilePathRepository>();
+            services.AddScoped<IGuaranteeRepository, GuaranteeRepository>();
+            services.AddScoped<IGuarantee_TranslatesRepository, Guarantee_TranslatesRepository>();
 
             // Applications
             services.AddScoped<IUserApplication, UserApplication>();
@@ -219,6 +224,7 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddScoped<ICurrencyApplication, CurrencyApplication>();
             services.AddScoped<IFileTypeApplication, FileTypeApplication>();
             services.AddScoped<IFilePathApplication, FilePathApplication>();
+            services.AddScoped<IGuaranteeApplications, GuaranteeApplications>();
         }
     }
 }

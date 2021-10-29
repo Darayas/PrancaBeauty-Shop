@@ -21,13 +21,16 @@
     }
 </script>
 
-<label for="@FieldId">@FieldTitle</label>
+@if (Model.Input.ShowLabel)
+{
+    <label for="@FieldId">@FieldTitle</label>
+}
 <div class="k-lang">
     @(Html.Kendo()
           .ComboBox()
           .Name(FieldName)
           .HtmlAttributes(new { @class= "form-control",style="width:100%;height:35px;" })
-          .Placeholder(Localizer["PleseSelect"])
+          .Placeholder(Localizer["PleseSelectCountry"])
           .DataTextField("Title")
           .DataValueField("Id")
           .Filter(FilterType.Contains)

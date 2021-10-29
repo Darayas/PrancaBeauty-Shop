@@ -197,6 +197,23 @@
             <div class="col-md-12">
                 <div class="card mt-4">
                     <div class="card-header">
+                        @Localizer["PostingRestrictions"]
+                        <div class="cart-arrow-down"><i class="fa fa-angle-down"></i></div>
+                    </div>
+                    <div class="card-body" id="ProductProperties">
+                        <LoadComponent id="ProductPostingRestrictionsCompo"
+                                       context="HttpContext"
+                                       data='new viCompo_PostingRestrictions {FieldName="Input.PostingRestrictions"}'
+                                       url="/@ViewData["culture"]/User/Products/Compo/PostingRestrictions"></LoadComponent>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card mt-4">
+                    <div class="card-header">
                         @Localizer["ProductDescription"]
                         <div class="cart-arrow-down"><i class="fa fa-angle-down"></i></div>
                     </div>
@@ -225,7 +242,7 @@
         <script src="~/lib/CKEditor5/build/translations/fa.js"></script>
     }
 
-<script>
+    <script>
         $(".Date").persianDatepicker({
             format: 'YYYY/MM/DD HH:mm:ss',
             toolbox: {
@@ -260,7 +277,7 @@
         });
 
     function OnComboSelectInput_TopicId(e) {
-        
+
         LoadComponenet('/@ViewData["Culture"]/User/Products/Compo/ComboProductProperties',
         {
             TopicId: e.dataItem.Id
@@ -269,5 +286,5 @@
             $('#ProductProperties').html(res);
         });
     }
-</script>
+    </script>
 }

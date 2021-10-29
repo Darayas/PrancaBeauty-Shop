@@ -67,6 +67,7 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
         public List<viAddProduct_Properties> Properties { get; set; }
         public List<viAddProduct_Keywords> Keywords { get; set; }
         public List<viAddProduct_Variants> Variants { get; set; }
+        public List<viAddProduct_PostingRestrictions> PostingRestrictions { get; set; }
     }
 
     public class viAddProduct_Properties
@@ -88,5 +89,12 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
         public string Title { get; set; }
         public string Value { get; set; }
         public string Percent { get; set; }
+    }
+    
+    public class viAddProduct_PostingRestrictions
+    {
+        public string Id { get; set; }
+        public string CountryId { get; set; }
+        public string Posting { get; set; }
     }
 }

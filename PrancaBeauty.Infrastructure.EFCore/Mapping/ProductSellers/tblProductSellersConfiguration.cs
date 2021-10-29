@@ -18,8 +18,6 @@ namespace PrancaBeauty.Infrastructure.EFCore.Mapping.ProductSellers
             builder.Property(a => a.Id).IsRequired().HasMaxLength(150);
             builder.Property(a => a.ProductId).IsRequired().HasMaxLength(150);
             builder.Property(a => a.SellerUserId).IsRequired().HasMaxLength(450);
-            builder.Property(a => a.Guarantee).IsRequired(false).HasMaxLength(200);
-            builder.Property(a => a.SendFrom).IsRequired().HasMaxLength(200);
 
             builder.HasOne(a => a.tblProducts)
                    .WithMany(a => a.tblProductSellers)

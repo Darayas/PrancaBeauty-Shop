@@ -39,6 +39,12 @@ namespace PrancaBeauty.Infrastructure.EFCore.Mapping.ProductVariantItems
                    .HasPrincipalKey(a => a.Id)
                    .HasForeignKey(a => a.ProductVariantId)
                    .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(a => a.tblGuarantee)
+                   .WithMany(a => a.tblProductVariantItems)
+                   .HasPrincipalKey(a => a.Id)
+                   .HasForeignKey(a => a.GuaranteeId)
+                   .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

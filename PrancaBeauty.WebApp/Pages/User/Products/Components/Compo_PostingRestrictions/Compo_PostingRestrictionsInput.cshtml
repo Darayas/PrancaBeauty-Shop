@@ -1,0 +1,30 @@
+﻿@page  "/{culture}/User/Products/Compo/PostingRestrictionsInput"
+@model PrancaBeauty.WebApp.Pages.User.Products.Components.Compo_PostingRestrictions.Compo_PostingRestrictionsInputModel
+
+
+<div id="PostingRestrictions@(Model.Input.Index)">
+    <div class="row">
+        <div class="col-md-7">
+            <div class="form-group">
+                <input asp-for="Input.Id" type="hidden" name="Input.PostingRestrictions[Model.Input.Index].Id" />
+                <LoadComponent url="/@ViewData["Culture"]/Shared/Compo/Region/ComboCountris"
+                               id="CompoCountries"
+                               context="HttpContext"
+                               data='new viCompo_Combo_Countries { CountryId=Model.Input.CountryId,FieldName="Input.PostingRestrictions["+Model.Input.Index+"].CountryId",ShowLabel=false}'></LoadComponent>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <input asp-for="Input.Id" type="hidden" name="Input.PostingRestrictions[Model.Input.Index].Id" />
+                <select class="form-control" asp-for="Input.Posting" name="Input.PostingRestrictions[Model.Input.Index].Posting">
+                    <option value="true">@Localizer["WillBeSend"]</option>
+                    <option value="false">@Localizer["CantSend"]</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-md-1">
+            <button type="button" onclick="RemovePostingRestrictions('@Model.Input.Index')" class="btn btn-danger"><i class="fa fa-times"></i></button>
+        </div>
+    </div>
+</div>

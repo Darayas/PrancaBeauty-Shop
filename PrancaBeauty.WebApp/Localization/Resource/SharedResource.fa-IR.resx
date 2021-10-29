@@ -207,6 +207,9 @@
   <data name="Cancel" xml:space="preserve">
     <value>انصراف</value>
   </data>
+  <data name="CantSend" xml:space="preserve">
+    <value>ارسال نمیشود</value>
+  </data>
   <data name="CategoryHasChild,CantRemove" xml:space="preserve">
     <value>دسته مورد نظر دارای فرزندانی میباشد که برای حذف، ابتدا باید آن ها حذف شوند</value>
   </data>
@@ -792,6 +795,9 @@
   <data name="PleaseSelectCategory" xml:space="preserve">
     <value>انتخاب دسته</value>
   </data>
+  <data name="PleaseSelectPostingRestrictions" xml:space="preserve">
+    <value>هیچ محدودیتی تنظیم نشده است</value>
+  </data>
   <data name="PleaseSelectTopic" xml:space="preserve">
     <value>لطفا ابتدا موضوع محصول را از بخش جزئیات عمومی انتخاب نمایید</value>
   </data>
@@ -801,11 +807,26 @@
   <data name="PleseSelect" xml:space="preserve">
     <value>لطفا انتخاب کنید</value>
   </data>
+  <data name="PleseSelectCity" xml:space="preserve">
+    <value>انتخاب شهر</value>
+  </data>
+  <data name="PleseSelectCountry" xml:space="preserve">
+    <value>انتخاب کشور</value>
+  </data>
+  <data name="PleseSelectProvince" xml:space="preserve">
+    <value>انتخاب استان</value>
+  </data>
   <data name="PostalCode" xml:space="preserve">
     <value>کد پستی</value>
   </data>
   <data name="PostalCodePattern" xml:space="preserve">
     <value>[0-9]{10}</value>
+  </data>
+  <data name="Posting" xml:space="preserve">
+    <value>وضعیت</value>
+  </data>
+  <data name="PostingRestrictions" xml:space="preserve">
+    <value>محدودیت ارسال</value>
   </data>
   <data name="Previous" xml:space="preserve">
     <value>قبلی</value>
@@ -1067,6 +1088,9 @@
   </data>
   <data name="View" xml:space="preserve">
     <value>نمایش</value>
+  </data>
+  <data name="WillBeSend" xml:space="preserve">
+    <value>ارسال میشود</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>بله</value>

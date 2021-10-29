@@ -1,0 +1,35 @@
+﻿@page "/{culture}/User/Products/Compo/PostingRestrictions"
+@model PrancaBeauty.WebApp.Pages.User.Products.Components.Compo_PostingRestrictions.Compo_PostingRestrictionsModel
+
+<div class="row">
+    <div class="col-md-12">
+
+        <button onclick="AddPostingRestrictionsInput()" type="button" class="btn btn-success btn-sm"><i class="fa fa-plus"></i></button>
+
+        <hr />
+        <div id="CompoAddPostingRestrictionsSection">
+            <LoadComponent class="ProductPostingRestrictionsInputCompo"
+                           context="HttpContext"
+                           data='new viCompo_PostingRestrictionsInput { Index=0}'
+                           url="/@ViewData["culture"]/User/Products/Compo/PostingRestrictionsInput"></LoadComponent>
+
+        </div>
+    </div>
+
+
+    <script>
+        function AddPostingRestrictionsInput() {
+            var _Count = $('.ProductPostingRestrictionsInputCompo').length;
+            LoadComponenet('/@ViewData["culture"]/User/Products/Compo/PostingRestrictionsInput', {
+                Index: _Count
+            }, function (res) {
+                $('#CompoAddPostingRestrictionsSection').append("<div class='ProductPostingRestrictionsInputCompo'>" + res + "</div>");
+            });
+        }
+
+        function RemovePostingRestrictions(_Index) {
+            $('#PostingRestrictions' + _Index).hide();
+            $('#PostingRestrictions' + _Index+' input').val("");
+        }
+    </script>
+</div>

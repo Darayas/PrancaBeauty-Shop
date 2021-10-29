@@ -1,6 +1,7 @@
 ﻿using Framework.Domain;
 using PrancaBeauty.Domin.Categories.CategoriesAgg.Entities;
 using PrancaBeauty.Domin.FileServer.FileAgg.Entities;
+using PrancaBeauty.Domin.Product.GuaranteeAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductPropertisAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductReviewsAttributeAgg.Entities;
@@ -45,6 +46,7 @@ namespace PrancaBeauty.Domin.Region.LanguagesAgg.Entities
         public virtual ICollection<tblProductReviewsAttribute_Translate> tblProductReviewsAttribute_Translate { get; set; }
         public virtual ICollection<tblProducts> tblProducts { get; set; }
         public virtual ICollection<tblCurrency_Translates> tblCurrency_Translates { get; set; }
+        public virtual ICollection<tblGuarantee_Translates> tblGuarantee_Translates { get; set; }
 
         public virtual tblCountries tblCountries { get; set; }
     }

@@ -8,8 +8,9 @@
 
 <div class="row">
     <script>
-        function LoadVariantPercent(_Id) {
-            $('#' + _Id).autoNumeric('init', { vMax: '1000.999',vMin:'-100.999', lZero: 'deny', aDec: '.', aSep: ',' });
+        function LoadAutoNumeric(_Id) {
+            $('#Percent' + _Id).autoNumeric('init', { vMax: '1000.999',vMin:'-100.999', lZero: 'deny', aDec: '.', aSep: ',' });
+            $('#CountInStock' + _Id).autoNumeric('init', { vMax: '10000000',vMin:'1', lZero: 'deny', aSep: ',' });
         }
     </script>
 

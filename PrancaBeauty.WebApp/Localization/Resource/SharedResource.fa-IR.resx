@@ -201,6 +201,9 @@
   <data name="AuthorUserId" xml:space="preserve">
     <value>نویسنده</value>
   </data>
+  <data name="AWorkingDay" xml:space="preserve">
+    <value>یک روز کاری</value>
+  </data>
   <data name="BirthDate" xml:space="preserve">
     <value>تاریخ تولد</value>
   </data>
@@ -288,6 +291,9 @@
   <data name="CountBills" xml:space="preserve">
     <value>تعداد صورت حساب</value>
   </data>
+  <data name="CountInStock" xml:space="preserve">
+    <value>تعداد نزد فروشنده</value>
+  </data>
   <data name="CountryId" xml:space="preserve">
     <value>کشور</value>
   </data>
@@ -320,6 +326,9 @@
   </data>
   <data name="Description" xml:space="preserve">
     <value>توضیحات</value>
+  </data>
+  <data name="Disable" xml:space="preserve">
+    <value>غیرفعال</value>
   </data>
   <data name="District" xml:space="preserve">
     <value>محله</value>
@@ -384,6 +393,9 @@
   <data name="EmailPattern" xml:space="preserve">
     <value>^[a-zA-Z0-9\-\._]{3,100}[@][a-zA-Z0-9\-\._]{3,100}$</value>
   </data>
+  <data name="Enable" xml:space="preserve">
+    <value>فعال</value>
+  </data>
   <data name="Err429Msg" xml:space="preserve">
     <value>&lt;span style='font-weight:700;color:red;font-size:18px;'&gt;تعداد درخواست های ارسالی به سرور بیش از حد مجاز میباشد.&lt;/span&gt;&lt;br/&gt;&lt;span style='font-weight:600;font-size:16px;'&gt;لطفا 1 دقیقه ی دیگر مجددا تلاش نمایید.&lt;/span&gt;</value>
   </data>
@@ -443,6 +455,9 @@
   </data>
   <data name="FontIconCode" xml:space="preserve">
     <value>کد فونت ایکن</value>
+  </data>
+  <data name="FourWorkingDays" xml:space="preserve">
+    <value>چهار روز کاری</value>
   </data>
   <data name="FullName" xml:space="preserve">
     <value>نام کاربر</value>
@@ -834,6 +849,9 @@
   <data name="Previous" xml:space="preserve">
     <value>قبلی</value>
   </data>
+  <data name="ProductCodeForSeller" xml:space="preserve">
+    <value>کد محصول نزد فروشنده</value>
+  </data>
   <data name="ProductDate" xml:space="preserve">
     <value>تاریخ انتشار محصول</value>
   </data>
@@ -960,6 +978,12 @@
   <data name="SendAuthCode" xml:space="preserve">
     <value>ارسال کد احراز هویت</value>
   </data>
+  <data name="SendByPrancaBeauty" xml:space="preserve">
+    <value>ارسال توسط پرنسابیوتی</value>
+  </data>
+  <data name="SendBySeller" xml:space="preserve">
+    <value>ارسال توسط فروشنده</value>
+  </data>
   <data name="SEO" xml:space="preserve">
     <value>سئو</value>
   </data>
@@ -1005,6 +1029,9 @@
   <data name="StringLengthMsg" xml:space="preserve">
     <value>{0} باید بین {2} تا {1} کاراکتر باشد</value>
   </data>
+  <data name="ThreeWorkingDays" xml:space="preserve">
+    <value>سه روز کاری</value>
+  </data>
   <data name="Title" xml:space="preserve">
     <value>عنوان</value>
   </data>
@@ -1019,6 +1046,9 @@
   </data>
   <data name="TopicId" xml:space="preserve">
     <value>موضوع </value>
+  </data>
+  <data name="TwoWorkingDays" xml:space="preserve">
+    <value>دو روز کاری</value>
   </data>
   <data name="Unit" xml:space="preserve">
     <value>واحد</value>

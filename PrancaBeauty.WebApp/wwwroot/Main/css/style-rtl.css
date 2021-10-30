@@ -7902,12 +7902,17 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
     border-bottom: unset !important;
     font-weight: 700;
     font-size: 18px; }
-    .card .card-header .cart-arrow-down {
-      float: left;
-      display: inline-block;
-      cursor: pointer; }
-      .card .card-header .cart-arrow-down:hover {
-        color: #d52121; }
+    .card .card-header .card-option {
+      float: left; }
+      .card .card-header .card-option div {
+        display: inline-block;
+        cursor: pointer; }
+        .card .card-header .card-option div:hover {
+          color: #d52121; }
+        .card .card-header .card-option div i {
+          font-weight: normal; }
+      .card .card-header .card-option .card-Remove {
+        margin-left: 5px; }
   .card .card-body {
     overflow: hidden; }
 

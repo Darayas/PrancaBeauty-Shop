@@ -750,7 +750,7 @@
     /*---product dl column3 activation---*/
 })(jQuery);
 
-$('.cart-arrow-down').click(function () {
+$('.card-arrow-down').click(function () {
 
     var _ParentCard = $(this).parents('.card');
 

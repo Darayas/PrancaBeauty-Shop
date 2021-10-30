@@ -9,13 +9,27 @@
         font-weight: 700;
         font-size: 18px;
 
-        .cart-arrow-down {
+        .card-option {
             float: left;
-            display: inline-block;
-            cursor: pointer;
 
-            &:hover {
-                color: #d52121;
+            div {
+                display: inline-block;
+                cursor: pointer;
+
+                &:hover {
+                    color: #d52121;
+                }
+
+                i {
+                    font-weight: normal;
+                }
+            }
+
+            .card-Remove {
+                margin-left: 5px;
+            }
+
+            .card-arrow-down {
             }
         }
     }

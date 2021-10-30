@@ -3,30 +3,47 @@
 
 <div id="Variants@(Model.Input.Index)">
     <div class="row">
-        <div class="col-md-4">
-            <div class="form-group">
-                <input asp-for="Input.Id" type="hidden" name="Input.Variants[Model.Input.Index].Id" />
-                <input class="form-control" asp-for="Input.Title" name="Input.Variants[Model.Input.Index].Title" type="text" placeholder="@Localizer["VariantTitle"]" />
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <input class="form-control text-left" asp-for="Input.Value" name="Input.Variants[Model.Input.Index].Value" type="text" placeholder="@Localizer["VariantValue"]" />
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="form-group">
-                <div class="input-group mb-3 dir-ltr">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">%</span>
+        <div class="col-md-11">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <input asp-for="Input.Id" type="hidden" name="Input.Variants[Model.Input.Index].Id" />
+                        <input class="form-control" asp-for="Input.Title" name="Input.Variants[Model.Input.Index].Title" type="text" placeholder="@Localizer["VariantTitle"]" />
                     </div>
-                    <input class="form-control fs-14px text-center dir-ltr" asp-for="Input.Percent" id="Percent@(Model.Input.Index)" name="Input.Variants[Model.Input.Index].Percent" type="text" title="@Localizer["VariantPercentPriceMsg"]" placeholder="@Localizer["VariantPercentPrice"]" />
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <input class="form-control text-left" asp-for="Input.Value" name="Input.Variants[Model.Input.Index].Value" type="text" placeholder="@Localizer["VariantValue"]" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="input-group mb-3 dir-ltr">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">%</span>
+                            </div>
+                            <input class="form-control fs-14px text-center dir-ltr" asp-for="Input.Percent" id="Percent@(Model.Input.Index)" name="Input.Variants[Model.Input.Index].Percent" type="text" title="@Localizer["VariantPercentPriceMsg"]" placeholder="@Localizer["VariantPercentPrice"]" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <LoadComponent class="ProductGuarantee"
+                                   context="HttpContext"
+                                   data='new viCompo_Combo_Guarantee { FieldName=$"Input.Variants[{Model.Input.Index}].GuaranteeId"}'
+                                   url="/@ViewData["culture"]/Shared/Compo/ComboGuarantee"></LoadComponent>
                 </div>
             </div>
         </div>
         <div class="col-md-1">
-            <button type="button" onclick="RemoveVariants('@Model.Input.Index')" class="btn btn-danger"><i class="fa fa-times"></i></button>
+            <div class="row">
+                <div class="col-md-12">
+                    <button type="button" onclick="RemoveVariants('@Model.Input.Index')" class="btn btn-danger"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
         </div>
+        
     </div>
     <script>
         LoadVariantPercent('Percent@(Model.Input.Index)');

@@ -28,7 +28,8 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                 //new AddData_Template().Run();
                 //new AddData_ProductTopics().Run();
                 //new AddData_ProductProperties().Run();
-                new AddData_ProductVariants().Run();
+                //new AddData_ProductVariants().Run();
+                new AddData_Guarantee().Run();
             }
             catch (Exception ex)
             {

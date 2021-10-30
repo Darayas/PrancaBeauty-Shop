@@ -38,7 +38,7 @@ namespace PrancaBeauty.Application.Apps.Guarantee
                                                          Name = a.Name,
                                                          Title = a.tblGuarantee_Translates.Where(b => b.LangId == Guid.Parse(LangId)).Select(b => b.Title).Single()
                                                      })
-                                                     .Where(a => Search != null ? a.Title.Contains(Search) || a.Name.Contains(Search) : false)
+                                                     .Where(a => Search != null ? a.Title.Contains(Search) || a.Name.Contains(Search) : true)
                                                      .OrderBy(a => a.Title)
                                                      .Skip(0)
                                                      .Take(40)

@@ -827,3 +827,7 @@
 .k-lang .k-upload .k-upload-selected {
     border-radius: 0 0 0 4px;
 }
+
+.k-lang .noClearButton .k-input {
+    padding-left: 0px!important ;
+}

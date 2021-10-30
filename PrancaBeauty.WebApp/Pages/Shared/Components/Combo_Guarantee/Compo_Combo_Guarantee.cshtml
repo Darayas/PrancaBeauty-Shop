@@ -22,7 +22,8 @@
     @(Html.Kendo()
           .ComboBox()
           .Name(FieldName)
-          .HtmlAttributes(new { @class= "form-control",style="width:100%;height:35px;" })
+          .ClearButton(false)
+          .HtmlAttributes(new { @class= "form-control noClearButton",style="width:100%;height:35px;" })
           .Placeholder(Localizer["PleseSelectGuarantee"])
           .DataTextField("Title")
           .DataValueField("Id")
@@ -34,5 +35,5 @@
               {
                   read.Url($"/{ViewData["culture"]}/Shared/Compo/ComboGuarantee?handler=Read").Data($"Filter_{FieldId}");
               }).ServerFiltering(true);
-          }).Template("<div class='d-inline ml-2 mr-2'>#=Title#</div>"))
+          }).Template("<div style='overflow:hidden;height: 30px; text-overflow: ellipsis; white-space: nowrap; display: block !important;' class='d-inline ml-2 mr-2' title='#=Title#'>#=Title#</div>"))
 </div>

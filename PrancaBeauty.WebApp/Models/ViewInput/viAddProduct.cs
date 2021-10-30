@@ -89,6 +89,7 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
         public string Title { get; set; }
         public string Value { get; set; }
         public string Percent { get; set; }
+        public string GuaranteeId { get; set; }
     }
     
     public class viAddProduct_PostingRestrictions

@@ -2,9 +2,11 @@
 @model PrancaBeauty.WebApp.Pages.User.Products.Components.Compo_Variants.Compo_Variants_ItemsModel
 
 
-<div class="card" id="Variants@(Model.Input.Index)">
+<div class="card collapse show" id="Variants@(Model.Input.Index)">
     <div class="card-header">
-        تنوع محصول
+        <span id="VariantTitle@(Model.Input.Index)"></span>
+        <span id="VariantCode@(Model.Input.Index)"> </span>
+
 
         <div class="card-option">
             <div onclick="RemoveVariants('@Model.Input.Index')" class="card-Remove">×</div>
@@ -19,12 +21,12 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <input class="form-control" asp-for="Input.ProductCode" name="Input.Variants[Model.Input.Index].ProductCode" type="text" placeholder="@Localizer["ProductCodeForSeller"]" />
+                            <input class="form-control" onkeyup="$('#VariantCode@(Model.Input.Index)').text(' | '+$(this).val())" asp-for="Input.ProductCode" name="Input.Variants[Model.Input.Index].ProductCode" type="text" placeholder="@Localizer["ProductCodeForSeller"]" />
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <input class="form-control" asp-for="Input.Title" name="Input.Variants[Model.Input.Index].Title" type="text" placeholder="@Localizer["VariantTitle"]" />
+                            <input class="form-control" onkeyup="$('#VariantTitle@(Model.Input.Index)').text($(this).val())" asp-for="Input.Title" name="Input.Variants[Model.Input.Index].Title" type="text" placeholder="@Localizer["VariantTitle"]" />
                         </div>
                     </div>
                     <div class="col-md-4">

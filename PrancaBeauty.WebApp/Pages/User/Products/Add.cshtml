@@ -26,207 +26,238 @@
         </div>
     </div>
 }
+<form id="FrmAddProdcut">
+    <input asp-for="Input.IsDraft" id="IsDraft" type="hidden" />
+    <div class="row">
+        <div class="col-md-4">
 
-<div class="row">
-    <div class="col-md-4">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            @Localizer["PublicDetials"]
+                            <div class="card-option">
+                                <div class="card-arrow-down"><i class="fa fa-angle-down"></i></div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label asp-for="Input.LangId"></label>
+                                <LoadComponent id="ProductLangCompo"
+                                               context="HttpContext"
+                                               data='new viCompo_Combo_Language { FieldName="Input.LangId",LangId= await _LanguageApplication.GetLangIdByLangCodeAsync(CultureInfo.CurrentCulture.Name)}'
+                                               url="/@ViewData["culture"]/Shared/Compo/ComboLanguage"></LoadComponent>
+                            </div>
 
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        @Localizer["PublicDetials"]
-                        <div class="card-arrow-down"><i class="fa fa-angle-down"></i></div>
+                            <div class="form-group">
+                                <LoadComponent id="ProductTopicCompo"
+                                               context="HttpContext"
+                                               data='new viCompo_Combo_Topics { FieldName="Input.TopicId"}'
+                                               url="/@ViewData["culture"]/Shared/Compo/ComboTopics"></LoadComponent>
+                            </div>
+
+                            <div class="form-group">
+                                <LoadComponent id="ProductCategoryCompo"
+                                               context="HttpContext"
+                                               data='new viCompo_Combo_Categories { FieldName="Input.CategoryId"}'
+                                               url="/@ViewData["culture"]/Shared/Compo/ComboCategories"></LoadComponent>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Input.Name"></label>
+                                <input asp-for="Input.Name" class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Input.Title"></label>
+                                <input asp-for="Input.Title" class="form-control" />
+                            </div>
+
+                            <div class="form-group">
+                                <LoadComponent id="ProductPriceCompo"
+                                               context="HttpContext"
+                                               data='new viCompo_Input_Price { FieldName="Input.ProductPrice",Price="0",LangId=await _LanguageApplication.GetLangIdByLangCodeAsync(CultureInfo.CurrentCulture.Name)}'
+                                               url="/@ViewData["culture"]/Shared/Compo/ComboInputPrice"></LoadComponent>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <div class="form-group">
-                            <label asp-for="Input.LangId"></label>
-                            <LoadComponent id="ProductLangCompo"
-                                           context="HttpContext"
-                                           data='new viCompo_Combo_Language { FieldName="Input.LangId",LangId= await _LanguageApplication.GetLangIdByLangCodeAsync(CultureInfo.CurrentCulture.Name)}'
-                                           url="/@ViewData["culture"]/Shared/Compo/ComboLanguage"></LoadComponent>
-                        </div>
+                </div>
+            </div>
 
-                        <div class="form-group">
-                            <LoadComponent id="ProductTopicCompo"
-                                           context="HttpContext"
-                                           data='new viCompo_Combo_Topics { FieldName="Input.TopicId"}'
-                                           url="/@ViewData["culture"]/Shared/Compo/ComboTopics"></LoadComponent>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card mt-4">
+                        <div class="card-header">
+                            @Localizer["Settings"]
+                            <div class="card-option">
+                                <div class="card-arrow-down"><i class="fa fa-angle-down"></i></div>
+                            </div>
                         </div>
+                        <div class="card-body">
 
-                        <div class="form-group">
-                            <LoadComponent id="ProductCategoryCompo"
-                                           context="HttpContext"
-                                           data='new viCompo_Combo_Categories { FieldName="Input.CategoryId"}'
-                                           url="/@ViewData["culture"]/Shared/Compo/ComboCategories"></LoadComponent>
+                            <div class="form-group">
+                                <label asp-for="Input.Date"></label>
+                                <input asp-for="Input.Date" class="form-control Date text-center dir-ltr" />
+                            </div>
+
                         </div>
+                    </div>
+                </div>
+            </div>
 
-                        <div class="form-group">
-                            <label asp-for="Input.Name"></label>
-                            <input asp-for="Input.Name" class="form-control">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card mt-4">
+                        <div class="card-header">
+                            @Localizer["ProductProperties"]
+                            <div class="card-option">
+                                <div class="card-arrow-down"><i class="fa fa-angle-down"></i></div>
+                            </div>
                         </div>
-
-                        <div class="form-group">
-                            <label asp-for="Input.Title"></label>
-                            <input asp-for="Input.Title" class="form-control" />
-                        </div>
-
-                        <div class="form-group">
-                            <LoadComponent id="ProductPriceCompo"
-                                           context="HttpContext"
-                                           data='new viCompo_Input_Price { FieldName="Input.ProductPrice",Price="0",LangId=await _LanguageApplication.GetLangIdByLangCodeAsync(CultureInfo.CurrentCulture.Name)}'
-                                           url="/@ViewData["culture"]/Shared/Compo/ComboInputPrice"></LoadComponent>
+                        <div class="card-body" id="ProductProperties">
+                            <div class="alert alert-info text-center">
+                                @Localizer["PleaseSelectTopic"]
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card mt-4">
-                    <div class="card-header">
-                        @Localizer["Settings"]
-                        <div class="card-arrow-down"><i class="fa fa-angle-down"></i></div>
-                    </div>
-                    <div class="card-body">
-
-                        <div class="form-group">
-                            <label asp-for="Input.Date"></label>
-                            <input asp-for="Input.Date" class="form-control Date text-center dir-ltr" />
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            @Localizer["Keywords"]
+                            <div class="card-option">
+                                <div class="card-arrow-down"><i class="fa fa-angle-down"></i></div>
+                            </div>
                         </div>
-
+                        <div class="card-body">
+                            <LoadComponent id="ProductKeywordsCompo"
+                                           context="HttpContext"
+                                           data='new viCompo_Input_Keywords { FieldName="Input.ProductKeywords"}'
+                                           url="/@ViewData["culture"]/User/Products/Compo/CompoInputKeyword"></LoadComponent>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card mt-4">
-                    <div class="card-header">
-                        @Localizer["ProductProperties"]
-                        <div class="card-arrow-down"><i class="fa fa-angle-down"></i></div>
-                    </div>
-                    <div class="card-body" id="ProductProperties">
-                        <div class="alert alert-info text-center">
-                            @Localizer["PleaseSelectTopic"]
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card mt-4">
+                        <div class="card-header">
+                            @Localizer["SEO"]
+                            <div class="card-option">
+                                <div class="card-arrow-down"><i class="fa fa-angle-down"></i></div>
+                            </div>
                         </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label asp-for="Input.MetaTagCanonical"></label>
+                                <input asp-for="Input.MetaTagCanonical" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Input.MetaTagKeyword"></label>
+                                <textarea rows="2" asp-for="Input.MetaTagKeyword" class="form-control"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Input.MetaTagDescreption"></label>
+                                <textarea rows="4" asp-for="Input.MetaTagDescreption" class="form-control"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card mt-4">
+                        <div class="card-header">
+                            @Localizer["ProductImages"]
+                            <div class="card-option">
+                                <div class="card-arrow-down"><i class="fa fa-angle-down"></i></div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <LoadComponent id="ProductImagesCompo"
+                                           context="HttpContext"
+                                           data='new viCompo_FileSelector {ContainerId="ProductImagesCompo" ,FieldName="Input.ProductImage",MaxFileCount=2, MaxFileSize=1510007,AllowedMimeType="image/jpg, image/jpeg, image/png"}'
+                                           url="/@ViewData["culture"]/Shared/Compo/ComboFileSelector"></LoadComponent>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card mt-4">
+                        <div class="card-header">
+                            @Localizer["ProductVariants"]
+                            <div class="card-option">
+                                <div class="card-arrow-down"><i class="fa fa-angle-down"></i></div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <LoadComponent id="ProductVariantCompo"
+                                           context="HttpContext"
+                                           data='new viCompo_Variants {FieldName="Input.VariantId"}'
+                                           url="/@ViewData["culture"]/User/Products/Compo/Variants"></LoadComponent>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card mt-4">
+                        <div class="card-header">
+                            @Localizer["PostingRestrictions"]
+                            <div class="card-option">
+                                <div class="card-arrow-down"><i class="fa fa-angle-down"></i></div>
+
+                            </div>
+                        </div>
+                        <div class="card-body" id="ProductProperties">
+                            <LoadComponent id="ProductPostingRestrictionsCompo"
+                                           context="HttpContext"
+                                           data='new viCompo_PostingRestrictions {FieldName="Input.PostingRestrictions"}'
+                                           url="/@ViewData["culture"]/User/Products/Compo/PostingRestrictions"></LoadComponent>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card mt-4">
+                        <div class="card-header">
+                            @Localizer["ProductDescription"]
+                            <div class="card-option">
+                                <div class="card-arrow-down"><i class="fa fa-angle-down"></i></div>
+
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <label asp-for="Input.Description"></label>
+                            <div class="editor"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group frmBtnAction mt-4">
+                        <button onclick="GotoBack()" type="button" class="btn btn-warning">@Localizer["GotoBack"]</button>
+                        <button onclick="SendForm('/@ViewData["culture"]/User/Products/Add?IsDraft=true', 'FrmAddProdcut')" type="button" class="btn btn-info">@Localizer["SaveProductAsDraft"]</button>
+                        <button onclick="SendForm('/@ViewData["culture"]/User/Products/Add?IsDraft=false', 'FrmAddProdcut')" type="button" class="btn btn-success">@Localizer["SaveProductAndCheck"]</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-md-8">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        @Localizer["Keywords"]
-                        <div class="card-arrow-down"><i class="fa fa-angle-down"></i></div>
-                    </div>
-                    <div class="card-body">
-                        <LoadComponent id="ProductKeywordsCompo"
-                                       context="HttpContext"
-                                       data='new viCompo_Input_Keywords { FieldName="Input.ProductKeywords"}'
-                                       url="/@ViewData["culture"]/User/Products/Compo/CompoInputKeyword"></LoadComponent>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card mt-4">
-                    <div class="card-header">
-                        @Localizer["SEO"]
-                        <div class="card-arrow-down"><i class="fa fa-angle-down"></i></div>
-                    </div>
-                    <div class="card-body">
-                        <div class="form-group">
-                            <label asp-for="Input.MetaTagCanonical"></label>
-                            <input asp-for="Input.MetaTagCanonical" class="form-control" />
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="Input.MetaTagKeyword"></label>
-                            <textarea rows="2" asp-for="Input.MetaTagKeyword" class="form-control"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="Input.MetaTagDescreption"></label>
-                            <textarea rows="4" asp-for="Input.MetaTagDescreption" class="form-control"></textarea>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card mt-4">
-                    <div class="card-header">
-                        @Localizer["ProductImages"]
-                        <div class="card-arrow-down"><i class="fa fa-angle-down"></i></div>
-                    </div>
-                    <div class="card-body">
-                        <LoadComponent id="ProductImagesCompo"
-                                       context="HttpContext"
-                                       data='new viCompo_FileSelector {ContainerId="ProductImagesCompo" ,FieldName="Input.ProductImage",MaxFileCount=2, MaxFileSize=1510007,AllowedMimeType="image/jpg, image/jpeg, image/png"}'
-                                       url="/@ViewData["culture"]/Shared/Compo/ComboFileSelector"></LoadComponent>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card mt-4">
-                    <div class="card-header">
-                        @Localizer["ProductVariants"]
-                        <div class="card-arrow-down"><i class="fa fa-angle-down"></i></div>
-                    </div>
-                    <div class="card-body">
-                        <LoadComponent id="ProductVariantCompo"
-                                       context="HttpContext"
-                                       data='new viCompo_Variants {FieldName="Input.VariantId"}'
-                                       url="/@ViewData["culture"]/User/Products/Compo/Variants"></LoadComponent>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card mt-4">
-                    <div class="card-header">
-                        @Localizer["PostingRestrictions"]
-                        <div class="card-arrow-down"><i class="fa fa-angle-down"></i></div>
-                    </div>
-                    <div class="card-body" id="ProductProperties">
-                        <LoadComponent id="ProductPostingRestrictionsCompo"
-                                       context="HttpContext"
-                                       data='new viCompo_PostingRestrictions {FieldName="Input.PostingRestrictions"}'
-                                       url="/@ViewData["culture"]/User/Products/Compo/PostingRestrictions"></LoadComponent>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card mt-4">
-                    <div class="card-header">
-                        @Localizer["ProductDescription"]
-                        <div class="card-arrow-down"><i class="fa fa-angle-down"></i></div>
-                    </div>
-                    <div class="card-body">
-                        <label asp-for="Input.Description"></label>
-                        <div class="editor"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
+</form>
 
 
 @section styles{
@@ -243,6 +274,10 @@
     }
 
     <script>
+        function GotoBack() {
+            location.href = '@ViewData["ReturnUrl"]';
+        }
+
         $(".Date").persianDatepicker({
             format: 'YYYY/MM/DD HH:mm:ss',
             toolbox: {

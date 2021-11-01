@@ -462,6 +462,9 @@
   <data name="FullName" xml:space="preserve">
     <value>نام کاربر</value>
   </data>
+  <data name="GotoBack" xml:space="preserve">
+    <value> بازگشت</value>
+  </data>
   <data name="GotoList" xml:space="preserve">
     <value>بازگشت به لیست</value>
   </data>
@@ -956,6 +959,12 @@
   </data>
   <data name="SaveAccountSettings" xml:space="preserve">
     <value>ذخیره تنظیمات حساب</value>
+  </data>
+  <data name="SaveProductAndCheck" xml:space="preserve">
+    <value>ارسال برای برسی</value>
+  </data>
+  <data name="SaveProductAsDraft" xml:space="preserve">
+    <value>پیش نویس</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>جستوجو</value>

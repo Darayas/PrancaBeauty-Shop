@@ -11,7 +11,6 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
 {
     public class viAddProduct
     {
-        public string ReturnUrl { get; set; }
 
         [Display(Name = "LangId")]
         [Required(ErrorMessage = "RequiredMsg")]
@@ -19,7 +18,7 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
         public string LangId { get; set; }
 
         [Display(Name = "TopicId")]
-        [Required(ErrorMessage = "RequiredMsg")]
+        [RequiredForDraft(ErrorMessage = "RequiredMsg")]
         [GUID(ErrorMessage = "GUIDMsg")]
         public string TopicId { get; set; }
 
@@ -64,6 +63,8 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
         [Display(Name = "ProductDescription")]
         [Required(ErrorMessage = "RequiredMsg")]
         public string Description { get; set; }
+
+        public bool IsDraft { get; set; }
 
         public List<viAddProduct_Properties> Properties { get; set; }
         public List<viAddProduct_Keywords> Keywords { get; set; }

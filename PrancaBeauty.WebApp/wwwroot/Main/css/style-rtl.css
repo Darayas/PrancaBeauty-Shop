@@ -7897,6 +7897,13 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   border: #e4e4e4;
   border-radius: 0px;
   box-shadow: 0 1px 6px 0 #cacaca; }
+  .card.collapsing {
+    height: 50px !important; }
+  .card.collapse {
+    height: 50px !important;
+    overflow: hidden; }
+    .card.collapse.show {
+      height: unset !important; }
   .card .card-header {
     background-color: unset !important;
     border-bottom: unset !important;
@@ -7914,7 +7921,8 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
       .card .card-header .card-option .card-Remove {
         margin-left: 5px; }
   .card .card-body {
-    overflow: hidden; }
+    overflow: hidden;
+    display: inline-block; }
 
 .dir-ltr {
   direction: ltr; }
@@ -8055,3 +8063,6 @@ err500 {
 .text-heading3 {
   font-size: 15px;
   color: #232323; }
+
+form .frmBtnAction {
+  text-align: left; }

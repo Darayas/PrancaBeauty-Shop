@@ -3,6 +3,19 @@
     border-radius: 0px;
     box-shadow: 0 1px 6px 0 #cacaca;
 
+    &.collapsing {
+        height: 50px !important;
+    }
+
+    &.collapse {
+        height: 50px !important;
+        overflow: hidden;
+
+        &.show {
+            height: unset !important;
+        }
+    }
+
     .card-header {
         background-color: unset !important;
         border-bottom: unset !important;
@@ -36,5 +49,6 @@
 
     .card-body {
         overflow: hidden;
+        display: inline-block;
     }
 }

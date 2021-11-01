@@ -17,7 +17,7 @@ namespace PrancaBeauty.Domin.Keywords.Keywords_Products.Entities
         /// <summary>
         /// درصد تشابه
         /// </summary>
-        public int Similarity { get; set; }
+        public double Similarity { get; set; }
 
         public virtual tblKeywords tblKeywords { get; set; }
         public virtual tblProducts tblProducts { get; set; }

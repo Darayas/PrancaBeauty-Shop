@@ -27,7 +27,7 @@
     </div>
 }
 <form id="FrmAddProdcut">
-    <input asp-for="Input.IsDraft" id="IsDraft" type="hidden" />
+    <input asp-for="Input.IsDraft" type="hidden" />
     <div class="row">
         <div class="col-md-4">
 
@@ -250,8 +250,8 @@
                 <div class="col-md-12">
                     <div class="form-group frmBtnAction mt-4">
                         <button onclick="GotoBack()" type="button" class="btn btn-warning">@Localizer["GotoBack"]</button>
-                        <button onclick="SendForm('/@ViewData["culture"]/User/Products/Add?IsDraft=true', 'FrmAddProdcut')" type="button" class="btn btn-info">@Localizer["SaveProductAsDraft"]</button>
-                        <button onclick="SendForm('/@ViewData["culture"]/User/Products/Add?IsDraft=false', 'FrmAddProdcut')" type="button" class="btn btn-success">@Localizer["SaveProductAndCheck"]</button>
+                        <button onclick="SaveAsDraft()" type="button" class="btn btn-info">@Localizer["SaveProductAsDraft"]</button>
+                        <button onclick="SendForm('/@ViewData["culture"]/User/Products/Add', 'FrmAddProdcut')" type="button" class="btn btn-success">@Localizer["SaveProductAndCheck"]</button>
                     </div>
                 </div>
             </div>
@@ -273,7 +273,15 @@
         <script src="~/lib/CKEditor5/build/translations/fa.js"></script>
     }
 
-    <script>
+<script>
+        function SaveAsDraft() {
+            $('#Input_IsDraft').val('true');
+            setTimeout(function () {
+                SendForm('/@ViewData["culture"]/User/Products/Add', 'FrmAddProdcut');
+            }, 100);
+
+        }
+
         function GotoBack() {
             location.href = '@ViewData["ReturnUrl"]';
         }
@@ -321,5 +329,5 @@
             $('#ProductProperties').html(res);
         });
     }
-    </script>
+</script>
 }

@@ -1,4 +1,5 @@
-﻿using PrancaBeauty.Domin.Product.ProductVariantsItemsAgg.Entities;
+﻿using Framework.Application.Enums;
+using PrancaBeauty.Domin.Product.ProductVariantsItemsAgg.Entities;
 using PrancaBeauty.WebApp.Common.DataAnnotations;
 using System;
 using System.Collections.Generic;
@@ -64,11 +65,23 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
         [RequiredForDraft(nameof(IsDraft), ErrorMessage = "RequiredMsg")]
         public string Description { get; set; }
 
+        [Display(Name = "IsDraft")]
         public bool IsDraft { get; set; }
 
+        [Display(Name = "Properties")]
+        [RequiredForDraft(nameof(IsDraft), ErrorMessage = "RequiredMsg")]
         public List<viAddProduct_Properties> Properties { get; set; }
+
+        [Display(Name = "Keywords")]
+        [RequiredForDraft(nameof(IsDraft), ErrorMessage = "RequiredMsg")]
         public List<viAddProduct_Keywords> Keywords { get; set; }
+
+        [Display(Name = "ProductVariants")]
+        [RequiredForDraft(nameof(IsDraft), ErrorMessage = "RequiredMsg")]
         public List<viAddProduct_Variants> Variants { get; set; }
+
+        [Display(Name = "PostingRestrictions")]
+        [RequiredForDraft(nameof(IsDraft), ErrorMessage = "RequiredMsg")]
         public List<viAddProduct_PostingRestrictions> PostingRestrictions { get; set; }
     }
 
@@ -103,14 +116,44 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
     public class viAddProduct_Variants
     {
         public string Id { get; set; }
+
+        [Display(Name = "Title")]
+        [Required(ErrorMessage = "RequiredMsg")]
+        [StringLength(200, MinimumLength = 1, ErrorMessage = "StringLengthMsg")]
         public string Title { get; set; }
+
+        [Display(Name = "Value")]
+        [Required(ErrorMessage = "RequiredMsg")]
+        [StringLength(200, MinimumLength = 1, ErrorMessage = "StringLengthMsg")]
         public string Value { get; set; }
+
+        [Display(Name = "Percent")]
+        [Required(ErrorMessage = "RequiredMsg")]
+        [StringLength(10, MinimumLength = 1, ErrorMessage = "StringLengthMsg")]
         public string Percent { get; set; }
+
+        [Display(Name = "GuaranteeId")]
+        [GUID(ErrorMessage = "GUIDMsg")]
+        [Required(ErrorMessage = "RequiredMsg")]
+        [StringLength(100, MinimumLength = 1, ErrorMessage = "StringLengthMsg")]
         public string GuaranteeId { get; set; }
+
+        [Display(Name = "ProductCode")]
+        [Required(ErrorMessage = "RequiredMsg")]
+        [StringLength(100, MinimumLength = 1, ErrorMessage = "StringLengthMsg")]
         public string ProductCode { get; set; }
-        public tblProductVariantItems_SendBy SendBy { get; set; } // ارسال توسط: پرنسابیوتی، فروشنده
+
+        [Display(Name = "SendBy")]
+        public ProductVariantItems_SendByEnum SendBy { get; set; } // ارسال توسط: پرنسابیوتی، فروشنده
+
+        [Display(Name = "IsEnable")]
         public bool IsEnable { get; set; }
-        public tblProductVariantItems_SendFrom SendFrom { get; set; } // ارسال از: 1، 2، 3، 4 رور کاری آینده
+
+        [Display(Name = "SendFrom")]
+        public ProductVariantItems_SendFromEnum SendFrom { get; set; } // ارسال از: 1، 2، 3، 4 رور کاری آینده
+
+        [Display(Name = "CountInStock")]
+        [Range(1, 100000,ErrorMessage = "RangeMsg")]
         public int CountInStock { get; set; }
     }
 

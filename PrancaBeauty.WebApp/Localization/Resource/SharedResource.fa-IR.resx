@@ -471,6 +471,9 @@
   <data name="GridIsEmpty" xml:space="preserve">
     <value>رکوردی به جهت نمایش وجود ندارد</value>
   </data>
+  <data name="GuaranteeId" xml:space="preserve">
+    <value>گارانتی</value>
+  </data>
   <data name="GUIDMsg" xml:space="preserve">
     <value>مقدار ارسال شده در {0} باید از نوع GUID باشد.</value>
   </data>
@@ -551,6 +554,9 @@
   </data>
   <data name="IsEmailConfirmed" xml:space="preserve">
     <value>تایید ایمیل</value>
+  </data>
+  <data name="IsEnable" xml:space="preserve">
+    <value>وضعیت</value>
   </data>
   <data name="IsNotConfirmed" xml:space="preserve">
     <value>تایید نشده</value>
@@ -777,6 +783,9 @@
   <data name="PasswordTooShort" xml:space="preserve">
     <value>کلمه عبور باید حداقل {0} کاراکتر باشد</value>
   </data>
+  <data name="Percent" xml:space="preserve">
+    <value>درصد</value>
+  </data>
   <data name="PhoneNumber" xml:space="preserve">
     <value>شماره موبایل</value>
   </data>
@@ -855,6 +864,9 @@
   <data name="Previous" xml:space="preserve">
     <value>قبلی</value>
   </data>
+  <data name="ProductCode" xml:space="preserve">
+    <value>کد محصول</value>
+  </data>
   <data name="ProductCodeForSeller" xml:space="preserve">
     <value>کد محصول نزد فروشنده</value>
   </data>
@@ -888,11 +900,17 @@
   <data name="ProfileImage" xml:space="preserve">
     <value>تصویر پروفایل</value>
   </data>
+  <data name="Properties" xml:space="preserve">
+    <value>خصوصیات</value>
+  </data>
   <data name="ProvinceId" xml:space="preserve">
     <value>استان</value>
   </data>
   <data name="PublicDetials" xml:space="preserve">
     <value>جزئیات عمومی</value>
+  </data>
+  <data name="RangeMsg" xml:space="preserve">
+    <value>{0} باید بین {1} تا {2} باشد.</value>
   </data>
   <data name="Recovery" xml:space="preserve">
     <value>بازیابی</value>
@@ -990,11 +1008,17 @@
   <data name="SendAuthCode" xml:space="preserve">
     <value>ارسال کد احراز هویت</value>
   </data>
+  <data name="SendBy" xml:space="preserve">
+    <value>ارسال توسط</value>
+  </data>
   <data name="SendByPrancaBeauty" xml:space="preserve">
     <value>ارسال توسط پرنسابیوتی</value>
   </data>
   <data name="SendBySeller" xml:space="preserve">
     <value>ارسال توسط فروشنده</value>
+  </data>
+  <data name="SendFrom" xml:space="preserve">
+    <value>ارسال از</value>
   </data>
   <data name="SEO" xml:space="preserve">
     <value>سئو</value>
@@ -1127,6 +1151,9 @@
   </data>
   <data name="VariantPercentPriceMsg" xml:space="preserve">
     <value>درصد قیمت این نوع محصول به نسبت قیمت اصلی</value>
+  </data>
+  <data name="Variants" xml:space="preserve">
+    <value />
   </data>
   <data name="VariantTitle" xml:space="preserve">
     <value>عنوان </value>

@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Products;
 using PrancaBeauty.WebApp.Authentication;
+using PrancaBeauty.WebApp.Common.ExMethod;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
 using PrancaBeauty.WebApp.Models.ViewInput;
 
@@ -45,6 +46,9 @@ namespace PrancaBeauty.WebApp.Pages.User.Products
         {
             try
             {
+                if (!ModelState.IsValid)
+                    return _MsgBox.ModelStateMsg(ModelState.GetErrors());
+
                 return Page();
             }
             catch (Exception ex)

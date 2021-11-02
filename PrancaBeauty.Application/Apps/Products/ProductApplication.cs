@@ -4,6 +4,7 @@ using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Apps.Categories;
 using PrancaBeauty.Application.Contracts.Products;
+using PrancaBeauty.Application.Contracts.Results;
 using PrancaBeauty.Domin.Product.ProductAgg.Contracts;
 using System;
 using System.Collections.Generic;
@@ -114,6 +115,48 @@ namespace PrancaBeauty.Application.Apps.Products
             {
                 _Logger.Error(ex);
                 return default;
+            }
+        }
+
+        public async Task<OperationResult> AddProdcutAsync(InpAddProdcut Input)
+        {
+            try
+            {
+                #region Validations
+                if (Input is null)
+                    throw new ArgumentInvalidException(nameof(Input));
+
+                if (Input.IsDraft)
+                {
+                    if (string.IsNullOrWhiteSpace(Input.LangId))
+                        throw new ArgumentInvalidException($"{nameof(Input.LangId)} cant be null or whitespace.");
+
+                    if (string.IsNullOrWhiteSpace(Input.Title))
+                        throw new ArgumentInvalidException($"{nameof(Input.Title)} cant be null or whitespace.");
+                }
+                else
+                {
+                    if (string.IsNullOrWhiteSpace(Input.LangId))
+                        throw new ArgumentInvalidException($"{nameof(Input.LangId)} cant be null or whitespace.");
+
+                    if (string.IsNullOrWhiteSpace(Input.TopicId))
+                        throw new ArgumentInvalidException($"{nameof(Input.TopicId)} cant be null or whitespace.");
+
+                    if (string.IsNullOrWhiteSpace(Input.Title))
+                        throw new ArgumentInvalidException($"{nameof(Input.Title)} cant be null or whitespace.");
+                }
+
+                #endregion
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
             }
         }
     }

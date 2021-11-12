@@ -133,6 +133,7 @@ namespace PrancaBeauty.Application.Apps.Products
 
                     if (string.IsNullOrWhiteSpace(Input.Title))
                         throw new ArgumentInvalidException($"{nameof(Input.Title)} cant be null or whitespace.");
+
                 }
                 else
                 {
@@ -142,11 +143,52 @@ namespace PrancaBeauty.Application.Apps.Products
                     if (string.IsNullOrWhiteSpace(Input.TopicId))
                         throw new ArgumentInvalidException($"{nameof(Input.TopicId)} cant be null or whitespace.");
 
+                    if (string.IsNullOrWhiteSpace(Input.CategoryId))
+                        throw new ArgumentInvalidException($"{nameof(Input.CategoryId)} cant be null or whitespace.");
+
+                    if (string.IsNullOrWhiteSpace(Input.Name))
+                        throw new ArgumentInvalidException($"{nameof(Input.Name)} cant be null or whitespace.");
+
                     if (string.IsNullOrWhiteSpace(Input.Title))
                         throw new ArgumentInvalidException($"{nameof(Input.Title)} cant be null or whitespace.");
+
+                    if (string.IsNullOrWhiteSpace(Input.Date))
+                        throw new ArgumentInvalidException($"{nameof(Input.Date)} cant be null or whitespace.");
+
+                    if (string.IsNullOrWhiteSpace(Input.Price))
+                        throw new ArgumentInvalidException($"{nameof(Input.Price)} cant be null or whitespace.");
+
+                    if (string.IsNullOrWhiteSpace(Input.Price))
+                        throw new ArgumentInvalidException($"{nameof(Input.MetaTagKeyword)} cant be null or whitespace.");
+
+                    if (string.IsNullOrWhiteSpace(Input.MetaTagCanonical))
+                        throw new ArgumentInvalidException($"{nameof(Input.MetaTagCanonical)} cant be null or whitespace.");
+
+                    if (string.IsNullOrWhiteSpace(Input.MetaTagDescreption))
+                        throw new ArgumentInvalidException($"{nameof(Input.MetaTagDescreption)} cant be null or whitespace.");
+
+                    if (string.IsNullOrWhiteSpace(Input.Description))
+                        throw new ArgumentInvalidException($"{nameof(Input.Description)} cant be null or whitespace.");
+
+                    if (Input.Properties is null)
+                        throw new ArgumentInvalidException($"{nameof(Input.Properties)} cant be null.");
+
+                    if (Input.Properties.Any(a => string.IsNullOrWhiteSpace(a.Value)))
+                        throw new ArgumentInvalidException($"{nameof(Input.Properties)} value cant be null or whitespace.");
+
+                    if (Input.Keywords is null)
+                        throw new ArgumentInvalidException($"{nameof(Input.Keywords)} cant be null.");
+
+                    if (Input.Keywords.Count() == 0)
+                        throw new ArgumentInvalidException($"keyword count must be greater than zero.");
+
                 }
 
                 #endregion
+
+                // برسی تکراری نبودن نام محصول
+                if (await CheckDuplicateNameAsync(Input.Name))
+                    return new OperationResult().Failed("ProdcutName is duplicate.");
             }
             catch (ArgumentInvalidException ex)
             {
@@ -158,6 +200,17 @@ namespace PrancaBeauty.Application.Apps.Products
                 _Logger.Error(ex);
                 return new OperationResult().Failed("Error500");
             }
+        }
+
+        private async Task<bool> CheckDuplicateNameAsync(string Name, string ProductId = null)
+        {
+            var qResult = await _ProductRepository.Get
+                                                  .Where(a => a.Name == Name)
+                                                  .Where(a => ProductId != null ? a.Id != Guid.Parse(ProductId) : true)
+                                                  .AnyAsync();
+
+            return qResult;
+
         }
     }
 }

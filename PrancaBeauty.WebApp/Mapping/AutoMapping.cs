@@ -26,6 +26,7 @@ namespace PrancaBeauty.WebApp.Mapping
             CreateMap<OutGetAddressDetails, viCompo_EditAddress>();
             CreateMap<viCompo_EditAddress, InpEditAddress>();
             CreateMap<viAddCategory, InpAddCategory>();
+            CreateMap<viAddProduct, InpAddProdcut>();
             CreateMap<viAddCategory_Translate, InpAddCategory_Translate>();
             CreateMap<viEditCategory, InpSaveEdit>();
             CreateMap<viEditCategory_Translate, InpSaveEdit_Translate>();

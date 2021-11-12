@@ -582,8 +582,14 @@
   <data name="KendoOf" xml:space="preserve">
     <value>از {0}</value>
   </data>
+  <data name="keyword count must be greater than zero." xml:space="preserve">
+    <value>حداقل یک کلمه کلیدی را وارد نمایید.</value>
+  </data>
   <data name="Keywords" xml:space="preserve">
     <value>کلمات کلیدی</value>
+  </data>
+  <data name="Keywords cant be null." xml:space="preserve">
+    <value>کلمات کلیدی را وارد نمایید</value>
   </data>
   <data name="KeywordSimilarity" xml:space="preserve">
     <value>درصد تشابه با محصول</value>
@@ -864,6 +870,9 @@
   <data name="Previous" xml:space="preserve">
     <value>قبلی</value>
   </data>
+  <data name="ProdcutName is duplicate." xml:space="preserve">
+    <value>نام محصول، ثبلا استفاده شده است. لطفا نام دیگری را انتخاب نمایید</value>
+  </data>
   <data name="ProductCode" xml:space="preserve">
     <value>کد محصول</value>
   </data>
@@ -902,6 +911,12 @@
   </data>
   <data name="Properties" xml:space="preserve">
     <value>خصوصیات</value>
+  </data>
+  <data name="Properties cant be null." xml:space="preserve">
+    <value>خصوصیات را وارد نمایید.</value>
+  </data>
+  <data name="Properties value cant be null or whitespace." xml:space="preserve">
+    <value>مقادیر Value در خصوصیات را وارد نمایید.</value>
   </data>
   <data name="ProvinceId" xml:space="preserve">
     <value>استان</value>

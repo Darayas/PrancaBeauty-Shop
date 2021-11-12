@@ -5,11 +5,13 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
+using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Products;
+using PrancaBeauty.Application.Contracts.Products;
 using PrancaBeauty.WebApp.Authentication;
 using PrancaBeauty.WebApp.Common.ExMethod;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
@@ -46,10 +48,38 @@ namespace PrancaBeauty.WebApp.Pages.User.Products
         {
             try
             {
+                #region Validation
                 if (!ModelState.IsValid)
                     return _MsgBox.ModelStateMsg(ModelState.GetErrors());
 
+                if (Input.Properties is null)
+                    throw new ArgumentInvalidException($"Properties cant be null.");
+
+                if (Input.Properties.Any(a => string.IsNullOrWhiteSpace(a.Value)))
+                    throw new ArgumentInvalidException($"Properties value cant be null or whitespace.");
+
+                if (Input.Keywords is null)
+                    throw new ArgumentInvalidException($"Keywords cant be null.");
+
+                if (Input.Keywords.Count() == 0)
+                    throw new ArgumentInvalidException($"keyword count must be greater than zero.");
+                #endregion
+
+                var _Result = await _ProductApplication.AddProdcutAsync(_Mapper.Map<InpAddProdcut>(Input));
+                if (_Result.IsSucceeded)
+                {
+
+                }
+                else
+                {
+
+                }
+
                 return Page();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                return _MsgBox.ModelStateMsg(_Localizer[ex.Message]);
             }
             catch (Exception ex)
             {

@@ -1,4 +1,5 @@
-﻿using PrancaBeauty.Domin.Product.ProductVariantsItemsAgg.Entities;
+﻿using Framework.Application.Enums;
+using PrancaBeauty.Domin.Product.ProductVariantsItemsAgg.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,9 +17,9 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
         public string Percent { get; set; }
         public string GuaranteeId { get; set; }
         public string ProductCode { get; set; }
-        public tblProductVariantItems_SendBy SendBy { get; set; } // ارسال توسط: پرنسابیوتی، فروشنده
+        public ProductVariantItems_SendByEnum SendBy { get; set; } // ارسال توسط: پرنسابیوتی، فروشنده
         public bool IsEnable { get; set; }
-        public tblProductVariantItems_SendFrom SendFrom { get; set; } // ارسال از: 1، 2، 3، 4 رور کاری آینده
+        public ProductVariantItems_SendFromEnum SendFrom { get; set; } // ارسال از: 1، 2، 3، 4 رور کاری آینده
         public int CountInStock { get; set; }
     }
 }

@@ -41,5 +41,10 @@ namespace Framework.Common.ExMethods
             string ReplaceTxt = Regex.Replace(text, Pattern, NewText, RegexOptions.Multiline | RegexOptions.Singleline);
             return ReplaceTxt;
         }
+
+        public static bool IsMatch(this string text, string Pattern, RegexOptions regexOptions = default)
+        {
+            return Regex.IsMatch(text, Pattern, regexOptions);
+        }
     }
 }

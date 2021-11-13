@@ -6,6 +6,7 @@ using PrancaBeauty.Application.Apps.Categories;
 using PrancaBeauty.Application.Contracts.Products;
 using PrancaBeauty.Application.Contracts.Results;
 using PrancaBeauty.Domin.Product.ProductAgg.Contracts;
+using PrancaBeauty.Domin.Product.ProductAgg.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -118,7 +119,7 @@ namespace PrancaBeauty.Application.Apps.Products
             }
         }
 
-        public async Task<OperationResult> AddProdcutAsync(InpAddProdcut Input)
+        public async Task<OperationResult> AddProdcutAsync(InpAddProdcut Input, string AuthorUserId)
         {
             try
             {
@@ -134,9 +135,14 @@ namespace PrancaBeauty.Application.Apps.Products
                     if (string.IsNullOrWhiteSpace(Input.Title))
                         throw new ArgumentInvalidException($"{nameof(Input.Title)} cant be null or whitespace.");
 
+                    if (string.IsNullOrWhiteSpace(AuthorUserId))
+                        throw new ArgumentInvalidException($"{nameof(AuthorUserId)} cant be null or whitespace.");
                 }
                 else
                 {
+                    if (string.IsNullOrWhiteSpace(AuthorUserId))
+                        throw new ArgumentInvalidException($"{nameof(AuthorUserId)} cant be null or whitespace.");
+
                     if (string.IsNullOrWhiteSpace(Input.LangId))
                         throw new ArgumentInvalidException($"{nameof(Input.LangId)} cant be null or whitespace.");
 
@@ -189,6 +195,21 @@ namespace PrancaBeauty.Application.Apps.Products
                 // برسی تکراری نبودن نام محصول
                 if (await CheckDuplicateNameAsync(Input.Name))
                     return new OperationResult().Failed("ProdcutName is duplicate.");
+
+                string ProductId = null;
+                #region افزودن محصول به جدول اصلی
+                {
+                    var tProduct = new tblProducts()
+                    {
+                        Id = Guid.Parse(ProductId),
+                        AuthorUserId = Guid.Parse(AuthorUserId),
+                        CategoryId = Input.CategoryId != null ? Guid.Parse(Input.CategoryId) : null,
+                        TopicId = Input.TopicId != null ? Guid.Parse(Input.TopicId) : null,
+                    };
+                }
+                #endregion
+
+                return default;
             }
             catch (ArgumentInvalidException ex)
             {

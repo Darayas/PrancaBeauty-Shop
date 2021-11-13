@@ -1,6 +1,7 @@
 ﻿using Framework.Application.Enums;
 using PrancaBeauty.Domin.Product.ProductVariantsItemsAgg.Entities;
 using PrancaBeauty.WebApp.Common.DataAnnotations;
+using PrancaBeauty.WebApp.Common.DataAnnotations.String;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -31,6 +32,7 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
         [Display(Name = "ProductName")]
         [RequiredForDraft(nameof(IsDraft), ErrorMessage = "RequiredMsg")]
         [StringLength(250, MinimumLength = 3, ErrorMessage = "StringLengthMsg")]
+        [ItsForUrl(ErrorMessage = "ItsForUrlMsg")]
         public string Name { get; set; } // Uniqe Name
 
         [Display(Name = "ProductTitle")]

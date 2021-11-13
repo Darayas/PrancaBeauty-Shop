@@ -21,10 +21,11 @@ namespace PrancaBeauty.Domin.Product.ProductAgg.Entities
 {
     public class tblProducts : IEntity
     {
+
         public Guid Id { get; set; }
-        public Guid TopicId { get; set; }
+        public Guid? TopicId { get; set; }
         public Guid AuthorUserId { get; set; }
-        public Guid CategoryId { get; set; }
+        public Guid? CategoryId { get; set; }
         public Guid LangId { get; set; }
         public DateTime Date { get; set; }
         public string UniqueNumber { get; set; } // Uniqe Name

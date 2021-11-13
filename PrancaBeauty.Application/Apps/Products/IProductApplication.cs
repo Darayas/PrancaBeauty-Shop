@@ -8,7 +8,7 @@ namespace PrancaBeauty.Application.Apps.Products
 {
     public interface IProductApplication
     {
-        Task<OperationResult> AddProdcutAsync(InpAddProdcut Input);
+        Task<OperationResult> AddProdcutAsync(InpAddProdcut Input, string AuthorUserId);
         Task<(OutPagingData, List<OutGetProductsForManage>)> GetProductsForManageAsync(int Page, int Take, string LangId, string SellerUserId, string AuthorUserId, string Title, string Name, bool? IsDelete, bool? IsDraft, bool? IsConfirmed, bool? IsSchedule);
     }
 }

@@ -1,4 +1,5 @@
-﻿using NETCore.Encrypt;
+﻿using Ganss.XSS;
+using NETCore.Encrypt;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,6 +56,31 @@ namespace Framework.Common.ExMethods
         public static bool CheckCharsForProductTitle(this string text)
         {
             return Regex.IsMatch(text, @"^[a-zا-یA-Z،,آ0-9\-\.\)\(\+\s_ءئأإؤيةًٌٍَُِّۀ»«]*$");
+        }
+
+        public static string GetSanitizeHtml(this string html)
+        {
+            var sanitizer = new HtmlSanitizer();
+            sanitizer.AllowedAttributes.Add("style");
+            sanitizer.AllowedAttributes.Add("class");
+            var strSanitizeHtml = sanitizer.Sanitize(html);
+
+            return strSanitizeHtml;
+        }
+
+        public static string ToNormalizedForUrl(this string UrlName)
+        {
+            string NewStr = "";
+
+            foreach (var item in UrlName)
+            {
+                if (Regex.IsMatch(item.ToString(), "^[A-Z]*$"))
+                    NewStr += "-" + item.ToString().ToLower();
+
+                NewStr += item.ToString();
+            }
+
+            return NewStr.Trim('-').Replace("--", "-");
         }
     }
 }

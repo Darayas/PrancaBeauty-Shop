@@ -203,10 +203,10 @@ namespace PrancaBeauty.Application.Apps.Products
                 #endregion
 
                 // برسی تکراری نبودن نام محصول
-                if (await CheckDuplicateNameAsync(Input.Name))
+                if (await CheckDuplicateNameAsync(Input.Name.ToNormalizedForUrl()))
                     return new OperationResult().Failed("ProdcutName is duplicate.");
 
-                string ProductId = null;
+                string ProductId = new Guid().SequentialGuid().ToString();
                 #region افزودن محصول به جدول اصلی
                 {
                     var tProduct = new tblProducts()
@@ -217,7 +217,7 @@ namespace PrancaBeauty.Application.Apps.Products
                         TopicId = Input.TopicId != null ? Guid.Parse(Input.TopicId) : null,
                         LangId = Guid.Parse(Input.LangId),
                         UniqueNumber = await GenerateUniqeNumberAsync(),
-                        Name = Input.Name,
+                        Name = Input.Name.ToNormalizedForUrl(),
                         Title = Input.Title,
                         Date = Input.Date == null ? DateTime.Now : (Convert.ToDateTime(Input.Date).AddHours(1) < DateTime.Now ? DateTime.Now : Convert.ToDateTime(Input.Date)),
                         IsConfirmed = false,
@@ -226,8 +226,10 @@ namespace PrancaBeauty.Application.Apps.Products
                         MetaTagCanonical = Input.MetaTagCanonical,
                         MetaTagDescreption = Input.MetaTagDescreption,
                         MetaTagKeyword = Input.MetaTagKeyword,
-
+                        Description = Input.Description.GetSanitizeHtml()
                     };
+
+                    await _ProductRepository.AddAsync(tProduct, default, true);
                 }
                 #endregion
 

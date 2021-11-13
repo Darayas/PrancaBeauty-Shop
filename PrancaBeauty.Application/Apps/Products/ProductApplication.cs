@@ -1,4 +1,5 @@
-﻿using Framework.Common.Utilities.Paging;
+﻿using Framework.Common.ExMethods;
+using Framework.Common.Utilities.Paging;
 using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
@@ -18,13 +19,15 @@ namespace PrancaBeauty.Application.Apps.Products
     public class ProductApplication : IProductApplication
     {
         private readonly ILogger _Logger;
+        private readonly ILocalizer _Localizer;
         private readonly IProductRepository _ProductRepository;
         private readonly ICategoryApplication _CategoryApplication;
-        public ProductApplication(IProductRepository productRepository, ILogger logger, ICategoryApplication categoryApplication)
+        public ProductApplication(IProductRepository productRepository, ILogger logger, ICategoryApplication categoryApplication, ILocalizer localizer)
         {
             _ProductRepository = productRepository;
             _Logger = logger;
             _CategoryApplication = categoryApplication;
+            _Localizer = localizer;
         }
 
         public async Task<(OutPagingData, List<OutGetProductsForManage>)> GetProductsForManageAsync(int Page, int Take, string LangId, string SellerUserId, string AuthorUserId, string Title, string Name, bool? IsDelete, bool? IsDraft, bool? IsConfirmed, bool? IsSchedule)
@@ -155,8 +158,14 @@ namespace PrancaBeauty.Application.Apps.Products
                     if (string.IsNullOrWhiteSpace(Input.Name))
                         throw new ArgumentInvalidException($"{nameof(Input.Name)} cant be null or whitespace.");
 
+                    if (!Input.Name.CheckCharsForUrlName())
+                        throw new ArgumentInvalidException(_Localizer["ItsForUrlMsg"]);
+
                     if (string.IsNullOrWhiteSpace(Input.Title))
                         throw new ArgumentInvalidException($"{nameof(Input.Title)} cant be null or whitespace.");
+
+                    if (!Input.Name.CheckCharsForProductTitle())
+                        throw new ArgumentInvalidException(_Localizer["ItsForProductTitleMsg"]);
 
                     if (string.IsNullOrWhiteSpace(Input.Date))
                         throw new ArgumentInvalidException($"{nameof(Input.Date)} cant be null or whitespace.");
@@ -188,6 +197,7 @@ namespace PrancaBeauty.Application.Apps.Products
                     if (Input.Keywords.Count() == 0)
                         throw new ArgumentInvalidException($"keyword count must be greater than zero.");
 
+
                 }
 
                 #endregion
@@ -205,6 +215,18 @@ namespace PrancaBeauty.Application.Apps.Products
                         AuthorUserId = Guid.Parse(AuthorUserId),
                         CategoryId = Input.CategoryId != null ? Guid.Parse(Input.CategoryId) : null,
                         TopicId = Input.TopicId != null ? Guid.Parse(Input.TopicId) : null,
+                        LangId = Guid.Parse(Input.LangId),
+                        UniqueNumber = await GenerateUniqeNumberAsync(),
+                        Name = Input.Name,
+                        Title = Input.Title,
+                        Date = Input.Date == null ? DateTime.Now : (Convert.ToDateTime(Input.Date).AddHours(1) < DateTime.Now ? DateTime.Now : Convert.ToDateTime(Input.Date)),
+                        IsConfirmed = false,
+                        IsDelete = false,
+                        IsDraft = Input.IsDraft,
+                        MetaTagCanonical = Input.MetaTagCanonical,
+                        MetaTagDescreption = Input.MetaTagDescreption,
+                        MetaTagKeyword = Input.MetaTagKeyword,
+
                     };
                 }
                 #endregion
@@ -232,6 +254,22 @@ namespace PrancaBeauty.Application.Apps.Products
 
             return qResult;
 
+        }
+
+        private async Task<string> GenerateUniqeNumberAsync()
+        {
+            string RndNum = null;
+            bool qResult = false;
+            do
+            {
+                RndNum = new Random().Next(1000, 9999).ToString() + new Random().Next(100, 999).ToString();
+                qResult = await _ProductRepository.Get.AnyAsync(a => a.UniqueNumber == RndNum);
+                //if (qResult == false)
+                //    break;
+
+            } while (qResult == true);
+
+            return RndNum;
         }
     }
 }

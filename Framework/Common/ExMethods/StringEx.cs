@@ -46,5 +46,15 @@ namespace Framework.Common.ExMethods
         {
             return Regex.IsMatch(text, Pattern, regexOptions);
         }
+
+        public static bool CheckCharsForUrlName(this string text)
+        {
+            return Regex.IsMatch(text, @"^[A-Za-z0-9\-]*$");
+        }
+
+        public static bool CheckCharsForProductTitle(this string text)
+        {
+            return Regex.IsMatch(text, @"^[a-zا-یA-Z،,آ0-9\-\.\)\(\+\s_ءئأإؤيةًٌٍَُِّۀ»«]*$");
+        }
     }
 }

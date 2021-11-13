@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PrancaBeauty.WebApp.Common.DataAnnotations.String
 {
-    public class ItsForUrlAttribute : ValidationAttribute
+    public class ItsForProductTitleAttribute:ValidationAttribute
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
@@ -21,7 +21,7 @@ namespace PrancaBeauty.WebApp.Common.DataAnnotations.String
 
             var _Localizer = validationContext.GetService<ILocalizer>();
 
-            if (((string)value).CheckCharsForUrlName())
+            if (((string)value).CheckCharsForProductTitle())
                 return ValidationResult.Success;
             else
                 return new ValidationResult(_Localizer[ErrorMessage.Replace("{0}", validationContext.DisplayName)]);

@@ -38,6 +38,7 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
         [Display(Name = "ProductTitle")]
         [Required(ErrorMessage = "RequiredMsg")]
         [StringLength(250, MinimumLength = 3, ErrorMessage = "StringLengthMsg")]
+        [ItsForProductTitle(ErrorMessage = "ItsForProductTitleMsg")]
         public string Title { get; set; }
 
         [Display(Name = "ProductDate")]

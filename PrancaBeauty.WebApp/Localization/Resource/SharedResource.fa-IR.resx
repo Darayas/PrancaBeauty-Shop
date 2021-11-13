@@ -579,6 +579,13 @@
   <data name="ItemsPerPage" xml:space="preserve">
     <value>مورد بر صفحه</value>
   </data>
+  <data name="ItsForProductTitleMsg" xml:space="preserve">
+    <value>&lt;span class="da-text"&gt;{0} حاوی کاراکترهای غیرمجاز میباشد. کاراکترهای مجاز:&lt;/span&gt;
+&lt;ul class="da-list"&gt;
+    &lt;li&gt;حروف و اعداد اینگلیسی و فارسی و عربی&lt;/li&gt;
+    &lt;li&gt;کاراکترهای )(*-.،,_«»&lt;/li&gt;
+&lt;/ul&gt;</value>
+  </data>
   <data name="ItsForUrlMsg" xml:space="preserve">
     <value>&lt;span class="da-text"&gt;{0} حاوی کاراکترهای غیرمجاز میباشد. کاراکترهای مجاز:&lt;/span&gt;
 &lt;ul class="da-list"&gt;

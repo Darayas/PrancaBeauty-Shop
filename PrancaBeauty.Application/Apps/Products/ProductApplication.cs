@@ -4,6 +4,8 @@ using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Apps.Categories;
+using PrancaBeauty.Application.Apps.ProductPropertiesValues;
+using PrancaBeauty.Application.Apps.ProductVariantItems;
 using PrancaBeauty.Application.Contracts.Products;
 using PrancaBeauty.Application.Contracts.Results;
 using PrancaBeauty.Domin.Product.ProductAgg.Contracts;
@@ -22,12 +24,16 @@ namespace PrancaBeauty.Application.Apps.Products
         private readonly ILocalizer _Localizer;
         private readonly IProductRepository _ProductRepository;
         private readonly ICategoryApplication _CategoryApplication;
-        public ProductApplication(IProductRepository productRepository, ILogger logger, ICategoryApplication categoryApplication, ILocalizer localizer)
+        private readonly IProductVariantItemsApplication _ProductVariantItemsApplication;
+        private readonly IProductPropertiesValuesApplication _ProductPropertiesValuesApplication;
+        public ProductApplication(IProductRepository productRepository, ILogger logger, ICategoryApplication categoryApplication, ILocalizer localizer, IProductVariantItemsApplication productVariantItemsApplication, IProductPropertiesValuesApplication productPropertiesValuesApplication)
         {
             _ProductRepository = productRepository;
             _Logger = logger;
             _CategoryApplication = categoryApplication;
             _Localizer = localizer;
+            _ProductVariantItemsApplication = productVariantItemsApplication;
+            _ProductPropertiesValuesApplication = productPropertiesValuesApplication;
         }
 
         public async Task<(OutPagingData, List<OutGetProductsForManage>)> GetProductsForManageAsync(int Page, int Take, string LangId, string SellerUserId, string AuthorUserId, string Title, string Name, bool? IsDelete, bool? IsDraft, bool? IsConfirmed, bool? IsSchedule)
@@ -138,8 +144,15 @@ namespace PrancaBeauty.Application.Apps.Products
                     if (string.IsNullOrWhiteSpace(Input.Title))
                         throw new ArgumentInvalidException($"{nameof(Input.Title)} cant be null or whitespace.");
 
+                    if (!Input.Name.CheckCharsForProductTitle())
+                        throw new ArgumentInvalidException(_Localizer["ItsForProductTitleMsg"]);
+
                     if (string.IsNullOrWhiteSpace(AuthorUserId))
                         throw new ArgumentInvalidException($"{nameof(AuthorUserId)} cant be null or whitespace.");
+
+                    if (string.IsNullOrWhiteSpace(Input.Name) == false)
+                        if (!Input.Name.CheckCharsForUrlName())
+                            throw new ArgumentInvalidException(_Localizer["ItsForUrlMsg"]);
                 }
                 else
                 {
@@ -203,10 +216,11 @@ namespace PrancaBeauty.Application.Apps.Products
                 #endregion
 
                 // برسی تکراری نبودن نام محصول
-                if (await CheckDuplicateNameAsync(Input.Name.ToNormalizedForUrl()))
+                if (await CheckDuplicateNameAsync(Input.Name.ToNormalizedUrl()))
                     return new OperationResult().Failed("ProdcutName is duplicate.");
 
                 string ProductId = new Guid().SequentialGuid().ToString();
+
                 #region افزودن محصول به جدول اصلی
                 {
                     var tProduct = new tblProducts()
@@ -217,7 +231,7 @@ namespace PrancaBeauty.Application.Apps.Products
                         TopicId = Input.TopicId != null ? Guid.Parse(Input.TopicId) : null,
                         LangId = Guid.Parse(Input.LangId),
                         UniqueNumber = await GenerateUniqeNumberAsync(),
-                        Name = Input.Name.ToNormalizedForUrl(),
+                        Name = Input.Name.ToNormalizedUrl(),
                         Title = Input.Title,
                         Date = Input.Date == null ? DateTime.Now : (Convert.ToDateTime(Input.Date).AddHours(1) < DateTime.Now ? DateTime.Now : Convert.ToDateTime(Input.Date)),
                         IsConfirmed = false,
@@ -231,6 +245,31 @@ namespace PrancaBeauty.Application.Apps.Products
 
                     await _ProductRepository.AddAsync(tProduct, default, true);
                 }
+                #endregion
+
+                #region خصوصیات محصول
+                {
+                    var _Result = await _ProductPropertiesValuesApplication.AddPropertiesToProductAsync(ProductId, Input.Properties.Select(a => new KeyValuePair<string, string>(a.Id, a.Value)).ToDictionary(a => a.Key, a => a.Value));
+                    if (_Result.IsSucceeded == false)
+                    {
+                        // حذف محصول
+                        await _ProductRepository.DeleteAsync(Guid.Parse(ProductId), default, true);
+
+                        return new OperationResult().Failed("Error500");
+                    }
+                }
+                #endregion
+
+                #region کلمات کلیدی
+                // TODO کلمات کلیدی
+                #endregion
+
+                #region تنوع محصول
+                // TODO تنوع محصول
+                #endregion
+
+                #region محدودیت های ارسال پستی
+                // TODO محدودیت های ارسال پستی
                 #endregion
 
                 return default;

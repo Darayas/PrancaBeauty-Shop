@@ -3960,7 +3960,7 @@ module.exports = function(Chart) {
 				scales[scale.id] = scale;
 				scale.mergeTicksOptions();
 
-				// TODO(SB): I think we should be able to remove this custom case (options.scale)
+				// (SB): I think we should be able to remove this custom case (options.scale)
 				// and consider it as a regular scale part of the "scales"" map only! This would
 				// make the logic easier and remove some useless? custom code.
 				if (item.isDefault) {
@@ -7309,7 +7309,7 @@ module.exports = function(Chart) {
 					var cosRotation = Math.cos(angleRadians);
 					var sinRotation = Math.sin(angleRadians);
 
-					// TODO - improve this calculation
+					//  - improve this calculation
 					var labelHeight = (sinRotation * largestTextWidth)
 						+ (tickFont.size * tallestLabelHeightInLines)
 						+ (lineSpace * (tallestLabelHeightInLines - 1))
@@ -12794,7 +12794,7 @@ module.exports = function(Chart) {
 			var innerDimension, pixel, range;
 
 			if (me.isHorizontal()) {
-				range = helpers.log10(me.end) - helpers.log10(start); // todo: if start === 0
+				range = helpers.log10(me.end) - helpers.log10(start); // : if start === 0
 				if (newVal === 0) {
 					pixel = me.left;
 				} else {
@@ -12840,7 +12840,7 @@ module.exports = function(Chart) {
 			if (me.isHorizontal()) {
 				innerDimension = me.width;
 				value = me.start * Math.pow(10, (pixel - me.left) * range / innerDimension);
-			} else { // todo: if start === 0
+			} else { // : if start === 0
 				innerDimension = me.height;
 				value = Math.pow(10, (me.bottom - pixel) * range / innerDimension) / me.start;
 			}

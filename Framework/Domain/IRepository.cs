@@ -28,5 +28,6 @@ namespace Framework.Domain
         Task<TEntity> GetById(CancellationToken cancellationToken, params object[] Ids);
 
         Task<int> SaveChangeAsync();
+        Task DeleteAsync(Guid Id, CancellationToken cancellationToken, bool AutoSave = true);
     }
 }

@@ -68,7 +68,7 @@ namespace Framework.Common.ExMethods
             return strSanitizeHtml;
         }
 
-        public static string ToNormalizedForUrl(this string UrlName)
+        public static string ToNormalizedUrl(this string UrlName)
         {
             string NewStr = "";
 

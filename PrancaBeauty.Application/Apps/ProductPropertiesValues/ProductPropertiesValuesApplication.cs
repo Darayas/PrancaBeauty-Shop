@@ -1,6 +1,7 @@
 ﻿using Framework.Common.ExMethods;
 using Framework.Exceptions;
 using Framework.Infrastructure;
+using PrancaBeauty.Application.Apps.ProductPropertis;
 using PrancaBeauty.Application.Contracts.Results;
 using PrancaBeauty.Domin.Product.ProductPropertiesValuesAgg.Contracts;
 using PrancaBeauty.Domin.Product.ProductPropertiesValuesAgg.Entities;
@@ -16,11 +17,12 @@ namespace PrancaBeauty.Application.Apps.ProductPropertiesValues
     {
         private readonly ILogger _Logger;
         private readonly IProductPropertiesValuesRepository _ProductPropertiesValuesRepository;
-
-        public ProductPropertiesValuesApplication(IProductPropertiesValuesRepository productPropertiesValuesRepository, ILogger logger)
+        private readonly IProductPropertisApplication _ProductPropertisApplication;
+        public ProductPropertiesValuesApplication(IProductPropertiesValuesRepository productPropertiesValuesRepository, ILogger logger, IProductPropertisApplication productPropertisApplication)
         {
             _ProductPropertiesValuesRepository = productPropertiesValuesRepository;
             _Logger = logger;
+            _ProductPropertisApplication = productPropertisApplication;
         }
 
         public async Task<OperationResult> AddPropertiesToProductAsync(string ProductId, Dictionary<string, string> PropItems)
@@ -41,14 +43,14 @@ namespace PrancaBeauty.Application.Apps.ProductPropertiesValues
 
                 foreach (var item in PropItems.Where(a => a.Value != null || a.Value != ""))
                 {
-                    // TODO برسی صحیح بودن item.Key
-                    await _ProductPropertiesValuesRepository.AddAsync(new tblProductPropertiesValues()
-                    {
-                        Id = new Guid().SequentialGuid(),
-                        ProductId = Guid.Parse(ProductId),
-                        ProductPropertiesId = Guid.Parse(item.Key),
-                        Value = item.Value
-                    }, default, false);
+                    if (await _ProductPropertisApplication.CheckExistByIdAsync(item.Key))
+                        await _ProductPropertiesValuesRepository.AddAsync(new tblProductPropertiesValues()
+                        {
+                            Id = new Guid().SequentialGuid(),
+                            ProductId = Guid.Parse(ProductId),
+                            ProductPropertiesId = Guid.Parse(item.Key),
+                            Value = item.Value
+                        }, default, false);
                 }
 
                 await _ProductPropertiesValuesRepository.SaveChangeAsync();

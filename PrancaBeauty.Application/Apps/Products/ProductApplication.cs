@@ -4,6 +4,7 @@ using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Apps.Categories;
+using PrancaBeauty.Application.Apps.KeywordsProducts;
 using PrancaBeauty.Application.Apps.ProductPropertiesValues;
 using PrancaBeauty.Application.Apps.ProductVariantItems;
 using PrancaBeauty.Application.Contracts.Products;
@@ -26,7 +27,8 @@ namespace PrancaBeauty.Application.Apps.Products
         private readonly ICategoryApplication _CategoryApplication;
         private readonly IProductVariantItemsApplication _ProductVariantItemsApplication;
         private readonly IProductPropertiesValuesApplication _ProductPropertiesValuesApplication;
-        public ProductApplication(IProductRepository productRepository, ILogger logger, ICategoryApplication categoryApplication, ILocalizer localizer, IProductVariantItemsApplication productVariantItemsApplication, IProductPropertiesValuesApplication productPropertiesValuesApplication)
+        private readonly IKeywordProductsApplication _KeywordProductsApplication;
+        public ProductApplication(IProductRepository productRepository, ILogger logger, ICategoryApplication categoryApplication, ILocalizer localizer, IProductVariantItemsApplication productVariantItemsApplication, IProductPropertiesValuesApplication productPropertiesValuesApplication, IKeywordProductsApplication keywordProductsApplication)
         {
             _ProductRepository = productRepository;
             _Logger = logger;
@@ -34,6 +36,7 @@ namespace PrancaBeauty.Application.Apps.Products
             _Localizer = localizer;
             _ProductVariantItemsApplication = productVariantItemsApplication;
             _ProductPropertiesValuesApplication = productPropertiesValuesApplication;
+            _KeywordProductsApplication = keywordProductsApplication;
         }
 
         public async Task<(OutPagingData, List<OutGetProductsForManage>)> GetProductsForManageAsync(int Page, int Take, string LangId, string SellerUserId, string AuthorUserId, string Title, string Name, bool? IsDelete, bool? IsDraft, bool? IsConfirmed, bool? IsSchedule)
@@ -186,7 +189,7 @@ namespace PrancaBeauty.Application.Apps.Products
                     if (string.IsNullOrWhiteSpace(Input.Price))
                         throw new ArgumentInvalidException($"{nameof(Input.Price)} cant be null or whitespace.");
 
-                    if (string.IsNullOrWhiteSpace(Input.Price))
+                    if (string.IsNullOrWhiteSpace(Input.MetaTagKeyword))
                         throw new ArgumentInvalidException($"{nameof(Input.MetaTagKeyword)} cant be null or whitespace.");
 
                     if (string.IsNullOrWhiteSpace(Input.MetaTagCanonical))
@@ -216,7 +219,7 @@ namespace PrancaBeauty.Application.Apps.Products
                 #endregion
 
                 // برسی تکراری نبودن نام محصول
-                if (await CheckDuplicateNameAsync(Input.Name.ToNormalizedUrl()))
+                if (await CheckDuplicateNameAsync(Input.Name.ToLowerCaseUrl()))
                     return new OperationResult().Failed("ProdcutName is duplicate.");
 
                 string ProductId = new Guid().SequentialGuid().ToString();
@@ -231,7 +234,7 @@ namespace PrancaBeauty.Application.Apps.Products
                         TopicId = Input.TopicId != null ? Guid.Parse(Input.TopicId) : null,
                         LangId = Guid.Parse(Input.LangId),
                         UniqueNumber = await GenerateUniqeNumberAsync(),
-                        Name = Input.Name.ToNormalizedUrl(),
+                        Name = Input.Name.ToLowerCaseUrl(),
                         Title = Input.Title,
                         Date = Input.Date == null ? DateTime.Now : (Convert.ToDateTime(Input.Date).AddHours(1) < DateTime.Now ? DateTime.Now : Convert.ToDateTime(Input.Date)),
                         IsConfirmed = false,
@@ -261,7 +264,9 @@ namespace PrancaBeauty.Application.Apps.Products
                 #endregion
 
                 #region کلمات کلیدی
-                // TODO کلمات کلیدی
+                {
+
+                }
                 #endregion
 
                 #region تنوع محصول

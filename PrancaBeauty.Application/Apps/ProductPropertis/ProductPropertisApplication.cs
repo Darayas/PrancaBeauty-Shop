@@ -5,6 +5,7 @@ using PrancaBeauty.Application.Contracts.ProductProperties;
 using PrancaBeauty.Domin.Product.ProductPropertisAgg.Contracts;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -57,6 +58,11 @@ namespace PrancaBeauty.Application.Apps.ProductPropertis
                 _Logger.Error(ex);
                 return null;
             }
+        }
+
+        public async Task<bool> CheckExistByIdAsync(string Id)
+        {
+            return await _ProductPropertisRepository.Get.AnyAsync(a => a.Id == Guid.Parse(Id));
         }
     }
 }

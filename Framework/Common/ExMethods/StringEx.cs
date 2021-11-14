@@ -68,7 +68,7 @@ namespace Framework.Common.ExMethods
             return strSanitizeHtml;
         }
 
-        public static string ToNormalizedUrl(this string UrlName)
+        public static string ToLowerCaseUrl(this string UrlName)
         {
             string NewStr = "";
 
@@ -81,6 +81,17 @@ namespace Framework.Common.ExMethods
             }
 
             return NewStr.Trim('-').Replace("--", "-");
+        }
+
+        public static string ToNormalizedUrl(this string Str)
+        {
+            foreach (var item in Str)
+            {
+                if (Regex.IsMatch(item.ToString(), @"^[A-Zا-یa-zئءأإؤيةَُِّۀًٌٍلآ\-\.]*$") == false)
+                    Str = Str.Replace(item, '-');
+            }
+
+            return Str.Trim('-').Replace("--", "-");
         }
     }
 }

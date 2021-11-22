@@ -2,11 +2,13 @@
 using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using PrancaBeauty.Application.Contracts.Keywords;
 using PrancaBeauty.Application.Contracts.Results;
 using PrancaBeauty.Domin.Keywords.KeywordAgg.Contracts;
 using PrancaBeauty.Domin.Keywords.KeywordAgg.Entities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,20 +35,30 @@ namespace PrancaBeauty.Application.Apps.Keywords
             return await _KeywordRepository.Get.Where(a => a.Title == Title).Select(a => a.Id.ToString()).SingleAsync();
         }
 
-        public async Task<OperationResult> AddKeywordAsync(string Title)
+        public async Task<OperationResult> AddKeywordAsync(InpAddKeyword Input)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(Title))
-                    throw new ArgumentInvalidException($"{nameof(Title)} cant be null or whitespace.");
+                #region Validations
+                if (Input is null)
+                    throw new ArgumentInvalidException($"{nameof(Input)} cant be null.");
+
+                List<ValidationResult> _ValidationResult = null;
+                if (Validator.TryValidateObject(Input, new ValidationContext(Input), _ValidationResult))
+                    throw new ArgumentInvalidException(string.Join(",", _ValidationResult.Select(a => a.ErrorMessage)));
+                #endregion
 
                 var tKeyword = new tblKeywords()
                 {
                     Id = new Guid().SequentialGuid(),
-                    Name = Title.ToNormalizedUrl(),
-                    Title = Title,
-                    Description = ""
+                    Name = Input.Title.ToNormalizedUrl(),
+                    Title = Input.Title,
+                    Description = Input.Description
                 };
+
+                await _KeywordRepository.AddAsync(tKeyword, default, true);
+
+                return new OperationResult().Succeeded();
             }
             catch (ArgumentInvalidException ex)
             {

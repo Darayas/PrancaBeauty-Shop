@@ -18,7 +18,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Mapping.Keywords
             builder.Property(a => a.Id).IsRequired().HasMaxLength(150);
             builder.Property(a => a.Name).IsRequired().HasMaxLength(250);
             builder.Property(a => a.Title).IsRequired().HasMaxLength(250);
-            builder.Property(a => a.Description).IsRequired();
+            builder.Property(a => a.Description);
         }
     }
 }

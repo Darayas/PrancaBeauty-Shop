@@ -674,6 +674,9 @@
   <data name="ManageUsers" xml:space="preserve">
     <value>مدیریت کاربران</value>
   </data>
+  <data name="MaxLengthMsg" xml:space="preserve">
+    <value>تعداد حروف {0} باید کمتر از {1} باشد</value>
+  </data>
   <data name="MetaTagCanonical" xml:space="preserve">
     <value>متاتگ Canonical</value>
   </data>

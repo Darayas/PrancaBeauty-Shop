@@ -1,4 +1,5 @@
 ﻿using Framework.Domain;
+using PrancaBeauty.Domin.Keywords.KeywordAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductAgg.Entities;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PrancaBeauty.Domin.Keywords.KeywordAgg.Contracts
 {
-    public interface IKeywordRepository : IRepository<tblProducts>
+    public interface IKeywordRepository : IRepository<tblKeywords>
     {
 
     }

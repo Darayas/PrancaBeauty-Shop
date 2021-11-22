@@ -1,5 +1,6 @@
 ﻿using Framework.Infrastructure;
 using PrancaBeauty.Domin.Keywords.KeywordAgg.Contracts;
+using PrancaBeauty.Domin.Keywords.KeywordAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductAgg.Entities;
 using PrancaBeauty.Infrastructure.EFCore.Context;
 using System;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace PrancaBeauty.Infrastructure.EFCore.Repository.Keywords
 {
-    public class KeywordRepository : BaseRepository<tblProducts>, IKeywordRepository
+    public class KeywordRepository : BaseRepository<tblKeywords>, IKeywordRepository
     {
         public KeywordRepository(MainContext Context) : base(Context)
         {

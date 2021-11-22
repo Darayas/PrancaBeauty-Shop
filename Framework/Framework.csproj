@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="HtmlSanitizer" Version="6.0.453" />
     <PackageReference Include="kavenegar" Version="1.2.4" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.0" />

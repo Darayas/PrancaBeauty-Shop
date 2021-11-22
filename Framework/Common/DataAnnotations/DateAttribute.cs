@@ -1,15 +1,11 @@
 ﻿using Framework.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
-namespace PrancaBeauty.WebApp.Common.DataAnnotations
+namespace Framework.Common.DataAnnotations
 {
-    public class PhoneNumberAttribute : ValidationAttribute
+    public class DateAttribute : ValidationAttribute
     {
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
@@ -22,9 +18,9 @@ namespace PrancaBeauty.WebApp.Common.DataAnnotations
 
             var _Localizer = validationContext.GetService<ILocalizer>();
 
-            string PhoneNumberRegex = _Localizer["MobilePattern"];
+            string DateRegex = _Localizer["DatePattern"];
 
-            if (Regex.IsMatch((string)value, PhoneNumberRegex))
+            if (Regex.IsMatch((string)value, DateRegex))
                 return ValidationResult.Success;
             else
                 return new ValidationResult(_Localizer[ErrorMessage, validationContext.DisplayName]);

@@ -5,9 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Threading.Tasks;
 
-namespace PrancaBeauty.WebApp.Common.DataAnnotations
+namespace Framework.Common.DataAnnotations
 {
     public class FileSizeAttribute : ValidationAttribute
     {
@@ -65,7 +64,7 @@ namespace PrancaBeauty.WebApp.Common.DataAnnotations
         {
             var _Localizer = (ILocalizer)validationContext.GetService(typeof(ILocalizer));
 
-           var ErrMessage = _Localizer[ErrorMessage];
+            var ErrMessage = _Localizer[ErrorMessage];
 
             // DisplayName
             if (ErrMessage.Contains("{0}"))

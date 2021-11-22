@@ -1,7 +1,7 @@
 ﻿using Framework.Application.Enums;
+using Framework.Common.DataAnnotations;
+using Framework.Common.DataAnnotations.String;
 using PrancaBeauty.Domin.Product.ProductVariantsItemsAgg.Entities;
-using PrancaBeauty.WebApp.Common.DataAnnotations;
-using PrancaBeauty.WebApp.Common.DataAnnotations.String;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

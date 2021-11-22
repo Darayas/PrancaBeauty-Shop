@@ -2,12 +2,9 @@
 using Framework.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace PrancaBeauty.WebApp.Common.DataAnnotations.String
+namespace Framework.Common.DataAnnotations.String
 {
     public class ItsForUrlAttribute : ValidationAttribute
     {

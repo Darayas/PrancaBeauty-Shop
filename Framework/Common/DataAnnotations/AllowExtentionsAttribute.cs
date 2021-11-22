@@ -1,14 +1,12 @@
 ﻿using Framework.Application.Services.Security.AntiShell;
 using Framework.Infrastructure;
 using Microsoft.AspNetCore.Http;
-using PrancaBeauty.Application.Apps.FileTypes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Threading.Tasks;
 
-namespace PrancaBeauty.WebApp.Common.DataAnnotations
+namespace Framework.Common.DataAnnotations
 {
     public class AllowExtentionsAttribute : ValidationAttribute
     {
@@ -22,12 +20,6 @@ namespace PrancaBeauty.WebApp.Common.DataAnnotations
         {
             if (value == null)
                 return ValidationResult.Success;
-
-            if (_MimeTypes == null)
-            {
-                var _FileTypeApplication = (IFileTypeApplication)validationContext.GetService(typeof(IFileTypeApplication));
-                _MimeTypes = string.Join(",", _FileTypeApplication.GetAllFileMimeTypeAsync().Result);
-            }
 
             var _AntiShell = (IAniShell)validationContext.GetService(typeof(IAniShell));
 

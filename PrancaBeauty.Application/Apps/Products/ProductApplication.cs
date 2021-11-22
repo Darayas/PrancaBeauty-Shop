@@ -1,4 +1,5 @@
-﻿using Framework.Common.ExMethods;
+﻿using AutoMapper;
+using Framework.Common.ExMethods;
 using Framework.Common.Utilities.Paging;
 using Framework.Exceptions;
 using Framework.Infrastructure;
@@ -7,7 +8,10 @@ using PrancaBeauty.Application.Apps.Categories;
 using PrancaBeauty.Application.Apps.KeywordsProducts;
 using PrancaBeauty.Application.Apps.ProductPropertiesValues;
 using PrancaBeauty.Application.Apps.ProductVariantItems;
+using PrancaBeauty.Application.Contracts.KeywordProducts;
+using PrancaBeauty.Application.Contracts.ProductPropertiesValues;
 using PrancaBeauty.Application.Contracts.Products;
+using PrancaBeauty.Application.Contracts.ProductVariantItems;
 using PrancaBeauty.Application.Contracts.Results;
 using PrancaBeauty.Domin.Product.ProductAgg.Contracts;
 using PrancaBeauty.Domin.Product.ProductAgg.Entities;
@@ -23,12 +27,13 @@ namespace PrancaBeauty.Application.Apps.Products
     {
         private readonly ILogger _Logger;
         private readonly ILocalizer _Localizer;
+        private readonly IMapper _Mapper;
         private readonly IProductRepository _ProductRepository;
         private readonly ICategoryApplication _CategoryApplication;
         private readonly IProductVariantItemsApplication _ProductVariantItemsApplication;
         private readonly IProductPropertiesValuesApplication _ProductPropertiesValuesApplication;
         private readonly IKeywordProductsApplication _KeywordProductsApplication;
-        public ProductApplication(IProductRepository productRepository, ILogger logger, ICategoryApplication categoryApplication, ILocalizer localizer, IProductVariantItemsApplication productVariantItemsApplication, IProductPropertiesValuesApplication productPropertiesValuesApplication, IKeywordProductsApplication keywordProductsApplication)
+        public ProductApplication(IProductRepository productRepository, ILogger logger, ICategoryApplication categoryApplication, ILocalizer localizer, IProductVariantItemsApplication productVariantItemsApplication, IProductPropertiesValuesApplication productPropertiesValuesApplication, IKeywordProductsApplication keywordProductsApplication, IMapper mapper)
         {
             _ProductRepository = productRepository;
             _Logger = logger;
@@ -37,6 +42,7 @@ namespace PrancaBeauty.Application.Apps.Products
             _ProductVariantItemsApplication = productVariantItemsApplication;
             _ProductPropertiesValuesApplication = productPropertiesValuesApplication;
             _KeywordProductsApplication = keywordProductsApplication;
+            _Mapper = mapper;
         }
 
         public async Task<(OutPagingData, List<OutGetProductsForManage>)> GetProductsForManageAsync(int Page, int Take, string LangId, string SellerUserId, string AuthorUserId, string Title, string Name, bool? IsDelete, bool? IsDraft, bool? IsConfirmed, bool? IsSchedule)
@@ -265,12 +271,27 @@ namespace PrancaBeauty.Application.Apps.Products
 
                 #region کلمات کلیدی
                 {
+                    var _Result = await _KeywordProductsApplication.AddKeywordsToProductAsync(new InpAddKeywordsToProduct() { ProductId = ProductId, LstKeywords = Input.Keywords.Select(a => new InpAddKeywordsToProduct_LstKeywords() { Title = a.Title, Similarity = a.Similarity }).ToList() });
+                    if (!_Result.IsSucceeded)
+                    {
+                        // حذف خصوصیات
+                        await _ProductPropertiesValuesApplication.RemovePropertiesByProductIdAsync(new InpRemovePropertiesByProductId() { ProductId = ProductId });
 
+                        // حذف محصول
+                        await _ProductRepository.DeleteAsync(Guid.Parse(ProductId), default, true);
+
+                        return new OperationResult().Failed("Error500");
+                    }
                 }
                 #endregion
 
                 #region تنوع محصول
-                // TODO تنوع محصول
+                {
+                    var _VarinatData = _Mapper.Map<InpAddVariantsToProduct>(Input);
+                    _VarinatData.ProductId = ProductId;
+
+                    var _Result = await _ProductVariantItemsApplication.AddVariantsToProductAsync(_VarinatData);
+                }
                 #endregion
 
                 #region محدودیت های ارسال پستی

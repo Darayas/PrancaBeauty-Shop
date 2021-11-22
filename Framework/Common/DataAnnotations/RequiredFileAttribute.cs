@@ -1,12 +1,10 @@
 ﻿using Framework.Infrastructure;
 using Microsoft.AspNetCore.Http;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Threading.Tasks;
 
-namespace PrancaBeauty.WebApp.Common.DataAnnotations
+namespace Framework.Common.DataAnnotations
 {
     public class RequiredFileAttribute : ValidationAttribute
     {

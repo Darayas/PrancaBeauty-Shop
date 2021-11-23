@@ -30,6 +30,9 @@ namespace Framework.Common.DataAnnotations
 
         public string GetMessage(ValidationContext validationContext)
         {
+            if (ErrorMessage == null)
+                ErrorMessage = "GUIDMsg";
+
             var _Localizer = (ILocalizer)validationContext.GetService(typeof(ILocalizer));
 
             var ErrMessage = _Localizer[ErrorMessage];

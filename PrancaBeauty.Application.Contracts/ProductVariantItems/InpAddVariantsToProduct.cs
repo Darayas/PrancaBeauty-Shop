@@ -15,6 +15,17 @@ namespace PrancaBeauty.Application.Contracts.ProductVariantItems
         [Required(ErrorMessage = "RequiredMsg")]
         [GUID]
         public string ProductId { get; set; }
+
+        [Display(Name = "SellerId")]
+        [Required(ErrorMessage = "RequiredMsg")]
+        [GUID]
+        public string SellerId { get; set; }
+
+        [Display(Name = "VariantId")]
+        [Required(ErrorMessage = "RequiredMsg")]
+        [GUID]
+        public string VariantId { get; set; }
+
         public List<InpAddVariantsToProduct_Variants> Variants { get; set; }
     }
 
@@ -38,9 +49,8 @@ namespace PrancaBeauty.Application.Contracts.ProductVariantItems
         public string Percent { get; set; }
 
         [Display(Name = "GuaranteeId")]
-        [GUID(ErrorMessage = "GUIDMsg")]
         [Required(ErrorMessage = "RequiredMsg")]
-        [StringLength(100, MinimumLength = 1, ErrorMessage = "StringLengthMsg")]
+        [GUID]
         public string GuaranteeId { get; set; }
 
         [Display(Name = "ProductCode")]

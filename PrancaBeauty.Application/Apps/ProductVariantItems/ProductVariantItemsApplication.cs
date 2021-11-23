@@ -1,4 +1,5 @@
-﻿using Framework.Exceptions;
+﻿using Framework.Common.ExMethods;
+using Framework.Exceptions;
 using Framework.Infrastructure;
 using PrancaBeauty.Application.Contracts.ProductVariantItems;
 using PrancaBeauty.Application.Contracts.Results;
@@ -29,15 +30,37 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
             try
             {
                 #region Validations
-                if (Input is null)
-                    throw new ArgumentInvalidException($"{nameof(Input)} cant be null.");
+                Input.CheckModelState();
 
-                List<ValidationResult> _ValidationResult = null;
-                if (Validator.TryValidateObject(Input, new ValidationContext(Input), _ValidationResult))
-                    throw new ArgumentInvalidException(string.Join(",", _ValidationResult.Select(a => a.ErrorMessage)));
+                if (Input.Variants == null)
+                    throw new ArgumentInvalidException($"{nameof(Input.Variants)} cant be null.");
+
                 #endregion
 
+                foreach (var item in Input.Variants)
+                {
+                    var tVariantItem = new tblProductVariantItems()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ProductVariantId = Guid.Parse(Input.VariantId),
+                        ProductId = Guid.Parse(Input.ProductId),
+                        ProductSellerId = Guid.Parse(Input.SellerId),
+                        GuaranteeId = item.GuaranteeId != null ? Guid.Parse(item.GuaranteeId) : null,
+                        Title = item.Title,
+                        Value = item.Value,
+                        ProductCode = item.ProductCode,
+                        CountInStock = item.CountInStock,
+                        IsEnable = item.IsEnable,
+                        Percent = double.Parse(item.Percent),
+                        SendBy = item.SendBy,
+                        SendFrom = item.SendFrom
+                    };
 
+                    await _ProductVariantItemsRepository.AddAsync(tVariantItem, default, false);
+                }
+
+                await _ProductVariantItemsRepository.SaveChangeAsync();
+                return new OperationResult().Succeeded();
             }
             catch (ArgumentInvalidException ex)
             {

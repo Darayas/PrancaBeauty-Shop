@@ -88,5 +88,27 @@ namespace PrancaBeauty.Application.Apps.KeywordsProducts
                 return new OperationResult().Failed("Error500");
             }
         }
+
+        public async Task<OperationResult> RemoveAllProductKeywordsAsync(InpRemoveAllProductKeywords Input)
+        {
+            try
+            {
+                #region Validatons
+                Input.CheckModelState();
+                #endregion
+
+                // حذف کلمات کلیدی
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
     }
 }

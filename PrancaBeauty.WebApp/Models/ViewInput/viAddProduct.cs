@@ -28,6 +28,11 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
         [RequiredForDraft(nameof(IsDraft), ErrorMessage = "RequiredMsg")]
         [GUID(ErrorMessage = "GUIDMsg")]
         public string CategoryId { get; set; }
+        
+        [Display(Name = "VariantId")]
+        [RequiredForDraft(nameof(IsDraft), ErrorMessage = "RequiredMsg")]
+        [GUID(ErrorMessage = "GUIDMsg")]
+        public string VariantId { get; set; }
 
         [Display(Name = "ProductName")]
         [RequiredForDraft(nameof(IsDraft), ErrorMessage = "RequiredMsg")]

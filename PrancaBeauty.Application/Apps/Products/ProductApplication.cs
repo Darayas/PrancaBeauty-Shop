@@ -289,8 +289,23 @@ namespace PrancaBeauty.Application.Apps.Products
                 {
                     var _VarinatData = _Mapper.Map<InpAddVariantsToProduct>(Input);
                     _VarinatData.ProductId = ProductId;
+                    _VarinatData.SellerId = AuthorUserId;
 
                     var _Result = await _ProductVariantItemsApplication.AddVariantsToProductAsync(_VarinatData);
+                    if(!_Result.IsSucceeded)
+                    {
+                        // حذف کلمات کلیدی
+                        await _KeywordProductsApplication.AddKeywordsToProductAsync
+
+                        // حذف خصوصیات
+                        await _ProductPropertiesValuesApplication.RemovePropertiesByProductIdAsync(new InpRemovePropertiesByProductId() { ProductId = ProductId });
+
+                        // حذف محصول
+                        await _ProductRepository.DeleteAsync(Guid.Parse(ProductId), default, true);
+
+
+                        return new OperationResult().Failed("Error500");
+                    }
                 }
                 #endregion
 

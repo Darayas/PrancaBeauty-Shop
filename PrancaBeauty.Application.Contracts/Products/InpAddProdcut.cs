@@ -15,6 +15,8 @@ namespace PrancaBeauty.Application.Contracts.Products
 
         public string CategoryId { get; set; }
 
+        public string VariantId { get; set; }
+
         public string Name { get; set; } // Uniqe Name
 
         public string Title { get; set; }

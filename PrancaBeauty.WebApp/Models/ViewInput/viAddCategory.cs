@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using PrancaBeauty.WebApp.Common.DataAnnotations;
+﻿using Framework.Common.DataAnnotations;
+using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 

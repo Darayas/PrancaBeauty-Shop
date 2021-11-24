@@ -64,8 +64,11 @@ namespace PrancaBeauty.WebApp.Pages.User.Products
                 if (Input.Keywords.Count() == 0)
                     throw new ArgumentInvalidException($"keyword count must be greater than zero.");
                 #endregion
+                
+                var _ProductEntity = _Mapper.Map<InpAddProdcut>(Input);
+                _ProductEntity.AuthorUserId = User.GetUserDetails().UserId;
 
-                var _Result = await _ProductApplication.AddProdcutAsync(_Mapper.Map<InpAddProdcut>(Input), "");
+                var _Result = await _ProductApplication.AddProdcutAsync(_ProductEntity);
                 if (_Result.IsSucceeded)
                 {
 

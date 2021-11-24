@@ -6,21 +6,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PrancaBeauty.Application.Contracts.AccessLevels
+namespace PrancaBeauty.Application.Contracts.Address
 {
-    public class InpUpdateAccessLevel
+    public class InpGetAddressDetails
     {
         [Display(Name = "Id")]
         [Required(ErrorMessage = "RequiredMsg")]
         [GUID]
         public string Id { get; set; }
 
-        [Display(Name = "Name")]
+        [Display(Name = "UserId")]
         [Required(ErrorMessage = "RequiredMsg")]
-        [MaxLength(150, ErrorMessage = "MaxLengthMsg")]
-        public string Name { get; set; }
+        [GUID]
+        public string UserId { get; set; }
 
-        [Display(Name = "Roles")]
-        public string[] Roles { get; set; }
     }
 }

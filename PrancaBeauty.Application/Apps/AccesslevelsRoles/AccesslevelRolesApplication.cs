@@ -3,6 +3,7 @@ using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Apps.Roles;
+using PrancaBeauty.Application.Contracts.AccesslevelRoles;
 using PrancaBeauty.Application.Contracts.Results;
 using PrancaBeauty.Domin.Users.AccessLevelAgg.Contracts;
 using PrancaBeauty.Domin.Users.AccessLevelAgg.Entities;
@@ -26,15 +27,16 @@ namespace PrancaBeauty.Application.Apps.AccesslevelsRoles
             _RoleApplication = roleApplication;
         }
 
-        public async Task<OperationResult> RemoveByAccessLevelIdAsync(string AccessLevelId)
+        public async Task<OperationResult> RemoveByAccessLevelIdAsync(InpRemoveByAccessLevelId Input)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(AccessLevelId))
-                    throw new ArgumentInvalidException("AccessLevelId cant be null.");
+                #region Validations
+                Input.CheckModelState();
+                #endregion
 
                 // واکشی اطلاعات
-                var qData = await _AccesslevelRolesRepository.Get.Where(a => a.AccessLevelId == Guid.Parse(AccessLevelId)).ToListAsync();
+                var qData = await _AccesslevelRolesRepository.Get.Where(a => a.AccessLevelId == Guid.Parse(Input.AccessLevelId)).ToListAsync();
                 foreach (var item in qData)
                 {
                     // حذف رکورد ها
@@ -48,6 +50,7 @@ namespace PrancaBeauty.Application.Apps.AccesslevelsRoles
             }
             catch (ArgumentInvalidException ex)
             {
+                _Logger.Debug(ex);
                 return new OperationResult().Failed(ex.Message);
             }
             catch (Exception ex)
@@ -57,22 +60,24 @@ namespace PrancaBeauty.Application.Apps.AccesslevelsRoles
             }
         }
 
-        public async Task<OperationResult> AddRolesToAccessLevelAsync(string AccessLevelId, string[] RolesName)
+        public async Task<OperationResult> AddRolesToAccessLevelAsync(InpAddRolesToAccessLevel Input)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(AccessLevelId))
-                    throw new ArgumentInvalidException("AccessLevelId cant be null.");
+                #region Validations
+                Input.CheckModelState();
 
-                if (RolesName == null)
+                if (Input.RolesName == null)
                     throw new ArgumentInvalidException("RolesName cant be null.");
+                #endregion
 
-                foreach (var item in RolesName)
+
+                foreach (var item in Input.RolesName)
                 {
                     await _AccesslevelRolesRepository.AddAsync(new tblAccessLevel_Roles
                     {
                         Id = new Guid().SequentialGuid(),
-                        AccessLevelId = Guid.Parse(AccessLevelId),
+                        AccessLevelId = Guid.Parse(Input.AccessLevelId),
                         RoleId = Guid.Parse(await _RoleApplication.GetIdByNameAsync(item))
                     }, default, false);
                 }
@@ -80,6 +85,11 @@ namespace PrancaBeauty.Application.Apps.AccesslevelsRoles
                 await _AccesslevelRolesRepository.SaveChangeAsync();
 
                 return new OperationResult().Succeeded();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return new OperationResult().Failed(ex.Message);
             }
             catch (Exception ex)
             {

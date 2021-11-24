@@ -49,16 +49,17 @@ namespace PrancaBeauty.Application.Apps.Products
             _PostingRestrictionsApplication = postingRestrictionsApplication;
         }
 
-        public async Task<(OutPagingData, List<OutGetProductsForManage>)> GetProductsForManageAsync(int Page, int Take, string LangId, string SellerUserId, string AuthorUserId, string Title, string Name, bool? IsDelete, bool? IsDraft, bool? IsConfirmed, bool? IsSchedule)
+        public async Task<(OutPagingData, List<OutGetProductsForManage>)> GetProductsForManageAsync(InpGetProductsForManage Input)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(LangId))
-                    throw new ArgumentInvalidException($"'{nameof(LangId)}' cannot be null or whitespace.");
+                #region Validations
+                Input.CheckModelState();
+                #endregion
 
                 var qData = _ProductRepository.Get
-                                              .Where(a => SellerUserId != null ? a.tblProductSellers.Where(b => b.SellerUserId == Guid.Parse(SellerUserId)).Any() : true)
-                                              .Where(a => a.LangId == Guid.Parse(LangId))
+                                              .Where(a => Input.SellerUserId != null ? a.tblProductSellers.Where(b => b.SellerUserId == Guid.Parse(Input.SellerUserId)).Any() : true)
+                                              .Where(a => a.LangId == Guid.Parse(Input.LangId))
                                               .Select(a => new OutGetProductsForManage
                                               {
                                                   Id = a.Id.ToString(),
@@ -84,7 +85,7 @@ namespace PrancaBeauty.Application.Apps.Products
                                                   AuthorImageUrl = "",
                                                   AuthorUserName = a.tblAuthorUser.UserName,
                                                   CategoryName = a.tblCategory.Name,
-                                                  CategoryTitle = a.tblCategory.tblCategory_Translates.Where(b => b.LangId == Guid.Parse(LangId)).Select(b => b.Title).Single(),
+                                                  CategoryTitle = a.tblCategory.tblCategory_Translates.Where(b => b.LangId == Guid.Parse(Input.LangId)).Select(b => b.Title).Single(),
                                                   CategoryId = a.CategoryId.ToString(),
                                                   IsDelete = a.IsDelete,
                                                   IsConfirm = a.IsConfirmed,
@@ -93,26 +94,26 @@ namespace PrancaBeauty.Application.Apps.Products
 
                 #region جستوجو
                 {
-                    if (AuthorUserId != null)
-                        qData = qData.Where(a => a.AuthorUserId == AuthorUserId);
+                    if (Input.AuthorUserId != null)
+                        qData = qData.Where(a => a.AuthorUserId == Input.AuthorUserId);
 
-                    if (Title != null)
-                        qData = qData.Where(a => a.Title.Contains(Title));
+                    if (Input.Title != null)
+                        qData = qData.Where(a => a.Title.Contains(Input.Title));
 
-                    if (Name != null)
-                        qData = qData.Where(a => a.Name.Contains(Name));
+                    if (Input.Name != null)
+                        qData = qData.Where(a => a.Name.Contains(Input.Name));
 
-                    if (IsDelete != null)
-                        qData = qData.Where(a => IsDelete.Value ? a.IsDelete == true : a.IsDelete == false);
+                    if (Input.IsDelete != null)
+                        qData = qData.Where(a => Input.IsDelete.Value ? a.IsDelete == true : a.IsDelete == false);
 
-                    if (IsDraft != null)
-                        qData = qData.Where(a => IsDraft.Value ? a.IsDraft == true : a.IsDraft == false);
+                    if (Input.IsDraft != null)
+                        qData = qData.Where(a => Input.IsDraft.Value ? a.IsDraft == true : a.IsDraft == false);
 
-                    if (IsConfirmed != null)
-                        qData = qData.Where(a => IsConfirmed.Value ? a.IsConfirm == true : a.IsConfirm == false);
+                    if (Input.IsConfirmed != null)
+                        qData = qData.Where(a => Input.IsConfirmed.Value ? a.IsConfirm == true : a.IsConfirm == false);
 
-                    if (IsSchedule != null)
-                        qData = qData.Where(a => IsSchedule.Value ? a.Status == OutGetProductsForManage_Status.IsSchedule : a.Status != OutGetProductsForManage_Status.IsSchedule);
+                    if (Input.IsSchedule != null)
+                        qData = qData.Where(a => Input.IsSchedule.Value ? a.Status == OutGetProductsForManage_Status.IsSchedule : a.Status != OutGetProductsForManage_Status.IsSchedule);
                 }
                 #endregion
 
@@ -121,7 +122,7 @@ namespace PrancaBeauty.Application.Apps.Products
                 #endregion
 
                 #region صفحه بندی
-                var _PagingData = PagingData.Calc(await qData.LongCountAsync(), Page, Take);
+                var _PagingData = PagingData.Calc(await qData.LongCountAsync(), Input.Page, Input.Take);
                 #endregion
 
                 return (_PagingData,
@@ -141,91 +142,24 @@ namespace PrancaBeauty.Application.Apps.Products
             }
         }
 
-        public async Task<OperationResult> AddProdcutAsync(InpAddProdcut Input, string AuthorUserId)
+        public async Task<OperationResult> AddProdcutAsync(InpAddProdcut Input)
         {
             try
             {
                 #region Validations
-                if (Input is null)
-                    throw new ArgumentInvalidException(nameof(Input));
+                if (Input.Properties is null)
+                    throw new ArgumentInvalidException($"Properties cant be null.");
 
-                if (Input.IsDraft)
-                {
-                    if (string.IsNullOrWhiteSpace(Input.LangId))
-                        throw new ArgumentInvalidException($"{nameof(Input.LangId)} cant be null or whitespace.");
+                if (Input.Properties.Any(a => string.IsNullOrWhiteSpace(a.Value)))
+                    throw new ArgumentInvalidException($"Properties value cant be null or whitespace.");
 
-                    if (string.IsNullOrWhiteSpace(Input.Title))
-                        throw new ArgumentInvalidException($"{nameof(Input.Title)} cant be null or whitespace.");
+                if (Input.Keywords is null)
+                    throw new ArgumentInvalidException($"Keywords cant be null.");
 
-                    if (!Input.Name.CheckCharsForProductTitle())
-                        throw new ArgumentInvalidException(_Localizer["ItsForProductTitleMsg"]);
+                if (Input.Keywords.Count() == 0)
+                    throw new ArgumentInvalidException($"keyword count must be greater than zero.");
 
-                    if (string.IsNullOrWhiteSpace(AuthorUserId))
-                        throw new ArgumentInvalidException($"{nameof(AuthorUserId)} cant be null or whitespace.");
-
-                    if (string.IsNullOrWhiteSpace(Input.Name) == false)
-                        if (!Input.Name.CheckCharsForUrlName())
-                            throw new ArgumentInvalidException(_Localizer["ItsForUrlMsg"]);
-                }
-                else
-                {
-                    if (string.IsNullOrWhiteSpace(AuthorUserId))
-                        throw new ArgumentInvalidException($"{nameof(AuthorUserId)} cant be null or whitespace.");
-
-                    if (string.IsNullOrWhiteSpace(Input.LangId))
-                        throw new ArgumentInvalidException($"{nameof(Input.LangId)} cant be null or whitespace.");
-
-                    if (string.IsNullOrWhiteSpace(Input.TopicId))
-                        throw new ArgumentInvalidException($"{nameof(Input.TopicId)} cant be null or whitespace.");
-
-                    if (string.IsNullOrWhiteSpace(Input.CategoryId))
-                        throw new ArgumentInvalidException($"{nameof(Input.CategoryId)} cant be null or whitespace.");
-
-                    if (string.IsNullOrWhiteSpace(Input.Name))
-                        throw new ArgumentInvalidException($"{nameof(Input.Name)} cant be null or whitespace.");
-
-                    if (!Input.Name.CheckCharsForUrlName())
-                        throw new ArgumentInvalidException(_Localizer["ItsForUrlMsg"]);
-
-                    if (string.IsNullOrWhiteSpace(Input.Title))
-                        throw new ArgumentInvalidException($"{nameof(Input.Title)} cant be null or whitespace.");
-
-                    if (!Input.Name.CheckCharsForProductTitle())
-                        throw new ArgumentInvalidException(_Localizer["ItsForProductTitleMsg"]);
-
-                    if (string.IsNullOrWhiteSpace(Input.Date))
-                        throw new ArgumentInvalidException($"{nameof(Input.Date)} cant be null or whitespace.");
-
-                    if (string.IsNullOrWhiteSpace(Input.Price))
-                        throw new ArgumentInvalidException($"{nameof(Input.Price)} cant be null or whitespace.");
-
-                    if (string.IsNullOrWhiteSpace(Input.MetaTagKeyword))
-                        throw new ArgumentInvalidException($"{nameof(Input.MetaTagKeyword)} cant be null or whitespace.");
-
-                    if (string.IsNullOrWhiteSpace(Input.MetaTagCanonical))
-                        throw new ArgumentInvalidException($"{nameof(Input.MetaTagCanonical)} cant be null or whitespace.");
-
-                    if (string.IsNullOrWhiteSpace(Input.MetaTagDescreption))
-                        throw new ArgumentInvalidException($"{nameof(Input.MetaTagDescreption)} cant be null or whitespace.");
-
-                    if (string.IsNullOrWhiteSpace(Input.Description))
-                        throw new ArgumentInvalidException($"{nameof(Input.Description)} cant be null or whitespace.");
-
-                    if (Input.Properties is null)
-                        throw new ArgumentInvalidException($"{nameof(Input.Properties)} cant be null.");
-
-                    if (Input.Properties.Any(a => string.IsNullOrWhiteSpace(a.Value)))
-                        throw new ArgumentInvalidException($"{nameof(Input.Properties)} value cant be null or whitespace.");
-
-                    if (Input.Keywords is null)
-                        throw new ArgumentInvalidException($"{nameof(Input.Keywords)} cant be null.");
-
-                    if (Input.Keywords.Count() == 0)
-                        throw new ArgumentInvalidException($"keyword count must be greater than zero.");
-
-
-                }
-
+                Input.CheckModelState();
                 #endregion
 
                 // برسی تکراری نبودن نام محصول
@@ -239,7 +173,7 @@ namespace PrancaBeauty.Application.Apps.Products
                     var tProduct = new tblProducts()
                     {
                         Id = Guid.Parse(ProductId),
-                        AuthorUserId = Guid.Parse(AuthorUserId),
+                        AuthorUserId = Guid.Parse(Input.AuthorUserId),
                         CategoryId = Input.CategoryId != null ? Guid.Parse(Input.CategoryId) : null,
                         TopicId = Input.TopicId != null ? Guid.Parse(Input.TopicId) : null,
                         LangId = Guid.Parse(Input.LangId),
@@ -293,7 +227,7 @@ namespace PrancaBeauty.Application.Apps.Products
                 {
                     var _VarinatData = _Mapper.Map<InpAddVariantsToProduct>(Input);
                     _VarinatData.ProductId = ProductId;
-                    _VarinatData.SellerId = AuthorUserId;
+                    _VarinatData.SellerId = Input.AuthorUserId;
 
                     var _Result = await _ProductVariantItemsApplication.AddVariantsToProductAsync(_VarinatData);
                     if (!_Result.IsSucceeded)

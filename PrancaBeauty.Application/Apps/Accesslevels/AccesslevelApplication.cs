@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Apps.AccesslevelsRoles;
 using PrancaBeauty.Application.Apps.Roles;
 using PrancaBeauty.Application.Apps.Users;
+using PrancaBeauty.Application.Contracts.AccesslevelRoles;
 using PrancaBeauty.Application.Contracts.AccessLevels;
 using PrancaBeauty.Application.Contracts.Results;
 using PrancaBeauty.Domin.Users.AccessLevelAgg.Contracts;
@@ -33,12 +34,16 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
             _RoleApplication = roleApplication;
         }
 
-        public async Task<string> GetIdByNameAsync(string Name)
+        public async Task<string> GetIdByNameAsync(InpGetIdByName Input)
         {
-            if (string.IsNullOrWhiteSpace(Name))
+            #region Validations
+            Input.CheckModelState();
+            #endregion
+
+            if (string.IsNullOrWhiteSpace(Input.Name))
                 throw new ArgumentNullException("Name cant be null.");
 
-            var qData = await _AccessLevelRepository.GetNoTraking.Where(a => a.Name == Name).Select(a => a.Id.ToString()).SingleOrDefaultAsync();
+            var qData = await _AccessLevelRepository.GetNoTraking.Where(a => a.Name == Input.Name).Select(a => a.Id.ToString()).SingleOrDefaultAsync();
 
             if (qData == null)
                 return Guid.Empty.ToString();
@@ -46,17 +51,15 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
             return qData;
         }
 
-        public async Task<(OutPagingData, List<OutGetListForAdminPage>)> GetListForAdminPageAsync(string Title, int PageNum, int Take)
+        public async Task<(OutPagingData, List<OutGetListForAdminPage>)> GetListForAdminPageAsync(InpGetListForAdminPage Input)
         {
             try
             {
-                if (PageNum < 1)
-                    throw new ArgumentInvalidException("PageNum < 1");
+                #region Validatitions
+                Input.CheckModelState();
+                #endregion
 
-                if (Take < 1)
-                    throw new ArgumentInvalidException("Take < 1");
-
-                Title = string.IsNullOrWhiteSpace(Title) ? null : Title;
+                Input.Title = string.IsNullOrWhiteSpace(Input.Title) ? null : Input.Title;
 
                 // آماده سازی اولیه ی کویری
                 var qData = _AccessLevelRepository.Get.Select(a => new OutGetListForAdminPage
@@ -65,16 +68,17 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
                     Name = a.Name,
                     CountUser = a.tblUsers.Count()
                 })
-                .Where(a => Title != null ? a.Name.Contains(Title) : true)
+                .Where(a => Input.Title != null ? a.Name.Contains(Input.Title) : true)
                 .OrderBy(a => a.Name);
 
                 // صفحه بندی داده ها
-                var qPagingData = PagingData.Calc(await qData.LongCountAsync(), PageNum, Take);
+                var qPagingData = PagingData.Calc(await qData.LongCountAsync(), Input.PageNum, Input.Take);
 
                 return (qPagingData, await qData.Skip((int)qPagingData.Skip).Take(qPagingData.Take).ToListAsync());
             }
             catch (ArgumentInvalidException ex)
             {
+                _Logger.Debug(ex);
                 return (null, null);
             }
             catch (Exception ex)
@@ -88,14 +92,17 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(Input.Name))
-                    throw new ArgumentInvalidException("Name cant be null.", new ArgumentNullException());
+
+                #region Validations
+                Input.CheckModelState();
 
                 if (Input.Roles == null)
-                    throw new ArgumentInvalidException("Roles cant be null.", new ArgumentNullException());
+                    throw new ArgumentInvalidException("Roles cant be null.");
 
                 if (await _AccessLevelRepository.Get.AnyAsync(a => a.Name == Input.Name))
-                    throw new ArgumentInvalidException("Name is duplicate.", new ArgumentNullException());
+                    throw new ArgumentInvalidException("Name is duplicate.");
+
+                #endregion
 
                 await _AccessLevelRepository.AddAsync(new tblAccessLevels
                 {
@@ -112,6 +119,7 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
             }
             catch (ArgumentInvalidException ex)
             {
+                _Logger.Debug(ex);
                 return new OperationResult().Failed(ex.Message);
             }
             catch (Exception ex)
@@ -125,8 +133,9 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(Input.Id))
-                    throw new ArgumentInvalidException("Id cant be null.");
+                #region Validations
+                Input.CheckModelState();
+                #endregion
 
                 // واکشی سطح دسترسی
                 var qData = await _AccessLevelRepository.Get.Where(a => a.Id == Guid.Parse(Input.Id)).SingleOrDefaultAsync();
@@ -134,7 +143,7 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
                     return new OperationResult().Failed("AccessLevelNotFound");
 
                 // برسی عضو بودن کاربر در سطح دسترسی جاری
-                if (await CheckHasUserAsync(Input.Id))
+                if (await CheckHasUserAsync(new InpCheckHasUser() { AccessLevelId = Input.Id }))
                     return new OperationResult().Failed("AccessLevelHasUser");
 
                 // حذف کامل سطح دسترسی
@@ -144,6 +153,7 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
             }
             catch (ArgumentInvalidException ex)
             {
+                _Logger.Error(ex);
                 return new OperationResult().Failed(ex.Message);
             }
             catch (Exception ex)
@@ -153,23 +163,28 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
             }
         }
 
-        private async Task<bool> CheckHasUserAsync(string AccessLevelId)
+        private async Task<bool> CheckHasUserAsync(InpCheckHasUser Input)
         {
+            #region Validations
+            Input.CheckModelState();
+            #endregion
+
             return await _AccessLevelRepository.Get
-                                           .Where(a => a.Id == Guid.Parse(AccessLevelId))
+                                           .Where(a => a.Id == Guid.Parse(Input.AccessLevelId))
                                            .Select(a => a.tblUsers.Any())
                                            .SingleAsync();
         }
 
-        public async Task<OutGetForEdit> GetForEditAsync(string AccessLevelId)
+        public async Task<OutGetForEdit> GetForEditAsync(InpGetForEdit Input)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(AccessLevelId))
-                    throw new ArgumentInvalidException("AccessLevelId cant be null.");
+                #region Validations
+                Input.CheckModelState();
+                #endregion
 
                 return await _AccessLevelRepository.Get
-                                                   .Where(a => a.Id == Guid.Parse(AccessLevelId))
+                                                   .Where(a => a.Id == Guid.Parse(Input.AccessLevelId))
                                                    .Select(a => new OutGetForEdit
                                                    {
                                                        Id = a.Id.ToString(),
@@ -193,14 +208,7 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
             try
             {
                 #region برسی ورودی ها
-                if (Input == null)
-                    throw new ArgumentInvalidException("Input cant be null.");
-
-                if (string.IsNullOrWhiteSpace(Input.Id))
-                    throw new ArgumentInvalidException("Id cant be null.");
-
-                if (string.IsNullOrWhiteSpace(Input.Name))
-                    throw new ArgumentInvalidException("Name cant be null.");
+                Input.CheckModelState();
 
                 if (Input.Roles == null)
                     throw new ArgumentInvalidException("Roles cant be null.");
@@ -218,10 +226,10 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
                 qData.Name = Input.Name;
 
                 // لغو عضویت تمامی رول ها
-                var ResultRemoveAccRoles = await _AccessLevelRolesApplication.RemoveByAccessLevelIdAsync(Input.Id);
+                var ResultRemoveAccRoles = await _AccessLevelRolesApplication.RemoveByAccessLevelIdAsync(new InpRemoveByAccessLevelId() { AccessLevelId=Input.Id });
 
                 // ثبت رول های جدید
-                await _AccessLevelRolesApplication.AddRolesToAccessLevelAsync(Input.Id, Input.Roles);
+                await _AccessLevelRolesApplication.AddRolesToAccessLevelAsync(new InpAddRolesToAccessLevel { AccessLevelId=Input.Name,RolesName=Input.Roles });
 
                 // ثبت ویرایش
                 await _AccessLevelRepository.UpdateAsync(qData, default, true);
@@ -230,6 +238,7 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
             }
             catch (ArgumentInvalidException ex)
             {
+                _Logger.Debug(ex);
                 return new OperationResult().Failed(ex.Message);
             }
             catch (Exception ex)
@@ -244,27 +253,61 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
         /// </summary>
         /// <param name="Name">بخشی از نام برای جستوجو</param>
         /// <returns></returns>
-        public async Task<List<OutGetForChangeUserAccesssLevel>> GetForChangeUserAccesssLevelAsync(string Name)
+        public async Task<List<OutGetForChangeUserAccesssLevel>> GetForChangeUserAccesssLevelAsync(InpGetForChangeUserAccesssLevel Input)
         {
-            var qData = await _AccessLevelRepository.Get
+            try
+            {
+                #region Validations
+                Input.CheckModelState();
+                #endregion
+
+                var qData = await _AccessLevelRepository.Get
                                                     .Select(a => new OutGetForChangeUserAccesssLevel
                                                     {
                                                         Id = a.Id.ToString(),
                                                         Name = a.Name
                                                     })
-                                                    .Where(a => Name != null ? a.Name.Contains(Name) : true)
+                                                    .Where(a => Input.Name != null ? a.Name.Contains(Input.Name) : true)
                                                     .ToListAsync();
 
-            return qData;
+                return qData;
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
+            }
 
         }
 
-        public async Task<List<string>> GetRolesNameByAccIdAsync(string AccessLevelId)
+        public async Task<List<string>> GetRolesNameByAccIdAsync(InpGetRolesNameByAccId Input)
         {
-            return await _AccessLevelRepository.Get
-                                               .Where(a => a.Id == Guid.Parse(AccessLevelId))
+            try
+            {
+                #region Validations
+                Input.CheckModelState();
+                #endregion
+
+                return await _AccessLevelRepository.Get
+                                               .Where(a => a.Id == Guid.Parse(Input.AccessLevelId))
                                                .Select(a => a.tblAccessLevel_Roles.Select(b => b.tblRoles.Name).ToList())
                                                .SingleAsync();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
+            }
         }
     }
 }

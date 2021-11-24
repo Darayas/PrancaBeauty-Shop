@@ -16,22 +16,22 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
 
         [Display(Name = "LangId")]
         [Required(ErrorMessage = "RequiredMsg")]
-        [GUID(ErrorMessage = "GUIDMsg")]
+        [GUID]
         public string LangId { get; set; }
 
         [Display(Name = "TopicId")]
         [RequiredForDraft(nameof(IsDraft), ErrorMessage = "RequiredMsg")]
-        [GUID(ErrorMessage = "GUIDMsg")]
+        [GUID]
         public string TopicId { get; set; }
 
         [Display(Name = "CategoryId")]
         [RequiredForDraft(nameof(IsDraft), ErrorMessage = "RequiredMsg")]
-        [GUID(ErrorMessage = "GUIDMsg")]
+        [GUID]
         public string CategoryId { get; set; }
         
         [Display(Name = "VariantId")]
         [RequiredForDraft(nameof(IsDraft), ErrorMessage = "RequiredMsg")]
-        [GUID(ErrorMessage = "GUIDMsg")]
+        [GUID]
         public string VariantId { get; set; }
 
         [Display(Name = "ProductName")]
@@ -96,7 +96,7 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
     public class viAddProduct_Properties
     {
         [Display(Name ="PropertyId")]
-        [GUID(ErrorMessage = "GUIDMsg")]
+        [GUID]
         [Required(ErrorMessage = "Required")]
         public string Id { get; set; }
 
@@ -141,7 +141,7 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
         public string Percent { get; set; }
 
         [Display(Name = "GuaranteeId")]
-        [GUID(ErrorMessage = "GUIDMsg")]
+        [GUID]
         [Required(ErrorMessage = "RequiredMsg")]
         [StringLength(100, MinimumLength = 1, ErrorMessage = "StringLengthMsg")]
         public string GuaranteeId { get; set; }
@@ -170,8 +170,8 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
         public string Id { get; set; }
 
         [Display(Name = "CountryId")]
-        [GUID(ErrorMessage = "GUIDMsg")]
         [Required(ErrorMessage = "Required")]
+        [GUID]
         public string CountryId { get; set; }
 
         [Display(Name = "PostingStatus")]

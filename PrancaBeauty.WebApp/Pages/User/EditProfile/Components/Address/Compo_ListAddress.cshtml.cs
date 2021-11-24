@@ -14,6 +14,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using PrancaBeauty.Application.Apps.Address;
 using PrancaBeauty.Application.Apps.Languages;
 using PrancaBeauty.Application.Apps.Users;
+using PrancaBeauty.Application.Contracts.Address;
 using PrancaBeauty.WebApp.Common.ExMethod;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
 using PrancaBeauty.WebApp.Models.ViewModel;
@@ -49,7 +50,14 @@ namespace PrancaBeauty.WebApp.Pages.User.EditProfile.Components.Address
             string UserId = User.GetUserDetails().UserId;
             //string LangId = await _LanguageApplication.GetLangIdByLangCodeAsync(CultureInfo.CurrentCulture.Name);
 
-            var qData = await _AddressApplication.GetAddressByUserIdForManageAsync(UserId, LangId, null, request.Page, request.PageSize);
+            var qData = await _AddressApplication.GetAddressByUserIdForManageAsync(new InpGetAddressByUserIdForManage
+            {
+                UserId = UserId,
+                LangId = LangId,
+                PageNum = request.Page,
+                Search = null,
+                Take = request.PageSize
+            });
 
             var _DataGrid = qData.Item2.ToDataSourceResult(request);
             _DataGrid.Total = (int)qData.Item1.CountAllItem;
@@ -64,7 +72,7 @@ namespace PrancaBeauty.WebApp.Pages.User.EditProfile.Components.Address
                 return _MsgBox.ModelStateMsg("NotFound");
 
             string UserId = User.GetUserDetails().UserId;
-            var Result = await _AddressApplication.RemoveAddressAsync(UserId, Id);
+            var Result = await _AddressApplication.RemoveAddressAsync(new InpRemoveAddress() { Id = Id, UserId = UserId });
             if (Result.IsSucceeded)
             {
                 return _MsgBox.SuccessMsg(_Localizer[Result.Message], "RefreshGrid('ListAddress');");

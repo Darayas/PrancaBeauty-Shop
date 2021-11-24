@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Apps.Accesslevels;
 using PrancaBeauty.Application.Apps.Templates;
 using PrancaBeauty.Application.Common.FtpWapper;
+using PrancaBeauty.Application.Contracts.AccessLevels;
 using PrancaBeauty.Application.Contracts.Results;
 using PrancaBeauty.Application.Contracts.Users;
 using PrancaBeauty.Domin.Users.UserAgg.Contracts;
@@ -73,7 +74,7 @@ namespace PrancaBeauty.Application.Apps.Users
                     Email = Input.Email,
                     FirstName = Input.FirstName,
                     LastName = Input.LastName,
-                    AccessLevelId = Guid.Parse(await _AccesslevelApplication.GetIdByNameAsync("Users")),
+                    AccessLevelId = Guid.Parse(await _AccesslevelApplication.GetIdByNameAsync(new InpGetIdByName { Name = "Users" })),
                     IsActive = true,
                     PhoneNumber = Input.PhoneNumber,
                     UserName = Input.Email
@@ -612,7 +613,7 @@ namespace PrancaBeauty.Application.Apps.Users
             }
         }
 
-        public async Task<(OutPagingData, List<OutGetListForAdminPage>)> GetListForAdminPageAsync(string Email, string PhoneNumber, string FullName, string Sort, int PageNum, int Take)
+        public async Task<(OutPagingData, List<Contracts.Users.OutGetListForAdminPage>)> GetListForAdminPageAsync(string Email, string PhoneNumber, string FullName, string Sort, int PageNum, int Take)
         {
             try
             {
@@ -628,7 +629,7 @@ namespace PrancaBeauty.Application.Apps.Users
 
                 // آماده سازی اولیه ی کویری
                 var qData = _UserRepository.Get
-                    .Select(a => new OutGetListForAdminPage
+                    .Select(a => new Contracts.Users.OutGetListForAdminPage
                     {
                         Id = a.Id.ToString(),
                         AccessLevelId = a.AccessLevelId.ToString(),
@@ -842,7 +843,7 @@ namespace PrancaBeauty.Application.Apps.Users
                 await RemoveAllRolesAsync(qUser);
 
                 // واکشی نقش های موجود در سطح دسترسی
-                var qRoles = await _AccesslevelApplication.GetRolesNameByAccIdAsync(qUser.AccessLevelId.ToString());
+                var qRoles = await _AccesslevelApplication.GetRolesNameByAccIdAsync(new InpGetRolesNameByAccId() { AccessLevelId = qUser.AccessLevelId.ToString() });
 
                 // افزودن نقش های جدید به کاربر
                 await AddRolesAsync(qUser, qRoles.ToArray());

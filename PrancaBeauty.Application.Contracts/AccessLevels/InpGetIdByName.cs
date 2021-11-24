@@ -8,19 +8,11 @@ using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Contracts.AccessLevels
 {
-    public class InpUpdateAccessLevel
+    public class InpGetIdByName
     {
-        [Display(Name = "Id")]
-        [Required(ErrorMessage = "RequiredMsg")]
-        [GUID]
-        public string Id { get; set; }
-
         [Display(Name = "Name")]
         [Required(ErrorMessage = "RequiredMsg")]
-        [MaxLength(150, ErrorMessage = "MaxLengthMsg")]
+        [GUID]
         public string Name { get; set; }
-
-        [Display(Name = "Roles")]
-        public string[] Roles { get; set; }
     }
 }

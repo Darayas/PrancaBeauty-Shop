@@ -9,11 +9,11 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
     public interface IAccesslevelApplication
     {
         Task<OperationResult> AddNewAsync(InpAddNewAccessLevel Input);
-        Task<List<OutGetForChangeUserAccesssLevel>> GetForChangeUserAccesssLevelAsync(string Name);
-        Task<OutGetForEdit> GetForEditAsync(string AccessLevelId);
-        Task<string> GetIdByNameAsync(string Name);
-        Task<(OutPagingData, List<OutGetListForAdminPage>)> GetListForAdminPageAsync(string Title, int PageNum, int Take);
-        Task<List<string>> GetRolesNameByAccIdAsync(string AccessLevelId);
+        Task<List<OutGetForChangeUserAccesssLevel>> GetForChangeUserAccesssLevelAsync(InpGetForChangeUserAccesssLevel Input);
+        Task<OutGetForEdit> GetForEditAsync(InpGetForEdit Input);
+        Task<string> GetIdByNameAsync(InpGetIdByName Input);
+        Task<(OutPagingData, List<OutGetListForAdminPage>)> GetListForAdminPageAsync(InpGetListForAdminPage Input);
+        Task<List<string>> GetRolesNameByAccIdAsync(InpGetRolesNameByAccId Input);
         Task<OperationResult> RemoveAsync(InpRemove Input);
         Task<OperationResult> UpdateAsync(InpUpdateAccessLevel Input);
     }

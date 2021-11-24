@@ -1,5 +1,4 @@
-﻿using Framework.Common.DataAnnotations;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -8,19 +7,11 @@ using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Contracts.AccessLevels
 {
-    public class InpUpdateAccessLevel
+    public class InpGetForChangeUserAccesssLevel
     {
-        [Display(Name = "Id")]
-        [Required(ErrorMessage = "RequiredMsg")]
-        [GUID]
-        public string Id { get; set; }
-
         [Display(Name = "Name")]
         [Required(ErrorMessage = "RequiredMsg")]
         [MaxLength(150, ErrorMessage = "MaxLengthMsg")]
         public string Name { get; set; }
-
-        [Display(Name = "Roles")]
-        public string[] Roles { get; set; }
     }
 }

@@ -20,7 +20,7 @@ namespace PrancaBeauty.Application.Contracts.PostingRestrictions
     public class InpAddPostingRestrictionsToProduct_Restrictions
     {
         [Display(Name = "CountryId")]
-        [GUID(ErrorMessage = "GUIDMsg")]
+        [GUID]
         [Required(ErrorMessage = "Required")]
         public string CountryId { get; set; }
 

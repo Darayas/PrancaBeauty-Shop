@@ -1,10 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using PrancaBeauty.WebApp.Common.DataAnnotations;
-using System;
-using System.Collections.Generic;
+﻿using Framework.Common.DataAnnotations;
+using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PrancaBeauty.WebApp.Models.ViewInput
 {

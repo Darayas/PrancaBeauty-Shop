@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Products;
+using PrancaBeauty.Application.Contracts.Products;
 using PrancaBeauty.WebApp.Authentication;
 using PrancaBeauty.WebApp.Common.ExMethod;
 using PrancaBeauty.WebApp.Models.ViewInput;
@@ -36,7 +37,7 @@ namespace PrancaBeauty.WebApp.Pages.User.Products
             return Page();
         }
 
-        public async Task<IActionResult> OnPostReadDataAsync([DataSourceRequest] DataSourceRequest request,string LangId)
+        public async Task<IActionResult> OnPostReadDataAsync([DataSourceRequest] DataSourceRequest request, string LangId)
         {
             if (!User.IsInRole(Roles.CanViewListAllAuthorUserProducts))
             {
@@ -54,17 +55,21 @@ namespace PrancaBeauty.WebApp.Pages.User.Products
             if (Input.LangId == null)
                 Input.LangId = LangId;
 
-            var qData = await _ProductApplication.GetProductsForManageAsync(request.Page,
-                                                                             request.PageSize,
-                                                                             Input.LangId,
-                                                                             Input.SellerUserId,
-                                                                             Input.AuthorUserId,
-                                                                             Input.Title,
-                                                                             Input.Name,
-                                                                             Input.IsDelete,
-                                                                             Input.IsDraft,
-                                                                             Input.IsConfirmed,
-                                                                             Input.IsSchedule);
+            var qData = await _ProductApplication.GetProductsForManageAsync(new InpGetProductsForManage()
+            {
+                Page = request.Page,
+                Take = request.PageSize,
+                LangId = Input.LangId,
+                SellerUserId = Input.SellerUserId,
+                AuthorUserId = Input.AuthorUserId,
+                Title = Input.Title,
+                Name = Input.Name,
+                IsDelete = Input.IsDelete,
+                IsDraft = Input.IsDraft,
+                IsConfirmed = Input.IsConfirmed,
+                IsSchedule = Input.IsSchedule
+            });
+
             // Mapping
             var Items = _Mapper.Map<List<vmProductList>>(qData.Item2);
 

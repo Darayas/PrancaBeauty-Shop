@@ -27,24 +27,22 @@ namespace PrancaBeauty.Application.Apps.Address
             _Localizer = localizer;
         }
 
-        public async Task<(OutPagingData, List<OutGetAddressByUserIdForManage>)> GetAddressByUserIdForManageAsync(string UserId, string LangId, string Search, int PageNum, int Take)
+        public async Task<(OutPagingData, List<OutGetAddressByUserIdForManage>)> GetAddressByUserIdForManageAsync(InpGetAddressByUserIdForManage Input)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(UserId))
-                    throw new ArgumentInvalidException($"'{nameof(UserId)}' cannot be null or whitespace.");
-
-                if (string.IsNullOrWhiteSpace(LangId))
-                    throw new ArgumentInvalidException($"'{nameof(LangId)}' cannot be null or whitespace.");
+                #region Validations
+                Input.CheckModelState();
+                #endregion
 
                 var qData = _AddressRepository.Get
-                                              .Where(a => a.UserId == Guid.Parse(UserId))
+                                              .Where(a => a.UserId == Guid.Parse(Input.UserId))
                                               .Select(a => new OutGetAddressByUserIdForManage
                                               {
                                                   Id = a.Id.ToString(),
-                                                  Address = a.tblCountries.tblCountries_Translates.Where(b => b.LangId == Guid.Parse(LangId)).Select(b => b.Title).Single() + "- " +
-                                                             a.tblProvinces.tblProvinces_Translate.Where(b => b.LangId == Guid.Parse(LangId)).Select(b => b.Title).Single() + "- " +
-                                                             a.tblCities.tblCities_Translates.Where(b => b.LangId == Guid.Parse(LangId)).Select(b => b.Title).Single() + "- " +
+                                                  Address = a.tblCountries.tblCountries_Translates.Where(b => b.LangId == Guid.Parse(Input.LangId)).Select(b => b.Title).Single() + "- " +
+                                                             a.tblProvinces.tblProvinces_Translate.Where(b => b.LangId == Guid.Parse(Input.LangId)).Select(b => b.Title).Single() + "- " +
+                                                             a.tblCities.tblCities_Translates.Where(b => b.LangId == Guid.Parse(Input.LangId)).Select(b => b.Title).Single() + "- " +
                                                              a.District + "- " +
                                                              _Localizer["Plaque"] + " " + a.Plaque + "- " +
                                                              _Localizer["Unit"] + " " + a.Unit + "- " +
@@ -52,16 +50,17 @@ namespace PrancaBeauty.Application.Apps.Address
                                                   CountBills = 0,
                                                   Date = a.Date
                                               })
-                                              .Where(a => Search != null ? a.Address.Contains(Search) : true)
+                                              .Where(a => Input.Search != null ? a.Address.Contains(Input.Search) : true)
                                               .OrderByDescending(a => a.Date);
 
                 // صفحه بندی داده ها
-                var qPagingData = PagingData.Calc(await qData.LongCountAsync(), PageNum, Take);
+                var qPagingData = PagingData.Calc(await qData.LongCountAsync(), Input.PageNum, Input.Take);
 
                 return (qPagingData, await qData.Skip((int)qPagingData.Skip).Take(qPagingData.Take).ToListAsync());
             }
-            catch (ArgumentInvalidException)
+            catch (ArgumentInvalidException ex)
             {
+                _Logger.Debug(ex);
                 return (null, null);
             }
             catch (Exception ex)
@@ -110,20 +109,18 @@ namespace PrancaBeauty.Application.Apps.Address
             }
         }
 
-        public async Task<OperationResult> RemoveAddressAsync(string UserId, string Id)
+        public async Task<OperationResult> RemoveAddressAsync(InpRemoveAddress Input)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(UserId))
-                    throw new ArgumentInvalidException($"'{nameof(UserId)}' cannot be null or whitespace.");
-
-                if (string.IsNullOrWhiteSpace(Id))
-                    throw new ArgumentInvalidException($"'{nameof(Id)}' cannot be null or whitespace.");
+                #region Validations
+                Input.CheckModelState();
+                #endregion
 
                 var qData = await _AddressRepository.Get
-                                                   .Where(a => a.Id == Guid.Parse(Id))
-                                                   .Where(a => a.UserId == Guid.Parse(UserId))
-                                                   //.Where(a=> a.tblBills.Count()==0)
+                                                   .Where(a => a.Id == Guid.Parse(Input.Id))
+                                                   .Where(a => a.UserId == Guid.Parse(Input.UserId))
+                                                   //TODO .Where(a=> a.tblBills.Count()==0)
                                                    .SingleOrDefaultAsync();
 
                 if (qData == null)
@@ -135,6 +132,7 @@ namespace PrancaBeauty.Application.Apps.Address
             }
             catch (ArgumentInvalidException ex)
             {
+                _Logger.Debug(ex);
                 return new OperationResult().Failed(ex.Message);
             }
             catch (Exception ex)
@@ -144,19 +142,17 @@ namespace PrancaBeauty.Application.Apps.Address
             }
         }
 
-        public async Task<OutGetAddressDetails> GetAddressDetailsAsync(string UserId, string Id)
+        public async Task<OutGetAddressDetails> GetAddressDetailsAsync(InpGetAddressDetails Input)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(UserId))
-                    throw new ArgumentInvalidException($"'{nameof(UserId)}' cannot be null or whitespace.");
-
-                if (string.IsNullOrWhiteSpace(Id))
-                    throw new ArgumentInvalidException($"'{nameof(Id)}' cannot be null or whitespace.");
+                #region Validation
+                Input.CheckModelState();
+                #endregion
 
                 var qData = await _AddressRepository.Get
-                                                   .Where(a => a.Id == Guid.Parse(Id))
-                                                   .Where(a => a.UserId == Guid.Parse(UserId))
+                                                   .Where(a => a.Id == Guid.Parse(Input.Id))
+                                                   .Where(a => a.UserId == Guid.Parse(Input.UserId))
                                                    .Select(a => new OutGetAddressDetails
                                                    {
                                                        Id = a.Id.ToString(),

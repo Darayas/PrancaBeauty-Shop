@@ -3,11 +3,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PrancaBeauty.Application.Contracts.AccessLevels
 {
-    public class InpRemove
+    public class InpCheckHasUser
     {
-        [Display(Name = "Id")]
+        [Display(Name = "AccessLevelId")]
         [Required(ErrorMessage = "RequiredMsg")]
         [GUID]
-        public string Id { get; set; }
+        public string AccessLevelId { get; set; }
     }
 }

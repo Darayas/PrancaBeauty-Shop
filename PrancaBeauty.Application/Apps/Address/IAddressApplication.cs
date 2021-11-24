@@ -10,8 +10,8 @@ namespace PrancaBeauty.Application.Apps.Address
     {
         Task<OperationResult> AddAddressAsync(InpAddAddress Input);
         Task<OperationResult> EditAddressAsync(InpEditAddress Input);
-        Task<(OutPagingData, List<OutGetAddressByUserIdForManage>)> GetAddressByUserIdForManageAsync(string UserId, string LangId, string Search, int PageNum, int Take);
-        Task<OutGetAddressDetails> GetAddressDetailsAsync(string UserId, string Id);
-        Task<OperationResult> RemoveAddressAsync(string UserId, string Id);
+        Task<(OutPagingData, List<OutGetAddressByUserIdForManage>)> GetAddressByUserIdForManageAsync(InpGetAddressByUserIdForManage Input);
+        Task<OutGetAddressDetails> GetAddressDetailsAsync(InpGetAddressDetails Input);
+        Task<OperationResult> RemoveAddressAsync(InpRemoveAddress Input);
     }
 }

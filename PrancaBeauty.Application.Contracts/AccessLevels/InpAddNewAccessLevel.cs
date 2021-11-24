@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Framework.Common.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
 namespace PrancaBeauty.Application.Contracts.AccessLevels
 {
     public class InpAddNewAccessLevel
     {
+        [Display(Name = "Name")]
+        [Required(ErrorMessage = "RequiredMsg")]
+        [MaxLength(150, ErrorMessage = "MaxLengthMsg")]
         public string Name { get; set; }
         public string[] Roles { get; set; }
     }

@@ -773,6 +773,9 @@
   <data name="PageName" xml:space="preserve">
     <value>عنوان بخش</value>
   </data>
+  <data name="PageNum" xml:space="preserve">
+    <value>شماره صفحه</value>
+  </data>
   <data name="ParentId" xml:space="preserve">
     <value>دسته پدر</value>
   </data>
@@ -941,6 +944,9 @@
   <data name="PublicDetials" xml:space="preserve">
     <value>جزئیات عمومی</value>
   </data>
+  <data name="RangeGreaterThanZeroMsgMsg" xml:space="preserve">
+    <value>{0} باید بیشتر از 0 باشد.</value>
+  </data>
   <data name="RangeMsg" xml:space="preserve">
     <value>{0} باید بین {1} تا {2} باشد.</value>
   </data>
@@ -1096,6 +1102,9 @@
   </data>
   <data name="StringLengthMsg" xml:space="preserve">
     <value>{0} باید بین {2} تا {1} کاراکتر باشد</value>
+  </data>
+  <data name="Take" xml:space="preserve">
+    <value>تعداد در صفحه</value>
   </data>
   <data name="ThreeWorkingDays" xml:space="preserve">
     <value>سه روز کاری</value>

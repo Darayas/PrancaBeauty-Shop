@@ -1,6 +1,7 @@
 ﻿using Framework.Domain;
 using PrancaBeauty.Domin.Categories.CategoriesAgg.Entities;
 using PrancaBeauty.Domin.Keywords.Keywords_Products.Entities;
+using PrancaBeauty.Domin.Product.PostingRestrictionsAgg.Entites;
 using PrancaBeauty.Domin.Product.ProductAskAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductMediaAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductPricesAgg.Entities;
@@ -52,6 +53,7 @@ namespace PrancaBeauty.Domin.Product.ProductAgg.Entities
         public virtual ICollection<tblProductPropertiesValues> tblProductPropertiesValues { get; set; }
         public virtual ICollection<tblProductVariantItems> tblProductVariantItems { get; set; }
         public virtual ICollection<tblProductSellers> tblProductSellers { get; set; }
+        public virtual ICollection<tblPostingRestrictions> tblPostingRestrictions { get; set; }
 
 
     }

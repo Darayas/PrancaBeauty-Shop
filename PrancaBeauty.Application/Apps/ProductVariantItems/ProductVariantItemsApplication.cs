@@ -1,6 +1,7 @@
 ﻿using Framework.Common.ExMethods;
 using Framework.Exceptions;
 using Framework.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Contracts.ProductVariantItems;
 using PrancaBeauty.Application.Contracts.Results;
 using PrancaBeauty.Domin.Product.ProductVariantItemsAgg.Contracts;
@@ -60,6 +61,32 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
                 }
 
                 await _ProductVariantItemsRepository.SaveChangeAsync();
+                return new OperationResult().Succeeded();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
+
+        public async Task<OperationResult> RemoveAllVariantsFromProductAsync(InpRemoveVariantsFromProduct Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState();
+                #endregion
+
+                var qData = await _ProductVariantItemsRepository.Get.Where(a => a.ProductId == Guid.Parse(Input.ProductId)).ToListAsync();
+
+                await _ProductVariantItemsRepository.DeleteRangeAsync(qData,default,false);
+
                 return new OperationResult().Succeeded();
             }
             catch (ArgumentInvalidException ex)

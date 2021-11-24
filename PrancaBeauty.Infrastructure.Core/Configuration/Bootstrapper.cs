@@ -22,6 +22,7 @@ using PrancaBeauty.Application.Apps.Guarantee;
 using PrancaBeauty.Application.Apps.Keywords;
 using PrancaBeauty.Application.Apps.KeywordsProducts;
 using PrancaBeauty.Application.Apps.Languages;
+using PrancaBeauty.Application.Apps.PostingRestrictions;
 using PrancaBeauty.Application.Apps.ProductAsk;
 using PrancaBeauty.Application.Apps.ProductAskLikes;
 using PrancaBeauty.Application.Apps.ProductMedia;
@@ -52,6 +53,7 @@ using PrancaBeauty.Domin.FileServer.ServerAgg.Contracts;
 using PrancaBeauty.Domin.Keywords.KeywordAgg.Contracts;
 using PrancaBeauty.Domin.Keywords.Keywords_Products.Contracts;
 using PrancaBeauty.Domin.Product.GuaranteeAgg.Contracts;
+using PrancaBeauty.Domin.Product.PostingRestrictionsAgg.Contracts;
 using PrancaBeauty.Domin.Product.ProductAgg.Contracts;
 using PrancaBeauty.Domin.Product.ProductAskAgg.Contarcts;
 using PrancaBeauty.Domin.Product.ProductAskLikesAgg.Contracts;
@@ -93,6 +95,7 @@ using PrancaBeauty.Infrastructure.EFCore.Repository.FileType;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Guarantee;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Keywords;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Keywords_Products;
+using PrancaBeauty.Infrastructure.EFCore.Repository.PostingRestrictions;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Product;
 using PrancaBeauty.Infrastructure.EFCore.Repository.ProductAsk;
 using PrancaBeauty.Infrastructure.EFCore.Repository.ProductAskLikes;
@@ -187,6 +190,7 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddScoped<IFilePathRepository, FilePathRepository>();
             services.AddScoped<IGuaranteeRepository, GuaranteeRepository>();
             services.AddScoped<IGuarantee_TranslatesRepository, Guarantee_TranslatesRepository>();
+            services.AddScoped<IPostingRestrictionsRepository, PostingRestrictionsRepository>();
 
             // Applications
             services.AddScoped<IUserApplication, UserApplication>();
@@ -225,6 +229,7 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddScoped<IFileTypeApplication, FileTypeApplication>();
             services.AddScoped<IFilePathApplication, FilePathApplication>();
             services.AddScoped<IGuaranteeApplications, GuaranteeApplications>();
+            services.AddScoped<IPostingRestrictionsApplication, PostingRestrictionsApplication>();
         }
     }
 }

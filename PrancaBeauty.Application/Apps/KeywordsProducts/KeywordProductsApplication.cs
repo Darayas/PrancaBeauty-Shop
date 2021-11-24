@@ -2,6 +2,7 @@
 using Framework.Common.ExMethods;
 using Framework.Exceptions;
 using Framework.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Apps.Keywords;
 using PrancaBeauty.Application.Contracts.KeywordProducts;
 using PrancaBeauty.Application.Contracts.Keywords;
@@ -97,7 +98,11 @@ namespace PrancaBeauty.Application.Apps.KeywordsProducts
                 Input.CheckModelState();
                 #endregion
 
-                // حذف کلمات کلیدی
+                var qData = await _IKeywords_ProductsRepository.Get.Where(a => a.ProductId == Guid.Parse(Input.ProductId)).ToListAsync();
+
+                await _IKeywords_ProductsRepository.DeleteRangeAsync(qData, default, true);
+
+                return new OperationResult().Succeeded();
             }
             catch (ArgumentInvalidException ex)
             {

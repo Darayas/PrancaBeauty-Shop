@@ -11,6 +11,9 @@ namespace Framework.Common.DataAnnotations
         {
             try
             {
+                if (value is null)
+                    return ValidationResult.Success;
+
                 if (value is string)
                 {
 

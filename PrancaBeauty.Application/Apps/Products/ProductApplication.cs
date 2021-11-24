@@ -6,9 +6,11 @@ using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Apps.Categories;
 using PrancaBeauty.Application.Apps.KeywordsProducts;
+using PrancaBeauty.Application.Apps.PostingRestrictions;
 using PrancaBeauty.Application.Apps.ProductPropertiesValues;
 using PrancaBeauty.Application.Apps.ProductVariantItems;
 using PrancaBeauty.Application.Contracts.KeywordProducts;
+using PrancaBeauty.Application.Contracts.PostingRestrictions;
 using PrancaBeauty.Application.Contracts.ProductPropertiesValues;
 using PrancaBeauty.Application.Contracts.Products;
 using PrancaBeauty.Application.Contracts.ProductVariantItems;
@@ -33,7 +35,8 @@ namespace PrancaBeauty.Application.Apps.Products
         private readonly IProductVariantItemsApplication _ProductVariantItemsApplication;
         private readonly IProductPropertiesValuesApplication _ProductPropertiesValuesApplication;
         private readonly IKeywordProductsApplication _KeywordProductsApplication;
-        public ProductApplication(IProductRepository productRepository, ILogger logger, ICategoryApplication categoryApplication, ILocalizer localizer, IProductVariantItemsApplication productVariantItemsApplication, IProductPropertiesValuesApplication productPropertiesValuesApplication, IKeywordProductsApplication keywordProductsApplication, IMapper mapper)
+        private readonly IPostingRestrictionsApplication _PostingRestrictionsApplication;
+        public ProductApplication(IProductRepository productRepository, ILogger logger, ICategoryApplication categoryApplication, ILocalizer localizer, IProductVariantItemsApplication productVariantItemsApplication, IProductPropertiesValuesApplication productPropertiesValuesApplication, IKeywordProductsApplication keywordProductsApplication, IMapper mapper, IPostingRestrictionsApplication postingRestrictionsApplication)
         {
             _ProductRepository = productRepository;
             _Logger = logger;
@@ -43,6 +46,7 @@ namespace PrancaBeauty.Application.Apps.Products
             _ProductPropertiesValuesApplication = productPropertiesValuesApplication;
             _KeywordProductsApplication = keywordProductsApplication;
             _Mapper = mapper;
+            _PostingRestrictionsApplication = postingRestrictionsApplication;
         }
 
         public async Task<(OutPagingData, List<OutGetProductsForManage>)> GetProductsForManageAsync(int Page, int Take, string LangId, string SellerUserId, string AuthorUserId, string Title, string Name, bool? IsDelete, bool? IsDraft, bool? IsConfirmed, bool? IsSchedule)
@@ -292,10 +296,10 @@ namespace PrancaBeauty.Application.Apps.Products
                     _VarinatData.SellerId = AuthorUserId;
 
                     var _Result = await _ProductVariantItemsApplication.AddVariantsToProductAsync(_VarinatData);
-                    if(!_Result.IsSucceeded)
+                    if (!_Result.IsSucceeded)
                     {
                         // حذف کلمات کلیدی
-                        await _KeywordProductsApplication.AddKeywordsToProductAsync
+                        await _KeywordProductsApplication.RemoveAllProductKeywordsAsync(new InpRemoveAllProductKeywords() { ProductId = ProductId });
 
                         // حذف خصوصیات
                         await _ProductPropertiesValuesApplication.RemovePropertiesByProductIdAsync(new InpRemovePropertiesByProductId() { ProductId = ProductId });
@@ -310,7 +314,28 @@ namespace PrancaBeauty.Application.Apps.Products
                 #endregion
 
                 #region محدودیت های ارسال پستی
-                // TODO محدودیت های ارسال پستی
+                {
+                    var _PostingRestrictionsData = _Mapper.Map<InpAddPostingRestrictionsToProduct>(Input.PostingRestrictions);
+                    _PostingRestrictionsData.ProductId = ProductId;
+
+                    var _Result = await _PostingRestrictionsApplication.AddPostingRestrictionsToProductAsync(_PostingRestrictionsData);
+                    if (_Result.IsSucceeded == false)
+                    {
+                        // حذف تنوع محصول
+                        await _ProductVariantItemsApplication.RemoveAllVariantsFromProductAsync(new InpRemoveVariantsFromProduct() { ProductId = ProductId });
+
+                        // حذف کلمات کلیدی
+                        await _KeywordProductsApplication.RemoveAllProductKeywordsAsync(new InpRemoveAllProductKeywords() { ProductId = ProductId });
+
+                        // حذف خصوصیات
+                        await _ProductPropertiesValuesApplication.RemovePropertiesByProductIdAsync(new InpRemovePropertiesByProductId() { ProductId = ProductId });
+
+                        // حذف محصول
+                        await _ProductRepository.DeleteAsync(Guid.Parse(ProductId), default, true);
+
+                        return new OperationResult().Failed("Error500");
+                    }
+                }
                 #endregion
 
                 return default;

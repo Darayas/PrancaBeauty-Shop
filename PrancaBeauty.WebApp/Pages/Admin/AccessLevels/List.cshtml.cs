@@ -37,7 +37,12 @@ namespace PrancaBeauty.WebApp.Pages.Admin.AccessLevels
 
         public async Task<IActionResult> OnPostReadDataAsync([DataSourceRequest] DataSourceRequest request)
         {
-            var qData = await _AccesslevelApplication.GetListForAdminPageAsync(null, request.Page, request.PageSize);
+            var qData = await _AccesslevelApplication.GetListForAdminPageAsync(new InpGetListForAdminPage
+            {
+                Title = null,
+                PageNum = request.Page,
+                Take = request.PageSize
+            });
 
 
             var _DataGrid = qData.Item2.ToDataSourceResult(request);

@@ -43,7 +43,7 @@ namespace PrancaBeauty.WebApp.Pages.Admin.Categories
             {
                 ViewData["ReturnUrl"] = ReturnUrl ?? $"/{CultureInfo.CurrentCulture.Parent.Name}/Admin/Category/List";
 
-                var qData = await _CategoryApplication.GetForEditAsync(Input.Id);
+                var qData = await _CategoryApplication.GetForEditAsync(new InpGetForEdit { Id = Input.Id });
                 Input = _Mapper.Map<viEditCategory>(qData);
 
                 var qLang = await _LanguageApplication.GetAllLanguageForSiteLangAsync();

@@ -7,12 +7,17 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
 {
     public class viEditCategory
     {
+        [Display(Name = "Id")]
         [Required(ErrorMessage = "RequiredMsg")]
+        [GUID]
         public string Id { get; set; }
 
+        [Display(Name = "UserId")]
+        [GUID]
         public string UserId { get; set; }
 
         [Display(Name = "ParentId")]
+        [GUID]
         public string ParentId { get; set; }
 
         [Display(Name = "CategoryImage")]
@@ -20,17 +25,18 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
         [AllowExtentions("image/jpg,image/jpeg", ErrorMessage = "AllowExtentionsMsg")]
         public IFormFile Image { get; set; }
 
+        [Display(Name = "ImgCategoryUrl")]
         public string ImgCategoryUrl { get; set; }
 
         [Display(Name = "Name")]
         [Required(ErrorMessage = "RequiredMsg")]
-        [StringLength(100, MinimumLength = 1, ErrorMessage = "StringLengthMsg")]
+        [MaxLength(100, ErrorMessage = "MaxLengthMsg")]
         public string Name { get; set; }
 
         [Display(Name = "Sort")]
+        [Range(1, int.MaxValue, ErrorMessage = "RangeMsg")]
         public int Sort { get; set; }
 
-        [Required(ErrorMessage = "RequiredMsg")]
         public List<viEditCategory_Translate> LstTranslate { get; set; }
     }
 
@@ -38,11 +44,12 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
     {
         [Display(Name = "LangId")]
         [Required(ErrorMessage = "RequiredMsg")]
+        [GUID]
         public string LangId { get; set; }
 
         [Display(Name = "Title")]
         [Required(ErrorMessage = "RequiredMsg")]
-        [StringLength(200, MinimumLength = 1, ErrorMessage = "StringLengthMsg")]
+        [MaxLength(200, ErrorMessage = "MaxLengthMsg")]
         public string Title { get; set; }
 
         [Display(Name = "Description")]

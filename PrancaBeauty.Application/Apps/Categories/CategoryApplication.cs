@@ -31,17 +31,13 @@ namespace PrancaBeauty.Application.Apps.Categories
             _Category_TranslateRepository = category_TranslateRepository;
         }
 
-        public async Task<(OutPagingData, List<OutGetListForAdminPage>)> GetListForAdminPageAsync(string LangId, string Title, string ParentTitle, int PageNum, int Take)
+        public async Task<(OutPagingData, List<OutGetListForAdminPage>)> GetListForAdminPageAsync(InpGetListForAdminPage Input)
         {
             try
             {
-                if (PageNum < 1)
-                    throw new ArgumentInvalidException("PageNum < 1");
-
-                if (Take < 1)
-                    throw new ArgumentInvalidException("Take < 1");
-
-                Title = string.IsNullOrWhiteSpace(Title) ? null : Title;
+                #region Validations
+                Input.CheckModelState();
+                #endregion
 
                 // آماده سازی اولیه ی کویری
                 var qData = _CategoryRepository.Get.Select(a => new OutGetListForAdminPage
@@ -49,26 +45,27 @@ namespace PrancaBeauty.Application.Apps.Categories
                     Id = a.Id.ToString(),
                     ParentId = a.ParentId.ToString(),
                     Name = a.Name,
-                    Title = a.tblCategory_Translates.Where(b => b.LangId == Guid.Parse(LangId)).Select(b => b.Title).Single(),
+                    Title = a.tblCategory_Translates.Where(b => b.LangId == Guid.Parse(Input.LangId)).Select(b => b.Title).Single(),
                     ImgUrl = a.tblFiles.tblFilePaths.tblFileServer.HttpDomin
                                 + a.tblFiles.tblFilePaths.tblFileServer.HttpPath
                                 + a.tblFiles.tblFilePaths.Path
                                 + a.tblFiles.FileName,
                     Sort = a.Sort,
-                    ParentTitle = a.tblCategory_Parent.tblCategory_Translates.Where(b => b.LangId == Guid.Parse(LangId)).Select(b => b.Title).Single(),
+                    ParentTitle = a.tblCategory_Parent.tblCategory_Translates.Where(b => b.LangId == Guid.Parse(Input.LangId)).Select(b => b.Title).Single(),
                 })
-                .Where(a => Title != null ? a.Title.Contains(Title) : true)
-                .Where(a => ParentTitle != null ? a.ParentTitle.Contains(ParentTitle) : true)
+                .Where(a => Input.Title != null ? a.Title.Contains(Input.Title) : true)
+                .Where(a => Input.ParentTitle != null ? a.ParentTitle.Contains(Input.ParentTitle) : true)
                 .OrderBy(a => a.ParentId)
                 .ThenBy(a => a.Sort);
 
                 // صفحه بندی داده ها
-                var qPagingData = PagingData.Calc(await qData.LongCountAsync(), PageNum, Take);
+                var qPagingData = PagingData.Calc(await qData.LongCountAsync(), Input.PageNum, Input.Take);
 
                 return (qPagingData, await qData.Skip((int)qPagingData.Skip).Take(qPagingData.Take).ToListAsync());
             }
-            catch (ArgumentInvalidException)
+            catch (ArgumentInvalidException ex)
             {
+                _Logger.Debug(ex);
                 return (null, null);
             }
             catch (Exception ex)
@@ -78,37 +75,58 @@ namespace PrancaBeauty.Application.Apps.Categories
             }
         }
 
-        public async Task<List<OutGetListForCombo>> GetListForComboAsync(string LangId, string ParentId)
+        public async Task<List<OutGetListForCombo>> GetListForComboAsync(InpGetListForCombo Input)
         {
-            var qData = await _CategoryRepository.Get
-                                                 .Where(a => ParentId != null ? a.ParentId == Guid.Parse(ParentId) /*&& a.Id != Guid.Parse(ParentId)*/ : a.ParentId == null)
-                                                .Select(a => new OutGetListForCombo
-                                                {
-                                                    Id = a.Id.ToString(),
-                                                    ParentId = a.ParentId.ToString(),
-                                                    Name = a.Name,
-                                                    Title = a.tblCategory_Translates.Where(b => b.LangId == Guid.Parse(LangId)).Select(b => b.Title).Single(),
-                                                    Sort = a.Sort,
-                                                    hasChildren = a.tblCategory_Childs/*.Where(b => b.Id != Guid.Parse(ParentId))*/.Any(),
-                                                    ImgUrl = a.tblFiles.tblFilePaths.tblFileServer.HttpDomin
-                                                                + a.tblFiles.tblFilePaths.tblFileServer.HttpPath
-                                                                + a.tblFiles.tblFilePaths.Path
-                                                                + a.tblFiles.FileName,
-                                                })
-                                                .ToListAsync();
+            try
+            {
+                #region Validations
+                Input.CheckModelState();
+                #endregion
 
-            return qData;
+                var qData = await _CategoryRepository.Get
+                                                     .Where(a => Input.ParentId != null ? a.ParentId == Guid.Parse(Input.ParentId) /*&& a.Id != Guid.Parse(ParentId)*/ : a.ParentId == null)
+                                                     .Select(a => new OutGetListForCombo
+                                                     {
+                                                         Id = a.Id.ToString(),
+                                                         ParentId = a.ParentId.ToString(),
+                                                         Name = a.Name,
+                                                         Title = a.tblCategory_Translates.Where(b => b.LangId == Guid.Parse(Input.LangId)).Select(b => b.Title).Single(),
+                                                         Sort = a.Sort,
+                                                         hasChildren = a.tblCategory_Childs/*.Where(b => b.Id != Guid.Parse(ParentId))*/.Any(),
+                                                         ImgUrl = a.tblFiles.tblFilePaths.tblFileServer.HttpDomin
+                                                                     + a.tblFiles.tblFilePaths.tblFileServer.HttpPath
+                                                                     + a.tblFiles.tblFilePaths.Path
+                                                                     + a.tblFiles.FileName,
+                                                     })
+                                                     .ToListAsync();
+
+                return qData;
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
+            }
         }
 
         public async Task<OperationResult> AddCategoryAsync(InpAddCategory Input)
         {
             try
             {
-                if (Input is null)
-                    throw new ArgumentInvalidException("Input cant be null.");
+                #region Validation
+                Input.CheckModelState();
 
-                if (await _CategoryRepository.Get.AnyAsync(a => a.ParentId == (Input.ParentId != null ? Guid.Parse(Input.ParentId) : null) && a.Name == Input.Name))
-                    return new OperationResult().Failed("CategoryName Is Duplicate.");
+                if (Input.LstTranslate == null)
+                    throw new ArgumentInvalidException($"{nameof(Input.LstTranslate)} cant be null.");
+
+                if (Input.LstTranslate.Count() == 0)
+                    throw new ArgumentInvalidException($"{nameof(Input.LstTranslate)} must be greater than zero.");
+                #endregion
 
                 var tCategory = new tblCategoris()
                 {
@@ -154,15 +172,16 @@ namespace PrancaBeauty.Application.Apps.Categories
             }
         }
 
-        public async Task<OperationResult> RemoveAsync(string Id)
+        public async Task<OperationResult> RemoveCategoryAsync(InpRemoveCategory Input)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(Id))
-                    throw new ArgumentInvalidException($"'{nameof(Id)}' cannot be null or whitespace.");
+                #region Validation
+                Input.CheckModelState();
+                #endregion
 
                 var qData = await _CategoryRepository.Get
-                                                     .Where(a => a.Id == Guid.Parse(Id))
+                                                     .Where(a => a.Id == Guid.Parse(Input.Id))
                                                      .Select(a => new
                                                      {
                                                          HasChild = a.tblCategory_Childs.Any(),
@@ -182,7 +201,7 @@ namespace PrancaBeauty.Application.Apps.Categories
                     return new OperationResult().Failed("CategoryHasProduct,CantRemove");
 
                 // حذف دسته
-                var _Category = await _CategoryRepository.Get.SingleAsync(a => a.Id == Guid.Parse(Id));
+                var _Category = await _CategoryRepository.Get.SingleAsync(a => a.Id == Guid.Parse(Input.Id));
                 await _CategoryRepository.DeleteAsync(_Category, default);
 
                 // حذف فایل
@@ -193,6 +212,7 @@ namespace PrancaBeauty.Application.Apps.Categories
             }
             catch (ArgumentInvalidException ex)
             {
+                _Logger.Debug(ex);
                 return new OperationResult().Failed(ex.Message);
             }
             catch (Exception ex)
@@ -202,15 +222,17 @@ namespace PrancaBeauty.Application.Apps.Categories
             }
         }
 
-        public async Task<OutGetForEdit> GetForEditAsync(string Id)
+        public async Task<OutGetForEdit> GetForEditAsync(InpGetForEdit Input)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(Id))
-                    throw new ArgumentInvalidException($"'{nameof(Id)}' cannot be null or whitespace.");
+
+                #region Validation
+                Input.CheckModelState();
+                #endregion
 
                 var qData = await _CategoryRepository.Get
-                                                    .Where(a => a.Id == Guid.Parse(Id))
+                                                    .Where(a => a.Id == Guid.Parse(Input.Id))
                                                     .Select(a => new OutGetForEdit
                                                     {
                                                         Id = a.Id.ToString(),
@@ -250,8 +272,15 @@ namespace PrancaBeauty.Application.Apps.Categories
         {
             try
             {
-                if (Input is null)
-                    throw new ArgumentInvalidException(nameof(Input));
+                #region Validations
+                Input.CheckModelState();
+
+                if (Input.LstTranslate == null)
+                    throw new ArgumentInvalidException($"{nameof(Input.LstTranslate)} cant be null.");
+
+                if (Input.LstTranslate.Count() == 0)
+                    throw new ArgumentInvalidException($"{nameof(Input.LstTranslate)} must be greater than zero.");
+                #endregion
 
                 var qData = await _CategoryRepository.Get
                                                      .Where(a => a.Id == Guid.Parse(Input.Id))
@@ -320,17 +349,15 @@ namespace PrancaBeauty.Application.Apps.Categories
             }
         }
 
-        public async Task<IEnumerable<OutGetParentsByChildId>> GetParentsByChildIdAsync(string LangId, string ChildId)
+        public async Task<IEnumerable<OutGetParentsByChildId>> GetParentsByChildIdAsync(InpGetParentsByChildId Input)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(LangId))
-                    throw new ArgumentInvalidException($"'{nameof(LangId)}' cannot be null or whitespace.");
+                #region Validations
+                Input.CheckModelState();
+                #endregion
 
-                if (string.IsNullOrWhiteSpace(ChildId))
-                    throw new ArgumentInvalidException($"'{nameof(ChildId)}' cannot be null or whitespace.");
-
-                Guid? ParentId = Guid.Parse(ChildId);
+                Guid? ParentId = Guid.Parse(Input.ChildId);
                 Stack<OutGetParentsByChildId> StkItems = new Stack<OutGetParentsByChildId>();
 
                 while (ParentId != null)
@@ -347,7 +374,7 @@ namespace PrancaBeauty.Application.Apps.Categories
                     {
                         Id = qData.Id.ToString(),
                         Name = qData.Name,
-                        Title = qData.tblCategory_Translates.Where(a => a.LangId == Guid.Parse(LangId)).Select(a => a.Title).Single()
+                        Title = qData.tblCategory_Translates.Where(a => a.LangId == Guid.Parse(Input.LangId)).Select(a => a.Title).Single()
                     });
 
                     ParentId = qData.ParentId;

@@ -14,6 +14,6 @@ namespace PrancaBeauty.Application.Apps.Cities
         ///// <param name="Search">نام مورد نظر به جهت جستوجو</param>
         ///// <exception cref="ArgumentInvalidException"></exception>
         ///// <returns></returns>
-        Task<List<OutGetListForCombo>> GetListForComboAsync(string LangId, string ProvinceId, string Search);
+        Task<List<OutGetListForCombo>> GetListForComboAsync(InpGetListForCombo Input);
     }
 }

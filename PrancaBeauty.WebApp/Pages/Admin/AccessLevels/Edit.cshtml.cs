@@ -38,7 +38,7 @@ namespace PrancaBeauty.WebApp.Pages.Admin.AccessLevels
             if (string.IsNullOrWhiteSpace(Input.Id))
                 return StatusCode(400);
 
-            var qData = await _AccesslevelApplication.GetForEditAsync(Input.Id);
+            var qData = await _AccesslevelApplication.GetForEditAsync(new InpGetForEdit { AccessLevelId=Input.Id });
 
             if (qData == null)
                 return StatusCode(404);

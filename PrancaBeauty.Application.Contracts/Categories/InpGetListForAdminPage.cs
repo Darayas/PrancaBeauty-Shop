@@ -6,27 +6,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PrancaBeauty.Application.Contracts.Address
+namespace PrancaBeauty.Application.Contracts.Categories
 {
-    public class InpGetAddressByUserIdForManage
+    public class InpGetListForAdminPage
     {
-        [Display(Name = "UserId")]
-        [Required(ErrorMessage = "RequiredMsg")]
-        [GUID]
-        public string UserId { get; set; }
-
-        [Display(Name = "LangId")]
+        [Display(Name = "PageNum")]
         [Required(ErrorMessage = "RequiredMsg")]
         [GUID]
         public string LangId { get; set; }
 
-        [Display(Name = "Search")]
+        [Display(Name = "Title")]
         [Required(ErrorMessage = "RequiredMsg")]
-        [MaxLength(150,ErrorMessage = "MaxLengthMsg")]
-        public string Search { get; set; }
+        [MaxLength(150, ErrorMessage = "MaxLengthMsg")]
+        public string Title { get; set; }
+
+        [Display(Name = "ParentTitle")]
+        [Required(ErrorMessage = "RequiredMsg")]
+        [MaxLength(150, ErrorMessage = "MaxLengthMsg")]
+        public string ParentTitle { get; set; }
 
         [Display(Name = "PageNum")]
-        [Range(1,int.MaxValue,ErrorMessage = "RangeGreaterThanZeroMsgMsg")]
+        [Range(1, int.MaxValue, ErrorMessage = "RangeGreaterThanZeroMsgMsg")]
         public int PageNum { get; set; }
 
         [Display(Name = "Take")]

@@ -28,7 +28,7 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.Compo_Price
         public async Task<IActionResult> OnGetAsync()
         {
             string _CountryId = await _LanguageApplication.GetCountryIdByLangIdAsync(Input.LangId);
-            var qCurrency = await _CurrencyApplication.GetMainByCountryIdAsync(Input.LangId, _CountryId);
+            var qCurrency = await _CurrencyApplication.GetMainByCountryIdAsync(new InpGetMainByCountryId { LangId = Input.LangId, CountryId = _CountryId });
 
             Data = _Mapper.Map<vmCompo_Input_Price>(qCurrency);
 

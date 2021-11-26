@@ -2,13 +2,12 @@
 using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using PrancaBeauty.Application.Contracts.FilePath;
 using PrancaBeauty.Application.Contracts.Results;
 using PrancaBeauty.Domin.FileServer.FilePathAgg.Contracts;
 using PrancaBeauty.Domin.FileServer.FilePathAgg.Entities;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Apps.FilePath
@@ -24,18 +23,16 @@ namespace PrancaBeauty.Application.Apps.FilePath
             _Logger = logger;
         }
 
-        public async Task<string> GetIdByPathAsync(string FileServerId, string Path)
+        public async Task<string> GetIdByPathAsync(InpGetIdByPath Input)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(FileServerId))
-                    throw new ArgumentInvalidException($"'{nameof(FileServerId)}' cannot be null or whitespace.");
+                #region Validation
+                Input.CheckModelState();
+                #endregion
 
-                if (string.IsNullOrWhiteSpace(Path))
-                    throw new ArgumentInvalidException($"'{nameof(Path)}' cannot be null or whitespace.");
-
-                var qData = await _FilePathRepository.Get.Where(a => a.FileServerId == Guid.Parse(FileServerId))
-                                                         .Where(a => a.Path == Path)
+                var qData = await _FilePathRepository.Get.Where(a => a.FileServerId == Guid.Parse(Input.FileServerId))
+                                                         .Where(a => a.Path == Input.Path)
                                                          .Select(a => a.Id.ToString())
                                                          .SingleOrDefaultAsync();
 
@@ -44,8 +41,9 @@ namespace PrancaBeauty.Application.Apps.FilePath
 
                 return qData;
             }
-            catch (ArgumentInvalidException)
+            catch (ArgumentInvalidException ex)
             {
+                _Logger.Debug(ex);
                 return null;
             }
             catch (Exception ex)
@@ -55,28 +53,30 @@ namespace PrancaBeauty.Application.Apps.FilePath
             }
         }
 
-        public async Task<bool> CheckDirectoryExistAsync(string FileServerId, string Path)
+        public async Task<bool> CheckDirectoryExistAsync(InpCheckDirectoryExist Input)
         {
-            return await _FilePathRepository.Get.Where(a => a.FileServerId == Guid.Parse(FileServerId))
-                                                .Where(a => a.Path == Path)
+            #region Vlidation
+            Input.CheckModelState();
+            #endregion
+
+            return await _FilePathRepository.Get.Where(a => a.FileServerId == Guid.Parse(Input.FileServerId))
+                                                .Where(a => a.Path == Input.Path)
                                                 .AnyAsync();
         }
 
-        public async Task<OperationResult> MakePathAsync(string FileServerId, string Path)
+        public async Task<OperationResult> MakePathAsync(InpMakePath Input)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(FileServerId))
-                    throw new ArgumentInvalidException($"'{nameof(FileServerId)}' cannot be null or whitespace.");
-
-                if (string.IsNullOrWhiteSpace(Path))
-                    throw new ArgumentInvalidException($"'{nameof(Path)}' cannot be null or whitespace.");
+                #region Validation
+                Input.CheckModelState();
+                #endregion
 
                 var tFilePath = new tblFilePaths()
                 {
                     Id = new Guid().SequentialGuid(),
-                    FileServerId = Guid.Parse(FileServerId),
-                    Path = Path
+                    FileServerId = Guid.Parse(Input.FileServerId),
+                    Path = Input.Path
                 };
 
                 await _FilePathRepository.AddAsync(tFilePath, default, true);
@@ -85,6 +85,7 @@ namespace PrancaBeauty.Application.Apps.FilePath
             }
             catch (ArgumentInvalidException ex)
             {
+                _Logger.Debug(ex);
                 return new OperationResult().Failed(ex.Message);
             }
             catch (Exception ex)

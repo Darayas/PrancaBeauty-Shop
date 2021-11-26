@@ -6,6 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Categories;
+using PrancaBeauty.Application.Contracts.Categories;
 using PrancaBeauty.WebApp.Models.ViewInput;
 using PrancaBeauty.WebApp.Models.ViewModel;
 
@@ -32,7 +33,7 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.Compo_Categories
 
         public async Task<IActionResult> OnGetReadAsync(string LangId, string id)
         {
-            var qData = await _CategoryApplication.GetListForComboAsync(LangId, id);
+            var qData = await _CategoryApplication.GetListForComboAsync(new InpGetListForCombo { LangId = LangId, ParentId = id });
             var Data = _Mapper.Map<List<vmCompo_Combo_Categories>>(qData);
             return new JsonResult(Data);
         }

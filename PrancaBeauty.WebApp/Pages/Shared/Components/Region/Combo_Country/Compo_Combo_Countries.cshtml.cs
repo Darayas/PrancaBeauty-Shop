@@ -6,6 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Countries;
+using PrancaBeauty.Application.Contracts.Countries;
 using PrancaBeauty.WebApp.Models.ViewInput;
 using PrancaBeauty.WebApp.Models.ViewModel;
 
@@ -31,7 +32,7 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.Region.Combo_Country
 
         public async Task<IActionResult> OnGetReadAsync(string LangId, string Text)
         {
-            var qData = await _CountryApplication.GetListForComboAsync(LangId, Text);
+            var qData = await _CountryApplication.GetListForComboAsync(new InpGetListForCombo { LangId = LangId, Search = Text });
             var Data = _Mapper.Map<List<vmCompo_Combo_Countries>>(qData);
             return new JsonResult(Data);
         }

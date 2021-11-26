@@ -5,6 +5,6 @@ namespace PrancaBeauty.Application.Apps.Currency
 {
     public interface ICurrencyApplication
     {
-        Task<OutGetMainByCountryId> GetMainByCountryIdAsync(string LangId, string CountryId);
+        Task<OutGetMainByCountryId> GetMainByCountryIdAsync(InpGetMainByCountryId Input);
     }
 }

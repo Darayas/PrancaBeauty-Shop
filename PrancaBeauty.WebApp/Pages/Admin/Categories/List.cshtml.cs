@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Categories;
+using PrancaBeauty.Application.Contracts.Categories;
 using PrancaBeauty.WebApp.Authentication;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
 using PrancaBeauty.WebApp.Models.ViewInput;
@@ -40,7 +41,14 @@ namespace PrancaBeauty.WebApp.Pages.Admin.Categories
 
         public async Task<IActionResult> OnPostReadDataAsync([DataSourceRequest] DataSourceRequest request, string LangId)
         {
-            var qData = await _CategoryApplication.GetListForAdminPageAsync(LangId, Input.Title, Input.ParentTitle, request.Page, request.PageSize);
+            var qData = await _CategoryApplication.GetListForAdminPageAsync(new InpGetListForAdminPage
+            {
+                LangId = LangId,
+                Title = Input.Title,
+                ParentTitle = Input.ParentTitle,
+                PageNum = request.Page,
+                Take = request.PageSize
+            });
 
             var qListData = _Mapper.Map<List<vmCategoriesList>>(qData.Item2);
 
@@ -56,7 +64,7 @@ namespace PrancaBeauty.WebApp.Pages.Admin.Categories
             if (string.IsNullOrWhiteSpace(Id))
                 return _MsgBox.ModelStateMsg("IdCantBeNull", "RefreshData()");
 
-            var _Result = await _CategoryApplication.RemoveAsync(Id);
+            var _Result = await _CategoryApplication.RemoveCategoryAsync(new InpRemoveCategory { Id = Id });
             if (_Result.IsSucceeded)
             {
                 return _MsgBox.SuccessMsg(_Localizer[_Result.Message], "RefreshData()");

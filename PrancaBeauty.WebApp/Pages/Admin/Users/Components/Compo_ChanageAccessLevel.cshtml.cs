@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Accesslevels;
 using PrancaBeauty.Application.Apps.Users;
+using PrancaBeauty.Application.Contracts.AccessLevels;
 using PrancaBeauty.Domin.Users.UserAgg.Contracts;
 using PrancaBeauty.WebApp.Authentication;
 using PrancaBeauty.WebApp.Common.ExMethod;
@@ -37,7 +38,7 @@ namespace PrancaBeauty.WebApp.Pages.Admin.Users.Components
 
         public async Task<JsonResult> OnGetReadAsync(string Text)
         {
-            var qData = await _AccesslevelApplication.GetForChangeUserAccesssLevelAsync(Text);
+            var qData = await _AccesslevelApplication.GetForChangeUserAccesssLevelAsync(new InpGetForChangeUserAccesssLevel { Name = Text });
             return new JsonResult(qData);
         }
 

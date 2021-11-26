@@ -1,12 +1,13 @@
-﻿using PrancaBeauty.Application.Contracts.Results;
+﻿using PrancaBeauty.Application.Contracts.FilePath;
+using PrancaBeauty.Application.Contracts.Results;
 using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Apps.FilePath
 {
     public interface IFilePathApplication
     {
-        Task<bool> CheckDirectoryExistAsync(string FileServerId, string Path);
-        Task<string> GetIdByPathAsync(string FileServerId, string Path);
-        Task<OperationResult> MakePathAsync(string FileServerId, string Path);
+        Task<bool> CheckDirectoryExistAsync(InpCheckDirectoryExist Input);
+        Task<string> GetIdByPathAsync(InpGetIdByPath Input);
+        Task<OperationResult> MakePathAsync(InpMakePath Input);
     }
 }

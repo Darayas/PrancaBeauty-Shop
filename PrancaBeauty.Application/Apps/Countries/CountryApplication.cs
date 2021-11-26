@@ -1,4 +1,5 @@
-﻿using Framework.Exceptions;
+﻿using Framework.Common.ExMethods;
+using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Contracts.Countries;
@@ -6,7 +7,6 @@ using PrancaBeauty.Domin.Region.CountryAgg.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Apps.Countries
@@ -22,12 +22,13 @@ namespace PrancaBeauty.Application.Apps.Countries
             _Logger = logger;
         }
 
-        public async Task<List<OutGetListForCombo>> GetListForComboAsync(string LangId, string Search)
+        public async Task<List<OutGetListForCombo>> GetListForComboAsync(InpGetListForCombo Input)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(LangId))
-                    throw new ArgumentInvalidException($"'{nameof(LangId)}' cannot be null or whitespace.");
+                #region Validation
+                Input.CheckModelState();
+                #endregion
 
                 var qData = await _CountryRepository.Get
                                                    .Where(a => a.IsActive)
@@ -35,19 +36,20 @@ namespace PrancaBeauty.Application.Apps.Countries
                                                    {
                                                        Id = a.Id.ToString(),
                                                        Name = a.Name,
-                                                       Title = a.tblCountries_Translates.Where(b => b.LangId == Guid.Parse(LangId)).Select(b => b.Title).Single(),
+                                                       Title = a.tblCountries_Translates.Where(b => b.LangId == Guid.Parse(Input.LangId)).Select(b => b.Title).Single(),
                                                        FlagUrl = a.tblFiles.tblFilePaths.tblFileServer.HttpDomin +
                                                                   a.tblFiles.tblFilePaths.tblFileServer.HttpPath +
                                                                   a.tblFiles.tblFilePaths.Path +
                                                                   a.tblFiles.FileName
                                                    })
-                                                   .Where(a => Search != null ? a.Title.Contains(Search) : true)
+                                                   .Where(a => Input.Search != null ? a.Title.Contains(Input.Search) : true)
                                                    .ToListAsync();
 
                 return qData;
             }
-            catch (ArgumentInvalidException)
+            catch (ArgumentInvalidException ex)
             {
+                _Logger.Debug(ex);
                 return null;
             }
             catch (Exception ex)

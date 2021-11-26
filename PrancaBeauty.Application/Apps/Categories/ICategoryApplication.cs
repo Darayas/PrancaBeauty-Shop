@@ -9,11 +9,11 @@ namespace PrancaBeauty.Application.Apps.Categories
     public interface ICategoryApplication
     {
         Task<OperationResult> AddCategoryAsync(InpAddCategory Input);
-        Task<OutGetForEdit> GetForEditAsync(string Id);
-        Task<(OutPagingData, List<OutGetListForAdminPage>)> GetListForAdminPageAsync(string LangId, string Title, string ParentTitle, int PageNum, int Take);
-        Task<List<OutGetListForCombo>> GetListForComboAsync(string LangId, string ParentId);
-        Task<IEnumerable<OutGetParentsByChildId>> GetParentsByChildIdAsync(string LangId, string ChildId);
-        Task<OperationResult> RemoveAsync(string Id);
+        Task<OutGetForEdit> GetForEditAsync(InpGetForEdit Input);
+        Task<(OutPagingData, List<OutGetListForAdminPage>)> GetListForAdminPageAsync(InpGetListForAdminPage Input);
+        Task<List<OutGetListForCombo>> GetListForComboAsync(InpGetListForCombo Input);
+        Task<IEnumerable<OutGetParentsByChildId>> GetParentsByChildIdAsync(InpGetParentsByChildId Input);
+        Task<OperationResult> RemoveCategoryAsync(InpRemoveCategory Input);
         Task<OperationResult> SaveEditAsync(InpSaveEdit Input);
     }
 }

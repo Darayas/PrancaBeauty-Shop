@@ -1,4 +1,5 @@
-﻿using Framework.Exceptions;
+﻿using Framework.Common.ExMethods;
+using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Contracts.Currency;
@@ -22,18 +23,16 @@ namespace PrancaBeauty.Application.Apps.Currency
             _Logger = logger;
         }
 
-        public async Task<OutGetMainByCountryId> GetMainByCountryIdAsync(string LangId, string CountryId)
+        public async Task<OutGetMainByCountryId> GetMainByCountryIdAsync(InpGetMainByCountryId Input)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(LangId))
-                    throw new ArgumentInvalidException($"'{nameof(LangId)}' cannot be null or whitespace.");
-
-                if (string.IsNullOrWhiteSpace(CountryId))
-                    throw new ArgumentInvalidException($"'{nameof(CountryId)}' cannot be null or whitespace.");
+                #region Validation
+                Input.CheckModelState();
+                #endregion
 
                 var qData = await _CurrencyRepository.Get
-                                                     .Where(a => a.CountryId == Guid.Parse(CountryId))
+                                                     .Where(a => a.CountryId == Guid.Parse(Input.CountryId))
                                                      .Where(a => a.IsDefault == true)
                                                      .Select(a => new OutGetMainByCountryId
                                                      {
@@ -43,7 +42,7 @@ namespace PrancaBeauty.Application.Apps.Currency
                                                          aSep = a.aSep,
                                                          mDec = a.mDec,
                                                          vMax = a.vMax,
-                                                         Title = a.tblCurrency_Translates.Where(b => b.LangId == Guid.Parse(LangId)).Select(b => b.Title).Single()
+                                                         Title = a.tblCurrency_Translates.Where(b => b.LangId == Guid.Parse(Input.LangId)).Select(b => b.Title).Single()
                                                      })
                                                      .SingleOrDefaultAsync();
 
@@ -52,8 +51,9 @@ namespace PrancaBeauty.Application.Apps.Currency
 
                 return qData;
             }
-            catch (ArgumentInvalidException)
+            catch (ArgumentInvalidException ex)
             {
+                _Logger.Debug(ex);
                 return null;
             }
             catch (Exception ex)

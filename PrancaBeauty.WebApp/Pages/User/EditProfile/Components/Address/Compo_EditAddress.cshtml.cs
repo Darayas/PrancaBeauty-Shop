@@ -31,7 +31,7 @@ namespace PrancaBeauty.WebApp.Pages.User.EditProfile.Components.Address
         public async Task<IActionResult> OnGetAsync()
         {
             string UserId = User.GetUserDetails().UserId;
-            var qData = await _AddressApplication.GetAddressDetailsAsync(UserId, Input.Id);
+            var qData = await _AddressApplication.GetAddressDetailsAsync(new InpGetAddressDetails { Id = Input.Id, UserId = UserId });
 
             Input = _Mapper.Map<viCompo_EditAddress>(qData);
 

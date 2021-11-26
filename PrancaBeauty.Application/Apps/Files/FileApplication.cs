@@ -5,6 +5,7 @@ using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Apps.FilePath;
 using PrancaBeauty.Application.Apps.FileTypes;
+using PrancaBeauty.Application.Contracts.FilePath;
 using PrancaBeauty.Application.Contracts.Files;
 using PrancaBeauty.Application.Contracts.Results;
 using PrancaBeauty.Domin.FileServer.FileAgg.Contracts;
@@ -35,19 +36,21 @@ namespace PrancaBeauty.Application.Apps.Files
         {
             try
             {
-                if (Input is null)
-                    throw new ArgumentInvalidException("Input cant be null");
+                #region Validation
+                Input.CheckModelState();
+                #endregion
 
+                // برسی تکراری نبود فایل
                 if (await CheckExsitAsync(Input.FileServerId, Input.Path, Input.FileName))
                     return new OperationResult().Failed("FileInfoIsDuplicated");
 
                 // اعتبار سنجی نوع فایل
-                string FileTypeId = await _FileTypeApplication.GetIdByMimeTypeAsync(Input.MimeType.ToLower());
+                string FileTypeId = await _FileTypeApplication.GetIdByMimeTypeAsync(new Contracts.FileTypes.InpGetIdByMimeType { MimeType = Input.MimeType.ToLower() });
                 if (FileTypeId == null)
                     return new OperationResult().Failed("MimeTypeIsInvalid");
 
                 // اعتبار سنجی پوشه
-                string FilePathId = await _FilePathApplication.GetIdByPathAsync(Input.FileServerId, Input.Path);
+                string FilePathId = await _FilePathApplication.GetIdByPathAsync(new InpGetIdByPath { FileServerId = Input.FileServerId, Path = Input.Path });
                 if (FilePathId == null)
                     return new OperationResult().Failed("FilePathIsInvalid");
 
@@ -91,16 +94,17 @@ namespace PrancaBeauty.Application.Apps.Files
                                         .AnyAsync();
         }
 
-        public async Task<OutGetFileInfo> GetFileInfoAsync(string FileId, string UserId = null)
+        public async Task<OutGetFileInfo> GetFileInfoAsync(InpGetFileInfo Input)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(FileId))
-                    throw new ArgumentInvalidException($"'{nameof(FileId)}' cannot be null or whitespace.");
+                #region Validation
+                Input.CheckModelState();
+                #endregion
 
                 var qData = await _FileRepository.Get
-                                                .Where(a => a.Id == Guid.Parse(FileId))
-                                                .Where(a => UserId != null ? a.UserId == Guid.Parse(UserId) : true)
+                                                .Where(a => a.Id == Guid.Parse(Input.FileId))
+                                                .Where(a => Input.UserId != null ? a.UserId == Guid.Parse(Input.UserId) : true)
                                                 .Select(a => new OutGetFileInfo
                                                 {
                                                     Title = a.Title,
@@ -121,8 +125,9 @@ namespace PrancaBeauty.Application.Apps.Files
 
                 return qData;
             }
-            catch (ArgumentInvalidException)
+            catch (ArgumentInvalidException ex)
             {
+                _Logger.Debug(ex);
                 return null;
             }
             catch (Exception ex)
@@ -132,16 +137,17 @@ namespace PrancaBeauty.Application.Apps.Files
             }
         }
 
-        public async Task<OperationResult> RemoveFileAsync(string FileId, string UserId = null)
+        public async Task<OperationResult> RemoveFileAsync(InpRemoveFile Input)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(FileId))
-                    throw new ArgumentInvalidException($"'{nameof(FileId)}' cannot be null or whitespace.");
+                #region Validation
+                Input.CheckModelState();
+                #endregion]
 
                 var qData = await _FileRepository.Get
-                                                 .Where(a => a.Id == Guid.Parse(FileId))
-                                                 .Where(a => UserId != null ? a.UserId == Guid.Parse(UserId) : true)
+                                                 .Where(a => a.Id == Guid.Parse(Input.FileId))
+                                                 .Where(a => Input.UserId != null ? a.UserId == Guid.Parse(Input.UserId) : true)
                                                  .SingleOrDefaultAsync();
 
                 if (qData == null)
@@ -153,6 +159,7 @@ namespace PrancaBeauty.Application.Apps.Files
             }
             catch (ArgumentInvalidException ex)
             {
+                _Logger.Debug(ex);
                 return new OperationResult().Failed(ex.Message);
             }
             catch (Exception ex)
@@ -162,15 +169,16 @@ namespace PrancaBeauty.Application.Apps.Files
             }
         }
 
-        public async Task<List<outGetFileDetailsForFileSelector>> GetFileDetailsForFileSelectorAsync(string[] FilesId)
+        public async Task<List<outGetFileDetailsForFileSelector>> GetFileDetailsForFileSelectorAsync(List<InpGetFileDetailsForFileSelector> Input)
         {
             try
             {
-                if (FilesId is null)
-                    throw new ArgumentInvalidException("FilesId cant be null.");
+                #region Validation
+                Input.CheckModelState();
+                #endregion
 
                 var qData = await _FileRepository.Get
-                                                 .Where(a => FilesId.Contains(a.Id.ToString()))
+                                                 .Where(a => Input.Contains(new InpGetFileDetailsForFileSelector { FileId = a.Id.ToString() }))
                                                  .Select(a => new outGetFileDetailsForFileSelector()
                                                  {
                                                      Id = a.Id.ToString(),
@@ -192,6 +200,11 @@ namespace PrancaBeauty.Application.Apps.Files
 
                 return qData;
             }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return null;
+            }
             catch (Exception ex)
             {
                 _Logger.Error(ex);
@@ -203,8 +216,9 @@ namespace PrancaBeauty.Application.Apps.Files
         {
             try
             {
-                if (Input is null)
-                    throw new ArgumentInvalidException("Input cant be null.");
+                #region Validation
+                Input.CheckModelState();
+                #endregion
 
                 var qData = _FileRepository.Get
                                            .Where(a => Input.UploaderUserId != null ? a.UserId == Guid.Parse(Input.UploaderUserId) : true)
@@ -283,16 +297,17 @@ namespace PrancaBeauty.Application.Apps.Files
             }
         }
 
-        public async Task<string> GetFileUrlAsync(string FileId, string UserId = null)
+        public async Task<string> GetFileUrlAsync(InpGetFileUrl Input)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(FileId))
-                    throw new ArgumentInvalidException($"'{nameof(FileId)}' cannot be null or whitespace.");
+                #region Validation
+                Input.CheckModelState();
+                #endregion
 
                 var qData = await _FileRepository.Get
-                                                .Where(a => a.Id == Guid.Parse(FileId))
-                                                .Where(a => UserId != null ? a.UserId == Guid.Parse(UserId) : true)
+                                                .Where(a => a.Id == Guid.Parse(Input.FileId))
+                                                .Where(a => Input.UserId != null ? a.UserId == Guid.Parse(Input.UserId) : true)
                                                 .Select(a => new
                                                 {
                                                     Url = a.tblFilePaths.tblFileServer.HttpDomin
@@ -307,8 +322,9 @@ namespace PrancaBeauty.Application.Apps.Files
 
                 return qData.Url;
             }
-            catch (ArgumentInvalidException)
+            catch (ArgumentInvalidException ex)
             {
+                _Logger.Debug(ex);
                 return null;
             }
             catch (Exception ex)

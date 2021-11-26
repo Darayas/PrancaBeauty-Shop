@@ -25,16 +25,17 @@ namespace PrancaBeauty.Application.Apps.FileServer
             _Logger = logger;
         }
 
-        public async Task<OutGetServerDetails> GetServerDetailsAsync(string ServerName)
+        public async Task<OutGetServerDetails> GetServerDetailsAsync(InpGetServerDetails Input)
         {
 
             try
             {
-                if (string.IsNullOrWhiteSpace(ServerName))
-                    throw new ArgumentInvalidException($"'{nameof(ServerName)}' cannot be null or whitespace.");
+                #region Validations
+                Input.CheckModelState();
+                #endregion
 
                 var qData = await _FileServerRepository.Get
-                                                      .Where(a => a.Name == ServerName)
+                                                      .Where(a => a.Name == Input.ServerName)
                                                       .Where(a => a.IsActive)
                                                       .Select(a => new OutGetServerDetails
                                                       {
@@ -66,8 +67,9 @@ namespace PrancaBeauty.Application.Apps.FileServer
 
                 return qData;
             }
-            catch (ArgumentInvalidException)
+            catch (ArgumentInvalidException ex)
             {
+                _Logger.Debug(ex);
                 return null;
             }
             catch (Exception ex)
@@ -77,12 +79,13 @@ namespace PrancaBeauty.Application.Apps.FileServer
             }
         }
 
-        public async Task<string> GetBestServerNameByFileSizeAsync(long FileSize)
+        public async Task<string> GetBestServerNameByFileSizeAsync(InpGetBestServerNameByFileSize Input)
         {
             try
             {
-                if (FileSize <= 0)
-                    throw new ArgumentInvalidException("FileSize must be greater than zero bytes");
+                #region Validation
+                Input.CheckModelState();
+                #endregion
 
                 var qData = await _FileServerRepository.Get
                                                        .Where(a => a.IsActive)
@@ -91,7 +94,7 @@ namespace PrancaBeauty.Application.Apps.FileServer
                                                            ServerName = a.Name,
                                                            FreeSpace = a.Capacity - (a.tblFilePaths.SelectMany(a => a.tblFiles.Select(a => a.SizeOnDisk)).Sum())
                                                        })
-                                                       .Where(a => a.FreeSpace > FileSize)
+                                                       .Where(a => a.FreeSpace > Input.FileSize)
                                                        .FirstOrDefaultAsync();
 
                 if (qData == null)
@@ -99,8 +102,9 @@ namespace PrancaBeauty.Application.Apps.FileServer
 
                 return qData.ServerName;
             }
-            catch (ArgumentInvalidException)
+            catch (ArgumentInvalidException ex)
             {
+                _Logger.Debug(ex);
                 return null;
             }
             catch (Exception ex)

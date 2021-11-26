@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using PrancaBeauty.Application.Apps.Languages;
 using PrancaBeauty.Application.Apps.Settings;
+using PrancaBeauty.Application.Contracts.Languages;
 using PrancaBeauty.WebApp.Common.Utility.IpAddress;
 using System;
 using System.Collections.Generic;
@@ -34,7 +35,7 @@ namespace PrancaBeauty.WebApp.Middlewares
                     // زبان انتخاب شده
                     string LangAbbr = Paths.First();
 
-                    var isValid = await _LanguageApplication.IsValidAbbrForSiteLangAsync(LangAbbr);
+                    var isValid = await _LanguageApplication.IsValidAbbrForSiteLangAsync(new InpIsValidAbbrForSiteLang {  Abbr= LangAbbr });
                     if (!isValid)
                     {
                         var _SiteSetting = await _SettingApplication.GetSettingAsync(CultureInfo.CurrentCulture.Name);

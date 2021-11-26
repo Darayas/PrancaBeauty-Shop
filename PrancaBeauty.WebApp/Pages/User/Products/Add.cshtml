@@ -45,7 +45,7 @@
                                 <label asp-for="Input.LangId"></label>
                                 <LoadComponent id="ProductLangCompo"
                                                context="HttpContext"
-                                               data='new viCompo_Combo_Language { FieldName="Input.LangId",LangId= await _LanguageApplication.GetLangIdByLangCodeAsync(CultureInfo.CurrentCulture.Name)}'
+                                               data='new viCompo_Combo_Language { FieldName="Input.LangId",LangId= await _LanguageApplication.GetLangIdByLangCodeAsync(new PrancaBeauty.Application.Contracts.Languages.InpGetLangIdByLangCode {  Code=CultureInfo.CurrentCulture.Name})}'
                                                url="/@ViewData["culture"]/Shared/Compo/ComboLanguage"></LoadComponent>
                             </div>
 
@@ -76,7 +76,7 @@
                             <div class="form-group">
                                 <LoadComponent id="ProductPriceCompo"
                                                context="HttpContext"
-                                               data='new viCompo_Input_Price { FieldName="Input.ProductPrice",Price="0",LangId=await _LanguageApplication.GetLangIdByLangCodeAsync(CultureInfo.CurrentCulture.Name)}'
+                                               data='new viCompo_Input_Price { FieldName="Input.ProductPrice",Price="0",LangId=await _LanguageApplication.GetLangIdByLangCodeAsync(new PrancaBeauty.Application.Contracts.Languages.InpGetLangIdByLangCode { Code=CultureInfo.CurrentCulture.Name })}'
                                                url="/@ViewData["culture"]/Shared/Compo/ComboInputPrice"></LoadComponent>
                             </div>
                         </div>
@@ -273,7 +273,7 @@
         <script src="~/lib/CKEditor5/build/translations/fa.js"></script>
     }
 
-<script>
+    <script>
         function SaveAsDraft() {
             $('#Input_IsDraft').val('true');
             setTimeout(function () {
@@ -329,11 +329,11 @@
             $('#ProductProperties').html(res);
         });
     }
-</script>
+    </script>
 }
 
 @*<span class="da-text">{0} حاوی کاراکترهای غیرمجاز میباشد. کاراکترهای مجاز:</span>
-<ul class="da-list">
-    <li>حروف و اعداد اینگلیسی و فارسی و عربی</li>
-    <li>کاراکترهای )(*-.،,_«»</li>
-</ul>*@
+    <ul class="da-list">
+        <li>حروف و اعداد اینگلیسی و فارسی و عربی</li>
+        <li>کاراکترهای )(*-.،,_«»</li>
+    </ul>*@

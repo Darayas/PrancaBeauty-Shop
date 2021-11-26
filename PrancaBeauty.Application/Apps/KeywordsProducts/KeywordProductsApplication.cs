@@ -50,13 +50,13 @@ namespace PrancaBeauty.Application.Apps.KeywordsProducts
                     string KeywordId = null;
                     #region برسی موجود بودن کلمه کلیدی یا افزودن آن
                     {
-                        if (await _KeywordApplication.CheckExistByTitleAsync(item.Title))
-                            KeywordId = await _KeywordApplication.GetIdByTitleAsync(item.Title);
+                        if (await _KeywordApplication.CheckExistByTitleAsync(new InpCheckExistByTitle { Title= item.Title }))
+                            KeywordId = await _KeywordApplication.GetIdByTitleAsync(new InpGetIdByTitle { Title= item.Title });
                         else
                         {
                             var _Result = await _KeywordApplication.AddKeywordAsync(_Mapper.Map<InpAddKeyword>(item));
                             if (_Result.IsSucceeded)
-                                KeywordId = await _KeywordApplication.GetIdByTitleAsync(item.Similarity);
+                                KeywordId = await _KeywordApplication.GetIdByTitleAsync(new InpGetIdByTitle { Title= item.Title });
                             else
                                 continue;
                         }

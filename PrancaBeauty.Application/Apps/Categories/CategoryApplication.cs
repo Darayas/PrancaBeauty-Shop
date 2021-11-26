@@ -5,6 +5,7 @@ using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Common.FtpWapper;
 using PrancaBeauty.Application.Contracts.Categories;
+using PrancaBeauty.Application.Contracts.Common.FtpWapper;
 using PrancaBeauty.Application.Contracts.Results;
 using PrancaBeauty.Domin.Categories.CategoriesAgg.Contracts;
 using PrancaBeauty.Domin.Categories.CategoriesAgg.Entities;
@@ -150,7 +151,7 @@ namespace PrancaBeauty.Application.Apps.Categories
 
                 if (Input.Image != null)
                 {
-                    var _FileUploadResult = await _FtpWapper.UplaodCategoryImgAsync(Input.Image, Input.UserId);
+                    var _FileUploadResult = await _FtpWapper.UplaodCategoryImgAsync(new InpUplaodCategoryImg { FormFile = Input.Image, UserId = Input.UserId });
                     if (!_FileUploadResult.IsSucceeded)
                         return new OperationResult().Failed(_FileUploadResult.Message);
 
@@ -206,7 +207,7 @@ namespace PrancaBeauty.Application.Apps.Categories
 
                 // حذف فایل
                 if (_Category.ImageId != null)
-                    await _FtpWapper.RemoveFileAsync(_Category.ImageId.Value.ToString());
+                    await _FtpWapper.RemoveFileAsync(new InpRemoveFile { FileId = _Category.ImageId.Value.ToString() });
 
                 return new OperationResult().Succeeded();
             }
@@ -321,12 +322,12 @@ namespace PrancaBeauty.Application.Apps.Categories
                     if (qData.ImageId != null)
                     {
                         // حذف تصویر قبلی
-                        await _FtpWapper.RemoveFileAsync(qData.ImageId.Value.ToString());
+                        await _FtpWapper.RemoveFileAsync(new InpRemoveFile { FileId = qData.ImageId.Value.ToString() });
                         qData.tblFiles = null;
                     }
 
                     // اپلود تصویر جدید
-                    var _FileUploadResult = await _FtpWapper.UplaodCategoryImgAsync(Input.Image, Input.UserId);
+                    var _FileUploadResult = await _FtpWapper.UplaodCategoryImgAsync(new InpUplaodCategoryImg { FormFile = Input.Image, UserId = Input.UserId });
                     if (_FileUploadResult.IsSucceeded == false)
                         return new OperationResult().Failed(_FileUploadResult.Message);
 

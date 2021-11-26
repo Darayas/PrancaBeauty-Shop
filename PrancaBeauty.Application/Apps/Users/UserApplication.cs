@@ -10,6 +10,7 @@ using PrancaBeauty.Application.Apps.Accesslevels;
 using PrancaBeauty.Application.Apps.Templates;
 using PrancaBeauty.Application.Common.FtpWapper;
 using PrancaBeauty.Application.Contracts.AccessLevels;
+using PrancaBeauty.Application.Contracts.Common.FtpWapper;
 using PrancaBeauty.Application.Contracts.Results;
 using PrancaBeauty.Application.Contracts.Users;
 using PrancaBeauty.Domin.Users.UserAgg.Contracts;
@@ -928,12 +929,12 @@ namespace PrancaBeauty.Application.Apps.Users
                         if (qUser.ProfileImgId != null)
                         {
                             // حذف تصویر قبلی
-                            await _FtpWapper.RemoveFileAsync(qUser.ProfileImgId.Value.ToString());
+                            await _FtpWapper.RemoveFileAsync(new InpRemoveFile { FileId = qUser.ProfileImgId.Value.ToString() });
                             qUser.tblFiles = null;
                         }
 
                         // اپلود تصویر جدید
-                        var _UploadFileResult = await _FtpWapper.UplaodProfileImgAsync(Input.ProfileImage, UserId);
+                        var _UploadFileResult = await _FtpWapper.UplaodProfileImgAsync(new InpUplaodProfileImg { FormFile = Input.ProfileImage, UserId = UserId });
                         if (_UploadFileResult.IsSucceeded == false)
                             return new OperationResult().Failed(_UploadFileResult.Message);
 

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Currency;
 using PrancaBeauty.Application.Apps.Languages;
 using PrancaBeauty.Application.Contracts.Currency;
+using PrancaBeauty.Application.Contracts.Languages;
 using PrancaBeauty.WebApp.Models.ViewInput;
 using PrancaBeauty.WebApp.Models.ViewModel;
 
@@ -27,7 +28,7 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.Compo_Price
 
         public async Task<IActionResult> OnGetAsync()
         {
-            string _CountryId = await _LanguageApplication.GetCountryIdByLangIdAsync(Input.LangId);
+            string _CountryId = await _LanguageApplication.GetCountryIdByLangIdAsync(new InpGetCountryIdByLangId { LangId = Input.LangId });
             var qCurrency = await _CurrencyApplication.GetMainByCountryIdAsync(new InpGetMainByCountryId { LangId = Input.LangId, CountryId = _CountryId });
 
             Data = _Mapper.Map<vmCompo_Input_Price>(qCurrency);

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Localization;
 using PrancaBeauty.Application.Apps.Languages;
 using PrancaBeauty.Application.Apps.Settings;
+using PrancaBeauty.Application.Contracts.Languages;
 using PrancaBeauty.WebApp.Common.ExMethod;
 using System;
 using System.Collections.Generic;
@@ -40,7 +41,7 @@ namespace PrancaBeauty.WebApp.Middlewares
                     else
                         SiteUrl = _SiteSetting.SiteUrl;
 
-                    string LangAbbr = await _LanguageApplication.GetAbbrByCodeAsync(CultureInfo.CurrentCulture.Name);
+                    string LangAbbr = await _LanguageApplication.GetAbbrByCodeAsync(new InpGetAbbrByCode { Code= CultureInfo.CurrentCulture.Name });
 
                     context.Response.Redirect(SiteUrl + "/" + LangAbbr);
                 }

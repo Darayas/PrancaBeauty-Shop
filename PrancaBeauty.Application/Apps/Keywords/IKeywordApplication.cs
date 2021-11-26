@@ -7,7 +7,7 @@ namespace PrancaBeauty.Application.Apps.Keywords
     public interface IKeywordApplication
     {
         Task<OperationResult> AddKeywordAsync(InpAddKeyword Input);
-        Task<bool> CheckExistByTitleAsync(string Title);
-        Task<string> GetIdByTitleAsync(string Title);
+        Task<bool> CheckExistByTitleAsync(InpCheckExistByTitle Input);
+        Task<string> GetIdByTitleAsync(InpGetIdByTitle Input);
     }
 }

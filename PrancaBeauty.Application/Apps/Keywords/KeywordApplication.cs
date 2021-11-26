@@ -25,14 +25,14 @@ namespace PrancaBeauty.Application.Apps.Keywords
             _Logger = logger;
         }
 
-        public async Task<bool> CheckExistByTitleAsync(string Title)
+        public async Task<bool> CheckExistByTitleAsync(InpCheckExistByTitle Input)
         {
-            return await _KeywordRepository.Get.AnyAsync(a => a.Title == Title);
+            return await _KeywordRepository.Get.AnyAsync(a => a.Title == Input.Title);
         }
 
-        public async Task<string> GetIdByTitleAsync(string Title)
+        public async Task<string> GetIdByTitleAsync(InpGetIdByTitle Input)
         {
-            return await _KeywordRepository.Get.Where(a => a.Title == Title).Select(a => a.Id.ToString()).SingleAsync();
+            return await _KeywordRepository.Get.Where(a => a.Title == Input.Title).Select(a => a.Id.ToString()).SingleAsync();
         }
 
         public async Task<OperationResult> AddKeywordAsync(InpAddKeyword Input)
@@ -40,12 +40,7 @@ namespace PrancaBeauty.Application.Apps.Keywords
             try
             {
                 #region Validations
-                if (Input is null)
-                    throw new ArgumentInvalidException($"{nameof(Input)} cant be null.");
-
-                List<ValidationResult> _ValidationResult = null;
-                if (Validator.TryValidateObject(Input, new ValidationContext(Input), _ValidationResult))
-                    throw new ArgumentInvalidException(string.Join(",", _ValidationResult.Select(a => a.ErrorMessage)));
+                Input.CheckModelState();
                 #endregion
 
                 var tKeyword = new tblKeywords()

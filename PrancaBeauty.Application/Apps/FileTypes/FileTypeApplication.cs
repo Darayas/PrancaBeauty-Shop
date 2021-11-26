@@ -1,4 +1,6 @@
-﻿using Framework.Infrastructure;
+﻿using Framework.Common.ExMethods;
+using Framework.Exceptions;
+using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Contracts.FileTypes;
 using PrancaBeauty.Domin.FileServer.FileTypeAgg.Contracts;
@@ -21,15 +23,24 @@ namespace PrancaBeauty.Application.Apps.FileTypes
             _Logger = logger;
         }
 
-        public async Task<string> GetIdByMimeTypeAsync(string MimeType)
+        public async Task<string> GetIdByMimeTypeAsync(InpGetIdByMimeType Input)
         {
             try
             {
-                var qData = await _FileTypeRepository.Get.Where(a => a.MimeType == MimeType).Select(a => a.Id.ToString()).SingleOrDefaultAsync();
+                #region Validations
+                Input.CheckModelState();
+                #endregion
+
+                var qData = await _FileTypeRepository.Get.Where(a => a.MimeType == Input.MimeType).Select(a => a.Id.ToString()).SingleOrDefaultAsync();
                 if (qData == null)
                     return null;
 
                 return qData;
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return null;
             }
             catch (Exception ex)
             {
@@ -38,12 +49,16 @@ namespace PrancaBeauty.Application.Apps.FileTypes
             }
         }
 
-        public async Task<List<outGetListForCombo>> GetListForComboAsync(string Title)
+        public async Task<List<outGetListForCombo>> GetListForComboAsync(InpGetListForCombo Input)
         {
             try
             {
+                #region Validations
+                Input.CheckModelState();
+                #endregion
+
                 var qData = await _FileTypeRepository.Get
-                                                     .Where(a => Title != null ? a.MimeType.Contains(Title) : true)
+                                                     .Where(a => Input.Title != null ? a.MimeType.Contains(Input.Title) : true)
                                                      .Select(a => new outGetListForCombo
                                                      {
                                                          Id = a.Id.ToString(),
@@ -57,6 +72,11 @@ namespace PrancaBeauty.Application.Apps.FileTypes
                     return null;
 
                 return qData;
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return null;
             }
             catch (Exception ex)
             {

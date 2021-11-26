@@ -6,6 +6,7 @@ using Framework.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Common.FtpWapper;
+using PrancaBeauty.Application.Contracts.Common.FtpWapper;
 using PrancaBeauty.WebApp.Authentication;
 using PrancaBeauty.WebApp.Common.ExMethod;
 using PrancaBeauty.WebApp.Models.ViewInput;
@@ -36,7 +37,7 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.CompoFileManager.CompoModa
             if (!User.IsInRole(Roles.CanManageAllUserFiles))
                 Input.UserId = User.GetUserDetails().UserId;
 
-            var Result = await _FtpWapper.UploadFromFileManagerAsync(Input.Files, Input.UserId);
+            var Result = await _FtpWapper.UploadFromFileManagerAsync(new InpUploadFromFileManager { FormFile = Input.Files, UserId = Input.UserId });
             if (Result.IsSucceeded)
             {
                 return Content("");

@@ -23,12 +23,13 @@ namespace PrancaBeauty.Application.Apps.Guarantee
             _Logger = logger;
         }
 
-        public async Task<List<OutGetListForCombo>> GetListForComboAsync(string LangId, string Search)
+        public async Task<List<OutGetListForCombo>> GetListForComboAsync(InpGetListForCombo Input)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(LangId))
-                    throw new ArgumentInvalidException($"'{nameof(LangId)}' cannot be null or whitespace.");
+                #region Validations
+                Input.CheckModelState();
+                #endregion
 
                 var qData = await _GuaranteeRepository.Get
                                                      .Where(a => a.IsEnable)
@@ -36,9 +37,9 @@ namespace PrancaBeauty.Application.Apps.Guarantee
                                                      {
                                                          Id = a.Id.ToString(),
                                                          Name = a.Name,
-                                                         Title = a.tblGuarantee_Translates.Where(b => b.LangId == Guid.Parse(LangId)).Select(b => b.Title).Single()
+                                                         Title = a.tblGuarantee_Translates.Where(b => b.LangId == Guid.Parse(Input.LangId)).Select(b => b.Title).Single()
                                                      })
-                                                     .Where(a => Search != null ? a.Title.Contains(Search) || a.Name.Contains(Search) : true)
+                                                     .Where(a => Input. Search != null ? a.Title.Contains(Input.Search) || a.Name.Contains(Input.Search) : true)
                                                      .OrderBy(a => a.Title)
                                                      .Skip(0)
                                                      .Take(40)

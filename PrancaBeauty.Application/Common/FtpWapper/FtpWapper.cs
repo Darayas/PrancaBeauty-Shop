@@ -7,7 +7,10 @@ using Microsoft.AspNetCore.Http;
 using PrancaBeauty.Application.Apps.FilePath;
 using PrancaBeauty.Application.Apps.Files;
 using PrancaBeauty.Application.Apps.FileServer;
+using PrancaBeauty.Application.Contracts.Common.FtpWapper;
+using PrancaBeauty.Application.Contracts.FilePath;
 using PrancaBeauty.Application.Contracts.Files;
+using PrancaBeauty.Application.Contracts.FileServer;
 using PrancaBeauty.Application.Contracts.Results;
 using PrancaBeauty.Domin.FileServer.FileAgg.Entities;
 using System;
@@ -37,24 +40,22 @@ namespace PrancaBeauty.Application.Common.FtpWapper
             _FilePathApplication = filePathApplication;
         }
 
-        public async Task<OperationResult> UplaodCategoryImgAsync(IFormFile _FormFile, string _UserId)
+        public async Task<OperationResult> UplaodCategoryImgAsync(InpUplaodCategoryImg Input)
         {
             try
             {
-                if (_FormFile is null)
-                    throw new ArgumentInvalidException(nameof(_FormFile));
+                #region Validations
+                Input.CheckModelState();
+                #endregion
 
-                if (string.IsNullOrWhiteSpace(_UserId))
-                    throw new ArgumentInvalidException(nameof(_UserId));
-
-                var _ValidFileType = (await _AniShell.GetRealExtentionAsync(_FormFile));
+                var _ValidFileType = (await _AniShell.GetRealExtentionAsync(Input.FormFile));
                 if (_ValidFileType == default)
                     return new OperationResult().Failed("FileFormatIsNotAllowed");
 
                 string _Path = $"/{_ValidFileType.Item2}/{DateTime.Now.Year}/{DateTime.Now.Month}/{DateTime.Now.Day}/";
                 string _FileName = new Guid().SequentialGuid().ToString().Replace("-", "") + "." + _ValidFileType.Item1;
 
-                var _Result = await UploadFileAsync(_FormFile, _UserId, _Path, _FileName, _FormFile.FileName.Split('.').First());
+                var _Result = await UploadFileAsync(Input.FormFile, Input.UserId, _Path, _FileName, Input.FormFile.FileName.Split('.').First());
                 if (_Result.IsSucceeded)
                     return new OperationResult().Succeeded(_Result.Message);
                 else
@@ -76,24 +77,22 @@ namespace PrancaBeauty.Application.Common.FtpWapper
             }
         }
 
-        public async Task<OperationResult> UplaodProfileImgAsync(IFormFile _FormFile, string _UserId)
+        public async Task<OperationResult> UplaodProfileImgAsync(InpUplaodProfileImg Input)
         {
             try
             {
-                if (_FormFile is null)
-                    throw new ArgumentInvalidException(nameof(_FormFile));
+                #region Validations
+                Input.CheckModelState();
+                #endregion
 
-                if (string.IsNullOrWhiteSpace(_UserId))
-                    throw new ArgumentInvalidException(nameof(_UserId));
-
-                var _ValidFileType = (await _AniShell.GetRealExtentionAsync(_FormFile));
+                var _ValidFileType = (await _AniShell.GetRealExtentionAsync(Input.FormFile));
                 if (_ValidFileType == default)
                     return new OperationResult().Failed("FileFormatIsNotAllowed");
 
                 string _Path = $"/{_ValidFileType.Item2}/{DateTime.Now.Year}/{DateTime.Now.Month}/{DateTime.Now.Day}/";
                 string _FileName = new Guid().SequentialGuid().ToString().Replace("-", "") + "." + _ValidFileType.Item1;
 
-                var _Result = await UploadFileAsync(_FormFile, _UserId, _Path, _FileName, _FormFile.FileName.Split('.').First());
+                var _Result = await UploadFileAsync(Input.FormFile, Input.UserId, _Path, _FileName, Input.FormFile.FileName.Split('.').First());
                 if (_Result.IsSucceeded)
                     return new OperationResult().Succeeded(_Result.Message);
                 else
@@ -125,11 +124,11 @@ namespace PrancaBeauty.Application.Common.FtpWapper
                 if (string.IsNullOrWhiteSpace(Path))
                     throw new ArgumentInvalidException($"'{nameof(Path)}' cannot be null or whitespace.");
 
-                var qServer = await _FileServerApplication.GetServerDetailsAsync(ServerName);
+                var qServer = await _FileServerApplication.GetServerDetailsAsync(new InpGetServerDetails { ServerName = ServerName });
                 if (qServer == null)
                     return false;
 
-                string[] Dirs =$"{qServer.FtpPath.Trim('/')}/{Path.Trim('/')}".Split("/");
+                string[] Dirs = $"{qServer.FtpPath.Trim('/')}/{Path.Trim('/')}".Split("/");
                 string DirCheck = "";
 
                 foreach (var item in Dirs)
@@ -161,18 +160,19 @@ namespace PrancaBeauty.Application.Common.FtpWapper
             }
         }
 
-        public async Task<bool> RemoveFileAsync(string FileId, string UserId = null)
+        public async Task<bool> RemoveFileAsync(Contracts.Common.FtpWapper.InpRemoveFile Input)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(FileId))
-                    throw new ArgumentInvalidException($"'{nameof(FileId)}' cannot be null or whitespace.");
+                #region Validations
+                Input.CheckModelState();
+                #endregion
 
-                var qFile = await _FileApplication.GetFileInfoAsync(FileId);
+                var qFile = await _FileApplication.GetFileInfoAsync(new InpGetFileInfo { FileId = Input.FileId });
                 if (qFile == null)
                     return false;
 
-                var qServer = await _FileServerApplication.GetServerDetailsAsync(qFile.FileServerName);
+                var qServer = await _FileServerApplication.GetServerDetailsAsync(new InpGetServerDetails { ServerName = qFile.FileServerName });
                 if (qServer == null)
                     return false;
 
@@ -185,17 +185,18 @@ namespace PrancaBeauty.Application.Common.FtpWapper
                     return false;
 
                 // حذف فایل از دیتابیس
-                var _Result = await _FileApplication.RemoveFileAsync(FileId, UserId);
+                var _Result = await _FileApplication.RemoveFileAsync(new Contracts.Files.InpRemoveFile { FileId = Input.FileId, UserId = Input.UserId });
                 if (_Result.IsSucceeded)
                     return true;
                 else
                 {
-                    _Logger.Warning($"فایل از روی حافظه با موفقیت پاک شد اما حذف اطلاعات مربوط به فایل در دیتابیس با شکست مواجه شد. شناسه رکورد فایل: {FileId}");
+                    _Logger.Warning($"فایل از روی حافظه با موفقیت پاک شد اما حذف اطلاعات مربوط به فایل در دیتابیس با شکست مواجه شد. شناسه رکورد فایل: {Input.FileId}");
                     return false;
                 }
             }
-            catch (ArgumentInvalidException)
+            catch (ArgumentInvalidException ex)
             {
+                _Logger.Debug(ex);
                 return false;
             }
             catch (Exception ex)
@@ -205,24 +206,22 @@ namespace PrancaBeauty.Application.Common.FtpWapper
             }
         }
 
-        public async Task<OperationResult> UploadFromFileManagerAsync(IFormFile _FormFile, string _UserId)
+        public async Task<OperationResult> UploadFromFileManagerAsync(InpUploadFromFileManager Input)
         {
             try
             {
-                if (_FormFile is null)
-                    throw new ArgumentInvalidException("FormFile cant be null.");
+                #region Validations
+                Input.CheckModelState();
+                #endregion
 
-                if (string.IsNullOrWhiteSpace(_UserId))
-                    throw new ArgumentInvalidException("UserId cant be null.");
-
-                var _ValidFileType = (await _AniShell.GetRealExtentionAsync(_FormFile));
+                var _ValidFileType = (await _AniShell.GetRealExtentionAsync(Input.FormFile));
                 if (_ValidFileType == default)
                     return new OperationResult().Failed("FileFormatIsNotAllowed");
 
                 string _Path = $"/{_ValidFileType.Item2}/{DateTime.Now.Year}/{DateTime.Now.Month}/{DateTime.Now.Day}/";
                 string _FileName = new Guid().SequentialGuid().ToString().Replace("-", "") + "." + _ValidFileType.Item1;
 
-                var _Result = await UploadFileAsync(_FormFile, _UserId, _Path, _FileName, _FormFile.FileName.Split('.').First());
+                var _Result = await UploadFileAsync(Input.FormFile, Input.UserId, _Path, _FileName, Input.FormFile.FileName.Split('.').First());
                 if (_Result.IsSucceeded)
                     return new OperationResult().Succeeded(_Result.Message);
                 else
@@ -230,6 +229,7 @@ namespace PrancaBeauty.Application.Common.FtpWapper
             }
             catch (ArgumentInvalidException ex)
             {
+                _Logger.Debug(ex);
                 return new OperationResult().Failed(ex.Message);
             }
             catch (Exception ex)
@@ -264,7 +264,7 @@ namespace PrancaBeauty.Application.Common.FtpWapper
                 if (_BestServer.IsSucceeded == false)
                     return new OperationResult().Failed(_BestServer.Message);
 
-                var qServer = await _FileServerApplication.GetServerDetailsAsync(_BestServer.Message);
+                var qServer = await _FileServerApplication.GetServerDetailsAsync(new InpGetServerDetails { ServerName = _BestServer.Message });
 
                 #region Path
 
@@ -272,8 +272,8 @@ namespace PrancaBeauty.Application.Common.FtpWapper
                     await MakeDirAsync(qServer.Name, _Path);
 
                 // برسی وجود دایرکتوری در دیتابیس
-                if (!await _FilePathApplication.CheckDirectoryExistAsync(qServer.Id, _Path))
-                    await _FilePathApplication.MakePathAsync(qServer.Id, _Path);
+                if (!await _FilePathApplication.CheckDirectoryExistAsync(new InpCheckDirectoryExist { FileServerId = qServer.Id, Path = _Path }))
+                    await _FilePathApplication.MakePathAsync(new InpMakePath { FileServerId = qServer.Id, Path = _Path });
 
                 #endregion
 
@@ -322,7 +322,7 @@ namespace PrancaBeauty.Application.Common.FtpWapper
                 if (_FileSize <= 0)
                     throw new ArgumentInvalidException("FileSize must be greater than zero bytes");
 
-                var qData = await _FileServerApplication.GetBestServerNameByFileSizeAsync(_FileSize);
+                var qData = await _FileServerApplication.GetBestServerNameByFileSizeAsync(new InpGetBestServerNameByFileSize { FileSize = _FileSize });
                 if (qData == null)
                     return new OperationResult().Failed("ServersAreFull");
 

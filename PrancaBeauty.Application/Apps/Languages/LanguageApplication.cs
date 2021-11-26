@@ -1,4 +1,5 @@
-﻿using Framework.Infrastructure;
+﻿using Framework.Common.ExMethods;
+using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Contracts.Languages;
 using PrancaBeauty.Domin.Region.LanguagesAgg.Contracts;
@@ -22,52 +23,72 @@ namespace PrancaBeauty.Application.Apps.Languages
             _Logger = logger;
         }
 
-        public async Task<string> GetCodeByAbbrAsync(string Abbr)
+        public async Task<string> GetCodeByAbbrAsync(InpGetCodeByAbbr Input)
         {
+            #region Validations
+            Input.CheckModelState();
+            #endregion
+
             await LoadCacheAsync();
 
             return SiteLangCache
-                                .Where(a => a.Abbr == Abbr)
+                                .Where(a => a.Abbr == Input.Abbr)
                                 .Select(a => a.Code)
                                 .SingleOrDefault();
         }
 
-        public async Task<string> GetAbbrByCodeAsync(string Code)
+        public async Task<string> GetAbbrByCodeAsync(InpGetAbbrByCode Input)
         {
+            #region Validations
+            Input.CheckModelState();
+            #endregion
+
             await LoadCacheAsync();
 
             return SiteLangCache
-                                .Where(a => a.Code == Code)
+                                .Where(a => a.Code == Input.Code)
                                 .Select(a => a.Abbr)
                                 .SingleOrDefault();
         }
 
-        public async Task<string> GetNativeNameByCodeAsync(string Code)
+        public async Task<string> GetNativeNameByCodeAsync(InpGetNativeNameByCode Input)
         {
+            #region Validations
+            Input.CheckModelState();
+            #endregion
+
             await LoadCacheAsync();
 
             return SiteLangCache
-                         .Where(a => a.Code == Code)
+                         .Where(a => a.Code == Input.Code)
                          .Select(a => a.NativeName)
                          .SingleOrDefault();
         }
 
-        public async Task<string> GetFlagUrlByCodeAsync(string Code)
+        public async Task<string> GetFlagUrlByCodeAsync(InpGetFlagUrlByCode Input)
         {
+            #region Validations
+            Input.CheckModelState();
+            #endregion
+
             await LoadCacheAsync();
 
             return SiteLangCache
-                         .Where(a => a.Code == Code)
+                         .Where(a => a.Code == Input.Code)
                          .Select(a => a.FlagUrl)
                          .SingleOrDefault();
         }
 
-        public async Task<string> GetDirectionByCodeAsync(string Code)
+        public async Task<string> GetDirectionByCodeAsync(InpGetDirectionByCode Input)
         {
+            #region Validations
+            Input.CheckModelState();
+            #endregion
+
             await LoadCacheAsync();
 
             return SiteLangCache
-                         .Where(a => a.Code == Code)
+                         .Where(a => a.Code == Input.Code)
                          .Select(a => a.IsRtl ? "rtl" : "ltr")
                          .SingleOrDefault();
         }
@@ -106,41 +127,57 @@ namespace PrancaBeauty.Application.Apps.Languages
 
         public async Task<List<OutSiteLangCache>> GetAllLanguageForSiteLangAsync()
         {
-            await LoadCacheAsync();
+             await LoadCacheAsync();
 
             return SiteLangCache;
         }
 
-        public async Task<bool> IsValidAbbrForSiteLangAsync(string Abbr)
+        public async Task<bool> IsValidAbbrForSiteLangAsync(InpIsValidAbbrForSiteLang Input)
         {
+            #region Validations
+            Input.CheckModelState();
+            #endregion
+
             await LoadCacheAsync();
 
             return SiteLangCache
-                        .Where(a => a.Abbr == Abbr)
+                        .Where(a => a.Abbr == Input.Abbr)
                         .Any();
         }
 
-        public async Task<string> GetLangIdByLangCodeAsync(string LangCode)
+        public async Task<string> GetLangIdByLangCodeAsync(InpGetLangIdByLangCode Input)
         {
+            #region Validations
+            Input.CheckModelState();
+            #endregion
+
             await LoadCacheAsync();
 
             return SiteLangCache
-                         .Where(a => a.Code == LangCode)
+                         .Where(a => a.Code == Input.Code)
                          .Select(a => a.Id)
                          .SingleOrDefault();
         }
 
-        public async Task<OutSiteLangCache> GetLangDetailsByIdAsync(string LangId)
+        public async Task<OutSiteLangCache> GetLangDetailsByIdAsync(InpGetLangDetailsById Input)
         {
-            return (await GetAllLanguageForSiteLangAsync()).Where(a => a.Id == LangId).SingleOrDefault();
+            #region Validations
+            Input.CheckModelState();
+            #endregion
+
+            return (await GetAllLanguageForSiteLangAsync()).Where(a => a.Id == Input.LangId).SingleOrDefault();
         }
 
-        public async Task<string> GetCountryIdByLangIdAsync(string LangId)
+        public async Task<string> GetCountryIdByLangIdAsync(InpGetCountryIdByLangId Input)
         {
+            #region Validations
+            Input.CheckModelState();
+            #endregion
+
             await LoadCacheAsync();
 
             return SiteLangCache
-                                .Where(a => a.Id == LangId)
+                                .Where(a => a.Id == Input.LangId)
                                 .Select(a => a.CountryId)
                                 .SingleOrDefault();
         }

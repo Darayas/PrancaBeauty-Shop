@@ -1,11 +1,11 @@
 ﻿@inject PrancaBeauty.Application.Apps.Languages.ILanguageApplication _LanguageApplication
 @{
     var qLang = await _LanguageApplication.GetAllLanguageForSiteLangAsync();
-    TempData["LangDir"] = await _LanguageApplication.GetDirectionByCodeAsync(await _LanguageApplication.GetCodeByAbbrAsync(GetAbbr()));
+    TempData["LangDir"] = await _LanguageApplication.GetDirectionByCodeAsync(new PrancaBeauty.Application.Contracts.Languages.InpGetDirectionByCode() { Code = await _LanguageApplication.GetCodeByAbbrAsync(new PrancaBeauty.Application.Contracts.Languages.InpGetCodeByAbbr() { Abbr = GetAbbr() }) });
     TempData.Keep();
 }
 
-<a href="#"><img class="lang-flag" src="@(await _LanguageApplication.GetFlagUrlByCodeAsync(await _LanguageApplication.GetCodeByAbbrAsync(GetAbbr())))" /> @(await _LanguageApplication.GetNativeNameByCodeAsync(await _LanguageApplication.GetCodeByAbbrAsync(GetAbbr()))) <i class="icon-right ion-ios-arrow-down"></i></a>
+<a href="#"><img class="lang-flag" src="@(await _LanguageApplication.GetFlagUrlByCodeAsync(new PrancaBeauty.Application.Contracts.Languages.InpGetFlagUrlByCode { Code=await _LanguageApplication.GetCodeByAbbrAsync(new PrancaBeauty.Application.Contracts.Languages.InpGetCodeByAbbr {  Abbr=GetAbbr()})}))" /> @(await _LanguageApplication.GetNativeNameByCodeAsync(new PrancaBeauty.Application.Contracts.Languages.InpGetNativeNameByCode { Code= await _LanguageApplication.GetCodeByAbbrAsync(new PrancaBeauty.Application.Contracts.Languages.InpGetCodeByAbbr { Abbr= GetAbbr() }) })) <i class="icon-right ion-ios-arrow-down"></i></a>
 <ul class="dropdown_language">
     @foreach (var item in qLang)
     {

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Files;
+using PrancaBeauty.Application.Contracts.Files;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
 using PrancaBeauty.WebApp.Models.ViewInput;
 using PrancaBeauty.WebApp.Models.ViewModel;
@@ -31,7 +32,7 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.CompoFileManager.CompoFile
             if (Input.SelectedFilesId == null)
                 Input.SelectedFilesId = string.Empty;
 
-            var qData = await _FileApplication.GetFileDetailsForFileSelectorAsync(Input.SelectedFilesId.Split(','));
+            var qData = await _FileApplication.GetFileDetailsForFileSelectorAsync(Input.SelectedFilesId.Split(',').Select(a => new InpGetFileDetailsForFileSelector { FileId = a }).ToList());
 
             Data = _Mapper.Map<List<vmCompo_FileSelector>>(qData);
 

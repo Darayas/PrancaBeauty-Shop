@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using PrancaBeauty.Application.Apps.Languages;
+using PrancaBeauty.Application.Contracts.Languages;
 using PrancaBeauty.WebApp.Common.Utility.IpAddress;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ namespace PrancaBeauty.WebApp.Localization
             string Path = httpContext.Request.Path;
             string CultureName = Path.Trim('/').Split("/")[0];
 
-            var LangCode = await _LanguageApplication.GetCodeByAbbrAsync(CultureName);
+            var LangCode = await _LanguageApplication.GetCodeByAbbrAsync(new InpGetCodeByAbbr { Abbr= CultureName });
             if (LangCode == null)
             {
                 //httpContext.Response.Redirect("/fa");

@@ -3,6 +3,7 @@ using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Apps.ProductPropertis;
+using PrancaBeauty.Application.Contracts.ProductProperties;
 using PrancaBeauty.Application.Contracts.ProductPropertiesValues;
 using PrancaBeauty.Application.Contracts.Results;
 using PrancaBeauty.Domin.Product.ProductPropertiesValuesAgg.Contracts;
@@ -28,29 +29,28 @@ namespace PrancaBeauty.Application.Apps.ProductPropertiesValues
             _ProductPropertisApplication = productPropertisApplication;
         }
 
-        public async Task<OperationResult> AddPropertiesToProductAsync(string ProductId, Dictionary<string, string> PropItems)
+        public async Task<OperationResult> AddPropertiesToProductAsync(InpAddPropertiesToProduct Input)
         {
             try
             {
                 #region Validations
-                if (string.IsNullOrWhiteSpace(ProductId))
-                    throw new ArgumentInvalidException($"'{nameof(ProductId)}' cannot be null or whitespace.");
+                Input.CheckModelState();
 
-                if (PropItems is null)
-                    throw new ArgumentInvalidException($"'{nameof(PropItems)}' cannot be null.");
+                if (Input.PropItems is null)
+                    throw new ArgumentInvalidException($"'{nameof(Input.PropItems)}' cannot be null.");
 
-                if (PropItems.Count() == 0)
-                    throw new ArgumentInvalidException($"'{nameof(PropItems)}' count must be greater than zero.");
+                if (Input.PropItems.Count() == 0)
+                    throw new ArgumentInvalidException($"'{nameof(Input.PropItems)}' count must be greater than zero.");
 
                 #endregion
 
-                foreach (var item in PropItems.Where(a => a.Value != null || a.Value != ""))
+                foreach (var item in Input.PropItems.Where(a => a.Value != null || a.Value != ""))
                 {
-                    if (await _ProductPropertisApplication.CheckExistByIdAsync(item.Key))
+                    if (await _ProductPropertisApplication.CheckExistByIdAsync(new InpCheckExistById { Id= item.Key }))
                         await _ProductPropertiesValuesRepository.AddAsync(new tblProductPropertiesValues()
                         {
                             Id = new Guid().SequentialGuid(),
-                            ProductId = Guid.Parse(ProductId),
+                            ProductId = Guid.Parse(Input.ProductId),
                             ProductPropertiesId = Guid.Parse(item.Key),
                             Value = item.Value
                         }, default, false);
@@ -77,12 +77,7 @@ namespace PrancaBeauty.Application.Apps.ProductPropertiesValues
             try
             {
                 #region Validations
-                if (Input is null)
-                    throw new ArgumentInvalidException($"{nameof(Input)} cant be null.");
-
-                List<ValidationResult> _ValidationResult = null;
-                if (Validator.TryValidateObject(Input, new ValidationContext(Input), _ValidationResult))
-                    throw new ArgumentInvalidException(string.Join(",", _ValidationResult.Select(a => a.ErrorMessage)));
+                Input.CheckModelState();                
                 #endregion
 
                 var qData = await _ProductPropertiesValuesRepository.Get.Where(a => a.ProductId == Guid.Parse(Input.ProductId)).ToListAsync();

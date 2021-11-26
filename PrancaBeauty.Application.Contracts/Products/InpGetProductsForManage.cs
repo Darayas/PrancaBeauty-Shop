@@ -11,9 +11,11 @@ namespace PrancaBeauty.Application.Contracts.Products
     public class InpGetProductsForManage
     {
         [Display(Name = "Page")]
+        [Range(1,int.MaxValue,ErrorMessage = "RangeGreaterThanZeroMsgMsg")]
         public int Page { get; set; }
 
         [Display(Name = "Take")]
+        [Range(1, int.MaxValue, ErrorMessage = "RangeGreaterThanZeroMsgMsg")]
         public int Take { get; set; }
 
         [Display(Name = "LangId")]

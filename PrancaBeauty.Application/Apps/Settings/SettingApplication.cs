@@ -1,4 +1,6 @@
-﻿using Framework.Infrastructure;
+﻿using Framework.Common.ExMethods;
+using Framework.Exceptions;
+using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Contracts.Settings;
 using PrancaBeauty.Domin.Settings.SettingsAgg.Contracts;
@@ -23,21 +25,38 @@ namespace PrancaBeauty.Application.Apps.Settings
             _Logger = logger;
         }
 
-        public async Task<OutSettings> GetSettingAsync(string LangCode)
+        public async Task<OutSettings> GetSettingAsync(InpGetSetting Input)
         {
-            if (_ListSettings != null)
-                if (_ListSettings.Any(a => a.LangCode == LangCode))
-                    return _ListSettings.Where(a => a.LangCode == LangCode).SingleOrDefault();
-
-            var qSetting = await LoadSettingAsync(LangCode);
-            if (qSetting == null)
+            try
             {
-                // log
+                #region Validation
+                Input.CheckModelState();
+                #endregion
+
+                if (_ListSettings != null)
+                    if (_ListSettings.Any(a => a.LangCode == Input.LangCode))
+                        return _ListSettings.Where(a => a.LangCode == Input.LangCode).SingleOrDefault();
+
+                var qSetting = await LoadSettingAsync(Input.LangCode);
+                if (qSetting == null)
+                {
+                    // log
+                    return null;
+                }
+
+                _ListSettings.Add(qSetting);
+                return qSetting;
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
                 return null;
             }
-
-            _ListSettings.Add(qSetting);
-            return qSetting;
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
+            }
         }
 
         private async Task<OutSettings> LoadSettingAsync(string LangCode)

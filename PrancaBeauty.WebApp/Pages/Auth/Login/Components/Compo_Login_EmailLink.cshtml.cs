@@ -14,6 +14,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Settings;
 using PrancaBeauty.Application.Apps.Templates;
 using PrancaBeauty.Application.Apps.Users;
+using PrancaBeauty.Application.Contracts.Settings;
+using PrancaBeauty.Application.Contracts.Templates;
 using PrancaBeauty.WebApp.Common.ExMethod;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
 using PrancaBeauty.WebApp.Models.ViewInput;
@@ -55,9 +57,9 @@ namespace PrancaBeauty.WebApp.Pages.Auth.Login.Components
             if (Result.IsSucceeded)
             {
                 string Token = (Result.Message + ", " + Input.RemmeberMe).AesEncrypt(AuthConst.SecretKey);
-                string _Url = (await _SettingApplication.GetSettingAsync(CultureInfo.CurrentCulture.Name)).SiteUrl + $"/{CultureInfo.CurrentCulture.Parent.Name}/EmailLogin?Token={WebUtility.UrlEncode(Token)}";
+                string _Url = (await _SettingApplication.GetSettingAsync(new InpGetSetting { LangCode = CultureInfo.CurrentCulture.Name })).SiteUrl + $"/{CultureInfo.CurrentCulture.Parent.Name}/EmailLogin?Token={WebUtility.UrlEncode(Token)}";
 
-                await _EmailSender.SendAsync(Input.Email, _Localizer["EmailLoginSubject"], await _TemplateApplication.GetEmailLoginTemplateAsync(CultureInfo.CurrentCulture.Name, _Url));
+                await _EmailSender.SendAsync(Input.Email, _Localizer["EmailLoginSubject"], await _TemplateApplication.GetEmailLoginTemplateAsync(new InpGetEmailLoginTemplate { LangCode = CultureInfo.CurrentCulture.Name, Url = _Url }));
 
                 return _MsgBox.SuccessMsg(_Localizer["EmailLoginSent"], "location.href='/';");
             }

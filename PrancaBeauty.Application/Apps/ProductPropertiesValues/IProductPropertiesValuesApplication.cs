@@ -7,7 +7,7 @@ namespace PrancaBeauty.Application.Apps.ProductPropertiesValues
 {
     public interface IProductPropertiesValuesApplication
     {
-        Task<OperationResult> AddPropertiesToProductAsync(string ProductId, Dictionary<string, string> PropItems);
+        Task<OperationResult> AddPropertiesToProductAsync(InpAddPropertiesToProduct Input);
         Task<OperationResult> RemovePropertiesByProductIdAsync(InpRemovePropertiesByProductId Input);
     }
 }

@@ -3,6 +3,7 @@ using Framework.Common.ExMethods;
 using Microsoft.IdentityModel.Tokens;
 using PrancaBeauty.Application.Apps.Roles;
 using PrancaBeauty.Application.Apps.Users;
+using PrancaBeauty.Application.Contracts.Roles;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -30,7 +31,7 @@ namespace PrancaBeauty.WebApp.Authentication
             if (_UserDetails == null)
                 throw new Exception();
 
-            var _UserRoles = await _RoleApplication.GetRolesByUserAsync(await _UserApplication.GetUserByIdAsync(UserId));
+            var _UserRoles = await _RoleApplication.GetRolesByUserAsync(new InpGetRolesByUser { UserId = UserId });
             if (_UserDetails == null)
                 throw new Exception();
 

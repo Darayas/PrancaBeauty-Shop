@@ -6,6 +6,6 @@ namespace PrancaBeauty.Application.Apps.ProductTopic
 {
     public interface IProductTopicApplication
     {
-        Task<List<OutGetListForCombo>> GetListForComboAsync(string LangId, string Text);
+        Task<List<OutGetListForCombo>> GetListForComboAsync(InpGetListForCombo Input);
     }
 }

@@ -12,17 +12,15 @@ using PrancaBeauty.Application.Common.FtpWapper;
 using PrancaBeauty.Application.Contracts.AccessLevels;
 using PrancaBeauty.Application.Contracts.Common.FtpWapper;
 using PrancaBeauty.Application.Contracts.Results;
+using PrancaBeauty.Application.Contracts.Templates;
 using PrancaBeauty.Application.Contracts.Users;
 using PrancaBeauty.Domin.Users.UserAgg.Contracts;
 using PrancaBeauty.Domin.Users.UserAgg.Entities;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.IO.Pipelines;
 using System.Linq;
 using System.Net;
-using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Apps.Users
@@ -54,22 +52,13 @@ namespace PrancaBeauty.Application.Apps.Users
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(Input.Email))
-                    throw new ArgumentNullException("Email cant be null.");
+                #region Validations
+                Input.CheckModelState();
+                #endregion
 
-                if (string.IsNullOrWhiteSpace(Input.PhoneNumber))
-                    throw new ArgumentNullException("PhoneNumber cant be null.");
+                await RemoveUnConfirmedUserAsync(Input.Email);
 
-                if (string.IsNullOrWhiteSpace(Input.FirstName))
-                    throw new ArgumentNullException("FirstName cant be null.");
-
-                if (string.IsNullOrWhiteSpace(Input.LastName))
-                    throw new ArgumentNullException("LastName cant be null.");
-
-                if (string.IsNullOrWhiteSpace(Input.Password))
-                    throw new ArgumentNullException("Password cant be null.");
-
-                tblUsers tUser = new tblUsers()
+                var tUser = new tblUsers()
                 {
                     Date = DateTime.Now,
                     Email = Input.Email,
@@ -94,6 +83,11 @@ namespace PrancaBeauty.Application.Apps.Users
                     return new OperationResult().Failed(string.Join(", ", Result.Errors.Select(a => a.Description)));
                 }
             }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return new OperationResult().Failed(ex.Message);
+            }
             catch (Exception ex)
             {
                 _Logger.Error(ex);
@@ -101,29 +95,44 @@ namespace PrancaBeauty.Application.Apps.Users
             }
         }
 
-        public async Task<string> GenerateEmailConfirmationTokenAsync(string UserId)
-        {
-            var qUser = await _UserRepository.FindByIdAsync(UserId);
-
-            return await _UserRepository.GenerateEmailConfirmationTokenAsync(qUser);
-        }
-
-        public async Task<OperationResult> EmailConfirmationAsync(string UserId, string Token)
+        public async Task<string> GenerateEmailConfirmationTokenAsync(InpGenerateEmailConfirmationToken Input)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(UserId))
-                    throw new ArgumentNullException("UserId cant be null.");
+                #region Validations
+                Input.CheckModelState();
+                #endregion
 
-                if (string.IsNullOrWhiteSpace(Token))
-                    throw new ArgumentNullException("Token cant be null.");
+                var qUser = await _UserRepository.FindByIdAsync(Input.UserId);
 
-                if (await IsEmailConfirmedAsync(UserId))
+                return await _UserRepository.GenerateEmailConfirmationTokenAsync(qUser);
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
+            }
+        }
+
+        public async Task<OperationResult> EmailConfirmationAsync(InpEmailConfirmation Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState();
+                #endregion
+
+                if (await IsEmailConfirmedAsync(Input.UserId))
                     return new OperationResult().Failed("EmailAlreadyVerified");
 
-                var qUser = await _UserRepository.FindByIdAsync(UserId);
+                var qUser = await _UserRepository.FindByIdAsync(Input.UserId);
 
-                var Result = await _UserRepository.EmailConfirmationAsync(qUser, Token);
+                var Result = await _UserRepository.EmailConfirmationAsync(qUser, Input.Token);
                 if (Result.Succeeded)
                 {
                     return new OperationResult().Succeeded("EmailConfirmationSuccesfully");
@@ -133,67 +142,80 @@ namespace PrancaBeauty.Application.Apps.Users
                     return new OperationResult().Failed(string.Join(", ", Result.Errors.Select(a => a.Description)));
                 }
             }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return null;
+            }
             catch (Exception ex)
             {
                 _Logger.Error(ex);
-                return new OperationResult().Failed("Error500");
+                return null;
             }
         }
 
-        public async Task<OperationResult> LoginByEmailPasswordAsync(string Email, string Password)
+        public async Task<OperationResult> LoginByEmailPasswordAsync(InpLoginByEmailPassword Input)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(Email))
-                    throw new ArgumentNullException("Email cant be null.");
+                #region Validations
+                Input.CheckModelState();
+                #endregion
 
-                if (string.IsNullOrWhiteSpace(Password))
-                    throw new ArgumentNullException("Paswword cant be null.");
 
-                var userId = await _UserRepository.GetUserIdByEmailAsync(Email);
+                var userId = await _UserRepository.GetUserIdByEmailAsync(Input.Email);
                 if (userId == null)
                     return new OperationResult().Failed("EmailOrPasswordIsInvalid");
 
-                return await LoginAsync(userId, Password);
+                return await LoginAsync(new InpLogin { UserId = userId, Password = Input.Password });
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return null;
             }
             catch (Exception ex)
             {
                 _Logger.Error(ex);
-                return new OperationResult().Failed("Error500");
+                return null;
             }
         }
 
-        public async Task<OperationResult> LoginByUserNamePasswordAsync(string UserName, string Password)
+        public async Task<OperationResult> LoginByUserNamePasswordAsync(InpLoginByUserNamePassword Input)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(UserName))
-                    throw new ArgumentNullException("UserName cant be null.");
+                #region Validations
+                Input.CheckModelState();
+                #endregion
 
-                if (string.IsNullOrWhiteSpace(Password))
-                    throw new ArgumentNullException("Paswword cant be null.");
-
-                var userId = await _UserRepository.GetUserIdByUserNameAsync(UserName);
+                var userId = await _UserRepository.GetUserIdByUserNameAsync(Input.UserName);
                 if (userId == null)
                     return new OperationResult().Failed("UserNameOrPasswordIsInvalid");
 
-                return await LoginAsync(userId, Password);
+                return await LoginAsync(new InpLogin { UserId = userId, Password = Input.Password });
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return null;
             }
             catch (Exception ex)
             {
                 _Logger.Error(ex);
-                return new OperationResult().Failed("Error500");
+                return null;
             }
         }
 
-        public async Task<OperationResult> LoginByEmailLinkStep1Async(string Email, string IP)
+        public async Task<OperationResult> LoginByEmailLinkStep1Async(InpLoginByEmailLinkStep1 Input)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(Email))
-                    throw new ArgumentNullException("Email cant be null.");
+                #region Validations
+                Input.CheckModelState();
+                #endregion
 
-                var qUser = await GetUserByEmailAsync(Email);
+                var qUser = await GetUserByEmailAsync(Input.Email);
 
                 if (qUser == null)
                     return new OperationResult().Failed("EmailNotFound");
@@ -204,62 +226,76 @@ namespace PrancaBeauty.Application.Apps.Users
                 if (qUser.IsActive == false)
                     return new OperationResult().Failed("YourAccountIsDisabled");
 
-                var ReNewPasswordResult = await ReCreatePasswordAsync(qUser);
+                var ReNewPasswordResult = await ReCreatePasswordAsync(new InpReCreatePassword { UserId = qUser.Id.ToString() });
                 if (ReNewPasswordResult.IsSucceeded)
                 {
-                    return new OperationResult().Succeeded(qUser.Id + ", " + ReNewPasswordResult.Message + ", " + IP + ", " + DateTime.Now.ToString("yy/MM/dd HH:mm"));
+                    return new OperationResult().Succeeded(qUser.Id + ", " + ReNewPasswordResult.Message + ", " + Input.IP + ", " + DateTime.Now.ToString("yy/MM/dd HH:mm"));
                 }
                 else
                 {
                     return new OperationResult().Failed(ReNewPasswordResult.Message);
                 }
             }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return null;
+            }
             catch (Exception ex)
             {
                 _Logger.Error(ex);
-                return new OperationResult().Failed("Error500");
+                return null;
             }
         }
 
-        public async Task<OperationResult> LoginByEmailLinkStep2Async(string UserId, string Password, string LinkIP, string UserIP, DateTime Date)
-        {
-            if (LinkIP != UserIP)
-                return new OperationResult().Failed("LinkExipred");
-
-            if (Date.AddMinutes(60) < DateTime.Now)
-                return new OperationResult().Failed("LinkExipred");
-
-            if (string.IsNullOrWhiteSpace(UserId))
-                throw new ArgumentNullException("UserId cant be null.");
-
-            if (string.IsNullOrWhiteSpace(Password))
-                throw new ArgumentNullException("Password cant be null.");
-
-            var qUser = await _UserRepository.FindByIdAsync(UserId);
-
-            if (qUser == null)
-                return new OperationResult().Failed("LinkExipred");
-
-            if (qUser.EmailConfirmed == false)
-                return new OperationResult().Failed("LinkExipred");
-
-            if (qUser.IsActive == false)
-                return new OperationResult().Failed("YourAccountIsDisabled");
-
-            if (qUser.PasswordPhoneNumber != Password.ToMD5())
-                return new OperationResult().Failed("LinkExipred");
-
-            return new OperationResult().Succeeded(qUser.Id.ToString());
-        }
-
-        public async Task<OperationResult> LoginByPhoneNumberStep1Async(string PhoneNumber)
+        public async Task<OperationResult> LoginByEmailLinkStep2Async(InpLoginByEmailLinkStep2 Input)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(PhoneNumber))
-                    throw new ArgumentNullException("PhoneNumber cant be null");
+                #region Validations
+                Input.CheckModelState();
+                #endregion
 
-                var qUser = await GetUserByPhoneNumberAsync(PhoneNumber);
+                var qUser = await _UserRepository.FindByIdAsync(Input.UserId);
+
+                if (qUser == null)
+                    return new OperationResult().Failed("LinkExipred");
+
+                if (qUser.EmailConfirmed == false)
+                    return new OperationResult().Failed("LinkExipred");
+
+                if (qUser.IsActive == false)
+                    return new OperationResult().Failed("YourAccountIsDisabled");
+
+                if (qUser.PasswordPhoneNumber != Input.Password.ToMD5())
+                    return new OperationResult().Failed("LinkExipred");
+
+                return new OperationResult().Succeeded(qUser.Id.ToString());
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
+            }
+        }
+
+        public async Task<OperationResult> LoginByPhoneNumberStep1Async(InpLoginByPhoneNumberStep1 Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState();
+                #endregion
+
+                //if (string.IsNullOrWhiteSpace(PhoneNumber))
+                //    throw new ArgumentNullException("PhoneNumber cant be null");
+
+                var qUser = await GetUserByPhoneNumberAsync(new InpGetUserByPhoneNumber { PhoneNumber = Input.PhoneNumber });
 
                 if (qUser == null)
                     return new OperationResult().Failed("PhoneNumberNotFound");
@@ -274,7 +310,7 @@ namespace PrancaBeauty.Application.Apps.Users
                     if (qUser.LastTrySentSms.Value.AddMinutes(AuthConst.LimitToResendSmsInMinute) > DateTime.Now)
                         return new OperationResult().Failed("LimitToResendSms2Minute");
 
-                var ReNewPasswordResult = await ReCreatePasswordAsync(qUser);
+                var ReNewPasswordResult = await ReCreatePasswordAsync(new InpReCreatePassword { UserId = qUser.Id.ToString() });
                 if (ReNewPasswordResult.IsSucceeded)
                 {
                     return new OperationResult().Succeeded(ReNewPasswordResult.Message);
@@ -284,24 +320,27 @@ namespace PrancaBeauty.Application.Apps.Users
                     return new OperationResult().Failed(ReNewPasswordResult.Message);
                 }
             }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return null;
+            }
             catch (Exception ex)
             {
                 _Logger.Error(ex);
-                return new OperationResult().Failed("Error500");
+                return null;
             }
         }
 
-        public async Task<OperationResult> LoginByPhoneNumberStep2Async(string PhoneNumber, string Code)
+        public async Task<OperationResult> LoginByPhoneNumberStep2Async(InpLoginByPhoneNumberStep2 Input)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(PhoneNumber))
-                    throw new ArgumentNullException("PhoneNumber cant be null");
+                #region Validations
+                Input.CheckModelState();
+                #endregion
 
-                if (string.IsNullOrWhiteSpace(Code))
-                    throw new ArgumentNullException("Code cant be null");
-
-                var qUser = await GetUserByPhoneNumberAsync(PhoneNumber);
+                var qUser = await GetUserByPhoneNumberAsync(new InpGetUserByPhoneNumber { PhoneNumber = Input.PhoneNumber });
 
                 if (qUser == null)
                     return new OperationResult().Failed("PhoneNumberNotFound");
@@ -312,7 +351,7 @@ namespace PrancaBeauty.Application.Apps.Users
                 if (qUser.IsActive == false)
                     return new OperationResult().Failed("YourAccountIsDisabled");
 
-                if (qUser.PasswordPhoneNumber != Code.ToMD5())
+                if (qUser.PasswordPhoneNumber != Input.Code.ToMD5())
                     return new OperationResult().Failed("CodeIsInvalid");
 
                 if (qUser.LastTrySentSms.HasValue)
@@ -321,52 +360,82 @@ namespace PrancaBeauty.Application.Apps.Users
 
                 return new OperationResult().Succeeded(qUser.Id.ToString());
             }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return null;
+            }
             catch (Exception ex)
             {
                 _Logger.Error(ex);
-                return new OperationResult().Failed("Error500");
+                return null;
             }
         }
 
-        public async Task<OperationResult> ReCreatePasswordAsync(tblUsers User)
-        {
-            if (User.LastTrySentSms.HasValue)
-                if (User.LastTrySentSms.Value.AddMinutes(AuthConst.LimitToResendSmsInMinute) > DateTime.Now)
-                    return new OperationResult().Failed("LimitToResendSms2Minute");
-
-            #region حذف پسورد قبلی کاربر
-            var Result = await _UserRepository.RemovePhoneNumberPasswordAsync(User);
-            if (!Result.Succeeded)
-            {
-                _Logger.Error(string.Join(", ", Result.Errors.Select(a => a.Description)));
-                return new OperationResult().Failed("UserNotFound");
-            }
-            #endregion
-
-            #region تنظیم پسورد جدید برای کاربر
-            string NewPassword = new Random().Next(10000, 99999).ToString();
-            var AddPassResult = await _UserRepository.AddPhoneNumberPasswordAsync(User, NewPassword);
-            if (!AddPassResult.Succeeded)
-            {
-                _Logger.Error(string.Join(", ", AddPassResult.Errors.Select(a => a.Description)));
-                return new OperationResult().Failed("UserNotFound");
-            }
-            #endregion
-
-            return new OperationResult().Succeeded(NewPassword);
-        }
-
-        public async Task<OperationResult> LoginAsync(string UserId, string Password)
+        public async Task<OperationResult> ReCreatePasswordAsync(InpReCreatePassword Input)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(UserId))
-                    throw new ArgumentNullException("UserId cant be null.");
+                #region Validations
+                Input.CheckModelState();
+                #endregion
 
-                if (string.IsNullOrWhiteSpace(Password))
-                    throw new ArgumentNullException("Password cant be null.");
+                var qUser = await _UserRepository.GetById(default, Input.UserId);
+                if (qUser == null)
+                    return new OperationResult().Failed("User not found");
 
-                var qUser = await _UserRepository.FindByIdAsync(UserId);
+                if (qUser.LastTrySentSms.HasValue)
+                    if (qUser.LastTrySentSms.Value.AddMinutes(AuthConst.LimitToResendSmsInMinute) > DateTime.Now)
+                        return new OperationResult().Failed("LimitToResendSms2Minute");
+
+                #region حذف پسورد قبلی کاربر
+                var Result = await _UserRepository.RemovePhoneNumberPasswordAsync(qUser);
+                if (!Result.Succeeded)
+                {
+                    _Logger.Error(string.Join(", ", Result.Errors.Select(a => a.Description)));
+                    return new OperationResult().Failed("UserNotFound");
+                }
+                #endregion
+
+                #region تنظیم پسورد جدید برای کاربر
+                string NewPassword = new Random().Next(10000, 99999).ToString();
+                var AddPassResult = await _UserRepository.AddPhoneNumberPasswordAsync(qUser, NewPassword);
+                if (!AddPassResult.Succeeded)
+                {
+                    _Logger.Error(string.Join(", ", AddPassResult.Errors.Select(a => a.Description)));
+                    return new OperationResult().Failed("UserNotFound");
+                }
+                #endregion
+
+                return new OperationResult().Succeeded(NewPassword);
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
+            }
+        }
+
+        public async Task<OperationResult> LoginAsync(InpLogin Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState();
+                #endregion
+
+                //if (string.IsNullOrWhiteSpace(UserId))
+                //    throw new ArgumentNullException("UserId cant be null.");
+
+                //if (string.IsNullOrWhiteSpace(Password))
+                //    throw new ArgumentNullException("Password cant be null.");
+
+                var qUser = await _UserRepository.FindByIdAsync(Input.UserId);
 
                 if (qUser == null)
                     return new OperationResult().Failed("UserNameOrPasswordIsInvalid");
@@ -377,7 +446,7 @@ namespace PrancaBeauty.Application.Apps.Users
                 if (qUser.IsActive == false)
                     return new OperationResult().Failed("YourAccountIsDisabled");
 
-                var Result = await _UserRepository.PasswordSignInAsync(qUser, Password, true, true);
+                var Result = await _UserRepository.PasswordSignInAsync(qUser, Input.Password, true, true);
                 if (Result.Succeeded)
                 {
                     return new OperationResult().Succeeded(qUser.Id.ToString());
@@ -392,26 +461,36 @@ namespace PrancaBeauty.Application.Apps.Users
                         return new OperationResult().Failed("UserNameOrPasswordIsInvalid");
                 }
             }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return null;
+            }
             catch (Exception ex)
             {
                 _Logger.Error(ex);
-                return new OperationResult().Failed("Error500");
+                return null;
             }
         }
 
-        public async Task<bool> IsEmailConfirmedAsync(string UserId)
+        private async Task<bool> IsEmailConfirmedAsync(string UserId)
         {
+
             var qUser = await _UserRepository.FindByIdAsync(UserId);
 
             return await _UserRepository.IsEmailConfirmedAsync(qUser);
         }
 
-        public async Task<OutGetAllUserDetails> GetAllUserDetailsAsync(string UserId)
+        public async Task<OutGetAllUserDetails> GetAllUserDetailsAsync(InpGetAllUserDetails Input)
         {
             try
             {
+                #region Validations
+                Input.CheckModelState();
+                #endregion
+
                 var qData = await _UserRepository.Get
-                                        .Where(a => a.Id == Guid.Parse(UserId))
+                                        .Where(a => a.Id == Guid.Parse(Input.UserId))
                                         .Select(a => new OutGetAllUserDetails
                                         {
                                             Id = a.Id.ToString(),
@@ -432,6 +511,11 @@ namespace PrancaBeauty.Application.Apps.Users
 
                 return qData;
             }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return null;
+            }
             catch (Exception ex)
             {
                 _Logger.Error(ex);
@@ -439,11 +523,20 @@ namespace PrancaBeauty.Application.Apps.Users
             }
         }
 
-        public async Task<tblUsers> GetUserByIdAsync(string UserId)
+        public async Task<tblUsers> GetUserByIdAsync(InpGetUserById Input)
         {
             try
             {
-                return await _UserRepository.FindByIdAsync(UserId);
+                #region Validations
+                Input.CheckModelState();
+                #endregion
+
+                return await _UserRepository.FindByIdAsync(Input.UserId);
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return null;
             }
             catch (Exception ex)
             {
@@ -452,64 +545,102 @@ namespace PrancaBeauty.Application.Apps.Users
             }
         }
 
-        public async Task<tblUsers> GetUserByEmailAsync(string Email)
+        private async Task<tblUsers> GetUserByEmailAsync(string Email)
         {
             var qUser = await _UserRepository.FindByEmailAsync(Email);
             return qUser;
         }
 
-        public async Task<tblUsers> GetUserByPhoneNumberAsync(string PhoneNumber)
-        {
-            var qUser = await _UserRepository.FindByPhoneNumberAsync(PhoneNumber);
-            return qUser;
-        }
-
-        public async Task<bool> RemoveUnConfirmedUserAsync(string Email)
+        public async Task<tblUsers> GetUserByPhoneNumberAsync(InpGetUserByPhoneNumber Input)
         {
             try
             {
-                if (!string.IsNullOrWhiteSpace(Email))
-                    throw new ArgumentNullException("UserId cant be null.");
+                #region Validations
+                Input.CheckModelState();
+                #endregion
 
-                var qUser = await GetUserByEmailAsync(Email);
+                var qUser = await _UserRepository.FindByPhoneNumberAsync(Input.PhoneNumber);
+                return qUser;
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
+            }
+        }
+
+        private async Task<bool> RemoveUnConfirmedUserAsync(string Email)
+        {
+            var qUser = await GetUserByEmailAsync(Email);
+            if (qUser == null)
+                return true;
+
+            if (qUser.EmailConfirmed)
+                return true;
+
+            var Result = await _UserRepository.DeleteAsync(qUser);
+            if (Result.Succeeded)
+                return true;
+            else
+                throw new Exception(string.Join(", ", Result.Errors.Select(a => a.Description)));
+        }
+
+        private async Task<OperationResult> RemoveAllRolesByUserIdAsync(InpRemoveAllRolesByUserId Input)
+        {
+            #region Validations
+            Input.CheckModelState();
+            #endregion
+
+            var qUser = await _UserRepository.GetById(default, Guid.Parse(Input.UserId));
+            if (qUser == null)
+                return new OperationResult().Failed("User not found.");
+
+            var Result = await _UserRepository.RemoveAllRolesAsync(qUser);
+            if (Result.Succeeded)
+            {
+                return new OperationResult().Succeeded();
+            }
+            else
+            {
+                return new OperationResult().Failed(string.Join(" | ", Result.Errors.Select(a => new { ErrTxt = a.Code + "-" + a.Description })));
+            }
+
+        }
+
+        public async Task<OperationResult> AddRolesAsync(InpAddRoles Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState();
+
+                if (Input.Roles == null)
+                    throw new ArgumentInvalidException("Input.Roles cant be null.");
+                #endregion
+
+                var qUser = await _UserRepository.GetById(default, Input.UserId);
                 if (qUser == null)
-                    return true;
+                    return new OperationResult().Failed("User not found");
 
-                if (qUser.EmailConfirmed)
-                    return true;
 
-                var Result = await _UserRepository.DeleteAsync(qUser);
-                if (Result.Succeeded)
-                    return true;
-                else
-                    throw new Exception(string.Join(", ", Result.Errors.Select(a => a.Code + "-" + a.Description)));
-            }
-            catch (Exception ex)
-            {
-                _Logger.Error(ex);
-                return false;
-            }
-        }
-
-        public async Task<OperationResult> RemoveAllRolesAsync(tblUsers user)
-        {
-            try
-            {
-                if (user == null)
-                    throw new ArgumentInvalidException("user cant be null.");
-
-                var Result = await _UserRepository.RemoveAllRolesAsync(user);
+                var Result = await _UserRepository.AddToRolesAsync(qUser, Input.Roles.Select(a => a.Name).ToArray());
                 if (Result.Succeeded)
                 {
                     return new OperationResult().Succeeded();
                 }
                 else
                 {
-                    return new OperationResult().Failed(string.Join(" | ", Result.Errors.Select(a => new { ErrTxt = a.Code + "-" + a.Description })));
+                    return new OperationResult().Failed(string.Join(",", Result.Errors.Select(a => new { ErrTxt = a.Code + "-" + a.Description })));
                 }
             }
             catch (ArgumentInvalidException ex)
             {
+                _Logger.Debug(ex);
                 return new OperationResult().Failed(ex.Message);
             }
             catch (Exception ex)
@@ -519,58 +650,28 @@ namespace PrancaBeauty.Application.Apps.Users
             }
         }
 
-        public async Task<OperationResult> AddRolesAsync(tblUsers user, string[] Roles)
+        public async Task<OperationResult> EditUsersRoleByAccIdAsync(InpEditUsersRoleByAccId Input)
         {
             try
             {
-                if (user == null)
-                    throw new ArgumentInvalidException("user cant be null.");
+                #region Validations
+                Input.CheckModelState();
 
-                if (Roles == null)
-                    throw new ArgumentInvalidException("Roles cant be null.");
-
-                var Result = await _UserRepository.AddToRolesAsync(user, Roles);
-                if (Result.Succeeded)
-                {
-                    return new OperationResult().Succeeded();
-                }
-                else
-                {
-                    return new OperationResult().Failed(string.Join(" | ", Result.Errors.Select(a => new { ErrTxt = a.Code + "-" + a.Description })));
-                }
-            }
-            catch (ArgumentInvalidException ex)
-            {
-                return new OperationResult().Failed(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                _Logger.Error(ex);
-                return new OperationResult().Failed("Error500");
-            }
-        }
-
-        public async Task<OperationResult> EditUsersRoleByAccIdAsync(string AccessLevelId, string[] Roles)
-        {
-            try
-            {
-                if (string.IsNullOrWhiteSpace(AccessLevelId))
-                    throw new ArgumentInvalidException("AccessLevelId cant be null.");
-
-                if (Roles == null)
-                    throw new ArgumentInvalidException("Roles cant be null.");
+                if (Input.Roles == null)
+                    throw new ArgumentInvalidException("Input.Roles cant be null.");
+                #endregion
 
                 //دریافت لیست کاربران بر اساس سطح دسترسی
-                var qUsers = await _UserRepository.Get.Where(a => a.AccessLevelId == Guid.Parse(AccessLevelId)).ToListAsync();
+                var qUsers = await _UserRepository.Get.Where(a => a.AccessLevelId == Guid.Parse(Input.AccessLevelId)).ToListAsync();
 
                 foreach (var item in qUsers)
                 {
                     // حذف عضویت رول ها
-                    var RemoveResult = await RemoveAllRolesAsync(item);
+                    var RemoveResult = await RemoveAllRolesByUserIdAsync(new InpRemoveAllRolesByUserId { UserId = item.Id.ToString() });
                     if (RemoveResult.IsSucceeded)
                     {
                         // افزودن
-                        var AddResult = await AddRolesAsync(item, Roles);
+                        var AddResult = await AddRolesAsync(new InpAddRoles { UserId = item.Id.ToString(), Roles = Input.Roles.Select(a => new InpAddRolesItem { Name = a.Name }).ToList() });
                         if (AddResult.IsSucceeded == false)
                             _Logger.Warning($"زمان افزودن عضویت رول ها برای کاربر با شناسه: [{item.Id}]، خطاهایی به شرح زیر رخ داد: [{RemoveResult.Message}]");
                     }
@@ -583,6 +684,7 @@ namespace PrancaBeauty.Application.Apps.Users
             }
             catch (ArgumentInvalidException ex)
             {
+                _Logger.Debug(ex);
                 return new OperationResult().Failed(ex.Message);
             }
             catch (Exception ex)
@@ -592,19 +694,24 @@ namespace PrancaBeauty.Application.Apps.Users
             }
         }
 
-        public async Task<List<string>> GetUserIdsByAccIdAsync(string AccessLevelId)
+        public async Task<List<string>> GetUserIdsByAccIdAsync(InpGetUserIdsByAccId Input)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(AccessLevelId))
-                    throw new ArgumentInvalidException("AccessLevelId cant be null.");
+                #region Validations
+                Input.CheckModelState();
+                #endregion
 
-                var qUsers = await _UserRepository.Get.Where(a => a.AccessLevelId == Guid.Parse(AccessLevelId)).Select(a => a.Id.ToString()).ToListAsync();
+                //if (string.IsNullOrWhiteSpace(AccessLevelId))
+                //    throw new ArgumentInvalidException("AccessLevelId cant be null.");
+
+                var qUsers = await _UserRepository.Get.Where(a => a.AccessLevelId == Guid.Parse(Input.AccessLevelId)).Select(a => a.Id.ToString()).ToListAsync();
 
                 return qUsers;
             }
-            catch (ArgumentInvalidException)
+            catch (ArgumentInvalidException ex)
             {
+                _Logger.Debug(ex);
                 return null;
             }
             catch (Exception ex)
@@ -614,19 +721,17 @@ namespace PrancaBeauty.Application.Apps.Users
             }
         }
 
-        public async Task<(OutPagingData, List<Contracts.Users.OutGetListForAdminPage>)> GetListForAdminPageAsync(string Email, string PhoneNumber, string FullName, string Sort, int PageNum, int Take)
+        public async Task<(OutPagingData, List<Contracts.Users.OutGetListForAdminPage>)> GetListForAdminPageAsync(InpGetListForAdminPage Input)
         {
             try
             {
-                if (PageNum < 1)
-                    throw new ArgumentInvalidException("PageNum < 1");
+                #region Validations
+                Input.CheckModelState();
+                #endregion
 
-                if (Take < 1)
-                    throw new ArgumentInvalidException("Take < 1");
-
-                Email = string.IsNullOrWhiteSpace(Email) ? null : Email;
-                PhoneNumber = string.IsNullOrWhiteSpace(PhoneNumber) ? null : PhoneNumber;
-                FullName = string.IsNullOrWhiteSpace(FullName) ? null : FullName;
+                Input.Email = string.IsNullOrWhiteSpace(Input.Email) ? null : Input.Email;
+                Input.PhoneNumber = string.IsNullOrWhiteSpace(Input.PhoneNumber) ? null : Input.PhoneNumber;
+                Input.FullName = string.IsNullOrWhiteSpace(Input.FullName) ? null : Input.FullName;
 
                 // آماده سازی اولیه ی کویری
                 var qData = _UserRepository.Get
@@ -649,14 +754,14 @@ namespace PrancaBeauty.Application.Apps.Users
                                     + a.tblProfileImage.FileName
                                 : PublicConst.DefaultUserProfileImg
                     })
-                .Where(a => FullName != null ? a.FullName.Contains(FullName) : true)
-                .Where(a => Email != null ? a.Email.Contains(Email) : true)
-                .Where(a => PhoneNumber != null ? a.PhoneNumber.Contains(PhoneNumber) : true)
+                .Where(a => Input.FullName != null ? a.FullName.Contains(Input.FullName) : true)
+                .Where(a => Input.Email != null ? a.Email.Contains(Input.Email) : true)
+                .Where(a => Input.PhoneNumber != null ? a.PhoneNumber.Contains(Input.PhoneNumber) : true)
                 .OrderByDescending(a => a.Date);
 
                 #region مرتب سازی
-                if (Sort != null)
-                    switch (Sort.ToLower())
+                if (Input.Sort != null)
+                    switch (Input.Sort.ToLower())
                     {
                         case "fullnamedes":
                             {
@@ -727,12 +832,13 @@ namespace PrancaBeauty.Application.Apps.Users
                 #endregion
 
                 // صفحه بندی داده ها
-                var qPagingData = PagingData.Calc(await qData.LongCountAsync(), PageNum, Take);
+                var qPagingData = PagingData.Calc(await qData.LongCountAsync(), Input.PageNum, Input.Take);
 
                 return (qPagingData, await qData.Skip((int)qPagingData.Skip).Take(qPagingData.Take).ToListAsync());
             }
-            catch (ArgumentInvalidException)
+            catch (ArgumentInvalidException ex)
             {
+                _Logger.Debug(ex);
                 return (null, null);
             }
             catch (Exception ex)
@@ -742,14 +848,15 @@ namespace PrancaBeauty.Application.Apps.Users
             }
         }
 
-        public async Task<OperationResult> RemoveUserAsync(string UserId)
+        public async Task<OperationResult> RemoveUserAsync(InpRemoveUser Input)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(UserId))
-                    throw new ArgumentInvalidException($"UserId cannot be null.");
+                #region Validations
+                Input.CheckModelState();
+                #endregion
 
-                var qUser = await _UserRepository.FindByIdAsync(UserId);
+                var qUser = await _UserRepository.FindByIdAsync(Input.UserId);
                 if (qUser == null)
                     return new OperationResult().Failed("UserNotFound");
 
@@ -764,8 +871,13 @@ namespace PrancaBeauty.Application.Apps.Users
                 }
                 else
                 {
-                    return new OperationResult().Failed(string.Join(" | ", Result.Errors.Select(a => a.Description)));
+                    return new OperationResult().Failed(string.Join(",", Result.Errors.Select(a => a.Description)));
                 }
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return new OperationResult().Failed(ex.Message);
             }
             catch (Exception ex)
             {
@@ -774,18 +886,19 @@ namespace PrancaBeauty.Application.Apps.Users
             }
         }
 
-        public async Task<OperationResult> ChangeUserStatusAsync(string UserId, string SelfUserId)
+        public async Task<OperationResult> ChangeUserStatusAsync(InpChangeUserStatus Input)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(UserId))
-                    throw new ArgumentInvalidException($"UserId cannot be null.");
+                #region Validations
+                Input.CheckModelState();
+                #endregion
 
                 // جلوگیری از تغییر وضعیت حساب خود
-                if (UserId == SelfUserId)
+                if (Input.UserId == Input.SelfUserId)
                     return new OperationResult().Failed("YouCantChanageYourAccountStatus");
 
-                var qUser = await _UserRepository.FindByIdAsync(UserId);
+                var qUser = await _UserRepository.FindByIdAsync(Input.UserId);
                 if (qUser == null)
                     return new OperationResult().Failed("UserNotFound");
 
@@ -798,62 +911,9 @@ namespace PrancaBeauty.Application.Apps.Users
 
                 return new OperationResult().Succeeded("UserChangeStatus");
             }
-            catch (Exception ex)
-            {
-                _Logger.Error(ex);
-                return new OperationResult().Failed("Error500");
-            }
-        }
-
-        public async Task<OperationResult> ChanageUserAccessLevelAsync(string UserId, string SelfUserId, string AccessLevelId)
-        {
-            try
-            {
-                if (string.IsNullOrWhiteSpace(UserId))
-                {
-                    throw new ArgumentInvalidException($"'{nameof(UserId)}' cannot be null.");
-                }
-
-                if (string.IsNullOrWhiteSpace(SelfUserId))
-                {
-                    throw new ArgumentInvalidException($"'{nameof(SelfUserId)}' cannot be null.");
-                }
-
-                if (string.IsNullOrWhiteSpace(AccessLevelId))
-                {
-                    throw new ArgumentInvalidException($"'{nameof(AccessLevelId)}' cannot be null.");
-                }
-
-                // جلوگیری از تغییر سطح دسترسی حساب خود
-                if (UserId == SelfUserId)
-                    return new OperationResult().Failed("YouCantChanageYourAccountAccessLevel");
-
-                var qUser = await _UserRepository.FindByIdAsync(UserId);
-                if (qUser == null)
-                    return new OperationResult().Failed("UserNotFound");
-
-                if (qUser.Email.ToLower() == "reza9025@gmail.com")
-                    return new OperationResult().Failed("YouCantChanageAdminAccountAceessLevel");
-
-                qUser.AccessLevelId = Guid.Parse(AccessLevelId);
-
-                await _UserRepository.UpdateAsync(qUser, default, true);
-
-                #region تغییر نقش های کاربر
-                // حذف کلیه نقش های کاربر
-                await RemoveAllRolesAsync(qUser);
-
-                // واکشی نقش های موجود در سطح دسترسی
-                var qRoles = await _AccesslevelApplication.GetRolesNameByAccIdAsync(new InpGetRolesNameByAccId() { AccessLevelId = qUser.AccessLevelId.ToString() });
-
-                // افزودن نقش های جدید به کاربر
-                await AddRolesAsync(qUser, qRoles.ToArray());
-                #endregion
-
-                return new OperationResult().Succeeded("UserChangeAccessLevel");
-            }
             catch (ArgumentInvalidException ex)
             {
+                _Logger.Debug(ex);
                 return new OperationResult().Failed(ex.Message);
             }
             catch (Exception ex)
@@ -863,33 +923,84 @@ namespace PrancaBeauty.Application.Apps.Users
             }
         }
 
-        public async Task<OutGetUserDetailsForAccountSettings> GetUserDetailsForAccountSettingsAsync(string UserId)
+        public async Task<OperationResult> ChanageUserAccessLevelAsync(InpChanageUserAccessLevel Input)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(UserId))
-                    throw new ArgumentInvalidException($"UserId cannot be null or whitespace.");
+                #region Validations
+                Input.CheckModelState();
+                #endregion
+
+                // جلوگیری از تغییر سطح دسترسی حساب خود
+                if (Input.UserId == Input.SelfUserId)
+                    return new OperationResult().Failed("YouCantChanageYourAccountAccessLevel");
+
+                var qUser = await _UserRepository.FindByIdAsync(Input.UserId);
+                if (qUser == null)
+                    return new OperationResult().Failed("UserNotFound");
+
+                if (qUser.Email.ToLower() == "reza9025@gmail.com")
+                    return new OperationResult().Failed("YouCantChanageAdminAccountAceessLevel");
+
+                qUser.AccessLevelId = Guid.Parse(Input.AccessLevelId);
+
+                await _UserRepository.UpdateAsync(qUser, default, true);
+
+                #region تغییر نقش های کاربر
+                // حذف کلیه نقش های کاربر
+                await RemoveAllRolesByUserIdAsync(new InpRemoveAllRolesByUserId { UserId = Input.UserId });
+
+                // واکشی نقش های موجود در سطح دسترسی
+                var qRoles = await _AccesslevelApplication.GetRolesNameByAccIdAsync(new InpGetRolesNameByAccId() { AccessLevelId = qUser.AccessLevelId.ToString() });
+
+                // افزودن نقش های جدید به کاربر
+                await AddRolesAsync(new InpAddRoles { UserId = qUser.Id.ToString(), Roles = qRoles.Select(a => new InpAddRolesItem { Name = a }).ToList() });
+                #endregion
+
+                return new OperationResult().Succeeded("UserChangeAccessLevel");
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
+
+        public async Task<OutGetUserDetailsForAccountSettings> GetUserDetailsForAccountSettingsAsync(InpGetUserDetailsForAccountSettings Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState();
+                #endregion
+
 
                 var qData = await _UserRepository.Get
-                                               .Where(a => a.Id == Guid.Parse(UserId))
-                                               .Select(a => new OutGetUserDetailsForAccountSettings
-                                               {
-                                                   LangId = a.LangId.ToString(),
-                                                   Email = a.Email,
-                                                   PhoneNumber = a.PhoneNumber,
-                                                   FirstName = a.FirstName,
-                                                   LastName = a.LastName,
-                                                   BirthDate = a.BirthDate,
-                                                   PhoneNumberConfirmed = a.PhoneNumberConfirmed
-                                               }).SingleOrDefaultAsync();
+                                                   .Where(a => a.Id == Guid.Parse(Input.UserId))
+                                                   .Select(a => new OutGetUserDetailsForAccountSettings
+                                                   {
+                                                       LangId = a.LangId.ToString(),
+                                                       Email = a.Email,
+                                                       PhoneNumber = a.PhoneNumber,
+                                                       FirstName = a.FirstName,
+                                                       LastName = a.LastName,
+                                                       BirthDate = a.BirthDate,
+                                                       PhoneNumberConfirmed = a.PhoneNumberConfirmed
+                                                   }).SingleOrDefaultAsync();
 
-                //if (qData == null)
-                //    return null;
+                if (qData == null)
+                    return null;
 
                 return qData;
             }
             catch (ArgumentInvalidException ex)
             {
+                _Logger.Debug(ex);
                 return null;
             }
             catch (Exception ex)
@@ -899,17 +1010,15 @@ namespace PrancaBeauty.Application.Apps.Users
             }
         }
 
-        public async Task<OperationResult> SaveAccountSettingUserDetailsAsync(string UserId, InpSaveAccountSettingUserDetails Input, string UrlToChangeEmail)
+        public async Task<OperationResult> SaveAccountSettingUserDetailsAsync(InpSaveAccountSettingUserDetails Input)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(UserId))
-                    throw new ArgumentInvalidException($"UserId cannot be null or whitespace.");
+                #region Validations
+                Input.CheckModelState();
+                #endregion
 
-                if (Input is null)
-                    throw new ArgumentInvalidException($"Input cannot be null.");
-
-                var qUser = await _UserRepository.FindByIdAsync(UserId);
+                var qUser = await _UserRepository.FindByIdAsync(Input.UserId);
 
                 if (qUser == null)
                     return new OperationResult().Failed("User Not Found.");
@@ -920,7 +1029,7 @@ namespace PrancaBeauty.Application.Apps.Users
                 qUser.LangId = Guid.Parse(Input.LangId);
                 qUser.FirstName = Input.FirstName;
                 qUser.LastName = Input.LastName;
-                qUser.BirthDate = Input.BirthDate;
+                qUser.BirthDate = Convert.ToDateTime(Input.BirthDate);
 
                 #region ویرایش تصویر پروفایل
                 {
@@ -934,7 +1043,7 @@ namespace PrancaBeauty.Application.Apps.Users
                         }
 
                         // اپلود تصویر جدید
-                        var _UploadFileResult = await _FtpWapper.UplaodProfileImgAsync(new InpUplaodProfileImg { FormFile = Input.ProfileImage, UserId = UserId });
+                        var _UploadFileResult = await _FtpWapper.UplaodProfileImgAsync(new InpUplaodProfileImg { FormFile = Input.ProfileImage, UserId = Input.UserId });
                         if (_UploadFileResult.IsSucceeded == false)
                             return new OperationResult().Failed(_UploadFileResult.Message);
 
@@ -961,11 +1070,11 @@ namespace PrancaBeauty.Application.Apps.Users
                     string NewEmail = Input.Email;
                     string Token = await _UserRepository.GenerateChangeEmailTokenAsync(qUser, NewEmail);
 
-                    string EncryptedData = $"{UserId}, {NewEmail}, {Token}".AesEncrypt(AuthConst.SecretKey);
+                    string EncryptedData = $"{Input.UserId}, {NewEmail}, {Token}".AesEncrypt(AuthConst.SecretKey);
 
-                    string _Url = UrlToChangeEmail.Replace("[Token]", WebUtility.UrlEncode(EncryptedData));
+                    string _Url = Input.UrlToChangeEmail.Replace("[Token]", WebUtility.UrlEncode(EncryptedData));
 
-                    await _EmailSender.SendAsync(NewEmail, _Localizer["ChangeEmailSubject"], await _TemplateApplication.GetEmailChangeTemplateAsync(CultureInfo.CurrentCulture.Name, _Url));
+                    await _EmailSender.SendAsync(NewEmail, _Localizer["ChangeEmailSubject"], await _TemplateApplication.GetEmailChangeTemplateAsync(new Contracts.Templates.InpGetEmailChangeTemplate { LangCode = CultureInfo.CurrentCulture.Name, Url = _Url }));
 
                     FlgChangeEmail = true;
                 }
@@ -983,6 +1092,7 @@ namespace PrancaBeauty.Application.Apps.Users
             }
             catch (ArgumentInvalidException ex)
             {
+                _Logger.Debug(ex);
                 return new OperationResult().Failed(ex.Message);
             }
             catch (Exception ex)
@@ -992,14 +1102,15 @@ namespace PrancaBeauty.Application.Apps.Users
             }
         }
 
-        public async Task<OperationResult> ChangeEmailAsync(string Token)
+        public async Task<OperationResult> ChangeEmailAsync(InpChangeEmail Input)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(Token))
-                    throw new ArgumentInvalidException("'Token' cannot be null or whitespace.");
+                #region Validations
+                Input.CheckModelState();
+                #endregion
 
-                string DecryptedToken = Token.AesDecrypt(AuthConst.SecretKey);
+                string DecryptedToken = Input.Token.AesDecrypt(AuthConst.SecretKey);
 
                 string _UserId = DecryptedToken.Split(", ")[0];
                 string _NewEmail = DecryptedToken.Split(", ")[1];
@@ -1023,6 +1134,7 @@ namespace PrancaBeauty.Application.Apps.Users
             }
             catch (ArgumentInvalidException ex)
             {
+                _Logger.Debug(ex);
                 return new OperationResult().Failed(ex.Message);
             }
             catch (Exception ex)
@@ -1032,14 +1144,15 @@ namespace PrancaBeauty.Application.Apps.Users
             }
         }
 
-        public async Task<OperationResult> ReSendSmsCodeAsync(string PhoneNumber)
+        public async Task<OperationResult> ReSendSmsCodeAsync(InpReSendSmsCode Input)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(PhoneNumber))
-                    throw new ArgumentInvalidException($"PhoneNumber cannot be null or whitespace.");
+                #region Validations
+                Input.CheckModelState();
+                #endregion
 
-                var qUser = await _UserRepository.FindByPhoneNumberAsync(PhoneNumber);
+                var qUser = await _UserRepository.FindByPhoneNumberAsync(Input.PhoneNumber);
                 if (qUser == null)
                     return new OperationResult().Failed("PhoneNumberNotFound");
 
@@ -1050,10 +1163,10 @@ namespace PrancaBeauty.Application.Apps.Users
                     if (qUser.LastTrySentSms.Value.AddMinutes(AuthConst.LimitToResendSmsInMinute) > DateTime.Now)
                         return new OperationResult().Failed("LimitToResendSms2Minute");
 
-                var ReNewPasswordResult = await ReCreatePasswordAsync(qUser);
+                var ReNewPasswordResult = await ReCreatePasswordAsync(new InpReCreatePassword { UserId = qUser.Id.ToString() });
                 if (ReNewPasswordResult.IsSucceeded)
                 {
-                    var IsSend = _SmsSender.SendLoginCode(PhoneNumber, ReNewPasswordResult.Message);
+                    var IsSend = _SmsSender.SendLoginCode(Input.PhoneNumber, ReNewPasswordResult.Message);
                     if (IsSend)
                         return new OperationResult().Succeeded("SmsCodeIsSent");
                     else
@@ -1063,11 +1176,10 @@ namespace PrancaBeauty.Application.Apps.Users
                 {
                     return new OperationResult().Failed(ReNewPasswordResult.Message);
                 }
-
-
             }
             catch (ArgumentInvalidException ex)
             {
+                _Logger.Debug(ex);
                 return new OperationResult().Failed(ex.Message);
             }
             catch (Exception ex)
@@ -1077,30 +1189,25 @@ namespace PrancaBeauty.Application.Apps.Users
             }
         }
 
-        public async Task<OperationResult> PhoneConfirmationBySmsCodeAsync(string UserId, string PhoneNumber, string Code)
+        public async Task<OperationResult> PhoneConfirmationBySmsCodeAsync(InpPhoneConfirmationBySmsCode Input)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(UserId))
-                    throw new ArgumentInvalidException($"'UserId' cannot be null or whitespace.");
+                #region Validations
+                Input.CheckModelState();
+                #endregion
 
-                if (string.IsNullOrWhiteSpace(PhoneNumber))
-                    throw new ArgumentInvalidException($"'PhoneNumber' cannot be null or whitespace.");
-
-                if (string.IsNullOrWhiteSpace(Code))
-                    throw new ArgumentInvalidException($"'Code' cannot be null or whitespace.");
-
-                var qUser = await _UserRepository.FindByIdAsync(UserId);
+                var qUser = await _UserRepository.FindByIdAsync(Input.UserId);
                 if (qUser == null)
                     return new OperationResult().Failed("UserIdNotFound");
 
-                if (qUser.PhoneNumber != PhoneNumber)
+                if (qUser.PhoneNumber != Input.PhoneNumber)
                     return new OperationResult().Failed("PhoneNumberNotFound");
 
                 if (qUser.PhoneNumberConfirmed)
                     return new OperationResult().Failed("PhoneNumberNotFound");
 
-                if (qUser.PasswordPhoneNumber != Code.ToMD5())
+                if (qUser.PasswordPhoneNumber != Input.Code.ToMD5())
                     return new OperationResult().Failed("CodeIsInvalid");
 
                 qUser.PhoneNumberConfirmed = true;
@@ -1111,6 +1218,7 @@ namespace PrancaBeauty.Application.Apps.Users
             }
             catch (ArgumentInvalidException ex)
             {
+                _Logger.Debug(ex);
                 return new OperationResult().Failed(ex.Message);
             }
             catch (Exception ex)
@@ -1120,24 +1228,19 @@ namespace PrancaBeauty.Application.Apps.Users
             }
         }
 
-        public async Task<OperationResult> ChanagePasswordAsync(string UserId, string CurrentPassword, string NewPassword)
+        public async Task<OperationResult> ChanagePasswordAsync(InpChanagePassword Input)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(UserId))
-                    throw new ArgumentInvalidException($"'{nameof(UserId)}' cannot be null or whitespace.");
+                #region Validations
+                Input.CheckModelState();
+                #endregion
 
-                if (string.IsNullOrWhiteSpace(CurrentPassword))
-                    throw new ArgumentInvalidException($"'{nameof(CurrentPassword)}' cannot be null or whitespace.");
-
-                if (string.IsNullOrWhiteSpace(NewPassword))
-                    throw new ArgumentInvalidException($"'{nameof(NewPassword)}' cannot be null or whitespace.");
-
-                var qUser = await _UserRepository.FindByIdAsync(UserId);
+                var qUser = await _UserRepository.FindByIdAsync(Input.UserId);
                 if (qUser == null)
                     return new OperationResult().Failed("UserNotFound");
 
-                var Result = await _UserRepository.ChangePasswordAsync(qUser, CurrentPassword, NewPassword);
+                var Result = await _UserRepository.ChangePasswordAsync(qUser, Input.CurrentPassword, Input.NewPassword);
                 if (Result.Succeeded)
                 {
                     return new OperationResult().Succeeded();
@@ -1149,22 +1252,26 @@ namespace PrancaBeauty.Application.Apps.Users
             }
             catch (ArgumentInvalidException ex)
             {
+                _Logger.Debug(ex);
                 return new OperationResult().Failed(ex.Message);
             }
             catch (Exception ex)
             {
                 _Logger.Error(ex);
                 return new OperationResult().Failed(ex.Message);
-
             }
         }
 
-        public async Task<List<OutGetListForCombo>> GetListForComboAsync(string LangId, string Name)
+        public async Task<List<OutGetListForCombo>> GetListForComboAsync(InpGetListForCombo Input)
         {
             try
             {
+                #region Validations
+                Input.CheckModelState();
+                #endregion
+
                 var qData = await _UserRepository.Get
-                                                 .Where(a => LangId != null ? a.LangId == Guid.Parse(LangId) : true)
+                                                 .Where(a => Input.LangId != null ? a.LangId == Guid.Parse(Input.LangId) : true)
                                                  .Select(a => new OutGetListForCombo
                                                  {
                                                      Id = a.Id.ToString(),
@@ -1176,11 +1283,16 @@ namespace PrancaBeauty.Application.Apps.Users
                                                                     + a.tblProfileImage.FileName
                                                                 : PublicConst.DefaultUserProfileImg
                                                  })
-                                                 .Where(a => Name != null ? a.FullName.Contains(Name) : true)
+                                                 .Where(a => Input.Name != null ? a.FullName.Contains(Input.Name) : true)
                                                  .OrderBy(a => a.FullName)
                                                  .ToListAsync();
 
                 return qData;
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return null;
             }
             catch (Exception ex)
             {
@@ -1189,15 +1301,16 @@ namespace PrancaBeauty.Application.Apps.Users
             }
         }
 
-        public async Task<string> GetUserProfileImgUrlByIdAsync(string UserId)
+        public async Task<string> GetUserProfileImgUrlByIdAsync(InpGetUserProfileImgUrlById Input)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(UserId))
-                    throw new ArgumentInvalidException($"'{nameof(UserId)}' cannot be null or whitespace.");
+                #region Validations
+                Input.CheckModelState();
+                #endregion
 
                 var qData = await _UserRepository.Get
-                                                 .Where(a => a.Id == Guid.Parse(UserId))
+                                                 .Where(a => a.Id == Guid.Parse(Input.UserId))
                                                  .Select(a => new
                                                  {
                                                      ImgUrl = a.ProfileImgId != null ?
@@ -1214,8 +1327,9 @@ namespace PrancaBeauty.Application.Apps.Users
 
                 return qData.ImgUrl;
             }
-            catch (ArgumentInvalidException)
+            catch (ArgumentInvalidException ex)
             {
+                _Logger.Debug(ex);
                 return PublicConst.DefaultUserProfileImg;
             }
             catch (Exception ex)
@@ -1225,17 +1339,15 @@ namespace PrancaBeauty.Application.Apps.Users
             }
         }
 
-        public async Task<OperationResult> RecoveryPasswordByEmailStep1Async(string Email, string ResetLinkTemplate)
+        public async Task<OperationResult> RecoveryPasswordByEmailStep1Async(InpRecoveryPasswordByEmailStep1 Input)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(Email))
-                    throw new ArgumentInvalidException($"'{nameof(Email)}' cannot be null or whitespace.");
+                #region Validations
+                Input.CheckModelState();
+                #endregion
 
-                if (string.IsNullOrWhiteSpace(ResetLinkTemplate))
-                    throw new ArgumentInvalidException($"'{nameof(ResetLinkTemplate)}' cannot be null or whitespace.");
-
-                var qUser = await _UserRepository.FindByEmailAsync(Email);
+                var qUser = await _UserRepository.FindByEmailAsync(Input.Email);
                 if (qUser == null)
                     return new OperationResult().Failed("EmailNotFound");
 
@@ -1246,15 +1358,16 @@ namespace PrancaBeauty.Application.Apps.Users
                 string _EncryptedToken = $"{qUser.Id}, {_Token}".AesEncrypt(AuthConst.SecretKey);
 
                 // ایجاد لینک بازیابی
-                string _Url = ResetLinkTemplate.Replace("[Token]", WebUtility.UrlEncode(_EncryptedToken));
+                string _Url = Input.ResetLinkTemplate.Replace("[Token]", WebUtility.UrlEncode(_EncryptedToken));
 
                 // ایجاد قالب ایمیل
-                await _EmailSender.SendAsync(qUser.Email, _Localizer["RecoveryPassword"], await _TemplateApplication.GetEmailRecoveryPasswordTemplateAsync(CultureInfo.CurrentCulture.Name, _Url));
+                await _EmailSender.SendAsync(qUser.Email, _Localizer["RecoveryPassword"], await _TemplateApplication.GetEmailRecoveryPasswordTemplateAsync(new InpGetEmailRecoveryPasswordTemplate { LangCode = CultureInfo.CurrentCulture.Name, Url = _Url }));
 
                 return new OperationResult().Succeeded();
             }
             catch (ArgumentInvalidException ex)
             {
+                _Logger.Debug(ex);
                 return new OperationResult().Failed(ex.Message);
             }
             catch (Exception ex)
@@ -1264,18 +1377,17 @@ namespace PrancaBeauty.Application.Apps.Users
             }
         }
 
-        public async Task<OperationResult> RecoveryPasswordByEmailStep2Async(string Token, string NewPassword)
+        public async Task<OperationResult> RecoveryPasswordByEmailStep2Async(InpRecoveryPasswordByEmailStep2 Input)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(Token))
-                    throw new ArgumentInvalidException($"'{nameof(Token)}' cannot be null or whitespace.");
+                #region Validations
+                Input.CheckModelState();
+                #endregion
 
-                if (string.IsNullOrWhiteSpace(NewPassword))
-                    throw new ArgumentInvalidException($"'{nameof(NewPassword)}' cannot be null or whitespace.");
 
                 // رمزگشایی توکن
-                string _DecryptToken = Token.AesDecrypt(AuthConst.SecretKey);
+                string _DecryptToken = Input.Token.AesDecrypt(AuthConst.SecretKey);
                 string _UserId = _DecryptToken.Split(", ")[0];
                 string _Token = _DecryptToken.Split(", ")[1];
 
@@ -1285,7 +1397,7 @@ namespace PrancaBeauty.Application.Apps.Users
                     return new OperationResult().Failed("TokenIsInvalid");
 
                 // بازنشانی
-                var Result = await _UserRepository.ResetPasswordAsync(qUser, _Token, NewPassword);
+                var Result = await _UserRepository.ResetPasswordAsync(qUser, _Token, Input.NewPassword);
                 if (Result.Succeeded)
                 {
                     return new OperationResult().Succeeded();
@@ -1297,6 +1409,7 @@ namespace PrancaBeauty.Application.Apps.Users
             }
             catch (ArgumentInvalidException ex)
             {
+                _Logger.Debug(ex);
                 return new OperationResult().Failed(ex.Message);
             }
             catch (Exception ex)

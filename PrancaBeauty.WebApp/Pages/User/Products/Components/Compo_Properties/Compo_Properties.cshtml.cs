@@ -6,6 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.ProductPropertis;
+using PrancaBeauty.Application.Contracts.ProductProperties;
 using PrancaBeauty.WebApp.Models.ViewInput;
 using PrancaBeauty.WebApp.Models.ViewModel;
 
@@ -26,7 +27,7 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Components.Compo_Properties
             if (!ModelState.IsValid)
                 return StatusCode(400);
 
-            var qData = await _ProductPropertisApplication.GetForManageProductAsync(LangId, Input.TopicId);
+            var qData = await _ProductPropertisApplication.GetForManageProductAsync(new InpGetForManageProduct { LangId = LangId, TopicId = Input.TopicId });
             if (qData == null)
                 return StatusCode(500);
 

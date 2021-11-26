@@ -196,7 +196,12 @@ namespace PrancaBeauty.Application.Apps.Products
 
                 #region خصوصیات محصول
                 {
-                    var _Result = await _ProductPropertiesValuesApplication.AddPropertiesToProductAsync(ProductId, Input.Properties.Select(a => new KeyValuePair<string, string>(a.Id, a.Value)).ToDictionary(a => a.Key, a => a.Value));
+                    var _Result = await _ProductPropertiesValuesApplication.AddPropertiesToProductAsync(new InpAddPropertiesToProduct
+                    {
+                        ProductId = ProductId,
+                        PropItems = Input.Properties.Select(a => new InpAddPropertiesToProduct_Items { Id = a.Id, Value = a.Value }).ToList()
+                    });
+
                     if (_Result.IsSucceeded == false)
                     {
                         // حذف محصول

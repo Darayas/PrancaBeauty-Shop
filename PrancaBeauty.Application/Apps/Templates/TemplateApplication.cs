@@ -1,5 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Framework.Common.ExMethods;
+using Framework.Exceptions;
+using Framework.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Apps.Settings;
+using PrancaBeauty.Application.Contracts.Settings;
 using PrancaBeauty.Application.Contracts.Templates;
 using PrancaBeauty.Domin.Templates.TemplatesAgg.Contracts;
 using System;
@@ -12,50 +16,120 @@ namespace PrancaBeauty.Application.Apps.Templates
 {
     public class TemplateApplication : ITemplateApplication
     {
+        private readonly ILogger _Logger;
         private readonly ISettingApplication _SettingApplication;
         private readonly ITemplateRepository _TemplateRepository;
         private List<OutTemplates> _ListTemplates;
 
-        public TemplateApplication(ITemplateRepository templateRepository, ISettingApplication settingApplication)
+        public TemplateApplication(ITemplateRepository templateRepository, ISettingApplication settingApplication, ILogger logger)
         {
             _TemplateRepository = templateRepository;
             _ListTemplates = new List<OutTemplates>();
             _SettingApplication = settingApplication;
+            _Logger = logger;
         }
 
-        public async Task<string> GetEmailConfirmationTemplateAsync(string LangCode, string Url)
+        public async Task<string> GetEmailConfirmationTemplateAsync(InpGetEmailConfirmationTemplate Input)
         {
-            string _Template = await GetTemplateAsync(LangCode, "ConfirmationEmail");
+            try
+            {
+                #region Validations
+                Input.CheckModelState();
+                #endregion
 
-            return (await SetGeneralParameters(_Template, LangCode))
-                                                        .Replace("[Url]", Url);
+                string _Template = await GetTemplateAsync(Input.LangCode, "ConfirmationEmail");
+
+                return (await SetGeneralParameters(_Template, Input.LangCode))
+                                                            .Replace("[Url]", Input.Url);
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
+            }
         }
 
-        public async Task<string> GetEmailChangeTemplateAsync(string LangCode, string Url)
+        public async Task<string> GetEmailChangeTemplateAsync(InpGetEmailChangeTemplate Input)
         {
-            string _Template = await GetTemplateAsync(LangCode, "ChanageEmail");
+            try
+            {
+                #region Validations
+                Input.CheckModelState();
+                #endregion
 
-            return (await SetGeneralParameters(_Template, LangCode))
-                                                        .Replace("[Url]", Url);
+                string _Template = await GetTemplateAsync(Input.LangCode, "ChanageEmail");
+
+                return (await SetGeneralParameters(_Template, Input.LangCode))
+                                                            .Replace("[Url]", Input.Url);
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
+            }
         }
 
-        public async Task<string> GetEmailRecoveryPasswordTemplateAsync(string LangCode, string Url)
+        public async Task<string> GetEmailRecoveryPasswordTemplateAsync(InpGetEmailRecoveryPasswordTemplate Input)
         {
-            string _Template = await GetTemplateAsync(LangCode, "RecoveryPassword");
+            try
+            {
+                #region Validations
+                Input.CheckModelState();
+                #endregion
 
-            return (await SetGeneralParameters(_Template, LangCode))
-                                                        .Replace("[Url]", Url);
+                string _Template = await GetTemplateAsync(Input.LangCode, "RecoveryPassword");
+
+                return (await SetGeneralParameters(_Template, Input.LangCode))
+                                                            .Replace("[Url]", Input.Url);
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
+            }
         }
 
-        public async Task<string> GetEmailLoginTemplateAsync(string LangCode, string Url)
+        public async Task<string> GetEmailLoginTemplateAsync(InpGetEmailLoginTemplate Input)
         {
-            string _Template = await GetTemplateAsync(LangCode, "EmailLogin");
+            try
+            {
+                #region Validations
+                Input.CheckModelState();
+                #endregion
 
-            return (await SetGeneralParameters(_Template, LangCode))
-                                                        .Replace("[Url]", Url);
+                string _Template = await GetTemplateAsync(Input.LangCode, "EmailLogin");
+
+                return (await SetGeneralParameters(_Template, Input.LangCode))
+                                                            .Replace("[Url]", Input.Url);
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
+            }
         }
 
-        public async Task<string> GetTemplateAsync(string LangCode, string Name)
+        private async Task<string> GetTemplateAsync(string LangCode, string Name)
         {
             if (_ListTemplates != null)
                 if (_ListTemplates.Where(a => a.Name == Name && a.LangCode == LangCode).Any())
@@ -78,7 +152,7 @@ namespace PrancaBeauty.Application.Apps.Templates
 
         private async Task<string> SetGeneralParameters(string Template, string LangCode)
         {
-            var qSetting = await _SettingApplication.GetSettingAsync(LangCode);
+            var qSetting = await _SettingApplication.GetSettingAsync(new InpGetSetting { LangCode = LangCode });
 
             return Template.Replace("[SiteName]", qSetting.SiteTitle)
                            .Replace("[SiteUrl]", qSetting.SiteUrl);

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Framework.Common.DataAnnotations;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -17,19 +18,17 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
         [Display(Name = "PhoneNumber")]
         [Required(ErrorMessage = "RequiredMsg")]
         [StringLength(30, MinimumLength = 6, ErrorMessage = "StringLengthMsg")]
-        [Phone]
+        [PhoneNumber]
         public string PhoneNumber { get; set; }
 
         [Display(Name = "FirstName")]
         [Required(ErrorMessage = "RequiredMsg")]
-        [StringLength(100, MinimumLength = 3, ErrorMessage = "StringLengthMsg")]
-        [RegularExpression(@"[A-Zا-یa-zآ\s]*")]
+        [MaxLength(100, ErrorMessage = "MaxLengthMsg")]
         public string FirstName { get; set; }
 
         [Display(Name = "LastName")]
         [Required(ErrorMessage = "RequiredMsg")]
-        [StringLength(100, MinimumLength = 3, ErrorMessage = "StringLengthMsg")]
-        [RegularExpression(@"[A-Zا-یa-zآ\s]*")]
+        [MaxLength(100, ErrorMessage = "MaxLengthMsg")]
         public string LastName { get; set; }
 
         [Display(Name = "Password")]
@@ -40,7 +39,7 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
         [Display(Name = "ConfirmPassword")]
         [Required(ErrorMessage = "RequiredMsg")]
         [DataType(DataType.Password)]
-        [Compare(nameof(Password),ErrorMessage = "PassCompareMsg")]
+        [Compare(nameof(Password), ErrorMessage = "PassCompareMsg")]
         public string ConfirmPassword { get; set; }
     }
 }

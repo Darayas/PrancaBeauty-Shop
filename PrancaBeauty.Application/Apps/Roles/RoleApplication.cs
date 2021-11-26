@@ -1,4 +1,5 @@
-﻿using Framework.Exceptions;
+﻿using Framework.Common.ExMethods;
+using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -28,14 +29,24 @@ namespace PrancaBeauty.Application.Apps.Roles
             _UserManager = userManager;
         }
 
-        public async Task<List<string>> GetRolesByUserAsync(tblUsers user)
+        public async Task<List<string>> GetRolesByUserAsync(InpGetRolesByUser Input)
         {
             try
             {
-                if (user == null)
-                    throw new ArgumentNullException("User cant be null.");
+                #region Validations
+                Input.CheckModelState();
+                #endregion
 
-                return (await _UserManager.GetRolesAsync(user)).ToList();
+                var qUser = await _UserManager.FindByIdAsync(Input.UserId);
+                if (qUser == null)
+                    return null;
+
+                return (await _UserManager.GetRolesAsync(qUser)).ToList();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return null;
             }
             catch (Exception ex)
             {
@@ -44,42 +55,61 @@ namespace PrancaBeauty.Application.Apps.Roles
             }
         }
 
-        public async Task<List<OutListOfRoles>> ListOfRolesAsync(string ParentId = null)
-        {
-            var qData = await _RoleManager.Roles
-                                         .Where(a => a.ParentId == (ParentId == null ? null : Guid.Parse(ParentId)))
-                                         .Select(a => new OutListOfRoles
-                                         {
-                                             Id = a.Id.ToString(),
-                                             Name = a.Name,
-                                             PageName = a.PageName,
-                                             Description = a.Description,
-                                             Sort = a.Sort,
-                                             HasChild = a.tblRoles_Childs.Any(),
-                                             ParentId = a.ParentId.HasValue ? a.ParentId.Value.ToString() : null
-                                         })
-                                         .ToListAsync();
-
-            return qData;
-
-        }
-
-        public async Task<string[]> ListOfRolesByAccessLevelIdAsync(string AccessLevelId)
+        public async Task<List<OutListOfRoles>> ListOfRolesAsync(InpListOfRoles Input)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(AccessLevelId))
-                    throw new ArgumentInvalidException("AccessLevelId cant be null.");
+                #region Validations
+                Input.CheckModelState();
+                #endregion
 
                 var qData = await _RoleManager.Roles
-                                         .Where(a => a.tblAccessLevel_Roles.Where(b => b.AccessLevelId == Guid.Parse(AccessLevelId)).Any())
-                                         .Select(a => a.Name.ToString())
-                                         .ToArrayAsync();
+                                             .Where(a => a.ParentId == (Input.ParentId == null ? null : Guid.Parse(Input.ParentId)))
+                                             .Select(a => new OutListOfRoles
+                                             {
+                                                 Id = a.Id.ToString(),
+                                                 Name = a.Name,
+                                                 PageName = a.PageName,
+                                                 Description = a.Description,
+                                                 Sort = a.Sort,
+                                                 HasChild = a.tblRoles_Childs.Any(),
+                                                 ParentId = a.ParentId.HasValue ? a.ParentId.Value.ToString() : null
+                                             })
+                                             .ToListAsync();
 
                 return qData;
             }
-            catch (ArgumentInvalidException)
+            catch (ArgumentInvalidException ex)
             {
+                _Logger.Debug(ex);
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
+            }
+
+        }
+
+        public async Task<string[]> ListOfRolesByAccessLevelIdAsync(InpListOfRolesByAccessLevelId Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState();
+                #endregion
+
+                var qData = await _RoleManager.Roles
+                           .Where(a => a.tblAccessLevel_Roles.Where(b => b.AccessLevelId == Guid.Parse(Input.AccessLevelId)).Any())
+                           .Select(a => a.Name.ToString())
+                           .ToArrayAsync();
+
+                return qData;
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
                 return null;
             }
             catch (Exception ex)
@@ -89,9 +119,26 @@ namespace PrancaBeauty.Application.Apps.Roles
             }
         }
 
-        public async Task<string> GetIdByNameAsync(string Name)
+        public async Task<string> GetIdByNameAsync(InpGetIdByName Input)
         {
-            return await _RoleRepository.Get.Where(a => a.Name == Name).Select(a => a.Id.ToString()).SingleOrDefaultAsync();
+            try
+            {
+                #region Validations
+                Input.CheckModelState();
+                #endregion
+
+                return await _RoleRepository.Get.Where(a => a.Name == Input.Name).Select(a => a.Id.ToString()).SingleOrDefaultAsync();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
+            }
         }
     }
 }

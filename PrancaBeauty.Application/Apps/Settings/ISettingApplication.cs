@@ -5,6 +5,6 @@ namespace PrancaBeauty.Application.Apps.Settings
 {
     public interface ISettingApplication
     {
-        Task<OutSettings> GetSettingAsync(string LangCode);
+        Task<OutSettings> GetSettingAsync(InpGetSetting Input);
     }
 }

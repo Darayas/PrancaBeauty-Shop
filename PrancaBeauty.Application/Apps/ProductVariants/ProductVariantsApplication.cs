@@ -1,4 +1,5 @@
-﻿using Framework.Exceptions;
+﻿using Framework.Common.ExMethods;
+using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Contracts.ProductVariants;
@@ -22,20 +23,21 @@ namespace PrancaBeauty.Application.Apps.ProductVariants
             _Logger = logger;
         }
 
-        public async Task<List<outGetLstForCombo>> GetLstForComboAsync(string LangId, string Text)
+        public async Task<List<outGetLstForCombo>> GetLstForComboAsync(InpGetLstForCombo Input)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(LangId))
-                    throw new ArgumentInvalidException($"'{nameof(LangId)}' cannot be null or whitespace.");
+                #region Validations
+                Input.CheckModelState();
+                #endregion
 
                 var qData = await _ProductVariantsRepository.Get
                                                            .Select(a => new outGetLstForCombo
                                                            {
                                                                Id = a.Id.ToString(),
-                                                               Title = a.tblProductVariants_Translates.Where(b => b.LangId == Guid.Parse(LangId)).Select(b => b.Title).Single()
+                                                               Title = a.tblProductVariants_Translates.Where(b => b.LangId == Guid.Parse(Input.LangId)).Select(b => b.Title).Single()
                                                            })
-                                                           .Where(a => Text != null ? a.Title.Contains(Text) : true)
+                                                           .Where(a => Input.Text != null ? a.Title.Contains(Input.Text) : true)
                                                            .ToListAsync();
 
                 if (qData == null)

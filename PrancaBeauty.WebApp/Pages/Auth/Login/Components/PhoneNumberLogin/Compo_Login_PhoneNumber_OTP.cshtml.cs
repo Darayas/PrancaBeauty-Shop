@@ -42,7 +42,7 @@ namespace PrancaBeauty.WebApp.Pages.Auth.Login.Components.PhoneNumberLogin
             if (!ModelState.IsValid)
                 return _MsgBox.ModelStateMsg(ModelState.GetErrors());
 
-            var Result = await _UserApplication.LoginByPhoneNumberStep2Async(Input.PhoneNumber, Input.Code);
+            var Result = await _UserApplication.LoginByPhoneNumberStep2Async(new InpLoginByPhoneNumberStep2 { PhoneNumber = Input.PhoneNumber, Code = Input.Code });
             if (Result.IsSucceeded)
             {
                 string GeneratedToken = await _JwtBuilder.CreateTokenAync(Result.Message);
@@ -61,11 +61,11 @@ namespace PrancaBeauty.WebApp.Pages.Auth.Login.Components.PhoneNumberLogin
             if (string.IsNullOrWhiteSpace(PhoneNumber))
                 return _MsgBox.ModelStateMsg(_Localizer["PhoneNumberCantBeNull"]);
 
-            var qUser = await _UserApplication.GetUserByPhoneNumberAsync(PhoneNumber);
+            var qUser = await _UserApplication.GetUserByPhoneNumberAsync(new InpGetUserByPhoneNumber { PhoneNumber = PhoneNumber });
             if (qUser == null)
                 return _MsgBox.ModelStateMsg(_Localizer["PhoneNumberIsInvalid"]);
 
-            var Result = await _UserApplication.ReCreatePasswordAsync(qUser);
+            var Result = await _UserApplication.ReCreatePasswordAsync(new InpReCreatePassword { UserId = qUser.Id.ToString() });
             if (Result.IsSucceeded)
             {
                 var IsSend = _SmsSender.SendLoginCode(Input.PhoneNumber, Result.Message);

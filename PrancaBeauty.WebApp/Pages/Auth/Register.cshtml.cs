@@ -13,6 +13,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Settings;
 using PrancaBeauty.Application.Apps.Templates;
 using PrancaBeauty.Application.Apps.Users;
+using PrancaBeauty.Application.Contracts.Settings;
+using PrancaBeauty.Application.Contracts.Templates;
 using PrancaBeauty.Application.Contracts.Users;
 using PrancaBeauty.WebApp.Common.ExMethod;
 using PrancaBeauty.WebApp.Models.ViewInput;
@@ -50,8 +52,6 @@ namespace PrancaBeauty.WebApp.Pages.Auth
             if (!ModelState.IsValid)
                 return Page();
 
-            await _UserApplication.RemoveUnConfirmedUserAsync(Input.Email);
-
             var Result = await _UserApplication.AddUserAsync(new InpAddUser
             {
                 Email = Input.Email,
@@ -71,11 +71,11 @@ namespace PrancaBeauty.WebApp.Pages.Auth
                         string Token = await _UserApplication.GenerateEmailConfirmationTokenAsync(UserId);
                         string EncToken = $"{UserId}, {Token}".AesEncrypt(AuthConst.SecretKey);
 
-                        string SiteUrl = (await _SettingApplication.GetSettingAsync(CultureInfo.CurrentCulture.Name)).SiteUrl;
+                        string SiteUrl = (await _SettingApplication.GetSettingAsync(new InpGetSetting { LangCode= CultureInfo.CurrentCulture.Name })).SiteUrl;
 
                         string _Url = $"{SiteUrl}/{CultureInfo.CurrentCulture.Parent.Name}/Auth/EmailConfirmation?Token={WebUtility.UrlEncode(EncToken)}";
 
-                        await _EmailSender.SendAsync(Input.Email, _Localizer["RegistrationEmailSubject"], await _TemplateApplication.GetEmailConfirmationTemplateAsync(CultureInfo.CurrentCulture.Name, _Url));
+                        await _EmailSender.SendAsync(Input.Email, _Localizer["RegistrationEmailSubject"], await _TemplateApplication.GetEmailConfirmationTemplateAsync(new InpGetEmailConfirmationTemplate { LangCode = CultureInfo.CurrentCulture.Name, Url = _Url }));
                     }
                     #endregion
 

@@ -1,4 +1,5 @@
-﻿using Framework.Exceptions;
+﻿using Framework.Common.ExMethods;
+using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Contracts.ProductProperties;
@@ -23,22 +24,20 @@ namespace PrancaBeauty.Application.Apps.ProductPropertis
             _Logger = logger;
         }
 
-        public async Task<List<OutGetForManageProduct>> GetForManageProductAsync(string LangId, string TopicId)
+        public async Task<List<OutGetForManageProduct>> GetForManageProductAsync(InpGetForManageProduct Input)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(LangId))
-                    throw new ArgumentInvalidException($"'{nameof(LangId)}' cannot be null or whitespace.");
-
-                if (string.IsNullOrWhiteSpace(TopicId))
-                    throw new ArgumentInvalidException($"'{nameof(TopicId)}' cannot be null or whitespace.");
+                #region Validations
+                Input.CheckModelState();
+                #endregion
 
                 var qData = await _ProductPropertisRepository.Get
-                                                            .Where(a => a.TopicId == Guid.Parse(TopicId))
+                                                            .Where(a => a.TopicId == Guid.Parse(Input.TopicId))
                                                             .Select(a => new OutGetForManageProduct
                                                             {
                                                                 PropertyId = a.Id.ToString(),
-                                                                PropertyTitle = a.tblProductPropertis_Translates.Where(b => b.LangId == Guid.Parse(LangId)).Select(b => b.Title).Single(),
+                                                                PropertyTitle = a.tblProductPropertis_Translates.Where(b => b.LangId == Guid.Parse(Input.LangId)).Select(b => b.Title).Single(),
                                                                 PropertyValue = ""
                                                             })
                                                             .ToListAsync();
@@ -60,9 +59,13 @@ namespace PrancaBeauty.Application.Apps.ProductPropertis
             }
         }
 
-        public async Task<bool> CheckExistByIdAsync(string Id)
+        public async Task<bool> CheckExistByIdAsync(InpCheckExistById Input)
         {
-            return await _ProductPropertisRepository.Get.AnyAsync(a => a.Id == Guid.Parse(Id));
+            #region Validation
+            Input.CheckModelState();
+            #endregion
+
+            return await _ProductPropertisRepository.Get.AnyAsync(a => a.Id == Guid.Parse(Input.Id));
         }
     }
 }

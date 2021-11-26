@@ -10,38 +10,36 @@ namespace PrancaBeauty.Application.Apps.Users
 {
     public interface IUserApplication
     {
-        Task<OperationResult> AddRolesAsync(tblUsers user, string[] Roles);
         Task<OperationResult> AddUserAsync(InpAddUser Input);
-        Task<OperationResult> ChanageUserAccessLevelAsync(string UserId, string SelfUserId, string AccessLevelId);
-        Task<OperationResult> ChangeEmailAsync(string Token);
-        Task<OperationResult> ChangeUserStatusAsync(string UserId, string SelfUserId);
-        Task<OperationResult> ChanagePasswordAsync(string UserId, string CurrentPassword, string NewPassword);
-        Task<OperationResult> EditUsersRoleByAccIdAsync(string AccessLevelId, string[] Roles);
-        Task<OperationResult> EmailConfirmationAsync(string UserId, string Token);
-        Task<string> GenerateEmailConfirmationTokenAsync(string UserId);
-        Task<OutGetAllUserDetails> GetAllUserDetailsAsync(string UserId);
-        Task<(OutPagingData, List<OutGetListForAdminPage>)> GetListForAdminPageAsync(string Email, string PhoneNumber, string FullName, string Sort, int PageNum, int Take);
-        Task<tblUsers> GetUserByEmailAsync(string Email);
-        Task<tblUsers> GetUserByIdAsync(string UserId);
-        Task<tblUsers> GetUserByPhoneNumberAsync(string PhoneNumber);
-        Task<OutGetUserDetailsForAccountSettings> GetUserDetailsForAccountSettingsAsync(string UserId);
-        Task<List<string>> GetUserIdsByAccIdAsync(string AccessLevelId);
-        Task<OperationResult> LoginByEmailLinkStep1Async(string Email, string IP);
-        Task<OperationResult> LoginByEmailLinkStep2Async(string UserId, string Password, string LinkIP, string UserIP, DateTime Date);
-        Task<OperationResult> LoginByPhoneNumberStep1Async(string PhoneNumber);
-        Task<OperationResult> LoginByPhoneNumberStep2Async(string PhoneNumber, string Code);
-        Task<OperationResult> LoginByUserNamePasswordAsync(string UserName, string Pawword);
-        Task<OperationResult> PhoneConfirmationBySmsCodeAsync(string UserId, string PhoneNumber, string Code);
-        Task<OperationResult> ReCreatePasswordAsync(tblUsers User);
-        Task<OperationResult> RemoveAllRolesAsync(tblUsers user);
-        Task<bool> RemoveUnConfirmedUserAsync(string UserId);
-        Task<OperationResult> RemoveUserAsync(string UserId);
-        Task<OperationResult> ReSendSmsCodeAsync(string PhoneNumber);
-        Task<OperationResult> SaveAccountSettingUserDetailsAsync(string UserId, InpSaveAccountSettingUserDetails Input, string UrlToChangeEmail);
-        Task<List<OutGetListForCombo>> GetListForComboAsync(string LangId, string Name);
-        Task<string> GetUserProfileImgUrlByIdAsync(string UserId);
-        Task<OperationResult> LoginByEmailPasswordAsync(string Email, string Password);
-        Task<OperationResult> RecoveryPasswordByEmailStep1Async(string Email, string ResetLinkTemplate);
-        Task<OperationResult> RecoveryPasswordByEmailStep2Async(string Token, string NewPassword);
+        Task<OperationResult> ChanageUserAccessLevelAsync(InpChanageUserAccessLevel Input);
+        Task<OperationResult> ChangeEmailAsync(InpChangeEmail Input);
+        Task<OperationResult> ChangeUserStatusAsync(InpChangeUserStatus Input);
+        Task<OperationResult> ChanagePasswordAsync(InpChanagePassword Input);
+        Task<OperationResult> EditUsersRoleByAccIdAsync(InpEditUsersRoleByAccId Input);
+        Task<OperationResult> EmailConfirmationAsync(InpEmailConfirmation Input);
+        Task<string> GenerateEmailConfirmationTokenAsync(InpGenerateEmailConfirmationToken Input);
+        Task<OutGetAllUserDetails> GetAllUserDetailsAsync(InpGetAllUserDetails Input);
+        Task<(OutPagingData, List<OutGetListForAdminPage>)> GetListForAdminPageAsync(InpGetListForAdminPage Input);
+        Task<tblUsers> GetUserByIdAsync(InpGetUserById Input);
+        Task<tblUsers> GetUserByPhoneNumberAsync(InpGetUserByPhoneNumber Input);
+        Task<OutGetUserDetailsForAccountSettings> GetUserDetailsForAccountSettingsAsync(InpGetUserDetailsForAccountSettings Input);
+        Task<List<string>> GetUserIdsByAccIdAsync(InpGetUserIdsByAccId Input);
+        Task<OperationResult> LoginByEmailLinkStep1Async(InpLoginByEmailLinkStep1 Input);
+        Task<OperationResult> LoginByEmailLinkStep2Async(InpLoginByEmailLinkStep2 Input);
+        Task<OperationResult> LoginByPhoneNumberStep1Async(InpLoginByPhoneNumberStep1 Input);
+        Task<OperationResult> LoginByPhoneNumberStep2Async(InpLoginByPhoneNumberStep2 Input);
+        Task<OperationResult> LoginByUserNamePasswordAsync(InpLoginByUserNamePassword Input);
+        Task<OperationResult> PhoneConfirmationBySmsCodeAsync(InpPhoneConfirmationBySmsCode Input);
+        Task<OperationResult> ReCreatePasswordAsync(InpReCreatePassword Input);
+        Task<OperationResult> RemoveUserAsync(InpRemoveUser Input);
+        Task<OperationResult> ReSendSmsCodeAsync(InpReSendSmsCode Input);
+        Task<OperationResult> SaveAccountSettingUserDetailsAsync( InpSaveAccountSettingUserDetails Input);
+        Task<List<OutGetListForCombo>> GetListForComboAsync(InpGetListForCombo Input);
+        Task<string> GetUserProfileImgUrlByIdAsync(InpGetUserProfileImgUrlById Input);
+        Task<OperationResult> LoginByEmailPasswordAsync(InpLoginByEmailPassword Input);
+        Task<OperationResult> RecoveryPasswordByEmailStep1Async(InpRecoveryPasswordByEmailStep1 Input);
+        Task<OperationResult> RecoveryPasswordByEmailStep2Async(InpRecoveryPasswordByEmailStep2 Input);
+        Task<OperationResult> LoginAsync(InpLogin Input);
+        Task<OperationResult> AddRolesAsync(InpAddRoles Input);
     }
 }

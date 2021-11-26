@@ -1,4 +1,5 @@
-﻿using Framework.Exceptions;
+﻿using Framework.Common.ExMethods;
+using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Contracts.ProductTopics;
@@ -22,25 +23,26 @@ namespace PrancaBeauty.Application.Apps.ProductTopic
             _Logger = logger;
         }
 
-        public async Task<List<OutGetListForCombo>> GetListForComboAsync(string LangId, string Text)
+        public async Task<List<OutGetListForCombo>> GetListForComboAsync(InpGetListForCombo Input)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(LangId))
-                    throw new ArgumentInvalidException($"'{nameof(LangId)}' cannot be null or whitespace.");
-                
+                #region Validations
+                Input.CheckModelState();
+                #endregion
+
                 var qData = await _ProductTopicRepository.Get
                                                          .Select(a => new OutGetListForCombo()
                                                          {
                                                              Id = a.Id.ToString(),
                                                              Name = a.Name,
-                                                             Title = a.tblProductTopic_Translates.Where(b => b.LangId == Guid.Parse(LangId)).Select(b => b.Title).Single(),
+                                                             Title = a.tblProductTopic_Translates.Where(b => b.LangId == Guid.Parse(Input.LangId)).Select(b => b.Title).Single(),
                                                              ImgUrl = a.tblFiles.tblFilePaths.tblFileServer.HttpDomin
                                                                      + a.tblFiles.tblFilePaths.tblFileServer.HttpPath
                                                                      + a.tblFiles.tblFilePaths.Path
                                                                      + a.tblFiles.FileName
                                                          })
-                                                         .Where(a => Text != null ? a.Title.Contains(Text) : true)
+                                                         .Where(a => Input.Text != null ? a.Title.Contains(Input.Text) : true)
                                                          .OrderBy(a => a.Title)
                                                          .Skip(0)
                                                          .Take(50)

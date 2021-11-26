@@ -6,7 +6,7 @@ namespace PrancaBeauty.Application.Apps.ProductPropertis
 {
     public interface IProductPropertisApplication
     {
-        Task<bool> CheckExistByIdAsync(string Id);
-        Task<List<OutGetForManageProduct>> GetForManageProductAsync(string LangId, string TopicId);
+        Task<bool> CheckExistByIdAsync(InpCheckExistById Input);
+        Task<List<OutGetForManageProduct>> GetForManageProductAsync(InpGetForManageProduct Input);
     }
 }

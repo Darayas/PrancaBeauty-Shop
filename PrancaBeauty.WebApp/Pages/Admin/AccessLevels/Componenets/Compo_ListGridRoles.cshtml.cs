@@ -7,6 +7,7 @@ using Kendo.Mvc.UI;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Roles;
+using PrancaBeauty.Application.Contracts.Roles;
 using PrancaBeauty.WebApp.Models.ViewInput;
 using PrancaBeauty.WebApp.Models.ViewModel;
 
@@ -42,7 +43,7 @@ namespace PrancaBeauty.WebApp.Pages.Admin.AccessLevels.Componenets
 
         public async Task<JsonResult> OnPostReadAsync([DataSourceRequest] DataSourceRequest request, string ParentId = null)
         {
-            var qData = (await _RoleApplication.ListOfRolesAsync(ParentId))
+            var qData = (await _RoleApplication.ListOfRolesAsync(new InpListOfRoles { ParentId = ParentId }))
                                                .Select(a => new vmCompo_ListGridRolesModel
                                                {
                                                    Id = a.Id,

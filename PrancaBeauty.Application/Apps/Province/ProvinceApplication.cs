@@ -1,4 +1,5 @@
-﻿using Framework.Exceptions;
+﻿using Framework.Common.ExMethods;
+using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Contracts.Province;
@@ -21,32 +22,31 @@ namespace PrancaBeauty.Application.Apps.Province
             _Logger = logger;
         }
 
-        public async Task<List<OutGetListForCombo>> GetListForComboAsync(string LangId, string CountryId, string Search)
+        public async Task<List<OutGetListForCombo>> GetListForComboAsync(InpGetListForCombo Input)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(LangId))
-                    throw new ArgumentInvalidException($"'{nameof(LangId)}' cannot be null or whitespace.");
-
-                if (string.IsNullOrWhiteSpace(CountryId))
-                    throw new ArgumentInvalidException($"'{nameof(CountryId)}' cannot be null or whitespace.");
+                #region Validations
+                Input.CheckModelState();
+                #endregion
 
                 var qData = await _ProvinceRepository.Get
                                                      .Where(a => a.IsActive)
-                                                     .Where(a => a.CountryId == Guid.Parse(CountryId))
+                                                     .Where(a => a.CountryId == Guid.Parse(Input.CountryId))
                                                      .Select(a => new OutGetListForCombo
                                                      {
                                                          Id = a.Id.ToString(),
                                                          Name = a.Name,
-                                                         Title = a.tblProvinces_Translate.Where(b => b.LangId == Guid.Parse(LangId)).Select(b => b.Title).Single()
+                                                         Title = a.tblProvinces_Translate.Where(b => b.LangId == Guid.Parse(Input.LangId)).Select(b => b.Title).Single()
                                                      })
-                                                     .Where(a => Search != null ? a.Title.Contains(Search) : true)
+                                                     .Where(a => Input.Search != null ? a.Title.Contains(Input.Search) : true)
                                                      .ToListAsync();
 
                 return qData;
             }
             catch (ArgumentInvalidException ex)
             {
+                _Logger.Debug(ex);
                 return null;
             }
             catch (Exception ex)

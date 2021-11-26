@@ -1,13 +1,13 @@
-﻿using System.Threading.Tasks;
+﻿using PrancaBeauty.Application.Contracts.Templates;
+using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Apps.Templates
 {
     public interface ITemplateApplication
     {
-        Task<string> GetEmailChangeTemplateAsync(string LangCode, string Url);
-        Task<string> GetEmailConfirmationTemplateAsync(string LangCode, string Url);
-        Task<string> GetEmailLoginTemplateAsync(string LangCode, string Url);
-        Task<string> GetEmailRecoveryPasswordTemplateAsync(string LangCode, string Url);
-        Task<string> GetTemplateAsync(string LangCode, string Name);
+        Task<string> GetEmailChangeTemplateAsync(InpGetEmailChangeTemplate Input);
+        Task<string> GetEmailConfirmationTemplateAsync(InpGetEmailConfirmationTemplate Input);
+        Task<string> GetEmailLoginTemplateAsync(InpGetEmailLoginTemplate Input);
+        Task<string> GetEmailRecoveryPasswordTemplateAsync(InpGetEmailRecoveryPasswordTemplate Input);
     }
 }

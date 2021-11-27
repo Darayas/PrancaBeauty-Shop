@@ -6,6 +6,7 @@ using Framework.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Users;
+using PrancaBeauty.Application.Contracts.Users;
 using PrancaBeauty.WebApp.Models.ViewInput;
 
 namespace PrancaBeauty.WebApp.Pages.Auth
@@ -25,7 +26,7 @@ namespace PrancaBeauty.WebApp.Pages.Auth
             if (string.IsNullOrWhiteSpace(Token))
                 return StatusCode(500);
 
-            var Result = await _UserApplication.ChangeEmailAsync(Token);
+            var Result = await _UserApplication.ChangeEmailAsync(new InpChangeEmail { Token = Token });
             if (Result.IsSucceeded)
             {
                 IsSuccess = true;

@@ -721,7 +721,7 @@ namespace PrancaBeauty.Application.Apps.Users
             }
         }
 
-        public async Task<(OutPagingData, List<Contracts.Users.OutGetListForAdminPage>)> GetListForAdminPageAsync(InpGetListForAdminPage Input)
+        public async Task<(OutPagingData, List<Contracts.Users.OutGetListForAdminPage>)> GetListForAdminPageAsync(Contracts.Users.InpGetListForAdminPage Input)
         {
             try
             {

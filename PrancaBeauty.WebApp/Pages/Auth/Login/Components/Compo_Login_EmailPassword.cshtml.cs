@@ -7,6 +7,7 @@ using Framework.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Users;
+using PrancaBeauty.Application.Contracts.Users;
 using PrancaBeauty.WebApp.Authentication;
 using PrancaBeauty.WebApp.Common.ExMethod;
 using PrancaBeauty.WebApp.Common.Types;
@@ -39,7 +40,7 @@ namespace PrancaBeauty.WebApp.Pages.Auth.Login.Components
             if (!ModelState.IsValid)
                 return _MsgBox.ModelStateMsg(ModelState.GetErrors());
 
-            var Result = await _UserApplication.LoginByEmailPasswordAsync(Input.Email, Input.Password);
+            var Result = await _UserApplication.LoginByEmailPasswordAsync(new InpLoginByEmailPassword { Email = Input.Email, Password = Input.Password });
 
             if (Result.IsSucceeded)
             {

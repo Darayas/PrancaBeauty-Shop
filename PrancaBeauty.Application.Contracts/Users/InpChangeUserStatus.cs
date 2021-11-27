@@ -6,13 +6,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PrancaBeauty.Application.Apps.Users
+namespace PrancaBeauty.Application.Contracts.Users
 {
-    public class InpGenerateEmailConfirmationToken
+    public class InpChangeUserStatus
     {
         [Display(Name = "UserId")]
         [Required(ErrorMessage = "Required")]
         [GUID]
         public string UserId { get; set; }
+
+        [Display(Name = "SelfUserId")]
+        [Required(ErrorMessage = "Required")]
+        [GUID]
+        public string SelfUserId { get; set; }
     }
 }

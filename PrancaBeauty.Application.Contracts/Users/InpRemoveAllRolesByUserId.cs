@@ -6,13 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PrancaBeauty.Application.Apps.Users
+namespace PrancaBeauty.Application.Contracts.Users
 {
-    public class InpGetUserIdsByAccId
+    public class InpRemoveAllRolesByUserId
     {
-        [Display(Name = "AccessLevelId")]
-        [Required(ErrorMessage = "Required")]
+        [Display(Name = "UserId")]
+        [Required(ErrorMessage = "RequiredMsg")]
         [GUID]
-        public string AccessLevelId { get; set; }
+        public string UserId { get; set; }
     }
 }

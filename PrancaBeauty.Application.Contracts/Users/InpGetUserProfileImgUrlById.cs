@@ -6,14 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PrancaBeauty.Application.Apps.Users
+namespace PrancaBeauty.Application.Contracts.Users
 {
-    public class InpGetUserByPhoneNumber
+    public class InpGetUserProfileImgUrlById
     {
-        [Display(Name = "PhoneNumber")]
+        [Display(Name = "UserId")]
         [Required(ErrorMessage = "Required")]
-        [MaxLength(50, ErrorMessage = "MaxLength")]
-        [PhoneNumber]
-        public string PhoneNumber { get; set; }
+        [GUID]
+        public string UserId { get; set; }
     }
 }

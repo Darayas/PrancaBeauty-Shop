@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Settings;
 using PrancaBeauty.Application.Apps.Users;
+using PrancaBeauty.Application.Contracts.Settings;
+using PrancaBeauty.Application.Contracts.Users;
 using PrancaBeauty.WebApp.Common.ExMethod;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
 using PrancaBeauty.WebApp.Models.ViewInput;
@@ -38,10 +40,10 @@ namespace PrancaBeauty.WebApp.Pages.Auth.RecoveryPassword.Components.RecoveryByE
             if (!ModelState.IsValid)
                 return _MsgBox.ModelStateMsg(ModelState.GetErrors());
 
-            string _Url = (await _SettingApplication.GetSettingAsync(CultureInfo.CurrentCulture.Name)).SiteUrl + $"/{CultureInfo.CurrentCulture.Parent.Name}/Auth/RecoveryPassword?Token=[Token]";
-            
-            var Result = await _UserApplication.RecoveryPasswordByEmailStep1Async(Input.Email, _Url);
-            if(Result.IsSucceeded)
+            string _Url = (await _SettingApplication.GetSettingAsync(new InpGetSetting { LangCode = CultureInfo.CurrentCulture.Name })).SiteUrl + $"/{CultureInfo.CurrentCulture.Parent.Name}/Auth/RecoveryPassword?Token=[Token]";
+
+            var Result = await _UserApplication.RecoveryPasswordByEmailStep1Async(new InpRecoveryPasswordByEmailStep1 { Email = Input.Email, ResetLinkTemplate = _Url });
+            if (Result.IsSucceeded)
                 return _MsgBox.SuccessMsg(_Localizer[Result.Message]);
             else
                 return _MsgBox.FaildMsg(_Localizer[Result.Message]);

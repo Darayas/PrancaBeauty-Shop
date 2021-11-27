@@ -6,18 +6,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PrancaBeauty.Application.Apps.Users
+namespace PrancaBeauty.Application.Contracts.Users
 {
-    public class InpLogin
+    public class InpPhoneConfirmationBySmsCode
     {
         [Display(Name = "UserId")]
         [Required(ErrorMessage = "Required")]
         [GUID]
         public string UserId { get; set; }
 
-        [Display(Name = "Password")]
+        [Display(Name = "PhoneNumber")]
         [Required(ErrorMessage = "Required")]
         [MaxLength(100, ErrorMessage = "MaxLength")]
-        public string Password { get; set; }
+        [PhoneNumber]
+        public string PhoneNumber { get; set; }
+
+        [Display(Name = "Code")]
+        [Required(ErrorMessage = "Required")]
+        [MaxLength(100, ErrorMessage = "MaxLength")]
+        public string Code { get; set; }
+
     }
 }

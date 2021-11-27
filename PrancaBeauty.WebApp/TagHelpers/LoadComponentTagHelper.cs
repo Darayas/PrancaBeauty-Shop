@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using PrancaBeauty.Application.Apps.Settings;
+using PrancaBeauty.Application.Contracts.Settings;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -38,7 +39,7 @@ namespace PrancaBeauty.WebApp.TagHelpers
                 if (Context == null)
                     throw new ArgumentNullException("Context cant be null.");
 
-                Url = (await _SettingApplication.GetSettingAsync(CultureInfo.CurrentCulture.Name)).SiteUrl + Url;
+                Url = (await _SettingApplication.GetSettingAsync(new InpGetSetting {  LangCode= CultureInfo.CurrentCulture.Name })).SiteUrl + Url;
 
                 string HtmlData = await _Downloader.GetHtmlFromPageAsync(Url, Data, Context.Request.Headers.Select(a => new KeyValuePair<string, string>(a.Key, a.Value)).ToDictionary(k => k.Key, v => v.Value));
 

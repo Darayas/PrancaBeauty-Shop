@@ -6,18 +6,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PrancaBeauty.Application.Apps.Users
+namespace PrancaBeauty.Application.Contracts.Users
 {
-    public class InpChangeUserStatus
+    public class InpAddRoles
     {
         [Display(Name = "UserId")]
         [Required(ErrorMessage = "Required")]
         [GUID]
         public string UserId { get; set; }
 
-        [Display(Name = "SelfUserId")]
+        public List<InpAddRolesItem> Roles { get; set; }
+    }
+
+    public class InpAddRolesItem
+    {
+        [Display(Name = "Name")]
         [Required(ErrorMessage = "Required")]
-        [GUID]
-        public string SelfUserId { get; set; }
+        [MaxLength(100, ErrorMessage = "MaxLength")]
+        public string Name { get; set; }
     }
 }

@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Roles;
 using PrancaBeauty.Application.Apps.Settings;
 using PrancaBeauty.Application.Apps.Users;
+using PrancaBeauty.Application.Contracts.Settings;
 using PrancaBeauty.Application.Contracts.Users;
 using PrancaBeauty.WebApp.Authentication;
 using PrancaBeauty.WebApp.Common.ExMethod;
@@ -38,7 +39,7 @@ namespace PrancaBeauty.WebApp.Pages.User.EditProfile.Components.AccountSettings
 
         public async Task<IActionResult> OnGetAsync()
         {
-            var qData = await _UserApplication.GetUserDetailsForAccountSettingsAsync(User.GetUserDetails().UserId);
+            var qData = await _UserApplication.GetUserDetailsForAccountSettingsAsync(new InpGetUserDetailsForAccountSettings { UserId = User.GetUserDetails().UserId });
 
             if (qData == null)
                 throw new Exception();
@@ -64,9 +65,13 @@ namespace PrancaBeauty.WebApp.Pages.User.EditProfile.Components.AccountSettings
                 if (!User.IsInRole(Roles.CanChangeProfileImage))
                     Input.ProfileImage = null;
 
-                string SiteUrl = (await _SettingApplication.GetSettingAsync(CultureInfo.CurrentCulture.Name)).SiteUrl;
+                string SiteUrl = (await _SettingApplication.GetSettingAsync(new InpGetSetting { LangCode = CultureInfo.CurrentCulture.Name })).SiteUrl;
 
-                var Result = await _UserApplication.SaveAccountSettingUserDetailsAsync(User.GetUserDetails().UserId, _Mapper.Map<InpSaveAccountSettingUserDetails>(Input), $"{SiteUrl}/{CultureInfo.CurrentCulture.Parent.Name}/Auth/ChangeEmail?Token=[Token]");
+                var _mapData = _Mapper.Map<InpSaveAccountSettingUserDetails>(Input);
+                _mapData.UserId = User.GetUserDetails().UserId;
+                _mapData.UrlToChangeEmail = $"{SiteUrl}/{CultureInfo.CurrentCulture.Parent.Name}/Auth/ChangeEmail?Token=[Token]";
+
+                var Result = await _UserApplication.SaveAccountSettingUserDetailsAsync(_mapData);
                 if (Result.IsSucceeded)
                 {
                     return _MsgBox.SuccessMsg(_Localizer[Result.Message]);

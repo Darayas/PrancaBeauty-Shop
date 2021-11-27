@@ -7,6 +7,7 @@ using Framework.Common.ExMethods;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Users;
+using PrancaBeauty.Application.Contracts.Users;
 
 namespace PrancaBeauty.WebApp.Pages.Auth
 {
@@ -31,7 +32,11 @@ namespace PrancaBeauty.WebApp.Pages.Auth
                 string _Token = DecreptedToken.Split(", ")[1];
 
 
-                var Result = await _UserApplication.EmailConfirmationAsync(_UserId, _Token);
+                var Result = await _UserApplication.EmailConfirmationAsync(new InpEmailConfirmation
+                {
+                    Token = Token,
+                    UserId = _UserId
+                });
                 if (Result.IsSucceeded)
                 {
                     return Page();

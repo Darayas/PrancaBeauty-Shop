@@ -6,6 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.ProductVariants;
+using PrancaBeauty.Application.Contracts.ProductVariants;
 using PrancaBeauty.WebApp.Models.ViewInput;
 using PrancaBeauty.WebApp.Models.ViewModel;
 
@@ -32,7 +33,7 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.Combo_ProductVariants
 
         public async Task<JsonResult> OnGetReadAsync(string LangId, string Text)
         {
-            var qData = await _ProductVariantsApplication.GetLstForComboAsync(LangId, Text);
+            var qData = await _ProductVariantsApplication.GetLstForComboAsync(new InpGetLstForCombo { LangId = LangId, Text = Text });
             var Data = _Mapper.Map<List<vmCompo_Combo_ProductVariants>>(qData);
 
             return new JsonResult(Data);

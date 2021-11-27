@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using PrancaBeauty.Application.Apps.Roles;
 using PrancaBeauty.Application.Apps.Users;
 using PrancaBeauty.Application.Contracts.Roles;
+using PrancaBeauty.Application.Contracts.Users;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -27,7 +28,7 @@ namespace PrancaBeauty.WebApp.Authentication
         public async Task<string> CreateTokenAync(string UserId)
         {
 
-            var _UserDetails = await _UserApplication.GetAllUserDetailsAsync(UserId);
+            var _UserDetails = await _UserApplication.GetAllUserDetailsAsync(new InpGetAllUserDetails { UserId = UserId });
             if (_UserDetails == null)
                 throw new Exception();
 

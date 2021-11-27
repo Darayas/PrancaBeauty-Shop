@@ -68,10 +68,10 @@ namespace PrancaBeauty.WebApp.Pages.Auth
                     #region ارسال ایمیل تایید
                     {
                         string UserId = Result.Message;
-                        string Token = await _UserApplication.GenerateEmailConfirmationTokenAsync(UserId);
+                        string Token = await _UserApplication.GenerateEmailConfirmationTokenAsync(new InpGenerateEmailConfirmationToken { UserId = UserId });
                         string EncToken = $"{UserId}, {Token}".AesEncrypt(AuthConst.SecretKey);
 
-                        string SiteUrl = (await _SettingApplication.GetSettingAsync(new InpGetSetting { LangCode= CultureInfo.CurrentCulture.Name })).SiteUrl;
+                        string SiteUrl = (await _SettingApplication.GetSettingAsync(new InpGetSetting { LangCode = CultureInfo.CurrentCulture.Name })).SiteUrl;
 
                         string _Url = $"{SiteUrl}/{CultureInfo.CurrentCulture.Parent.Name}/Auth/EmailConfirmation?Token={WebUtility.UrlEncode(EncToken)}";
 

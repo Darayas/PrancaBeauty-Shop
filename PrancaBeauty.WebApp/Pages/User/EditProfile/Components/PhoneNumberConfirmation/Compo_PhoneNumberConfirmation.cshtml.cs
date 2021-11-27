@@ -1,15 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Framework.Application.Services.Sms;
 using Framework.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Users;
+using PrancaBeauty.Application.Contracts.Users;
 using PrancaBeauty.WebApp.Common.ExMethod;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
 using PrancaBeauty.WebApp.Models.ViewInput;
+using System.Threading.Tasks;
 
 namespace PrancaBeauty.WebApp.Pages.User.EditProfile.Components.PhoneNumberConfirmation
 {
@@ -31,7 +29,7 @@ namespace PrancaBeauty.WebApp.Pages.User.EditProfile.Components.PhoneNumberConfi
             if (string.IsNullOrWhiteSpace(Input.PhoneNumber))
                 return StatusCode(400);
 
-            var Result = await _UserApplication.ReSendSmsCodeAsync(Input.PhoneNumber);
+            var Result = await _UserApplication.ReSendSmsCodeAsync(new InpReSendSmsCode { PhoneNumber = Input.PhoneNumber });
             if (Result.IsSucceeded)
                 return Page();
             else
@@ -46,7 +44,7 @@ namespace PrancaBeauty.WebApp.Pages.User.EditProfile.Components.PhoneNumberConfi
             if (string.IsNullOrWhiteSpace(PhoneNumber))
                 return _MsgBox.ModelStateMsg(_Localizer["PhoneNumberCantBeNull"]);
 
-            var Result = await _UserApplication.ReSendSmsCodeAsync(PhoneNumber);
+            var Result = await _UserApplication.ReSendSmsCodeAsync(new InpReSendSmsCode { PhoneNumber = PhoneNumber });
             if (Result.IsSucceeded)
             {
                 return _MsgBox.SuccessMsg(_Localizer[Result.Message], "StartTimer()");
@@ -63,7 +61,7 @@ namespace PrancaBeauty.WebApp.Pages.User.EditProfile.Components.PhoneNumberConfi
                 return _MsgBox.ModelStateMsg(ModelState.GetErrors());
 
             var UserId = User.GetUserDetails().UserId;
-            var Result = await _UserApplication.PhoneConfirmationBySmsCodeAsync(UserId, Input.PhoneNumber, Input.Code);
+            var Result = await _UserApplication.PhoneConfirmationBySmsCodeAsync(new InpPhoneConfirmationBySmsCode { UserId = UserId, PhoneNumber = Input.PhoneNumber, Code = Input.Code });
             if (Result.IsSucceeded)
             {
                 return _MsgBox.SuccessMsg(_Localizer[Result.Message], "ReloadPage()");

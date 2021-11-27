@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Users;
+using PrancaBeauty.Application.Contracts.Users;
 using PrancaBeauty.WebApp.Authentication;
 using PrancaBeauty.WebApp.Common.ExMethod;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
@@ -38,7 +39,15 @@ namespace PrancaBeauty.WebApp.Pages.Admin.Users
 
         public async Task<IActionResult> OnPostReadDataAsync([DataSourceRequest] DataSourceRequest request)
         {
-            var qData = await _UsersApplication.GetListForAdminPageAsync(Input.Email, Input.PhoneNumber, Input.FullName, Input.FieldSort, request.Page, request.PageSize);
+            var qData = await _UsersApplication.GetListForAdminPageAsync(new InpGetListForAdminPage
+            {
+                Email = Input.Email,
+                FullName = Input.FullName,
+                PhoneNumber = Input.PhoneNumber,
+                Sort = Input.FieldSort,
+                PageNum = request.Page,
+                Take = request.PageSize
+            });
 
             var Items = qData.Item2
                              .Select(a => new vmListUsers
@@ -69,7 +78,7 @@ namespace PrancaBeauty.WebApp.Pages.Admin.Users
             if (!User.IsInRole(Roles.CanRemoveUsers))
                 return _MsgBox.FaildMsg(_Localizer["AccessDenied"]);
 
-            var Result = await _UsersApplication.RemoveUserAsync(Id);
+            var Result = await _UsersApplication.RemoveUserAsync(new InpRemoveUser { UserId = Id });
             if (Result.IsSucceeded)
             {
                 return _MsgBox.SuccessMsg(_Localizer[Result.Message], "RefreshData()");
@@ -85,7 +94,7 @@ namespace PrancaBeauty.WebApp.Pages.Admin.Users
             if (!User.IsInRole(Roles.CanChangeUsersStatus))
                 return _MsgBox.FaildMsg(_Localizer["AccessDenied"]);
 
-            var Result = await _UsersApplication.ChangeUserStatusAsync(Id, User.GetUserDetails().UserId);
+            var Result = await _UsersApplication.ChangeUserStatusAsync(new InpChangeUserStatus { UserId = Id, SelfUserId = User.GetUserDetails().UserId });
             if (Result.IsSucceeded)
             {
                 return _MsgBox.SuccessMsg(_Localizer[Result.Message], "RefreshData()");

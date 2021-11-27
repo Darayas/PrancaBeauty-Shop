@@ -14,8 +14,6 @@ using PrancaBeauty.Domin.Users.AccessLevelAgg.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Apps.Accesslevels
@@ -51,7 +49,7 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
             return qData;
         }
 
-        public async Task<(OutPagingData, List<OutGetListForAdminPage>)> GetListForAdminPageAsync(InpGetListForAdminPage Input)
+        public async Task<(OutPagingData, List<OutGetListForAdminPage>)> GetListForAdminPageAsync(Contracts.AccessLevels.InpGetListForAdminPage Input)
         {
             try
             {
@@ -226,10 +224,10 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
                 qData.Name = Input.Name;
 
                 // لغو عضویت تمامی رول ها
-                var ResultRemoveAccRoles = await _AccessLevelRolesApplication.RemoveByAccessLevelIdAsync(new InpRemoveByAccessLevelId() { AccessLevelId=Input.Id });
+                var ResultRemoveAccRoles = await _AccessLevelRolesApplication.RemoveByAccessLevelIdAsync(new InpRemoveByAccessLevelId() { AccessLevelId = Input.Id });
 
                 // ثبت رول های جدید
-                await _AccessLevelRolesApplication.AddRolesToAccessLevelAsync(new InpAddRolesToAccessLevel { AccessLevelId=Input.Name,RolesName=Input.Roles });
+                await _AccessLevelRolesApplication.AddRolesToAccessLevelAsync(new InpAddRolesToAccessLevel { AccessLevelId = Input.Name, RolesName = Input.Roles });
 
                 // ثبت ویرایش
                 await _AccessLevelRepository.UpdateAsync(qData, default, true);

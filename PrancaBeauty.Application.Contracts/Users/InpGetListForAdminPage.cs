@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PrancaBeauty.Application.Apps.Users
+namespace PrancaBeauty.Application.Contracts.Users
 {
     public class InpGetListForAdminPage
     {
@@ -25,7 +25,7 @@ namespace PrancaBeauty.Application.Apps.Users
         public string FullName { get; set; }
 
         [Display(Name = "Sort")]
-        [Range(1,int.MaxValue,ErrorMessage = "RangeMsg")]
+        [Range(1, int.MaxValue, ErrorMessage = "RangeMsg")]
         public string Sort { get; set; }
 
         [Display(Name = "PageNum")]

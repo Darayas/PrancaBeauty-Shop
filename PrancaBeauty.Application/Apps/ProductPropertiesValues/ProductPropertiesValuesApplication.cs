@@ -46,12 +46,12 @@ namespace PrancaBeauty.Application.Apps.ProductPropertiesValues
 
                 foreach (var item in Input.PropItems.Where(a => a.Value != null || a.Value != ""))
                 {
-                    if (await _ProductPropertisApplication.CheckExistByIdAsync(new InpCheckExistById { Id= item.Key }))
+                    if (await _ProductPropertisApplication.CheckExistByIdAsync(new InpCheckExistById { Id= item.Id }))
                         await _ProductPropertiesValuesRepository.AddAsync(new tblProductPropertiesValues()
                         {
                             Id = new Guid().SequentialGuid(),
                             ProductId = Guid.Parse(Input.ProductId),
-                            ProductPropertiesId = Guid.Parse(item.Key),
+                            ProductPropertiesId = Guid.Parse(item.Id),
                             Value = item.Value
                         }, default, false);
                 }

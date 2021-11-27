@@ -56,7 +56,7 @@ namespace PrancaBeauty.WebApp.Middlewares
                 }
                 else
                 {
-                    var _SiteSetting = await _SettingApplication.GetSettingAsync(CultureInfo.CurrentCulture.Name);
+                    var _SiteSetting = await _SettingApplication.GetSettingAsync(new InpGetSetting { LangCode = CultureInfo.CurrentCulture.Name });
                     string SiteUrl = "";
 
                     if (_SiteSetting == null)

@@ -6,14 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PrancaBeauty.Application.Apps.Users
+namespace PrancaBeauty.Application.Contracts.Users
 {
-   public class InpReSendSmsCode
+    public class InpRemoveUser
     {
-        [Display(Name = "PhoneNumber")]
+        [Display(Name = "UserId")]
         [Required(ErrorMessage = "Required")]
-        [MaxLength(100, ErrorMessage = "MaxLength")]
-        [PhoneNumber]
-        public string PhoneNumber { get; set; }
+        [GUID]
+        public string UserId { get; set; }
     }
 }

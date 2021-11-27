@@ -1,18 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Framework.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Accesslevels;
 using PrancaBeauty.Application.Apps.Users;
 using PrancaBeauty.Application.Contracts.AccessLevels;
-using PrancaBeauty.Domin.Users.UserAgg.Contracts;
+using PrancaBeauty.Application.Contracts.Users;
 using PrancaBeauty.WebApp.Authentication;
 using PrancaBeauty.WebApp.Common.ExMethod;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
 using PrancaBeauty.WebApp.Models.ViewInput;
+using System.Threading.Tasks;
 
 namespace PrancaBeauty.WebApp.Pages.Admin.Users.Components
 {
@@ -44,7 +41,13 @@ namespace PrancaBeauty.WebApp.Pages.Admin.Users.Components
 
         public async Task<IActionResult> OnPostAsync()
         {
-            var Result = await _UserApplication.ChanageUserAccessLevelAsync(Input.UserId, User.GetUserDetails().UserId, Input.AccessLevelId);
+            var Result = await _UserApplication.ChanageUserAccessLevelAsync(new InpChanageUserAccessLevel
+            {
+                UserId = Input.UserId,
+                SelfUserId = User.GetUserDetails().UserId,
+                AccessLevelId = Input.AccessLevelId
+            });
+
             if (Result.IsSucceeded)
             {
                 CacheUsersToRebuildToken.Add(Input.UserId);

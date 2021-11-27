@@ -8,6 +8,7 @@ using Framework.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Users;
+using PrancaBeauty.Application.Contracts.Users;
 using PrancaBeauty.WebApp.Common.ExMethod;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
 using PrancaBeauty.WebApp.Models.ViewInput;
@@ -37,7 +38,7 @@ namespace PrancaBeauty.WebApp.Pages.Auth.Login.Components.PhoneNumberLogin
             if (!ModelState.IsValid)
                 return _MsgBox.ModelStateMsg(ModelState.GetErrors());
 
-            var Result = await _UserApplication.LoginByPhoneNumberStep1Async(Input.PhoneNumber);
+            var Result = await _UserApplication.LoginByPhoneNumberStep1Async(new InpLoginByPhoneNumberStep1 { PhoneNumber = Input.PhoneNumber });
             if (Result.IsSucceeded)
             {
                 var IsSend = _SmsSender.SendLoginCode(Input.PhoneNumber, Result.Message);

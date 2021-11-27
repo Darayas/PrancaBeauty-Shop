@@ -31,7 +31,7 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.Combo_Users
 
         public async Task<IActionResult> OnGetReadAsync(string _LangId, string Text)
         {
-            var qData = await _UserApplication.GetListForComboAsync(_LangId, Text);
+            var qData = await _UserApplication.GetListForComboAsync(new Application.Contracts.Users.InpGetListForCombo { LangId = _LangId, Name = Text });
             var Data = _Mapper.Map<List<vmCompo_Combo_Users>>(qData);
             return new JsonResult(Data);
         }

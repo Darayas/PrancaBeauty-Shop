@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Accesslevels;
 using PrancaBeauty.Application.Apps.Users;
 using PrancaBeauty.Application.Contracts.AccessLevels;
+using PrancaBeauty.Application.Contracts.Users;
 using PrancaBeauty.WebApp.Authentication;
 using PrancaBeauty.WebApp.Common.ExMethod;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
@@ -38,7 +39,7 @@ namespace PrancaBeauty.WebApp.Pages.Admin.AccessLevels
             if (string.IsNullOrWhiteSpace(Input.Id))
                 return StatusCode(400);
 
-            var qData = await _AccesslevelApplication.GetForEditAsync(new InpGetForEdit { AccessLevelId=Input.Id });
+            var qData = await _AccesslevelApplication.GetForEditAsync(new InpGetForEdit { AccessLevelId = Input.Id });
 
             if (qData == null)
                 return StatusCode(404);
@@ -65,10 +66,14 @@ namespace PrancaBeauty.WebApp.Pages.Admin.AccessLevels
             if (Result.IsSucceeded)
             {
                 // ابدیت سطح دسترسی های کاربران
-                var UpdateRolesResult = await _UserApplication.EditUsersRoleByAccIdAsync(Input.Id, Input.Roles);
+                var UpdateRolesResult = await _UserApplication.EditUsersRoleByAccIdAsync(new InpEditUsersRoleByAccId
+                {
+                    AccessLevelId = Input.Id,
+                    Roles = Input.Roles.Select(a => new InpEditUsersRoleByAccId_Roles { Name = a }).ToList()
+                });
 
                 // ذخیره شناسه کاربران عضو سطح دسترسی جاری برای ابدیت توکن ها
-                CacheUsersToRebuildToken.AddRange(await _UserApplication.GetUserIdsByAccIdAsync(Input.Id));
+                CacheUsersToRebuildToken.AddRange(await _UserApplication.GetUserIdsByAccIdAsync(new InpGetUserIdsByAccId { AccessLevelId = Input.Id }));
 
                 return _MsgBox.SuccessMsg(_Localizer[Result.Message], "GotoList()");
             }

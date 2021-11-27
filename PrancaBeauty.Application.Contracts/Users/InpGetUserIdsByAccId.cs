@@ -6,13 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PrancaBeauty.Application.Apps.Users
+namespace PrancaBeauty.Application.Contracts.Users
 {
-    public class InpReCreatePassword
+    public class InpGetUserIdsByAccId
     {
-        [Display(Name = "UserId")]
+        [Display(Name = "AccessLevelId")]
         [Required(ErrorMessage = "Required")]
         [GUID]
-        public string UserId { get; set; }
+        public string AccessLevelId { get; set; }
     }
 }

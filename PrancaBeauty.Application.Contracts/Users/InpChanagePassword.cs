@@ -6,31 +6,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PrancaBeauty.Application.Apps.Users
+namespace PrancaBeauty.Application.Contracts.Users
 {
-    public class InpLoginByEmailLinkStep2
+    public class InpChanagePassword
     {
         [Display(Name = "UserId")]
         [Required(ErrorMessage = "Required")]
         [GUID]
         public string UserId { get; set; }
 
-        [Display(Name = "Password")]
+        [Display(Name = "CurrentPassword")]
         [Required(ErrorMessage = "Required")]
         [MaxLength(100, ErrorMessage = "MaxLength")]
-        public string Password { get; set; }
+        public string CurrentPassword { get; set; }
 
-        [Display(Name = "LinkIP")]
+        [Display(Name = "NewPassword")]
         [Required(ErrorMessage = "Required")]
         [MaxLength(100, ErrorMessage = "MaxLength")]
-        public string LinkIP { get; set; }
-
-        [Display(Name = "UserIP")]
-        [Required(ErrorMessage = "Required")]
-        [MaxLength(100, ErrorMessage = "MaxLength")]
-        public string UserIP { get; set; }
-
-        [Display(Name = "Date")]
-        public DateTime Date { get; set; }
+        public string NewPassword { get; set; }
     }
 }

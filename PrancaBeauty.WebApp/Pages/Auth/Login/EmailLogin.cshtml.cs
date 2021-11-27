@@ -8,6 +8,7 @@ using Framework.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Users;
+using PrancaBeauty.Application.Contracts.Users;
 using PrancaBeauty.WebApp.Authentication;
 using PrancaBeauty.WebApp.Common.ExMethod;
 
@@ -37,7 +38,7 @@ namespace PrancaBeauty.WebApp.Pages.Auth.Login
             string Date = DecryptedToken.Split(", ")[3];
             bool RemmeberMe = bool.Parse(DecryptedToken.Split(", ")[4]);
 
-            var Result = await _UserApplication.LoginByEmailLinkStep2Async(UserId, Password, Ip, HttpContext.Connection.RemoteIpAddress.ToString(), DateTime.Parse(Date));
+            var Result = await _UserApplication.LoginByEmailLinkStep2Async(new InpLoginByEmailLinkStep2() { UserId = UserId, Password = Password, Date = DateTime.Parse(Date), LinkIP = Ip, UserIP = HttpContext.Connection.RemoteIpAddress.ToString() });
             if (Result.IsSucceeded)
             {
                 string GeneratedToken = await _JWTBuilder.CreateTokenAync(Result.Message);

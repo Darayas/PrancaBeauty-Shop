@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Settings;
 using PrancaBeauty.Application.Apps.Users;
+using PrancaBeauty.Application.Contracts.Users;
 using PrancaBeauty.WebApp.Common.ExMethod;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
 using PrancaBeauty.WebApp.Models.ViewInput;
@@ -37,7 +38,7 @@ namespace PrancaBeauty.WebApp.Pages.Auth.RecoveryPassword.Components.RecoveryByE
             if (!ModelState.IsValid)
                 return _MsgBox.ModelStateMsg(ModelState.GetErrors());
 
-            var Result = await _UserApplication.RecoveryPasswordByEmailStep2Async(Input.Token, Input.NewPassword);
+            var Result = await _UserApplication.RecoveryPasswordByEmailStep2Async(new InpRecoveryPasswordByEmailStep2 { Token = Input.Token, NewPassword = Input.NewPassword });
             if (Result.IsSucceeded)
                 return _MsgBox.SuccessMsg(_Localizer[Result.Message], "GotoLoginPage()");
             else

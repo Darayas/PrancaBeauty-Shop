@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Localization;
 using PrancaBeauty.Application.Apps.Languages;
 using PrancaBeauty.Application.Apps.Settings;
 using PrancaBeauty.Application.Contracts.Languages;
+using PrancaBeauty.Application.Contracts.Settings;
 using PrancaBeauty.WebApp.Common.ExMethod;
 using System;
 using System.Collections.Generic;
@@ -33,7 +34,7 @@ namespace PrancaBeauty.WebApp.Middlewares
                 ClientInfo clientInfo = Parser.GetDefault().Parse(context.Request.Headers["User-Agent"].ToString());
                 if (!clientInfo.Device.IsSpider)
                 {
-                    var _SiteSetting = await _SettingApplication.GetSettingAsync(CultureInfo.CurrentCulture.Name);
+                    var _SiteSetting = await _SettingApplication.GetSettingAsync(new InpGetSetting { LangCode= CultureInfo.CurrentCulture.Name });
                     string SiteUrl = "";
 
                     if (_SiteSetting == null)

@@ -16,6 +16,7 @@ using PrancaBeauty.Application.Apps.Templates;
 using PrancaBeauty.Application.Apps.Users;
 using PrancaBeauty.Application.Contracts.Settings;
 using PrancaBeauty.Application.Contracts.Templates;
+using PrancaBeauty.Application.Contracts.Users;
 using PrancaBeauty.WebApp.Common.ExMethod;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
 using PrancaBeauty.WebApp.Models.ViewInput;
@@ -53,7 +54,7 @@ namespace PrancaBeauty.WebApp.Pages.Auth.Login.Components
 
             Thread.Sleep(3000);
 
-            var Result = await _UserApplication.LoginByEmailLinkStep1Async(Input.Email, HttpContext.Connection.RemoteIpAddress.ToString());
+            var Result = await _UserApplication.LoginByEmailLinkStep1Async(new InpLoginByEmailLinkStep1 { Email = Input.Email, IP = HttpContext.Connection.RemoteIpAddress.ToString() });
             if (Result.IsSucceeded)
             {
                 string Token = (Result.Message + ", " + Input.RemmeberMe).AesEncrypt(AuthConst.SecretKey);

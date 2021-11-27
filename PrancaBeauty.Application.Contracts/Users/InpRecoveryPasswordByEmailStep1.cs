@@ -5,18 +5,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PrancaBeauty.Application.Apps.Users
+namespace PrancaBeauty.Application.Contracts.Users
 {
-    public class InpLoginByEmailLinkStep1
+    public class InpRecoveryPasswordByEmailStep1
     {
         [Display(Name = "Email")]
         [Required(ErrorMessage = "Required")]
         [MaxLength(100, ErrorMessage = "MaxLength")]
-        [EmailAddress(ErrorMessage = "EmailAddressMsg")]
+        [EmailAddress]
         public string Email { get; set; }
 
-        [Display(Name = "IP")]
-        [MaxLength(50, ErrorMessage = "MaxLength")]
-        public string IP { get; set; }
+        [Display(Name = "ResetLinkTemplate")]
+        [Required(ErrorMessage = "Required")]
+        [MaxLength(500, ErrorMessage = "MaxLength")]
+        public string ResetLinkTemplate { get; set; }
     }
 }

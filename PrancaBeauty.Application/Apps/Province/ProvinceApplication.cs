@@ -7,7 +7,6 @@ using PrancaBeauty.Domin.Region.ProvinceAgg.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Apps.Province
@@ -15,11 +14,13 @@ namespace PrancaBeauty.Application.Apps.Province
     public class ProvinceApplication : IProvinceApplication
     {
         private readonly ILogger _Logger;
+        private readonly ILocalizer _Localizer;
         private readonly IProvinceRepository _ProvinceRepository;
-        public ProvinceApplication(IProvinceRepository provinceRepository, ILogger logger)
+        public ProvinceApplication(IProvinceRepository provinceRepository, ILogger logger, ILocalizer localizer)
         {
             _ProvinceRepository = provinceRepository;
             _Logger = logger;
+            _Localizer = localizer;
         }
 
         public async Task<List<OutGetListForCombo>> GetListForComboAsync(InpGetListForCombo Input)
@@ -27,7 +28,7 @@ namespace PrancaBeauty.Application.Apps.Province
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 var qData = await _ProvinceRepository.Get

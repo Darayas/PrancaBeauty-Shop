@@ -6,9 +6,7 @@ using PrancaBeauty.Application.Contracts.ProductProperties;
 using PrancaBeauty.Domin.Product.ProductPropertisAgg.Contracts;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Apps.ProductPropertis
@@ -16,12 +14,14 @@ namespace PrancaBeauty.Application.Apps.ProductPropertis
     public class ProductPropertisApplication : IProductPropertisApplication
     {
         private readonly ILogger _Logger;
+        private readonly ILocalizer _Localizer;
         private readonly IProductPropertisRepository _ProductPropertisRepository;
 
-        public ProductPropertisApplication(IProductPropertisRepository productPropertisRepository, ILogger logger)
+        public ProductPropertisApplication(IProductPropertisRepository productPropertisRepository, ILogger logger, ILocalizer localizer)
         {
             _ProductPropertisRepository = productPropertisRepository;
             _Logger = logger;
+            _Localizer = localizer;
         }
 
         public async Task<List<OutGetForManageProduct>> GetForManageProductAsync(InpGetForManageProduct Input)
@@ -29,7 +29,7 @@ namespace PrancaBeauty.Application.Apps.ProductPropertis
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 var qData = await _ProductPropertisRepository.Get
@@ -62,7 +62,7 @@ namespace PrancaBeauty.Application.Apps.ProductPropertis
         public async Task<bool> CheckExistByIdAsync(InpCheckExistById Input)
         {
             #region Validation
-            Input.CheckModelState();
+            Input.CheckModelState(_Localizer);
             #endregion
 
             return await _ProductPropertisRepository.Get.AnyAsync(a => a.Id == Guid.Parse(Input.Id));

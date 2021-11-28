@@ -18,11 +18,13 @@ namespace PrancaBeauty.Application.Apps.Keywords
     public class KeywordApplication : IKeywordApplication
     {
         private readonly ILogger _Logger;
+        private readonly ILocalizer _Localizer;
         private readonly IKeywordRepository _KeywordRepository;
-        public KeywordApplication(IKeywordRepository keywordRepository, ILogger logger)
+        public KeywordApplication(IKeywordRepository keywordRepository, ILogger logger, ILocalizer localizer)
         {
             _KeywordRepository = keywordRepository;
             _Logger = logger;
+            _Localizer = localizer;
         }
 
         public async Task<bool> CheckExistByTitleAsync(InpCheckExistByTitle Input)
@@ -40,7 +42,7 @@ namespace PrancaBeauty.Application.Apps.Keywords
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 var tKeyword = new tblKeywords()

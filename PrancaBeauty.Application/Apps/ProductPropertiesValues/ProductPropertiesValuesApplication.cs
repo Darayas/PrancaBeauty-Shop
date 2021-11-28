@@ -9,10 +9,7 @@ using PrancaBeauty.Application.Contracts.Results;
 using PrancaBeauty.Domin.Product.ProductPropertiesValuesAgg.Contracts;
 using PrancaBeauty.Domin.Product.ProductPropertiesValuesAgg.Entities;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Apps.ProductPropertiesValues
@@ -20,13 +17,15 @@ namespace PrancaBeauty.Application.Apps.ProductPropertiesValues
     public class ProductPropertiesValuesApplication : IProductPropertiesValuesApplication
     {
         private readonly ILogger _Logger;
+        private readonly ILocalizer _Localizer;
         private readonly IProductPropertiesValuesRepository _ProductPropertiesValuesRepository;
         private readonly IProductPropertisApplication _ProductPropertisApplication;
-        public ProductPropertiesValuesApplication(IProductPropertiesValuesRepository productPropertiesValuesRepository, ILogger logger, IProductPropertisApplication productPropertisApplication)
+        public ProductPropertiesValuesApplication(IProductPropertiesValuesRepository productPropertiesValuesRepository, ILogger logger, IProductPropertisApplication productPropertisApplication, ILocalizer localizer)
         {
             _ProductPropertiesValuesRepository = productPropertiesValuesRepository;
             _Logger = logger;
             _ProductPropertisApplication = productPropertisApplication;
+            _Localizer = localizer;
         }
 
         public async Task<OperationResult> AddPropertiesToProductAsync(InpAddPropertiesToProduct Input)
@@ -34,7 +33,7 @@ namespace PrancaBeauty.Application.Apps.ProductPropertiesValues
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
 
                 if (Input.PropItems is null)
                     throw new ArgumentInvalidException($"'{nameof(Input.PropItems)}' cannot be null.");
@@ -46,7 +45,7 @@ namespace PrancaBeauty.Application.Apps.ProductPropertiesValues
 
                 foreach (var item in Input.PropItems.Where(a => a.Value != null || a.Value != ""))
                 {
-                    if (await _ProductPropertisApplication.CheckExistByIdAsync(new InpCheckExistById { Id= item.Id }))
+                    if (await _ProductPropertisApplication.CheckExistByIdAsync(new InpCheckExistById { Id = item.Id }))
                         await _ProductPropertiesValuesRepository.AddAsync(new tblProductPropertiesValues()
                         {
                             Id = new Guid().SequentialGuid(),
@@ -77,7 +76,7 @@ namespace PrancaBeauty.Application.Apps.ProductPropertiesValues
             try
             {
                 #region Validations
-                Input.CheckModelState();                
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 var qData = await _ProductPropertiesValuesRepository.Get.Where(a => a.ProductId == Guid.Parse(Input.ProductId)).ToListAsync();

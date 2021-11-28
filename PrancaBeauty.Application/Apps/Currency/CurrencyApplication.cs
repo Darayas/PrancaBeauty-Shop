@@ -5,9 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Contracts.Currency;
 using PrancaBeauty.Domin.Region.CurrnencyAgg.Contracts;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Apps.Currency
@@ -15,12 +13,14 @@ namespace PrancaBeauty.Application.Apps.Currency
     public class CurrencyApplication : ICurrencyApplication
     {
         private readonly ILogger _Logger;
+        private readonly ILocalizer _Localizer;
         private readonly ICurrencyRepository _CurrencyRepository;
 
-        public CurrencyApplication(ICurrencyRepository currencyRepository, ILogger logger)
+        public CurrencyApplication(ICurrencyRepository currencyRepository, ILogger logger, ILocalizer localizer)
         {
             _CurrencyRepository = currencyRepository;
             _Logger = logger;
+            _Localizer = localizer;
         }
 
         public async Task<OutGetMainByCountryId> GetMainByCountryIdAsync(InpGetMainByCountryId Input)
@@ -28,7 +28,7 @@ namespace PrancaBeauty.Application.Apps.Currency
             try
             {
                 #region Validation
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 var qData = await _CurrencyRepository.Get

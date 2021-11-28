@@ -7,7 +7,6 @@ using PrancaBeauty.Domin.Region.CityAgg.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Apps.Cities
@@ -15,12 +14,14 @@ namespace PrancaBeauty.Application.Apps.Cities
     public class CityApplication : ICityApplication
     {
         private ILogger _Logger;
+        private readonly ILocalizer _Localizer;
         private readonly ICityRepository _CityRepository;
 
-        public CityApplication(ICityRepository cityRepository, ILogger logger)
+        public CityApplication(ICityRepository cityRepository, ILogger logger, ILocalizer localizer)
         {
             _CityRepository = cityRepository;
             _Logger = logger;
+            _Localizer = localizer;
         }
 
 
@@ -29,7 +30,7 @@ namespace PrancaBeauty.Application.Apps.Cities
             try
             {
                 #region Validation
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 var qData = await _CityRepository.Get

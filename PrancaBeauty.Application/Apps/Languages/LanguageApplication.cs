@@ -17,19 +17,21 @@ namespace PrancaBeauty.Application.Apps.Languages
     public class LanguageApplication : ILanguageApplication
     {
         private readonly ILogger _Logger;
+        private readonly ILocalizer _Localizer;
         private readonly ILanguageRepository _LanguageRepository;
         private List<OutSiteLangCache> SiteLangCache;
 
-        public LanguageApplication(ILanguageRepository languageRepository, ILogger logger)
+        public LanguageApplication(ILanguageRepository languageRepository, ILogger logger, ILocalizer localizer)
         {
             _LanguageRepository = languageRepository;
             _Logger = logger;
+            _Localizer = localizer;
         }
 
         public async Task<string> GetCodeByAbbrAsync(InpGetCodeByAbbr Input)
         {
             #region Validations
-            Input.CheckModelState();
+            Input.CheckModelState(_Localizer);
             #endregion
 
             await LoadCacheAsync();
@@ -43,7 +45,7 @@ namespace PrancaBeauty.Application.Apps.Languages
         public async Task<string> GetAbbrByCodeAsync(InpGetAbbrByCode Input)
         {
             #region Validations
-            Input.CheckModelState();
+            Input.CheckModelState(_Localizer);
             #endregion
 
             await LoadCacheAsync();
@@ -57,7 +59,7 @@ namespace PrancaBeauty.Application.Apps.Languages
         public async Task<string> GetNativeNameByCodeAsync(InpGetNativeNameByCode Input)
         {
             #region Validations
-            Input.CheckModelState();
+            Input.CheckModelState(_Localizer);
             #endregion
 
             await LoadCacheAsync();
@@ -71,7 +73,7 @@ namespace PrancaBeauty.Application.Apps.Languages
         public async Task<string> GetFlagUrlByCodeAsync(InpGetFlagUrlByCode Input)
         {
             #region Validations
-            Input.CheckModelState();
+            Input.CheckModelState(_Localizer);
             #endregion
 
             await LoadCacheAsync();
@@ -85,7 +87,7 @@ namespace PrancaBeauty.Application.Apps.Languages
         public async Task<string> GetDirectionByCodeAsync(InpGetDirectionByCode Input)
         {
             #region Validations
-            Input.CheckModelState();
+            Input.CheckModelState(_Localizer);
             #endregion
 
             await LoadCacheAsync();
@@ -138,7 +140,7 @@ namespace PrancaBeauty.Application.Apps.Languages
         public async Task<bool> IsValidAbbrForSiteLangAsync(InpIsValidAbbrForSiteLang Input)
         {
             #region Validations
-            Input.CheckModelState();
+            Input.CheckModelState(_Localizer);
             #endregion
 
             await LoadCacheAsync();
@@ -151,7 +153,7 @@ namespace PrancaBeauty.Application.Apps.Languages
         public async Task<string> GetLangIdByLangCodeAsync(InpGetLangIdByLangCode Input)
         {
             #region Validations
-            Input.CheckModelState();
+            Input.CheckModelState(_Localizer);
             #endregion
 
             await LoadCacheAsync();
@@ -165,7 +167,7 @@ namespace PrancaBeauty.Application.Apps.Languages
         public async Task<OutSiteLangCache> GetLangDetailsByIdAsync(InpGetLangDetailsById Input)
         {
             #region Validations
-            Input.CheckModelState();
+            Input.CheckModelState(_Localizer);
             #endregion
 
             return (await GetAllLanguageForSiteLangAsync()).Where(a => a.Id == Input.LangId).SingleOrDefault();
@@ -174,7 +176,7 @@ namespace PrancaBeauty.Application.Apps.Languages
         public async Task<string> GetCountryIdByLangIdAsync(InpGetCountryIdByLangId Input)
         {
             #region Validations
-            Input.CheckModelState();
+            Input.CheckModelState(_Localizer);
             #endregion
 
             await LoadCacheAsync();

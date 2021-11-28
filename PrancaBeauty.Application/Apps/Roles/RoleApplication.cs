@@ -10,7 +10,6 @@ using PrancaBeauty.Domin.Users.UserAgg.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Apps.Roles
@@ -18,15 +17,17 @@ namespace PrancaBeauty.Application.Apps.Roles
     public class RoleApplication : IRoleApplication
     {
         private readonly ILogger _Logger;
+        private readonly ILocalizer _Localizer;
         private readonly IRoleRepository _RoleRepository;
         private readonly RoleManager<tblRoles> _RoleManager;
         private readonly UserManager<tblUsers> _UserManager;
-        public RoleApplication(IRoleRepository roleRepository, ILogger logger, RoleManager<tblRoles> roleManager, UserManager<tblUsers> userManager)
+        public RoleApplication(IRoleRepository roleRepository, ILogger logger, RoleManager<tblRoles> roleManager, UserManager<tblUsers> userManager, ILocalizer localizer)
         {
             _RoleRepository = roleRepository;
             _Logger = logger;
             _RoleManager = roleManager;
             _UserManager = userManager;
+            _Localizer = localizer;
         }
 
         public async Task<List<string>> GetRolesByUserAsync(InpGetRolesByUser Input)
@@ -34,7 +35,7 @@ namespace PrancaBeauty.Application.Apps.Roles
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 var qUser = await _UserManager.FindByIdAsync(Input.UserId);
@@ -60,7 +61,7 @@ namespace PrancaBeauty.Application.Apps.Roles
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 var qData = await _RoleManager.Roles
@@ -97,7 +98,7 @@ namespace PrancaBeauty.Application.Apps.Roles
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 var qData = await _RoleManager.Roles
@@ -124,7 +125,7 @@ namespace PrancaBeauty.Application.Apps.Roles
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 return await _RoleRepository.Get.Where(a => a.Name == Input.Name).Select(a => a.Id.ToString()).SingleOrDefaultAsync();

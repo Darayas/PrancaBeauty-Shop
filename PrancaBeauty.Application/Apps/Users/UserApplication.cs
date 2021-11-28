@@ -53,7 +53,7 @@ namespace PrancaBeauty.Application.Apps.Users
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 await RemoveUnConfirmedUserAsync(Input.Email);
@@ -100,7 +100,7 @@ namespace PrancaBeauty.Application.Apps.Users
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 var qUser = await _UserRepository.FindByIdAsync(Input.UserId);
@@ -124,7 +124,7 @@ namespace PrancaBeauty.Application.Apps.Users
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 if (await IsEmailConfirmedAsync(Input.UserId))
@@ -145,12 +145,12 @@ namespace PrancaBeauty.Application.Apps.Users
             catch (ArgumentInvalidException ex)
             {
                 _Logger.Debug(ex);
-                return null;
+                return new OperationResult().Failed(ex.Message);
             }
             catch (Exception ex)
             {
                 _Logger.Error(ex);
-                return null;
+                return new OperationResult().Failed("Error500");
             }
         }
 
@@ -172,12 +172,12 @@ namespace PrancaBeauty.Application.Apps.Users
             catch (ArgumentInvalidException ex)
             {
                 _Logger.Debug(ex);
-                return null;
+                return new OperationResult().Failed(ex.Message);
             }
             catch (Exception ex)
             {
                 _Logger.Error(ex);
-                return null;
+                return new OperationResult().Failed("Error500");
             }
         }
 
@@ -186,7 +186,7 @@ namespace PrancaBeauty.Application.Apps.Users
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 var userId = await _UserRepository.GetUserIdByUserNameAsync(Input.UserName);
@@ -198,12 +198,12 @@ namespace PrancaBeauty.Application.Apps.Users
             catch (ArgumentInvalidException ex)
             {
                 _Logger.Debug(ex);
-                return null;
+                return new OperationResult().Failed(ex.Message);
             }
             catch (Exception ex)
             {
                 _Logger.Error(ex);
-                return null;
+                return new OperationResult().Failed("Error500");
             }
         }
 
@@ -212,7 +212,7 @@ namespace PrancaBeauty.Application.Apps.Users
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 var qUser = await GetUserByEmailAsync(Input.Email);
@@ -239,12 +239,12 @@ namespace PrancaBeauty.Application.Apps.Users
             catch (ArgumentInvalidException ex)
             {
                 _Logger.Debug(ex);
-                return null;
+                return new OperationResult().Failed(ex.Message);
             }
             catch (Exception ex)
             {
                 _Logger.Error(ex);
-                return null;
+                return new OperationResult().Failed("Error500");
             }
         }
 
@@ -253,7 +253,7 @@ namespace PrancaBeauty.Application.Apps.Users
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 var qUser = await _UserRepository.FindByIdAsync(Input.UserId);
@@ -275,12 +275,12 @@ namespace PrancaBeauty.Application.Apps.Users
             catch (ArgumentInvalidException ex)
             {
                 _Logger.Debug(ex);
-                return null;
+                return new OperationResult().Failed(ex.Message);
             }
             catch (Exception ex)
             {
                 _Logger.Error(ex);
-                return null;
+                return new OperationResult().Failed("Error500");
             }
         }
 
@@ -289,7 +289,7 @@ namespace PrancaBeauty.Application.Apps.Users
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 //if (string.IsNullOrWhiteSpace(PhoneNumber))
@@ -323,12 +323,12 @@ namespace PrancaBeauty.Application.Apps.Users
             catch (ArgumentInvalidException ex)
             {
                 _Logger.Debug(ex);
-                return null;
+                return new OperationResult().Failed(ex.Message);
             }
             catch (Exception ex)
             {
                 _Logger.Error(ex);
-                return null;
+                return new OperationResult().Failed("Error500");
             }
         }
 
@@ -337,7 +337,7 @@ namespace PrancaBeauty.Application.Apps.Users
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 var qUser = await GetUserByPhoneNumberAsync(new InpGetUserByPhoneNumber { PhoneNumber = Input.PhoneNumber });
@@ -363,12 +363,12 @@ namespace PrancaBeauty.Application.Apps.Users
             catch (ArgumentInvalidException ex)
             {
                 _Logger.Debug(ex);
-                return null;
+                return new OperationResult().Failed(ex.Message);
             }
             catch (Exception ex)
             {
                 _Logger.Error(ex);
-                return null;
+                return new OperationResult().Failed("Error500");
             }
         }
 
@@ -377,7 +377,7 @@ namespace PrancaBeauty.Application.Apps.Users
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 var qUser = await _UserRepository.GetById(default, Input.UserId);
@@ -412,12 +412,12 @@ namespace PrancaBeauty.Application.Apps.Users
             catch (ArgumentInvalidException ex)
             {
                 _Logger.Debug(ex);
-                return null;
+                return new OperationResult().Failed(ex.Message);
             }
             catch (Exception ex)
             {
                 _Logger.Error(ex);
-                return null;
+                return new OperationResult().Failed("Error500");
             }
         }
 
@@ -426,7 +426,7 @@ namespace PrancaBeauty.Application.Apps.Users
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 //if (string.IsNullOrWhiteSpace(UserId))
@@ -464,12 +464,12 @@ namespace PrancaBeauty.Application.Apps.Users
             catch (ArgumentInvalidException ex)
             {
                 _Logger.Debug(ex);
-                return null;
+                return new OperationResult().Failed(ex.Message);
             }
             catch (Exception ex)
             {
                 _Logger.Error(ex);
-                return null;
+                return new OperationResult().Failed("Error500");
             }
         }
 
@@ -486,7 +486,7 @@ namespace PrancaBeauty.Application.Apps.Users
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 var qData = await _UserRepository.Get
@@ -528,7 +528,7 @@ namespace PrancaBeauty.Application.Apps.Users
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 return await _UserRepository.FindByIdAsync(Input.UserId);
@@ -556,7 +556,7 @@ namespace PrancaBeauty.Application.Apps.Users
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 var qUser = await _UserRepository.FindByPhoneNumberAsync(Input.PhoneNumber);
@@ -593,7 +593,7 @@ namespace PrancaBeauty.Application.Apps.Users
         private async Task<OperationResult> RemoveAllRolesByUserIdAsync(InpRemoveAllRolesByUserId Input)
         {
             #region Validations
-            Input.CheckModelState();
+            Input.CheckModelState(_Localizer);
             #endregion
 
             var qUser = await _UserRepository.GetById(default, Guid.Parse(Input.UserId));
@@ -617,7 +617,7 @@ namespace PrancaBeauty.Application.Apps.Users
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
 
                 if (Input.Roles == null)
                     throw new ArgumentInvalidException("Input.Roles cant be null.");
@@ -655,7 +655,7 @@ namespace PrancaBeauty.Application.Apps.Users
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
 
                 if (Input.Roles == null)
                     throw new ArgumentInvalidException("Input.Roles cant be null.");
@@ -699,7 +699,7 @@ namespace PrancaBeauty.Application.Apps.Users
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 //if (string.IsNullOrWhiteSpace(AccessLevelId))
@@ -726,7 +726,7 @@ namespace PrancaBeauty.Application.Apps.Users
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 Input.Email = string.IsNullOrWhiteSpace(Input.Email) ? null : Input.Email;
@@ -853,7 +853,7 @@ namespace PrancaBeauty.Application.Apps.Users
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 var qUser = await _UserRepository.FindByIdAsync(Input.UserId);
@@ -891,7 +891,7 @@ namespace PrancaBeauty.Application.Apps.Users
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 // جلوگیری از تغییر وضعیت حساب خود
@@ -928,7 +928,7 @@ namespace PrancaBeauty.Application.Apps.Users
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 // جلوگیری از تغییر سطح دسترسی حساب خود
@@ -976,7 +976,7 @@ namespace PrancaBeauty.Application.Apps.Users
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
 
@@ -1015,7 +1015,7 @@ namespace PrancaBeauty.Application.Apps.Users
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 var qUser = await _UserRepository.FindByIdAsync(Input.UserId);
@@ -1107,7 +1107,7 @@ namespace PrancaBeauty.Application.Apps.Users
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 string DecryptedToken = Input.Token.AesDecrypt(AuthConst.SecretKey);
@@ -1149,7 +1149,7 @@ namespace PrancaBeauty.Application.Apps.Users
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 var qUser = await _UserRepository.FindByPhoneNumberAsync(Input.PhoneNumber);
@@ -1194,7 +1194,7 @@ namespace PrancaBeauty.Application.Apps.Users
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 var qUser = await _UserRepository.FindByIdAsync(Input.UserId);
@@ -1233,7 +1233,7 @@ namespace PrancaBeauty.Application.Apps.Users
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 var qUser = await _UserRepository.FindByIdAsync(Input.UserId);
@@ -1267,7 +1267,7 @@ namespace PrancaBeauty.Application.Apps.Users
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 var qData = await _UserRepository.Get
@@ -1306,7 +1306,7 @@ namespace PrancaBeauty.Application.Apps.Users
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 var qData = await _UserRepository.Get
@@ -1344,7 +1344,7 @@ namespace PrancaBeauty.Application.Apps.Users
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 var qUser = await _UserRepository.FindByEmailAsync(Input.Email);
@@ -1382,7 +1382,7 @@ namespace PrancaBeauty.Application.Apps.Users
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
 

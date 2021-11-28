@@ -1109,6 +1109,9 @@
   <data name="Take" xml:space="preserve">
     <value>تعداد در صفحه</value>
   </data>
+  <data name="TemplEmailMsg" xml:space="preserve">
+    <value>قالب ایمیل صحیح نمیباشد. قالب صحیح: ex@example.com</value>
+  </data>
   <data name="ThreeWorkingDays" xml:space="preserve">
     <value>سه روز کاری</value>
   </data>

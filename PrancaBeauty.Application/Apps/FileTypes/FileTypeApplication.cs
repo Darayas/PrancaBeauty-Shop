@@ -7,7 +7,6 @@ using PrancaBeauty.Domin.FileServer.FileTypeAgg.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Apps.FileTypes
@@ -15,12 +14,14 @@ namespace PrancaBeauty.Application.Apps.FileTypes
     public class FileTypeApplication : IFileTypeApplication
     {
         private readonly ILogger _Logger;
+        private readonly ILocalizer _Localizer;
         private readonly IFileTypeRepository _FileTypeRepository;
 
-        public FileTypeApplication(IFileTypeRepository fileTypeRepository, ILogger logger)
+        public FileTypeApplication(IFileTypeRepository fileTypeRepository, ILogger logger, ILocalizer localizer)
         {
             _FileTypeRepository = fileTypeRepository;
             _Logger = logger;
+            _Localizer = localizer;
         }
 
         public async Task<string> GetIdByMimeTypeAsync(InpGetIdByMimeType Input)
@@ -28,7 +29,7 @@ namespace PrancaBeauty.Application.Apps.FileTypes
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 var qData = await _FileTypeRepository.Get.Where(a => a.MimeType == Input.MimeType).Select(a => a.Id.ToString()).SingleOrDefaultAsync();
@@ -54,7 +55,7 @@ namespace PrancaBeauty.Application.Apps.FileTypes
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 var qData = await _FileTypeRepository.Get

@@ -12,7 +12,6 @@ using PrancaBeauty.Domin.Categories.CategoriesAgg.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Apps.Categories
@@ -20,16 +19,18 @@ namespace PrancaBeauty.Application.Apps.Categories
     public class CategoryApplication : ICategoryApplication
     {
         private readonly ILogger _Logger;
+        private readonly ILocalizer _Localizer;
         private readonly IFtpWapper _FtpWapper;
         private readonly ICategoryRepository _CategoryRepository;
         private readonly ICategory_TranslateRepository _Category_TranslateRepository;
 
-        public CategoryApplication(ICategoryRepository categoryRepository, ILogger logger, IFtpWapper ftpWapper, ICategory_TranslateRepository category_TranslateRepository)
+        public CategoryApplication(ICategoryRepository categoryRepository, ILogger logger, IFtpWapper ftpWapper, ICategory_TranslateRepository category_TranslateRepository, ILocalizer localizer)
         {
             _CategoryRepository = categoryRepository;
             _Logger = logger;
             _FtpWapper = ftpWapper;
             _Category_TranslateRepository = category_TranslateRepository;
+            _Localizer = localizer;
         }
 
         public async Task<(OutPagingData, List<OutGetListForAdminPage>)> GetListForAdminPageAsync(InpGetListForAdminPage Input)
@@ -37,7 +38,7 @@ namespace PrancaBeauty.Application.Apps.Categories
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 // آماده سازی اولیه ی کویری
@@ -81,7 +82,7 @@ namespace PrancaBeauty.Application.Apps.Categories
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 var qData = await _CategoryRepository.Get
@@ -120,7 +121,7 @@ namespace PrancaBeauty.Application.Apps.Categories
             try
             {
                 #region Validation
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
 
                 if (Input.LstTranslate == null)
                     throw new ArgumentInvalidException($"{nameof(Input.LstTranslate)} cant be null.");
@@ -178,7 +179,7 @@ namespace PrancaBeauty.Application.Apps.Categories
             try
             {
                 #region Validation
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 var qData = await _CategoryRepository.Get
@@ -229,7 +230,7 @@ namespace PrancaBeauty.Application.Apps.Categories
             {
 
                 #region Validation
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 var qData = await _CategoryRepository.Get
@@ -258,7 +259,7 @@ namespace PrancaBeauty.Application.Apps.Categories
 
                 return qData;
             }
-            catch (ArgumentInvalidException ex)
+            catch (ArgumentInvalidException)
             {
                 return null;
             }
@@ -274,7 +275,7 @@ namespace PrancaBeauty.Application.Apps.Categories
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
 
                 if (Input.LstTranslate == null)
                     throw new ArgumentInvalidException($"{nameof(Input.LstTranslate)} cant be null.");
@@ -355,7 +356,7 @@ namespace PrancaBeauty.Application.Apps.Categories
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 Guid? ParentId = Guid.Parse(Input.ChildId);
@@ -383,7 +384,7 @@ namespace PrancaBeauty.Application.Apps.Categories
 
                 return StkItems.ToList();
             }
-            catch (ArgumentInvalidException ex)
+            catch (ArgumentInvalidException)
             {
                 return null;
             }

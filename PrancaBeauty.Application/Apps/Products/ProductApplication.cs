@@ -54,7 +54,7 @@ namespace PrancaBeauty.Application.Apps.Products
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 var qData = _ProductRepository.Get
@@ -159,7 +159,7 @@ namespace PrancaBeauty.Application.Apps.Products
                 if (Input.Keywords.Count() == 0)
                     throw new ArgumentInvalidException($"keyword count must be greater than zero.");
 
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 // برسی تکراری نبودن نام محصول

@@ -6,9 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Contracts.FileServer;
 using PrancaBeauty.Domin.FileServer.ServerAgg.Contracts;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -17,12 +15,14 @@ namespace PrancaBeauty.Application.Apps.FileServer
     public class FileServerApplication : IFileServerApplication
     {
         private readonly ILogger _Logger;
+        private readonly ILocalizer _Localizer;
         private readonly IFileServerRepository _FileServerRepository;
 
-        public FileServerApplication(IFileServerRepository fileServerRepository, ILogger logger)
+        public FileServerApplication(IFileServerRepository fileServerRepository, ILogger logger, ILocalizer localizer)
         {
             _FileServerRepository = fileServerRepository;
             _Logger = logger;
+            _Localizer = localizer;
         }
 
         public async Task<OutGetServerDetails> GetServerDetailsAsync(InpGetServerDetails Input)
@@ -31,7 +31,7 @@ namespace PrancaBeauty.Application.Apps.FileServer
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 var qData = await _FileServerRepository.Get
@@ -84,7 +84,7 @@ namespace PrancaBeauty.Application.Apps.FileServer
             try
             {
                 #region Validation
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 var qData = await _FileServerRepository.Get

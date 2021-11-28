@@ -7,7 +7,6 @@ using PrancaBeauty.Domin.Product.ProductVariantAgg.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Apps.ProductVariants
@@ -15,12 +14,14 @@ namespace PrancaBeauty.Application.Apps.ProductVariants
     public class ProductVariantsApplication : IProductVariantsApplication
     {
         private readonly ILogger _Logger;
+        private readonly ILocalizer _Localizer;
         private readonly IProductVariantsRepository _ProductVariantsRepository;
 
-        public ProductVariantsApplication(IProductVariantsRepository productVariantsRepository, ILogger logger)
+        public ProductVariantsApplication(IProductVariantsRepository productVariantsRepository, ILogger logger, ILocalizer localizer)
         {
             _ProductVariantsRepository = productVariantsRepository;
             _Logger = logger;
+            _Localizer = localizer;
         }
 
         public async Task<List<outGetLstForCombo>> GetLstForComboAsync(InpGetLstForCombo Input)
@@ -28,7 +29,7 @@ namespace PrancaBeauty.Application.Apps.ProductVariants
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 var qData = await _ProductVariantsRepository.Get

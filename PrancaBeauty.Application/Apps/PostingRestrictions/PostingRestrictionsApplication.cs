@@ -17,12 +17,14 @@ namespace PrancaBeauty.Application.Apps.PostingRestrictions
     public class PostingRestrictionsApplication : IPostingRestrictionsApplication
     {
         private readonly ILogger _Logger;
+        private readonly ILocalizer _Localizer;
         private readonly IPostingRestrictionsRepository _PostingRestrictionsRepository;
 
-        public PostingRestrictionsApplication(IPostingRestrictionsRepository postingRestrictionsRepository, ILogger logger)
+        public PostingRestrictionsApplication(IPostingRestrictionsRepository postingRestrictionsRepository, ILogger logger, ILocalizer localizer)
         {
             _PostingRestrictionsRepository = postingRestrictionsRepository;
             _Logger = logger;
+            _Localizer = localizer;
         }
 
         public async Task<OperationResult> AddPostingRestrictionsToProductAsync(InpAddPostingRestrictionsToProduct Input)
@@ -30,7 +32,7 @@ namespace PrancaBeauty.Application.Apps.PostingRestrictions
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 foreach (var item in Input.PostingRestrictions)

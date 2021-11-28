@@ -20,15 +20,17 @@ namespace PrancaBeauty.Application.Apps.KeywordsProducts
     public class KeywordProductsApplication : IKeywordProductsApplication
     {
         private readonly ILogger _Logger;
+        private readonly ILocalizer _Localizer;
         private readonly IMapper _Mapper;
         private readonly IKeywords_ProductsRepository _IKeywords_ProductsRepository;
         private readonly IKeywordApplication _KeywordApplication;
-        public KeywordProductsApplication(IKeywords_ProductsRepository iKeywords_ProductsRepository, ILogger logger, IKeywordApplication keywordApplication, IMapper mapper)
+        public KeywordProductsApplication(IKeywords_ProductsRepository iKeywords_ProductsRepository, ILogger logger, IKeywordApplication keywordApplication, IMapper mapper, ILocalizer localizer)
         {
             _IKeywords_ProductsRepository = iKeywords_ProductsRepository;
             _Logger = logger;
             _KeywordApplication = keywordApplication;
             _Mapper = mapper;
+            _Localizer = localizer;
         }
 
         public async Task<OperationResult> AddKeywordsToProductAsync(InpAddKeywordsToProduct Input)
@@ -50,13 +52,13 @@ namespace PrancaBeauty.Application.Apps.KeywordsProducts
                     string KeywordId = null;
                     #region برسی موجود بودن کلمه کلیدی یا افزودن آن
                     {
-                        if (await _KeywordApplication.CheckExistByTitleAsync(new InpCheckExistByTitle { Title= item.Title }))
-                            KeywordId = await _KeywordApplication.GetIdByTitleAsync(new InpGetIdByTitle { Title= item.Title });
+                        if (await _KeywordApplication.CheckExistByTitleAsync(new InpCheckExistByTitle { Title = item.Title }))
+                            KeywordId = await _KeywordApplication.GetIdByTitleAsync(new InpGetIdByTitle { Title = item.Title });
                         else
                         {
                             var _Result = await _KeywordApplication.AddKeywordAsync(_Mapper.Map<InpAddKeyword>(item));
                             if (_Result.IsSucceeded)
-                                KeywordId = await _KeywordApplication.GetIdByTitleAsync(new InpGetIdByTitle { Title= item.Title });
+                                KeywordId = await _KeywordApplication.GetIdByTitleAsync(new InpGetIdByTitle { Title = item.Title });
                             else
                                 continue;
                         }
@@ -95,7 +97,7 @@ namespace PrancaBeauty.Application.Apps.KeywordsProducts
             try
             {
                 #region Validatons
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 var qData = await _IKeywords_ProductsRepository.Get.Where(a => a.ProductId == Guid.Parse(Input.ProductId)).ToListAsync();

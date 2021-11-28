@@ -32,7 +32,7 @@ namespace PrancaBeauty.Application.Apps.Address
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 var qData = _AddressRepository.Get
@@ -114,7 +114,7 @@ namespace PrancaBeauty.Application.Apps.Address
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 var qData = await _AddressRepository.Get
@@ -147,7 +147,7 @@ namespace PrancaBeauty.Application.Apps.Address
             try
             {
                 #region Validation
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 var qData = await _AddressRepository.Get

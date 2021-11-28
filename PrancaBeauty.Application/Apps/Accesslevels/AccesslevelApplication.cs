@@ -5,7 +5,6 @@ using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Apps.AccesslevelsRoles;
 using PrancaBeauty.Application.Apps.Roles;
-using PrancaBeauty.Application.Apps.Users;
 using PrancaBeauty.Application.Contracts.AccesslevelRoles;
 using PrancaBeauty.Application.Contracts.AccessLevels;
 using PrancaBeauty.Application.Contracts.Results;
@@ -21,21 +20,23 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
     public class AccesslevelApplication : IAccesslevelApplication
     {
         private readonly ILogger _Logger;
+        private readonly ILocalizer _Localizer;
         private readonly IAccesslevelRepository _AccessLevelRepository;
         private readonly IAccesslevelRolesApplication _AccessLevelRolesApplication;
         private readonly IRoleApplication _RoleApplication;
-        public AccesslevelApplication(IAccesslevelRepository accessLevelRepository, ILogger logger, IAccesslevelRolesApplication accessLevelRolesApplication, IRoleApplication roleApplication)
+        public AccesslevelApplication(IAccesslevelRepository accessLevelRepository, ILogger logger, IAccesslevelRolesApplication accessLevelRolesApplication, IRoleApplication roleApplication, ILocalizer localizer)
         {
             _AccessLevelRepository = accessLevelRepository;
             _Logger = logger;
             _AccessLevelRolesApplication = accessLevelRolesApplication;
             _RoleApplication = roleApplication;
+            _Localizer = localizer;
         }
 
         public async Task<string> GetIdByNameAsync(InpGetIdByName Input)
         {
             #region Validations
-            Input.CheckModelState();
+            Input.CheckModelState(_Localizer);
             #endregion
 
             if (string.IsNullOrWhiteSpace(Input.Name))
@@ -54,7 +55,7 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
             try
             {
                 #region Validatitions
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 Input.Title = string.IsNullOrWhiteSpace(Input.Title) ? null : Input.Title;
@@ -92,7 +93,7 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
             {
 
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
 
                 if (Input.Roles == null)
                     throw new ArgumentInvalidException("Roles cant be null.");
@@ -132,7 +133,7 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 // واکشی سطح دسترسی
@@ -164,7 +165,7 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
         private async Task<bool> CheckHasUserAsync(InpCheckHasUser Input)
         {
             #region Validations
-            Input.CheckModelState();
+            Input.CheckModelState(_Localizer);
             #endregion
 
             return await _AccessLevelRepository.Get
@@ -178,7 +179,7 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 return await _AccessLevelRepository.Get
@@ -206,7 +207,7 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
             try
             {
                 #region برسی ورودی ها
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
 
                 if (Input.Roles == null)
                     throw new ArgumentInvalidException("Roles cant be null.");
@@ -256,7 +257,7 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 var qData = await _AccessLevelRepository.Get
@@ -288,7 +289,7 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 return await _AccessLevelRepository.Get

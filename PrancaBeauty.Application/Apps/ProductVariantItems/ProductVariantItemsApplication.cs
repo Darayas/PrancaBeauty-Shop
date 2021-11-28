@@ -7,10 +7,7 @@ using PrancaBeauty.Application.Contracts.Results;
 using PrancaBeauty.Domin.Product.ProductVariantItemsAgg.Contracts;
 using PrancaBeauty.Domin.Product.ProductVariantsItemsAgg.Entities;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Apps.ProductVariantItems
@@ -18,12 +15,14 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
     public class ProductVariantItemsApplication : IProductVariantItemsApplication
     {
         private readonly ILogger _Logger;
+        private readonly ILocalizer _Localizer;
         private readonly IProductVariantItemsRepository _ProductVariantItemsRepository;
 
-        public ProductVariantItemsApplication(IProductVariantItemsRepository productVariantItemsRepository, ILogger logger)
+        public ProductVariantItemsApplication(IProductVariantItemsRepository productVariantItemsRepository, ILogger logger, ILocalizer localizer)
         {
             _ProductVariantItemsRepository = productVariantItemsRepository;
             _Logger = logger;
+            _Localizer = localizer;
         }
 
         public async Task<OperationResult> AddVariantsToProductAsync(InpAddVariantsToProduct Input)
@@ -31,7 +30,7 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
 
                 if (Input.Variants == null)
                     throw new ArgumentInvalidException($"{nameof(Input.Variants)} cant be null.");
@@ -80,12 +79,12 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 var qData = await _ProductVariantItemsRepository.Get.Where(a => a.ProductId == Guid.Parse(Input.ProductId)).ToListAsync();
 
-                await _ProductVariantItemsRepository.DeleteRangeAsync(qData,default,false);
+                await _ProductVariantItemsRepository.DeleteRangeAsync(qData, default, false);
 
                 return new OperationResult().Succeeded();
             }

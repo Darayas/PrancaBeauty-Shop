@@ -15,12 +15,14 @@ namespace PrancaBeauty.Application.Apps.FilePath
     public class FilePathApplication : IFilePathApplication
     {
         private readonly ILogger _Logger;
+        private readonly ILocalizer _Localizer;
         private readonly IFilePathRepository _FilePathRepository;
 
-        public FilePathApplication(IFilePathRepository filePathRepository, ILogger logger)
+        public FilePathApplication(IFilePathRepository filePathRepository, ILogger logger, ILocalizer localizer)
         {
             _FilePathRepository = filePathRepository;
             _Logger = logger;
+            _Localizer = localizer;
         }
 
         public async Task<string> GetIdByPathAsync(InpGetIdByPath Input)
@@ -28,7 +30,7 @@ namespace PrancaBeauty.Application.Apps.FilePath
             try
             {
                 #region Validation
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 var qData = await _FilePathRepository.Get.Where(a => a.FileServerId == Guid.Parse(Input.FileServerId))
@@ -56,7 +58,7 @@ namespace PrancaBeauty.Application.Apps.FilePath
         public async Task<bool> CheckDirectoryExistAsync(InpCheckDirectoryExist Input)
         {
             #region Vlidation
-            Input.CheckModelState();
+            Input.CheckModelState(_Localizer);
             #endregion
 
             return await _FilePathRepository.Get.Where(a => a.FileServerId == Guid.Parse(Input.FileServerId))
@@ -69,7 +71,7 @@ namespace PrancaBeauty.Application.Apps.FilePath
             try
             {
                 #region Validation
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 var tFilePath = new tblFilePaths()

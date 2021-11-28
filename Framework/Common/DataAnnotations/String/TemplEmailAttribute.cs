@@ -24,7 +24,7 @@ namespace Framework.Common.DataAnnotations.String
 
             var _Localizer = (ILocalizer)validationContext.GetService(typeof(ILocalizer));
 
-            if (value.ToString().IsMatch(_Localizer["EmailPattern"]))
+            if (!value.ToString().IsMatch(_Localizer["EmailPattern"]))
                 return new ValidationResult(_Localizer[ErrorMessage].Replace("{0}", _Localizer[validationContext.DisplayName]));
             else
                 return ValidationResult.Success;

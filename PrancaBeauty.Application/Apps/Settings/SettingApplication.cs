@@ -7,7 +7,6 @@ using PrancaBeauty.Domin.Settings.SettingsAgg.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Apps.Settings
@@ -15,14 +14,16 @@ namespace PrancaBeauty.Application.Apps.Settings
     public class SettingApplication : ISettingApplication
     {
         private readonly ILogger _Logger;
+        private readonly ILocalizer _Localizer;
         private readonly ISettingRepository _SettingRepository;
         private List<OutSettings> _ListSettings;
 
-        public SettingApplication(ISettingRepository settingRepository, ILogger logger)
+        public SettingApplication(ISettingRepository settingRepository, ILogger logger, ILocalizer localizer)
         {
             _SettingRepository = settingRepository;
             _ListSettings = new List<OutSettings>();
             _Logger = logger;
+            _Localizer = localizer;
         }
 
         public async Task<OutSettings> GetSettingAsync(InpGetSetting Input)
@@ -30,7 +31,7 @@ namespace PrancaBeauty.Application.Apps.Settings
             try
             {
                 #region Validation
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 if (_ListSettings != null)

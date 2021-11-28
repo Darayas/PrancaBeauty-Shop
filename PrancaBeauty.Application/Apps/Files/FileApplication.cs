@@ -21,15 +21,17 @@ namespace PrancaBeauty.Application.Apps.Files
     public class FileApplication : IFileApplication
     {
         private readonly ILogger _Logger;
+        private readonly ILocalizer _Localizer;
         private readonly IFileRepository _FileRepository;
         private readonly IFileTypeApplication _FileTypeApplication;
         private readonly IFilePathApplication _FilePathApplication;
-        public FileApplication(IFileRepository fileRepository, ILogger logger, IFileTypeApplication fileTypeApplication, IFilePathApplication filePathApplication)
+        public FileApplication(IFileRepository fileRepository, ILogger logger, IFileTypeApplication fileTypeApplication, IFilePathApplication filePathApplication, ILocalizer localizer)
         {
             _FileRepository = fileRepository;
             _Logger = logger;
             _FileTypeApplication = fileTypeApplication;
             _FilePathApplication = filePathApplication;
+            _Localizer = localizer;
         }
 
         public async Task<OperationResult> AddFileAsync(InpAddFile Input)
@@ -37,7 +39,7 @@ namespace PrancaBeauty.Application.Apps.Files
             try
             {
                 #region Validation
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 // برسی تکراری نبود فایل
@@ -99,7 +101,7 @@ namespace PrancaBeauty.Application.Apps.Files
             try
             {
                 #region Validation
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 var qData = await _FileRepository.Get
@@ -142,7 +144,7 @@ namespace PrancaBeauty.Application.Apps.Files
             try
             {
                 #region Validation
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion]
 
                 var qData = await _FileRepository.Get
@@ -174,7 +176,7 @@ namespace PrancaBeauty.Application.Apps.Files
             try
             {
                 #region Validation
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 var qData = await _FileRepository.Get
@@ -217,7 +219,7 @@ namespace PrancaBeauty.Application.Apps.Files
             try
             {
                 #region Validation
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 var qData = _FileRepository.Get
@@ -302,7 +304,7 @@ namespace PrancaBeauty.Application.Apps.Files
             try
             {
                 #region Validation
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 var qData = await _FileRepository.Get

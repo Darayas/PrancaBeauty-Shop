@@ -15,12 +15,14 @@ namespace PrancaBeauty.Application.Apps.Guarantee
     public class GuaranteeApplications : IGuaranteeApplications
     {
         private readonly ILogger _Logger;
+        private readonly ILocalizer _Localizer;
         private readonly IGuaranteeRepository _GuaranteeRepository;
 
-        public GuaranteeApplications(IGuaranteeRepository guaranteeRepository, ILogger logger)
+        public GuaranteeApplications(IGuaranteeRepository guaranteeRepository, ILogger logger, ILocalizer localizer)
         {
             _GuaranteeRepository = guaranteeRepository;
             _Logger = logger;
+            _Localizer = localizer;
         }
 
         public async Task<List<OutGetListForCombo>> GetListForComboAsync(InpGetListForCombo Input)
@@ -28,7 +30,7 @@ namespace PrancaBeauty.Application.Apps.Guarantee
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
                 var qData = await _GuaranteeRepository.Get

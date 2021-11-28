@@ -1,25 +1,22 @@
-﻿using Framework.Common.DataAnnotations;
-using System;
-using System.Collections.Generic;
+﻿using Framework.Common.DataAnnotations.File;
+using Framework.Common.DataAnnotations.Numbers.All;
+using Framework.Common.DataAnnotations.String;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Contracts.Products
 {
     public class InpGetProductsForManage
     {
         [Display(Name = "Page")]
-        [Range(1,int.MaxValue,ErrorMessage = "RangeGreaterThanZeroMsgMsg")]
+        [NumRange(1, int.MaxValue, ErrorMessage = "RangeGreaterThanZeroMsgMsg")]
         public int Page { get; set; }
 
         [Display(Name = "Take")]
-        [Range(1, int.MaxValue, ErrorMessage = "RangeGreaterThanZeroMsgMsg")]
+        [NumRange(1, int.MaxValue, ErrorMessage = "RangeGreaterThanZeroMsgMsg")]
         public int Take { get; set; }
 
         [Display(Name = "LangId")]
-        [Required(ErrorMessage = "RequiredMsg")]
+        [RequiredString]
         [GUID]
         public string LangId { get; set; }
 
@@ -36,7 +33,7 @@ namespace PrancaBeauty.Application.Contracts.Products
         public string Title { get; set; }
 
         [Display(Name = "Name")]
-        [MaxLength(150, ErrorMessage = "MaxLengthMsg")]
+        [MaxLengthString(150)]
         public string Name { get; set; }
 
         [Display(Name = "IsDelete")]

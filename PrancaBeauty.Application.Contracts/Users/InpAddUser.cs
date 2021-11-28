@@ -1,44 +1,39 @@
-﻿using Framework.Common.DataAnnotations;
-using System;
-using System.Collections.Generic;
+﻿using Framework.Common.DataAnnotations.String;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Contracts.Users
 {
     public class InpAddUser
     {
         [Display(Name = "Email")]
-        [Required(ErrorMessage = "RequiredMsg")]
-        [StringLength(100, MinimumLength = 3, ErrorMessage = "StringLengthMsg")]
-        [EmailAddress(ErrorMessage = "EmailAddressMsg")]
+        [RequiredString]
+        [MaxLengthString(100)]
+        [TemplEmail]
         public string Email { get; set; }
 
         [Display(Name = "PhoneNumber")]
-        [Required(ErrorMessage = "RequiredMsg")]
-        [StringLength(30, MinimumLength = 6, ErrorMessage = "StringLengthMsg")]
+        [RequiredString]
+        [MaxLengthString(30)]
         [PhoneNumber]
         public string PhoneNumber { get; set; }
 
         [Display(Name = "FirstName")]
-        [Required(ErrorMessage = "RequiredMsg")]
-        [MaxLength(100, ErrorMessage = "MaxLengthMsg")]
+        [RequiredString]
+        [MaxLengthString(100)]
         public string FirstName { get; set; }
 
         [Display(Name = "LastName")]
-        [Required(ErrorMessage = "RequiredMsg")]
-        [MaxLength(100, ErrorMessage = "MaxLengthMsg")]
+        [RequiredString]
+        [MaxLengthString(100)]
         public string LastName { get; set; }
 
         [Display(Name = "Password")]
-        [Required(ErrorMessage = "RequiredMsg")]
+        [RequiredString]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
         [Display(Name = "ConfirmPassword")]
-        [Required(ErrorMessage = "RequiredMsg")]
+        [RequiredString]
         [DataType(DataType.Password)]
         [Compare(nameof(Password), ErrorMessage = "PassCompareMsg")]
         public string ConfirmPassword { get; set; }

@@ -1,39 +1,35 @@
-﻿using Framework.Common.DataAnnotations;
-using System;
-using System.Collections.Generic;
+﻿using Framework.Common.DataAnnotations.Numbers.All;
+using Framework.Common.DataAnnotations.String;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Contracts.Users
 {
     public class InpGetListForAdminPage
     {
         [Display(Name = "Email")]
-        [MaxLength(100, ErrorMessage = "MaxLength")]
-        [EmailAddress(ErrorMessage = "EmailAddressMsg")]
+        [MaxLengthString(100)]
+        [TemplEmail]
         public string Email { get; set; }
 
         [Display(Name = "PhoneNumber")]
-        [MaxLength(100, ErrorMessage = "MaxLength")]
+        [MaxLengthString(100)]
         [PhoneNumber]
         public string PhoneNumber { get; set; }
 
         [Display(Name = "FullName")]
-        [MaxLength(100, ErrorMessage = "MaxLength")]
+        [MaxLengthString(100)]
         public string FullName { get; set; }
 
         [Display(Name = "Sort")]
-        [Range(1, int.MaxValue, ErrorMessage = "RangeMsg")]
+        [NumRange(1, int.MaxValue)]
         public string Sort { get; set; }
 
         [Display(Name = "PageNum")]
-        [Range(1, int.MaxValue, ErrorMessage = "RangeGreaterThanZeroMsgMsg")]
+        [NumRange(1, int.MaxValue, ErrorMessage = "RangeGreaterThanZeroMsgMsg")]
         public int PageNum { get; set; }
 
         [Display(Name = "PageNum")]
-        [Range(1, int.MaxValue, ErrorMessage = "RangeGreaterThanZeroMsgMsg")]
+        [NumRange(1, int.MaxValue, ErrorMessage = "RangeGreaterThanZeroMsgMsg")]
         public int Take { get; set; }
     }
 }

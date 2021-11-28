@@ -1,4 +1,5 @@
 ﻿using Framework.Common.DataAnnotations;
+using Framework.Common.DataAnnotations.File;
 using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 

@@ -1,17 +1,13 @@
-﻿using Framework.Common.DataAnnotations;
-using System;
-using System.Collections.Generic;
+﻿using Framework.Common.DataAnnotations.File;
+using Framework.Common.DataAnnotations.String;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Contracts.Address
 {
     public class InpEditAddress
     {
         [Display(Name = "Id")]
-        [Required(ErrorMessage = "RequiredMsg")]
+        [RequiredString]
         [GUID]
         public string Id { get; set; }
 
@@ -20,62 +16,62 @@ namespace PrancaBeauty.Application.Contracts.Address
         public string UserId { get; set; }
 
         [Display(Name = "CountryId")]
-        [Required(ErrorMessage = "RequiredMsg")]
+        [RequiredString]
         [GUID]
         public string CountryId { get; set; }
 
         [Display(Name = "ProvinceId")]
-        [Required(ErrorMessage = "RequiredMsg")]
+        [RequiredString]
         [GUID]
         public string ProvinceId { get; set; }
 
         [Display(Name = "CityId")]
-        [Required(ErrorMessage = "RequiredMsg")]
+        [RequiredString]
         [GUID]
         public string CityId { get; set; }
 
         [Display(Name = "District")]
-        [Required(ErrorMessage = "RequiredMsg")]
-        [MaxLength(150, ErrorMessage = "MaxLength")]
+        [RequiredString]
+        [MaxLengthString(150)]
         public string District { get; set; } // محله
 
         [Display(Name = "Address")]
-        [Required(ErrorMessage = "RequiredMsg")]
-        [MaxLength(500, ErrorMessage = "MaxLength")]
+        [RequiredString]
+        [MaxLengthString(500)]
         public string Address { get; set; }
 
         [Display(Name = "Plaque")]
-        [Required(ErrorMessage = "RequiredMsg")]
-        [MaxLength(100, ErrorMessage = "MaxLength")]
+        [RequiredString]
+        [MaxLengthString(100)]
         public string Plaque { get; set; } // پلاک
 
         [Display(Name = "Unit")]
-        [MaxLength(100, ErrorMessage = "MaxLength")]
+        [MaxLengthString(100)]
         public string Unit { get; set; }
 
         [Display(Name = "PostalCode")]
-        [Required(ErrorMessage = "RequiredMsg")]
-        [MaxLength(100, ErrorMessage = "MaxLength")]
+        [RequiredString]
+        [MaxLengthString(100)]
         public string PostalCode { get; set; }
 
         [Display(Name = "NationalCode")]
-        [Required(ErrorMessage = "RequiredMsg")]
-        [MaxLength(100, ErrorMessage = "MaxLength")]
+        [RequiredString]
+        [MaxLengthString(100)]
         public string NationalCode { get; set; }
 
         [Display(Name = "FirstName")]
-        [Required(ErrorMessage = "RequiredMsg")]
-        [MaxLength(100, ErrorMessage = "MaxLength")]
+        [RequiredString]
+        [MaxLengthString(100)]
         public string FirstName { get; set; }
 
         [Display(Name = "LastName")]
-        [Required(ErrorMessage = "RequiredMsg")]
-        [MaxLength(100, ErrorMessage = "MaxLength")]
+        [RequiredString]
+        [MaxLengthString(100)]
         public string LastName { get; set; }
 
         [Display(Name = "PhoneNumber")]
-        [Required(ErrorMessage = "RequiredMsg")]
-        [MaxLength(100, ErrorMessage = "MaxLength")]
+        [RequiredString]
+        [MaxLengthString(100)]
         [PhoneNumber]
         public string PhoneNumber { get; set; }
     }

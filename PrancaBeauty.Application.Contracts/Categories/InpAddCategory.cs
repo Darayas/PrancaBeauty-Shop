@@ -1,11 +1,9 @@
-﻿using Framework.Common.DataAnnotations;
+﻿using Framework.Common.DataAnnotations.File;
+using Framework.Common.DataAnnotations.Numbers.All;
+using Framework.Common.DataAnnotations.String;
 using Microsoft.AspNetCore.Http;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Contracts.Categories
 {
@@ -25,12 +23,12 @@ namespace PrancaBeauty.Application.Contracts.Categories
         public IFormFile Image { get; set; }
 
         [Display(Name = "Name")]
-        [Required(ErrorMessage = "RequiredMsg")]
-        [MaxLength(100, ErrorMessage = "MaxLengthMsg")]
+        [RequiredString]
+        [MaxLengthString(100)]
         public string Name { get; set; }
 
         [Display(Name = "Sort")]
-        [Range(1, int.MaxValue, ErrorMessage = "RangeMsg")]
+        [NumRange(1, int.MaxValue)]
         public int Sort { get; set; }
 
         public List<InpAddCategory_Translate> LstTranslate { get; set; }
@@ -39,13 +37,13 @@ namespace PrancaBeauty.Application.Contracts.Categories
     public class InpAddCategory_Translate
     {
         [Display(Name = "LangId")]
-        [Required(ErrorMessage = "RequiredMsg")]
+        [RequiredString]
         [GUID]
         public string LangId { get; set; }
 
         [Display(Name = "Title")]
-        [Required(ErrorMessage = "RequiredMsg")]
-        [MaxLength(200, ErrorMessage = "MaxLengthMsg")]
+        [RequiredString]
+        [MaxLengthString(200)]
         public string Title { get; set; }
 
         [Display(Name = "Description")]

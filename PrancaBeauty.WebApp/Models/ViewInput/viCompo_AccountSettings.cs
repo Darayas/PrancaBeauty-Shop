@@ -1,4 +1,5 @@
-﻿using Framework.Common.DataAnnotations;
+﻿using Framework.Common.DataAnnotations.File;
+using Framework.Common.DataAnnotations.String;
 using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 
@@ -13,38 +14,38 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
         public IFormFile ProfileImage { get; set; }
 
         [Display(Name = "DefaultLangId")]
-        [Required(ErrorMessage = "RequiredMsg")]
-        [StringLength(100, MinimumLength = 1, ErrorMessage = "StringLengthMsg")]
+        [RequiredString]
+        [MaxLengthString(100)]
         public string LangId { get; set; }
 
         [Display(Name = "Email")]
-        [Required(ErrorMessage = "RequiredMsg")]
-        [StringLength(100, MinimumLength = 3, ErrorMessage = "StringLengthMsg")]
-        [EmailAddress(ErrorMessage = "EmailAddressMsg")]
+        [RequiredString]
+        [MaxLengthString(100)]
+        [TemplEmail]
         public string Email { get; set; }
 
         [Display(Name = "PhoneNumber")]
-        [Required(ErrorMessage = "RequiredMsg")]
-        [StringLength(30, MinimumLength = 6, ErrorMessage = "StringLengthMsg")]
+        [RequiredString]
+        [MaxLengthString(30)]
         [PhoneNumber(ErrorMessage = "PhoneNumberMsg")]
         public string PhoneNumber { get; set; }
         public bool PhoneNumberConfirmed { get; set; }
 
         [Display(Name = "FirstName")]
-        [Required(ErrorMessage = "RequiredMsg")]
-        [StringLength(100, MinimumLength = 3, ErrorMessage = "StringLengthMsg")]
+        [RequiredString]
+        [MaxLengthString(100)]
         [RegularExpression(@"[A-Zا-یa-zآ\s]*")]
         public string FirstName { get; set; }
 
         [Display(Name = "LastName")]
-        [Required(ErrorMessage = "RequiredMsg")]
-        [StringLength(100, MinimumLength = 3, ErrorMessage = "StringLengthMsg")]
+        [RequiredString]
+        [MaxLengthString(100)]
         [RegularExpression(@"[A-Zا-یa-zآ\s]*")]
         public string LastName { get; set; }
 
         [Display(Name = "BirthDate")]
-        [Required(ErrorMessage = "RequiredMsg")]
-        [StringLength(100, MinimumLength = 3, ErrorMessage = "StringLengthMsg")]
+        [RequiredString]
+        [MaxLengthString(100)]
         [Date(ErrorMessage = "DateMsg")]
         public string BirthDate { get; set; }
 

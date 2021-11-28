@@ -2,25 +2,17 @@ using AspNetCoreRateLimit;
 using Framework.Application.Consts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.WebEncoders;
 using Newtonsoft.Json.Serialization;
 using PrancaBeauty.Infrastructure.Core.Configuration;
-using PrancaBeauty.Infrastructure.EFCore.Data;
 using PrancaBeauty.WebApp.Authentication;
 using PrancaBeauty.WebApp.Config;
 using PrancaBeauty.WebApp.Localization.Resource;
 using PrancaBeauty.WebApp.Middlewares;
-using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text.Encodings.Web;
-using System.Text.Unicode;
-using System.Threading.Tasks;
 using WebMarkupMin.AspNetCore5;
 
 namespace PrancaBeauty.WebApp

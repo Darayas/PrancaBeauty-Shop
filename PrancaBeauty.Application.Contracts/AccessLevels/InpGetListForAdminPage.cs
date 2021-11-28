@@ -1,4 +1,5 @@
-﻿using Framework.Common.DataAnnotations;
+﻿using Framework.Common.DataAnnotations.Numbers.All;
+using Framework.Common.DataAnnotations.String;
 using System.ComponentModel.DataAnnotations;
 
 namespace PrancaBeauty.Application.Contracts.AccessLevels
@@ -6,16 +7,16 @@ namespace PrancaBeauty.Application.Contracts.AccessLevels
     public class InpGetListForAdminPage
     {
         [Display(Name = "Title")]
-        [Required(ErrorMessage = "RequiredMsg")]
-        [MaxLength(150, ErrorMessage = "MaxLengthMsg")]
+        [RequiredString]
+        [MaxLengthString(150)]
         public string Title { get; set; }
 
         [Display(Name = "PageNum")]
-        [Range(1, int.MaxValue, ErrorMessage = "RangeGreaterThanZeroMsg")]
+        [NumRange(1, int.MaxValue, ErrorMessage = "RangeGreaterThanZeroMsg")]
         public int PageNum { get; set; }
 
         [Display(Name = "Take")]
-        [Range(1, int.MaxValue, ErrorMessage = "RangeGreaterThanZeroMsg")]
+        [NumRange(1, int.MaxValue, ErrorMessage = "RangeGreaterThanZeroMsg")]
         public int Take { get; set; }
     }
 }

@@ -1,10 +1,6 @@
-﻿using Framework.Common.DataAnnotations;
-using System;
-using System.Collections.Generic;
+﻿using Framework.Common.DataAnnotations.File;
+using Framework.Common.DataAnnotations.String;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Contracts.Files
 {
@@ -22,7 +18,7 @@ namespace PrancaBeauty.Application.Contracts.Files
         public InpGetFileListForFileManagerSort Sort { get; set; }
 
         [Display(Name = "FileTitle")]
-        [MaxLength(100, ErrorMessage = "MaxLengthMsg")]
+        [MaxLengthString(100)]
         public string FileTitle { get; set; }
 
         [Display(Name = "Take")]

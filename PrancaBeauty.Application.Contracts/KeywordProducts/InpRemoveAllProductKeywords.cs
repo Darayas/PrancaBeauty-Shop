@@ -1,4 +1,5 @@
-﻿using Framework.Common.DataAnnotations;
+﻿using Framework.Common.DataAnnotations.File;
+using Framework.Common.DataAnnotations.String;
 using System.ComponentModel.DataAnnotations;
 
 namespace PrancaBeauty.Application.Contracts.KeywordProducts
@@ -6,7 +7,7 @@ namespace PrancaBeauty.Application.Contracts.KeywordProducts
     public class InpRemoveAllProductKeywords
     {
         [Display(Name = "ProductId")]
-        [Required(ErrorMessage = "RequiredMsg")]
+        [RequiredString]
         [GUID]
         public string ProductId { get; set; }
     }

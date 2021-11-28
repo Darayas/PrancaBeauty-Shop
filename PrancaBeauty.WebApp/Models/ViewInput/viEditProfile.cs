@@ -1,21 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Framework.Common.DataAnnotations.String;
+using System;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PrancaBeauty.WebApp.Models.ViewInput
 {
     public class viEditProfile
     {
         [Display(Name = "FirstName")]
-        [Required(ErrorMessage = "RequiredMsg")]
-        [StringLength(100, MinimumLength = 3, ErrorMessage = "StringLengthMsg")]
+        [RequiredString]
+        [MaxLengthString(100)]
         public string FirstName { get; set; }
 
         [Display(Name = "LastName")]
-        [Required(ErrorMessage = "RequiredMsg")]
-        [StringLength(100, MinimumLength = 3, ErrorMessage = "StringLengthMsg")]
+        [RequiredString]
+        [MaxLengthString(100)]
         public string LastName { get; set; }
 
         [Display(Name = "BirthDate")]

@@ -1,29 +1,25 @@
-﻿using Framework.Common.DataAnnotations;
-using System;
-using System.Collections.Generic;
+﻿using Framework.Common.DataAnnotations.File;
+using Framework.Common.DataAnnotations.String;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Contracts.Users
 {
     public class InpPhoneConfirmationBySmsCode
     {
         [Display(Name = "UserId")]
-        [Required(ErrorMessage = "Required")]
+        [RequiredString]
         [GUID]
         public string UserId { get; set; }
 
         [Display(Name = "PhoneNumber")]
-        [Required(ErrorMessage = "Required")]
-        [MaxLength(100, ErrorMessage = "MaxLength")]
+        [RequiredString]
+        [MaxLengthString(100)]
         [PhoneNumber]
         public string PhoneNumber { get; set; }
 
         [Display(Name = "Code")]
-        [Required(ErrorMessage = "Required")]
-        [MaxLength(100, ErrorMessage = "MaxLength")]
+        [RequiredString]
+        [MaxLengthString(100)]
         public string Code { get; set; }
 
     }

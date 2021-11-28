@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Framework.Common.DataAnnotations.String;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -9,12 +10,12 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
     public class viCompo_Login_UsernamePasswordModel
     {
         [Display(Name = "Email")]
-        [Required(ErrorMessage = "RequiredMsg")]
-        [EmailAddress(ErrorMessage = "EmailAddressMsg")]
+        [RequiredString]
+        [TemplEmail]
         public string Email { get; set; }
 
         [Display(Name = "Password")]
-        [Required(ErrorMessage = "RequiredMsg")]
+        [RequiredString]
         public string Password { get; set; }
 
         [Display(Name = "RemmeberMe")]

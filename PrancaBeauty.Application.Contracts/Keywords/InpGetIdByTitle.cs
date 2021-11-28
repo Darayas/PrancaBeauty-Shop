@@ -1,12 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Framework.Common.DataAnnotations.String;
+using System.ComponentModel.DataAnnotations;
 
 namespace PrancaBeauty.Application.Contracts.Keywords
 {
     public class InpGetIdByTitle
     {
         [Display(Name = "Title")]
-        [Required(ErrorMessage = "RequiredMsg")]
-        [MaxLength(100, ErrorMessage = "MaxLength")]
+        [RequiredString]
+        [MaxLengthString(100)]
         public string Title { get; set; }
     }
 }

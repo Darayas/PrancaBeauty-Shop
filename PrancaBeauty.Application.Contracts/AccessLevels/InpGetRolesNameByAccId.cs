@@ -1,17 +1,13 @@
-﻿using Framework.Common.DataAnnotations;
-using System;
-using System.Collections.Generic;
+﻿using Framework.Common.DataAnnotations.File;
+using Framework.Common.DataAnnotations.String;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Contracts.AccessLevels
 {
-   public class InpGetRolesNameByAccId
+    public class InpGetRolesNameByAccId
     {
         [Display(Name = "AccessLevelId")]
-        [Required(ErrorMessage = "RequiredMsg")]
+        [RequiredString]
         [GUID]
         public string AccessLevelId { get; set; }
     }

@@ -1,28 +1,26 @@
 ﻿using Framework.Application.Enums;
-using Framework.Common.DataAnnotations;
-using System;
+using Framework.Common.DataAnnotations.File;
+using Framework.Common.DataAnnotations.Numbers.All;
+using Framework.Common.DataAnnotations.String;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Contracts.ProductVariantItems
 {
     public class InpAddVariantsToProduct
     {
         [Display(Name = "ProductId")]
-        [Required(ErrorMessage = "RequiredMsg")]
+        [RequiredString]
         [GUID]
         public string ProductId { get; set; }
 
         [Display(Name = "SellerId")]
-        [Required(ErrorMessage = "RequiredMsg")]
+        [RequiredString]
         [GUID]
         public string SellerId { get; set; }
 
         [Display(Name = "VariantId")]
-        [Required(ErrorMessage = "RequiredMsg")]
+        [RequiredString]
         [GUID]
         public string VariantId { get; set; }
 
@@ -34,28 +32,28 @@ namespace PrancaBeauty.Application.Contracts.ProductVariantItems
         public string Id { get; set; }
 
         [Display(Name = "Title")]
-        [Required(ErrorMessage = "RequiredMsg")]
-        [StringLength(200, MinimumLength = 1, ErrorMessage = "StringLengthMsg")]
+        [RequiredString]
+        [MaxLengthString(200)]
         public string Title { get; set; }
 
         [Display(Name = "Value")]
-        [Required(ErrorMessage = "RequiredMsg")]
-        [StringLength(200, MinimumLength = 1, ErrorMessage = "StringLengthMsg")]
+        [RequiredString]
+        [MaxLengthString(200)]
         public string Value { get; set; }
 
         [Display(Name = "Percent")]
-        [Required(ErrorMessage = "RequiredMsg")]
-        [StringLength(10, MinimumLength = 1, ErrorMessage = "StringLengthMsg")]
+        [RequiredString]
+        [MaxLengthString(10)]
         public string Percent { get; set; }
 
         [Display(Name = "GuaranteeId")]
-        [Required(ErrorMessage = "RequiredMsg")]
+        [RequiredString]
         [GUID]
         public string GuaranteeId { get; set; }
 
         [Display(Name = "ProductCode")]
-        [Required(ErrorMessage = "RequiredMsg")]
-        [StringLength(100, MinimumLength = 1, ErrorMessage = "StringLengthMsg")]
+        [RequiredString]
+        [MaxLengthString(100)]
         public string ProductCode { get; set; }
 
         [Display(Name = "SendBy")]
@@ -68,7 +66,7 @@ namespace PrancaBeauty.Application.Contracts.ProductVariantItems
         public ProductVariantItems_SendFromEnum SendFrom { get; set; } // ارسال از: 1، 2، 3، 4 رور کاری آینده
 
         [Display(Name = "CountInStock")]
-        [Range(1, 100000, ErrorMessage = "RangeMsg")]
+        [NumRange(1, 100000)]
         public int CountInStock { get; set; }
     }
 }

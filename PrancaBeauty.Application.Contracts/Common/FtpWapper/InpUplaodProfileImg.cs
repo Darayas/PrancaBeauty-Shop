@@ -1,4 +1,5 @@
-﻿using Framework.Common.DataAnnotations;
+﻿using Framework.Common.DataAnnotations.File;
+using Framework.Common.DataAnnotations.String;
 using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 
@@ -7,7 +8,7 @@ namespace PrancaBeauty.Application.Contracts.Common.FtpWapper
     public class InpUplaodProfileImg
     {
         [Display(Name = "UserId")]
-        [Required(ErrorMessage = "RequiredMsg")]
+        [RequiredString]
         [GUID]
         public string UserId { get; set; }
 

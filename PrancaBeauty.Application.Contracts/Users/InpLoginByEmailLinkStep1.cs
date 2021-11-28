@@ -1,22 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Framework.Common.DataAnnotations.String;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Contracts.Users
 {
     public class InpLoginByEmailLinkStep1
     {
         [Display(Name = "Email")]
-        [Required(ErrorMessage = "Required")]
-        [MaxLength(100, ErrorMessage = "MaxLength")]
-        [EmailAddress(ErrorMessage = "EmailAddressMsg")]
+        [RequiredString]
+        [MaxLengthString(100)]
+        [TemplEmail]
         public string Email { get; set; }
 
         [Display(Name = "IP")]
-        [MaxLength(50, ErrorMessage = "MaxLength")]
+        [MaxLengthString(50)]
         public string IP { get; set; }
     }
 }

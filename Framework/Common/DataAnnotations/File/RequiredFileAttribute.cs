@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
-namespace Framework.Common.DataAnnotations
+namespace Framework.Common.DataAnnotations.File
 {
     public class RequiredFileAttribute : ValidationAttribute
     {
@@ -49,7 +49,7 @@ namespace Framework.Common.DataAnnotations
             ErrorMessage = _Localizer[ErrorMessage];
 
             if (ErrorMessage.Contains("{0}"))
-                ErrorMessage.Replace("{0}", validationContext.DisplayName);
+                ErrorMessage.Replace("{0}", _Localizer[validationContext.DisplayName]);
 
             return ErrorMessage;
         }

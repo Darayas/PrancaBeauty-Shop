@@ -1,17 +1,14 @@
-﻿using Framework.Common.DataAnnotations;
-using System;
+﻿using Framework.Common.DataAnnotations.File;
+using Framework.Common.DataAnnotations.String;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Contracts.Users
 {
     public class InpAddRoles
     {
         [Display(Name = "UserId")]
-        [Required(ErrorMessage = "Required")]
+        [RequiredString]
         [GUID]
         public string UserId { get; set; }
 
@@ -21,8 +18,8 @@ namespace PrancaBeauty.Application.Contracts.Users
     public class InpAddRolesItem
     {
         [Display(Name = "Name")]
-        [Required(ErrorMessage = "Required")]
-        [MaxLength(100, ErrorMessage = "MaxLength")]
+        [RequiredString]
+        [MaxLengthString(100)]
         public string Name { get; set; }
     }
 }

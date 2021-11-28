@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Framework.Common.DataAnnotations.String;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PrancaBeauty.WebApp.Models.ViewInput
 {
@@ -11,50 +8,50 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
         public string UserId { get; set; }
 
         [Display(Name = "CountryId")]
-        [Required(ErrorMessage = "RequiredMsg")]
+        [RequiredString]
         public string CountryId { get; set; }
 
         [Display(Name = "ProvinceId")]
-        [Required(ErrorMessage = "RequiredMsg")]
+        [RequiredString]
         public string ProvinceId { get; set; }
 
         [Display(Name = "CityId")]
-        [Required(ErrorMessage = "RequiredMsg")]
+        [RequiredString]
         public string CityId { get; set; }
 
         [Display(Name = "District")]
-        [Required(ErrorMessage = "RequiredMsg")]
+        [RequiredString]
         public string District { get; set; } // محله
 
         [Display(Name = "Address")]
-        [Required(ErrorMessage = "RequiredMsg")]
+        [RequiredString]
         public string Address { get; set; }
 
         [Display(Name = "Plaque")]
-        [Required(ErrorMessage = "RequiredMsg")]
+        [RequiredString]
         public string Plaque { get; set; } // پلاک
 
         [Display(Name = "Unit")]
         public string Unit { get; set; }
 
         [Display(Name = "PostalCode")]
-        [Required(ErrorMessage = "RequiredMsg")]
+        [RequiredString]
         public string PostalCode { get; set; }
 
         [Display(Name = "NationalCode")]
-        [Required(ErrorMessage = "RequiredMsg")]
+        [RequiredString]
         public string NationalCode { get; set; }
 
         [Display(Name = "FirstName")]
-        [Required(ErrorMessage = "RequiredMsg")]
+        [RequiredString]
         public string FirstName { get; set; }
 
         [Display(Name = "LastName")]
-        [Required(ErrorMessage = "RequiredMsg")]
+        [RequiredString]
         public string LastName { get; set; }
 
         [Display(Name = "PhoneNumber")]
-        [Required(ErrorMessage = "RequiredMsg")]
+        [RequiredString]
         public string PhoneNumber { get; set; }
     }
 }

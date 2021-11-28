@@ -1,10 +1,6 @@
-﻿using Framework.Common.DataAnnotations;
-using System;
-using System.Collections.Generic;
+﻿using Framework.Common.DataAnnotations.File;
+using Framework.Common.DataAnnotations.String;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Contracts.Users
 {
@@ -16,7 +12,7 @@ namespace PrancaBeauty.Application.Contracts.Users
         public string LangId { get; set; }
 
         [Display(Name = "Name")]
-        [MaxLength(100, ErrorMessage = "MaxLength")]
+        [MaxLengthString(100)]
         public string Name { get; set; }
     }
 }

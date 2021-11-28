@@ -1,22 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Framework.Common.DataAnnotations.String;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Contracts.Templates
 {
     public class InpGetEmailRecoveryPasswordTemplate
     {
         [Display(Name = "LangCode")]
-        [Required(ErrorMessage = "RequiredMsg")]
-        [MaxLength(100, ErrorMessage = "MaxLengthMsg")]
+        [RequiredString]
+        [MaxLengthString(100)]
         public string LangCode { get; set; }
 
         [Display(Name = "Url")]
-        [Required(ErrorMessage = "RequiredMsg")]
-        [MaxLength(500, ErrorMessage = "MaxLengthMsg")]
+        [RequiredString]
+        [MaxLengthString(500)]
         public string Url { get; set; }
     }
 }

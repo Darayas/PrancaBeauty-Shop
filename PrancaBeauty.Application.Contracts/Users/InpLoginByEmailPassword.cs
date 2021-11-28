@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Framework.Common.DataAnnotations.String;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -10,14 +11,14 @@ namespace PrancaBeauty.Application.Contracts.Users
     public class InpLoginByEmailPassword
     {
         [Display(Name = "Email")]
-        [Required(ErrorMessage = "Required")]
-        [MaxLength(100, ErrorMessage = "MaxLength")]
-        [EmailAddress]
+        [RequiredString]
+        [MaxLengthString(100)]
+        [TemplEmail]
         public string Email { get; set; }
 
         [Display(Name = "Password")]
-        [Required(ErrorMessage = "Required")]
-        [MaxLength(100, ErrorMessage = "MaxLength")]
+        [RequiredString]
+        [MaxLengthString(100)]
         public string Password { get; set; }
     }
 }

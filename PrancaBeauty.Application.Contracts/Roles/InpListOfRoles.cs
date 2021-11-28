@@ -1,4 +1,5 @@
 ﻿using Framework.Common.DataAnnotations;
+using Framework.Common.DataAnnotations.File;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

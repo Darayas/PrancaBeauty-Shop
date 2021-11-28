@@ -1,4 +1,6 @@
 ﻿using Framework.Common.DataAnnotations;
+using Framework.Common.DataAnnotations.File;
+using Framework.Common.DataAnnotations.String;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -11,13 +13,13 @@ namespace PrancaBeauty.Application.Contracts.Users
     public class InpLogin
     {
         [Display(Name = "UserId")]
-        [Required(ErrorMessage = "Required")]
+        [RequiredString]
         [GUID]
         public string UserId { get; set; }
 
         [Display(Name = "Password")]
-        [Required(ErrorMessage = "Required")]
-        [MaxLength(100, ErrorMessage = "MaxLength")]
+        [RequiredString]
+        [MaxLengthString(100)]
         public string Password { get; set; }
     }
 }

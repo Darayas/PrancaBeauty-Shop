@@ -1,10 +1,13 @@
 ﻿using Framework.Common.ExMethods;
+using Framework.Common.Utilities.Validator;
+using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Contracts.Languages;
 using PrancaBeauty.Domin.Region.LanguagesAgg.Contracts;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;

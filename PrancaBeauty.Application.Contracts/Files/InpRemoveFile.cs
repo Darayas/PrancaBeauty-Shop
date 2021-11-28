@@ -1,4 +1,6 @@
 ﻿using Framework.Common.DataAnnotations;
+using Framework.Common.DataAnnotations.File;
+using Framework.Common.DataAnnotations.String;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -11,7 +13,7 @@ namespace PrancaBeauty.Application.Contracts.Files
     public class InpRemoveFile
     {
         [Display(Name = "FileId")]
-        [Required(ErrorMessage = "RequiredMsg")]
+        [RequiredString]
         [GUID]
         public string FileId { get; set; }
 

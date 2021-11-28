@@ -1,17 +1,14 @@
-﻿using Framework.Common.DataAnnotations;
-using System;
+﻿using Framework.Common.DataAnnotations.File;
+using Framework.Common.DataAnnotations.String;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Contracts.ProductPropertiesValues
 {
     public class InpAddPropertiesToProduct
     {
         [Display(Name = "ProductId")]
-        [Required(ErrorMessage = "RequiredMsg")]
+        [RequiredString]
         [GUID]
         public string ProductId { get; set; }
 
@@ -21,13 +18,13 @@ namespace PrancaBeauty.Application.Contracts.ProductPropertiesValues
     public class InpAddPropertiesToProduct_Items
     {
         [Display(Name = "ProductId")]
-        [Required(ErrorMessage = "RequiredMsg")]
-        [MaxLength(100,ErrorMessage = "MaxLengthMsg")]
+        [RequiredString]
+        [MaxLengthString(100)]
         public string Id { get; set; }
 
         [Display(Name = "Value")]
-        [Required(ErrorMessage = "RequiredMsg")]
-        [MaxLength(100, ErrorMessage = "MaxLengthMsg")]
+        [RequiredString]
+        [MaxLengthString(100)]
         public string Value { get; set; }
     }
 }

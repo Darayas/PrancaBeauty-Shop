@@ -159,7 +159,7 @@ namespace PrancaBeauty.Application.Apps.Users
             try
             {
                 #region Validations
-                Input.CheckModelState();
+                Input.CheckModelState(_Localizer);
                 #endregion
 
 

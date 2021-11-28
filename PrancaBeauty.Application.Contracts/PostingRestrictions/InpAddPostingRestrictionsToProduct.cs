@@ -1,17 +1,14 @@
-﻿using Framework.Common.DataAnnotations;
-using System;
+﻿using Framework.Common.DataAnnotations.File;
+using Framework.Common.DataAnnotations.String;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Contracts.PostingRestrictions
 {
     public class InpAddPostingRestrictionsToProduct
     {
         [Display(Name = "ProductId")]
-        [Required(ErrorMessage = "Required")]
+        [RequiredString]
         [GUID]
         public string ProductId { get; set; }
         public List<InpAddPostingRestrictionsToProduct_Restrictions> PostingRestrictions { get; set; }
@@ -21,7 +18,7 @@ namespace PrancaBeauty.Application.Contracts.PostingRestrictions
     {
         [Display(Name = "CountryId")]
         [GUID]
-        [Required(ErrorMessage = "Required")]
+        [RequiredString]
         public string CountryId { get; set; }
 
         [Display(Name = "PostingStatus")]

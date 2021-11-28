@@ -1,23 +1,19 @@
-﻿using Framework.Common.DataAnnotations;
-using System;
-using System.Collections.Generic;
+﻿using Framework.Common.DataAnnotations.File;
+using Framework.Common.DataAnnotations.String;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Contracts.FilePath
 {
-   public class InpMakePath
+    public class InpMakePath
     {
         [Display(Name = "FileServerId")]
-        [Required(ErrorMessage = "RequiredMsg")]
+        [RequiredString]
         [GUID]
         public string FileServerId { get; set; }
 
         [Display(Name = "Path")]
-        [Required(ErrorMessage = "RequiredMsg")]
-        [MaxLength(300, ErrorMessage = "MaxLength")]
+        [RequiredString]
+        [MaxLengthString(300)]
         public string Path { get; set; }
     }
 }

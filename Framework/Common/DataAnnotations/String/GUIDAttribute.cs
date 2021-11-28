@@ -2,7 +2,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Framework.Common.DataAnnotations
+namespace Framework.Common.DataAnnotations.File
 {
     public class GUIDAttribute : ValidationAttribute
     {
@@ -42,7 +42,7 @@ namespace Framework.Common.DataAnnotations
 
             // DisplayName
             if (ErrMessage.Contains("{0}"))
-                ErrMessage = ErrMessage.Replace("{0}", validationContext.DisplayName);
+                ErrMessage = ErrMessage.Replace("{0}", _Localizer[validationContext.DisplayName]);
 
             return ErrMessage;
         }

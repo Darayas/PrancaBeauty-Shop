@@ -1,4 +1,5 @@
-﻿using Framework.Common.DataAnnotations;
+﻿using Framework.Common.DataAnnotations.File;
+using Framework.Common.DataAnnotations.String;
 using System.ComponentModel.DataAnnotations;
 
 namespace PrancaBeauty.Application.Contracts.AccessLevels
@@ -6,7 +7,7 @@ namespace PrancaBeauty.Application.Contracts.AccessLevels
     public class InpRemove
     {
         [Display(Name = "Id")]
-        [Required(ErrorMessage = "RequiredMsg")]
+        [RequiredString]
         [GUID]
         public string Id { get; set; }
     }

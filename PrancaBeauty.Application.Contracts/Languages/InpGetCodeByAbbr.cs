@@ -1,12 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Framework.Common.DataAnnotations.String;
+using System.ComponentModel.DataAnnotations;
 
 namespace PrancaBeauty.Application.Contracts.Languages
 {
     public class InpGetCodeByAbbr
     {
         [Display(Name = "Abbr")]
-        [Required(ErrorMessage = "RequiredMsg")]
-        [MaxLength(50, ErrorMessage = "MaxLengthMsg")]
+        //[RequiredString]
+        [MaxLengthString(50)]
         public string Abbr { get; set; }
     }
 }

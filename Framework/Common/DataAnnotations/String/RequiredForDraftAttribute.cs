@@ -1,6 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Framework.Infrastructure;
+using System.ComponentModel.DataAnnotations;
 
-namespace Framework.Common.DataAnnotations
+namespace Framework.Common.DataAnnotations.String
 {
     public class RequiredForDraftAttribute : ValidationAttribute
     {
@@ -15,9 +16,11 @@ namespace Framework.Common.DataAnnotations
             if (IsDraft == null)
                 IsDraft = false;
 
+            var _Localizer = (ILocalizer)validationContext.GetService(typeof(ILocalizer));
+
             if (IsDraft.Value == false)
                 if (value == null)
-                    return new ValidationResult(ErrorMessage.Replace("{0}", validationContext.DisplayName));
+                    return new ValidationResult(_Localizer[ErrorMessage].Replace("{0}", _Localizer[validationContext.DisplayName]));
 
             return ValidationResult.Success;
         }

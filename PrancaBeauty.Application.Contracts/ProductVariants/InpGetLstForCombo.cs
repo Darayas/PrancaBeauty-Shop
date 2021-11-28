@@ -1,4 +1,6 @@
 ﻿using Framework.Common.DataAnnotations;
+using Framework.Common.DataAnnotations.File;
+using Framework.Common.DataAnnotations.String;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -11,12 +13,12 @@ namespace PrancaBeauty.Application.Contracts.ProductVariants
     public class InpGetLstForCombo
     {
         [Display(Name = "LangId")]
-        [Required(ErrorMessage = "RequiredMsg")]
+        [RequiredString]
         [GUID]
         public string LangId { get; set; }
 
         [Display(Name = "LangId")]
-        [MaxLength(100, ErrorMessage = "MaxLengthMsg")]
+        [MaxLengthString(100)]
         public string Text { get; set; }
     }
 }

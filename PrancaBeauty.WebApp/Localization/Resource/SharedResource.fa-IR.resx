@@ -674,7 +674,7 @@
   <data name="ManageUsers" xml:space="preserve">
     <value>مدیریت کاربران</value>
   </data>
-  <data name="MaxLengthMsg" xml:space="preserve">
+  <data name="MaxLengthStringMsg" xml:space="preserve">
     <value>تعداد حروف {0} باید کمتر از {1} باشد</value>
   </data>
   <data name="MetaTagCanonical" xml:space="preserve">
@@ -742,6 +742,9 @@
   </data>
   <data name="NotFound" xml:space="preserve">
     <value>موردی یافت نشد.</value>
+  </data>
+  <data name="NumRangeMsg" xml:space="preserve">
+    <value>{0} باید عددی بین '{1}' تا '{2}' باشد.</value>
   </data>
   <data name="OK" xml:space="preserve">
     <value>باشه</value>
@@ -947,9 +950,6 @@
   <data name="RangeGreaterThanZeroMsgMsg" xml:space="preserve">
     <value>{0} باید بیشتر از 0 باشد.</value>
   </data>
-  <data name="RangeMsg" xml:space="preserve">
-    <value>{0} باید عددی بین '{1}' تا '{2}' باشد.</value>
-  </data>
   <data name="Recovery" xml:space="preserve">
     <value>بازیابی</value>
   </data>
@@ -992,7 +992,7 @@
   <data name="RequiredFileMsg" xml:space="preserve">
     <value>{0} را وارد نمایید</value>
   </data>
-  <data name="RequiredMsg" xml:space="preserve">
+  <data name="RequiredStringMsg" xml:space="preserve">
     <value>{0} را وارد نمایید.</value>
   </data>
   <data name="Resend" xml:space="preserve">
@@ -1099,6 +1099,9 @@
   </data>
   <data name="StatusFailed" xml:space="preserve">
     <value>خطا</value>
+  </data>
+  <data name="String" xml:space="preserve">
+    <value>Required</value>
   </data>
   <data name="StringLengthMsg" xml:space="preserve">
     <value>{0} باید بین {2} تا {1} کاراکتر باشد</value>

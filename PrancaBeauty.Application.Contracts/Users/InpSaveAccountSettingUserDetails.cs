@@ -1,29 +1,25 @@
-﻿using Framework.Common.DataAnnotations;
+﻿using Framework.Common.DataAnnotations.File;
+using Framework.Common.DataAnnotations.String;
 using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Contracts.Users
 {
     public class InpSaveAccountSettingUserDetails
     {
         [Display(Name = "UserId")]
-        [Required(ErrorMessage = "RequiredMsg")]
+        [RequiredString]
         [GUID]
         public string UserId { get; set; }
 
         [Display(Name = "DefaultLangId")]
-        [Required(ErrorMessage = "RequiredMsg")]
+        [RequiredString]
         [GUID]
         public string LangId { get; set; }
 
         [Display(Name = "UrlToChangeEmail")]
-        [Required(ErrorMessage = "RequiredMsg")]
-        [MaxLength(500, ErrorMessage = "MaxLength")]
+        [RequiredString]
+        [MaxLengthString(500)]
         public string UrlToChangeEmail { get; set; }
 
 
@@ -34,31 +30,31 @@ namespace PrancaBeauty.Application.Contracts.Users
 
 
         [Display(Name = "Email")]
-        [Required(ErrorMessage = "RequiredMsg")]
-        [MaxLength(100, ErrorMessage = "MaxLength")]
-        [EmailAddress(ErrorMessage = "EmailAddressMsg")]
+        [RequiredString]
+        [MaxLengthString(100)]
+        [TemplEmail]
         public string Email { get; set; }
 
         [Display(Name = "PhoneNumber")]
-        [Required(ErrorMessage = "RequiredMsg")]
-        [MaxLength(100, ErrorMessage = "MaxLength")]
+        [RequiredString]
+        [MaxLengthString(100)]
         [PhoneNumber]
         public string PhoneNumber { get; set; }
         public bool PhoneNumberConfirmed { get; set; }
 
         [Display(Name = "FirstName")]
-        [Required(ErrorMessage = "RequiredMsg")]
-        [MaxLength(100, ErrorMessage = "MaxLength")]
+        [RequiredString]
+        [MaxLengthString(100)]
         public string FirstName { get; set; }
 
         [Display(Name = "LastName")]
-        [Required(ErrorMessage = "RequiredMsg")]
-        [MaxLength(100, ErrorMessage = "MaxLength")]
+        [RequiredString]
+        [MaxLengthString(100)]
         public string LastName { get; set; }
 
         [Display(Name = "BirthDate")]
-        [Required(ErrorMessage = "RequiredMsg")]
-        [MaxLength(100, ErrorMessage = "MaxLength")]
+        [RequiredString]
+        [MaxLengthString(100)]
         public string BirthDate { get; set; }
     }
 }

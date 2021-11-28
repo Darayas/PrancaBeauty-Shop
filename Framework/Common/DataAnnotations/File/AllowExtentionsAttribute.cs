@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
-namespace Framework.Common.DataAnnotations
+namespace Framework.Common.DataAnnotations.File
 {
     public class AllowExtentionsAttribute : ValidationAttribute
     {
@@ -78,7 +78,7 @@ namespace Framework.Common.DataAnnotations
 
             // DisplayName
             if (ErrMessage.Contains("{0}"))
-                ErrMessage = ErrMessage.Replace("{0}", validationContext.DisplayName);
+                ErrMessage = ErrMessage.Replace("{0}", _Localizer[validationContext.DisplayName]);
 
             // FileName
             if (ErrMessage.Contains("{1}"))

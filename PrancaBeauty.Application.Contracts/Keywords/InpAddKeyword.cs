@@ -1,21 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Framework.Common.DataAnnotations.String;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Contracts.Keywords
 {
     public class InpAddKeyword
     {
         [Display(Name = "Title")]
-        [Required(ErrorMessage = "RequiredMsg")]
-        [MaxLength(100,ErrorMessage = "MaxLengthMsg")]
+        [RequiredString]
+        [MaxLengthString(100)]
         public string Title { get; set; }
 
         [Display(Name = "Description")]
-        [MaxLength(5000, ErrorMessage = "MaxLengthMsg")]
+        [MaxLengthString(5000)]
         public string Description { get; set; }
     }
 }

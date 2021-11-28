@@ -1,4 +1,5 @@
-﻿using Framework.Common.DataAnnotations;
+﻿using Framework.Common.DataAnnotations.File;
+using Framework.Common.DataAnnotations.String;
 using System.ComponentModel.DataAnnotations;
 
 namespace PrancaBeauty.Application.Contracts.Categories
@@ -6,12 +7,12 @@ namespace PrancaBeauty.Application.Contracts.Categories
     public class InpGetParentsByChildId
     {
         [Display(Name = "LangId")]
-        [Required(ErrorMessage = "RequiredMsg")]
+        [RequiredString]
         [GUID]
         public string LangId { get; set; }
 
         [Display(Name = "ChildId")]
-        [Required(ErrorMessage = "RequiredMsg")]
+        [RequiredString]
         [GUID]
         public string ChildId { get; set; }
     }

@@ -1,4 +1,6 @@
-﻿using Framework.Common.DataAnnotations;
+﻿using Framework.Common.DataAnnotations.File;
+using Framework.Common.DataAnnotations.Numbers.All;
+using Framework.Common.DataAnnotations.String;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -8,7 +10,7 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
     public class viEditCategory
     {
         [Display(Name = "Id")]
-        [Required(ErrorMessage = "RequiredMsg")]
+        [RequiredString]
         [GUID]
         public string Id { get; set; }
 
@@ -29,12 +31,12 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
         public string ImgCategoryUrl { get; set; }
 
         [Display(Name = "Name")]
-        [Required(ErrorMessage = "RequiredMsg")]
-        [MaxLength(100, ErrorMessage = "MaxLengthMsg")]
+        [RequiredString]
+        [MaxLengthString(100)]
         public string Name { get; set; }
 
         [Display(Name = "Sort")]
-        [Range(1, int.MaxValue, ErrorMessage = "RangeMsg")]
+        [NumRange(1, int.MaxValue)]
         public int Sort { get; set; }
 
         public List<viEditCategory_Translate> LstTranslate { get; set; }
@@ -43,13 +45,13 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
     public class viEditCategory_Translate
     {
         [Display(Name = "LangId")]
-        [Required(ErrorMessage = "RequiredMsg")]
+        [RequiredString]
         [GUID]
         public string LangId { get; set; }
 
         [Display(Name = "Title")]
-        [Required(ErrorMessage = "RequiredMsg")]
-        [MaxLength(200, ErrorMessage = "MaxLengthMsg")]
+        [RequiredString]
+        [MaxLengthString(200)]
         public string Title { get; set; }
 
         [Display(Name = "Description")]

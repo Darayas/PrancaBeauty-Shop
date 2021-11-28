@@ -5,12 +5,18 @@ using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Apps.Categories;
+using PrancaBeauty.Application.Apps.Currency;
 using PrancaBeauty.Application.Apps.KeywordsProducts;
+using PrancaBeauty.Application.Apps.Languages;
 using PrancaBeauty.Application.Apps.PostingRestrictions;
+using PrancaBeauty.Application.Apps.ProductPrices;
 using PrancaBeauty.Application.Apps.ProductPropertiesValues;
 using PrancaBeauty.Application.Apps.ProductVariantItems;
+using PrancaBeauty.Application.Contracts.Currency;
 using PrancaBeauty.Application.Contracts.KeywordProducts;
+using PrancaBeauty.Application.Contracts.Languages;
 using PrancaBeauty.Application.Contracts.PostingRestrictions;
+using PrancaBeauty.Application.Contracts.ProductPrice;
 using PrancaBeauty.Application.Contracts.ProductPropertiesValues;
 using PrancaBeauty.Application.Contracts.Products;
 using PrancaBeauty.Application.Contracts.ProductVariantItems;
@@ -30,13 +36,16 @@ namespace PrancaBeauty.Application.Apps.Products
         private readonly ILogger _Logger;
         private readonly ILocalizer _Localizer;
         private readonly IMapper _Mapper;
+        private readonly IProductPriceApplication _ProductPriceApplication;
         private readonly IProductRepository _ProductRepository;
         private readonly ICategoryApplication _CategoryApplication;
         private readonly IProductVariantItemsApplication _ProductVariantItemsApplication;
         private readonly IProductPropertiesValuesApplication _ProductPropertiesValuesApplication;
         private readonly IKeywordProductsApplication _KeywordProductsApplication;
         private readonly IPostingRestrictionsApplication _PostingRestrictionsApplication;
-        public ProductApplication(IProductRepository productRepository, ILogger logger, ICategoryApplication categoryApplication, ILocalizer localizer, IProductVariantItemsApplication productVariantItemsApplication, IProductPropertiesValuesApplication productPropertiesValuesApplication, IKeywordProductsApplication keywordProductsApplication, IMapper mapper, IPostingRestrictionsApplication postingRestrictionsApplication)
+        private readonly ICurrencyApplication _CurrencyApplication;
+        private readonly ILanguageApplication _LanguageApplication;
+        public ProductApplication(IProductRepository productRepository, ILogger logger, ICategoryApplication categoryApplication, ILocalizer localizer, IProductVariantItemsApplication productVariantItemsApplication, IProductPropertiesValuesApplication productPropertiesValuesApplication, IKeywordProductsApplication keywordProductsApplication, IMapper mapper, IPostingRestrictionsApplication postingRestrictionsApplication, IProductPriceApplication productPriceApplication = null, ICurrencyApplication currencyApplication = null, ILanguageApplication languageApplication = null)
         {
             _ProductRepository = productRepository;
             _Logger = logger;
@@ -47,6 +56,9 @@ namespace PrancaBeauty.Application.Apps.Products
             _KeywordProductsApplication = keywordProductsApplication;
             _Mapper = mapper;
             _PostingRestrictionsApplication = postingRestrictionsApplication;
+            _ProductPriceApplication = productPriceApplication;
+            _CurrencyApplication = currencyApplication;
+            _LanguageApplication = languageApplication;
         }
 
         public async Task<(OutPagingData, List<OutGetProductsForManage>)> GetProductsForManageAsync(InpGetProductsForManage Input)
@@ -147,6 +159,8 @@ namespace PrancaBeauty.Application.Apps.Products
             try
             {
                 #region Validations
+                Input.CheckModelState(_Localizer);
+
                 if (Input.Properties is null)
                     throw new ArgumentInvalidException($"Properties cant be null.");
 
@@ -158,8 +172,6 @@ namespace PrancaBeauty.Application.Apps.Products
 
                 if (Input.Keywords.Count() == 0)
                     throw new ArgumentInvalidException($"keyword count must be greater than zero.");
-
-                Input.CheckModelState(_Localizer);
                 #endregion
 
                 // برسی تکراری نبودن نام محصول
@@ -275,6 +287,46 @@ namespace PrancaBeauty.Application.Apps.Products
                         return new OperationResult().Failed("Error500");
                     }
                 }
+                #endregion
+
+                #region ثبت قیمت محصول
+                {
+                    var _Result = await _ProductPriceApplication.AddPriceToProductAsyc(new InpAddPriceToProduct
+                    {
+                        ProductId = ProductId,
+                        UserId = Input.AuthorUserId,
+                        Price = Input.Price,
+                        CurrencyId = await _CurrencyApplication.GetIdByCountryIdAsync(new InpGetIdByCountryId
+                        {
+                            CountryId = await _LanguageApplication.GetCountryIdByLangIdAsync(new InpGetCountryIdByLangId
+                            {
+                                LangId = Input.LangId
+                            })
+                        })
+                    });
+                    if (_Result.IsSucceeded == false)
+                    {
+                        // حذف محدودیت های ارسال
+
+                        // حذف تنوع محصول
+                        await _ProductVariantItemsApplication.RemoveAllVariantsFromProductAsync(new InpRemoveVariantsFromProduct() { ProductId = ProductId });
+
+                        // حذف کلمات کلیدی
+                        await _KeywordProductsApplication.RemoveAllProductKeywordsAsync(new InpRemoveAllProductKeywords() { ProductId = ProductId });
+
+                        // حذف خصوصیات
+                        await _ProductPropertiesValuesApplication.RemovePropertiesByProductIdAsync(new InpRemovePropertiesByProductId() { ProductId = ProductId });
+
+                        // حذف محصول
+                        await _ProductRepository.DeleteAsync(Guid.Parse(ProductId), default, true);
+
+                        return new OperationResult().Failed("Error500");
+                    }
+                }
+                #endregion
+
+                #region ثبت تصاویر
+
                 #endregion
 
                 return default;

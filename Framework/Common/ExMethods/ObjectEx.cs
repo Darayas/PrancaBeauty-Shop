@@ -18,7 +18,7 @@ namespace Framework.Common.ExMethods
         /// <typeparam name="T"></typeparam>
         /// <param name="Input"></param>
         /// <exception cref="ArgumentInvalidException">When modelstate error.</exception>
-        public static void CheckModelState<T>(this T Input, ILocalizer Localizer=null) where T : class
+        public static void CheckModelState<T>(this T Input, ILocalizer Localizer) where T : class
         {
             if (Input is null)
                 throw new ArgumentInvalidException($"{nameof(Input)} cant be null.");
@@ -27,7 +27,7 @@ namespace Framework.Common.ExMethods
             var _ValidationContext = new ValidationContext(Input);
             _ValidationContext.InitializeServiceProvider(t => Localizer);
 
-            if (!Validator.TryValidateObject(Input, _ValidationContext, _ValidationResult, true))
+            if (Validator.TryValidateObject(Input, _ValidationContext, _ValidationResult, true) == false)
                 if (_ValidationResult != null)
                     throw new ArgumentInvalidException(string.Join(",", _ValidationResult.Select(a => a.ErrorMessage)));
 

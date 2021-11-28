@@ -33,13 +33,13 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
         [Display(Name = "ProductName")]
         [RequiredForDraft(nameof(IsDraft))]
         [MaxLengthString(250)]
-        [ItsForUrl(ErrorMessage = "ItsForUrlMsg")]
+        [ItsForUrl]
         public string Name { get; set; } // Uniqe Name
 
         [Display(Name = "ProductTitle")]
         [RequiredString]
         [MaxLengthString(250)]
-        [ItsForProductTitle(ErrorMessage = "ItsForProductTitleMsg")]
+        [ItsForProductTitle]
         public string Title { get; set; }
 
         [Display(Name = "ProductDate")]

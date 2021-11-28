@@ -16,12 +16,15 @@ namespace Framework.Common.DataAnnotations.String
             if (value is not string)
                 throw new Exception("Value only can be string.");
 
+            if (ErrorMessage == null)
+                ErrorMessage = "ItsForUrlMsg";
+
             var _Localizer = validationContext.GetService<ILocalizer>();
 
             if (((string)value).CheckCharsForUrlName())
                 return ValidationResult.Success;
             else
-                return new ValidationResult(_Localizer[ErrorMessage.Replace("{0}", validationContext.DisplayName)]);
+                return new ValidationResult(_Localizer[ErrorMessage].Replace("{0}", validationContext.DisplayName));
         }
     }
 }

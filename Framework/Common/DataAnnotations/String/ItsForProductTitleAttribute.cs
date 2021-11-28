@@ -16,6 +16,9 @@ namespace Framework.Common.DataAnnotations.String
             if (value is not string)
                 throw new Exception("Value only can be string.");
 
+            if (ErrorMessage == null)
+                ErrorMessage = "ItsForProductTitleMsg";
+
             var _Localizer = validationContext.GetService<ILocalizer>();
 
             if (((string)value).CheckCharsForProductTitle())

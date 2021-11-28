@@ -1,4 +1,5 @@
-﻿using Ganss.XSS;
+﻿using AngleSharp.Text;
+using Ganss.XSS;
 using NETCore.Encrypt;
 using System;
 using System.Collections.Generic;
@@ -92,6 +93,39 @@ namespace Framework.Common.ExMethods
             }
 
             return Str.Trim('-').Replace("--", "-");
+        }
+
+        public static string ToEnglishNumber(this string Str)
+        {
+            string EnNumber = "";
+            foreach (var item in Str.ToCharArray())
+            {
+                if (Char.IsDigit(item))
+                {
+                    EnNumber += Char.GetNumericValue(item);
+                }
+                else
+                {
+                    EnNumber += item;
+                }
+            }
+
+            return EnNumber;
+        }
+
+        public static double GetValidPrice(this string Str)
+        {
+            Str = Str.ToEnglishNumber();
+
+            string ValidPrice = "";
+
+            foreach (var item in Str.ToCharArray())
+            {
+                if (item.ToString().IsMatch(@"^[0-9\.\/]$"))
+                    ValidPrice += item;
+            }
+
+            return double.Parse(ValidPrice);
         }
     }
 }

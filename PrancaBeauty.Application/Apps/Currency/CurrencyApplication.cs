@@ -62,5 +62,32 @@ namespace PrancaBeauty.Application.Apps.Currency
                 return null;
             }
         }
+
+        public async Task<string> GetIdByCountryIdAsync(InpGetIdByCountryId Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_Localizer);
+                #endregion
+
+                var qData = await _CurrencyRepository.Get.Where(a => a.CountryId == Guid.Parse(Input.CountryId)).Select(a => a.Id.ToString()).SingleOrDefaultAsync();
+
+                if (qData == null)
+                    return null;
+
+                return qData;
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
+            }
+        }
     }
 }

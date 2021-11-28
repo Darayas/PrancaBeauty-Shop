@@ -36,8 +36,6 @@ namespace PrancaBeauty.WebApp.Pages.Auth.Login.Components
             if (!ModelState.IsValid)
                 return _MsgBox.ModelStateMsg(ModelState.GetErrors());
 
-
-
             var Result = await _UserApplication.LoginByEmailPasswordAsync(new InpLoginByEmailPassword { Email = Input.Email, Password = Input.Password });
 
             if (Result.IsSucceeded)

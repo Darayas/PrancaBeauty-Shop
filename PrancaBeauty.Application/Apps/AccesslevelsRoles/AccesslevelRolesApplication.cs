@@ -20,14 +20,16 @@ namespace PrancaBeauty.Application.Apps.AccesslevelsRoles
     {
         private readonly ILogger _Logger;
         private readonly ILocalizer _Localizer;
+        private readonly IServiceProvider _ServiceProvider;
         private readonly IAccesslevelRolesRepository _AccesslevelRolesRepository;
         private readonly IRoleApplication _RoleApplication;
-        public AccesslevelRolesApplication(IAccesslevelRolesRepository accesslevelRolesRepository, ILogger logger, IRoleApplication roleApplication, ILocalizer localizer)
+        public AccesslevelRolesApplication(IAccesslevelRolesRepository accesslevelRolesRepository, ILogger logger, IRoleApplication roleApplication, ILocalizer localizer, IServiceProvider serviceProvider)
         {
             _AccesslevelRolesRepository = accesslevelRolesRepository;
             _Logger = logger;
             _RoleApplication = roleApplication;
             _Localizer = localizer;
+            _ServiceProvider = serviceProvider;
         }
 
         public async Task<OperationResult> RemoveByAccessLevelIdAsync(InpRemoveByAccessLevelId Input)
@@ -35,7 +37,7 @@ namespace PrancaBeauty.Application.Apps.AccesslevelsRoles
             try
             {
                 #region Validations
-                Input.CheckModelState(_Localizer);
+                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
                 // واکشی اطلاعات
@@ -68,7 +70,7 @@ namespace PrancaBeauty.Application.Apps.AccesslevelsRoles
             try
             {
                 #region Validations
-                Input.CheckModelState(_Localizer);
+                 Input.CheckModelState(_ServiceProvider);
 
                 if (Input.RolesName == null)
                     throw new ArgumentInvalidException("RolesName cant be null.");

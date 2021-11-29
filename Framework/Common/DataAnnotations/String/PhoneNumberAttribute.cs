@@ -1,5 +1,6 @@
 ﻿using Framework.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 
@@ -16,7 +17,9 @@ namespace Framework.Common.DataAnnotations.String
             if (value is not string)
                 return ValidationResult.Success;
 
-            var _Localizer = validationContext.GetService<ILocalizer>();
+            var _ServiceProvider = (IServiceProvider)validationContext.GetService(typeof(IServiceProvider));
+            var _Localizer = _ServiceProvider?.GetService<ILocalizer>();
+
 
             string PhoneNumberRegex = _Localizer["MobilePattern"];
 

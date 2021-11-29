@@ -16,13 +16,15 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
     {
         private readonly ILogger _Logger;
         private readonly ILocalizer _Localizer;
+        private readonly IServiceProvider _ServiceProvider;
         private readonly IProductVariantItemsRepository _ProductVariantItemsRepository;
 
-        public ProductVariantItemsApplication(IProductVariantItemsRepository productVariantItemsRepository, ILogger logger, ILocalizer localizer)
+        public ProductVariantItemsApplication(IProductVariantItemsRepository productVariantItemsRepository, ILogger logger, ILocalizer localizer, IServiceProvider serviceProvider)
         {
             _ProductVariantItemsRepository = productVariantItemsRepository;
             _Logger = logger;
             _Localizer = localizer;
+            _ServiceProvider = serviceProvider;
         }
 
         public async Task<OperationResult> AddVariantsToProductAsync(InpAddVariantsToProduct Input)
@@ -30,7 +32,7 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
             try
             {
                 #region Validations
-                Input.CheckModelState(_Localizer);
+                Input.CheckModelState(_ServiceProvider);
 
                 if (Input.Variants == null)
                     throw new ArgumentInvalidException($"{nameof(Input.Variants)} cant be null.");
@@ -79,7 +81,7 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
             try
             {
                 #region Validations
-                Input.CheckModelState(_Localizer);
+                Input.CheckModelState(_ServiceProvider);
                 #endregion
 
                 var qData = await _ProductVariantItemsRepository.Get.Where(a => a.ProductId == Guid.Parse(Input.ProductId)).ToListAsync();

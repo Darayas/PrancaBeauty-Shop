@@ -17,17 +17,19 @@ namespace PrancaBeauty.Application.Apps.Templates
     {
         private readonly ILogger _Logger;
         private readonly ILocalizer _Localizer;
+        private readonly IServiceProvider _ServiceProvider;
         private readonly ISettingApplication _SettingApplication;
         private readonly ITemplateRepository _TemplateRepository;
         private List<OutTemplates> _ListTemplates;
 
-        public TemplateApplication(ITemplateRepository templateRepository, ISettingApplication settingApplication, ILogger logger, ILocalizer localizer)
+        public TemplateApplication(ITemplateRepository templateRepository, ISettingApplication settingApplication, ILogger logger, ILocalizer localizer, IServiceProvider serviceProvider)
         {
             _TemplateRepository = templateRepository;
             _ListTemplates = new List<OutTemplates>();
             _SettingApplication = settingApplication;
             _Logger = logger;
             _Localizer = localizer;
+            _ServiceProvider = serviceProvider;
         }
 
         public async Task<string> GetEmailConfirmationTemplateAsync(InpGetEmailConfirmationTemplate Input)
@@ -35,7 +37,7 @@ namespace PrancaBeauty.Application.Apps.Templates
             try
             {
                 #region Validations
-                Input.CheckModelState(_Localizer);
+                Input.CheckModelState(_ServiceProvider);
                 #endregion
 
                 string _Template = await GetTemplateAsync(Input.LangCode, "ConfirmationEmail");
@@ -60,7 +62,7 @@ namespace PrancaBeauty.Application.Apps.Templates
             try
             {
                 #region Validations
-                Input.CheckModelState(_Localizer);
+                Input.CheckModelState(_ServiceProvider);
                 #endregion
 
                 string _Template = await GetTemplateAsync(Input.LangCode, "ChanageEmail");
@@ -85,7 +87,7 @@ namespace PrancaBeauty.Application.Apps.Templates
             try
             {
                 #region Validations
-                Input.CheckModelState(_Localizer);
+                Input.CheckModelState(_ServiceProvider);
                 #endregion
 
                 string _Template = await GetTemplateAsync(Input.LangCode, "RecoveryPassword");
@@ -110,7 +112,7 @@ namespace PrancaBeauty.Application.Apps.Templates
             try
             {
                 #region Validations
-                Input.CheckModelState(_Localizer);
+                Input.CheckModelState(_ServiceProvider);
                 #endregion
 
                 string _Template = await GetTemplateAsync(Input.LangCode, "EmailLogin");

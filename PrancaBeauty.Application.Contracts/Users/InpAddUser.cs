@@ -31,11 +31,5 @@ namespace PrancaBeauty.Application.Contracts.Users
         [RequiredString]
         [DataType(DataType.Password)]
         public string Password { get; set; }
-
-        [Display(Name = "ConfirmPassword")]
-        [RequiredString]
-        [DataType(DataType.Password)]
-        [Compare(nameof(Password), ErrorMessage = "PassCompareMsg")]
-        public string ConfirmPassword { get; set; }
     }
 }

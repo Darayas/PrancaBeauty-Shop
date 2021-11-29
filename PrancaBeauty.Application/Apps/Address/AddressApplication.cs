@@ -19,12 +19,14 @@ namespace PrancaBeauty.Application.Apps.Address
     {
         private readonly ILogger _Logger;
         private readonly ILocalizer _Localizer;
+        private readonly IServiceProvider _ServiceProvider;
         private readonly IAddressRepository _AddressRepository;
-        public AddressApplication(IAddressRepository addressRepository, ILogger logger, ILocalizer localizer)
+        public AddressApplication(IAddressRepository addressRepository, ILogger logger, ILocalizer localizer, IServiceProvider serviceProvider)
         {
             _AddressRepository = addressRepository;
             _Logger = logger;
             _Localizer = localizer;
+            _ServiceProvider = serviceProvider;
         }
 
         public async Task<(OutPagingData, List<OutGetAddressByUserIdForManage>)> GetAddressByUserIdForManageAsync(InpGetAddressByUserIdForManage Input)
@@ -32,7 +34,7 @@ namespace PrancaBeauty.Application.Apps.Address
             try
             {
                 #region Validations
-                Input.CheckModelState(_Localizer);
+                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
                 var qData = _AddressRepository.Get
@@ -74,8 +76,9 @@ namespace PrancaBeauty.Application.Apps.Address
         {
             try
             {
-                if (Input is null)
-                    throw new ArgumentInvalidException("Input cant e null.");
+                #region Validation
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
 
                 await _AddressRepository.AddAsync(new tblAddress()
                 {
@@ -100,6 +103,7 @@ namespace PrancaBeauty.Application.Apps.Address
             }
             catch (ArgumentInvalidException ex)
             {
+                _Logger.Debug(ex);
                 return new OperationResult().Failed(ex.Message);
             }
             catch (Exception ex)
@@ -114,7 +118,7 @@ namespace PrancaBeauty.Application.Apps.Address
             try
             {
                 #region Validations
-                Input.CheckModelState(_Localizer);
+                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
                 var qData = await _AddressRepository.Get
@@ -147,7 +151,7 @@ namespace PrancaBeauty.Application.Apps.Address
             try
             {
                 #region Validation
-                Input.CheckModelState(_Localizer);
+                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
                 var qData = await _AddressRepository.Get
@@ -190,8 +194,9 @@ namespace PrancaBeauty.Application.Apps.Address
         {
             try
             {
-                if (Input is null)
-                    throw new ArgumentInvalidException("Input cant be null.");
+                #region Validation
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
 
                 var qData = await _AddressRepository.Get
                                                    .Where(a => a.Id == Guid.Parse(Input.Id))
@@ -220,6 +225,7 @@ namespace PrancaBeauty.Application.Apps.Address
             }
             catch (ArgumentInvalidException ex)
             {
+                _Logger.Debug(ex);
                 return new OperationResult().Failed(ex.Message);
             }
             catch (Exception ex)

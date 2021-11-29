@@ -7,10 +7,7 @@ using PrancaBeauty.Application.Contracts.Results;
 using PrancaBeauty.Domin.Keywords.KeywordAgg.Contracts;
 using PrancaBeauty.Domin.Keywords.KeywordAgg.Entities;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Apps.Keywords
@@ -19,12 +16,14 @@ namespace PrancaBeauty.Application.Apps.Keywords
     {
         private readonly ILogger _Logger;
         private readonly ILocalizer _Localizer;
+        private readonly IServiceProvider _ServiceProvider;
         private readonly IKeywordRepository _KeywordRepository;
-        public KeywordApplication(IKeywordRepository keywordRepository, ILogger logger, ILocalizer localizer)
+        public KeywordApplication(IKeywordRepository keywordRepository, ILogger logger, ILocalizer localizer, IServiceProvider serviceProvider)
         {
             _KeywordRepository = keywordRepository;
             _Logger = logger;
             _Localizer = localizer;
+            _ServiceProvider = serviceProvider;
         }
 
         public async Task<bool> CheckExistByTitleAsync(InpCheckExistByTitle Input)
@@ -42,7 +41,7 @@ namespace PrancaBeauty.Application.Apps.Keywords
             try
             {
                 #region Validations
-                Input.CheckModelState(_Localizer);
+                Input.CheckModelState(_ServiceProvider);
                 #endregion
 
                 var tKeyword = new tblKeywords()

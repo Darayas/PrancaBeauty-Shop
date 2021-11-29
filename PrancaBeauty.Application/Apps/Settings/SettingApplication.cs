@@ -15,15 +15,17 @@ namespace PrancaBeauty.Application.Apps.Settings
     {
         private readonly ILogger _Logger;
         private readonly ILocalizer _Localizer;
+        private readonly IServiceProvider _ServiceProvider;
         private readonly ISettingRepository _SettingRepository;
         private List<OutSettings> _ListSettings;
 
-        public SettingApplication(ISettingRepository settingRepository, ILogger logger, ILocalizer localizer)
+        public SettingApplication(ISettingRepository settingRepository, ILogger logger, ILocalizer localizer, IServiceProvider serviceProvider)
         {
             _SettingRepository = settingRepository;
             _ListSettings = new List<OutSettings>();
             _Logger = logger;
             _Localizer = localizer;
+            _ServiceProvider = serviceProvider;
         }
 
         public async Task<OutSettings> GetSettingAsync(InpGetSetting Input)
@@ -31,7 +33,7 @@ namespace PrancaBeauty.Application.Apps.Settings
             try
             {
                 #region Validation
-                Input.CheckModelState(_Localizer);
+                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
                 if (_ListSettings != null)

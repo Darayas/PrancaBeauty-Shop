@@ -1,6 +1,7 @@
 ﻿using Framework.Application.Services.Security.AntiShell;
 using Framework.Infrastructure;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -20,8 +21,8 @@ namespace Framework.Common.DataAnnotations.File
         {
             if (value == null)
                 return ValidationResult.Success;
-
-            var _AntiShell = (IAniShell)validationContext.GetService(typeof(IAniShell));
+            var _ServiceProvider = (IServiceProvider)validationContext.GetService(typeof(IServiceProvider));
+            var _AntiShell = _ServiceProvider.GetService<IAniShell>();
 
             if (value is List<IFormFile> || value is IFormFile[])
             {
@@ -72,13 +73,15 @@ namespace Framework.Common.DataAnnotations.File
 
         public string GetMessage(ValidationContext validationContext, string FileName)
         {
-            var _Localizer = (ILocalizer)validationContext.GetService(typeof(ILocalizer));
+            var _ServiceProvider = (IServiceProvider)validationContext.GetService(typeof(IServiceProvider));
+            var _Localizer = _ServiceProvider.GetService<ILocalizer>();
+
 
             var ErrMessage = _Localizer[ErrorMessage];
 
             // DisplayName
             if (ErrMessage.Contains("{0}"))
-                ErrMessage = ErrMessage.Replace("{0}", _Localizer[validationContext.DisplayName]);
+               ErrorMessage= ErrMessage = ErrMessage.Replace("{0}", _Localizer[validationContext.DisplayName]);
 
             // FileName
             if (ErrMessage.Contains("{1}"))

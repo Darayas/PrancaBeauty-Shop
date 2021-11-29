@@ -16,13 +16,15 @@ namespace PrancaBeauty.Application.Apps.FileServer
     {
         private readonly ILogger _Logger;
         private readonly ILocalizer _Localizer;
+        private readonly IServiceProvider _ServiceProvider;
         private readonly IFileServerRepository _FileServerRepository;
 
-        public FileServerApplication(IFileServerRepository fileServerRepository, ILogger logger, ILocalizer localizer)
+        public FileServerApplication(IFileServerRepository fileServerRepository, ILogger logger, ILocalizer localizer, IServiceProvider serviceProvider)
         {
             _FileServerRepository = fileServerRepository;
             _Logger = logger;
             _Localizer = localizer;
+            _ServiceProvider = serviceProvider;
         }
 
         public async Task<OutGetServerDetails> GetServerDetailsAsync(InpGetServerDetails Input)
@@ -31,7 +33,7 @@ namespace PrancaBeauty.Application.Apps.FileServer
             try
             {
                 #region Validations
-                Input.CheckModelState(_Localizer);
+                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
                 var qData = await _FileServerRepository.Get
@@ -84,7 +86,7 @@ namespace PrancaBeauty.Application.Apps.FileServer
             try
             {
                 #region Validation
-                Input.CheckModelState(_Localizer);
+                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
                 var qData = await _FileServerRepository.Get

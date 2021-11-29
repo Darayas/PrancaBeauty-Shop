@@ -18,14 +18,16 @@ namespace PrancaBeauty.Application.Apps.ProductPropertiesValues
     {
         private readonly ILogger _Logger;
         private readonly ILocalizer _Localizer;
+        private readonly IServiceProvider _ServiceProvider;
         private readonly IProductPropertiesValuesRepository _ProductPropertiesValuesRepository;
         private readonly IProductPropertisApplication _ProductPropertisApplication;
-        public ProductPropertiesValuesApplication(IProductPropertiesValuesRepository productPropertiesValuesRepository, ILogger logger, IProductPropertisApplication productPropertisApplication, ILocalizer localizer)
+        public ProductPropertiesValuesApplication(IProductPropertiesValuesRepository productPropertiesValuesRepository, ILogger logger, IProductPropertisApplication productPropertisApplication, ILocalizer localizer, IServiceProvider serviceProvider)
         {
             _ProductPropertiesValuesRepository = productPropertiesValuesRepository;
             _Logger = logger;
             _ProductPropertisApplication = productPropertisApplication;
             _Localizer = localizer;
+            _ServiceProvider = serviceProvider;
         }
 
         public async Task<OperationResult> AddPropertiesToProductAsync(InpAddPropertiesToProduct Input)
@@ -33,7 +35,7 @@ namespace PrancaBeauty.Application.Apps.ProductPropertiesValues
             try
             {
                 #region Validations
-                Input.CheckModelState(_Localizer);
+                Input.CheckModelState(_ServiceProvider);
 
                 if (Input.PropItems is null)
                     throw new ArgumentInvalidException($"'{nameof(Input.PropItems)}' cannot be null.");
@@ -76,7 +78,7 @@ namespace PrancaBeauty.Application.Apps.ProductPropertiesValues
             try
             {
                 #region Validations
-                Input.CheckModelState(_Localizer);
+                Input.CheckModelState(_ServiceProvider);
                 #endregion
 
                 var qData = await _ProductPropertiesValuesRepository.Get.Where(a => a.ProductId == Guid.Parse(Input.ProductId)).ToListAsync();

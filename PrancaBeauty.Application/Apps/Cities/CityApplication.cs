@@ -14,14 +14,16 @@ namespace PrancaBeauty.Application.Apps.Cities
     public class CityApplication : ICityApplication
     {
         private ILogger _Logger;
+        private readonly IServiceProvider _ServiceProvider;
         private readonly ILocalizer _Localizer;
         private readonly ICityRepository _CityRepository;
 
-        public CityApplication(ICityRepository cityRepository, ILogger logger, ILocalizer localizer)
+        public CityApplication(ICityRepository cityRepository, ILogger logger, ILocalizer localizer, IServiceProvider serviceProvider)
         {
             _CityRepository = cityRepository;
             _Logger = logger;
             _Localizer = localizer;
+            _ServiceProvider = serviceProvider;
         }
 
 
@@ -30,7 +32,7 @@ namespace PrancaBeauty.Application.Apps.Cities
             try
             {
                 #region Validation
-                Input.CheckModelState(_Localizer);
+                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
                 var qData = await _CityRepository.Get

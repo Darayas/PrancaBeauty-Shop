@@ -23,11 +23,12 @@ namespace PrancaBeauty.Application.Common.FtpWapper
         private readonly ILogger _Logger;
         private readonly ILocalizer _Localizer;
         private readonly IFtpClient _FtpClient;
+        private readonly IServiceProvider _ServiceProvider;
         private readonly IFileServerApplication _FileServerApplication;
         private readonly IFileApplication _FileApplication;
         private readonly IFilePathApplication _FilePathApplication;
         private readonly IAniShell _AniShell;
-        public FtpWapper(IFtpClient ftpClient, ILogger logger, IFileServerApplication fileServerApplication, IFileApplication fileApplication, IAniShell aniShell, IFilePathApplication filePathApplication, ILocalizer localizer)
+        public FtpWapper(IFtpClient ftpClient, ILogger logger, IFileServerApplication fileServerApplication, IFileApplication fileApplication, IAniShell aniShell, IFilePathApplication filePathApplication, ILocalizer localizer, IServiceProvider serviceProvider)
         {
             _FtpClient = ftpClient;
             _Logger = logger;
@@ -36,6 +37,7 @@ namespace PrancaBeauty.Application.Common.FtpWapper
             _AniShell = aniShell;
             _FilePathApplication = filePathApplication;
             _Localizer = localizer;
+            _ServiceProvider = serviceProvider;
         }
 
         public async Task<OperationResult> UplaodCategoryImgAsync(InpUplaodCategoryImg Input)
@@ -43,7 +45,7 @@ namespace PrancaBeauty.Application.Common.FtpWapper
             try
             {
                 #region Validations
-                Input.CheckModelState(_Localizer);
+                Input.CheckModelState(_ServiceProvider);
                 #endregion
 
                 var _ValidFileType = (await _AniShell.GetRealExtentionAsync(Input.FormFile));
@@ -80,7 +82,7 @@ namespace PrancaBeauty.Application.Common.FtpWapper
             try
             {
                 #region Validations
-                Input.CheckModelState(_Localizer);
+                Input.CheckModelState(_ServiceProvider);
                 #endregion
 
                 var _ValidFileType = (await _AniShell.GetRealExtentionAsync(Input.FormFile));
@@ -99,16 +101,17 @@ namespace PrancaBeauty.Application.Common.FtpWapper
             catch (FileFormatException ex)
             {
                 _Logger.Error(ex);
-                return null;
+                return new OperationResult().Failed(ex.Message);
             }
-            catch (ArgumentInvalidException)
+            catch (ArgumentInvalidException ex)
             {
-                return null;
+                _Logger.Error(ex);
+                return new OperationResult().Failed(ex.Message);
             }
             catch (Exception ex)
             {
                 _Logger.Error(ex);
-                return null;
+                return new OperationResult().Failed("Error500");
             }
         }
 
@@ -163,7 +166,7 @@ namespace PrancaBeauty.Application.Common.FtpWapper
             try
             {
                 #region Validations
-                Input.CheckModelState(_Localizer);
+                Input.CheckModelState(_ServiceProvider);
                 #endregion
 
                 var qFile = await _FileApplication.GetFileInfoAsync(new InpGetFileInfo { FileId = Input.FileId });
@@ -209,7 +212,7 @@ namespace PrancaBeauty.Application.Common.FtpWapper
             try
             {
                 #region Validations
-                Input.CheckModelState(_Localizer);
+                Input.CheckModelState(_ServiceProvider);
                 #endregion
 
                 var _ValidFileType = (await _AniShell.GetRealExtentionAsync(Input.FormFile));

@@ -26,7 +26,6 @@ using PrancaBeauty.Domin.Product.ProductAgg.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Apps.Products
@@ -35,6 +34,7 @@ namespace PrancaBeauty.Application.Apps.Products
     {
         private readonly ILogger _Logger;
         private readonly ILocalizer _Localizer;
+        private readonly IServiceProvider _ServiceProvider;
         private readonly IMapper _Mapper;
         private readonly IProductPriceApplication _ProductPriceApplication;
         private readonly IProductRepository _ProductRepository;
@@ -45,7 +45,7 @@ namespace PrancaBeauty.Application.Apps.Products
         private readonly IPostingRestrictionsApplication _PostingRestrictionsApplication;
         private readonly ICurrencyApplication _CurrencyApplication;
         private readonly ILanguageApplication _LanguageApplication;
-        public ProductApplication(IProductRepository productRepository, ILogger logger, ICategoryApplication categoryApplication, ILocalizer localizer, IProductVariantItemsApplication productVariantItemsApplication, IProductPropertiesValuesApplication productPropertiesValuesApplication, IKeywordProductsApplication keywordProductsApplication, IMapper mapper, IPostingRestrictionsApplication postingRestrictionsApplication, IProductPriceApplication productPriceApplication = null, ICurrencyApplication currencyApplication = null, ILanguageApplication languageApplication = null)
+        public ProductApplication(IProductRepository productRepository, ILogger logger, ICategoryApplication categoryApplication, ILocalizer localizer, IProductVariantItemsApplication productVariantItemsApplication, IProductPropertiesValuesApplication productPropertiesValuesApplication, IKeywordProductsApplication keywordProductsApplication, IMapper mapper, IPostingRestrictionsApplication postingRestrictionsApplication, IProductPriceApplication productPriceApplication = null, ICurrencyApplication currencyApplication = null, ILanguageApplication languageApplication = null, IServiceProvider serviceProvider = null)
         {
             _ProductRepository = productRepository;
             _Logger = logger;
@@ -59,6 +59,7 @@ namespace PrancaBeauty.Application.Apps.Products
             _ProductPriceApplication = productPriceApplication;
             _CurrencyApplication = currencyApplication;
             _LanguageApplication = languageApplication;
+            _ServiceProvider = serviceProvider;
         }
 
         public async Task<(OutPagingData, List<OutGetProductsForManage>)> GetProductsForManageAsync(InpGetProductsForManage Input)
@@ -66,7 +67,7 @@ namespace PrancaBeauty.Application.Apps.Products
             try
             {
                 #region Validations
-                Input.CheckModelState(_Localizer);
+                Input.CheckModelState(_ServiceProvider);
                 #endregion
 
                 var qData = _ProductRepository.Get
@@ -159,7 +160,7 @@ namespace PrancaBeauty.Application.Apps.Products
             try
             {
                 #region Validations
-                Input.CheckModelState(_Localizer);
+                Input.CheckModelState(_ServiceProvider);
 
                 if (Input.Properties is null)
                     throw new ArgumentInvalidException($"Properties cant be null.");

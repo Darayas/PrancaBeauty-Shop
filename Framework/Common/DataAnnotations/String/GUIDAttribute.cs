@@ -1,4 +1,5 @@
 ﻿using Framework.Infrastructure;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.ComponentModel.DataAnnotations;
 
@@ -36,7 +37,9 @@ namespace Framework.Common.DataAnnotations.File
             if (ErrorMessage == null)
                 ErrorMessage = "GUIDMsg";
 
-            var _Localizer = (ILocalizer)validationContext.GetService(typeof(ILocalizer));
+            var _ServiceProvider = (IServiceProvider)validationContext.GetService(typeof(IServiceProvider));
+            var _Localizer = _ServiceProvider.GetService<ILocalizer>();
+
 
             var ErrMessage = _Localizer[ErrorMessage];
 

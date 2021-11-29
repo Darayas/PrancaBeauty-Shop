@@ -15,13 +15,15 @@ namespace PrancaBeauty.Application.Apps.ProductVariants
     {
         private readonly ILogger _Logger;
         private readonly ILocalizer _Localizer;
+        private readonly IServiceProvider _ServiceProvider;
         private readonly IProductVariantsRepository _ProductVariantsRepository;
 
-        public ProductVariantsApplication(IProductVariantsRepository productVariantsRepository, ILogger logger, ILocalizer localizer)
+        public ProductVariantsApplication(IProductVariantsRepository productVariantsRepository, ILogger logger, ILocalizer localizer, IServiceProvider serviceProvider)
         {
             _ProductVariantsRepository = productVariantsRepository;
             _Logger = logger;
             _Localizer = localizer;
+            _ServiceProvider = serviceProvider;
         }
 
         public async Task<List<outGetLstForCombo>> GetLstForComboAsync(InpGetLstForCombo Input)
@@ -29,7 +31,7 @@ namespace PrancaBeauty.Application.Apps.ProductVariants
             try
             {
                 #region Validations
-                Input.CheckModelState(_Localizer);
+                Input.CheckModelState(_ServiceProvider);
                 #endregion
 
                 var qData = await _ProductVariantsRepository.Get

@@ -7,7 +7,6 @@ namespace PrancaBeauty.Application.Contracts.AccessLevels
     public class InpGetListForAdminPage
     {
         [Display(Name = "Title")]
-        [RequiredString]
         [MaxLengthString(150)]
         public string Title { get; set; }
 

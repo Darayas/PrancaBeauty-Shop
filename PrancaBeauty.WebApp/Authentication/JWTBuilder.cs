@@ -7,6 +7,7 @@ using PrancaBeauty.Application.Contracts.Roles;
 using PrancaBeauty.Application.Contracts.Users;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -45,7 +46,7 @@ namespace PrancaBeauty.WebApp.Authentication
                 new Claim(ClaimTypes.GivenName, _UserDetails.FirstName),
                 new Claim(ClaimTypes.Surname, _UserDetails.LastName),
                 new Claim("AccessLevel", _UserDetails.AccessLevelTitle),
-                new Claim("Date", _UserDetails.Date.ToString("yyyy/MM/dd HH:mm:ss")),
+                new Claim("Date", _UserDetails.Date.ToString("yyyy/MM/dd HH:mm:ss", new CultureInfo("en-US"))),
             };
 
             Claims.AddRange(_UserRoles.Select(role => new Claim(ClaimsIdentity.DefaultRoleClaimType, role)));

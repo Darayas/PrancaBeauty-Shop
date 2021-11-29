@@ -15,13 +15,15 @@ namespace PrancaBeauty.Application.Apps.FileTypes
     {
         private readonly ILogger _Logger;
         private readonly ILocalizer _Localizer;
+        private readonly IServiceProvider _ServiceProvider;
         private readonly IFileTypeRepository _FileTypeRepository;
 
-        public FileTypeApplication(IFileTypeRepository fileTypeRepository, ILogger logger, ILocalizer localizer)
+        public FileTypeApplication(IFileTypeRepository fileTypeRepository, ILogger logger, ILocalizer localizer, IServiceProvider serviceProvider)
         {
             _FileTypeRepository = fileTypeRepository;
             _Logger = logger;
             _Localizer = localizer;
+            _ServiceProvider = serviceProvider;
         }
 
         public async Task<string> GetIdByMimeTypeAsync(InpGetIdByMimeType Input)
@@ -29,7 +31,7 @@ namespace PrancaBeauty.Application.Apps.FileTypes
             try
             {
                 #region Validations
-                Input.CheckModelState(_Localizer);
+                Input.CheckModelState(_ServiceProvider);
                 #endregion
 
                 var qData = await _FileTypeRepository.Get.Where(a => a.MimeType == Input.MimeType).Select(a => a.Id.ToString()).SingleOrDefaultAsync();
@@ -55,7 +57,7 @@ namespace PrancaBeauty.Application.Apps.FileTypes
             try
             {
                 #region Validations
-                Input.CheckModelState(_Localizer);
+                Input.CheckModelState(_ServiceProvider);
                 #endregion
 
                 var qData = await _FileTypeRepository.Get

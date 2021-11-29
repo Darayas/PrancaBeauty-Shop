@@ -18,7 +18,6 @@ namespace PrancaBeauty.Application.Contracts.Address
         public string LangId { get; set; }
 
         [Display(Name = "Search")]
-        [RequiredString]
         [MaxLengthString(150, ErrorMessage = "MaxLengthMsg")]
         public string Search { get; set; }
 

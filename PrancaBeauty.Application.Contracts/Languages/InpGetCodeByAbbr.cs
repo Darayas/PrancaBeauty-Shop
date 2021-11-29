@@ -7,7 +7,7 @@ namespace PrancaBeauty.Application.Contracts.Languages
     {
         [Display(Name = "Abbr")]
         //[RequiredString]
-        [MaxLengthString(50)]
+        //[MaxLengthString(50)]
         public string Abbr { get; set; }
     }
 }

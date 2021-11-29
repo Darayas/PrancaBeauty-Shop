@@ -21,22 +21,24 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
     {
         private readonly ILogger _Logger;
         private readonly ILocalizer _Localizer;
+        private readonly IServiceProvider _ServiceProvider;
         private readonly IAccesslevelRepository _AccessLevelRepository;
         private readonly IAccesslevelRolesApplication _AccessLevelRolesApplication;
         private readonly IRoleApplication _RoleApplication;
-        public AccesslevelApplication(IAccesslevelRepository accessLevelRepository, ILogger logger, IAccesslevelRolesApplication accessLevelRolesApplication, IRoleApplication roleApplication, ILocalizer localizer)
+        public AccesslevelApplication(IAccesslevelRepository accessLevelRepository, ILogger logger, IAccesslevelRolesApplication accessLevelRolesApplication, IRoleApplication roleApplication, ILocalizer localizer, IServiceProvider serviceProvider)
         {
             _AccessLevelRepository = accessLevelRepository;
             _Logger = logger;
             _AccessLevelRolesApplication = accessLevelRolesApplication;
             _RoleApplication = roleApplication;
             _Localizer = localizer;
+            _ServiceProvider = serviceProvider;
         }
 
         public async Task<string> GetIdByNameAsync(InpGetIdByName Input)
         {
             #region Validations
-            Input.CheckModelState(_Localizer);
+            Input.CheckModelState(_ServiceProvider);
             #endregion
 
             if (string.IsNullOrWhiteSpace(Input.Name))
@@ -50,12 +52,12 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
             return qData;
         }
 
-        public async Task<(OutPagingData, List<OutGetListForAdminPage>)> GetListForAdminPageAsync(Contracts.AccessLevels.InpGetListForAdminPage Input)
+        public async Task<(OutPagingData, List<OutGetListForAdminPage>)> GetListForAdminPageAsync(InpGetListForAdminPage Input)
         {
             try
             {
                 #region Validatitions
-                Input.CheckModelState(_Localizer);
+                Input.CheckModelState(_ServiceProvider);
                 #endregion
 
                 Input.Title = string.IsNullOrWhiteSpace(Input.Title) ? null : Input.Title;
@@ -93,7 +95,7 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
             {
 
                 #region Validations
-                Input.CheckModelState(_Localizer);
+                Input.CheckModelState(_ServiceProvider);
 
                 if (Input.Roles == null)
                     throw new ArgumentInvalidException("Roles cant be null.");
@@ -107,10 +109,10 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
                 {
                     Id = new Guid().SequentialGuid(),
                     Name = Input.Name,
-                    tblAccessLevel_Roles = Input.Roles.Select(roleId => new tblAccessLevel_Roles()
+                    tblAccessLevel_Roles = Input.Roles.Select(role => new tblAccessLevel_Roles()
                     {
                         Id = new Guid().SequentialGuid(),
-                        RoleId = Guid.Parse(roleId)
+                        RoleId = Guid.Parse(_RoleApplication.GetIdByNameAsync(new Contracts.Roles.InpGetIdByName { Name = role }).Result)
                     }).ToList()
                 }, default, true);
 
@@ -133,7 +135,7 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
             try
             {
                 #region Validations
-                Input.CheckModelState(_Localizer);
+                Input.CheckModelState(_ServiceProvider);
                 #endregion
 
                 // واکشی سطح دسترسی
@@ -165,7 +167,7 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
         private async Task<bool> CheckHasUserAsync(InpCheckHasUser Input)
         {
             #region Validations
-            Input.CheckModelState(_Localizer);
+            Input.CheckModelState(_ServiceProvider);
             #endregion
 
             return await _AccessLevelRepository.Get
@@ -179,7 +181,7 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
             try
             {
                 #region Validations
-                Input.CheckModelState(_Localizer);
+                Input.CheckModelState(_ServiceProvider);
                 #endregion
 
                 return await _AccessLevelRepository.Get
@@ -207,7 +209,7 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
             try
             {
                 #region برسی ورودی ها
-                Input.CheckModelState(_Localizer);
+                Input.CheckModelState(_ServiceProvider);
 
                 if (Input.Roles == null)
                     throw new ArgumentInvalidException("Roles cant be null.");
@@ -228,7 +230,7 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
                 var ResultRemoveAccRoles = await _AccessLevelRolesApplication.RemoveByAccessLevelIdAsync(new InpRemoveByAccessLevelId() { AccessLevelId = Input.Id });
 
                 // ثبت رول های جدید
-                await _AccessLevelRolesApplication.AddRolesToAccessLevelAsync(new InpAddRolesToAccessLevel { AccessLevelId = Input.Name, RolesName = Input.Roles });
+                await _AccessLevelRolesApplication.AddRolesToAccessLevelAsync(new InpAddRolesToAccessLevel { AccessLevelId = Input.Id, RolesName = Input.Roles });
 
                 // ثبت ویرایش
                 await _AccessLevelRepository.UpdateAsync(qData, default, true);
@@ -257,7 +259,7 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
             try
             {
                 #region Validations
-                Input.CheckModelState(_Localizer);
+                Input.CheckModelState(_ServiceProvider);
                 #endregion
 
                 var qData = await _AccessLevelRepository.Get
@@ -289,7 +291,7 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
             try
             {
                 #region Validations
-                Input.CheckModelState(_Localizer);
+                Input.CheckModelState(_ServiceProvider);
                 #endregion
 
                 return await _AccessLevelRepository.Get

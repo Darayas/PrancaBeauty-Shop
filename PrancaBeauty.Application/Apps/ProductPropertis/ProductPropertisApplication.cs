@@ -15,13 +15,15 @@ namespace PrancaBeauty.Application.Apps.ProductPropertis
     {
         private readonly ILogger _Logger;
         private readonly ILocalizer _Localizer;
+        private readonly IServiceProvider _ServiceProvider;
         private readonly IProductPropertisRepository _ProductPropertisRepository;
 
-        public ProductPropertisApplication(IProductPropertisRepository productPropertisRepository, ILogger logger, ILocalizer localizer)
+        public ProductPropertisApplication(IProductPropertisRepository productPropertisRepository, ILogger logger, ILocalizer localizer, IServiceProvider serviceProvider)
         {
             _ProductPropertisRepository = productPropertisRepository;
             _Logger = logger;
             _Localizer = localizer;
+            _ServiceProvider = serviceProvider;
         }
 
         public async Task<List<OutGetForManageProduct>> GetForManageProductAsync(InpGetForManageProduct Input)
@@ -29,7 +31,7 @@ namespace PrancaBeauty.Application.Apps.ProductPropertis
             try
             {
                 #region Validations
-                Input.CheckModelState(_Localizer);
+                Input.CheckModelState(_ServiceProvider);
                 #endregion
 
                 var qData = await _ProductPropertisRepository.Get
@@ -62,7 +64,7 @@ namespace PrancaBeauty.Application.Apps.ProductPropertis
         public async Task<bool> CheckExistByIdAsync(InpCheckExistById Input)
         {
             #region Validation
-            Input.CheckModelState(_Localizer);
+            Input.CheckModelState(_ServiceProvider);
             #endregion
 
             return await _ProductPropertisRepository.Get.AnyAsync(a => a.Id == Guid.Parse(Input.Id));

@@ -19,12 +19,35 @@ namespace Framework.Common.DataAnnotations.String
             if (ErrorMessage == null)
                 ErrorMessage = "ItsForProductTitleMsg";
 
-            var _Localizer = validationContext.GetService<ILocalizer>();
+            var _ServiceProvider = (IServiceProvider)validationContext.GetService(typeof(IServiceProvider));
+            var _Localizer = _ServiceProvider.GetService<ILocalizer>();
+
 
             if (((string)value).CheckCharsForProductTitle())
                 return ValidationResult.Success;
             else
-                return new ValidationResult(_Localizer[ErrorMessage.Replace("{0}", validationContext.DisplayName)]);
+                return new ValidationResult(GetMessage(validationContext));
+        }
+
+        public string GetMessage(ValidationContext validationContext)
+        {
+            var _ServiceProvider = (IServiceProvider)validationContext.GetService(typeof(IServiceProvider));
+            var _Localizer = _ServiceProvider.GetService<ILocalizer>();
+
+            if (_Localizer == null)
+            {
+                if (ErrorMessage.Contains("{0}"))
+                    ErrorMessage = ErrorMessage.Replace("{0}", validationContext.DisplayName);
+            }
+            else
+            {
+                ErrorMessage = _Localizer[ErrorMessage];
+
+                if (ErrorMessage.Contains("{0}"))
+                    ErrorMessage = ErrorMessage.Replace("{0}", _Localizer[validationContext.DisplayName]);
+            }
+
+            return ErrorMessage;
         }
     }
 }

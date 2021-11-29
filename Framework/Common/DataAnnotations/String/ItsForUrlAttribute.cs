@@ -19,7 +19,9 @@ namespace Framework.Common.DataAnnotations.String
             if (ErrorMessage == null)
                 ErrorMessage = "ItsForUrlMsg";
 
-            var _Localizer = validationContext.GetService<ILocalizer>();
+            var _ServiceProvider = (IServiceProvider)validationContext.GetService(typeof(IServiceProvider));
+            var _Localizer = _ServiceProvider?.GetService<ILocalizer>();
+
 
             if (((string)value).CheckCharsForUrlName())
                 return ValidationResult.Success;

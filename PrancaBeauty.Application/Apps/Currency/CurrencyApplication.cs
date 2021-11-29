@@ -14,13 +14,15 @@ namespace PrancaBeauty.Application.Apps.Currency
     {
         private readonly ILogger _Logger;
         private readonly ILocalizer _Localizer;
+        private readonly IServiceProvider _ServiceProvider;
         private readonly ICurrencyRepository _CurrencyRepository;
 
-        public CurrencyApplication(ICurrencyRepository currencyRepository, ILogger logger, ILocalizer localizer)
+        public CurrencyApplication(ICurrencyRepository currencyRepository, ILogger logger, ILocalizer localizer, IServiceProvider serviceProvider)
         {
             _CurrencyRepository = currencyRepository;
             _Logger = logger;
             _Localizer = localizer;
+            _ServiceProvider = serviceProvider;
         }
 
         public async Task<OutGetMainByCountryId> GetMainByCountryIdAsync(InpGetMainByCountryId Input)
@@ -28,7 +30,7 @@ namespace PrancaBeauty.Application.Apps.Currency
             try
             {
                 #region Validation
-                Input.CheckModelState(_Localizer);
+                Input.CheckModelState(_ServiceProvider);
                 #endregion
 
                 var qData = await _CurrencyRepository.Get
@@ -68,7 +70,7 @@ namespace PrancaBeauty.Application.Apps.Currency
             try
             {
                 #region Validations
-                Input.CheckModelState(_Localizer);
+                Input.CheckModelState(_ServiceProvider);
                 #endregion
 
                 var qData = await _CurrencyRepository.Get.Where(a => a.CountryId == Guid.Parse(Input.CountryId)).Select(a => a.Id.ToString()).SingleOrDefaultAsync();

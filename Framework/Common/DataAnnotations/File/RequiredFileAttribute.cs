@@ -1,5 +1,7 @@
 ﻿using Framework.Infrastructure;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -44,7 +46,9 @@ namespace Framework.Common.DataAnnotations.File
 
         public string GetMessage(ValidationContext validationContext)
         {
-            var _Localizer = (ILocalizer)validationContext.GetService(typeof(ILocalizer));
+            var _ServiceProvider = (IServiceProvider)validationContext.GetService(typeof(IServiceProvider));
+            var _Localizer = _ServiceProvider.GetService<ILocalizer>();
+
 
             ErrorMessage = _Localizer[ErrorMessage];
 

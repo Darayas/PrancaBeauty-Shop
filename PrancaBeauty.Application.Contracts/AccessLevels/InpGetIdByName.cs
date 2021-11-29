@@ -8,7 +8,7 @@ namespace PrancaBeauty.Application.Contracts.AccessLevels
     {
         [Display(Name = "Name")]
         [RequiredString]
-        [GUID]
+        [MaxLength(100)]
         public string Name { get; set; }
     }
 }

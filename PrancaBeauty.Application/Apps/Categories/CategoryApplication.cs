@@ -1,4 +1,5 @@
-﻿using Framework.Common.ExMethods;
+﻿using Framework.Application.Services.Security.AntiShell;
+using Framework.Common.ExMethods;
 using Framework.Common.Utilities.Paging;
 using Framework.Exceptions;
 using Framework.Infrastructure;
@@ -20,17 +21,19 @@ namespace PrancaBeauty.Application.Apps.Categories
     {
         private readonly ILogger _Logger;
         private readonly ILocalizer _Localizer;
+        private readonly IServiceProvider _ServiceProvider;
         private readonly IFtpWapper _FtpWapper;
         private readonly ICategoryRepository _CategoryRepository;
         private readonly ICategory_TranslateRepository _Category_TranslateRepository;
 
-        public CategoryApplication(ICategoryRepository categoryRepository, ILogger logger, IFtpWapper ftpWapper, ICategory_TranslateRepository category_TranslateRepository, ILocalizer localizer)
+        public CategoryApplication(ICategoryRepository categoryRepository, ILogger logger, IFtpWapper ftpWapper, ICategory_TranslateRepository category_TranslateRepository, ILocalizer localizer, IServiceProvider serviceProvider)
         {
             _CategoryRepository = categoryRepository;
             _Logger = logger;
             _FtpWapper = ftpWapper;
             _Category_TranslateRepository = category_TranslateRepository;
             _Localizer = localizer;
+            _ServiceProvider = serviceProvider;
         }
 
         public async Task<(OutPagingData, List<OutGetListForAdminPage>)> GetListForAdminPageAsync(InpGetListForAdminPage Input)
@@ -38,7 +41,7 @@ namespace PrancaBeauty.Application.Apps.Categories
             try
             {
                 #region Validations
-                Input.CheckModelState(_Localizer);
+                Input.CheckModelState(_ServiceProvider);
                 #endregion
 
                 // آماده سازی اولیه ی کویری
@@ -82,7 +85,7 @@ namespace PrancaBeauty.Application.Apps.Categories
             try
             {
                 #region Validations
-                Input.CheckModelState(_Localizer);
+                Input.CheckModelState(_ServiceProvider);
                 #endregion
 
                 var qData = await _CategoryRepository.Get
@@ -121,7 +124,7 @@ namespace PrancaBeauty.Application.Apps.Categories
             try
             {
                 #region Validation
-                Input.CheckModelState(_Localizer);
+                Input.CheckModelState(_ServiceProvider);
 
                 if (Input.LstTranslate == null)
                     throw new ArgumentInvalidException($"{nameof(Input.LstTranslate)} cant be null.");
@@ -179,7 +182,7 @@ namespace PrancaBeauty.Application.Apps.Categories
             try
             {
                 #region Validation
-                Input.CheckModelState(_Localizer);
+                Input.CheckModelState(_ServiceProvider);
                 #endregion
 
                 var qData = await _CategoryRepository.Get
@@ -230,7 +233,7 @@ namespace PrancaBeauty.Application.Apps.Categories
             {
 
                 #region Validation
-                Input.CheckModelState(_Localizer);
+                Input.CheckModelState(_ServiceProvider);
                 #endregion
 
                 var qData = await _CategoryRepository.Get
@@ -275,7 +278,7 @@ namespace PrancaBeauty.Application.Apps.Categories
             try
             {
                 #region Validations
-                Input.CheckModelState(_Localizer);
+                Input.CheckModelState(_ServiceProvider);
 
                 if (Input.LstTranslate == null)
                     throw new ArgumentInvalidException($"{nameof(Input.LstTranslate)} cant be null.");
@@ -297,6 +300,9 @@ namespace PrancaBeauty.Application.Apps.Categories
                 if (Input.ParentId != null)
                     qData.ParentId = Guid.Parse(Input.ParentId);
                 else
+                    qData.ParentId = null;
+
+                if (Input.ParentId.ToLower() == qData.Id.ToString().ToLower())
                     qData.ParentId = null;
 
                 #region ویرایش ترجمه
@@ -356,7 +362,7 @@ namespace PrancaBeauty.Application.Apps.Categories
             try
             {
                 #region Validations
-                Input.CheckModelState(_Localizer);
+                Input.CheckModelState(_ServiceProvider);
                 #endregion
 
                 Guid? ParentId = Guid.Parse(Input.ChildId);

@@ -1,4 +1,5 @@
 ﻿using AspNetCoreRateLimit;
+using Framework.Common.Utilities.ServiceInjection;
 using Framework.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -18,6 +19,7 @@ using PrancaBeauty.Infrastructure.EFCore.Context;
 using PrancaBeauty.WebApp.Authentication;
 using PrancaBeauty.WebApp.Common.Utility.IpAddress;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
+using PrancaBeauty.WebApp.Common.Utility.ServiceInjection;
 using PrancaBeauty.WebApp.Fillters;
 using PrancaBeauty.WebApp.Localization;
 using PrancaBeauty.WebApp.Middlewares;
@@ -120,6 +122,7 @@ namespace PrancaBeauty.WebApp.Config
             services.AddSingleton<IMsgBox, MsgBox>();
             services.AddScoped<IJWTBuilder, JWTBuilder>();
             services.AddSingleton<IIpAddressChecker, IpAddressChecker>();
+            services.AddSingleton<IServiceHandler, ServiceHandler>();
 
             return services;
         }

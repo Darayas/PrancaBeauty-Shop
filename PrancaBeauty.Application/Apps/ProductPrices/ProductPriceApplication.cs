@@ -18,13 +18,15 @@ namespace PrancaBeauty.Application.Apps.ProductPrices
     {
         private readonly ILogger _Logger;
         private readonly ILocalizer _Localizer;
+        private readonly IServiceProvider _ServiceProvider;
         private readonly IProductPricesRepository _ProductPricesRepository;
 
-        public ProductPriceApplication(IProductPricesRepository productPricesRepository, ILogger logger, ILocalizer localizer)
+        public ProductPriceApplication(IProductPricesRepository productPricesRepository, ILogger logger, ILocalizer localizer, IServiceProvider serviceProvider)
         {
             _ProductPricesRepository = productPricesRepository;
             _Logger = logger;
             _Localizer = localizer;
+            _ServiceProvider = serviceProvider;
         }
 
         public async Task<OperationResult> AddPriceToProductAsyc(InpAddPriceToProduct Input)
@@ -32,7 +34,7 @@ namespace PrancaBeauty.Application.Apps.ProductPrices
             try
             {
                 #region Validations
-                Input.CheckModelState(_Localizer);
+                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
                 var tProductPrice = new tblProductPrices

@@ -121,11 +121,6 @@ using PrancaBeauty.Infrastructure.EFCore.Repository.Settings;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Templates;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Users;
 using PrancaBeauty.Infrastructure.Logger.Serilogger;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PrancaBeauty.Infrastructure.Core.Configuration
 {

@@ -13,12 +13,10 @@ namespace PrancaBeauty.Application.Contracts.Categories
         public string LangId { get; set; }
 
         [Display(Name = "Title")]
-        [RequiredString]
         [MaxLengthString(150)]
         public string Title { get; set; }
 
         [Display(Name = "ParentTitle")]
-        [RequiredString]
         [MaxLengthString(150)]
         public string ParentTitle { get; set; }
 

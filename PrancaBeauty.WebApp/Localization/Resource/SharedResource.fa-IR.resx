@@ -580,18 +580,10 @@
     <value>مورد بر صفحه</value>
   </data>
   <data name="ItsForProductTitleMsg" xml:space="preserve">
-    <value>&lt;span class="da-text"&gt;{0} حاوی کاراکترهای غیرمجاز میباشد. کاراکترهای مجاز:&lt;/span&gt;
-&lt;ul class="da-list"&gt;
-    &lt;li&gt;حروف و اعداد اینگلیسی و فارسی و عربی&lt;/li&gt;
-    &lt;li&gt;کاراکترهای )(*-.،,_«»&lt;/li&gt;
-&lt;/ul&gt;</value>
+    <value>&lt;span class='da-text'&gt;{0} حاوی کاراکترهای غیرمجاز میباشد. کاراکترهای مجاز:&lt;/span&gt;&lt;ul class='da-list'&gt;&lt;li&gt;حروف و اعداد اینگلیسی و فارسی و عربی&lt;/li&gt;&lt;li&gt;کاراکترهای )(*-.،,_«»&lt;/li&gt;&lt;/ul&gt;</value>
   </data>
   <data name="ItsForUrlMsg" xml:space="preserve">
-    <value>&lt;span class="da-text"&gt;{0} حاوی کاراکترهای غیرمجاز میباشد. کاراکترهای مجاز:&lt;/span&gt;
-&lt;ul class="da-list"&gt;
-    &lt;li&gt;حروف و اعداد اینگلیسی&lt;/li&gt;
-    &lt;li&gt;کاراکتر خط تیره (-)&lt;/li&gt;
-&lt;/ul&gt;</value>
+    <value>&lt;span class='da-text'&gt;{0} حاوی کاراکترهای غیرمجاز میباشد. کاراکترهای مجاز:&lt;/span&gt;&lt;ul class='da-list'&gt;&lt;li&gt;حروف و اعداد اینگلیسی&lt;/li&gt;&lt;li&gt;کاراکتر خط تیره (-)&lt;/li&gt;&lt;/ul&gt;</value>
   </data>
   <data name="KendoOf" xml:space="preserve">
     <value>از {0}</value>
@@ -946,6 +938,9 @@
   </data>
   <data name="Properties value cant be null or whitespace." xml:space="preserve">
     <value>مقادیر Value در خصوصیات را وارد نمایید.</value>
+  </data>
+  <data name="PropertyValue" xml:space="preserve">
+    <value>مقدار خصوصیت</value>
   </data>
   <data name="ProvinceId" xml:space="preserve">
     <value>استان</value>

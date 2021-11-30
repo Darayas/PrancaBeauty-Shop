@@ -18,7 +18,7 @@ namespace PrancaBeauty.Application.Mapping
             CreateMap<InpAddKeywordsToProduct_LstKeywords, InpAddKeyword>();
 
             CreateMap<InpAddProdcut, InpAddVariantsToProduct>();
-            CreateMap<viAddProduct_Variants, InpAddVariantsToProduct_Variants>();
+            //CreateMap<viAddProduct_Variants, InpAddVariantsToProduct_Variants>();
 
         }
     }

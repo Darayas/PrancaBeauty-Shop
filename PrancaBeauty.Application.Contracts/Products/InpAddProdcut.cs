@@ -83,22 +83,22 @@ namespace PrancaBeauty.Application.Contracts.Products
 
         [Display(Name = "Properties")]
         [RequiredForDraft(nameof(IsDraft))]
-        public List<viAddProduct_Properties> Properties { get; set; }
+        public List<InpAddProduct_Properties> Properties { get; set; }
 
         [Display(Name = "Keywords")]
         [RequiredForDraft(nameof(IsDraft))]
-        public List<viAddProduct_Keywords> Keywords { get; set; }
+        public List<InpAddProduct_Keywords> Keywords { get; set; }
 
         [Display(Name = "ProductVariants")]
         [RequiredForDraft(nameof(IsDraft))]
-        public List<viAddProduct_Variants> Variants { get; set; }
+        public List<InpAddProduct_Variants> Variants { get; set; }
 
         [Display(Name = "PostingRestrictions")]
         [RequiredForDraft(nameof(IsDraft))]
-        public List<viAddProduct_PostingRestrictions> PostingRestrictions { get; set; }
+        public List<InpAddProduct_PostingRestrictions> PostingRestrictions { get; set; }
     }
 
-    public class viAddProduct_Properties
+    public class InpAddProduct_Properties
     {
 
         [Display(Name = "PropertyId")]
@@ -112,7 +112,7 @@ namespace PrancaBeauty.Application.Contracts.Products
         public string Value { get; set; }
     }
 
-    public class viAddProduct_Keywords
+    public class InpAddProduct_Keywords
     {
         public string Id { get; set; }
 
@@ -127,7 +127,7 @@ namespace PrancaBeauty.Application.Contracts.Products
         public string Similarity { get; set; }
     }
 
-    public class viAddProduct_Variants
+    public class InpAddProduct_Variants
     {
         public string Id { get; set; }
 
@@ -171,7 +171,7 @@ namespace PrancaBeauty.Application.Contracts.Products
         public int CountInStock { get; set; }
     }
 
-    public class viAddProduct_PostingRestrictions
+    public class InpAddProduct_PostingRestrictions
     {
         public string Id { get; set; }
 

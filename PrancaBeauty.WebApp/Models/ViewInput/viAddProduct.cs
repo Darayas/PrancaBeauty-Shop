@@ -101,7 +101,7 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
         [RequiredString]
         public string Id { get; set; }
 
-        [Display(Name = "Value")]
+        [Display(Name = "PropertyValue")]
         [RequiredString]
         [MaxLengthString(3000)]
         public string Value { get; set; }

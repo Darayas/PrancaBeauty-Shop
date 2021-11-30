@@ -26,11 +26,16 @@ namespace PrancaBeauty.WebApp.Mapping
             CreateMap<OutGetAddressDetails, viCompo_EditAddress>();
             CreateMap<viCompo_EditAddress, InpEditAddress>();
             CreateMap<viAddCategory, InpAddCategory>();
-            CreateMap<viAddProduct, InpAddProdcut>();
             CreateMap<viAddCategory_Translate, InpAddCategory_Translate>();
             CreateMap<viEditCategory, InpSaveEdit>();
             CreateMap<viEditCategory_Translate, InpSaveEdit_Translate>();
             CreateMap<viCompo_ModalFileList, InpGetFileListForFileManager>();
+
+            CreateMap<viAddProduct, InpAddProdcut>();
+            CreateMap<viAddProduct_Properties, InpAddProduct_Properties>();
+            CreateMap<viAddProduct_Keywords, InpAddProduct_Keywords>();
+            CreateMap<viAddProduct_Variants, InpAddProduct_Variants>();
+            CreateMap<viAddProduct_PostingRestrictions, InpAddProduct_PostingRestrictions>();
 
             CreateMap<PrancaBeauty.Application.Contracts.Categories.OutGetListForAdminPage, vmCategoriesList>();
             CreateMap<OutGetForEdit, viEditCategory>();

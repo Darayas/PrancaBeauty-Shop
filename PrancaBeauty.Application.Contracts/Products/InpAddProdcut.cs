@@ -76,6 +76,11 @@ namespace PrancaBeauty.Application.Contracts.Products
         [Display(Name = "IsDraft")]
         public bool IsDraft { get; set; }
 
+        [Display(Name = "ProductDescription")]
+        [RequiredForDraft(nameof(IsDraft))]
+        [GUID]
+        public string ProductImagesId { get; set; }
+
         [Display(Name = "Properties")]
         [RequiredForDraft(nameof(IsDraft))]
         public List<viAddProduct_Properties> Properties { get; set; }

@@ -19,7 +19,7 @@ namespace Framework.Common.ExMethods
         /// <typeparam name="T"></typeparam>
         /// <param name="Input"></param>
         /// <exception cref="ArgumentInvalidException">When modelstate error.</exception>
-        public static void CheckModelState<T>(this T Input, IServiceProvider _ServiceProvider = null) where T : class
+        public static void CheckModelState<T>(this T Input, IServiceProvider _ServiceProvider) where T : class
         {
             if (Input is null)
                 throw new ArgumentInvalidException($"{nameof(Input)} cant be null.");

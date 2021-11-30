@@ -54,7 +54,5 @@ namespace PrancaBeauty.Domin.Product.ProductAgg.Entities
         public virtual ICollection<tblProductVariantItems> tblProductVariantItems { get; set; }
         public virtual ICollection<tblProductSellers> tblProductSellers { get; set; }
         public virtual ICollection<tblPostingRestrictions> tblPostingRestrictions { get; set; }
-
-
     }
 }

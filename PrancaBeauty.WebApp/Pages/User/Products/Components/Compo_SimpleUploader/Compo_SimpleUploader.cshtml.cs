@@ -44,7 +44,6 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Components.Compo_SimpleUploade
             }
             else
                 return new JsonResult(new { error = new { message = _Localizer["Error500"] } });
-
         }
 
         [BindProperty]

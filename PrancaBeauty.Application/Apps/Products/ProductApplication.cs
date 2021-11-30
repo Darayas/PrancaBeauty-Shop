@@ -9,6 +9,7 @@ using PrancaBeauty.Application.Apps.Currency;
 using PrancaBeauty.Application.Apps.KeywordsProducts;
 using PrancaBeauty.Application.Apps.Languages;
 using PrancaBeauty.Application.Apps.PostingRestrictions;
+using PrancaBeauty.Application.Apps.ProductMedia;
 using PrancaBeauty.Application.Apps.ProductPrices;
 using PrancaBeauty.Application.Apps.ProductPropertiesValues;
 using PrancaBeauty.Application.Apps.ProductVariantItems;
@@ -45,7 +46,8 @@ namespace PrancaBeauty.Application.Apps.Products
         private readonly IPostingRestrictionsApplication _PostingRestrictionsApplication;
         private readonly ICurrencyApplication _CurrencyApplication;
         private readonly ILanguageApplication _LanguageApplication;
-        public ProductApplication(IProductRepository productRepository, ILogger logger, ICategoryApplication categoryApplication, ILocalizer localizer, IProductVariantItemsApplication productVariantItemsApplication, IProductPropertiesValuesApplication productPropertiesValuesApplication, IKeywordProductsApplication keywordProductsApplication, IMapper mapper, IPostingRestrictionsApplication postingRestrictionsApplication, IProductPriceApplication productPriceApplication = null, ICurrencyApplication currencyApplication = null, ILanguageApplication languageApplication = null, IServiceProvider serviceProvider = null)
+        private readonly IProductMediaApplication _ProductMediaApplication;
+        public ProductApplication(IProductRepository productRepository, ILogger logger, ICategoryApplication categoryApplication, ILocalizer localizer, IProductVariantItemsApplication productVariantItemsApplication, IProductPropertiesValuesApplication productPropertiesValuesApplication, IKeywordProductsApplication keywordProductsApplication, IMapper mapper, IPostingRestrictionsApplication postingRestrictionsApplication, IProductPriceApplication productPriceApplication = null, ICurrencyApplication currencyApplication = null, ILanguageApplication languageApplication = null, IServiceProvider serviceProvider = null, IProductMediaApplication productMediaApplication = null)
         {
             _ProductRepository = productRepository;
             _Logger = logger;
@@ -60,6 +62,7 @@ namespace PrancaBeauty.Application.Apps.Products
             _CurrencyApplication = currencyApplication;
             _LanguageApplication = languageApplication;
             _ServiceProvider = serviceProvider;
+            _ProductMediaApplication = productMediaApplication;
         }
 
         public async Task<(OutPagingData, List<OutGetProductsForManage>)> GetProductsForManageAsync(InpGetProductsForManage Input)
@@ -308,6 +311,7 @@ namespace PrancaBeauty.Application.Apps.Products
                     if (_Result.IsSucceeded == false)
                     {
                         // حذف محدودیت های ارسال
+                        await _PostingRestrictionsApplication.RemoveAllPostingRestrictionsFromProductAsync(new InpRemoveAllPostingRestrictionsFromProduct { ProductId = ProductId });
 
                         // حذف تنوع محصول
                         await _ProductVariantItemsApplication.RemoveAllVariantsFromProductAsync(new InpRemoveVariantsFromProduct() { ProductId = ProductId });
@@ -327,7 +331,7 @@ namespace PrancaBeauty.Application.Apps.Products
                 #endregion
 
                 #region ثبت تصاویر
-
+                
                 #endregion
 
                 return default;

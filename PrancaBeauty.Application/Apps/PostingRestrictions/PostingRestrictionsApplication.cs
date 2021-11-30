@@ -1,11 +1,13 @@
 ﻿using Framework.Common.ExMethods;
 using Framework.Exceptions;
 using Framework.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Contracts.PostingRestrictions;
 using PrancaBeauty.Application.Contracts.Results;
 using PrancaBeauty.Domin.Product.PostingRestrictionsAgg.Contracts;
 using PrancaBeauty.Domin.Product.PostingRestrictionsAgg.Entites;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Apps.PostingRestrictions
@@ -47,6 +49,32 @@ namespace PrancaBeauty.Application.Apps.PostingRestrictions
                 }
 
                 await _PostingRestrictionsRepository.SaveChangeAsync();
+
+                return new OperationResult().Succeeded();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
+
+        public async Task<OperationResult> RemoveAllPostingRestrictionsFromProductAsync(InpRemoveAllPostingRestrictionsFromProduct Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var qData = await _PostingRestrictionsRepository.Get.Where(a => a.ProductId == Guid.Parse(Input.ProductId)).ToListAsync();
+
+                await _PostingRestrictionsRepository.DeleteRangeAsync(qData, default, true);
 
                 return new OperationResult().Succeeded();
             }

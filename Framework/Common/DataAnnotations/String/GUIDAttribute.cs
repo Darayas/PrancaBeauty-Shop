@@ -17,10 +17,25 @@ namespace Framework.Common.DataAnnotations.File
 
                 if (value is string)
                 {
+                    if (value.ToString().Contains(","))
+                    {
+                        foreach (var item in value.ToString().Split(","))
+                        {
+                            if (!string.IsNullOrEmpty(item))
+                            {
+                                var _Guid = Guid.Parse(item);
+                            }
+                        }
 
-                    var _Guid = Guid.Parse((string)value);
+                        return ValidationResult.Success;
+                    }
+                    else
+                    {
+                        var _Guid = Guid.Parse((string)value);
 
-                    return ValidationResult.Success;
+                        return ValidationResult.Success;
+                    }
+
                 }
                 else
                     return ValidationResult.Success;
@@ -37,7 +52,7 @@ namespace Framework.Common.DataAnnotations.File
             if (ErrorMessage == null)
                 ErrorMessage = "GUIDMsg";
 
-            var _ServiceProvider = (IServiceProvider)validationContext.GetService(typeof(IServiceProvider));
+            var _ServiceProvider = validationContext.GetService<IServiceProvider>();
             var _Localizer = _ServiceProvider.GetService<ILocalizer>();
 
 

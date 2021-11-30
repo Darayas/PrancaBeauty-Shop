@@ -7,5 +7,6 @@ namespace PrancaBeauty.Application.Apps.PostingRestrictions
     public interface IPostingRestrictionsApplication
     {
         Task<OperationResult> AddPostingRestrictionsToProductAsync(InpAddPostingRestrictionsToProduct Input);
+        Task<OperationResult> RemoveAllPostingRestrictionsFromProductAsync(InpRemoveAllPostingRestrictionsFromProduct Input);
     }
 }

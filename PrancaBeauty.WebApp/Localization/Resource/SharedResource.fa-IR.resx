@@ -608,6 +608,9 @@
   <data name="KeywordSimilarity" xml:space="preserve">
     <value>درصد تشابه با محصول</value>
   </data>
+  <data name="KeywordSimilarityTitle" xml:space="preserve">
+    <value>درصد تشابه کلمه کلیدی با محصول</value>
+  </data>
   <data name="KeywordTitle" xml:space="preserve">
     <value>عنوان کلمه کلیدی</value>
   </data>
@@ -906,9 +909,12 @@
     <value>تاریخ انتشار محصول</value>
   </data>
   <data name="ProductDescription" xml:space="preserve">
-    <value>توضیحات</value>
+    <value>توضیحات محصول</value>
   </data>
   <data name="ProductImages" xml:space="preserve">
+    <value>تصاویر محصول</value>
+  </data>
+  <data name="ProductImagesId" xml:space="preserve">
     <value>تصاویر محصول</value>
   </data>
   <data name="ProductList" xml:space="preserve">
@@ -1193,6 +1199,15 @@
   <data name="Value" xml:space="preserve">
     <value>مقدار</value>
   </data>
+  <data name="VariantGuaranteeId" xml:space="preserve">
+    <value>گارانتی نوع</value>
+  </data>
+  <data name="VariantId" xml:space="preserve">
+    <value>تنوع</value>
+  </data>
+  <data name="VariantPercent" xml:space="preserve">
+    <value>درصد افزایش قیمت نوع</value>
+  </data>
   <data name="VariantPercentPrice" xml:space="preserve">
     <value>درصد </value>
   </data>
@@ -1203,10 +1218,13 @@
     <value />
   </data>
   <data name="VariantTitle" xml:space="preserve">
-    <value>عنوان </value>
+    <value>عنوان نوع</value>
   </data>
   <data name="VariantValue" xml:space="preserve">
     <value>مقدار </value>
+  </data>
+  <data name="VariantValueTitle" xml:space="preserve">
+    <value>مقدار نوع</value>
   </data>
   <data name="View" xml:space="preserve">
     <value>نمایش</value>

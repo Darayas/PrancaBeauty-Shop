@@ -72,7 +72,7 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
         [Display(Name = "IsDraft")]
         public bool IsDraft { get; set; }
 
-        [Display(Name = "ProductDescription")]
+        [Display(Name = "ProductImagesId")]
         [RequiredForDraft(nameof(IsDraft))]
         [GUID]
         public string ProductImagesId { get; set; }
@@ -111,12 +111,12 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
     {
         public string Id { get; set; }
 
-        [Display(Name = "Title")]
+        [Display(Name = "KeywordTitle")]
         [RequiredString]
         [MaxLengthString(250)]
         public string Title { get; set; }
 
-        [Display(Name = "Title")]
+        [Display(Name = "KeywordSimilarityTitle")]
         [RequiredString]
         [MaxLengthString(10)]
         public string Similarity { get; set; }
@@ -126,22 +126,22 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
     {
         public string Id { get; set; }
 
-        [Display(Name = "Title")]
+        [Display(Name = "VariantTitle")]
         [RequiredString]
         [MaxLengthString(200)]
         public string Title { get; set; }
 
-        [Display(Name = "Value")]
+        [Display(Name = "VariantValueTitle")]
         [RequiredString]
         [MaxLengthString(200)]
         public string Value { get; set; }
 
-        [Display(Name = "Percent")]
+        [Display(Name = "VariantPercent")]
         [RequiredString]
         [MaxLengthString(10)]
         public string Percent { get; set; }
 
-        [Display(Name = "GuaranteeId")]
+        [Display(Name = "VariantGuaranteeId")]
         [GUID]
         [RequiredString]
         [MaxLengthString(100)]

@@ -6,7 +6,7 @@
     var DeleteMsg = '@Localizer["AreYouSure"]';
     var Err429Msg  = '@Localizer["Err429Msg"]';
 
-
+    let CkEditor;
     function LoadCkEditor(_Lang = 'en') {
         BalloonBlockEditor
             .create(document.querySelector('.editor'), {
@@ -127,7 +127,7 @@
                 licenseKey: '',
             })
             .then(editor => {
-                window.editor = editor;
+                CkEditor = editor;
             })
             .catch(error => {
                 console.error(error);

@@ -37,7 +37,6 @@ namespace PrancaBeauty.Application.Apps.Products
         private readonly ILogger _Logger;
         private readonly ILocalizer _Localizer;
         private readonly IServiceProvider _ServiceProvider;
-        private readonly IMapper _Mapper;
         private readonly IProductPriceApplication _ProductPriceApplication;
         private readonly IProductRepository _ProductRepository;
         private readonly ICategoryApplication _CategoryApplication;
@@ -48,21 +47,21 @@ namespace PrancaBeauty.Application.Apps.Products
         private readonly ICurrencyApplication _CurrencyApplication;
         private readonly ILanguageApplication _LanguageApplication;
         private readonly IProductMediaApplication _ProductMediaApplication;
-        public ProductApplication(IProductRepository productRepository, ILogger logger, ICategoryApplication categoryApplication, ILocalizer localizer, IProductVariantItemsApplication productVariantItemsApplication, IProductPropertiesValuesApplication productPropertiesValuesApplication, IKeywordProductsApplication keywordProductsApplication, IMapper mapper, IPostingRestrictionsApplication postingRestrictionsApplication, IProductPriceApplication productPriceApplication = null, ICurrencyApplication currencyApplication = null, ILanguageApplication languageApplication = null, IServiceProvider serviceProvider = null, IProductMediaApplication productMediaApplication = null)
+
+        public ProductApplication(ILogger logger, ILocalizer localizer, IServiceProvider serviceProvider, IProductPriceApplication productPriceApplication, IProductRepository productRepository, ICategoryApplication categoryApplication, IProductVariantItemsApplication productVariantItemsApplication, IProductPropertiesValuesApplication productPropertiesValuesApplication, IKeywordProductsApplication keywordProductsApplication, IPostingRestrictionsApplication postingRestrictionsApplication, ICurrencyApplication currencyApplication, ILanguageApplication languageApplication, IProductMediaApplication productMediaApplication)
         {
-            _ProductRepository = productRepository;
             _Logger = logger;
-            _CategoryApplication = categoryApplication;
             _Localizer = localizer;
+            _ServiceProvider = serviceProvider;
+            _ProductPriceApplication = productPriceApplication;
+            _ProductRepository = productRepository;
+            _CategoryApplication = categoryApplication;
             _ProductVariantItemsApplication = productVariantItemsApplication;
             _ProductPropertiesValuesApplication = productPropertiesValuesApplication;
             _KeywordProductsApplication = keywordProductsApplication;
-            _Mapper = mapper;
             _PostingRestrictionsApplication = postingRestrictionsApplication;
-            _ProductPriceApplication = productPriceApplication;
             _CurrencyApplication = currencyApplication;
             _LanguageApplication = languageApplication;
-            _ServiceProvider = serviceProvider;
             _ProductMediaApplication = productMediaApplication;
         }
 
@@ -247,11 +246,25 @@ namespace PrancaBeauty.Application.Apps.Products
 
                 #region تنوع محصول
                 {
-                    var _VarinatData = _Mapper.Map<InpAddVariantsToProduct>(Input);
-                    _VarinatData.ProductId = ProductId;
-                    _VarinatData.SellerId = Input.AuthorUserId;
-
-                    var _Result = await _ProductVariantItemsApplication.AddVariantsToProductAsync(_VarinatData);
+                    var _Result = await _ProductVariantItemsApplication.AddVariantsToProductAsync(new InpAddVariantsToProduct
+                    {
+                        ProductId = ProductId,
+                        SellerId = Input.AuthorUserId,
+                        VariantId = Input.VariantId,
+                        Variants = Input.Variants.Select(a => new InpAddVariantsToProduct_Variants
+                        {
+                            Id = a.Id,
+                            CountInStock = a.CountInStock,
+                            GuaranteeId = a.GuaranteeId,
+                            IsEnable = a.IsEnable,
+                            Percent = a.Percent,
+                            ProductCode = a.ProductCode,
+                            SendBy = a.SendBy,
+                            SendFrom = a.SendFrom,
+                            Title = a.Title,
+                            Value = a.Value
+                        }).ToList()
+                    });
                     if (!_Result.IsSucceeded)
                     {
                         // حذف کلمات کلیدی
@@ -271,10 +284,16 @@ namespace PrancaBeauty.Application.Apps.Products
 
                 #region محدودیت های ارسال پستی
                 {
-                    var _PostingRestrictionsData = _Mapper.Map<InpAddPostingRestrictionsToProduct>(Input.PostingRestrictions);
-                    _PostingRestrictionsData.ProductId = ProductId;
+                    var _Result = await _PostingRestrictionsApplication.AddPostingRestrictionsToProductAsync(new InpAddPostingRestrictionsToProduct
+                    {
+                        ProductId = ProductId,
+                        PostingRestrictions = Input.PostingRestrictions.Select(a => new InpAddPostingRestrictionsToProduct_Restrictions
+                        {
+                            CountryId = a.CountryId,
+                            Posting = a.Posting
+                        }).ToList()
+                    });
 
-                    var _Result = await _PostingRestrictionsApplication.AddPostingRestrictionsToProductAsync(_PostingRestrictionsData);
                     if (_Result.IsSucceeded == false)
                     {
                         // حذف تنوع محصول

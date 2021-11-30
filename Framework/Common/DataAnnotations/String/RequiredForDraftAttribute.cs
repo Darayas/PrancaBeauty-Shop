@@ -31,7 +31,7 @@ namespace Framework.Common.DataAnnotations.String
             var _Localizer = _ServiceProvider?.GetService<ILocalizer>();
 
             if (ErrorMessage == null)
-                ErrorMessage = "RequiredString";
+                ErrorMessage = "RequiredStringMsg";
 
             if (_Localizer == null)
             {

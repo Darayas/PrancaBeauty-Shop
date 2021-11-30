@@ -7,5 +7,6 @@ namespace PrancaBeauty.Application.Apps.ProductPrices
     public interface IProductPriceApplication
     {
         Task<OperationResult> AddPriceToProductAsyc(InpAddPriceToProduct Input);
+        Task<OperationResult> RemovePriceFromProductAsync(InpRemovePriceFromProduct Input);
     }
 }

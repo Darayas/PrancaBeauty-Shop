@@ -17,6 +17,7 @@ using PrancaBeauty.Application.Contracts.Currency;
 using PrancaBeauty.Application.Contracts.KeywordProducts;
 using PrancaBeauty.Application.Contracts.Languages;
 using PrancaBeauty.Application.Contracts.PostingRestrictions;
+using PrancaBeauty.Application.Contracts.ProductMedia;
 using PrancaBeauty.Application.Contracts.ProductPrice;
 using PrancaBeauty.Application.Contracts.ProductPropertiesValues;
 using PrancaBeauty.Application.Contracts.Products;
@@ -331,7 +332,31 @@ namespace PrancaBeauty.Application.Apps.Products
                 #endregion
 
                 #region ثبت تصاویر
-                
+                {
+                    var _Result = await _ProductMediaApplication.AddMediasToProductAsync(new InpAddMediasToProduct() { ProductId = ProductId, MediaIds = Input.ProductImagesId });
+                    if (_Result.IsSucceeded == false)
+                    {
+                        // حذف قیمت محصول
+                        await _ProductPriceApplication.RemovePriceFromProductAsync(new InpRemovePriceFromProduct { ProductId = ProductId });
+
+                        // حذف محدودیت های ارسال
+                        await _PostingRestrictionsApplication.RemoveAllPostingRestrictionsFromProductAsync(new InpRemoveAllPostingRestrictionsFromProduct { ProductId = ProductId });
+
+                        // حذف تنوع محصول
+                        await _ProductVariantItemsApplication.RemoveAllVariantsFromProductAsync(new InpRemoveVariantsFromProduct() { ProductId = ProductId });
+
+                        // حذف کلمات کلیدی
+                        await _KeywordProductsApplication.RemoveAllProductKeywordsAsync(new InpRemoveAllProductKeywords() { ProductId = ProductId });
+
+                        // حذف خصوصیات
+                        await _ProductPropertiesValuesApplication.RemovePropertiesByProductIdAsync(new InpRemovePropertiesByProductId() { ProductId = ProductId });
+
+                        // حذف محصول
+                        await _ProductRepository.DeleteAsync(Guid.Parse(ProductId), default, true);
+
+                    }
+
+                }
                 #endregion
 
                 return default;

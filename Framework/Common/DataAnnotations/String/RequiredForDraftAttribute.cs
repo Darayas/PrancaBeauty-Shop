@@ -30,6 +30,9 @@ namespace Framework.Common.DataAnnotations.String
             var _ServiceProvider = (IServiceProvider)validationContext.GetService(typeof(IServiceProvider));
             var _Localizer = _ServiceProvider?.GetService<ILocalizer>();
 
+            if (ErrorMessage == null)
+                ErrorMessage = "RequiredString";
+
             if (_Localizer == null)
             {
                 if (ErrorMessage.Contains("{0}"))

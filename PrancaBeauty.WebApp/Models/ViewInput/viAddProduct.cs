@@ -102,7 +102,7 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
         public string Id { get; set; }
 
         [Display(Name = "Value")]
-        [RequiredForDraft("IsDraft")]
+        [RequiredString]
         [MaxLengthString(3000)]
         public string Value { get; set; }
     }

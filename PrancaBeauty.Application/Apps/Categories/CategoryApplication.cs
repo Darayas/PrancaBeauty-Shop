@@ -302,7 +302,7 @@ namespace PrancaBeauty.Application.Apps.Categories
                 else
                     qData.ParentId = null;
 
-                if (Input.ParentId.ToLower() == qData.Id.ToString().ToLower())
+                if (Input.ParentId?.ToLower() == qData.Id.ToString().ToLower())
                     qData.ParentId = null;
 
                 #region ویرایش ترجمه

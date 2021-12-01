@@ -12,6 +12,7 @@ using PrancaBeauty.Domin.Keywords.Keywords_Products.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -21,16 +22,14 @@ namespace PrancaBeauty.Application.Apps.KeywordsProducts
     {
         private readonly ILogger _Logger;
         private readonly ILocalizer _Localizer;
-        private readonly IMapper _Mapper;
         private readonly IServiceProvider _ServiceProvider;
         private readonly IKeywords_ProductsRepository _IKeywords_ProductsRepository;
         private readonly IKeywordApplication _KeywordApplication;
-        public KeywordProductsApplication(IKeywords_ProductsRepository iKeywords_ProductsRepository, ILogger logger, IKeywordApplication keywordApplication, IMapper mapper, ILocalizer localizer, IServiceProvider serviceProvider)
+        public KeywordProductsApplication(IKeywords_ProductsRepository iKeywords_ProductsRepository, ILogger logger, IKeywordApplication keywordApplication, ILocalizer localizer, IServiceProvider serviceProvider)
         {
             _IKeywords_ProductsRepository = iKeywords_ProductsRepository;
             _Logger = logger;
             _KeywordApplication = keywordApplication;
-            _Mapper = mapper;
             _Localizer = localizer;
             _ServiceProvider = serviceProvider;
         }
@@ -40,16 +39,10 @@ namespace PrancaBeauty.Application.Apps.KeywordsProducts
             try
             {
                 #region Validations
-                if (Input is null)
-                    throw new ArgumentInvalidException($"{nameof(Input)} cant be null.");
-
-                List<ValidationResult> _ValidationResult = null;
-                if (Validator.TryValidateObject(Input, new System.ComponentModel.DataAnnotations.ValidationContext(Input), _ValidationResult))
-                    throw new ArgumentInvalidException(string.Join(",", _ValidationResult.Select(a => a.ErrorMessage)));
+                Input.CheckModelState(_ServiceProvider);
                 #endregion
 
-                foreach (var item in Input.LstKeywords.Where(a => string.IsNullOrWhiteSpace(a.Title) && string.IsNullOrEmpty(a.Title))
-                                               .Where(a => double.Parse(a.Similarity) > 0))
+                foreach (var item in Input.LstKeywords.Where(a => double.Parse(a.Similarity, new CultureInfo("en-US")) > 0))
                 {
                     string KeywordId = null;
                     #region برسی موجود بودن کلمه کلیدی یا افزودن آن
@@ -58,7 +51,7 @@ namespace PrancaBeauty.Application.Apps.KeywordsProducts
                             KeywordId = await _KeywordApplication.GetIdByTitleAsync(new InpGetIdByTitle { Title = item.Title });
                         else
                         {
-                            var _Result = await _KeywordApplication.AddKeywordAsync(_Mapper.Map<InpAddKeyword>(item));
+                            var _Result = await _KeywordApplication.AddKeywordAsync(new InpAddKeyword { Title = item.Title, Description = "" });
                             if (_Result.IsSucceeded)
                                 KeywordId = await _KeywordApplication.GetIdByTitleAsync(new InpGetIdByTitle { Title = item.Title });
                             else
@@ -72,7 +65,7 @@ namespace PrancaBeauty.Application.Apps.KeywordsProducts
                         Id = new Guid().SequentialGuid(),
                         KeywordId = Guid.Parse(KeywordId),
                         ProductId = Guid.Parse(Input.ProductId),
-                        Similarity = double.Parse(item.Similarity)
+                        Similarity = double.Parse(item.Similarity, new CultureInfo("en-US"))
                     };
 
                     await _IKeywords_ProductsRepository.AddAsync(tKeywordProducts, default, false);

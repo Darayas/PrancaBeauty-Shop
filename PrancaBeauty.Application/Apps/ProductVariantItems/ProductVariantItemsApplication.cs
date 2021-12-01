@@ -7,6 +7,7 @@ using PrancaBeauty.Application.Contracts.Results;
 using PrancaBeauty.Domin.Product.ProductVariantItemsAgg.Contracts;
 using PrancaBeauty.Domin.Product.ProductVariantsItemsAgg.Entities;
 using System;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -53,7 +54,7 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
                         ProductCode = item.ProductCode,
                         CountInStock = item.CountInStock,
                         IsEnable = item.IsEnable,
-                        Percent = double.Parse(item.Percent),
+                        Percent = double.Parse(item.Percent,new CultureInfo("en-US")),
                         SendBy = item.SendBy,
                         SendFrom = item.SendFrom
                     };

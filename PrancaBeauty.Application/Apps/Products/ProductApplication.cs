@@ -12,6 +12,7 @@ using PrancaBeauty.Application.Apps.PostingRestrictions;
 using PrancaBeauty.Application.Apps.ProductMedia;
 using PrancaBeauty.Application.Apps.ProductPrices;
 using PrancaBeauty.Application.Apps.ProductPropertiesValues;
+using PrancaBeauty.Application.Apps.ProductSellers;
 using PrancaBeauty.Application.Apps.ProductVariantItems;
 using PrancaBeauty.Application.Contracts.Currency;
 using PrancaBeauty.Application.Contracts.KeywordProducts;
@@ -47,8 +48,9 @@ namespace PrancaBeauty.Application.Apps.Products
         private readonly ICurrencyApplication _CurrencyApplication;
         private readonly ILanguageApplication _LanguageApplication;
         private readonly IProductMediaApplication _ProductMediaApplication;
+        private readonly IProductSellersApplication _ProductSellersApplication;
 
-        public ProductApplication(ILogger logger, ILocalizer localizer, IServiceProvider serviceProvider, IProductPriceApplication productPriceApplication, IProductRepository productRepository, ICategoryApplication categoryApplication, IProductVariantItemsApplication productVariantItemsApplication, IProductPropertiesValuesApplication productPropertiesValuesApplication, IKeywordProductsApplication keywordProductsApplication, IPostingRestrictionsApplication postingRestrictionsApplication, ICurrencyApplication currencyApplication, ILanguageApplication languageApplication, IProductMediaApplication productMediaApplication)
+        public ProductApplication(ILogger logger, ILocalizer localizer, IServiceProvider serviceProvider, IProductPriceApplication productPriceApplication, IProductRepository productRepository, ICategoryApplication categoryApplication, IProductVariantItemsApplication productVariantItemsApplication, IProductPropertiesValuesApplication productPropertiesValuesApplication, IKeywordProductsApplication keywordProductsApplication, IPostingRestrictionsApplication postingRestrictionsApplication, ICurrencyApplication currencyApplication, ILanguageApplication languageApplication, IProductMediaApplication productMediaApplication, IProductSellersApplication productSellersApplication)
         {
             _Logger = logger;
             _Localizer = localizer;
@@ -63,6 +65,7 @@ namespace PrancaBeauty.Application.Apps.Products
             _CurrencyApplication = currencyApplication;
             _LanguageApplication = languageApplication;
             _ProductMediaApplication = productMediaApplication;
+            _ProductSellersApplication = productSellersApplication;
         }
 
         public async Task<(OutPagingData, List<OutGetProductsForManage>)> GetProductsForManageAsync(InpGetProductsForManage Input)
@@ -241,6 +244,12 @@ namespace PrancaBeauty.Application.Apps.Products
 
                         return new OperationResult().Failed("Error500");
                     }
+                }
+                #endregion
+
+                #region ثبت فروشنده ی محصول
+                {
+                    var _Result= await _ProductSellersApplication
                 }
                 #endregion
 

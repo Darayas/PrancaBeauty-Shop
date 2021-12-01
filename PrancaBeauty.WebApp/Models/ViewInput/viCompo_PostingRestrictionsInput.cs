@@ -18,5 +18,6 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
         [Display(Name = "Posting")]
         public bool Posting { get; set; }
 
+        public bool IsDelete { get; set; }
     }
 }

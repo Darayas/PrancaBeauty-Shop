@@ -11,5 +11,6 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
         public string Id { get; set; }
         public string Title { get; set; }
         public string Similarity { get; set; }
+        public bool IsDelete { get; set; }
     }
 }

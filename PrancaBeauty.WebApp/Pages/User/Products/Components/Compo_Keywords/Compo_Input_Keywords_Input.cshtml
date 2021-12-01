@@ -2,6 +2,7 @@
 @model PrancaBeauty.WebApp.Pages.User.Products.Components.Compo_Keywords.Compo_Input_Keywords_InputModel
 
 <div id="Keyword@(Model.Input.Index)">
+    <input asp-for="Input.IsDelete" name="Input.Keywords[@Model.Input.Index].IsDelete" id="Input_IsDelete@(Model.Input.Index)" value="false" type="hidden" />
     <div class="row">
         <div class="col-md-7">
             <div class="form-group">

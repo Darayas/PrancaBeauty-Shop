@@ -114,44 +114,45 @@ namespace PrancaBeauty.Application.Contracts.Products
 
     public class InpAddProduct_Keywords
     {
-
-        [Display(Name = "Title")]
-        [RequiredString]
+        [Display(Name = "KeywordTitle")]
+        [RequiredIfNotDeleted(nameof(IsDelete))]
         [MaxLengthString(250)]
         public string Title { get; set; }
 
-        [Display(Name = "Title")]
-        [RequiredString]
+        [Display(Name = "KeywordSimilarityTitle")]
+        [RequiredIfNotDeleted(nameof(IsDelete))]
         [MaxLengthString(10)]
         public string Similarity { get; set; }
+
+        [Display(Name = "IsDelete")]
+        public bool IsDelete { get; set; }
     }
 
     public class InpAddProduct_Variants
     {
 
-        [Display(Name = "Title")]
-        [RequiredString]
+        [Display(Name = "VariantTitle")]
+        [RequiredIfNotDeleted(nameof(IsDelete))]
         [MaxLengthString(200)]
         public string Title { get; set; }
 
-        [Display(Name = "Value")]
-        [RequiredString]
+        [Display(Name = "VariantValueTitle")]
+        [RequiredIfNotDeleted(nameof(IsDelete))]
         [MaxLengthString(200)]
         public string Value { get; set; }
 
-        [Display(Name = "Percent")]
-        [RequiredString]
+        [Display(Name = "VariantPercent")]
+        [RequiredIfNotDeleted(nameof(IsDelete))]
         [MaxLengthString(10)]
         public string Percent { get; set; }
 
-        [Display(Name = "GuaranteeId")]
+        [Display(Name = "VariantGuaranteeId")]
+        [RequiredIfNotDeleted(nameof(IsDelete))]
         [GUID]
-        [RequiredString]
-        [MaxLengthString(100)]
         public string GuaranteeId { get; set; }
 
         [Display(Name = "ProductCode")]
-        [RequiredString]
+        [RequiredIfNotDeleted(nameof(IsDelete))]
         [MaxLengthString(100)]
         public string ProductCode { get; set; }
 
@@ -165,19 +166,25 @@ namespace PrancaBeauty.Application.Contracts.Products
         public ProductVariantItems_SendFromEnum SendFrom { get; set; } // ارسال از: 1، 2، 3، 4 رور کاری آینده
 
         [Display(Name = "CountInStock")]
-        [NumRange(1, 100000)]
+        [NumRange(1, 100000, ErrorMessage = "RangeMsg")]
         public int CountInStock { get; set; }
+
+        [Display(Name = "IsDelete")]
+        public bool IsDelete { get; set; }
     }
 
     public class InpAddProduct_PostingRestrictions
     {
 
         [Display(Name = "CountryId")]
-        [RequiredString]
+        [RequiredIfNotDeleted(nameof(IsDelete))]
         [GUID]
         public string CountryId { get; set; }
 
         [Display(Name = "PostingStatus")]
         public bool Posting { get; set; }
+
+        [Display(Name = "IsDelete")]
+        public bool IsDelete { get; set; }
     }
 }

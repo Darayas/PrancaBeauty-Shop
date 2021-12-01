@@ -43,7 +43,10 @@
 
         function RemoveKeyword(_Index) {
             $('#Keyword' + _Index).hide();
-            $('#Keyword' + _Index+' input').val("");
+            $('#Keyword' + _Index + ' input').val("");
+            setTimeout(function () {
+                $('#Input_IsDelete' + _Index).val('true');
+            }, 100);
         }
     </script>
 </div>

@@ -111,42 +111,44 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
     {
 
         [Display(Name = "KeywordTitle")]
-        [RequiredString]
+        [RequiredIfNotDeleted(nameof(IsDelete))]
         [MaxLengthString(250)]
         public string Title { get; set; }
 
         [Display(Name = "KeywordSimilarityTitle")]
-        [RequiredString]
+        [RequiredIfNotDeleted(nameof(IsDelete))]
         [MaxLengthString(10)]
         public string Similarity { get; set; }
+
+        [Display(Name = "IsDelete")]
+        public bool IsDelete { get; set; }
     }
 
     public class viAddProduct_Variants
     {
 
         [Display(Name = "VariantTitle")]
-        [RequiredString]
+        [RequiredIfNotDeleted(nameof(IsDelete))]
         [MaxLengthString(200)]
         public string Title { get; set; }
 
         [Display(Name = "VariantValueTitle")]
-        [RequiredString]
+        [RequiredIfNotDeleted(nameof(IsDelete))]
         [MaxLengthString(200)]
         public string Value { get; set; }
 
         [Display(Name = "VariantPercent")]
-        [RequiredString]
+        [RequiredIfNotDeleted(nameof(IsDelete))]
         [MaxLengthString(10)]
         public string Percent { get; set; }
 
         [Display(Name = "VariantGuaranteeId")]
+        [RequiredIfNotDeleted(nameof(IsDelete))]
         [GUID]
-        [RequiredString]
-        [MaxLengthString(100)]
         public string GuaranteeId { get; set; }
 
         [Display(Name = "ProductCode")]
-        [RequiredString]
+        [RequiredIfNotDeleted(nameof(IsDelete))]
         [MaxLengthString(100)]
         public string ProductCode { get; set; }
 
@@ -162,17 +164,23 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
         [Display(Name = "CountInStock")]
         [NumRange(1, 100000, ErrorMessage = "RangeMsg")]
         public int CountInStock { get; set; }
+
+        [Display(Name = "IsDelete")]
+        public bool IsDelete { get; set; }
     }
 
     public class viAddProduct_PostingRestrictions
     {
 
-        [Display(Name = "CountryId")]
-        [RequiredString]
+        [Display(Name = "PostingRestrictionsCountryId")]
+        [RequiredIfNotDeleted(nameof(IsDelete))]
         [GUID]
         public string CountryId { get; set; }
 
         [Display(Name = "PostingStatus")]
         public bool Posting { get; set; }
+
+        [Display(Name = "IsDelete")]
+        public bool IsDelete { get; set; }
     }
 }

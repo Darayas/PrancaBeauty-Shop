@@ -29,7 +29,10 @@
 
         function RemovePostingRestrictions(_Index) {
             $('#PostingRestrictions' + _Index).hide();
-            $('#PostingRestrictions' + _Index+' input').val("");
+            $('#PostingRestrictions' + _Index + ' input').val("");
+            setTimeout(function () {
+                $('#Input_PostingRestrictions' + _Index).val("true");
+            }, 100);
         }
     </script>
 </div>

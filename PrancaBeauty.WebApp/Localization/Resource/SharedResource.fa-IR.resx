@@ -882,6 +882,9 @@
   <data name="PostingRestrictions" xml:space="preserve">
     <value>محدودیت ارسال</value>
   </data>
+  <data name="PostingRestrictionsCountryId" xml:space="preserve">
+    <value>کشور محدودیت ارسال</value>
+  </data>
   <data name="PostingStatus" xml:space="preserve">
     <value>وضعیت ارسال</value>
   </data>

@@ -9,8 +9,8 @@
 <div class="row">
     <script>
         function LoadAutoNumeric(_Id) {
-            $('#Percent' + _Id).autoNumeric('init', { vMax: '1000.999',vMin:'-100.999', lZero: 'deny', aDec: '.', aSep: ',' });
-            $('#CountInStock' + _Id).autoNumeric('init', { vMax: '10000000',vMin:'0', lZero: 'deny', aSep: ',' });
+            $('#Percent' + _Id).autoNumeric('init', { vMax: '1000.999', vMin: '-100.999', lZero: 'deny', aDec: '.', aSep: ',' });
+            $('#CountInStock' + _Id).autoNumeric('init', { vMax: '10000000', vMin: '0', lZero: 'deny', aSep: ',' });
         }
     </script>
 
@@ -50,7 +50,11 @@
 
         function RemoveVariants(_Index) {
             $('#Variants' + _Index).hide();
-            $('#Variants' + _Index+' input').val("");
+            $('#Variants' + _Index + ' input').val("");
+            setTimeout(function () {
+                $('#Variants' + _Index + ' .isNumeric').val("0");
+                $('#Input_Variants' + _Index).val("true");
+            }, 100);
         }
     </script>
 </div>

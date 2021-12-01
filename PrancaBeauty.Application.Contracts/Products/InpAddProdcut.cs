@@ -114,7 +114,6 @@ namespace PrancaBeauty.Application.Contracts.Products
 
     public class InpAddProduct_Keywords
     {
-        public string Id { get; set; }
 
         [Display(Name = "Title")]
         [RequiredString]
@@ -129,7 +128,6 @@ namespace PrancaBeauty.Application.Contracts.Products
 
     public class InpAddProduct_Variants
     {
-        public string Id { get; set; }
 
         [Display(Name = "Title")]
         [RequiredString]
@@ -173,7 +171,6 @@ namespace PrancaBeauty.Application.Contracts.Products
 
     public class InpAddProduct_PostingRestrictions
     {
-        public string Id { get; set; }
 
         [Display(Name = "CountryId")]
         [RequiredString]

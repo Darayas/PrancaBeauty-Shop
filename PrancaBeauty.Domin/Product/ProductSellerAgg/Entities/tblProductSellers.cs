@@ -14,7 +14,7 @@ namespace PrancaBeauty.Domin.Product.ProductSellerAgg.Entities
     public class tblProductSellers : IEntity
     {
         public Guid Id { get; set; }
-        public Guid SellerUserId { get; set; }
+        public Guid UserId { get; set; }
         public Guid ProductId { get; set; }
         public double Price { get; set; }
         public DateTime Date { get; set; }

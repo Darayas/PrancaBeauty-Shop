@@ -15,8 +15,8 @@
         </div>
         <div class="col-md-4">
             <div class="form-group">
-                <input asp-for="Input.Id" type="hidden" name="Input.PostingRestrictions[Model.Input.Index].Id" />
-                <select class="form-control" asp-for="Input.Posting" name="Input.PostingRestrictions[Model.Input.Index].Posting">
+                <input asp-for="Input.Id" type="hidden" name="Input.PostingRestrictions[@Model.Input.Index].Id" />
+                <select class="form-control" asp-for="Input.Posting" name="Input.PostingRestrictions[@Model.Input.Index].Posting">
                     <option value="true">@Localizer["WillBeSend"]</option>
                     <option value="false">@Localizer["CantSend"]</option>
                 </select>

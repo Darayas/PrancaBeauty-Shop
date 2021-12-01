@@ -29,7 +29,6 @@ namespace PrancaBeauty.Application.Contracts.ProductVariantItems
 
     public class InpAddVariantsToProduct_Variants
     {
-        public string Id { get; set; }
 
         [Display(Name = "Title")]
         [RequiredString]

@@ -109,7 +109,6 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
 
     public class viAddProduct_Keywords
     {
-        public string Id { get; set; }
 
         [Display(Name = "KeywordTitle")]
         [RequiredString]
@@ -124,7 +123,6 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
 
     public class viAddProduct_Variants
     {
-        public string Id { get; set; }
 
         [Display(Name = "VariantTitle")]
         [RequiredString]
@@ -168,7 +166,6 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
 
     public class viAddProduct_PostingRestrictions
     {
-        public string Id { get; set; }
 
         [Display(Name = "CountryId")]
         [RequiredString]

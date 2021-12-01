@@ -22,6 +22,7 @@ using PrancaBeauty.Application.Contracts.ProductMedia;
 using PrancaBeauty.Application.Contracts.ProductPrice;
 using PrancaBeauty.Application.Contracts.ProductPropertiesValues;
 using PrancaBeauty.Application.Contracts.Products;
+using PrancaBeauty.Application.Contracts.ProductSellers;
 using PrancaBeauty.Application.Contracts.ProductVariantItems;
 using PrancaBeauty.Application.Contracts.Results;
 using PrancaBeauty.Domin.Product.ProductAgg.Contracts;
@@ -77,7 +78,7 @@ namespace PrancaBeauty.Application.Apps.Products
                 #endregion
 
                 var qData = _ProductRepository.Get
-                                              .Where(a => Input.SellerUserId != null ? a.tblProductSellers.Where(b => b.SellerUserId == Guid.Parse(Input.SellerUserId)).Any() : true)
+                                              .Where(a => Input.SellerUserId != null ? a.tblProductSellers.Where(b => b.UserId == Guid.Parse(Input.SellerUserId)).Any() : true)
                                               .Where(a => a.LangId == Guid.Parse(Input.LangId))
                                               .Select(a => new OutGetProductsForManage
                                               {
@@ -248,8 +249,34 @@ namespace PrancaBeauty.Application.Apps.Products
                 #endregion
 
                 #region ثبت فروشنده ی محصول
+                string _SellerId = null;
                 {
-                    var _Result= await _ProductSellersApplication
+                    var _Result = await _ProductSellersApplication.AddSellerToProdcutAsync(new InpAddSellerToProdcut
+                    {
+                        ProductId = ProductId,
+                        UserId = Input.AuthorUserId,
+                        IsConfirm = true,
+                        Price = Input.Price
+                    });
+
+                    if (_Result.IsSucceeded)
+                    {
+                        _SellerId = _Result.Message;
+                    }
+                    else
+                    {
+                        // حذف کلمات کلیدی
+                        await _KeywordProductsApplication.RemoveAllProductKeywordsAsync(new InpRemoveAllProductKeywords() { ProductId = ProductId });
+
+                        // حذف خصوصیات
+                        await _ProductPropertiesValuesApplication.RemovePropertiesByProductIdAsync(new InpRemovePropertiesByProductId() { ProductId = ProductId });
+
+                        // حذف محصول
+                        await _ProductRepository.DeleteAsync(Guid.Parse(ProductId), default, true);
+
+
+                        return new OperationResult().Failed("Error500");
+                    }
                 }
                 #endregion
 
@@ -258,11 +285,10 @@ namespace PrancaBeauty.Application.Apps.Products
                     var _Result = await _ProductVariantItemsApplication.AddVariantsToProductAsync(new InpAddVariantsToProduct
                     {
                         ProductId = ProductId,
-                        SellerId = Input.AuthorUserId,
+                        SellerId = _SellerId,
                         VariantId = Input.VariantId,
                         Variants = Input.Variants.Select(a => new InpAddVariantsToProduct_Variants
                         {
-                            Id = a.Id,
                             CountInStock = a.CountInStock,
                             GuaranteeId = a.GuaranteeId,
                             IsEnable = a.IsEnable,
@@ -276,6 +302,9 @@ namespace PrancaBeauty.Application.Apps.Products
                     });
                     if (!_Result.IsSucceeded)
                     {
+                        // حذف فروشنده
+                        await _ProductSellersApplication.RemoveAllPriceFromProductAsync(new InpRemoveAllPriceFromProduct { ProductId = ProductId });
+
                         // حذف کلمات کلیدی
                         await _KeywordProductsApplication.RemoveAllProductKeywordsAsync(new InpRemoveAllProductKeywords() { ProductId = ProductId });
 

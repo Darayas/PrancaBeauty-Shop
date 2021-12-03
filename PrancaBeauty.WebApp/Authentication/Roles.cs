@@ -44,6 +44,7 @@ namespace PrancaBeauty.WebApp.Authentication
         public const string CanAddProduct = "CanAddProduct";
         public const string CanEditProduct = "CanEditProduct";
         public const string CanRemoveProduct = "CanRemoveProduct";
+        public const string CanMoveToRecycleBinProduct = "CanMoveToRecycleBinProduct";
 
         #endregion
 

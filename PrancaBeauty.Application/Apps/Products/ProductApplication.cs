@@ -226,8 +226,7 @@ namespace PrancaBeauty.Application.Apps.Products
 
                     if (_Result.IsSucceeded == false)
                     {
-                        // حذف محصول
-                        await _ProductRepository.DeleteAsync(Guid.Parse(ProductId), default, true);
+                        await RemoveProductForAlwaysAsync(new InpRemoveProductForAlways { ProductId = ProductId });
 
                         return new OperationResult().Failed("Error500");
                     }
@@ -239,11 +238,7 @@ namespace PrancaBeauty.Application.Apps.Products
                     var _Result = await _KeywordProductsApplication.AddKeywordsToProductAsync(new InpAddKeywordsToProduct() { ProductId = ProductId, LstKeywords = Input.Keywords.Select(a => new InpAddKeywordsToProduct_LstKeywords() { Title = a.Title, Similarity = a.Similarity }).ToList() });
                     if (!_Result.IsSucceeded)
                     {
-                        // حذف خصوصیات
-                        await _ProductPropertiesValuesApplication.RemovePropertiesByProductIdAsync(new InpRemovePropertiesByProductId() { ProductId = ProductId });
-
-                        // حذف محصول
-                        await _ProductRepository.DeleteAsync(Guid.Parse(ProductId), default, true);
+                        await RemoveProductForAlwaysAsync(new InpRemoveProductForAlways { ProductId = ProductId });
 
                         return new OperationResult().Failed("Error500");
                     }
@@ -267,15 +262,7 @@ namespace PrancaBeauty.Application.Apps.Products
                     }
                     else
                     {
-                        // حذف کلمات کلیدی
-                        await _KeywordProductsApplication.RemoveAllProductKeywordsAsync(new InpRemoveAllProductKeywords() { ProductId = ProductId });
-
-                        // حذف خصوصیات
-                        await _ProductPropertiesValuesApplication.RemovePropertiesByProductIdAsync(new InpRemovePropertiesByProductId() { ProductId = ProductId });
-
-                        // حذف محصول
-                        await _ProductRepository.DeleteAsync(Guid.Parse(ProductId), default, true);
-
+                        await RemoveProductForAlwaysAsync(new InpRemoveProductForAlways { ProductId = ProductId });
 
                         return new OperationResult().Failed("Error500");
                     }
@@ -304,18 +291,7 @@ namespace PrancaBeauty.Application.Apps.Products
                     });
                     if (!_Result.IsSucceeded)
                     {
-                        // حذف فروشنده
-                        await _ProductSellersApplication.RemoveAllPriceFromProductAsync(new InpRemoveAllPriceFromProduct { ProductId = ProductId });
-
-                        // حذف کلمات کلیدی
-                        await _KeywordProductsApplication.RemoveAllProductKeywordsAsync(new InpRemoveAllProductKeywords() { ProductId = ProductId });
-
-                        // حذف خصوصیات
-                        await _ProductPropertiesValuesApplication.RemovePropertiesByProductIdAsync(new InpRemovePropertiesByProductId() { ProductId = ProductId });
-
-                        // حذف محصول
-                        await _ProductRepository.DeleteAsync(Guid.Parse(ProductId), default, true);
-
+                        await RemoveProductForAlwaysAsync(new InpRemoveProductForAlways { ProductId = ProductId });
 
                         return new OperationResult().Failed("Error500");
                     }
@@ -336,17 +312,7 @@ namespace PrancaBeauty.Application.Apps.Products
 
                     if (_Result.IsSucceeded == false)
                     {
-                        // حذف تنوع محصول
-                        await _ProductVariantItemsApplication.RemoveAllVariantsFromProductAsync(new InpRemoveVariantsFromProduct() { ProductId = ProductId });
-
-                        // حذف کلمات کلیدی
-                        await _KeywordProductsApplication.RemoveAllProductKeywordsAsync(new InpRemoveAllProductKeywords() { ProductId = ProductId });
-
-                        // حذف خصوصیات
-                        await _ProductPropertiesValuesApplication.RemovePropertiesByProductIdAsync(new InpRemovePropertiesByProductId() { ProductId = ProductId });
-
-                        // حذف محصول
-                        await _ProductRepository.DeleteAsync(Guid.Parse(ProductId), default, true);
+                        await RemoveProductForAlwaysAsync(new InpRemoveProductForAlways { ProductId = ProductId });
 
                         return new OperationResult().Failed("Error500");
                     }
@@ -370,20 +336,7 @@ namespace PrancaBeauty.Application.Apps.Products
                     });
                     if (_Result.IsSucceeded == false)
                     {
-                        // حذف محدودیت های ارسال
-                        await _PostingRestrictionsApplication.RemoveAllPostingRestrictionsFromProductAsync(new InpRemoveAllPostingRestrictionsFromProduct { ProductId = ProductId });
-
-                        // حذف تنوع محصول
-                        await _ProductVariantItemsApplication.RemoveAllVariantsFromProductAsync(new InpRemoveVariantsFromProduct() { ProductId = ProductId });
-
-                        // حذف کلمات کلیدی
-                        await _KeywordProductsApplication.RemoveAllProductKeywordsAsync(new InpRemoveAllProductKeywords() { ProductId = ProductId });
-
-                        // حذف خصوصیات
-                        await _ProductPropertiesValuesApplication.RemovePropertiesByProductIdAsync(new InpRemovePropertiesByProductId() { ProductId = ProductId });
-
-                        // حذف محصول
-                        await _ProductRepository.DeleteAsync(Guid.Parse(ProductId), default, true);
+                        await RemoveProductForAlwaysAsync(new InpRemoveProductForAlways { ProductId = ProductId });
 
                         return new OperationResult().Failed("Error500");
                     }
@@ -395,24 +348,7 @@ namespace PrancaBeauty.Application.Apps.Products
                     var _Result = await _ProductMediaApplication.AddMediasToProductAsync(new InpAddMediasToProduct() { ProductId = ProductId, MediaIds = Input.ProductImagesId });
                     if (_Result.IsSucceeded == false)
                     {
-                        // حذف قیمت محصول
-                        await _ProductPriceApplication.RemovePriceFromProductAsync(new InpRemovePriceFromProduct { ProductId = ProductId });
-
-                        // حذف محدودیت های ارسال
-                        await _PostingRestrictionsApplication.RemoveAllPostingRestrictionsFromProductAsync(new InpRemoveAllPostingRestrictionsFromProduct { ProductId = ProductId });
-
-                        // حذف تنوع محصول
-                        await _ProductVariantItemsApplication.RemoveAllVariantsFromProductAsync(new InpRemoveVariantsFromProduct() { ProductId = ProductId });
-
-                        // حذف کلمات کلیدی
-                        await _KeywordProductsApplication.RemoveAllProductKeywordsAsync(new InpRemoveAllProductKeywords() { ProductId = ProductId });
-
-                        // حذف خصوصیات
-                        await _ProductPropertiesValuesApplication.RemovePropertiesByProductIdAsync(new InpRemovePropertiesByProductId() { ProductId = ProductId });
-
-                        // حذف محصول
-                        await _ProductRepository.DeleteAsync(Guid.Parse(ProductId), default, true);
-
+                        await RemoveProductForAlwaysAsync(new InpRemoveProductForAlways { ProductId = ProductId });
                     }
 
                 }
@@ -457,6 +393,56 @@ namespace PrancaBeauty.Application.Apps.Products
             } while (qResult == true);
 
             return RndNum;
+        }
+
+        public async Task<OperationResult> RemoveProductForAlwaysAsync(InpRemoveProductForAlways Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+
+                var qProduct = await _ProductRepository.GetById(default, Input.ProductId);
+                if (qProduct == null)
+                    return new OperationResult().Failed("IdIsInvalid");
+                #endregion
+
+                // TODO برسی نبودن سفارش ثبت شده برای محصول جاری
+
+                // TODO حذف کامنت ها
+
+                // TODO حذف پرسش ها
+
+                // حذف قیمت محصول
+                await _ProductPriceApplication.RemovePriceFromProductAsync(new InpRemovePriceFromProduct { ProductId = Input.ProductId });
+
+                // حذف محدودیت های ارسال
+                await _PostingRestrictionsApplication.RemoveAllPostingRestrictionsFromProductAsync(new InpRemoveAllPostingRestrictionsFromProduct { ProductId = Input.ProductId });
+
+                // حذف تنوع محصول
+                await _ProductVariantItemsApplication.RemoveAllVariantsFromProductAsync(new InpRemoveVariantsFromProduct() { ProductId = Input.ProductId });
+
+                // حذف کلمات کلیدی
+                await _KeywordProductsApplication.RemoveAllProductKeywordsAsync(new InpRemoveAllProductKeywords() { ProductId = Input.ProductId });
+
+                // حذف خصوصیات
+                await _ProductPropertiesValuesApplication.RemovePropertiesByProductIdAsync(new InpRemovePropertiesByProductId() { ProductId = Input.ProductId });
+
+                // حذف محصول
+                await _ProductRepository.DeleteAsync(qProduct, default, true);
+
+                return new OperationResult().Succeeded();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
         }
     }
 }

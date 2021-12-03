@@ -417,6 +417,20 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                         Description = "توانایی حذف محصول"
                     }, default, false).Wait();
                 }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanMoveToRecycleBinProduct"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageProductsPage",
+                        Sort = 230,
+                        Name = "CanMoveToRecycleBinProduct",
+                        NormalizedName = "CanMoveToRecycleBinProduct".ToUpper(),
+                        Description = "توانایی انتقال محصول به زباله دان"
+                    }, default, false).Wait();
+                }
             }
             #endregion
 

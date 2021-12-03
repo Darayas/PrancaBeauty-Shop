@@ -61,6 +61,9 @@ namespace PrancaBeauty.WebApp.Pages.Admin.Categories
 
         public async Task<IActionResult> OnPostRemoveAsync(string Id)
         {
+            if (!User.IsInRole(Roles.CanRemoveCategory))
+                return _MsgBox.InfoMsg(_Localizer["AccessDenied"]); 
+
             if (string.IsNullOrWhiteSpace(Id))
                 return _MsgBox.ModelStateMsg("IdCantBeNull", "RefreshData()");
 

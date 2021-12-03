@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Framework.Infrastructure;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using Microsoft.AspNetCore.Authorization;
@@ -12,6 +13,7 @@ using PrancaBeauty.Application.Apps.Products;
 using PrancaBeauty.Application.Contracts.Products;
 using PrancaBeauty.WebApp.Authentication;
 using PrancaBeauty.WebApp.Common.ExMethod;
+using PrancaBeauty.WebApp.Common.Utility.MessageBox;
 using PrancaBeauty.WebApp.Models.ViewInput;
 using PrancaBeauty.WebApp.Models.ViewModel;
 
@@ -21,12 +23,16 @@ namespace PrancaBeauty.WebApp.Pages.User.Products
     public class ListModel : PageModel
     {
         private readonly IMapper _Mapper;
+        private readonly IMsgBox _MsgBox;
+        private readonly ILocalizer _Localizer;
         private readonly IProductApplication _ProductApplication;
 
-        public ListModel(IProductApplication productApplication, IMapper mapper)
+        public ListModel(IProductApplication productApplication, IMapper mapper, IMsgBox msgBox, ILocalizer localizer)
         {
             _ProductApplication = productApplication;
             _Mapper = mapper;
+            _MsgBox = msgBox;
+            _Localizer = localizer;
         }
 
         public IActionResult OnGet(string LangId)
@@ -81,6 +87,26 @@ namespace PrancaBeauty.WebApp.Pages.User.Products
             _DataGrid.Data = Items;
 
             return new JsonResult(_DataGrid);
+        }
+
+        public async Task<IActionResult> OnPostRemoveAsync(string Id)
+        {
+            if (!User.IsInRole(Roles.CanRemoveCategory))
+                return _MsgBox.InfoMsg(_Localizer["AccessDenied"]);
+
+            if (string.IsNullOrWhiteSpace(Id))
+                return _MsgBox.ModelStateMsg(_Localizer["IdCantBeNull"]);
+
+            var _Result = await _ProductApplication.RemoveProductForAlwaysAsync(new InpRemoveProductForAlways { ProductId = Id });
+            if (_Result.IsSucceeded)
+            {
+                return _MsgBox.SuccessMsg(_Localizer[_Result.Message], "Search()");
+            }
+            else
+            {
+                return _MsgBox.FaildMsg(_Localizer[_Result.Message]);
+            }
+
         }
 
         [BindProperty(SupportsGet = true)]

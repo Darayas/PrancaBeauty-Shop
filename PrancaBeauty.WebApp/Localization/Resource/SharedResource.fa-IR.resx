@@ -723,6 +723,9 @@
   <data name="MorePages" xml:space="preserve">
     <value>صفحات بیشتر</value>
   </data>
+  <data name="MoveToRecycleBin" xml:space="preserve">
+    <value>انتقال به زباله دان</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>نام</value>
   </data>
@@ -1010,6 +1013,9 @@
   </data>
   <data name="Remove" xml:space="preserve">
     <value>حذف</value>
+  </data>
+  <data name="RemoveAlways" xml:space="preserve">
+    <value>حذف برای همیشه</value>
   </data>
   <data name="RequiredFileMsg" xml:space="preserve">
     <value>{0} را وارد نمایید</value>

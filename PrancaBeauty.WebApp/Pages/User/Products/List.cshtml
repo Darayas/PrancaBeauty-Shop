@@ -187,10 +187,10 @@
 </script>
 
 <script id="AuthorCell">
-                                            <a href="">
-                                                <div class="d-inline"><img class="img-responcive img-circle" src="#=AuthorImageUrl#" /></div>
-                                                <div class="d-inline">#=AuthorName#</div>
-                                            </a>
+                                                                <a href="">
+                                                                    <div class="d-inline"><img class="img-responcive img-circle" src="#=AuthorImageUrl#" /></div>
+                                                                    <div class="d-inline">#=AuthorName#</div>
+                                                                </a>
 </script>
 
 <script id="StatusCell">
@@ -210,7 +210,12 @@
 
             @if (User.IsInRole(Roles.CanRemoveProduct))
             {
-                <a href="/@ViewData["Culture"]/Admin/Users/Edit/#:Id#" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i>@Localizer["Remove"]</a>
+                <a onclick="Remove('#:Id#')" class="dropdown-item"><i class="dropdown-icon fa fa-times"></i>@Localizer["RemoveAlways"]</a>
+            }
+
+            @if (User.IsInRole(Roles.CanMoveToRecycleBinProduct))
+            {
+                <a onclick="MoveToRecycleBin('#:Id#')" class="dropdown-item"><i class="dropdown-icon fa fa-trash"></i>@Localizer["MoveToRecycleBin"]</a>
             }
         </div>
     </div>
@@ -222,6 +227,24 @@
     <script>
         function Add() {
             location.href = '/@ViewData["culture"]/User/Products/Add?ReturnUrl=@Request.GetCurrentUrlEncoded()';
+        }
+    </script>
+}
+
+@if (User.IsInRole(Roles.CanRemoveProduct))
+{
+<script>
+        function Remove(_Id) {
+            RemoveData('/@ViewData["Culture"]/User/Products/List?handler=Remove', {Id:_Id});
+        }
+</script>
+}
+
+@if (User.IsInRole(Roles.CanMoveToRecycleBinProduct))
+{
+    <script>
+        function MoveToRecycleBin(_Id) {
+
         }
     </script>
 }

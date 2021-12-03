@@ -1,37 +1,26 @@
 ﻿using AspNetCoreRateLimit;
-using Framework.Common.Utilities.ServiceInjection;
 using Framework.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.ResponseCompression;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.WebEncoders;
-using PrancaBeauty.Application.Apps.Languages;
-using PrancaBeauty.Application.Apps.Settings;
-using PrancaBeauty.Domin.Users.RoleAgg.Entities;
-using PrancaBeauty.Domin.Users.UserAgg.Entities;
-using PrancaBeauty.Infrastructure.EFCore.Context;
 using PrancaBeauty.WebApp.Authentication;
 using PrancaBeauty.WebApp.Common.Utility.IpAddress;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
-using PrancaBeauty.WebApp.Common.Utility.ServiceInjection;
 using PrancaBeauty.WebApp.Fillters;
 using PrancaBeauty.WebApp.Localization;
 using PrancaBeauty.WebApp.Middlewares;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
-using System.Threading.Tasks;
 using WebMarkupMin.AspNetCore5;
 using WebMarkupMin.Core;
 
@@ -66,7 +55,8 @@ namespace PrancaBeauty.WebApp.Config
 
         public static IMvcBuilder AddFilters(this IMvcBuilder mvcBuilder)
         {
-            return mvcBuilder.AddMvcOptions(opt => {
+            return mvcBuilder.AddMvcOptions(opt =>
+            {
                 opt.Filters.Add(new FillLangIdParametrFilter());
             });
         }
@@ -122,7 +112,6 @@ namespace PrancaBeauty.WebApp.Config
             services.AddSingleton<IMsgBox, MsgBox>();
             services.AddScoped<IJWTBuilder, JWTBuilder>();
             services.AddSingleton<IIpAddressChecker, IpAddressChecker>();
-            services.AddSingleton<IServiceHandler, ServiceHandler>();
 
             return services;
         }

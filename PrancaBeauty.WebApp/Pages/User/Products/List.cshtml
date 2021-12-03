@@ -32,8 +32,8 @@
                    .DefaultSettings(Localizer)
                    .Columns(col=> {
                        col.Bound(a => a.Id).Hidden().HtmlAttributes(new { @class = "RowId" }).Sortable(false);
-                       col.Bound(a => a.ImgUrl).HtmlAttributes(new { style = "text-align:center;" }).ClientTemplate("<img style='width:128px' src='#=ImgUrl#'/>");
-                       col.Bound(a => a.Title).ClientTemplateId("TitleCell");
+                       col.Bound(a => a.ImgUrl).HtmlAttributes(new { style = "text-align:center;min-width:100px;max-width:128px" }).ClientTemplate("<img src='#=ImgUrl#'/>");
+                       col.Bound(a => a.Title).HtmlAttributes(new {style= "vertical-align:top;min-width:100px;max-width:300px" }).ClientTemplateId("TitleCell");
                        col.Bound(a => a.AuthorName).ClientTemplateId("AuthorCell");
                        col.Bound(a => a.Status).ClientTemplateId("StatusCell");
                        col.Bound(a => a).Width(50).Title(" ")
@@ -152,36 +152,42 @@
 </div>
 
 <script id="TitleCell">
-                                 <div class="row">
-                                     <div class="col-md-12">
-                                         <a href="/Product/#=UniqueNumber#/#=Name#">#=Title#</a>
-                                     </div>
-                                 </div>
-                                 <div class="row">
-                                     <div class="col-md-12">
-                                         <a href="/Category/#=CategoryMap#">#=CategoryTitle#</a>
-                                     </div>
-                                 </div>
-                                 <div class="row">
-                                     <div class="col-md-12">
-                                         <span>#=Date#</span>
-                                     </div>
-                                 </div>
-                                 <div class="row">
-                                     <div class="col-md-12">
-                                         <div class="d-inline #:HasUnConfirmedReviews==true?'font-weight-bold':''#"><i class="fa fa-comment mr-1 ml-1"></i><span>#:CountReviews#</span></div>
-                                         <div class="d-inline #:HasUnConfirmedAsk==true?'font-weight-bold':''#"><i class="fa fa-question mr-1 ml-1"></i><span>#:CountAsks#</span></div>
-                                         <div class="d-inline #:HasUnConfirmedSellerRequest==true?'font-weight-bold':''#"><i class="fa fa-users mr-1 ml-1"></i><span>#:CountSellers#</span></div>
-                                         <div class='d-inline'><i class="fa fa-eye mr-1 ml-1"></i><span>#:CountVisit#</span></div>
-                                     </div>
-                                 </div>
+    <div class="TitleCell">
+        <div class="row">
+               <div class="col-md-12">
+                        <h2 class="title">
+                            <a href="/Product/#=UniqueNumber#/#=Name#" title="#=Title#">#=Title#</a>
+                        </h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="Category">
+                            <span>@Localizer["Category"]: </span> <a href="/Category/#=CategoryMap#">#=CategoryTitle#</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <span>#=Date#</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="d-inline #:HasUnConfirmedReviews==true?'font-weight-bold':''#"><i class="fa fa-comment mr-1 ml-1"></i><span>#:CountReviews#</span></div>
+                        <div class="d-inline #:HasUnConfirmedAsk==true?'font-weight-bold':''#"><i class="fa fa-question mr-1 ml-1"></i><span>#:CountAsks#</span></div>
+                        <div class="d-inline #:HasUnConfirmedSellerRequest==true?'font-weight-bold':''#"><i class="fa fa-users mr-1 ml-1"></i><span>#:CountSellers#</span></div>
+                        <div class='d-inline'><i class="fa fa-eye mr-1 ml-1"></i><span>#:CountVisit#</span></div>
+                    </div>
+                </div>
+    </div>
 </script>
 
 <script id="AuthorCell">
-                                <a href="">
-                                    <div class="d-inline"><img class="img-responcive img-circle" src="#=AuthorImageUrl#" /></div>
-                                    <div class="d-inline">#=AuthorName#</div>
-                                </a>
+                                        <a href="">
+                                            <div class="d-inline"><img class="img-responcive img-circle" src="#=AuthorImageUrl#" /></div>
+                                            <div class="d-inline">#=AuthorName#</div>
+                                        </a>
 </script>
 
 <script id="StatusCell">

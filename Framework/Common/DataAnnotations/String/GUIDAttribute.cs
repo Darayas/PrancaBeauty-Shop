@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Framework.Common.DataAnnotations.File
+namespace Framework.Common.DataAnnotations.String
 {
     public class GUIDAttribute : ValidationAttribute
     {

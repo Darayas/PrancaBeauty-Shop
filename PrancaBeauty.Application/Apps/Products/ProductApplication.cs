@@ -183,7 +183,7 @@ namespace PrancaBeauty.Application.Apps.Products
                 #endregion
 
                 // برسی تکراری نبودن نام محصول
-                if (await CheckDuplicateNameAsync(Input.Name.ToLowerCaseUrl()))
+                if (await CheckDuplicateNameAsync(Input.Name.ToLowerCaseForUrl()))
                     return new OperationResult().Failed("ProdcutName is duplicate.");
 
                 string ProductId = new Guid().SequentialGuid().ToString();
@@ -198,7 +198,7 @@ namespace PrancaBeauty.Application.Apps.Products
                         TopicId = Input.TopicId != null ? Guid.Parse(Input.TopicId) : null,
                         LangId = Guid.Parse(Input.LangId),
                         UniqueNumber = await GenerateUniqeNumberAsync(),
-                        Name = Input.Name.ToLowerCaseUrl(),
+                        Name = Input.Name.ToLowerCaseForUrl(),
                         Title = Input.Title,
                         Date = Input.Date == null ? DateTime.Now : (Convert.ToDateTime(Input.Date).AddHours(1) < DateTime.Now ? DateTime.Now : Convert.ToDateTime(Input.Date)),
                         IsConfirmed = false,
@@ -416,7 +416,7 @@ namespace PrancaBeauty.Application.Apps.Products
                 }
                 #endregion
 
-                return default;
+                return new OperationResult().Succeeded();
             }
             catch (ArgumentInvalidException ex)
             {

@@ -8066,3 +8066,16 @@ err500 {
 
 form .frmBtnAction {
   text-align: left; }
+
+.TitleCell .title {
+  font-size: 16px !important;
+  font-weight: 800 !important;
+  display: block;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 100%;
+  overflow: hidden;
+  margin-bottom: 2px; }
+
+.TitleCell .Category span {
+  font-weight: 700; }

@@ -67,7 +67,7 @@ namespace PrancaBeauty.WebApp.Pages.User.Products
                 IsDelete = Input.IsDelete,
                 IsDraft = Input.IsDraft,
                 IsConfirmed = Input.IsConfirmed,
-                IsSchedule = Input.IsSchedule
+                IsSchedule = Input.IsSchedule,
             });
 
             // Mapping

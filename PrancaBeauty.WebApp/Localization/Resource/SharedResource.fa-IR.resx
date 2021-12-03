@@ -213,6 +213,9 @@
   <data name="CantSend" xml:space="preserve">
     <value>ارسال نمیشود</value>
   </data>
+  <data name="Category" xml:space="preserve">
+    <value>دسته</value>
+  </data>
   <data name="CategoryHasChild,CantRemove" xml:space="preserve">
     <value>دسته مورد نظر دارای فرزندانی میباشد که برای حذف، ابتدا باید آن ها حذف شوند</value>
   </data>

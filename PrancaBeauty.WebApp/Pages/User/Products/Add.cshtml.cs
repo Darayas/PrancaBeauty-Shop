@@ -64,21 +64,19 @@ namespace PrancaBeauty.WebApp.Pages.User.Products
                 if (Input.Keywords.Count() == 0)
                     throw new ArgumentInvalidException($"keyword count must be greater than zero.");
                 #endregion
-                
+
                 var _ProductEntity = _Mapper.Map<InpAddProdcut>(Input);
                 _ProductEntity.AuthorUserId = User.GetUserDetails().UserId;
 
                 var _Result = await _ProductApplication.AddProdcutAsync(_ProductEntity);
                 if (_Result.IsSucceeded)
                 {
-
+                    return _MsgBox.SuccessMsg(_Localizer[_Result.Message], "GotoBack()");
                 }
                 else
                 {
-
+                    return _MsgBox.FaildMsg(_Localizer[_Result.Message.Replace(",", "<br/>")]);
                 }
-
-                return Page();
             }
             catch (ArgumentInvalidException ex)
             {

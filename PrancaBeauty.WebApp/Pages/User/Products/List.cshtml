@@ -22,7 +22,6 @@
         </div>
     </div>
 }
-
 <div class="row">
     <div class="col-md-12">
         <div class="k-lang">
@@ -32,10 +31,10 @@
                    .DefaultSettings(Localizer)
                    .Columns(col=> {
                        col.Bound(a => a.Id).Hidden().HtmlAttributes(new { @class = "RowId" }).Sortable(false);
-                       col.Bound(a => a.ImgUrl).HtmlAttributes(new { style = "text-align:center;min-width:100px;max-width:128px" }).ClientTemplate("<img src='#=ImgUrl#'/>");
-                       col.Bound(a => a.Title).HtmlAttributes(new {style= "vertical-align:top;min-width:100px;max-width:300px" }).ClientTemplateId("TitleCell");
-                       col.Bound(a => a.AuthorName).ClientTemplateId("AuthorCell");
-                       col.Bound(a => a.Status).ClientTemplateId("StatusCell");
+                       col.Bound(a => a.ImgUrl).Width(150).HtmlAttributes(new { style = "text-align:center" }).ClientTemplate("<img src='#=ImgUrl#'/>");
+                       col.Bound(a => a.Title).HtmlAttributes(new {style= "vertical-align:top;min-width:150px;max-width:400px" }).ClientTemplateId("TitleCell");
+                       col.Bound(a => a.AuthorName).ClientTemplateId("AuthorCell").Width(120);
+                       col.Bound(a => a.Status).ClientTemplateId("StatusCell").Width(70);
                        col.Bound(a => a).Width(50).Title(" ")
                                                   .HtmlAttributes(new { style= "overflow: visible; text-align: center;" })
                                                   .ClientHeaderTemplate((User.IsInRole(Roles.CanAddProduct)? "<button class='btn btn-success btn-sm' onclick='Add()'><i class='fa fa-plus'></i></button>" : "") + "<button class='btn btn-primary btn-sm ml-1 mr-1' onclick='ShowSearchModal()'><i class='fa fa-search'></i></button>")
@@ -69,11 +68,11 @@
                         </div>
                         <div class="col-md-4">
                             <label asp-for="Input.Title"></label>
-                            <input type="text" id="txtTitle" class="form-control" placeholder="@Localizer["Title"]" />
+                            <input asp-for="Input.Title" type="text" id="txtTitle" class="form-control" placeholder="@Localizer["Title"]" />
                         </div>
                         <div class="col-md-4">
                             <label asp-for="Input.Name"></label>
-                            <input type="text" id="txtName" class="form-control" placeholder="@Localizer["Name"]" />
+                            <input asp-for="Input.Name" type="text" id="txtName" class="form-control" placeholder="@Localizer["Name"]" />
                         </div>
                     </div>
                 </div>
@@ -100,7 +99,7 @@
                             {
                                 <div class="col-md-12">
                                     <label asp-for="Input.SellerUserId"></label>
-                                    <input type="text" id="txtSeller" class="form-control" placeholder="@Localizer["Seller"]" />
+                                    <input asp-for="Input.SellerUserId" type="text" id="txtSeller" class="form-control" placeholder="@Localizer["Seller"]" />
                                 </div>
                             }
                         }
@@ -111,7 +110,7 @@
                     <div class="row">
                         <div class="col-md-3">
                             <label asp-for="Input.IsDelete"></label>
-                            <select id="CmbIsDelete" class="form-control">
+                            <select asp-for="Input.IsDelete" id="CmbIsDelete" class="form-control">
                                 <option>@Localizer["All"]</option>
                                 <option value="true">@Localizer["IsDelete"]</option>
                                 <option value="false">@Localizer["IsNotDelete"]</option>
@@ -119,7 +118,7 @@
                         </div>
                         <div class="col-md-3">
                             <label asp-for="Input.IsConfirmed"></label>
-                            <select id="CmbIsConfirmed" class="form-control">
+                            <select asp-for="Input.IsConfirmed" id="CmbIsConfirmed" class="form-control">
                                 <option>@Localizer["All"]</option>
                                 <option value="true">@Localizer["IsConfirmed"]</option>
                                 <option value="false">@Localizer["IsNotConfirmed"]</option>
@@ -127,7 +126,7 @@
                         </div>
                         <div class="col-md-3">
                             <label asp-for="Input.IsDraft"></label>
-                            <select id="CmbIsDraft" class="form-control">
+                            <select asp-for="Input.IsDraft" id="CmbIsDraft" class="form-control">
                                 <option>@Localizer["All"]</option>
                                 <option value="true">@Localizer["IsDraft"]</option>
                                 <option value="false">@Localizer["IsNotDraft"]</option>
@@ -135,7 +134,7 @@
                         </div>
                         <div class="col-md-3">
                             <label asp-for="Input.IsSchedule"></label>
-                            <select id="CmbIsSchedule" class="form-control">
+                            <select asp-for="Input.IsSchedule" id="CmbIsSchedule" class="form-control">
                                 <option>@Localizer["All"]</option>
                                 <option value="true">@Localizer["IsSchedule"]</option>
                                 <option value="false">@Localizer["IsNotSchedule"]</option>
@@ -169,30 +168,34 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <span>#=Date#</span>
+                        <div class="date">
+                            <span>#=Date#</span>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="d-inline #:HasUnConfirmedReviews==true?'font-weight-bold':''#"><i class="fa fa-comment mr-1 ml-1"></i><span>#:CountReviews#</span></div>
-                        <div class="d-inline #:HasUnConfirmedAsk==true?'font-weight-bold':''#"><i class="fa fa-question mr-1 ml-1"></i><span>#:CountAsks#</span></div>
-                        <div class="d-inline #:HasUnConfirmedSellerRequest==true?'font-weight-bold':''#"><i class="fa fa-users mr-1 ml-1"></i><span>#:CountSellers#</span></div>
-                        <div class='d-inline'><i class="fa fa-eye mr-1 ml-1"></i><span>#:CountVisit#</span></div>
+                        <div class="Summery">
+                            <div class="d-inline #:HasUnConfirmedReviews==true?'font-weight-bold':''#"><i class="fa fa-comment mr-1 ml-1"></i><span title="@Localizer["CountReviews"]"><a href="##">#:CountReviews#</a></span></div>
+                            <div class="d-inline #:HasUnConfirmedAsk==true?'font-weight-bold':''#"><i class="fa fa-question mr-1 ml-1"></i><span title="@Localizer["CountAsks"]"><a href="##">#:CountAsks#</a></span></div>
+                            <div class="d-inline #:HasUnConfirmedSellerRequest==true?'font-weight-bold':''#"><i class="fa fa-users mr-1 ml-1"></i><span title="@Localizer["CountSellers"]"><a href="##">#:CountSellers#</a></span></div>
+                            <div class='d-inline'><i class="fa fa-eye mr-1 ml-1"></i><span title="@Localizer["CountVisit"]"><a href="##">#:CountVisit#</a></span></div>
+                        </div>
                     </div>
                 </div>
     </div>
 </script>
 
 <script id="AuthorCell">
-                                        <a href="">
-                                            <div class="d-inline"><img class="img-responcive img-circle" src="#=AuthorImageUrl#" /></div>
-                                            <div class="d-inline">#=AuthorName#</div>
-                                        </a>
+                                            <a href="">
+                                                <div class="d-inline"><img class="img-responcive img-circle" src="#=AuthorImageUrl#" /></div>
+                                                <div class="d-inline">#=AuthorName#</div>
+                                            </a>
 </script>
 
 <script id="StatusCell">
     <span class="badge badge-#:Status==0?'danger':(Status==1?'info':(Status==2?'success':(Status==3?'warning':(Status==4?'dark':'primary'))))#">
-        #:Status==0?'@Localizer["IsDelete"]':(Status==1?'@Localizer["IsDraft"]':(Status==2?'@Localizer["IsConfirm"]':(Status==3?'@Localizer["IsSchedule"]':(Status==4?'@Localizer["UnKnown"]':'@Localizer["UnKnown"]'))))#
+        #:Status==0?'@Localizer["IsDelete"]':(Status==1?'@Localizer["IsDraft"]':(Status==2?'@Localizer["IsConfirm"]':(Status==3?'@Localizer["ItsForConfirm"]':(Status==4?'@Localizer["IsSchedule"]':(Status==5?'@Localizer["UnKnown"]':'@Localizer["UnKnown"]')))))#
     </span>
 </script>
 
@@ -259,9 +262,9 @@
         ChangeUrl(_Grid.dataSource.transport.options.read.url);
     }
 
-
-
-    //$(document).ready(function () {
-    //    Search();
-    //});
+    $(document).ready(function () {
+        setTimeout(function () {
+            Search();
+        }, 500);
+    });
 </script>

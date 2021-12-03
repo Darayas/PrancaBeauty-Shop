@@ -24,6 +24,7 @@ namespace PrancaBeauty.Application.Contracts.Products
         public bool IsDelete { get; set; }
         public bool IsConfirm { get; set; }
         public bool IsDraft { get; set; }
+        public bool ItsForConfirm { get; set; }
         public DateTime Date { get; set; }
         public bool HasUnConfirmedSellerRequest { get; set; }
         public int CountSellers { get; set; }
@@ -39,7 +40,8 @@ namespace PrancaBeauty.Application.Contracts.Products
         IsDelete = 0,
         IsDraft = 1,
         IsConfirm = 2,
-        IsSchedule = 3,
-        UnKnown = 4
+        ItsForConfirm = 3,
+        IsSchedule = 4,
+        UnKnown = 5
     }
 }

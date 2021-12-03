@@ -269,8 +269,21 @@ form {
     }
 
     .Category {
+        margin-bottom: 5px;
+
         span {
             font-weight: 700;
+        }
+    }
+
+    .date {
+        margin-bottom: 5px;
+        direction: ltr;
+    }
+
+    .Summery {
+        div {
+            margin-left: 10px;
         }
     }
 }

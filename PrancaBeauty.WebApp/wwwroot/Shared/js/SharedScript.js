@@ -157,3 +157,4 @@ function CloseModalBackdrop() {
     $('body').removeClass("modal-open");
 }
 
+function forgeryToken() { return kendo.antiForgeryTokens() }

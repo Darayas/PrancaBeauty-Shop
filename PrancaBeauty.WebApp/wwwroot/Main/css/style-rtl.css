@@ -8077,5 +8077,14 @@ form .frmBtnAction {
   overflow: hidden;
   margin-bottom: 2px; }
 
-.TitleCell .Category span {
-  font-weight: 700; }
+.TitleCell .Category {
+  margin-bottom: 5px; }
+  .TitleCell .Category span {
+    font-weight: 700; }
+
+.TitleCell .date {
+  margin-bottom: 5px;
+  direction: ltr; }
+
+.TitleCell .Summery div {
+  margin-left: 10px; }

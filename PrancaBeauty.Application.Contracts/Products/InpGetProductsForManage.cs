@@ -27,9 +27,9 @@ namespace PrancaBeauty.Application.Contracts.Products
         [Display(Name = "AuthorUserId")]
         [GUID]
         public string AuthorUserId { get; set; }
-
+        [MaxLengthString(150)]
         [Display(Name = "Title")]
-        [GUID]
+
         public string Title { get; set; }
 
         [Display(Name = "Name")]

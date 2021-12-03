@@ -33,6 +33,7 @@ namespace PrancaBeauty.Domin.Product.ProductAgg.Entities
         public string Name { get; set; } // Uniqe Name
         public string Title { get; set; }
         public string Description { get; set; }
+        public bool ItsForConfirm { get; set; }
         public bool IsConfirmed { get; set; }
         public bool IsDraft { get; set; }
         public bool IsDelete { get; set; }

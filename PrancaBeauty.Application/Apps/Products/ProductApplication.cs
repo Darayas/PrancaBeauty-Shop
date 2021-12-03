@@ -99,7 +99,7 @@ namespace PrancaBeauty.Application.Apps.Products
                                                   HasUnConfirmedSellerRequest = a.tblProductSellers.Any(b => b.IsConfirm == false),
                                                   CountSellers = a.tblProductSellers.Count(),
                                                   CountVisit = 0,
-                                                  Status = a.IsDelete ? OutGetProductsForManage_Status.IsDelete : (a.IsDraft ? OutGetProductsForManage_Status.IsDraft : (a.IsConfirmed ? OutGetProductsForManage_Status.IsConfirm : (a.Date > DateTime.Now ? OutGetProductsForManage_Status.IsSchedule : OutGetProductsForManage_Status.UnKnown))),
+                                                  Status = a.IsDelete ? OutGetProductsForManage_Status.IsDelete : (a.IsDraft ? OutGetProductsForManage_Status.IsDraft : (a.IsConfirmed ? OutGetProductsForManage_Status.IsConfirm : (a.ItsForConfirm ? OutGetProductsForManage_Status.ItsForConfirm : (a.Date > DateTime.Now ? OutGetProductsForManage_Status.IsSchedule : OutGetProductsForManage_Status.UnKnown)))),
                                                   AuthorUserId = a.AuthorUserId.ToString(),
                                                   AuthorName = a.tblAuthorUser.FirstName + " " + a.tblAuthorUser.LastName,
                                                   AuthorImageUrl = "",
@@ -151,8 +151,9 @@ namespace PrancaBeauty.Application.Apps.Products
                                            .Take((int)_PagingData.Take)
                                            .ToListAsync());
             }
-            catch (ArgumentInvalidException)
+            catch (ArgumentInvalidException ex)
             {
+                _Logger.Debug(ex);
                 return default;
             }
             catch (Exception ex)
@@ -203,6 +204,7 @@ namespace PrancaBeauty.Application.Apps.Products
                         Date = Input.Date == null ? DateTime.Now : (Convert.ToDateTime(Input.Date).AddHours(1) < DateTime.Now ? DateTime.Now : Convert.ToDateTime(Input.Date)),
                         IsConfirmed = false,
                         IsDelete = false,
+                        ItsForConfirm = true,
                         IsDraft = Input.IsDraft,
                         MetaTagCanonical = Input.MetaTagCanonical,
                         MetaTagDescreption = Input.MetaTagDescreption,

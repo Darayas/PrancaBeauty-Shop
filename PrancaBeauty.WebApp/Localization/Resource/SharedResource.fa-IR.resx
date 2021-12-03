@@ -291,17 +291,29 @@
   <data name="ConfirmPhoneNumberDes" xml:space="preserve">
     <value>وضعیت موبایل (نزولی)</value>
   </data>
+  <data name="CountAsks" xml:space="preserve">
+    <value>تعداد سوالات</value>
+  </data>
   <data name="CountBills" xml:space="preserve">
     <value>تعداد صورت حساب</value>
   </data>
   <data name="CountInStock" xml:space="preserve">
     <value>تعداد نزد فروشنده</value>
   </data>
+  <data name="CountReviews" xml:space="preserve">
+    <value>تعداد نظرات</value>
+  </data>
   <data name="CountryId" xml:space="preserve">
     <value>کشور</value>
   </data>
+  <data name="CountSellers" xml:space="preserve">
+    <value>تعداد فروشندگان</value>
+  </data>
   <data name="CountUser" xml:space="preserve">
     <value>تعداد کاربران</value>
+  </data>
+  <data name="CountVisit" xml:space="preserve">
+    <value>تعداد بازدید</value>
   </data>
   <data name="CurrentPassword" xml:space="preserve">
     <value>کلمه عبور فعلی</value>
@@ -581,6 +593,9 @@
   </data>
   <data name="ItemsPerPage" xml:space="preserve">
     <value>مورد بر صفحه</value>
+  </data>
+  <data name="ItsForConfirm" xml:space="preserve">
+    <value>نیازمند برسی</value>
   </data>
   <data name="ItsForProductTitleMsg" xml:space="preserve">
     <value>&lt;span class='da-text'&gt;{0} حاوی کاراکترهای غیرمجاز میباشد. کاراکترهای مجاز:&lt;/span&gt;&lt;ul class='da-list'&gt;&lt;li&gt;حروف و اعداد اینگلیسی و فارسی و عربی&lt;/li&gt;&lt;li&gt;کاراکترهای )(*-.،,_«»&lt;/li&gt;&lt;/ul&gt;</value>

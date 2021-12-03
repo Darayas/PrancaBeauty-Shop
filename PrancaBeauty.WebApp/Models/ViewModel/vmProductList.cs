@@ -33,6 +33,7 @@ namespace PrancaBeauty.WebApp.Models.ViewModel
         public bool IsDelete { get; set; }
         public bool IsConfirm { get; set; }
         public bool IsDraft { get; set; }
+        public bool ItsForConfirm { get; set; }
         public string Date { get; set; }
         public bool HasUnConfirmedSellerRequest { get; set; }
         public int CountSellers { get; set; }

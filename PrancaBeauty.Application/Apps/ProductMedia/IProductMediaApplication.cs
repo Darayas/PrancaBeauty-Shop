@@ -7,5 +7,6 @@ namespace PrancaBeauty.Application.Apps.ProductMedia
     public interface IProductMediaApplication
     {
         Task<OperationResult> AddMediasToProductAsync(InpAddMediasToProduct Input);
+        Task<OperationResult> RemoveAllMediaFromProductAsync(InpRemoveAllMediaFromProduct Input);
     }
 }

@@ -404,6 +404,20 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     }, default, false).Wait();
                 }
 
+                if (!_repRoles.Get.Any(a => a.Name == "CanRemoveAllUserProduct"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageProductsPage",
+                        Sort = 215,
+                        Name = "CanRemoveAllUserProduct",
+                        NormalizedName = "CanRemoveAllUserProduct".ToUpper(),
+                        Description = "توانایی حذف محصولات دیگر کاربران"
+                    }, default, false).Wait();
+                }
+
                 if (!_repRoles.Get.Any(a => a.Name == "CanRemoveProduct"))
                 {
                     _repRoles.AddAsync(new tblRoles()
@@ -415,6 +429,20 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                         Name = "CanRemoveProduct",
                         NormalizedName = "CanRemoveProduct".ToUpper(),
                         Description = "توانایی حذف محصول"
+                    }, default, false).Wait();
+                }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanMoveToRecycleBinAllUserProduct"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageProductsPage",
+                        Sort = 225,
+                        Name = "CanMoveToRecycleBinAllUserProduct",
+                        NormalizedName = "CanMoveToRecycleBinAllUserProduct".ToUpper(),
+                        Description = "توانایی انتقال محصولات دیگر کاربران به زباله دان"
                     }, default, false).Wait();
                 }
 

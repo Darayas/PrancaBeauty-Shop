@@ -1,6 +1,7 @@
 ﻿using Framework.Common.ExMethods;
 using Framework.Exceptions;
 using Framework.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Contracts.ProductMedia;
 using PrancaBeauty.Application.Contracts.Results;
 using PrancaBeauty.Domin.Product.ProductMediaAgg.Contracts;
@@ -53,6 +54,32 @@ namespace PrancaBeauty.Application.Apps.ProductMedia
                 }
 
                 await _ProductMediaRepository.SaveChangeAsync();
+                return new OperationResult().Succeeded();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
+
+        public async Task<OperationResult> RemoveAllMediaFromProductAsync(InpRemoveAllMediaFromProduct Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var qData = await _ProductMediaRepository.Get.Where(a => a.ProductId == Guid.Parse(Input.ProductId)).ToListAsync();
+
+                await _ProductMediaRepository.DeleteRangeAsync(qData, default, true);
+
                 return new OperationResult().Succeeded();
             }
             catch (ArgumentInvalidException ex)

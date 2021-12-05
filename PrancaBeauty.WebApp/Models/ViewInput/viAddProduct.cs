@@ -78,19 +78,15 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
         public string ProductImagesId { get; set; }
 
         [Display(Name = "Properties")]
-        [RequiredForDraft(nameof(IsDraft))]
         public List<viAddProduct_Properties> Properties { get; set; }
 
         [Display(Name = "Keywords")]
-        [RequiredForDraft(nameof(IsDraft))]
         public List<viAddProduct_Keywords> Keywords { get; set; }
 
         [Display(Name = "ProductVariants")]
-        [RequiredForDraft(nameof(IsDraft))]
         public List<viAddProduct_Variants> Variants { get; set; }
 
         [Display(Name = "PostingRestrictions")]
-        [RequiredForDraft(nameof(IsDraft))]
         public List<viAddProduct_PostingRestrictions> PostingRestrictions { get; set; }
     }
 

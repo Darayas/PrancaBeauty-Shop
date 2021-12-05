@@ -4,6 +4,7 @@ using Framework.Common.Utilities.Paging;
 using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 using PrancaBeauty.Application.Apps.Categories;
 using PrancaBeauty.Application.Apps.Currency;
 using PrancaBeauty.Application.Apps.KeywordsProducts;
@@ -402,9 +403,13 @@ namespace PrancaBeauty.Application.Apps.Products
                 #region Validations
                 Input.CheckModelState(_ServiceProvider);
 
-                var qProduct = await _ProductRepository.GetById(default, Input.ProductId);
+                var qProduct = await _ProductRepository.GetById(default, Guid.Parse(Input.ProductId));
                 if (qProduct == null)
                     return new OperationResult().Failed("IdIsInvalid");
+
+                if (Input.AuthorUserId != null)
+                    if (qProduct.AuthorUserId != Guid.Parse(Input.AuthorUserId))
+                        return new OperationResult().Failed("AccessDenied");
                 #endregion
 
                 // TODO برسی نبودن سفارش ثبت شده برای محصول جاری
@@ -412,6 +417,9 @@ namespace PrancaBeauty.Application.Apps.Products
                 // TODO حذف کامنت ها
 
                 // TODO حذف پرسش ها
+
+                // حذف تصاویر محصول
+                await _ProductMediaApplication.RemoveAllMediaFromProductAsync(new InpRemoveAllMediaFromProduct { ProductId = Input.ProductId });
 
                 // حذف قیمت محصول
                 await _ProductPriceApplication.RemovePriceFromProductAsync(new InpRemovePriceFromProduct { ProductId = Input.ProductId });
@@ -430,6 +438,42 @@ namespace PrancaBeauty.Application.Apps.Products
 
                 // حذف محصول
                 await _ProductRepository.DeleteAsync(qProduct, default, true);
+
+                return new OperationResult().Succeeded();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
+
+        public async Task<OperationResult> MoveToRecycleBinAsync(InpMoveToRecycleBin Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+
+                var qProduct = await _ProductRepository.GetById(default, Guid.Parse(Input.ProductId));
+                if (qProduct == null)
+                    return new OperationResult().Failed("IdIsInvalid");
+
+                if (Input.AuthorUserId != null)
+                    if (qProduct.AuthorUserId != Guid.Parse(Input.AuthorUserId))
+                        return new OperationResult().Failed("AccessDenied");
+                #endregion
+
+                qProduct.IsDelete = true;
+                qProduct.IsConfirmed = false;
+                qProduct.ItsForConfirm = true;
+
+                await _ProductRepository.UpdateAsync(qProduct, default, true);
 
                 return new OperationResult().Succeeded();
             }

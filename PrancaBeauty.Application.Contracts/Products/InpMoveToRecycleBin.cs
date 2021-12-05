@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PrancaBeauty.Application.Contracts.Products
 {
-    public class InpRemoveProductForAlways
+    public class InpMoveToRecycleBin
     {
         [Display(Name = "ProductId")]
         [RequiredString]
@@ -13,6 +13,5 @@ namespace PrancaBeauty.Application.Contracts.Products
         [Display(Name = "UserId")]
         [GUID]
         public string AuthorUserId { get; set; }
-
     }
 }

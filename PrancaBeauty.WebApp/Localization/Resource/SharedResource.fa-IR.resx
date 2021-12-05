@@ -204,6 +204,9 @@
   <data name="AWorkingDay" xml:space="preserve">
     <value>یک روز کاری</value>
   </data>
+  <data name="AyeYouSureToMoveToRecycleBin" xml:space="preserve">
+    <value>آیا مطمعن به انتقال این مورد به زباله دان هستید؟</value>
+  </data>
   <data name="BirthDate" xml:space="preserve">
     <value>تاریخ تولد</value>
   </data>

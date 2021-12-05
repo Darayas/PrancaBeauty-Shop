@@ -91,13 +91,22 @@ namespace PrancaBeauty.WebApp.Pages.User.Products
 
         public async Task<IActionResult> OnPostRemoveAsync(string Id)
         {
-            if (!User.IsInRole(Roles.CanRemoveCategory))
-                return _MsgBox.InfoMsg(_Localizer["AccessDenied"]);
-
+            #region Validations
             if (string.IsNullOrWhiteSpace(Id))
                 return _MsgBox.ModelStateMsg(_Localizer["IdCantBeNull"]);
+            #endregion
 
-            var _Result = await _ProductApplication.RemoveProductForAlwaysAsync(new InpRemoveProductForAlways { ProductId = Id });
+            #region برسی سطوح دسترسی کاربر
+            if (!User.IsInRole(Roles.CanRemoveProduct))
+                return _MsgBox.InfoMsg(_Localizer["AccessDenied"]);
+
+            string _AuthorUserId = User.GetUserDetails().UserId;
+
+            if (User.IsInRole(Roles.CanRemoveAllUserProduct))
+                _AuthorUserId = null;
+            #endregion
+
+            var _Result = await _ProductApplication.RemoveProductForAlwaysAsync(new InpRemoveProductForAlways { ProductId = Id, AuthorUserId = _AuthorUserId });
             if (_Result.IsSucceeded)
             {
                 return _MsgBox.SuccessMsg(_Localizer[_Result.Message], "Search()");
@@ -107,6 +116,34 @@ namespace PrancaBeauty.WebApp.Pages.User.Products
                 return _MsgBox.FaildMsg(_Localizer[_Result.Message]);
             }
 
+        }
+
+        public async Task<IActionResult> OnPostMoveToRecycleBinAsync(string Id)
+        {
+            #region Validations
+            if (string.IsNullOrWhiteSpace(Id))
+                return _MsgBox.ModelStateMsg(_Localizer["IdCantBeNull"]);
+            #endregion
+
+            #region برسی سطوح دسترسی کاربر
+            if (!User.IsInRole(Roles.CanMoveToRecycleBinProduct))
+                return _MsgBox.InfoMsg(_Localizer["AccessDenied"]);
+
+            string _AuthorUserId = User.GetUserDetails().UserId;
+
+            if (User.IsInRole(Roles.CanMoveToRecycleBinAllUserProduct))
+                _AuthorUserId = null;
+            #endregion
+
+            var _Result = await _ProductApplication.MoveToRecycleBinAsync(new InpMoveToRecycleBin() { ProductId = Id, AuthorUserId = _AuthorUserId });
+            if (_Result.IsSucceeded)
+            {
+
+            }
+            else
+            {
+
+            }
         }
 
         [BindProperty(SupportsGet = true)]

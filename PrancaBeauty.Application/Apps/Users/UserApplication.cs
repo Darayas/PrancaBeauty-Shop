@@ -625,7 +625,7 @@ namespace PrancaBeauty.Application.Apps.Users
                     throw new ArgumentInvalidException("Input.Roles cant be null.");
                 #endregion
 
-                var qUser = await _UserRepository.GetById(default, Input.UserId);
+                var qUser = await _UserRepository.GetById(default, Guid.Parse(Input.UserId));
                 if (qUser == null)
                     return new OperationResult().Failed("User not found");
 

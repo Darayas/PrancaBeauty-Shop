@@ -8088,3 +8088,6 @@ form .frmBtnAction {
 
 .TitleCell .Summery div {
   margin-left: 10px; }
+
+.hide {
+  display: none !important; }

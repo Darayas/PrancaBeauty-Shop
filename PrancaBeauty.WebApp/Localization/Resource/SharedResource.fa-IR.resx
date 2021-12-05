@@ -990,6 +990,9 @@
   <data name="RecoveryCodeRedemptionFailed" xml:space="preserve">
     <value>بازیابی ناموفق بود</value>
   </data>
+  <data name="RecoveryFromRecycleBin" xml:space="preserve">
+    <value>بازیافت از زباله دان</value>
+  </data>
   <data name="RecoveryPassword" xml:space="preserve">
     <value>بازیابی حساب</value>
   </data>

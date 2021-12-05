@@ -15,7 +15,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                 //new AddData_FileServers().Run();
                 //new AddData_FileType().Run();
                 //new AddData_FilePath().Run();
-                //new AddData_Roles().Run();
+                new AddData_Roles().Run();
                 //new AddData_AccessLevel().Run();
                 //new AddData_Countris().Run();
                 //new AddData_languages().Run();

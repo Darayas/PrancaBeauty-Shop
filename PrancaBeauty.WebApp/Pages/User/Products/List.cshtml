@@ -187,10 +187,10 @@
 </script>
 
 <script id="AuthorCell">
-                                                                        <a href="">
-                                                                            <div class="d-inline"><img class="img-responcive img-circle" src="#=AuthorImageUrl#" /></div>
-                                                                            <div class="d-inline">#=AuthorName#</div>
-                                                                        </a>
+                                                                            <a href="">
+                                                                                <div class="d-inline"><img class="img-responcive img-circle" src="#=AuthorImageUrl#" /></div>
+                                                                                <div class="d-inline">#=AuthorName#</div>
+                                                                            </a>
 </script>
 
 <script id="StatusCell">
@@ -205,7 +205,7 @@
         <div class="dropdown-menu dropdown-menu-left">
             @if (User.IsInRole(Roles.CanEditProduct))
             {
-                <a href="/@ViewData["Culture"]/Admin/Users/Edit/#:Id#" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i>@Localizer["Edit"]</a>
+                <a href="/@ViewData["Culture"]/User/Products/Edit/#:Id#?ReturnUrl=@Request.GetCurrentUrlEncoded()" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i>@Localizer["Edit"]</a>
             }
 
             @if (User.IsInRole(Roles.CanMoveToRecycleBinProduct))
@@ -215,7 +215,8 @@
                     <a onclick="Remove('#:Id#')" class="dropdown-item"><i class="dropdown-icon fa fa-times"></i>@Localizer["RemoveAlways"]</a>
                 }
 
-                <a onclick="MoveToRecycleBin('#:Id#')" class="dropdown-item"><i class="dropdown-icon fa fa-trash"></i>@Localizer["MoveToRecycleBin"]</a>
+                <a onclick="MoveToRecycleBin('#:Id#')" class="dropdown-item #:Status==0?'hide':''#"><i class="dropdown-icon fa fa-trash"></i>@Localizer["MoveToRecycleBin"]</a>
+                <a onclick="RecoveryFromRecycleBin('#:Id#')" class="dropdown-item #:Status!=0?'hide':''#"><i class="dropdown-icon fa fa-undo"></i>@Localizer["RecoveryFromRecycleBin"]</a>
             }
         </div>
     </div>
@@ -231,13 +232,15 @@
     </script>
 }
 
-
-
 @if (User.IsInRole(Roles.CanMoveToRecycleBinProduct))
 {
-<script>
+    <script>
         function MoveToRecycleBin(_Id) {
             MoveToRecycleBinConfirm('/@ViewData["Culture"]/User/Products/List?handler=MoveToRecycleBin', { Id: _Id });
+        }
+
+        function RecoveryFromRecycleBin(_Id) {
+            SendData('/@ViewData["Culture"]/User/Products/List?handler=RecoveryFromRecycleBin', { Id: _Id });
         }
 
         function MoveToRecycleBinConfirm(_Url, _Data = {}) {
@@ -245,7 +248,7 @@
                 SendData(_Url, _Data);
             });
         }
-</script>
+    </script>
 
     if (User.IsInRole(Roles.CanRemoveProduct))
     {

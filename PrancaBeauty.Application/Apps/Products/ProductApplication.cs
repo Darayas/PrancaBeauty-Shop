@@ -488,5 +488,41 @@ namespace PrancaBeauty.Application.Apps.Products
                 return new OperationResult().Failed("Error500");
             }
         }
+
+        public async Task<OperationResult> RecoveryFromRecycleBinAsync(InpRecoveryFromRecycleBin Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+
+                var qProduct = await _ProductRepository.GetById(default, Guid.Parse(Input.ProductId));
+                if (qProduct == null)
+                    return new OperationResult().Failed("IdIsInvalid");
+
+                if (Input.AuthorUserId != null)
+                    if (qProduct.AuthorUserId != Guid.Parse(Input.AuthorUserId))
+                        return new OperationResult().Failed("AccessDenied");
+                #endregion
+
+                qProduct.IsDelete = false;
+                qProduct.IsConfirmed = false;
+                qProduct.ItsForConfirm = true;
+
+                await _ProductRepository.UpdateAsync(qProduct, default, true);
+
+                return new OperationResult().Succeeded();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
     }
 }

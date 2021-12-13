@@ -67,5 +67,7 @@ namespace PrancaBeauty.Application.Apps.Keywords
                 return new OperationResult().Failed("Error500");
             }
         }
+
+        
     }
 }

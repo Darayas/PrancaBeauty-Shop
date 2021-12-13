@@ -43,12 +43,12 @@
                         </div>
                         <div class="card-body">
                             @*<div class="form-group">
-                                <label asp-for="Input.LangId"></label>
-                                <LoadComponent id="ProductLangCompo"
-                                               context="HttpContext"
-                                               data='new viCompo_Combo_Language { FieldName="Input.LangId",LangId = Model.Input.LangId}'
-                                               url="/@ViewData["culture"]/Shared/Compo/ComboLanguage"></LoadComponent>
-                            </div>*@
+                                    <label asp-for="Input.LangId"></label>
+                                    <LoadComponent id="ProductLangCompo"
+                                                   context="HttpContext"
+                                                   data='new viCompo_Combo_Language { FieldName="Input.LangId",LangId = Model.Input.LangId}'
+                                                   url="/@ViewData["culture"]/Shared/Compo/ComboLanguage"></LoadComponent>
+                                </div>*@
 
                             <div class="form-group">
                                 <LoadComponent id="ProductTopicCompo"
@@ -274,7 +274,7 @@
         <script src="~/lib/CKEditor5/build/translations/fa.js"></script>
     }
 
-    <script>
+<script>
         function SaveAsDraft() {
             $('#Input_IsDraft').val('true');
             SaveData();
@@ -308,31 +308,25 @@
             }
         });
 
-        function OnComboSelectInput_LangId(e) {
-            var _LangId = e.dataItem.Id;
-
-            LoadComponenet('/@ViewData["culture"]/Shared/Compo/ComboInputPrice', {
-                FieldName: 'Input.Price',
-                Price: '0',
-                LangId: _LangId
-            }, function (res) {
-                $('#PriceCompo').html(res);
-            });
-        }
-
         $(document).ready(function () {
             LoadCkEditor('@CultureInfo.CurrentCulture.Parent.Name');
+            LoadTopicCompo('@Model.Input.TopicId', '@Model.Input.Id');
         });
 
-    function OnComboSelectInput_TopicId(e) {
+        function OnComboSelectInput_TopicId(e) {
+            LoadTopicCompo(e.dataItem.Id, '@Model.Input.Id');
 
-        LoadComponenet('/@ViewData["Culture"]/User/Products/Compo/ComboProductProperties',
-        {
-            TopicId: e.dataItem.Id
-        },
-        function (res) {
-            $('#ProductProperties').html(res);
-        });
-    }
+        }
+
+        function LoadTopicCompo(_TopicId,_ProductId) {
+            LoadComponenet('/@ViewData["Culture"]/User/Products/Compo/ComboProductProperties',
+            {
+                TopicId: _TopicId,
+                ProductId: _ProductId
+            },
+            function (res) {
+                $('#ProductProperties').html(res);
+            });
+        }
 </script>
 }

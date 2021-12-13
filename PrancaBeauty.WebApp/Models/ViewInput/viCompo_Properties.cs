@@ -8,5 +8,6 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
     public class viCompo_Properties
     {
         public string TopicId { get; set; }
+        public string ProductId { get; set; }
     }
 }

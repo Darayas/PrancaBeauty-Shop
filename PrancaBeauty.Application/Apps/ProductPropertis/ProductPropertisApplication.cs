@@ -40,7 +40,7 @@ namespace PrancaBeauty.Application.Apps.ProductPropertis
                                                             {
                                                                 PropertyId = a.Id.ToString(),
                                                                 PropertyTitle = a.tblProductPropertis_Translates.Where(b => b.LangId == Guid.Parse(Input.LangId)).Select(b => b.Title).Single(),
-                                                                PropertyValue = ""
+                                                                PropertyValue = Input.ProductId == null ? "" : a.tblProductPropertiesValues.Where(a => a.ProductId == Guid.Parse(Input.ProductId)).Select(b => b.Value).Single()
                                                             })
                                                             .ToListAsync();
 

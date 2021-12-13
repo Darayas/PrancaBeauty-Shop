@@ -3,6 +3,7 @@ using PrancaBeauty.Application.Contracts.Address;
 using PrancaBeauty.Application.Contracts.Categories;
 using PrancaBeauty.Application.Contracts.Currency;
 using PrancaBeauty.Application.Contracts.Files;
+using PrancaBeauty.Application.Contracts.KeywordProducts;
 using PrancaBeauty.Application.Contracts.ProductProperties;
 using PrancaBeauty.Application.Contracts.Products;
 using PrancaBeauty.Application.Contracts.Users;
@@ -58,6 +59,7 @@ namespace PrancaBeauty.WebApp.Mapping
             CreateMap<outGetFileDetailsForFileSelector, vmCompo_FileSelector>();
             CreateMap<OutGetFileListForFileManager, vmCompo_ModalFileList>();
             CreateMap<OutGetForManageProduct, vmCompo_Properties>();
+            CreateMap<OutGetKeywordByProductId, vmCompo_Input_Keywords>();
         }
     }
 }

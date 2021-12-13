@@ -23,11 +23,11 @@ namespace PrancaBeauty.Application.Apps.KeywordsProducts
         private readonly ILogger _Logger;
         private readonly ILocalizer _Localizer;
         private readonly IServiceProvider _ServiceProvider;
-        private readonly IKeywords_ProductsRepository _IKeywords_ProductsRepository;
+        private readonly IKeywords_ProductsRepository _Keywords_ProductsRepository;
         private readonly IKeywordApplication _KeywordApplication;
-        public KeywordProductsApplication(IKeywords_ProductsRepository iKeywords_ProductsRepository, ILogger logger, IKeywordApplication keywordApplication, ILocalizer localizer, IServiceProvider serviceProvider)
+        public KeywordProductsApplication(IKeywords_ProductsRepository Keywords_ProductsRepository, ILogger logger, IKeywordApplication keywordApplication, ILocalizer localizer, IServiceProvider serviceProvider)
         {
-            _IKeywords_ProductsRepository = iKeywords_ProductsRepository;
+            _Keywords_ProductsRepository = Keywords_ProductsRepository;
             _Logger = logger;
             _KeywordApplication = keywordApplication;
             _Localizer = localizer;
@@ -68,10 +68,10 @@ namespace PrancaBeauty.Application.Apps.KeywordsProducts
                         Similarity = double.Parse(item.Similarity, new CultureInfo("en-US"))
                     };
 
-                    await _IKeywords_ProductsRepository.AddAsync(tKeywordProducts, default, false);
+                    await _Keywords_ProductsRepository.AddAsync(tKeywordProducts, default, false);
                 }
 
-                await _IKeywords_ProductsRepository.SaveChangeAsync();
+                await _Keywords_ProductsRepository.SaveChangeAsync();
 
                 return new OperationResult().Succeeded();
             }
@@ -95,9 +95,9 @@ namespace PrancaBeauty.Application.Apps.KeywordsProducts
                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
-                var qData = await _IKeywords_ProductsRepository.Get.Where(a => a.ProductId == Guid.Parse(Input.ProductId)).ToListAsync();
+                var qData = await _Keywords_ProductsRepository.Get.Where(a => a.ProductId == Guid.Parse(Input.ProductId)).ToListAsync();
 
-                await _IKeywords_ProductsRepository.DeleteRangeAsync(qData, default, true);
+                await _Keywords_ProductsRepository.DeleteRangeAsync(qData, default, true);
 
                 return new OperationResult().Succeeded();
             }
@@ -110,6 +110,38 @@ namespace PrancaBeauty.Application.Apps.KeywordsProducts
             {
                 _Logger.Error(ex);
                 return new OperationResult().Failed("Error500");
+            }
+        }
+
+        public async Task<List<OutGetKeywordByProductId>> GetKeywordByProductIdAsync(InpGetKeywordByProductId Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var qData = await _Keywords_ProductsRepository.Get
+                                                             .Where(a => a.ProductId == Guid.Parse(Input.ProductId))
+                                                             .Select(a => new OutGetKeywordByProductId
+                                                             {
+                                                                 Id = a.Id.ToString(),
+                                                                 Title = a.tblKeywords.Title,
+                                                                 Similarity = a.Similarity
+                                                             })
+                                                             .ToListAsync();
+
+                return qData;
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
             }
         }
     }

@@ -27,7 +27,7 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Components.Compo_Properties
             if (!ModelState.IsValid)
                 return StatusCode(400);
 
-            var qData = await _ProductPropertisApplication.GetForManageProductAsync(new InpGetForManageProduct { LangId = LangId, TopicId = Input.TopicId });
+            var qData = await _ProductPropertisApplication.GetForManageProductAsync(new InpGetForManageProduct { LangId = LangId, TopicId = Input.TopicId, ProductId = Input.ProductId });
             if (qData == null)
                 return StatusCode(500);
 

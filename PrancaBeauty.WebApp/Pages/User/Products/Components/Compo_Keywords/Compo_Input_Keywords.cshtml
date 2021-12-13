@@ -19,10 +19,28 @@
 
         <hr />
         <div id="CompoAddKeywordSection">
-            <LoadComponent class="ProductKeywordsInputCompo"
-                           context="HttpContext"
-                           data='new viCompo_Input_Keywords_Input { Index=0}'
-                           url="/@ViewData["culture"]/User/Products/Compo/CompoInputKeywordInput"></LoadComponent>
+            @{
+                int _Index = 0;
+                if (Model.Data.Count() > 0)
+                {
+                    foreach (var item in Model.Data)
+                    {
+                        <LoadComponent class="ProductKeywordsInputCompo"
+                                       context="HttpContext"
+                                       data='new viCompo_Input_Keywords_Input { Index = _Index,Id=item.Id,Title=item.Title,Similarity=item.Similarity.ToString() }'
+                                       url="/@ViewData["culture"]/User/Products/Compo/CompoInputKeywordInput"></LoadComponent>
+                        _Index = _Index + 1;
+                    }
+                }
+                else
+                {
+                    <LoadComponent class="ProductKeywordsInputCompo"
+                                   context="HttpContext"
+                                   data='new viCompo_Input_Keywords_Input { Index = 0 }'
+                                   url="/@ViewData["culture"]/User/Products/Compo/CompoInputKeywordInput"></LoadComponent>
+                }
+            }
+
 
         </div>
     </div>

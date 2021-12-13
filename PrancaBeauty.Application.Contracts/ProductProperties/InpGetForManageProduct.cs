@@ -15,5 +15,9 @@ namespace PrancaBeauty.Application.Contracts.ProductProperties
         [RequiredString]
         [GUID]
         public string TopicId { get; set; }
+
+        [Display(Name = "ProductId")]
+        [GUID]
+        public string ProductId { get; set; }
     }
 }

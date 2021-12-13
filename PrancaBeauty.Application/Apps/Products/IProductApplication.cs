@@ -9,6 +9,7 @@ namespace PrancaBeauty.Application.Apps.Products
     public interface IProductApplication
     {
         Task<OperationResult> AddProdcutAsync(InpAddProdcut Input);
+        Task<OutGetForEdit> GetForEditAsync(InpGetForEdit Input);
         Task<(OutPagingData, List<OutGetProductsForManage>)> GetProductsForManageAsync(InpGetProductsForManage Input);
         Task<OperationResult> MoveToRecycleBinAsync(InpMoveToRecycleBin Input);
         Task<OperationResult> RecoveryFromRecycleBinAsync(InpRecoveryFromRecycleBin Input);

@@ -524,5 +524,69 @@ namespace PrancaBeauty.Application.Apps.Products
                 return new OperationResult().Failed("Error500");
             }
         }
+
+        public async Task<OutGetForEdit> GetForEditAsync(InpGetForEdit Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                string _CurrencyId = await GetCurrencyIdByProductIdAsync(Input.ProductId);
+
+                var qData = await _ProductRepository.Get
+                                                  .Where(a => Input.UserId != null ? a.AuthorUserId == Guid.Parse(Input.UserId) : true)
+                                                  .Where(a => a.Id == Guid.Parse(Input.ProductId))
+                                                  .Select(a => new OutGetForEdit
+                                                  {
+                                                      Id = a.Id.ToString(),
+                                                      LangId = a.LangId.ToString(),
+                                                      CategoryId = a.CategoryId.ToString(),
+                                                      TopicId = a.TopicId.ToString(),
+                                                      Name = a.Name,
+                                                      Title = a.Title,
+                                                      MetaTagCanonical = a.MetaTagCanonical,
+                                                      MetaTagDescreption = a.MetaTagDescreption,
+                                                      Description = a.Description,
+                                                      IsDraft = a.IsDraft,
+                                                      Date = a.Date,
+                                                      MetaTagKeyword = a.MetaTagKeyword,
+                                                      Price = a.tblProductPrices.Where(a => a.IsActive).Where(a => a.CurrencyId == Guid.Parse(_CurrencyId)).Select(b => b.Price).Single(),
+                                                      ProductImagesId = string.Join(",", a.tblProductMedia.Select(a => a.FileId).Single())
+                                                  })
+                                                  .SingleOrDefaultAsync();
+
+                if (qData == null)
+                    return null;
+
+                return qData;
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
+            }
+        }
+
+        private async Task<string> GetCurrencyIdByProductIdAsync(string ProductId)
+        {
+            string _LangId = await _ProductRepository.Get.Where(a => a.Id == Guid.Parse(ProductId)).Select(a => a.LangId.ToString()).SingleAsync();
+
+            string _CurrencyId = await _CurrencyApplication.GetIdByCountryIdAsync(new InpGetIdByCountryId
+            {
+                CountryId = await _LanguageApplication.GetCountryIdByLangIdAsync(new InpGetCountryIdByLangId
+                {
+                    LangId = _LangId
+                })
+            });
+
+            return _CurrencyId;
+        }
     }
 }

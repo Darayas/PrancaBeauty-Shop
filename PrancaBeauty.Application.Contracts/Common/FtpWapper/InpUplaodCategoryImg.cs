@@ -13,8 +13,8 @@ namespace PrancaBeauty.Application.Contracts.Common.FtpWapper
         public string UserId { get; set; }
 
         [Display(Name = "FormFile")]
-        [FileSize(102400, ErrorMessage = "FileSizeMsg")]
-        [AllowExtentions("image/jpg,image/jpeg", ErrorMessage = "AllowExtentionsMsg")]
+        [FileSize(102400)]
+        [AllowExtentions("image/jpg,image/jpeg")]
         public IFormFile FormFile { get; set; }
 
     }

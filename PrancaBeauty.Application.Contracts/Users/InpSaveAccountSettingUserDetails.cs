@@ -24,8 +24,8 @@ namespace PrancaBeauty.Application.Contracts.Users
 
 
         [Display(Name = "ProfileImage")]
-        [FileSize(1572864, 102400, ErrorMessage = "FileSizeMsg")] // MaxSize: 1.5 MB , MinSize: 100 KB
-        [AllowExtentions("image/jpg, image/png, image/jpeg", ErrorMessage = "AllowExtentionsMsg")]
+        [FileSize(1572864, 102400)] // MaxSize: 1.5 MB , MinSize: 100 KB
+        [AllowExtentions("image/jpg, image/png, image/jpeg")]
         public IFormFile ProfileImage { get; set; }
 
 

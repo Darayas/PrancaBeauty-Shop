@@ -76,12 +76,14 @@ namespace Framework.Common.DataAnnotations.File
             var _ServiceProvider = (IServiceProvider)validationContext.GetService(typeof(IServiceProvider));
             var _Localizer = _ServiceProvider.GetService<ILocalizer>();
 
+            if (ErrorMessage == null)
+                ErrorMessage = "AllowExtentionsMsg";
 
             var ErrMessage = _Localizer[ErrorMessage];
 
             // DisplayName
             if (ErrMessage.Contains("{0}"))
-               ErrorMessage= ErrMessage = ErrMessage.Replace("{0}", _Localizer[validationContext.DisplayName]);
+                ErrorMessage = ErrMessage = ErrMessage.Replace("{0}", _Localizer[validationContext.DisplayName]);
 
             // FileName
             if (ErrMessage.Contains("{1}"))

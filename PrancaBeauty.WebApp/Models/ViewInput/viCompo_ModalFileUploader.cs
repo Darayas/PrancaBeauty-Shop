@@ -11,9 +11,9 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
         public string UserId { get; set; }
 
         [Display(Name = "File")]
-        [RequiredFile(ErrorMessage = "RequiredFileMsg")]
-        [FileSize(524288000, MinFileSize: 1, ErrorMessage = "FileSizeMsg")]
-        [AllowExtentions(ErrorMessage = "AllowExtentionsMsg")]
+        [RequiredFile]
+        [FileSize(524288000, MinFileSize: 1)]
+        [AllowExtentions("image/jpg,image/png,image/jpeg,application/zip,application/rar,video/mp4")]
         public IFormFile Files { get; set; }
     }
 }

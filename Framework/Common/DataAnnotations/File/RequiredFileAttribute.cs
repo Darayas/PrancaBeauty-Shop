@@ -13,7 +13,7 @@ namespace Framework.Common.DataAnnotations.File
         public RequiredFileAttribute()
         {
             if (ErrorMessage == null)
-                ErrorMessage = "{0} cant be null.";
+                ErrorMessage = "RequiredFileMsg";
         }
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)

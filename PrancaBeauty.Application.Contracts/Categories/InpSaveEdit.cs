@@ -23,8 +23,8 @@ namespace PrancaBeauty.Application.Contracts.Categories
         public string ParentId { get; set; }
 
         [Display(Name = "CategoryImage")]
-        [FileSize(102400, ErrorMessage = "FileSizeMsg")]
-        [AllowExtentions("image/jpg,image/jpeg", ErrorMessage = "AllowExtentionsMsg")]
+        [FileSize(102400)]
+        [AllowExtentions("image/jpg,image/jpeg")]
         public IFormFile Image { get; set; }
 
         [Display(Name = "ImgCategoryUrl")]

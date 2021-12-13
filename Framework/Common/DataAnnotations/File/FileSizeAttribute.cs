@@ -66,6 +66,9 @@ namespace Framework.Common.DataAnnotations.File
             var _ServiceProvider = (IServiceProvider)validationContext.GetService(typeof(IServiceProvider));
             var _Localizer = _ServiceProvider.GetService<ILocalizer>();
 
+            if (ErrorMessage == null)
+                ErrorMessage = "FileSizeMsg";
+
             var ErrMessage = _Localizer[ErrorMessage];
 
             // DisplayName

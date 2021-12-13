@@ -274,17 +274,14 @@
         <script src="~/lib/CKEditor5/build/translations/fa.js"></script>
     }
 
-    <script>
+<script>
         function SaveAsDraft() {
             $('#Input_IsDraft').val('true');
-            $('#Input_Description').html(CkEditor.getData());
-            setTimeout(function () {
-                SendForm('/@ViewData["culture"]/User/Products/Add', 'FrmAddProdcut');
-            }, 200);
+            SaveData();
         }
 
-    function SaveData() {
-        $('#Input_Description').html(CkEditor.getData());
+        function SaveData() {
+            $('#Input_Description').html(CkEditor.getData());
             setTimeout(function () {
                 SendForm('/@ViewData["culture"]/User/Products/Add', 'FrmAddProdcut');
             }, 200);
@@ -337,6 +334,6 @@
             $('#ProductProperties').html(res);
         });
     }
-    </script>
+</script>
 }
 

@@ -8,5 +8,6 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
     public class viCompo_PostingRestrictions
     {
         public string FieldName { get; set; }
+        public string ProductId { get; set; }
     }
 }

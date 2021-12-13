@@ -404,6 +404,20 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     }, default, false).Wait();
                 }
 
+                if (!_repRoles.Get.Any(a => a.Name == "CanEditProductForAllUser"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageProductsPage",
+                        Sort = 211,
+                        Name = "CanEditProductForAllUser",
+                        NormalizedName = "CanEditProductForAllUser".ToUpper(),
+                        Description = "توانایی ویرایش محصولات دیگر کاربران"
+                    }, default, false).Wait();
+                }
+
                 if (!_repRoles.Get.Any(a => a.Name == "CanRemoveAllUserProduct"))
                 {
                     _repRoles.AddAsync(new tblRoles()

@@ -10,6 +10,7 @@ using PrancaBeauty.WebApp.Models.ViewInput;
 using PrancaBeauty.WebApp.Models.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -41,6 +42,8 @@ namespace PrancaBeauty.WebApp.Mapping
             CreateMap<PrancaBeauty.Application.Contracts.Categories.OutGetListForAdminPage, vmCategoriesList>();
             CreateMap<Application.Contracts.Categories.OutGetForEdit, viEditCategory>();
             CreateMap<OutGetForEdit_Translate, viEditCategory_Translate>();
+            CreateMap<Application.Contracts.Products.OutGetForEdit, viEditProduct>().ForMember(x => x.Date,
+                                                                                                    opt => opt.MapFrom(src => ((DateTime)src.Date).ToString("yyyy-MM-dd HH:mm:ss", new CultureInfo("en-US"))));
 
             CreateMap<PrancaBeauty.Application.Contracts.Countries.OutGetListForCombo, vmCompo_Combo_Countries>();
             CreateMap<PrancaBeauty.Application.Contracts.Province.OutGetListForCombo, vmCompo_Combo_Province>();

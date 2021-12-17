@@ -6,6 +6,7 @@ using PrancaBeauty.Application.Contracts.Files;
 using PrancaBeauty.Application.Contracts.KeywordProducts;
 using PrancaBeauty.Application.Contracts.ProductProperties;
 using PrancaBeauty.Application.Contracts.Products;
+using PrancaBeauty.Application.Contracts.ProductVariantItems;
 using PrancaBeauty.Application.Contracts.Users;
 using PrancaBeauty.WebApp.Models.ViewInput;
 using PrancaBeauty.WebApp.Models.ViewModel;
@@ -61,6 +62,7 @@ namespace PrancaBeauty.WebApp.Mapping
             CreateMap<OutGetFileListForFileManager, vmCompo_ModalFileList>();
             CreateMap<OutGetForManageProduct, vmCompo_Properties>();
             CreateMap<OutGetKeywordByProductId, vmCompo_Input_Keywords>();
+            CreateMap<OutGetAllVariantsByProductId, vmCompo_Variants>();
         }
     }
 }

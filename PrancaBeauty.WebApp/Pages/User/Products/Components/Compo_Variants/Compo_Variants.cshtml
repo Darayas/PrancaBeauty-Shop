@@ -19,7 +19,7 @@
             <div class="col-md-11">
                 <LoadComponent class="ProductVariants"
                                context="HttpContext"
-                               data='new viCompo_Combo_ProductVariants { FieldName="Input.VariantId" }'
+                               data='new viCompo_Combo_ProductVariants { FieldName="Input.VariantId",VariantId=Model.Input.VariantId }'
                                url="/@ViewData["culture"]/Shared/Compo/ComboVariants"></LoadComponent>
             </div>
             <div class="col-md-1 text-left">
@@ -28,11 +28,39 @@
         </div>
         <hr />
         <div id="CompoAddVariantSection">
-            <LoadComponent class="ProductVariantsItemCompo"
-                           context="HttpContext"
-                           data='new viCompo_Variants_Items { Index=0}'
-                           url="/@ViewData["culture"]/User/Products/Compo/VariantsItem"></LoadComponent>
+            @if (Model.Data.Count() == 0)
+            {
+                <LoadComponent class="ProductVariantsItemCompo"
+                               context="HttpContext"
+                               data='new viCompo_Variants_Items { Index = 0 }'
+                               url="/@ViewData["culture"]/User/Products/Compo/VariantsItem"></LoadComponent>
+            }
+            else
+            {
+                int Counter = 0;
+                foreach (var item in Model.Data)
+                {
+                    <LoadComponent class="ProductVariantsItemCompo"
+                                   context="HttpContext"
+                                   data='new viCompo_Variants_Items
+                                   {
+                                       Index = Counter,
+                                       Id=item.Id,
+                                       GuaranteeId=item.GuaranteeId,
+                                       Title=item.Title,
+                                       Value=item.Value,
+                                       ProductCode=item.ProductCode,
+                                       Percent=item.Percent,
+                                       CountInStock=item.CountInStock,
+                                       SendBy=item.SendBy,
+                                       SendFrom=item.SendFrom,
+                                       IsEnable=item.IsEnable
+                                   }'
+                                   url="/@ViewData["culture"]/User/Products/Compo/VariantsItem"></LoadComponent>
 
+                    Counter++;
+                }
+            }
         </div>
     </div>
 

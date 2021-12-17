@@ -1,4 +1,5 @@
-﻿using Framework.Infrastructure;
+﻿using Framework.Application.Enums;
+using Framework.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -117,6 +118,12 @@ namespace Framework.Common.Utilities.Downloader
 
                     if (value.GetType() == typeof(bool))
                         LstParameter.Add(prop.Name, value.ToString());
+
+                    if (value.GetType() == typeof(ProductVariantItems_SendFromEnum))
+                        LstParameter.Add(prop.Name, ((int)value).ToString());
+                    
+                    if (value.GetType() == typeof(ProductVariantItems_SendByEnum))
+                        LstParameter.Add(prop.Name, ((int)value).ToString());
                 }
             }
 

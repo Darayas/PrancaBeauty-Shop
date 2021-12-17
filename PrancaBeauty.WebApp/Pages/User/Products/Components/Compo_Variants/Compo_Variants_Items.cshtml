@@ -22,12 +22,26 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <input class="form-control" onkeyup="$('#VariantCode@(Model.Input.Index)').text(' | '+$(this).val())" asp-for="Input.ProductCode" name="Input.Variants[@Model.Input.Index].ProductCode" type="text" placeholder="@Localizer["ProductCodeForSeller"]" />
+                            <input class="form-control" onkeyup="ProductCodeKeyUp@(Model.Input.Index)()" asp-for="Input.ProductCode" id="Input_Variants_@(Model.Input.Index)_ProductCode" name="Input.Variants[@Model.Input.Index].ProductCode" type="text" placeholder="@Localizer["ProductCodeForSeller"]" />
+                            <script>
+                                function ProductCodeKeyUp@(Model.Input.Index)() {
+                                    $('#VariantCode@(Model.Input.Index)').text(' | '+$('#Input_Variants_@(Model.Input.Index)_ProductCode').val())
+                                }
+
+                                ProductCodeKeyUp@(Model.Input.Index)();
+                            </script>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <input class="form-control" onkeyup="$('#VariantTitle@(Model.Input.Index)').text($(this).val())" asp-for="Input.Title" name="Input.Variants[@Model.Input.Index].Title" type="text" placeholder="@Localizer["VariantTitle"]" />
+                            <input class="form-control" onkeyup="ProductTitleKeyUp@(Model.Input.Index)()" asp-for="Input.Title" id="Input_Variants_@(Model.Input.Index)_Title" name="Input.Variants[@Model.Input.Index].Title" type="text" placeholder="@Localizer["VariantTitle"]" />
+                            <script>
+                                function ProductTitleKeyUp@(Model.Input.Index)() {
+                                    $('#VariantTitle@(Model.Input.Index)').text($('#Input_Variants_@(Model.Input.Index)_Title').val())
+                                }
+
+                                ProductTitleKeyUp@(Model.Input.Index)();
+                            </script>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -44,7 +58,7 @@
                         <div class="form-group">
                             <LoadComponent class="ProductGuarantee"
                                            context="HttpContext"
-                                           data='new viCompo_Combo_Guarantee { FieldName=$"Input.Variants[{Model.Input.Index}].GuaranteeId"}'
+                                           data='new viCompo_Combo_Guarantee { FieldName=$"Input.Variants[{Model.Input.Index}].GuaranteeId",GuaranteeId=Model.Input.GuaranteeId}'
                                            url="/@ViewData["culture"]/Shared/Compo/ComboGuarantee"></LoadComponent>
                         </div>
                     </div>
@@ -67,7 +81,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <input class="form-control isNumeric" value="0" asp-for="Input.CountInStock" id="CountInStock@(Model.Input.Index)" name="Input.Variants[@Model.Input.Index].CountInStock" type="text" placeholder="@Localizer["CountInStock"]" />
+                            <input class="form-control isNumeric" asp-for="Input.CountInStock" id="CountInStock@(Model.Input.Index)" name="Input.Variants[@Model.Input.Index].CountInStock" type="text" placeholder="@Localizer["CountInStock"]" />
                         </div>
                     </div>
                     <div class="col-md-4">

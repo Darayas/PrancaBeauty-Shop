@@ -117,6 +117,7 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
                                                                .Select(a => new OutGetAllVariantsByProductId
                                                                {
                                                                    Id = a.Id.ToString(),
+                                                                   VariantId = a.tblProductVariants.Id.ToString(),
                                                                    GuaranteeId = a.GuaranteeId.ToString(),
                                                                    Title = a.Title,
                                                                    Value = a.Value,

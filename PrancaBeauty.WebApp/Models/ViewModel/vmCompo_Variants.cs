@@ -2,18 +2,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace PrancaBeauty.Application.Contracts.ProductVariantItems
+namespace PrancaBeauty.WebApp.Models.ViewModel
 {
-    public class OutGetAllVariantsByProductId
+    public class vmCompo_Variants
     {
         public string Id { get; set; }
-        public string VariantId { get; set; }
         public string Title { get; set; }
         public string Value { get; set; }
-        public double Percent { get; set; }
+        public string Percent { get; set; }
         public string GuaranteeId { get; set; }
         public string ProductCode { get; set; }
         public ProductVariantItems_SendByEnum SendBy { get; set; } // ارسال توسط: پرنسابیوتی، فروشنده

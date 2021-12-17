@@ -1074,6 +1074,9 @@
   <data name="SelectedFileIsDuplicate" xml:space="preserve">
     <value>فایل انتخاب شده تکراری میباشد</value>
   </data>
+  <data name="SelectedVariantHasPurchase,CantRemove" xml:space="preserve">
+    <value>نوع انتخاب شده به دلیل وجود فاکتورهایی از قبل ثبت شده، قابل حذف نمیباشد. میتوانید آن را غیر فعال نمایید.</value>
+  </data>
   <data name="Seller" xml:space="preserve">
     <value>فروشنده</value>
   </data>

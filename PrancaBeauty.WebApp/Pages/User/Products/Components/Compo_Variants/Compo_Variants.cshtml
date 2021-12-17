@@ -76,6 +76,14 @@
             });
         }
 
+        function CheckAndRemoveVariants(_Index, _Id) {
+            if (_Id == '') {
+                RemoveVariants(_Index);
+            } else {
+                RemoveData('/@ViewData["culture"]/User/Products/Compo/Variants?handler=RemoveVariants', { Id: _Id, Index: _Index});
+            }
+        }
+
         function RemoveVariants(_Index) {
             $('#Variants' + _Index).hide();
             $('#Variants' + _Index + ' input').val("");

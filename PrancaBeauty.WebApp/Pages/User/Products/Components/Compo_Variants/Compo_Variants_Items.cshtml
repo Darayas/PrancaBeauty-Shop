@@ -9,7 +9,7 @@
 
 
         <div class="card-option">
-            <div onclick="RemoveVariants('@Model.Input.Index')" class="card-Remove">×</div>
+            <div onclick="CheckAndRemoveVariants('@Model.Input.Index','@Model.Input.Id')" class="card-Remove">×</div>
             <div><a data-toggle="collapse" data-target="#Variants@(Model.Input.Index)"> <i class="fa fa-angle-down"></i></a></div>
         </div>
     </div>

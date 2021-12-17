@@ -143,5 +143,29 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
                 return null;
             }
         }
+
+        public async Task<bool?> CheckHasPurchaseForVariantAsync(InpCheckHasPurchaseForVariant Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                // TODO برسی خرید ثبت شده برای تنوع جاری
+
+                return false;
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
+            }
+        }
     }
 }

@@ -9,6 +9,6 @@ namespace PrancaBeauty.WebApp.Models.ViewModel
     {
         public string Id { get; set; }
         public string Title { get; set; }
-        public double Similarity { get; set; }
+        public string Similarity { get; set; }
     }
 }

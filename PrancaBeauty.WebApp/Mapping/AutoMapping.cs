@@ -22,6 +22,7 @@ namespace PrancaBeauty.WebApp.Mapping
         public AutoMapping()
         {
             CreateMap<DateTime, string>().ConvertUsing(a => a.ToString("yyyy-MM-dd HH:mm"));
+            CreateMap<double, string>().ConvertUsing(a => a.ToString(new CultureInfo("en-US")));
             CreateMap<viCompo_AccountSettings, InpSaveAccountSettingUserDetails>();
             CreateMap<viCompo_AddAddress, InpAddAddress>();
             CreateMap<OutGetAddressByUserIdForManage, vmCompo_ListAddress>();

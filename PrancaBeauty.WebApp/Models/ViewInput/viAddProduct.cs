@@ -56,7 +56,6 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
         public string MetaTagKeyword { get; set; }
 
         [Display(Name = "MetaTagCanonical")]
-        [RequiredForDraft(nameof(IsDraft))]
         [MaxLengthString(150)]
         public string MetaTagCanonical { get; set; }
 

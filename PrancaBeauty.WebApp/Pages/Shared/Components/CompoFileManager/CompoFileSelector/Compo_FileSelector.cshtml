@@ -58,7 +58,7 @@
                                 <td>@*@item.FileServerName*@</td>
                                 <td>
                                     <a class="text-info mr-1 ml-1" onclick="location.href = '@item.DownloadUrl'"><i class="fa fa-download"></i></a>
-                                    <a class="text-danger mr-1 ml-1" onclick="RemoveFromFileSelector@(FieldId)('@item.Id')"><i class="fa fa-times"></i></a>
+                                    <a class="text-danger mr-1 ml-1" onclick="RemoveFromFileSelector@(FieldId)('@item.Id.ToLower()')"><i class="fa fa-times"></i></a>
                                 </td>
 
                             </tr>

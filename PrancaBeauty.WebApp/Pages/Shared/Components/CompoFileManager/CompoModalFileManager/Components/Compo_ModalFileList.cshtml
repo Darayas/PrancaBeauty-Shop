@@ -36,11 +36,11 @@
                 <div style="text-align:center;">@item.FileSize.GetFileSizeName()</div>
                 @if (Model.Input.SelectedFilesId.Contains(item.Id))
                 {
-                    <div style="margin-top:5px; text-align:center;"><button onclick="RemoveFromFileSelector@(FieldId)('@item.Id')" type="button" class="btn btn-danger btn-sm">@Localizer["Remove"]</button></div>
+                    <div style="margin-top:5px; text-align:center;"><button onclick="RemoveFromFileSelector@(FieldId)('@item.Id.ToLower()')" type="button" class="btn btn-danger btn-sm">@Localizer["Remove"]</button></div>
                 }
                 else
                 {
-                    <div style="margin-top:5px; text-align:center;"><button onclick="AddToFileSelector@(FieldId)('@item.Id',@item.FileSize, '@item.MimeType')" type="button" class="btn btn-primary btn-sm">@Localizer["Insert"]</button></div>
+                    <div style="margin-top:5px; text-align:center;"><button onclick="AddToFileSelector@(FieldId)('@item.Id.ToLower()',@item.FileSize, '@item.MimeType')" type="button" class="btn btn-primary btn-sm">@Localizer["Insert"]</button></div>
                 }
             </div>
         }

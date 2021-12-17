@@ -60,7 +60,6 @@ namespace PrancaBeauty.Application.Contracts.Products
         public string MetaTagKeyword { get; set; }
 
         [Display(Name = "MetaTagCanonical")]
-        [RequiredForDraft(nameof(IsDraft))]
         [MaxLengthString(150)]
         public string MetaTagCanonical { get; set; }
 

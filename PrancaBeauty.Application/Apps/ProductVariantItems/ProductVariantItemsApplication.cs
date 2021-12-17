@@ -7,6 +7,7 @@ using PrancaBeauty.Application.Contracts.Results;
 using PrancaBeauty.Domin.Product.ProductVariantItemsAgg.Contracts;
 using PrancaBeauty.Domin.Product.ProductVariantsItemsAgg.Entities;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
@@ -54,7 +55,7 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
                         ProductCode = item.ProductCode,
                         CountInStock = item.CountInStock,
                         IsEnable = item.IsEnable,
-                        Percent = double.Parse(item.Percent,new CultureInfo("en-US")),
+                        Percent = double.Parse(item.Percent, new CultureInfo("en-US")),
                         SendBy = item.SendBy,
                         SendFrom = item.SendFrom
                     };
@@ -100,6 +101,45 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
             {
                 _Logger.Error(ex);
                 return new OperationResult().Failed("Error500");
+            }
+        }
+
+        public async Task<List<OutGetAllVariantsByProductId>> GetAllVariantsByProductIdAsync(InpGetAllVariantsByProductId Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var qData = await _ProductVariantItemsRepository.Get
+                                                               .Where(a => a.ProductId == Guid.Parse(Input.ProductId))
+                                                               .Select(a => new OutGetAllVariantsByProductId
+                                                               {
+                                                                   Id = a.Id.ToString(),
+                                                                   GuaranteeId = a.GuaranteeId.ToString(),
+                                                                   Title = a.Title,
+                                                                   Value = a.Value,
+                                                                   ProductCode = a.ProductCode,
+                                                                   CountInStock = a.CountInStock,
+                                                                   Percent = a.Percent,
+                                                                   SendBy = a.SendBy,
+                                                                   SendFrom = a.SendFrom,
+                                                                   IsEnable = a.IsEnable
+                                                               })
+                                                               .ToListAsync();
+
+                return qData;
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
             }
         }
     }

@@ -945,6 +945,9 @@
   <data name="ProductName" xml:space="preserve">
     <value>نام محصول</value>
   </data>
+  <data name="ProductNotFound" xml:space="preserve">
+    <value>محصول مورد نظر یافت نشد.</value>
+  </data>
   <data name="ProductPrice" xml:space="preserve">
     <value>قیمت اولیه ی محصول</value>
   </data>
@@ -1283,6 +1286,12 @@
   </data>
   <data name="YouCantDeleteUser" xml:space="preserve">
     <value>امکان حذف این کاربر وجود ندارد. میتوانید کاربر جاری را غیرفعال کنید.</value>
+  </data>
+  <data name="YouCantEditThisProduct" xml:space="preserve">
+    <value>شما امکان ویرایش این محصول را ندارید.</value>
+  </data>
+  <data name="YouCantEditThisProductAsDraft" xml:space="preserve">
+    <value>شما امکان ویرایش این مصول به حالت پیش نویس را ندارید.</value>
   </data>
   <data name="YourAccountIsDisabled" xml:space="preserve">
     <value>حساب کاربری شما غیرفعال شده است. لطفا با مدیریت در ارتباط باشید.</value>

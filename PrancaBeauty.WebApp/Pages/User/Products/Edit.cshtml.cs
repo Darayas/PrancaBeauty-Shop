@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Products;
+using PrancaBeauty.Application.Contracts.Products;
 using PrancaBeauty.WebApp.Authentication;
 using PrancaBeauty.WebApp.Common.ExMethod;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
@@ -77,10 +78,18 @@ namespace PrancaBeauty.WebApp.Pages.User.Products
                 if (!ModelState.IsValid)
                     return _MsgBox.ModelStateMsg(ModelState.GetErrors());
 
-                var _Result = await _ProductApplication.SaveEditProductAsync(default);
+                string _UserId = User.GetUserDetails().UserId;
+                if (User.IsInRole(Roles.CanEditProductForAllUser))
+                    _UserId = null;
+
+
+                var _MappedData = _Mapper.Map<InpSaveEditProduct>(Input);
+                _MappedData.EditorUserId = _UserId;
+
+                var _Result = await _ProductApplication.SaveEditProductAsync(_MappedData);
                 if (_Result.IsSucceeded)
                 {
-                    return default;
+                    return _MsgBox.SuccessMsg(_Localizer[_Result.Message], "GotoBack()");
                 }
                 else
                 {

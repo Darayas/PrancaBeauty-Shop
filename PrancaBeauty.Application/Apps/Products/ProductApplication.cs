@@ -595,9 +595,77 @@ namespace PrancaBeauty.Application.Apps.Products
             {
                 #region Validations
                 Input.CheckModelState(_ServiceProvider);
+
+                if (Input.Properties is null)
+                    throw new ArgumentInvalidException($"Properties cant be null.");
+
+                if (Input.Properties.Any(a => string.IsNullOrWhiteSpace(a.Value)))
+                    throw new ArgumentInvalidException($"Properties value cant be null or whitespace.");
+
+                if (Input.Keywords is null)
+                    throw new ArgumentInvalidException($"Keywords cant be null.");
+
+                if (Input.Keywords.Count() == 0)
+                    throw new ArgumentInvalidException($"keyword count must be greater than zero.");
                 #endregion
 
-                return default;
+                // برسی تکراری نبودن نام محصول
+                if (await CheckDuplicateNameAsync(Input.Name.ToLowerCaseForUrl(), Input.Id))
+                    return new OperationResult().Failed("ProdcutName is duplicate.");
+
+                var qData = await _ProductRepository.Get
+                                                    .Where(a => a.Id == Guid.Parse(Input.Id))
+                                                    //.Where(a => Input.EditorUserId != null ? a.AuthorUserId == Guid.Parse(Input.EditorUserId) : true)
+                                                    .SingleOrDefaultAsync();
+
+                if (qData == null)
+                    return new OperationResult().Failed("ProductNotFound");
+
+                if (qData.IsDraft == false && Input.IsDraft == true)
+                    return new OperationResult().Failed("YouCantEditThisProductAsDraft");
+
+                if (Input.EditorUserId != null)
+                    if (qData.AuthorUserId.ToString() != Input.EditorUserId)
+                        return new OperationResult().Failed("YouCantEditThisProduct");
+
+                qData.TopicId = Guid.Parse(Input.TopicId);
+                qData.CategoryId = Guid.Parse(Input.CategoryId);
+                qData.Title = Input.Title;
+                qData.Date = Input.Date == null ? DateTime.Now : (Convert.ToDateTime(Input.Date).AddHours(1) < DateTime.Now ? DateTime.Now : Convert.ToDateTime(Input.Date));
+                qData.MetaTagCanonical = Input.MetaTagCanonical;
+                qData.MetaTagKeyword = Input.MetaTagKeyword;
+                qData.MetaTagDescreption = Input.MetaTagDescreption;
+                qData.Description = Input.Description.GetSanitizeHtml();
+                qData.IsConfirmed = false;
+                qData.IsDraft = Input.IsDraft;
+                qData.ItsForConfirm = true;
+
+                #region ویرایش قیمت پایه
+
+                #endregion
+
+                #region ویرایش خصوصیات
+
+                #endregion
+
+                #region ویرایش کلماتن کلیدی
+
+                #endregion
+
+                #region ویرایش محدودیت های ارسال
+
+                #endregion
+
+                #region ویرایش تصاویر
+
+                #endregion
+
+                #region ویرایش تنوع محصول
+
+                #endregion
+
+
+                return new OperationResult().Succeeded();
             }
             catch (ArgumentInvalidException ex)
             {

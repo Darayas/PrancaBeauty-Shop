@@ -127,6 +127,10 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
 
     public class viEditProduct_Variants
     {
+        [Display(Name = "VariantTitle")]
+        [RequiredString]
+        [GUID]
+        public string Id { get; set; }
 
         [Display(Name = "VariantTitle")]
         [RequiredIfNotDeleted(nameof(IsDelete))]

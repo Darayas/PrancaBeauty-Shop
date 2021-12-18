@@ -588,5 +588,27 @@ namespace PrancaBeauty.Application.Apps.Products
 
             return _CurrencyId;
         }
+
+        public async Task<OperationResult> SaveEditProductAsync(InpSaveEditProduct Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                return default;
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
     }
 }

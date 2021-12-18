@@ -14,5 +14,6 @@ namespace PrancaBeauty.Application.Apps.Products
         Task<OperationResult> MoveToRecycleBinAsync(InpMoveToRecycleBin Input);
         Task<OperationResult> RecoveryFromRecycleBinAsync(InpRecoveryFromRecycleBin Input);
         Task<OperationResult> RemoveProductForAlwaysAsync(InpRemoveProductForAlways Input);
+        Task<OperationResult> SaveEditProductAsync(InpSaveEditProduct Input);
     }
 }

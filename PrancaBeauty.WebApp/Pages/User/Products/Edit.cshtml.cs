@@ -33,6 +33,7 @@ namespace PrancaBeauty.WebApp.Pages.User.Products
             _Logger = logger;
             _Mapper = mapper;
         }
+
         public async Task<IActionResult> OnGetAsync(string Id, string ReturnUrl = null)
         {
             try
@@ -66,6 +67,30 @@ namespace PrancaBeauty.WebApp.Pages.User.Products
             {
                 _Logger.Error(ex);
                 return StatusCode(500);
+            }
+        }
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return _MsgBox.ModelStateMsg(ModelState.GetErrors());
+
+                var _Result = await _ProductApplication.SaveEditProductAsync(default);
+                if (_Result.IsSucceeded)
+                {
+                    return default;
+                }
+                else
+                {
+                    return _MsgBox.FaildMsg(_Localizer[_Result.Message.Replace(",", "<br/>")]);
+                }
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return _MsgBox.FaildMsg(_Localizer["Error500"]);
             }
         }
 

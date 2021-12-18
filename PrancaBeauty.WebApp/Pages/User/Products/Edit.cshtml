@@ -28,7 +28,10 @@
 }
 
 <form id="FrmAddProdcut">
-    <input asp-for="Input.IsDraft" value="false" type="hidden" />
+    @if (Model.Input.IsDraft == true)
+    {
+        <input asp-for="Input.IsDraft" value="false" type="hidden" />
+    }
     <div class="row">
         <div class="col-md-4">
 
@@ -252,7 +255,10 @@
                 <div class="col-md-12">
                     <div class="form-group frmBtnAction mt-4">
                         <button onclick="GotoBack()" type="button" class="btn btn-warning">@Localizer["GotoBack"]</button>
-                        <button onclick="SaveAsDraft()" type="button" class="btn btn-info">@Localizer["SaveProductAsDraft"]</button>
+                        @if (Model.Input.IsDraft == true)
+                        {
+                            <button onclick="SaveAsDraft()" type="button" class="btn btn-info">@Localizer["SaveProductAsDraft"]</button>
+                        }
                         <button onclick="SaveData()" type="button" class="btn btn-success">@Localizer["SaveProductAndCheck"]</button>
                     </div>
                 </div>
@@ -274,17 +280,21 @@
         <script src="~/lib/CKEditor5/build/translations/fa.js"></script>
     }
 
-<script>
-        function SaveAsDraft() {
-            $('#Input_IsDraft').val('true');
-            SaveData();
-        }
-
-        function SaveData() {
+    <script>
+        @if (Model.Input.IsDraft == true)
+        {
+            <text>
+                function SaveAsDraft() {
+                    $('#Input_IsDraft').val('true');
+                    SaveData();
+                }
+            </text>
+         }
+            function SaveData() {
             $('#Input_Description').html(CkEditor.getData());
-            setTimeout(function () {
-                SendForm('/@ViewData["culture"]/User/Products/Edit/@Model.Input.Id', 'FrmEditProdcut');
-            }, 200);
+                setTimeout(function () {
+                    SendForm('/@ViewData["culture"]/User/Products/Edit/@Model.Input.Id', 'FrmEditProdcut');
+                }, 200);
         }
 
         function GotoBack() {
@@ -292,19 +302,19 @@
         }
 
         $(".Date").persianDatepicker({
-            format: 'YYYY/MM/DD HH:mm:ss',
+        format: 'YYYY/MM/DD HH:mm:ss',
             toolbox: {
-                calendarSwitch: {
-                    enabled: false
+            calendarSwitch: {
+                enabled: false
                 }
             },
             calendar: {
-                persian: {
-                    locale: 'en'
+            persian: {
+                locale: 'en'
                 }
             },
             timePicker: {
-                enabled: true
+            enabled: true
             }
         });
 
@@ -321,12 +331,12 @@
         function LoadTopicCompo(_TopicId,_ProductId) {
             LoadComponenet('/@ViewData["Culture"]/User/Products/Compo/ComboProductProperties',
             {
-                TopicId: _TopicId,
+            TopicId: _TopicId,
                 ProductId: _ProductId
             },
             function (res) {
                 $('#ProductProperties').html(res);
             });
         }
-</script>
+    </script>
 }

@@ -7,6 +7,7 @@ using PrancaBeauty.Application.Contracts.Results;
 using PrancaBeauty.Domin.Product.PostingRestrictionsAgg.Contracts;
 using PrancaBeauty.Domin.Product.PostingRestrictionsAgg.Entites;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -87,6 +88,38 @@ namespace PrancaBeauty.Application.Apps.PostingRestrictions
             {
                 _Logger.Error(ex);
                 return new OperationResult().Failed("Error500");
+            }
+        }
+
+        public async Task<List<OutGetAllPostingRestrictionsByProductId>> GetAllPostingRestrictionsByProductIdAsync(InpGetAllPostingRestrictionsByProductId Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var qData = await _PostingRestrictionsRepository.Get
+                                                                .Where(a => a.ProductId == Guid.Parse(Input.ProductId))
+                                                                .Select(a => new OutGetAllPostingRestrictionsByProductId
+                                                                {
+                                                                    Id = a.Id.ToString(),
+                                                                    CountryId = a.CountryId.ToString(),
+                                                                    Posting = a.Posting
+                                                                })
+                                                                .ToListAsync();
+
+                return qData;
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
             }
         }
     }

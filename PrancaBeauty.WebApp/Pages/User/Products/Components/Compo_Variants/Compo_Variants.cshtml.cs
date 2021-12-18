@@ -31,6 +31,8 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Components.Compo_Variants
             _ServiceProvider = serviceProvider;
             _MsgBox = msgBox;
             _Localizer = localizer;
+
+            Data = new List<vmCompo_Variants>();
         }
 
         public async Task<IActionResult> OnGetAsync()
@@ -38,19 +40,21 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Components.Compo_Variants
             if (Input.FieldName == null)
                 Input.FieldName = "Input.VariantId";
 
-            var qData = await _ProductVariantItemsApplication.GetAllVariantsByProductIdAsync(new InpGetAllVariantsByProductId
+            if (Input.ProductId != null)
             {
-                ProductId = Input.ProductId
-            });
+                var qData = await _ProductVariantItemsApplication.GetAllVariantsByProductIdAsync(new InpGetAllVariantsByProductId
+                {
+                    ProductId = Input.ProductId
+                });
 
-            if (qData == null)
-                return StatusCode(500);
+                if (qData == null)
+                    return StatusCode(500);
 
-            Data = _Mapper.Map<List<vmCompo_Variants>>(qData);
+                Data = _Mapper.Map<List<vmCompo_Variants>>(qData);
 
-            if (qData.Count() > 0)
-                Input.VariantId = qData.First().VariantId;
-
+                if (qData.Count() > 0)
+                    Input.VariantId = qData.First().VariantId;
+            }
             return Page();
         }
 

@@ -8,10 +8,26 @@
 
         <hr />
         <div id="CompoAddPostingRestrictionsSection">
-            <LoadComponent class="ProductPostingRestrictionsInputCompo"
-                           context="HttpContext"
-                           data='new viCompo_PostingRestrictionsInput { Index=0}'
-                           url="/@ViewData["culture"]/User/Products/Compo/PostingRestrictionsInput"></LoadComponent>
+            @if (Model.Data.Count() == 0)
+            {
+                <LoadComponent class="ProductPostingRestrictionsInputCompo"
+                               context="HttpContext"
+                               data='new viCompo_PostingRestrictionsInput { Index=0}'
+                               url="/@ViewData["culture"]/User/Products/Compo/PostingRestrictionsInput"></LoadComponent>
+            }
+            else
+            {
+                int _Counter = 0;
+                foreach (var item in Model.Data)
+                {
+                    <LoadComponent class="ProductPostingRestrictionsInputCompo"
+                                   context="HttpContext"
+                                   data='new viCompo_PostingRestrictionsInput { Index=_Counter, Id=item.Id, CountryId=item.CountryId, Posting=item.Posting}'
+                                   url="/@ViewData["culture"]/User/Products/Compo/PostingRestrictionsInput"></LoadComponent>
+
+                    _Counter++;
+                }
+            }
 
         </div>
     </div>

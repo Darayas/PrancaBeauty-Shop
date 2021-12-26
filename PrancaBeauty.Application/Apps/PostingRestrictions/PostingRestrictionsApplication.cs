@@ -122,5 +122,54 @@ namespace PrancaBeauty.Application.Apps.PostingRestrictions
                 return null;
             }
         }
+
+        public async Task<OperationResult> EditPostingRestrictionsAsync(InpEditPostingRestrictions Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                #region حذف محدودیت های قبلی
+                {
+                    var _Result = await RemoveAllPostingRestrictionsFromProductAsync(new InpRemoveAllPostingRestrictionsFromProduct
+                    {
+                        ProductId = Input.ProductId
+                    });
+                    if (_Result.IsSucceeded == false)
+                        return new OperationResult().Failed(_Result.Message);
+                }
+                #endregion
+
+                #region افزودن محدودیت های جدید
+                {
+                    var _Result = await AddPostingRestrictionsToProductAsync(new InpAddPostingRestrictionsToProduct
+                    {
+                        ProductId = Input.ProductId,
+                        PostingRestrictions = Input.PostingRestrictions.Select(a => new InpAddPostingRestrictionsToProduct_Restrictions
+                        {
+                            CountryId = a.CountryId,
+                            Posting = a.Posting
+                        }).ToList()
+                    });
+                    if (_Result.IsSucceeded == false)
+                        return new OperationResult().Failed(_Result.Message);
+                }
+                #endregion
+
+                return new OperationResult().Succeeded();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
     }
 }

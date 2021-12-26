@@ -9,6 +9,7 @@ using PrancaBeauty.Application.Contracts.Results;
 using PrancaBeauty.Domin.Product.ProductPropertiesValuesAgg.Contracts;
 using PrancaBeauty.Domin.Product.ProductPropertiesValuesAgg.Entities;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -84,6 +85,59 @@ namespace PrancaBeauty.Application.Apps.ProductPropertiesValues
                 var qData = await _ProductPropertiesValuesRepository.Get.Where(a => a.ProductId == Guid.Parse(Input.ProductId)).ToListAsync();
 
                 await _ProductPropertiesValuesRepository.DeleteRangeAsync(qData, default, true);
+
+                return new OperationResult().Succeeded();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
+
+        public async Task<OperationResult> EditProductPropertiesAsync(InpEditProductProperties Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                #region حذف خصوصیات قبلی
+                {
+                    var _Result = await RemovePropertiesByProductIdAsync(new InpRemovePropertiesByProductId
+                    {
+                        ProductId = Input.ProductId
+                    });
+                    if (_Result.IsSucceeded == false)
+                    {
+                        return new OperationResult().Failed(_Result.Message);
+                    }
+                }
+                #endregion
+
+                #region افزودن خصوصیات جدید
+                {
+                    var _Result = await AddPropertiesToProductAsync(new InpAddPropertiesToProduct
+                    {
+                        ProductId = Input.ProductId,
+                        PropItems = Input.PropItems.Select(a => new InpAddPropertiesToProduct_Items
+                        {
+                            Id = a.Id,
+                            Value = a.Value
+                        }).ToList()
+                    });
+                    if (_Result.IsSucceeded == false)
+                    {
+                        return new OperationResult().Failed(_Result.Message);
+                    }
+                }
+                #endregion
 
                 return new OperationResult().Succeeded();
             }

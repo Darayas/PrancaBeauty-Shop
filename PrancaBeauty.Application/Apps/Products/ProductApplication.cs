@@ -658,7 +658,7 @@ namespace PrancaBeauty.Application.Apps.Products
                     if (_Result.IsSucceeded == false)
                     {
 
-                        await SetInCompleteAsync(Input.Id, _Localizer["InCompleteProductReasonEditPrice"]);
+                        await SetInCompleteAsync(Input.Id, _Localizer["InCompleteProductReason", Input.Id, _Result.Message]);
 
                         return new OperationResult().Failed(_Result.Message);
                     }
@@ -666,15 +666,64 @@ namespace PrancaBeauty.Application.Apps.Products
                 #endregion
 
                 #region ویرایش خصوصیات
+                {
+                    var _Result = await _ProductPropertiesValuesApplication.EditProductPropertiesAsync(new InpEditProductProperties
+                    {
+                        ProductId = Input.Id,
+                        PropItems = Input.Properties.Select(a => new InpEditProductProperties_Items
+                        {
+                            Id = a.Id,
+                            Value = a.Value
+                        }).ToList()
+                    });
+                    if (_Result.IsSucceeded == false)
+                    {
+                        await SetInCompleteAsync(Input.Id, _Localizer["InCompleteProductReason", Input.Id, _Result.Message]);
 
+                        return new OperationResult().Failed(_Result.Message);
+                    }
+                }
                 #endregion
 
                 #region ویرایش کلمات کلیدی
+                {
+                    var _Result = await _KeywordProductsApplication.EditProductKeywordsAsync(new InpEditProductKeywords
+                    {
+                        ProductId = Input.Id,
+                        LstKeywords = Input.Keywords.Select(a => new InpEditProductKeywords_LstKeywords
+                        {
+                            Title = a.Title,
+                            Similarity = a.Similarity
+                        }).ToList()
+                    });
+                    if (_Result.IsSucceeded == false)
+                    {
+                        await SetInCompleteAsync(Input.Id, _Localizer["InCompleteProductReason", Input.Id, _Result.Message]);
 
+                        return new OperationResult().Failed(_Result.Message);
+                    }
+                }
                 #endregion
 
                 #region ویرایش محدودیت های ارسال
+                {
+                    var _Result = await _PostingRestrictionsApplication.EditPostingRestrictionsAsync(new InpEditPostingRestrictions
+                    {
+                        ProductId = Input.Id,
+                        PostingRestrictions = Input.PostingRestrictions.Select(a => new InpEditPostingRestrictions_Restrictions
+                        {
+                            CountryId = a.CountryId,
+                            Posting = a.Posting
+                        }).ToList()
+                    });
 
+                    if (_Result.IsSucceeded == false)
+                    {
+                        await SetInCompleteAsync(Input.Id, _Localizer["InCompleteProductReason", Input.Id, _Result.Message]);
+
+                        return new OperationResult().Failed(_Result.Message);
+                    }
+                }
                 #endregion
 
                 #region ویرایش تصاویر

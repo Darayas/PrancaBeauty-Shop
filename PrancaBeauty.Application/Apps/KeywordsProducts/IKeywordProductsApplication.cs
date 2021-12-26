@@ -8,6 +8,7 @@ namespace PrancaBeauty.Application.Apps.KeywordsProducts
     public interface IKeywordProductsApplication
     {
         Task<OperationResult> AddKeywordsToProductAsync(InpAddKeywordsToProduct Input);
+        Task<OperationResult> EditProductKeywordsAsync(InpEditProductKeywords Input);
         Task<List<OutGetKeywordByProductId>> GetKeywordByProductIdAsync(InpGetKeywordByProductId Input);
         Task<OperationResult> RemoveAllProductKeywordsAsync(InpRemoveAllProductKeywords Input);
     }

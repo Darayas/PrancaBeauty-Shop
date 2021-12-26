@@ -144,5 +144,54 @@ namespace PrancaBeauty.Application.Apps.KeywordsProducts
                 return null;
             }
         }
+
+        public async Task<OperationResult> EditProductKeywordsAsync(InpEditProductKeywords Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                #region حذف کلمات کلیدی موجود
+                {
+                    var _Result = await RemoveAllProductKeywordsAsync(new InpRemoveAllProductKeywords()
+                    {
+                        ProductId = Input.ProductId
+                    });
+                    if (_Result.IsSucceeded == false)
+                        return new OperationResult().Failed(_Result.Message);
+                }
+                #endregion
+
+                #region افزودن کلمات کلیدی جدید
+                {
+                    var _Result = await AddKeywordsToProductAsync(new InpAddKeywordsToProduct()
+                    {
+                        ProductId = Input.ProductId,
+                        LstKeywords = Input.LstKeywords.Select(a => new InpAddKeywordsToProduct_LstKeywords
+                        {
+                            Title = a.Title,
+                            Similarity = a.Similarity
+                        }).ToList()
+                    });
+                    if (_Result.IsSucceeded == false)
+                        return new OperationResult().Failed(_Result.Message);
+                }
+                #endregion
+
+                return new OperationResult().Succeeded();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
     }
 }

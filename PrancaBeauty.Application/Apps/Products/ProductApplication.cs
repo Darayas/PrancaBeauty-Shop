@@ -727,7 +727,20 @@ namespace PrancaBeauty.Application.Apps.Products
                 #endregion
 
                 #region ویرایش تصاویر
+                {
+                    var _Result = await _ProductMediaApplication.EditProductMediaAsync(new InpEditProductMedia
+                    {
+                        ProductId = Input.Id,
+                        MediaIds=Input.ProductImagesId
+                    });
 
+                    if (_Result.IsSucceeded == false)
+                    {
+                        await SetInCompleteAsync(Input.Id, _Localizer["InCompleteProductReason", Input.Id, _Result.Message]);
+
+                        return new OperationResult().Failed(_Result.Message);
+                    }
+                }
                 #endregion
 
                 #region ویرایش تنوع محصول

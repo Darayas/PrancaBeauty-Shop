@@ -1,6 +1,7 @@
 ﻿using Framework.Common.ExMethods;
 using Framework.Exceptions;
 using Framework.Infrastructure;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Contracts.ProductVariantItems;
 using PrancaBeauty.Application.Contracts.Results;
@@ -104,6 +105,36 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
             }
         }
 
+        private async Task<OperationResult> RemoveRangeByVariantItemIdAsync(string ProductId, string[] VariantsItemId)
+        {
+            try
+            {
+                var qData = await _ProductVariantItemsRepository.Get
+                                                                .Where(a => a.ProductId == Guid.Parse(ProductId))
+                                                                .Where(a => VariantsItemId.Contains(a.Id.ToString()))
+                                                                .ToListAsync();
+
+                foreach (var item in qData)
+                {
+                    var _Result = await CheckHasPurchaseForVariantAsync(new InpCheckHasPurchaseForVariant { });
+                    if (_Result.HasValue == false)
+                        return new OperationResult().Failed("Error500");
+
+                    if (_Result.Value == false)
+                        await _ProductVariantItemsRepository.DeleteAsync(item, default, false);
+                }
+
+                await _ProductVariantItemsRepository.SaveChangeAsync();
+
+                return new OperationResult().Succeeded();
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
+
         public async Task<List<OutGetAllVariantsByProductId>> GetAllVariantsByProductIdAsync(InpGetAllVariantsByProductId Input)
         {
             try
@@ -165,6 +196,55 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
             {
                 _Logger.Error(ex);
                 return null;
+            }
+        }
+
+        public async Task<OperationResult> EditProductVariantsAsync(InpEditProductVariants Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                #region حذف تنوع
+                {
+                    var qDataToDelete = Input.Variants.Where(a => a.IsDelete)
+                                                      .Where(a => a.Id != null)
+                                                      .Select(a => a.Id)
+                                                      .ToArray();
+
+                    var _Result = await RemoveRangeByVariantItemIdAsync(Input.ProductId, qDataToDelete);
+                    if (_Result.IsSucceeded == false)
+                        return new OperationResult().Failed(_Result.Message);
+                }
+                #endregion
+
+                #region افزودن تنوع جدید
+                {
+                    var qDataToAdd = Input.Variants.Where(a => a.IsDelete == false)
+                                                  .Where(a => a.Id == null)
+                                                  .ToList();
+                }
+                #endregion
+
+                #region ویرایش تنوع 
+                {
+                    var qDataToEdit = Input.Variants.Where(a => a.IsDelete == false)
+                                                    .Where(a => a.Id != null)
+                                                    .ToList();
+                }
+                #endregion
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
             }
         }
     }

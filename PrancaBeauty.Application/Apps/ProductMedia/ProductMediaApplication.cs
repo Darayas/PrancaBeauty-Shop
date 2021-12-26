@@ -93,5 +93,50 @@ namespace PrancaBeauty.Application.Apps.ProductMedia
                 return new OperationResult().Failed("Error500");
             }
         }
+
+        public async Task<OperationResult> EditProductMediaAsync(InpEditProductMedia Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                #region حذف رسانه های قبلی
+                {
+                    var _Result = await RemoveAllMediaFromProductAsync(new InpRemoveAllMediaFromProduct
+                    {
+                        ProductId = Input.ProductId
+                    });
+
+                    if (_Result.IsSucceeded == false)
+                        return new OperationResult().Failed(_Result.Message);
+                }
+                #endregion
+
+                #region افزودن رسانه های جدید
+                var _Result = await AddMediasToProductAsync(new InpAddMediasToProduct
+                {
+                    ProductId = Input.ProductId,
+                    MediaIds = Input.MediaIds
+                });
+
+                if (_Result.IsSucceeded == false)
+                    return new OperationResult().Failed(_Result.Message);
+                #endregion
+
+                return new OperationResult().Succeeded();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
     }
 }

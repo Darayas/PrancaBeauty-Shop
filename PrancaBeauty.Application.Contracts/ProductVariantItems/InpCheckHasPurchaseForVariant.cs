@@ -10,9 +10,9 @@ namespace PrancaBeauty.Application.Contracts.ProductVariantItems
 {
     public class InpCheckHasPurchaseForVariant
     {
-        [Display(Name = "VariantId")]
+        [Display(Name = "VariantItemId")]
         [RequiredString]
         [GUID]
-        public string VariantId { get; set; }
+        public string VariantItemId { get; set; }
     }
 }

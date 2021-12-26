@@ -27,6 +27,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Mapping.Product
             builder.Property(a => a.MetaTagDescreption).HasMaxLength(300).IsRequired(false);
             builder.Property(a => a.MetaTagKeyword).HasMaxLength(300).IsRequired(false);
             builder.Property(a => a.MetaTagCanonical).HasMaxLength(150).IsRequired(false);
+            builder.Property(a => a.IncompleteReason).HasMaxLength(500).IsRequired(false);
 
             builder.HasOne(a => a.tblAuthorUser)
                    .WithMany(a => a.tblProducts)

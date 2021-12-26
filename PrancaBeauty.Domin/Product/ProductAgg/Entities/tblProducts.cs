@@ -42,6 +42,9 @@ namespace PrancaBeauty.Domin.Product.ProductAgg.Entities
         public string MetaTagCanonical { get; set; }
         public string MetaTagDescreption { get; set; }
 
+        public bool Incomplete { get; set; }
+        public string IncompleteReason { get; set; }
+
         public virtual tblUsers tblAuthorUser { get; set; }
         public virtual tblProductTopic tblProductTopic { get; set; }
         public virtual tblCategoris tblCategory { get; set; }

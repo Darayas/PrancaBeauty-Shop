@@ -624,7 +624,7 @@ namespace PrancaBeauty.Application.Apps.Products
                 if (qData.IsDraft == false && Input.IsDraft == true)
                     return new OperationResult().Failed("YouCantEditThisProductAsDraft");
 
-                if (Input.EditorUserId != null)
+                if (Input.CanEditThisProduct == false)
                     if (qData.AuthorUserId.ToString() != Input.EditorUserId)
                         return new OperationResult().Failed("YouCantEditThisProduct");
 
@@ -641,14 +641,35 @@ namespace PrancaBeauty.Application.Apps.Products
                 qData.ItsForConfirm = true;
 
                 #region ویرایش قیمت پایه
+                {
+                    var _Result = await _ProductPriceApplication.AddPriceToProductAsyc(new InpAddPriceToProduct
+                    {
+                        UserId = Input.EditorUserId,
+                        ProductId = Input.Id,
+                        CurrencyId = await _CurrencyApplication.GetIdByCountryIdAsync(new InpGetIdByCountryId
+                        {
+                            CountryId = await _LanguageApplication.GetCountryIdByLangIdAsync(new InpGetCountryIdByLangId
+                            {
+                                LangId = Input.LangId
+                            })
+                        }),
+                        Price = Input.Price
+                    });
+                    if (_Result.IsSucceeded == false)
+                    {
 
+                        await SetInCompleteAsync(Input.Id, _Localizer["InCompleteProductReasonEditPrice"]);
+
+                        return new OperationResult().Failed(_Result.Message);
+                    }
+                }
                 #endregion
 
                 #region ویرایش خصوصیات
 
                 #endregion
 
-                #region ویرایش کلماتن کلیدی
+                #region ویرایش کلمات کلیدی
 
                 #endregion
 
@@ -671,6 +692,32 @@ namespace PrancaBeauty.Application.Apps.Products
             {
                 _Logger.Debug(ex);
                 return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
+
+        private async Task<OperationResult> SetInCompleteAsync(string ProductId, string Reason)
+        {
+            try
+            {
+                var qData = await _ProductRepository.Get
+                                                    .Where(a => a.Id == Guid.Parse(ProductId))
+                                                    .SingleOrDefaultAsync();
+
+                if (qData == null)
+                    return new OperationResult().Failed("IdNotFound");
+
+                qData.Incomplete = true;
+                qData.IncompleteReason = Reason;
+                qData.IsConfirmed = false;
+
+                await _ProductRepository.SaveChangeAsync();
+
+                return new OperationResult().Succeeded();
             }
             catch (Exception ex)
             {

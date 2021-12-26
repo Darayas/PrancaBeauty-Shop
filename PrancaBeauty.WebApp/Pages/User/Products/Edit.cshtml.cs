@@ -78,13 +78,9 @@ namespace PrancaBeauty.WebApp.Pages.User.Products
                 if (!ModelState.IsValid)
                     return _MsgBox.ModelStateMsg(ModelState.GetErrors());
 
-                string _UserId = User.GetUserDetails().UserId;
-                if (User.IsInRole(Roles.CanEditProductForAllUser))
-                    _UserId = null;
-
-
                 var _MappedData = _Mapper.Map<InpSaveEditProduct>(Input);
-                _MappedData.EditorUserId = _UserId;
+                _MappedData.EditorUserId = User.GetUserDetails().UserId;
+                _MappedData.CanEditThisProduct = User.IsInRole(Roles.CanEditProductForAllUser);
 
                 var _Result = await _ProductApplication.SaveEditProductAsync(_MappedData);
                 if (_Result.IsSucceeded)

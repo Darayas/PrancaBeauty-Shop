@@ -348,6 +348,9 @@
   <data name="Disable" xml:space="preserve">
     <value>غیرفعال</value>
   </data>
+  <data name="DisableAllPriceFaild" xml:space="preserve">
+    <value>قیمت جدید ثبت نشد. لطفا مجددا اقدام نمایید.</value>
+  </data>
   <data name="District" xml:space="preserve">
     <value>محله</value>
   </data>

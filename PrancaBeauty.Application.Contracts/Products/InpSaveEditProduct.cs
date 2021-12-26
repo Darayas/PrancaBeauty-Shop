@@ -18,6 +18,7 @@ namespace PrancaBeauty.Application.Contracts.Products
         public string Id { get; set; }
 
         [Display(Name = "EditorUserId")]
+        [RequiredString]
         [GUID]
         public string EditorUserId { get; set; }
 
@@ -59,6 +60,7 @@ namespace PrancaBeauty.Application.Contracts.Products
 
         [Display(Name = "ProductPrice")]
         [RequiredForDraft(nameof(IsDraft))]
+        // TODO DataAnnotation
         public string Price { get; set; }
 
         [Display(Name = "MetaTagKeyword")]
@@ -86,6 +88,8 @@ namespace PrancaBeauty.Application.Contracts.Products
         [RequiredForDraft(nameof(IsDraft))]
         [GUID]
         public string ProductImagesId { get; set; }
+
+        public bool CanEditThisProduct { get; set; }
 
         [Display(Name = "Properties")]
         public List<InpSaveEditProduct_Properties> Properties { get; set; }

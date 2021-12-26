@@ -30,6 +30,32 @@ namespace PrancaBeauty.Application.Apps.ProductPrices
             _ServiceProvider = serviceProvider;
         }
 
+        private async Task<bool> DisableAllPriceAsync(string ProductId)
+        {
+            try
+            {
+                var qData = await _ProductPricesRepository.Get
+                                                          .Where(a => a.ProductId == Guid.Parse(ProductId))
+                                                          .Where(a => a.IsActive)
+                                                          .ToListAsync();
+
+                foreach (var item in qData)
+                {
+                    item.IsActive = false;
+                    await _ProductPricesRepository.UpdateAsync(item, default, false);
+                }
+
+                await _ProductPricesRepository.SaveChangeAsync();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return false;
+            }
+        }
+
         public async Task<OperationResult> AddPriceToProductAsyc(InpAddPriceToProduct Input)
         {
             try
@@ -38,18 +64,30 @@ namespace PrancaBeauty.Application.Apps.ProductPrices
                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
-                var tProductPrice = new tblProductPrices
+                #region غیرفعال سازی قیمت های قبلی
                 {
-                    Id = new Guid().SequentialGuid(),
-                    ProductId = Guid.Parse(Input.ProductId),
-                    UserId = Guid.Parse(Input.UserId),
-                    CurrencyId = Guid.Parse(Input.CurrencyId),
-                    Date = DateTime.Now,
-                    IsActive = true,
-                    Price = Input.Price.GetValidPrice()
-                };
+                    var _Result = await DisableAllPriceAsync(Input.ProductId);
+                    if (_Result == false)
+                        return new OperationResult().Failed("DisableAllPriceFaild");
+                }
+                #endregion
 
-                await _ProductPricesRepository.AddAsync(tProductPrice, default, true);
+                #region ثبت قیمت جدید
+                {
+                    var tProductPrice = new tblProductPrices
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ProductId = Guid.Parse(Input.ProductId),
+                        UserId = Guid.Parse(Input.UserId),
+                        CurrencyId = Guid.Parse(Input.CurrencyId),
+                        Date = DateTime.Now,
+                        IsActive = true,
+                        Price = Input.Price.GetValidPrice()
+                    };
+
+                    await _ProductPricesRepository.AddAsync(tProductPrice, default, true);
+                }
+                #endregion
 
                 return new OperationResult().Succeeded();
             }
@@ -90,5 +128,6 @@ namespace PrancaBeauty.Application.Apps.ProductPrices
                 return new OperationResult().Failed("Error500");
             }
         }
+
     }
 }

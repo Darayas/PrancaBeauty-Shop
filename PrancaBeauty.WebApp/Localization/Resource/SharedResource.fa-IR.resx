@@ -528,6 +528,9 @@
   <data name="ImgUrl" xml:space="preserve">
     <value>تصویر شاخص</value>
   </data>
+  <data name="InComplete" xml:space="preserve">
+    <value>ناقص</value>
+  </data>
   <data name="InCompleteProductReason" xml:space="preserve">
     <value>محصول با شناسه [{0}] ، بصورت ناقص ثبت شد. دلیل: {1}</value>
   </data>

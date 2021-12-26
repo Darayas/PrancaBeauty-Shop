@@ -68,7 +68,7 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Components.Compo_Variants
 
                 var _Result = await _ProductVariantItemsApplication.CheckHasPurchaseForVariantAsync(new InpCheckHasPurchaseForVariant
                 {
-                    VariantId = Input.Id
+                    VariantItemId = Input.Id
                 });
                 if (_Result == null)
                     return _MsgBox.FaildMsg(_Localizer["Error500"]);

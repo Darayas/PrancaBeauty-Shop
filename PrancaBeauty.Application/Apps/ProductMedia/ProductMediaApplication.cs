@@ -115,14 +115,16 @@ namespace PrancaBeauty.Application.Apps.ProductMedia
                 #endregion
 
                 #region افزودن رسانه های جدید
-                var _Result = await AddMediasToProductAsync(new InpAddMediasToProduct
                 {
-                    ProductId = Input.ProductId,
-                    MediaIds = Input.MediaIds
-                });
+                    var _Result = await AddMediasToProductAsync(new InpAddMediasToProduct
+                    {
+                        ProductId = Input.ProductId,
+                        MediaIds = Input.MediaIds
+                    });
 
-                if (_Result.IsSucceeded == false)
-                    return new OperationResult().Failed(_Result.Message);
+                    if (_Result.IsSucceeded == false)
+                        return new OperationResult().Failed(_Result.Message);
+                }
                 #endregion
 
                 return new OperationResult().Succeeded();

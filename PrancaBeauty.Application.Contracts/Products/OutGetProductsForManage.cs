@@ -38,10 +38,11 @@ namespace PrancaBeauty.Application.Contracts.Products
     public enum OutGetProductsForManage_Status
     {
         IsDelete = 0,
-        IsDraft = 1,
-        IsConfirm = 2,
-        ItsForConfirm = 3,
-        IsSchedule = 4,
-        UnKnown = 5
+        InComplete = 1,
+        IsDraft = 2,
+        IsConfirm = 3,
+        ItsForConfirm = 4,
+        IsSchedule = 5,
+        UnKnown = 6
     }
 }

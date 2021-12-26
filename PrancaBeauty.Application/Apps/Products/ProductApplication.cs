@@ -100,7 +100,7 @@ namespace PrancaBeauty.Application.Apps.Products
                                                   HasUnConfirmedSellerRequest = a.tblProductSellers.Any(b => b.IsConfirm == false),
                                                   CountSellers = a.tblProductSellers.Count(),
                                                   CountVisit = 0,
-                                                  Status = a.IsDelete ? OutGetProductsForManage_Status.IsDelete : (a.IsDraft ? OutGetProductsForManage_Status.IsDraft : (a.IsConfirmed ? OutGetProductsForManage_Status.IsConfirm : (a.ItsForConfirm ? OutGetProductsForManage_Status.ItsForConfirm : (a.Date > DateTime.Now ? OutGetProductsForManage_Status.IsSchedule : OutGetProductsForManage_Status.UnKnown)))),
+                                                  Status = a.IsDelete ? OutGetProductsForManage_Status.IsDelete : (a.Incomplete ? OutGetProductsForManage_Status.InComplete : (a.IsDraft ? OutGetProductsForManage_Status.IsDraft : (a.IsConfirmed ? OutGetProductsForManage_Status.IsConfirm : (a.ItsForConfirm ? OutGetProductsForManage_Status.ItsForConfirm : (a.Date > DateTime.Now ? OutGetProductsForManage_Status.IsSchedule : OutGetProductsForManage_Status.UnKnown))))),
                                                   AuthorUserId = a.AuthorUserId.ToString(),
                                                   AuthorName = a.tblAuthorUser.FirstName + " " + a.tblAuthorUser.LastName,
                                                   AuthorImageUrl = "",
@@ -731,7 +731,7 @@ namespace PrancaBeauty.Application.Apps.Products
                     var _Result = await _ProductMediaApplication.EditProductMediaAsync(new InpEditProductMedia
                     {
                         ProductId = Input.Id,
-                        MediaIds=Input.ProductImagesId
+                        MediaIds = Input.ProductImagesId
                     });
 
                     if (_Result.IsSucceeded == false)
@@ -744,9 +744,36 @@ namespace PrancaBeauty.Application.Apps.Products
                 #endregion
 
                 #region ویرایش تنوع محصول
+                {
+                    var _Result = await _ProductVariantItemsApplication.EditProductVariantsAsync(new InpEditProductVariants
+                    {
+                        ProductId = Input.Id,
+                        SellerId = qData.AuthorUserId.ToString(),
+                        VariantId = Input.VariantId,
+                        Variants = Input.Variants.Select(a => new InpEditProductVariants_Variants
+                        {
+                            Id = a.Id,
+                            GuaranteeId = a.GuaranteeId,
+                            ProductCode = a.ProductCode,
+                            Title = a.Title,
+                            Value = a.Value,
+                            CountInStock = a.CountInStock,
+                            IsDelete = a.IsDelete,
+                            IsEnable = a.IsEnable,
+                            Percent = a.Percent,
+                            SendBy = a.SendBy,
+                            SendFrom = a.SendFrom
+                        }).ToList()
+                    });
 
+                    if (_Result.IsSucceeded == false)
+                    {
+                        await SetInCompleteAsync(Input.Id, _Localizer["InCompleteProductReason", Input.Id, _Result.Message]);
+
+                        return new OperationResult().Failed(_Result.Message);
+                    }
+                }
                 #endregion
-
 
                 return new OperationResult().Succeeded();
             }

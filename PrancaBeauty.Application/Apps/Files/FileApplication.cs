@@ -276,7 +276,7 @@ namespace PrancaBeauty.Application.Apps.Files
                             }
                         case InpGetFileListForFileManagerSort.DateAes:
                             {
-                                qData = qData.OrderByDescending(a => a.Date);
+                                qData = qData.OrderBy(a => a.Date);
                                 break;
                             }
                         default:

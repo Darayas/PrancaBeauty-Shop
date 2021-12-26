@@ -21,9 +21,11 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
 
     public enum viCompo_ModalFileListSort
     {
-        TitleAes = 0,
-        TitleDes = 1,
-        FileTypeAes = 2,
-        FileTypeDes = 3
+        DateDes = 0,
+        DateAes = 1,
+        TitleAes = 2,
+        TitleDes = 3,
+        FileTypeAes = 4,
+        FileTypeDes = 5
     }
 }

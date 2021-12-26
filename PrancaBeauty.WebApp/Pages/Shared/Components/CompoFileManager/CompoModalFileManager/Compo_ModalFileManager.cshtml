@@ -85,6 +85,7 @@
                 UploaderUserId: $('#Input_UploaderUserId').val(),
                 CurrentPage:1,
                 Sort: $('#Input_Sort').val(),
+                SelectedFilesId:$('#@(FieldId)').val()
             }, function (res) {
                 $('#ComboContent@(FieldId)').html(res);
             });

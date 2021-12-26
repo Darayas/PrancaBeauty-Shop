@@ -34,7 +34,7 @@
                 </div>
                 <div style="font-weight:700;text-align:center;">@item.Title</div>
                 <div style="text-align:center;">@item.FileSize.GetFileSizeName()</div>
-                @if (Model.Input.SelectedFilesId.Contains(item.Id))
+                @if (Model.Input.SelectedFilesId.Contains(item.Id.ToLower()))
                 {
                     <div style="margin-top:5px; text-align:center;"><button onclick="RemoveFromFileSelector@(FieldId)('@item.Id.ToLower()')" type="button" class="btn btn-danger btn-sm">@Localizer["Remove"]</button></div>
                 }
@@ -66,7 +66,8 @@
             FileTitle: '@Model.Input.FileTitle',
             SelectedFilesId: $('#@(FieldId)').val(),
             CurrentPage: _Page,
-            FieldName: '@Model.Input.FieldName'
+            FieldName: '@Model.Input.FieldName',
+            Sort: $('#Input_Sort').val()
         }, function (res) {
             $('#ComboContent@(FieldId)').html(res);
         });

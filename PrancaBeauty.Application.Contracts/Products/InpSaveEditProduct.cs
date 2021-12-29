@@ -22,10 +22,6 @@ namespace PrancaBeauty.Application.Contracts.Products
         [GUID]
         public string EditorUserId { get; set; }
 
-        [Display(Name = "LangId")]
-        [RequiredString]
-        [GUID]
-        public string LangId { get; set; }
 
         [Display(Name = "TopicId")]
         [RequiredForDraft(nameof(IsDraft))]
@@ -42,11 +38,6 @@ namespace PrancaBeauty.Application.Contracts.Products
         [GUID]
         public string VariantId { get; set; }
 
-        [Display(Name = "ProductName")]
-        [RequiredForDraft(nameof(IsDraft))]
-        [MaxLengthString(250)]
-        [ItsForUrl]
-        public string Name { get; set; } // Uniqe Name
 
         [Display(Name = "ProductTitle")]
         [RequiredString]
@@ -136,8 +127,7 @@ namespace PrancaBeauty.Application.Contracts.Products
 
     public class InpSaveEditProduct_Variants
     {
-        [Display(Name = "VariantTitle")]
-        [RequiredString]
+        [Display(Name = "VariantId")]
         [GUID]
         public string Id { get; set; }
 

@@ -60,6 +60,7 @@ namespace PrancaBeauty.WebApp.Pages.User.Products
                 if (qData == null)
                     return StatusCode(404);
 
+                LangId = qData.LangId;
                 Input = _Mapper.Map<viEditProduct>(qData);
 
                 return Page();
@@ -101,5 +102,6 @@ namespace PrancaBeauty.WebApp.Pages.User.Products
 
         [BindProperty]
         public viEditProduct Input { get; set; }
+        public string LangId { get; set; }
     }
 }

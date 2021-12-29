@@ -65,6 +65,15 @@ namespace PrancaBeauty.WebApp.Mapping
             CreateMap<OutGetKeywordByProductId, vmCompo_Input_Keywords>();
             CreateMap<OutGetAllVariantsByProductId, vmCompo_Variants>();
             CreateMap<OutGetAllPostingRestrictionsByProductId, vmCompo_PostingRestrictions>();
+
+
+            CreateMap<viEditProduct, InpSaveEditProduct>();
+            CreateMap<viEditProduct_Properties, InpSaveEditProduct_Properties>();
+            CreateMap<viEditProduct_Keywords,InpSaveEditProduct_Keywords>();
+            CreateMap<viEditProduct_Variants, InpSaveEditProduct_Variants>();
+            CreateMap<viEditProduct_PostingRestrictions, InpSaveEditProduct_PostingRestrictions>();
+
+
         }
     }
 }

@@ -610,8 +610,8 @@ namespace PrancaBeauty.Application.Apps.Products
                 #endregion
 
                 // برسی تکراری نبودن نام محصول
-                if (await CheckDuplicateNameAsync(Input.Name.ToLowerCaseForUrl(), Input.Id))
-                    return new OperationResult().Failed("ProdcutName is duplicate.");
+                //if (await CheckDuplicateNameAsync(Input.Name.ToLowerCaseForUrl(), Input.Id))
+                //    return new OperationResult().Failed("ProdcutName is duplicate.");
 
                 var qData = await _ProductRepository.Get
                                                     .Where(a => a.Id == Guid.Parse(Input.Id))
@@ -625,7 +625,7 @@ namespace PrancaBeauty.Application.Apps.Products
                     return new OperationResult().Failed("YouCantEditThisProductAsDraft");
 
                 if (Input.CanEditThisProduct == false)
-                    if (qData.AuthorUserId.ToString() != Input.EditorUserId)
+                    if (qData.AuthorUserId.ToString().ToLower() != Input.EditorUserId.ToLower())
                         return new OperationResult().Failed("YouCantEditThisProduct");
 
                 qData.TopicId = Guid.Parse(Input.TopicId);
@@ -639,6 +639,8 @@ namespace PrancaBeauty.Application.Apps.Products
                 qData.IsConfirmed = false;
                 qData.IsDraft = Input.IsDraft;
                 qData.ItsForConfirm = true;
+                qData.Incomplete = false;
+                qData.IncompleteReason = null;
 
                 #region ویرایش قیمت پایه
                 {
@@ -650,7 +652,7 @@ namespace PrancaBeauty.Application.Apps.Products
                         {
                             CountryId = await _LanguageApplication.GetCountryIdByLangIdAsync(new InpGetCountryIdByLangId
                             {
-                                LangId = Input.LangId
+                                LangId = qData.LangId.ToString()
                             })
                         }),
                         Price = Input.Price
@@ -690,7 +692,7 @@ namespace PrancaBeauty.Application.Apps.Products
                     var _Result = await _KeywordProductsApplication.EditProductKeywordsAsync(new InpEditProductKeywords
                     {
                         ProductId = Input.Id,
-                        LstKeywords = Input.Keywords.Select(a => new InpEditProductKeywords_LstKeywords
+                        LstKeywords = Input.Keywords.Where(a => a.Title != null).Where(a => a.IsDelete == false).Select(a => new InpEditProductKeywords_LstKeywords
                         {
                             Title = a.Title,
                             Similarity = a.Similarity
@@ -748,7 +750,7 @@ namespace PrancaBeauty.Application.Apps.Products
                     var _Result = await _ProductVariantItemsApplication.EditProductVariantsAsync(new InpEditProductVariants
                     {
                         ProductId = Input.Id,
-                        SellerId = qData.AuthorUserId.ToString(),
+                        SellerId = await _ProductSellersApplication.GetSellerIdAsync(new InpGetSellerId { ProductId = Input.Id, UserId = qData.AuthorUserId.ToString() }),
                         VariantId = Input.VariantId,
                         Variants = Input.Variants.Select(a => new InpEditProductVariants_Variants
                         {

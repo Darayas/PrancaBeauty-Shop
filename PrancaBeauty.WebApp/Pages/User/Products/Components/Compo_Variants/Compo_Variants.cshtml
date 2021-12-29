@@ -86,9 +86,9 @@
 
         function RemoveVariants(_Index) {
             $('#Variants' + _Index).hide();
-            $('#Variants' + _Index + ' input').val("");
+            //$('#Variants' + _Index + ' input').val("");
             setTimeout(function () {
-                $('#Variants' + _Index + ' .isNumeric').val("0");
+                //$('#Variants' + _Index + ' .isNumeric').val("0");
                 $('#Input_Variants' + _Index).val("true");
             }, 100);
         }

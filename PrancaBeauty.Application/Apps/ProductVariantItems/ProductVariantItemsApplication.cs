@@ -116,7 +116,7 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
 
                 foreach (var item in qData)
                 {
-                    var _Result = await CheckHasPurchaseForVariantAsync(new InpCheckHasPurchaseForVariant { });
+                    var _Result = await CheckHasPurchaseForVariantAsync(new InpCheckHasPurchaseForVariant {  VariantItemId=item.Id.ToString() });
                     if (_Result.HasValue == false)
                         return new OperationResult().Failed("Error500");
 
@@ -231,7 +231,7 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
                         ProductId = Input.ProductId,
                         SellerId = Input.SellerId,
                         VariantId = Input.VariantId,
-                        Variants = Input.Variants.Select(a => new InpAddVariantsToProduct_Variants
+                        Variants = qDataToAdd.Select(a => new InpAddVariantsToProduct_Variants
                         {
                             GuaranteeId = a.GuaranteeId,
                             ProductCode = a.ProductCode,

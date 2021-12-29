@@ -180,7 +180,7 @@ namespace PrancaBeauty.Application.Apps.Languages
             await LoadCacheAsync();
 
             return SiteLangCache
-                                .Where(a => a.Id == Input.LangId)
+                                .Where(a => a.Id.ToLower() == Input.LangId.ToLower())
                                 .Select(a => a.CountryId)
                                 .SingleOrDefault();
         }

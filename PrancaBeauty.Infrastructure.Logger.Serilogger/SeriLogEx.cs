@@ -1,17 +1,12 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Builder;
 using Serilog;
 using Serilog.Events;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PrancaBeauty.Infrastructure.Logger.Serilog
 {
     public static class SeriLogEx
     {
-        public static void UseSeriLog_SqlServer(this IWebHostBuilder webHostBuilder)
+        public static void UseSeriLog_SqlServer(this ConfigureHostBuilder webHostBuilder)
         {
             webHostBuilder.UseSerilog((builder, logger) =>
             {
@@ -20,7 +15,7 @@ namespace PrancaBeauty.Infrastructure.Logger.Serilog
             });
         }
 
-        public static void UseSeriLog_Console(this IWebHostBuilder webHostBuilder)
+        public static void UseSeriLog_Console(this ConfigureHostBuilder webHostBuilder)
         {
             webHostBuilder.UseSerilog((builder, logger) =>
             {

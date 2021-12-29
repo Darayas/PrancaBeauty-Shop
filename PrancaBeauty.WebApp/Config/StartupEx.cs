@@ -112,6 +112,7 @@ namespace PrancaBeauty.WebApp.Config
             services.AddSingleton<IMsgBox, MsgBox>();
             services.AddScoped<IJWTBuilder, JWTBuilder>();
             services.AddSingleton<IIpAddressChecker, IpAddressChecker>();
+            services.AddSingleton<IProcessingStrategy, AsyncKeyLockProcessingStrategy>();
 
             return services;
         }

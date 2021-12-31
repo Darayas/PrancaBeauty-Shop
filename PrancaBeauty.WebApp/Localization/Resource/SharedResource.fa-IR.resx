@@ -963,6 +963,9 @@
   <data name="ProductProperties" xml:space="preserve">
     <value>خصوصیات</value>
   </data>
+  <data name="ProductSellerList" xml:space="preserve">
+    <value>لیست فروشندگان محصول {0}</value>
+  </data>
   <data name="ProductTitle" xml:space="preserve">
     <value>عنوان محصول</value>
   </data>

@@ -816,5 +816,31 @@ namespace PrancaBeauty.Application.Apps.Products
                 return new OperationResult().Failed("Error500");
             }
         }
+
+        public async Task<string> GetTitleByIdAsync(InpGetTitleById Input)
+        {
+            try
+            {
+                #region Validatons
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                return await _ProductRepository.Get
+                                               .Where(a => a.Id == Guid.Parse(Input.ProductId))
+                                               .Select(a => a.Title)
+                                               .SingleOrDefaultAsync();
+
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
+            }
+        }
     }
 }

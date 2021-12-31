@@ -1,4 +1,5 @@
 ﻿using Framework.Common.ExMethods;
+using Framework.Common.Utilities.Paging;
 using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
@@ -116,6 +117,28 @@ namespace PrancaBeauty.Application.Apps.ProductSellers
             {
                 _Logger.Error(ex);
                 return null;
+            }
+        }
+
+        public async Task<(PagingData, List<vmGetAllSellerForManageByProductId>)> GetAllSellerForManageByProductIdAsync(InpGetAllSellerForManageByProductId Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return default;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return default;
             }
         }
     }

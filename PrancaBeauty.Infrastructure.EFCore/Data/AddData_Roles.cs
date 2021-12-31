@@ -476,6 +476,71 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
             }
             #endregion
 
+            #region ManageProductSeller
+            {
+                Guid _Id = new Guid().SequentialGuid();
+                if (!_repRoles.Get.Any(a => a.Name == "CanViewListProductSellerList"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = _Id,
+                        ParentId = null,
+                        PageName = "ManageProductSellerListPage",
+                        Sort = 240,
+                        Name = "CanViewListProductSellerList",
+                        NormalizedName = "CanViewListProductSellerList".ToUpper(),
+                        Description = "توانایی مدیریت فروشندگان محصول"
+                    }, default, false).Wait();
+                }
+                else
+                {
+                    _Id = _repRoles.Get.Where(a => a.Name == "CanManageProducts").Select(a => a.Id).Single();
+                }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanAddProductSeller"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageProductSellerListPage",
+                        Sort = 250,
+                        Name = "CanAddProductSeller",
+                        NormalizedName = "CanAddProductSeller".ToUpper(),
+                        Description = "توانایی افزودن فروشنده به محصول"
+                    }, default, false).Wait();
+                }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanEditProductSeller"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageProductSellerListPage",
+                        Sort = 260,
+                        Name = "CanEditProductSeller",
+                        NormalizedName = "CanEditProductSeller".ToUpper(),
+                        Description = "توانایی ویرایش فروشنده ی محصول"
+                    }, default, false).Wait();
+                }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanDeleteProductSeller"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageProductSellerListPage",
+                        Sort = 270,
+                        Name = "CanDeleteProductSeller",
+                        NormalizedName = "CanDeleteProductSeller".ToUpper(),
+                        Description = "توانایی حذف فروشنده ی محصول"
+                    }, default, false).Wait();
+                }
+            }
+            #endregion
+
             #region ManageFiles
             {
                 Guid _Id = new Guid().SequentialGuid();

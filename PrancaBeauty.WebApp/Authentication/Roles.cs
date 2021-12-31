@@ -51,6 +51,10 @@ namespace PrancaBeauty.WebApp.Authentication
 
         #endregion
 
+        #region ProductSeller
+        public const string CanViewListProductSellerList = "CanViewListProductSellerList";
+        #endregion
+
         #region Files
         public const string CanManageAllUserFiles = "CanManageAllUserFiles";
         #endregion

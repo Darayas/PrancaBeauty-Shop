@@ -43,8 +43,7 @@ namespace PrancaBeauty.Application.Apps.ProductSellers
                     UserId = Guid.Parse(Input.UserId),
                     ProductId = Guid.Parse(Input.ProductId),
                     IsConfirm = Input.IsConfirm,
-                    Date = DateTime.Now,
-                    Price = double.Parse(Input.Price, new CultureInfo("en-US"))
+                    Date = DateTime.Now
                 };
 
                 await _ProductSellersRepsoitory.AddAsync(tProductSeller, default, true);
@@ -120,7 +119,7 @@ namespace PrancaBeauty.Application.Apps.ProductSellers
             }
         }
 
-        public async Task<(PagingData, List<vmGetAllSellerForManageByProductId>)> GetAllSellerForManageByProductIdAsync(InpGetAllSellerForManageByProductId Input)
+        public async Task<(OutPagingData, List<vmGetAllSellerForManageByProductId>)> GetAllSellerForManageByProductIdAsync(InpGetAllSellerForManageByProductId Input)
         {
             try
             {
@@ -128,7 +127,35 @@ namespace PrancaBeauty.Application.Apps.ProductSellers
                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
+                var qData = _ProductSellersRepsoitory.Get
+                                                     .Where(a => a.ProductId == Guid.Parse(Input.ProductId))
+                                                     .Where(a => Input.UserId != null ? a.UserId == Guid.Parse(Input.UserId) : true)
+                                                     .Select(a => new vmGetAllSellerForManageByProductId
+                                                     {
+                                                         Id = a.Id.ToString(),
+                                                         FullName = a.tblUsers.FirstName + " " + a.tblUsers.LastName,
+                                                         Date = a.Date,
+                                                         IsConfirm = a.IsConfirm
+                                                     });
 
+                #region شرط
+                {
+                    if (Input.FullName != null)
+                        qData = qData.Where(a => a.FullName.Contains(Input.FullName));
+                }
+                #endregion
+
+                #region مرتب سازی
+                {
+                    qData = qData.OrderBy(a => a.FullName);
+                }
+                #endregion
+
+                #region صفحه بندی
+                var _PagingData = PagingData.Calc(await qData.LongCountAsync(), Input.Page, Input.Take);
+                #endregion
+
+                return (_PagingData, await qData.Skip((int)_PagingData.Skip).Take(_PagingData.Take).ToListAsync());
             }
             catch (ArgumentInvalidException ex)
             {

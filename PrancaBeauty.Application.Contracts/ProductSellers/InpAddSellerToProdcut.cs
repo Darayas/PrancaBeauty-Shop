@@ -24,9 +24,5 @@ namespace PrancaBeauty.Application.Contracts.ProductSellers
 
         [Display(Name = "IsConfirm")]
         public bool IsConfirm { get; set; }
-
-        [Display(Name = "ProductPrice")]
-        [RequiredString]
-        public string Price { get; set; }
     }
 }

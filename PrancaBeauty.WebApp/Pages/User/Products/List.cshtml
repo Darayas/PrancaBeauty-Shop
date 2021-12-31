@@ -218,6 +218,10 @@
                 <a onclick="MoveToRecycleBin('#:Id#')" class="dropdown-item #:Status==0?'hide':''#"><i class="dropdown-icon fa fa-trash"></i>@Localizer["MoveToRecycleBin"]</a>
                 <a onclick="RecoveryFromRecycleBin('#:Id#')" class="dropdown-item #:Status!=0?'hide':''#"><i class="dropdown-icon fa fa-undo"></i>@Localizer["RecoveryFromRecycleBin"]</a>
             }
+            @if (User.IsInRole(Roles.CanViewListProductSellerList))
+            {
+                <a href="/@ViewData["Culture"]/User/Product/Sellers/List/#:Id#?ReturnUrl=@Request.GetCurrentUrlEncoded()" class="dropdown-item"><i class="dropdown-icon fa fa-users"></i>@Localizer["ProductSeller"]</a>
+            }
         </div>
     </div>
 </script>

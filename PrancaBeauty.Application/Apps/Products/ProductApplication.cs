@@ -253,8 +253,7 @@ namespace PrancaBeauty.Application.Apps.Products
                     {
                         ProductId = ProductId,
                         UserId = Input.AuthorUserId,
-                        IsConfirm = true,
-                        Price = Input.Price
+                        IsConfirm = true
                     });
 
                     if (_Result.IsSucceeded)

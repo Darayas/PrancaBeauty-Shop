@@ -497,6 +497,20 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     _Id = _repRoles.Get.Where(a => a.Name == "CanManageProducts").Select(a => a.Id).Single();
                 }
 
+                if (!_repRoles.Get.Any(a => a.Name == "CanViewListProductSellerListAllUser"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageProductSellerListPage",
+                        Sort = 245,
+                        Name = "CanViewListProductSellerListAllUser",
+                        NormalizedName = "CanViewListProductSellerListAllUser".ToUpper(),
+                        Description = "توانایی مدیریت همه ی فروشندگان محصول"
+                    }, default, false).Wait();
+                }
+                
                 if (!_repRoles.Get.Any(a => a.Name == "CanAddProductSeller"))
                 {
                     _repRoles.AddAsync(new tblRoles()

@@ -8,5 +8,9 @@ namespace PrancaBeauty.Application.Contracts.ProductSellers
 {
     public class vmGetAllSellerForManageByProductId
     {
+        public string Id { get; set; }
+        public string FullName { get; set; }
+        public DateTime Date { get; set; }
+        public bool IsConfirm  { get; set; }
     }
 }

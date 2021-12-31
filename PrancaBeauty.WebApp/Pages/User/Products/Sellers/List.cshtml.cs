@@ -1,21 +1,27 @@
+
+
+using Framework.Common.ExMethods;
+using Kendo.Mvc.UI;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Products;
-using PrancaBeauty.WebApp.Models.ViewInput;
-using System.Threading.Tasks;
-using PrancaBeauty.Application.Contracts.Products;
-using System.Net;
-using System.Globalization;
-using PrancaBeauty.WebApp.Authentication;
-using Framework.Common.ExMethods;
-using System;
-using Kendo.Mvc.UI;
 using PrancaBeauty.Application.Apps.ProductSellers;
+using PrancaBeauty.Application.Contracts.Products;
+using PrancaBeauty.Application.Contracts.ProductSellers;
+using PrancaBeauty.WebApp.Authentication;
+using PrancaBeauty.WebApp.Common.ExMethod;
+using PrancaBeauty.WebApp.Models.ViewInput;
+using PrancaBeauty.WebApp.Models.ViewModel;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace PrancaBeauty.WebApp.Pages.User.Products.Sellers
 {
-    [Authorize(Roles =Roles.CanViewListProductSellerList)]
+    [Authorize(Roles = Roles.CanViewListProductSellerList)]
     public class ListModel : PageModel
     {
         private readonly IServiceProvider _ServiceProvider;
@@ -40,23 +46,23 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Sellers
             return Page();
         }
 
-        public async Task<IActionResult> OnPostReadDataAsync([DataSourceRequest] DataSourceRequest request, string LangId)
+        public async Task<IActionResult> OnPostReadDataAsync([DataSourceRequest] DataSourceRequest request, string Text,string ProductId)
         {
-            if (!User.IsInRole(Roles.CanViewListAllAuthorUserProducts))
+            string UserId = User.GetUserDetails().UserId;
+            if (User.IsInRole(Roles.CanViewListProductSellerListAllUser))
+                UserId = null;
+
+            var qData = await _ProductSellersApplication.GetAllSellerForManageByProductIdAsync(new InpGetAllSellerForManageByProductId
             {
-                if (!User.IsInRole(Roles.CanViewListAllSellerUserProducts))
-                {
-                    Input.SellerUserId = User.GetUserDetails().UserId;
-                    Input.AuthorUserId = null;
-                }
-                else
-                {
-                    Input.AuthorUserId = User.GetUserDetails().UserId;
-                }
-            }
+                FullName= Text,
+                Page = request.Page,
+                Take = request.PageSize,
+                ProductId= ProductId,
+                UserId= UserId
+            });
 
-
-            
+            // Mapping
+            var Items = _Mapper.Map<List<vmProductList>>(qData.Item2);
 
             // To DataSourceResult
             var _DataGrid = Items.ToDataSourceResult(request);

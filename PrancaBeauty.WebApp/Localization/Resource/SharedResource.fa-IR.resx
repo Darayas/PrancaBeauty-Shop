@@ -324,6 +324,9 @@
   <data name="Dashboard" xml:space="preserve">
     <value>پیشخوان</value>
   </data>
+  <data name="Date" xml:space="preserve">
+    <value>تاریخ</value>
+  </data>
   <data name="DateAes" xml:space="preserve">
     <value>تاریخ (صعودی)</value>
   </data>

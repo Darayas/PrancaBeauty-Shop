@@ -1,6 +1,8 @@
 
 
+using AutoMapper;
 using Framework.Common.ExMethods;
+using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -24,15 +26,17 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Sellers
     [Authorize(Roles = Roles.CanViewListProductSellerList)]
     public class ListModel : PageModel
     {
+        private readonly IMapper _Mapper;
         private readonly IServiceProvider _ServiceProvider;
         private readonly IProductApplication _ProductApplication;
         private readonly IProductSellersApplication _ProductSellersApplication;
 
-        public ListModel(IServiceProvider serviceProvider, IProductApplication productApplication, IProductSellersApplication productSellersApplication)
+        public ListModel(IServiceProvider serviceProvider, IProductApplication productApplication, IProductSellersApplication productSellersApplication, IMapper mapper)
         {
             _ServiceProvider = serviceProvider;
             _ProductApplication = productApplication;
             _ProductSellersApplication = productSellersApplication;
+            _Mapper = mapper;
         }
 
         public async Task<IActionResult> OnGetAsync(viGetListSellers Input, string ReturnUrl = null)
@@ -46,7 +50,7 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Sellers
             return Page();
         }
 
-        public async Task<IActionResult> OnPostReadDataAsync([DataSourceRequest] DataSourceRequest request, string Text,string ProductId)
+        public async Task<IActionResult> OnPostReadDataAsync([DataSourceRequest] DataSourceRequest request, string Text)
         {
             string UserId = User.GetUserDetails().UserId;
             if (User.IsInRole(Roles.CanViewListProductSellerListAllUser))
@@ -54,15 +58,15 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Sellers
 
             var qData = await _ProductSellersApplication.GetAllSellerForManageByProductIdAsync(new InpGetAllSellerForManageByProductId
             {
-                FullName= Text,
+                FullName = Text,
                 Page = request.Page,
                 Take = request.PageSize,
-                ProductId= ProductId,
-                UserId= UserId
+                ProductId = ProductId,
+                UserId = UserId
             });
 
             // Mapping
-            var Items = _Mapper.Map<List<vmProductList>>(qData.Item2);
+            var Items = _Mapper.Map<List<vmListSellers>>(qData.Item2);
 
             // To DataSourceResult
             var _DataGrid = Items.ToDataSourceResult(request);
@@ -74,6 +78,7 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Sellers
             return new JsonResult(_DataGrid);
         }
 
+        [BindProperty]
         public string ProductId { get; set; }
         public string ProductTitle { get; set; }
     }

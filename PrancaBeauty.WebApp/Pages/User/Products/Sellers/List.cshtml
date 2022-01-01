@@ -14,7 +14,7 @@
                     <ul>
                         <li><a href="/@ViewData["Culture"]">@Localizer["Home"]</a></li>
                         <li><a href="/@ViewData["Culture"]/User/Index">@Localizer["Dashboard"]</a></li>
-                        <li><a href="/@ViewData["Culture"]/User/Products/List">@Localizer["ProductList"]</a></li>
+                        <li><a href="@ViewData["ReturnUrl"]">@Localizer["ProductList"]</a></li>
                         <li>@ViewData["Title"]</li>
                     </ul>
                 </div>
@@ -24,31 +24,41 @@
 </div>
     }
 
-<script>
-    function Filter()
-    {
-        var ItemCombo = $('#ListProductSeller').data("kendoComboBox");
-        return { Text: ItemCombo.text(),ProductId:'@Model.ProductId' };
-    }
-</script>
 <div class="row">
     <div class="col-md-12">
         <div class="k-lang">
             @(Html.Kendo()
-            .Grid<vmListSellers>()
-            .Name("ListProductSeller")
-            .DefaultSettings(Localizer)
-            .Columns(col=> {
-            col.Bound(a => a.Id).Hidden().HtmlAttributes(new { @class = "RowId" }).Sortable(false);
-
-            col.Bound(a => a).Width(50).Title(" ")
-            .HtmlAttributes(new { style= "overflow: visible; text-align: center;" })
-            .ClientHeaderTemplate((User.IsInRole(Roles.CanAddProduct)? "<button class='btn btn-success btn-sm' onclick='Add()'><i class='fa fa-plus'></i></button>" : "") + "<button class='btn btn-primary btn-sm ml-1 mr-1' onclick='ShowSearchModal()'><i class='fa fa-search'></i></button>")
-            .ClientTemplateId("DropDownCmd");
-            })
-            .DataSource(ds=>ds.Ajax()
-            .PageSize(10)
-            .Read(read=>read.Url($"/{CultureInfo.CurrentCulture.Parent.Name}/User/Product/Sellers/List/{Model.ProductId}?handler=ReadData").Data($"Filter").Data("forgeryToken"))))
+                  .Grid<vmListSellers>()
+                  .Name("ListProductSeller")
+                  .DefaultSettings(Localizer)
+                  .Columns(col=> {
+                        col.Bound(a => a.Id).Hidden().HtmlAttributes(new { @class = "RowId" }).Sortable(false);
+                        col.Bound(a=>a.FullName);
+                        col.Bound(a => a.Date).Width(90).HtmlAttributes(new { @class = "text-left" }).Sortable(false);
+                        col.Bound(a => a.IsConfirm).HtmlAttributes(new {style = "text-align:center;" }).ClientTemplate("<img style='width:32px' src='/Shared/img/#=IsConfirm#.png'/>").Width(50).Sortable(false);
+                        col.Bound(a => a).Width(50).Title(" ")
+                           .HtmlAttributes(new { style= "overflow: visible; text-align: center;" })
+                           .ClientHeaderTemplate((User.IsInRole(Roles.CanAddProduct)? "<button class='btn btn-success btn-sm' onclick='Add()'><i class='fa fa-plus'></i></button>" : "") + $"<button class='btn btn-primary btn-sm ml-1 mr-1' onclick='GotoBack()'><i class='fa fa-undo'></i></button>")
+                           .ClientTemplateId("DropDownCmd");
+                  })
+                  .DataSource(ds=>ds.Ajax()
+                                    .PageSize(10)
+                                    .Read(read=>read.Url($"/{CultureInfo.CurrentCulture.Parent.Name}/User/Product/Sellers/List/{Model.ProductId}?handler=ReadData").Data("forgeryToken"))))
         </div>
     </div>
+    <script id="DropDownCmd">
+        <div class="item-action dropdown">
+            <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fa fa-bars fs-16 text-dark"></i></a>
+            <div class="dropdown-menu dropdown-menu-left">
+                
+            </div>
+        </div>
+    </script>
+
+    <script>
+        function GotoBack()
+        {
+            location.href='@ViewData["ReturnUrl"]';
+        }
+    </script>
 </div>

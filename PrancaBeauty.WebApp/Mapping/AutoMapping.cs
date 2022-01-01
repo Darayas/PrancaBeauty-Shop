@@ -7,6 +7,7 @@ using PrancaBeauty.Application.Contracts.KeywordProducts;
 using PrancaBeauty.Application.Contracts.PostingRestrictions;
 using PrancaBeauty.Application.Contracts.ProductProperties;
 using PrancaBeauty.Application.Contracts.Products;
+using PrancaBeauty.Application.Contracts.ProductSellers;
 using PrancaBeauty.Application.Contracts.ProductVariantItems;
 using PrancaBeauty.Application.Contracts.Users;
 using PrancaBeauty.WebApp.Models.ViewInput;
@@ -29,6 +30,8 @@ namespace PrancaBeauty.WebApp.Mapping
             CreateMap<viCompo_AddAddress, InpAddAddress>();
             CreateMap<OutGetAddressByUserIdForManage, vmCompo_ListAddress>();
             CreateMap<OutGetProductsForManage, vmProductList>();
+            CreateMap<vmGetAllSellerForManageByProductId, vmListSellers>().ForMember(x => x.Date,
+                                                                                          opt => opt.MapFrom(src => ((DateTime)src.Date).ToString("yyyy-MM-dd")));
             CreateMap<OutGetAddressDetails, viCompo_EditAddress>();
             CreateMap<viCompo_EditAddress, InpEditAddress>();
             CreateMap<viAddCategory, InpAddCategory>();
@@ -69,7 +72,7 @@ namespace PrancaBeauty.WebApp.Mapping
 
             CreateMap<viEditProduct, InpSaveEditProduct>();
             CreateMap<viEditProduct_Properties, InpSaveEditProduct_Properties>();
-            CreateMap<viEditProduct_Keywords,InpSaveEditProduct_Keywords>();
+            CreateMap<viEditProduct_Keywords, InpSaveEditProduct_Keywords>();
             CreateMap<viEditProduct_Variants, InpSaveEditProduct_Variants>();
             CreateMap<viEditProduct_PostingRestrictions, InpSaveEditProduct_PostingRestrictions>();
 

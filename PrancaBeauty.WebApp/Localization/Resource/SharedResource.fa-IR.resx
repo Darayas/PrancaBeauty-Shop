@@ -1101,6 +1101,9 @@
   <data name="Seller" xml:space="preserve">
     <value>فروشنده</value>
   </data>
+  <data name="SellerFullName" xml:space="preserve">
+    <value>نام فروشنده</value>
+  </data>
   <data name="SellerUserId" xml:space="preserve">
     <value>فروشنده</value>
   </data>

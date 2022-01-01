@@ -38,7 +38,7 @@
                         col.Bound(a => a.IsConfirm).HtmlAttributes(new {style = "text-align:center;" }).ClientTemplate("<img style='width:32px' src='/Shared/img/#=IsConfirm#.png'/>").Width(50).Sortable(false);
                         col.Bound(a => a).Width(50).Title(" ")
                            .HtmlAttributes(new { style= "overflow: visible; text-align: center;" })
-                           .ClientHeaderTemplate((User.IsInRole(Roles.CanAddProduct)? "<button class='btn btn-success btn-sm' onclick='Add()'><i class='fa fa-plus'></i></button>" : "") + $"<button class='btn btn-primary btn-sm ml-1 mr-1' onclick='GotoBack()'><i class='fa fa-undo'></i></button>")
+                           .ClientHeaderTemplate((User.IsInRole(Roles.CanAddProductSeller)? "<button class='btn btn-success btn-sm' onclick='Add()'><i class='fa fa-plus'></i></button>" : "") + $"<button class='btn btn-primary btn-sm ml-1 mr-1' onclick='GotoBack()'><i class='fa fa-undo'></i></button>")
                            .ClientTemplateId("DropDownCmd");
                   })
                   .DataSource(ds=>ds.Ajax()
@@ -62,3 +62,15 @@
         }
     </script>
 </div>
+
+<script>
+    @if(User.IsInRole(Roles.CanAddProductSeller))
+    {
+        <text>
+            function Add()
+            {
+                location.href='/@ViewData["culture"]/User/Product/Sellers/Add/@Model.ProductId?ReturnUrl=@Request.GetCurrentUrlEncoded()';
+            }
+        </text>
+    }
+</script>

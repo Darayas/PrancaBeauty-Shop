@@ -24,9 +24,11 @@ namespace PrancaBeauty.Domin.Product.ProductVariantsItemsAgg.Entities
         public string Value { get; set; }
         public double Percent { get; set; }
         public ProductVariantItems_SendByEnum SendBy { get; set; } // ارسال توسط: پرنسابیوتی، فروشنده
-        public bool IsEnable { get; set; }
         public ProductVariantItems_SendFromEnum SendFrom { get; set; } // ارسال از: 1، 2، 3، 4 رور کاری آینده
         public int CountInStock { get; set; }
+
+        public bool IsEnable { get; set; }
+        public bool IsConfirm { get; set; }
 
         public virtual tblProductVariants tblProductVariants { get; set; }
         public virtual tblProducts tblProducts { get; set; }

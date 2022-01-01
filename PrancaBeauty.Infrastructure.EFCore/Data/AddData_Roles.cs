@@ -510,7 +510,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                         Description = "توانایی مدیریت همه ی فروشندگان محصول"
                     }, default, false).Wait();
                 }
-                
+
                 if (!_repRoles.Get.Any(a => a.Name == "CanAddProductSeller"))
                 {
                     _repRoles.AddAsync(new tblRoles()
@@ -522,6 +522,20 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                         Name = "CanAddProductSeller",
                         NormalizedName = "CanAddProductSeller".ToUpper(),
                         Description = "توانایی افزودن فروشنده به محصول"
+                    }, default, false).Wait();
+                }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanAddProductSellerAllUser"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageProductSellerListPage",
+                        Sort = 255,
+                        Name = "CanAddProductSellerAllUser",
+                        NormalizedName = "CanAddProductSellerAllUser".ToUpper(),
+                        Description = "توانایی افزودن فروشنده به محصول برای همه کاربران"
                     }, default, false).Wait();
                 }
 

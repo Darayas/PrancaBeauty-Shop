@@ -7,13 +7,13 @@ namespace PrancaBeauty.WebApp.Models.ViewModel
     {
         public string Id { get; set; }
 
-        [Display(Name = "FullName")]
+        [Display(Name = "SellerFullName")]
         public string FullName { get; set; }
 
         [Display(Name = "Date")]
         public string Date { get; set; }
 
-        [Display(Name = "IsConfirm")]
+        [Display(Name = "IsConfirmed")]
         public bool IsConfirm { get; set; }
     }
 }

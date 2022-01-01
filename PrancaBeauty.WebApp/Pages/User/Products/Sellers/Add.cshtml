@@ -1,0 +1,64 @@
+﻿@page "/{culture}/User/Product/Sellers/Add/{ProductId}"
+@model PrancaBeauty.WebApp.Pages.User.Products.Sellers.AddModel
+@{
+    ViewData["Title"] = Localizer["AddProductSeller"];
+    Layout = "~/Pages/Shared/_UserLayout.cshtml";
+}
+
+@section breadcrumbs{
+<div class="breadcrumbs_area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb_content">
+                    <ul>
+                        <li><a href="/@ViewData["Culture"]">@Localizer["Home"]</a></li>
+                        <li><a href="/@ViewData["Culture"]/User/Index">@Localizer["Dashboard"]</a></li>
+                        <li><a href="/@ViewData["Culture"]/User/Products/List">@Localizer["ProductList"]</a></li>
+                        <li>@Localizer["AddProduct"]</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+}
+<form id="FrmAddProdcut">
+    <input name="Input.ProductId" type="hidden" value="@ViewData["ProductId"]" />
+    <div class="row">
+        <div class="col-md-12">
+            @if (User.IsInRole(Roles.CanAddProductSellerAllUser))
+            {
+                 <LoadComponent id="UserId"
+                                url="/@ViewData["culture"]/Shared/Compo/ComboUsers"
+                                context="HttpContext"
+                                data='new viCompo_Combo_Users{ FieldName="Input.UserId",ShowLabale=true  }'></LoadComponent>
+            }
+            else
+            {
+
+            }
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group frmBtnAction mt-4">
+                        <button onclick="GotoBack()" type="button" class="btn btn-warning">@Localizer["GotoBack"]</button>
+                        <button onclick="SaveData()" type="button" class="btn btn-success">@Localizer["Save"]</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</form>
+
+<script>
+    function GotoBack() {
+         location.href = '@ViewData["ReturnUrl"]';
+    }
+
+    function SaveData()
+    {
+
+    }
+</script>

@@ -3,7 +3,9 @@ using Framework.Common.Utilities.Paging;
 using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using PrancaBeauty.Application.Apps.ProductVariantItems;
 using PrancaBeauty.Application.Contracts.ProductSellers;
+using PrancaBeauty.Application.Contracts.ProductVariantItems;
 using PrancaBeauty.Application.Contracts.Results;
 using PrancaBeauty.Domin.Product.ProductSellerAgg.Contracts;
 using PrancaBeauty.Domin.Product.ProductSellerAgg.Entities;
@@ -22,11 +24,13 @@ namespace PrancaBeauty.Application.Apps.ProductSellers
         private readonly ILogger _Logger;
         private readonly IServiceProvider _ServiceProvider;
         private readonly IProductSellersRepsoitory _ProductSellersRepsoitory;
-        public ProductSellersApplication(IProductSellersRepsoitory productSellersRepsoitory, ILogger logger, IServiceProvider serviceProvider)
+        private readonly IProductVariantItemsApplication _ProductVariantItemsApplication;
+        public ProductSellersApplication(IProductSellersRepsoitory productSellersRepsoitory, ILogger logger, IServiceProvider serviceProvider, IProductVariantItemsApplication productVariantItemsApplication)
         {
             _ProductSellersRepsoitory = productSellersRepsoitory;
             _Logger = logger;
             _ServiceProvider = serviceProvider;
+            _ProductVariantItemsApplication = productVariantItemsApplication;
         }
 
         public async Task<OperationResult> AddSellerToProdcutAsync(InpAddSellerToProdcut Input)
@@ -49,6 +53,70 @@ namespace PrancaBeauty.Application.Apps.ProductSellers
                 await _ProductSellersRepsoitory.AddAsync(tProductSeller, default, true);
 
                 return new OperationResult().Succeeded(1, tProductSeller.Id.ToString());
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
+
+        public async Task<OperationResult> AddSellerWithVariantsToProdcutAsync(InpAddSellerWithVariantsToProdcut Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                string _SellerId = null;
+
+                #region برسی کاربر جاری که فروشنده ی محصول نباشد
+                {
+                    _SellerId = await GetSellerIdAsync(new InpGetSellerId { ProductId = Input.ProductId, UserId = Input.UserId });
+                    if (_SellerId == null)
+                    {
+                        var _Result = await AddSellerToProdcutAsync(new InpAddSellerToProdcut
+                        {
+                            UserId = Input.UserId,
+                            ProductId = Input.ProductId,
+                            IsConfirm = false
+                        });
+                        if (_Result.IsSucceeded)
+                            _SellerId = _Result.Message;
+                    }
+                }
+                #endregion
+
+                #region افزودن تنوع محصولات برای فروشنده
+                {
+                    var _Result = await _ProductVariantItemsApplication.AddVariantsToProductAsync(new InpAddVariantsToProduct
+                    {
+                        ProductId = Input.ProductId,
+                        SellerId = _SellerId,
+                        VariantId = Input.VariantId,
+                        Variants = Input.Variants.Select(a => new InpAddVariantsToProduct_Variants
+                        {
+                            CountInStock = a.CountInStock,
+                            GuaranteeId = a.GuaranteeId,
+                            IsEnable = a.IsEnable,
+                            Percent = a.Percent,
+                            ProductCode = a.ProductCode,
+                            SendBy = a.SendBy,
+                            SendFrom = a.SendFrom,
+                            Title = a.Title,
+                            Value = a.Value,
+                        }).ToList()
+                    });
+                }
+                #endregion
+
+                return new OperationResult().Succeeded();
             }
             catch (ArgumentInvalidException ex)
             {

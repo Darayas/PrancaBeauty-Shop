@@ -1,3 +1,4 @@
+using AutoMapper;
 using Framework.Common.ExMethods;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -5,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Products;
 using PrancaBeauty.Application.Apps.ProductSellers;
 using PrancaBeauty.Application.Apps.ProductVariantItems;
+using PrancaBeauty.Application.Contracts.ProductSellers;
 using PrancaBeauty.WebApp.Authentication;
 using PrancaBeauty.WebApp.Common.ExMethod;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
@@ -19,18 +21,18 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Sellers
     public class AddModel : PageModel
     {
         private readonly IMsgBox _MsgBox;
+        private readonly IMapper _Mapper;
         private readonly IServiceProvider _ServiceProvider;
         private readonly IProductApplication _ProductApplication;
         private readonly IProductSellersApplication _ProductSellersApplication;
-        private readonly IProductVariantItemsApplication _ProductVariantItemsApplication;
-        public AddModel(IMsgBox msgBox, IProductApplication productApplication, IServiceProvider serviceProvider, IProductSellersApplication productSellersApplication, IProductVariantItemsApplication productVariantItemsApplication)
+        public AddModel(IMsgBox msgBox, IProductApplication productApplication, IServiceProvider serviceProvider, IProductSellersApplication productSellersApplication, IMapper mapper)
         {
             _MsgBox = msgBox;
             _ProductApplication = productApplication;
             _ServiceProvider = serviceProvider;
             Input = new viAddProductSeller();
             _ProductSellersApplication = productSellersApplication;
-            _ProductVariantItemsApplication = productVariantItemsApplication;
+            _Mapper = mapper;
         }
 
         public IActionResult OnGet(viGetAddProductSeller Input)
@@ -39,8 +41,8 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Sellers
             Input.CheckModelState(_ServiceProvider);
             #endregion
 
-            ViewData["ProductId"]=Input.ProductId;
-            ViewData["VariantId"] =Input.VariantId;
+            ViewData["ProductId"] = Input.ProductId;
+            ViewData["VariantId"] = Input.VariantId;
             ViewData["ReturnUrl"] = Input.ReturnUrl ?? $"/{CultureInfo.CurrentCulture.Parent.Name}/User/Product/Sellers/List/{Input.ProductId}";
 
             this.Input.UserId = User.GetUserDetails().UserId;
@@ -50,7 +52,22 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Sellers
 
         public async Task<IActionResult> OnPostAsync()
         {
-            return Page();
+            if (!ModelState.IsValid)
+                return _MsgBox.ModelStateMsg(ModelState.GetErrors());
+
+            var _MappedData = _Mapper.Map<InpAddSellerWithVariantsToProdcut>(Input);
+            if (!User.IsInRole(Roles.CanAddProductSellerAllUser))
+                _MappedData.UserId = User.GetUserDetails().UserId;
+
+            var _Result = await _ProductSellersApplication.AddSellerWithVariantsToProdcutAsync(_MappedData);
+            if (_Result.IsSucceeded)
+            {
+
+            }
+            else
+            {
+
+            }
         }
 
         [BindProperty]

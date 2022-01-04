@@ -44,6 +44,8 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
 
                 foreach (var item in Input.Variants)
                 {
+                    // TODO برسی تکراری نبودن نوع برای کابر و محصول جاری
+
                     var tVariantItem = new tblProductVariantItems()
                     {
                         Id = new Guid().SequentialGuid(),
@@ -145,6 +147,7 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
 
                 var qData = await _ProductVariantItemsRepository.Get
                                                                .Where(a => a.ProductId == Guid.Parse(Input.ProductId))
+                                                               .Where(a => a.tblProductSellers.tblProducts.AuthorUserId == Guid.Parse(Input.AuthorUserId))
                                                                .Select(a => new OutGetAllVariantsByProductId
                                                                {
                                                                    Id = a.Id.ToString(),

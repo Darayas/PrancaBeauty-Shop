@@ -16,6 +16,10 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
         [GUID]
         public string Id { get; set; }
 
+        [Display(Name = "AuthorUserId")]
+        [GUID]
+        public string AuthorUserId { get; set; }
+
         [Display(Name = "TopicId")]
         [RequiredForDraft(nameof(IsDraft))]
         [GUID]

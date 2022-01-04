@@ -44,7 +44,8 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Components.Compo_Variants
             {
                 var qData = await _ProductVariantItemsApplication.GetAllVariantsByProductIdAsync(new InpGetAllVariantsByProductId
                 {
-                    ProductId = Input.ProductId
+                    ProductId = Input.ProductId,
+                    AuthorUserId = Input.AuthorUserId
                 });
 
                 if (qData == null)

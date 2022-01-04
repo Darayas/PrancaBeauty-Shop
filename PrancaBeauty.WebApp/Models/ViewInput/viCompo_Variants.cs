@@ -9,6 +9,7 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
     {
         public string FieldName { get; set; }
         public string ProductId { get; set; }
+        public string AuthorUserId { get; set; }
         public string VariantId { get; set; }
         public bool ProductVariantEnable { get; set; } = true;
     }

@@ -13,6 +13,8 @@ namespace PrancaBeauty.Application.Contracts.Products
     {
         public string Id { get; set; }
 
+        public string AuthorUserId { get; set; }
+
         public string LangId { get; set; }
 
         public string TopicId { get; set; }

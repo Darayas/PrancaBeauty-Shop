@@ -540,6 +540,7 @@ namespace PrancaBeauty.Application.Apps.Products
                                                   .Select(a => new OutGetForEdit
                                                   {
                                                       Id = a.Id.ToString(),
+                                                      AuthorUserId = a.AuthorUserId.ToString(),
                                                       LangId = a.LangId.ToString(),
                                                       CategoryId = a.CategoryId.ToString(),
                                                       TopicId = a.TopicId.ToString(),

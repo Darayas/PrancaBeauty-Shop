@@ -171,6 +171,9 @@
   <data name="AddProduct" xml:space="preserve">
     <value>افزودن محصول جدید</value>
   </data>
+  <data name="AddProductSeller" xml:space="preserve">
+    <value>افزودن فروشنده به محصول</value>
+  </data>
   <data name="Address" xml:space="preserve">
     <value>آدرس</value>
   </data>

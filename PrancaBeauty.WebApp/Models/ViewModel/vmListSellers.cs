@@ -15,5 +15,8 @@ namespace PrancaBeauty.WebApp.Models.ViewModel
 
         [Display(Name = "IsConfirmed")]
         public bool IsConfirm { get; set; }
+
+        [Display(Name = "VariantId")]
+        public string VariantId { get; set; }
     }
 }

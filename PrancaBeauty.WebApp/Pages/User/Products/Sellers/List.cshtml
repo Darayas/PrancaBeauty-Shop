@@ -33,6 +33,7 @@
                   .DefaultSettings(Localizer)
                   .Columns(col=> {
                         col.Bound(a => a.Id).Hidden().HtmlAttributes(new { @class = "RowId" }).Sortable(false);
+                        col.Bound(a => a.VariantId).Hidden().HtmlAttributes(new { @class = "VariantId" }).Sortable(false);
                         col.Bound(a=>a.FullName);
                         col.Bound(a => a.Date).Width(90).HtmlAttributes(new { @class = "text-left" }).Sortable(false);
                         col.Bound(a => a.IsConfirm).HtmlAttributes(new {style = "text-align:center;" }).ClientTemplate("<img style='width:32px' src='/Shared/img/#=IsConfirm#.png'/>").Width(50).Sortable(false);
@@ -69,7 +70,8 @@
         <text>
             function Add()
             {
-                location.href='/@ViewData["culture"]/User/Product/Sellers/Add/@Model.ProductId?ReturnUrl=@Request.GetCurrentUrlEncoded()';
+                var _Id= $('#ListProductSeller .VariantId')[0].innerHTML;
+                location.href='/@ViewData["culture"]/User/Product/Sellers/Add/@Model.ProductId/'+_Id+'?ReturnUrl=@Request.GetCurrentUrlEncoded()';
             }
         </text>
     }

@@ -1,4 +1,4 @@
-﻿@page "/{culture}/User/Product/Sellers/Add/{ProductId}"
+﻿@page "/{culture}/User/Product/Sellers/Add/{ProductId}/{VariantId}"
 @model PrancaBeauty.WebApp.Pages.User.Products.Sellers.AddModel
 @{
     ViewData["Title"] = Localizer["AddProductSeller"];
@@ -15,7 +15,7 @@
                         <li><a href="/@ViewData["Culture"]">@Localizer["Home"]</a></li>
                         <li><a href="/@ViewData["Culture"]/User/Index">@Localizer["Dashboard"]</a></li>
                         <li><a href="/@ViewData["Culture"]/User/Products/List">@Localizer["ProductList"]</a></li>
-                        <li>@Localizer["AddProduct"]</li>
+                        <li>@Localizer["AddProductSeller"]</li>
                     </ul>
                 </div>
             </div>
@@ -28,7 +28,7 @@
         نکات
     </div>
     <div class="col-md-8">
-        <form id="FrmAddProdcut">
+        <form id="FrmAddProdcutSeller">
             <input name="Input.ProductId" type="hidden" value="@ViewData["ProductId"]" />
             <div class="form-group">
                 <div class="row">
@@ -54,7 +54,7 @@
                     <div class="col-md-12">
                         <LoadComponent id="ProductVariantCompo"
                                        context="HttpContext"
-                                       data='new viCompo_Variants {FieldName="Input.VariantId"}'
+                                       data='new viCompo_Variants {FieldName="Input.VariantId",ProductVariantEnable=false,VariantId=ViewData["VariantId"].ToString()}'
                                        url="/@ViewData["culture"]/User/Products/Compo/Variants"></LoadComponent>
                     </div>
                 </div>
@@ -80,6 +80,6 @@
 
     function SaveData()
     {
-
+        SendForm('/@ViewData["culture"]/User/Product/Sellers/Add/@ViewData["ProductId"]','FrmAddProdcutSeller');
     }
 </script>

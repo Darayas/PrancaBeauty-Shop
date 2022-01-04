@@ -5,7 +5,7 @@
     string FieldId = FieldName.Replace(".", "_").Replace("[", "_").Replace("]", "_");
     string FieldTitle = Localizer[FieldName.Split('.').Last()];
 }
-
+<script src="~/lib/autoNumeric/autoNumeric.min.js"></script>
 <div class="row">
     <script>
         function LoadAutoNumeric(_Id) {
@@ -64,7 +64,7 @@
         </div>
     </div>
 
-    <script src="~/lib/autoNumeric/autoNumeric.min.js"></script>
+    
     <script>
         function AddVariantInput() {
             var _Count = $('.ProductVariantsItemCompo').length;

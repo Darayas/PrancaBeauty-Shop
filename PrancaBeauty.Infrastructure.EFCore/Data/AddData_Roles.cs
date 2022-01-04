@@ -494,7 +494,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                 }
                 else
                 {
-                    _Id = _repRoles.Get.Where(a => a.Name == "CanManageProducts").Select(a => a.Id).Single();
+                    _Id = _repRoles.Get.Where(a => a.Name == "CanViewListProductSellerList").Select(a => a.Id).Single();
                 }
 
                 if (!_repRoles.Get.Any(a => a.Name == "CanViewListProductSellerListAllUser"))

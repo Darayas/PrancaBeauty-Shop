@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Products;
 using PrancaBeauty.WebApp.Authentication;
+using PrancaBeauty.WebApp.Common.ExMethod;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
 using PrancaBeauty.WebApp.Models.ViewInput;
 using System;
@@ -23,6 +24,7 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Sellers
             _MsgBox = msgBox;
             _ProductApplication = productApplication;
             _ServiceProvider = serviceProvider;
+            Input = new viAddProductSeller();
         }
 
         public IActionResult OnGet(viGetAddProductSeller Input)
@@ -33,6 +35,8 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Sellers
 
             ViewData["ProductId"]=Input.ProductId;
             ViewData["ReturnUrl"] = Input.ReturnUrl ?? $"/{CultureInfo.CurrentCulture.Parent.Name}/User/Product/Sellers/List/{Input.ProductId}";
+
+            this.Input.UserId = User.GetUserDetails().UserId;
 
             return Page();
         }

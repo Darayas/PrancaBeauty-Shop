@@ -23,34 +23,55 @@
     </div>
 </div>
 }
-<form id="FrmAddProdcut">
-    <input name="Input.ProductId" type="hidden" value="@ViewData["ProductId"]" />
-    <div class="row">
-        <div class="col-md-12">
-            @if (User.IsInRole(Roles.CanAddProductSellerAllUser))
-            {
-                 <LoadComponent id="UserId"
-                                url="/@ViewData["culture"]/Shared/Compo/ComboUsers"
-                                context="HttpContext"
-                                data='new viCompo_Combo_Users{ FieldName="Input.UserId",ShowLabale=true  }'></LoadComponent>
-            }
-            else
-            {
+<div class="row">
+    <div class="col-md-4">
+        نکات
+    </div>
+    <div class="col-md-8">
+        <form id="FrmAddProdcut">
+            <input name="Input.ProductId" type="hidden" value="@ViewData["ProductId"]" />
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-12">
 
-            }
+                        @if (User.IsInRole(Roles.CanAddProductSellerAllUser))
+                        {
+                            <LoadComponent id="UserId"
+                                       url="/@ViewData["culture"]/Shared/Compo/ComboUsers"
+                                       context="HttpContext"
+                                       data='new viCompo_Combo_Users{ FieldName="Input.UserId",ShowLabale=true,UserId=Model.Input.UserId  }'></LoadComponent>
+                        }
+                        else
+                        {
+                            <input asp-for="Input.UserId" type="hidden" />
+                        }
 
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group frmBtnAction mt-4">
-                        <button onclick="GotoBack()" type="button" class="btn btn-warning">@Localizer["GotoBack"]</button>
-                        <button onclick="SaveData()" type="button" class="btn btn-success">@Localizer["Save"]</button>
                     </div>
                 </div>
             </div>
-        </div>
-
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-12">
+                        <LoadComponent id="ProductVariantCompo"
+                                       context="HttpContext"
+                                       data='new viCompo_Variants {FieldName="Input.VariantId"}'
+                                       url="/@ViewData["culture"]/User/Products/Compo/Variants"></LoadComponent>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group frmBtnAction mt-4">
+                            <button onclick="GotoBack()" type="button" class="btn btn-warning">@Localizer["GotoBack"]</button>
+                            <button onclick="SaveData()" type="button" class="btn btn-success">@Localizer["Save"]</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
-</form>
+</div>
 
 <script>
     function GotoBack() {

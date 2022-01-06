@@ -1266,6 +1266,9 @@
   <data name="VariantId" xml:space="preserve">
     <value>تنوع</value>
   </data>
+  <data name="VariantIsDuplicated" xml:space="preserve">
+    <value>&lt;span class='da-text'&gt;نوع ارسال شده  با مشخصات زیر تکراری میباشد:&lt;/span&gt;&lt;ul class='da-list'&gt;&lt;li&gt;کد محصول: {0}&lt;/li&gt;&lt;li&gt;عنوان: {1}&lt;/li&gt;&lt;li&gt;مقدار: {2}&lt;/li&gt;&lt;/ul&gt;</value>
+  </data>
   <data name="VariantPercent" xml:space="preserve">
     <value>درصد افزایش قیمت نوع</value>
   </data>

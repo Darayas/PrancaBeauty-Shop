@@ -3,8 +3,11 @@ using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.EntityFrameworkCore;
+using PrancaBeauty.Application.Apps.Products;
+using PrancaBeauty.Application.Contracts.ProductPropertiesValues;
 using PrancaBeauty.Application.Contracts.ProductVariantItems;
 using PrancaBeauty.Application.Contracts.Results;
+using PrancaBeauty.Domin.Product.ProductAgg.Contracts;
 using PrancaBeauty.Domin.Product.ProductVariantItemsAgg.Contracts;
 using PrancaBeauty.Domin.Product.ProductVariantsItemsAgg.Entities;
 using System;
@@ -44,12 +47,33 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
 
                 foreach (var item in Input.Variants)
                 {
-                    if (!await CheckDuplicateForUserAsync(new InpCheckDuplicateForUser { }))
+                    #region برسی تکراری نبودن نوع
                     {
+                        if (await CheckDuplicateForUserAsync(new InpCheckDuplicateForUser
+                        {
+                            ProductId = Input.ProductId,
+                            SellerId = Input.SellerId,
+                            VariantTitle = item.Title,
+                            ProductVariantCode = item.ProductCode,
+                            VariantValue = item.Value
 
+                        }))
+                        {
+                            return new OperationResult().Failed(_Localizer["VariantIsDuplicated", item.ProductCode, item.Title, item.Value]);
+                        }
                     }
+                    #endregion
 
-                    // TODO برسی VariantId که برابر مقدار پیش فرض محصول باشد
+                    #region برسی VariantId
+                    {
+                        string VariantId = await GetProductVariantAsync(new InpGetProductVariant { ProductId = Input.ProductId });
+                        if (VariantId == null)
+                            return new OperationResult().Failed("Error500");
+
+                        if (VariantId != "")
+                            Input.VariantId = VariantId;
+                    }
+                    #endregion
 
                     var tVariantItem = new tblProductVariantItems()
                     {
@@ -310,6 +334,36 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
                                                                   .AnyAsync();
 
             return IsDuplicate;
+        }
+
+        public async Task<string> GetProductVariantAsync(InpGetProductVariant Input)
+        {
+            try
+            {
+                #region Validatons
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var qData = await _ProductVariantItemsRepository.Get
+                                                    .Where(a => a.ProductId == Guid.Parse(Input.ProductId))
+                                                    .Select(a => a.ProductVariantId.ToString())
+                                                    .FirstOrDefaultAsync();
+
+                if (qData == null)
+                    return "";
+
+                return qData;
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
+            }
         }
     }
 }

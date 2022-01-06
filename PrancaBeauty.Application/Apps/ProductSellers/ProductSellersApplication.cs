@@ -206,8 +206,7 @@ namespace PrancaBeauty.Application.Apps.ProductSellers
                                                          Id = a.Id.ToString(),
                                                          FullName = a.tblUsers.FirstName + " " + a.tblUsers.LastName,
                                                          Date = a.Date,
-                                                         IsConfirm = a.IsConfirm,
-                                                         VariantId = a.tblProductVariantItems.First().tblProductVariants.Id.ToString()
+                                                         IsConfirm = a.IsConfirm
                                                      });
 
                 #region شرط

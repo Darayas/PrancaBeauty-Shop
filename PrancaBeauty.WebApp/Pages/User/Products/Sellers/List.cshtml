@@ -28,30 +28,37 @@
     <div class="col-md-12">
         <div class="k-lang">
             @(Html.Kendo()
-                  .Grid<vmListSellers>()
-                  .Name("ListProductSeller")
-                  .DefaultSettings(Localizer)
-                  .Columns(col=> {
-                        col.Bound(a => a.Id).Hidden().HtmlAttributes(new { @class = "RowId" }).Sortable(false);
-                        col.Bound(a => a.VariantId).Hidden().HtmlAttributes(new { @class = "VariantId" }).Sortable(false);
-                        col.Bound(a=>a.FullName);
-                        col.Bound(a => a.Date).Width(90).HtmlAttributes(new { @class = "text-left" }).Sortable(false);
-                        col.Bound(a => a.IsConfirm).HtmlAttributes(new {style = "text-align:center;" }).ClientTemplate("<img style='width:32px' src='/Shared/img/#=IsConfirm#.png'/>").Width(50).Sortable(false);
-                        col.Bound(a => a).Width(50).Title(" ")
-                           .HtmlAttributes(new { style= "overflow: visible; text-align: center;" })
-                           .ClientHeaderTemplate((User.IsInRole(Roles.CanAddProductSeller)? "<button class='btn btn-success btn-sm' onclick='Add()'><i class='fa fa-plus'></i></button>" : "") + $"<button class='btn btn-primary btn-sm ml-1 mr-1' onclick='GotoBack()'><i class='fa fa-undo'></i></button>")
-                           .ClientTemplateId("DropDownCmd");
-                  })
-                  .DataSource(ds=>ds.Ajax()
-                                    .PageSize(10)
-                                    .Read(read=>read.Url($"/{CultureInfo.CurrentCulture.Parent.Name}/User/Product/Sellers/List/{Model.ProductId}?handler=ReadData").Data("forgeryToken"))))
+            .Grid<vmListSellers>()
+            .Name("ListProductSeller")
+            .DefaultSettings(Localizer)
+            .Columns(col=> {
+            col.Bound(a => a.Id).Hidden().HtmlAttributes(new { @class = "RowId" }).Sortable(false);
+            col.Bound(a=>a.FullName);
+            col.Bound(a => a.Date).Width(90).HtmlAttributes(new { @class = "text-left" }).Sortable(false);
+            col.Bound(a => a.IsConfirm).HtmlAttributes(new {style = "text-align:center;" }).ClientTemplate("<img style='width:32px' src='/Shared/img/#=IsConfirm#.png'/>").Width(50).Sortable(false);
+            col.Bound(a => a).Width(50).Title(" ")
+            .HtmlAttributes(new { style= "overflow: visible; text-align: center;" })
+            .ClientHeaderTemplate((User.IsInRole(Roles.CanAddProductSeller)? "<button class='btn btn-success btn-sm' onclick='Add()'><i class='fa fa-plus'></i></button>" : "") + $"<button class='btn btn-primary btn-sm ml-1 mr-1' onclick='GotoBack()'><i class='fa fa-undo'></i></button>")
+            .ClientTemplateId("DropDownCmd");
+            })
+            .DataSource(ds=>ds.Ajax()
+            .PageSize(10)
+            .Read(read=>read.Url($"/{CultureInfo.CurrentCulture.Parent.Name}/User/Product/Sellers/List/{Model.ProductId}?handler=ReadData").Data("forgeryToken"))))
         </div>
     </div>
     <script id="DropDownCmd">
         <div class="item-action dropdown">
             <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fa fa-bars fs-16 text-dark"></i></a>
             <div class="dropdown-menu dropdown-menu-left">
-                
+        @if (User.IsInRole(Roles.CanEditProductSeller))
+        {
+                       <a href="/@ViewData["culture"]/User/Product/Sellers/Edit/#:Id#?ReturnUrl=@Request.GetCurrentUrlEncoded()" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i>@Localizer["Edit"]</a>
+        }
+
+        @if (User.IsInRole(Roles.CanDeleteProductSeller))
+        {
+                       <a href="/@ViewData["culture"]/User/Product/Sellers/List/@Model.ProductId?handler=Remove" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i>@Localizer["Edit"]</a>
+        }
             </div>
         </div>
     </script>
@@ -65,14 +72,14 @@
 </div>
 
 <script>
-    @if(User.IsInRole(Roles.CanAddProductSeller))
+    @if (User.IsInRole(Roles.CanAddProductSeller))
     {
         <text>
-            function Add()
-            {
-                var _Id= $('#ListProductSeller .VariantId')[0].innerHTML;
-                location.href='/@ViewData["culture"]/User/Product/Sellers/Add/@Model.ProductId/'+_Id+'?ReturnUrl=@Request.GetCurrentUrlEncoded()';
-            }
+                    function Add()
+                    {
+                        //var _Id= $('#ListProductSeller .VariantId')[0].innerHTML;
+                        location.href='/@ViewData["culture"]/User/Product/Sellers/Add/@Model.ProductId?ReturnUrl=@Request.GetCurrentUrlEncoded()';
+                    }
         </text>
     }
 </script>

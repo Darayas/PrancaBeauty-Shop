@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Products;
 using PrancaBeauty.Application.Apps.ProductSellers;
 using PrancaBeauty.Application.Apps.ProductVariantItems;
+using PrancaBeauty.Application.Contracts.ProductPropertiesValues;
 using PrancaBeauty.Application.Contracts.ProductSellers;
 using PrancaBeauty.WebApp.Authentication;
 using PrancaBeauty.WebApp.Common.ExMethod;
@@ -26,8 +27,9 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Sellers
         private readonly ILocalizer _Localizer;
         private readonly IServiceProvider _ServiceProvider;
         private readonly IProductApplication _ProductApplication;
+        private readonly IProductVariantItemsApplication _ProductVariantItemsApplication;
         private readonly IProductSellersApplication _ProductSellersApplication;
-        public AddModel(IMsgBox msgBox, IProductApplication productApplication, IServiceProvider serviceProvider, IProductSellersApplication productSellersApplication, IMapper mapper, ILocalizer localizer)
+        public AddModel(IMsgBox msgBox, IProductApplication productApplication, IServiceProvider serviceProvider, IProductSellersApplication productSellersApplication, IMapper mapper, ILocalizer localizer, IProductVariantItemsApplication productVariantItemsApplication)
         {
             _MsgBox = msgBox;
             _ProductApplication = productApplication;
@@ -36,16 +38,34 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Sellers
             _ProductSellersApplication = productSellersApplication;
             _Mapper = mapper;
             _Localizer = localizer;
+            _ProductVariantItemsApplication = productVariantItemsApplication;
         }
 
-        public IActionResult OnGet(viGetAddProductSeller Input)
+        public async Task<IActionResult> OnGetAsync(viGetAddProductSeller Input)
         {
             #region Validations
             Input.CheckModelState(_ServiceProvider);
             #endregion
 
             ViewData["ProductId"] = Input.ProductId;
-            ViewData["VariantId"] = Input.VariantId;
+            
+            #region CheckVariantId
+            {
+                string _VariantId = await _ProductVariantItemsApplication.GetProductVariantAsync(new InpGetProductVariant { ProductId = Input.ProductId });
+                if (_VariantId == "")
+                {
+                    ViewData["ProductVariantEnable"] = true;
+                    ViewData["VariantId"] = "";
+                }
+                else
+                {
+                    ViewData["ProductVariantEnable"] = false;
+                    ViewData["VariantId"] = _VariantId;
+                }
+            }
+            #endregion
+
+
             ViewData["ReturnUrl"] = Input.ReturnUrl ?? $"/{CultureInfo.CurrentCulture.Parent.Name}/User/Product/Sellers/List/{Input.ProductId}";
 
             this.Input.UserId = User.GetUserDetails().UserId;

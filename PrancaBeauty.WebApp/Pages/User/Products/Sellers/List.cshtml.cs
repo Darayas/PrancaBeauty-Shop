@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Products;
 using PrancaBeauty.Application.Apps.ProductSellers;
+using PrancaBeauty.Application.Apps.ProductVariantItems;
 using PrancaBeauty.Application.Contracts.Products;
 using PrancaBeauty.Application.Contracts.ProductSellers;
 using PrancaBeauty.WebApp.Authentication;
@@ -30,13 +31,15 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Sellers
         private readonly IServiceProvider _ServiceProvider;
         private readonly IProductApplication _ProductApplication;
         private readonly IProductSellersApplication _ProductSellersApplication;
+        private readonly IProductVariantItemsApplication _ProductVariantItemsApplication;
 
-        public ListModel(IServiceProvider serviceProvider, IProductApplication productApplication, IProductSellersApplication productSellersApplication, IMapper mapper)
+        public ListModel(IServiceProvider serviceProvider, IProductApplication productApplication, IProductSellersApplication productSellersApplication, IMapper mapper, IProductVariantItemsApplication productVariantItemsApplication)
         {
             _ServiceProvider = serviceProvider;
             _ProductApplication = productApplication;
             _ProductSellersApplication = productSellersApplication;
             _Mapper = mapper;
+            _ProductVariantItemsApplication = productVariantItemsApplication;
         }
 
         public async Task<IActionResult> OnGetAsync(viGetListSellers Input, string ReturnUrl = null)
@@ -76,6 +79,11 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Sellers
             _DataGrid.Data = Items;
 
             return new JsonResult(_DataGrid);
+        }
+
+        public async Task<IActionResult> OnPostRemoveAsync()
+        {
+
         }
 
         [BindProperty]

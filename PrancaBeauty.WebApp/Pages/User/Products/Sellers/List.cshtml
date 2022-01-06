@@ -57,7 +57,7 @@
 
         @if (User.IsInRole(Roles.CanDeleteProductSeller))
         {
-                               <a onclick="Remove(#:Id#)" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i>@Localizer["Edit"]</a>
+                               <a onclick="Remove('#:Id#')" class="dropdown-item"><i class="dropdown-icon fa fa-times"></i>@Localizer["Remove"]</a>
         }
             </div>
         </div>

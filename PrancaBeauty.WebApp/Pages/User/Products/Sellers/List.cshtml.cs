@@ -87,29 +87,25 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Sellers
             return new JsonResult(_DataGrid);
         }
 
-        public async Task<IActionResult> OnPostRemoveAsync(string ProductSellerId, string ProductId)
+        public async Task<IActionResult> OnPostRemoveAsync(viListSellerRemove Input)
         {
-            if (ProductSellerId is null)
-                return _MsgBox.FaildMsg(_Localizer["IdCantBeNull"]);
-
-            if (ProductId is null)
-                return _MsgBox.FaildMsg(_Localizer["IdCantBeNull"]);
+            #region Validations
+            Input.CheckModelState(_ServiceProvider);
+            #endregion
 
             var _Result = await _ProductSellersApplication.RemoveProductSellerAsync(new InpRemoveProductSeller
             {
-                ProductId = ProductId,
-                ProductSellerId = ProductSellerId
+                ProductId = Input.ProductId,
+                ProductSellerId = Input.ProductSellerId
             });
             if (_Result.IsSucceeded)
             {
                 return _MsgBox.SuccessMsg(_Localizer[_Result.Message], "RefreshData()");
-
             }
             else
             {
                 return _MsgBox.FaildMsg(_Localizer[_Result.Message]);
             }
-
         }
 
         [BindProperty]

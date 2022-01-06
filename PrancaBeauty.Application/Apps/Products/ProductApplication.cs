@@ -745,12 +745,37 @@ namespace PrancaBeauty.Application.Apps.Products
                 }
                 #endregion
 
+                #region ثبت فروشنده ی محصول
+                string _SellerId = null;
+                {
+                    _SellerId = await _ProductSellersApplication.GetSellerIdAsync(new InpGetSellerId { ProductId = qData.Id.ToString(), UserId = qData.AuthorUserId.ToString() });
+                    if (_SellerId == null)
+                    {
+                        var _Result = await _ProductSellersApplication.AddSellerToProdcutAsync(new InpAddSellerToProdcut
+                        {
+                            ProductId = qData.Id.ToString(),
+                            UserId = qData.AuthorUserId.ToString(),
+                            IsConfirm = true
+                        });
+
+                        if (_Result.IsSucceeded)
+                        {
+                            _SellerId = _Result.Message;
+                        }
+                        else
+                        {
+                            return new OperationResult().Failed(_Result.Message);
+                        }
+                    }
+                }
+                #endregion
+
                 #region ویرایش تنوع محصول
                 {
                     var _Result = await _ProductVariantItemsApplication.EditProductVariantsAsync(new InpEditProductVariants
                     {
                         ProductId = Input.Id,
-                        SellerId = await _ProductSellersApplication.GetSellerIdAsync(new InpGetSellerId { ProductId = Input.Id, UserId = qData.AuthorUserId.ToString() }),
+                        SellerId = _SellerId,
                         VariantId = Input.VariantId,
                         Variants = Input.Variants.Select(a => new InpEditProductVariants_Variants
                         {
@@ -843,6 +868,6 @@ namespace PrancaBeauty.Application.Apps.Products
             }
         }
 
-        
+
     }
 }

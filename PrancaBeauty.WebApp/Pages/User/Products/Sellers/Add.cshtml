@@ -30,6 +30,10 @@
     <div class="col-md-8">
         <form id="FrmAddProdcutSeller">
             <input name="Input.ProductId" type="hidden" value="@ViewData["ProductId"]" />
+            @if  (ViewData["VariantId"].ToString()  !=  "")
+            {
+                    <input name="Input.VariantId" type="hidden" value="@ViewData["VariantId"]" />
+            }
             <div class="form-group">
                 <div class="row">
                     <div class="col-md-12">

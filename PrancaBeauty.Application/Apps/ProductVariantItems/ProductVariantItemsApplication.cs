@@ -44,7 +44,12 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
 
                 foreach (var item in Input.Variants)
                 {
-                    // TODO برسی تکراری نبودن نوع برای کابر و محصول جاری
+                    if (!await CheckDuplicateForUserAsync(new InpCheckDuplicateForUser { }))
+                    {
+
+                    }
+
+                    // TODO برسی VariantId که برابر مقدار پیش فرض محصول باشد
 
                     var tVariantItem = new tblProductVariantItems()
                     {
@@ -118,7 +123,7 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
 
                 foreach (var item in qData)
                 {
-                    var _Result = await CheckHasPurchaseForVariantAsync(new InpCheckHasPurchaseForVariant {  VariantItemId=item.Id.ToString() });
+                    var _Result = await CheckHasPurchaseForVariantAsync(new InpCheckHasPurchaseForVariant { VariantItemId = item.Id.ToString() });
                     if (_Result.HasValue == false)
                         return new OperationResult().Failed("Error500");
 
@@ -294,6 +299,17 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
                 _Logger.Error(ex);
                 return new OperationResult().Failed("Error500");
             }
+        }
+
+        private async Task<bool> CheckDuplicateForUserAsync(InpCheckDuplicateForUser Input)
+        {
+            var IsDuplicate = await _ProductVariantItemsRepository.Get
+                                                                  .Where(a => a.ProductId == Guid.Parse(Input.ProductId))
+                                                                  .Where(a => a.ProductSellerId == Guid.Parse(Input.SellerId))
+                                                                  .Where(a => a.ProductCode == Input.ProductVariantCode || a.Title == Input.VariantTitle || a.Value == Input.VariantValue)
+                                                                  .AnyAsync();
+
+            return IsDuplicate;
         }
     }
 }

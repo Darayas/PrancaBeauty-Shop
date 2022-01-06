@@ -30,6 +30,7 @@
     <div class="col-md-8">
         <form id="FrmAddProdcutSeller">
             <input name="Input.ProductId" type="hidden" value="@ViewData["ProductId"]" />
+            <input name="Input.VariantId" type="hidden" value="@ViewData["VariantId"]" />
             <div class="form-group">
                 <div class="row">
                     <div class="col-md-12">
@@ -80,6 +81,6 @@
 
     function SaveData()
     {
-        SendForm('/@ViewData["culture"]/User/Product/Sellers/Add/@ViewData["ProductId"]','FrmAddProdcutSeller');
+        SendForm('/@ViewData["culture"]/User/Product/Sellers/Add/@ViewData["ProductId"]/@ViewData["VariantId"]','FrmAddProdcutSeller');
     }
 </script>

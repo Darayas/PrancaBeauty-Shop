@@ -1,5 +1,6 @@
 using AutoMapper;
 using Framework.Common.ExMethods;
+using Framework.Infrastructure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -22,10 +23,11 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Sellers
     {
         private readonly IMsgBox _MsgBox;
         private readonly IMapper _Mapper;
+        private readonly ILocalizer _Localizer;
         private readonly IServiceProvider _ServiceProvider;
         private readonly IProductApplication _ProductApplication;
         private readonly IProductSellersApplication _ProductSellersApplication;
-        public AddModel(IMsgBox msgBox, IProductApplication productApplication, IServiceProvider serviceProvider, IProductSellersApplication productSellersApplication, IMapper mapper)
+        public AddModel(IMsgBox msgBox, IProductApplication productApplication, IServiceProvider serviceProvider, IProductSellersApplication productSellersApplication, IMapper mapper, ILocalizer localizer)
         {
             _MsgBox = msgBox;
             _ProductApplication = productApplication;
@@ -33,6 +35,7 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Sellers
             Input = new viAddProductSeller();
             _ProductSellersApplication = productSellersApplication;
             _Mapper = mapper;
+            _Localizer = localizer;
         }
 
         public IActionResult OnGet(viGetAddProductSeller Input)
@@ -62,11 +65,11 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Sellers
             var _Result = await _ProductSellersApplication.AddSellerWithVariantsToProdcutAsync(_MappedData);
             if (_Result.IsSucceeded)
             {
-
+                return _MsgBox.SuccessMsg(_Localizer[_Result.Message], "GotoBack()");
             }
             else
             {
-
+                return _MsgBox.FaildMsg(_Localizer[_Result.Message]);
             }
         }
 

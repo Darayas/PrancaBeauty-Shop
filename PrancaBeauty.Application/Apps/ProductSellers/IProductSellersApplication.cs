@@ -12,6 +12,6 @@ namespace PrancaBeauty.Application.Apps.ProductSellers
         Task<OperationResult> AddSellerWithVariantsToProdcutAsync(InpAddSellerWithVariantsToProdcut Input);
         Task<(OutPagingData, List<vmGetAllSellerForManageByProductId>)> GetAllSellerForManageByProductIdAsync(InpGetAllSellerForManageByProductId Input);
         Task<string> GetSellerIdAsync(InpGetSellerId Input);
-        Task<OperationResult> RemoveAllPriceFromProductAsync(InpRemoveAllPriceFromProduct Input);
+        Task<OperationResult> RemoveProductSellerAsync(InpRemoveProductSeller Input);
     }
 }

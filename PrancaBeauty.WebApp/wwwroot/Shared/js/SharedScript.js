@@ -104,8 +104,9 @@ function RemoveData(_Url, _Data = {}) {
 }
 
 function RefreshGrid(_GridId) {
-    $('#' + _GridId).data("kendoGrid").dataSource.read();
-    $('#' + _GridId).data("kendoGrid").refresh();
+    var _Grid = $('#' + _GridId).data('kendoGrid');
+    _Grid.dataSource.read();
+    _Grid.refresh();
 }
 
 function ChangeUrl(_NewUrl) {

@@ -133,7 +133,7 @@ namespace PrancaBeauty.Application.Apps.ProductSellers
             }
         }
 
-        public async Task<OperationResult> RemoveAllPriceFromProductAsync(InpRemoveAllPriceFromProduct Input)
+        public async Task<OperationResult> RemoveProductSellerAsync(InpRemoveProductSeller Input)
         {
             try
             {
@@ -141,9 +141,31 @@ namespace PrancaBeauty.Application.Apps.ProductSellers
                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
-                var qData = await _ProductSellersRepsoitory.Get.Where(a => a.ProductId == Guid.Parse(Input.ProductId)).ToListAsync();
+                #region حذف تنوع
+                {
+                    var _Result = await _ProductVariantItemsApplication.RemoveAllVariantsFromProductAsync(new InpRemoveVariantsFromProduct
+                    {
+                        ProductId = Input.ProductId
+                    });
+                    if (!_Result.IsSucceeded)
+                    {
+                        return new OperationResult().Failed(_Result.Message);
+                    }
+                }
+                #endregion
 
-                await _ProductSellersRepsoitory.DeleteRangeAsync(qData, default, true);
+                #region حذف فروشنده از محصول
+                {
+                    var qProductSeller = await _ProductSellersRepsoitory.Get
+                                                                        .Where(a => a.Id == Guid.Parse(Input.ProductSellerId))
+                                                                        .SingleOrDefaultAsync();
+                    if (qProductSeller == null)
+                        return new OperationResult().Failed("ProductSellerIdNotFound");
+
+                    await _ProductSellersRepsoitory.DeleteAsync(qProductSeller, default, true);
+
+                }
+                #endregion
 
                 return new OperationResult().Succeeded();
             }

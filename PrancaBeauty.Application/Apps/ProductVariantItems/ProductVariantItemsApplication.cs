@@ -118,9 +118,14 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
-                var qData = await _ProductVariantItemsRepository.Get.Where(a => a.ProductId == Guid.Parse(Input.ProductId)).ToListAsync();
+                var qData = await _ProductVariantItemsRepository.Get
+                                                                .Where(a => a.ProductId == Guid.Parse(Input.ProductId))
+                                                                .Select(a => a.Id.ToString())
+                                                                .ToArrayAsync();
 
-                await _ProductVariantItemsRepository.DeleteRangeAsync(qData, default, false);
+
+
+                await RemoveRangeByVariantItemIdAsync(Input.ProductId, qData);
 
                 return new OperationResult().Succeeded();
             }

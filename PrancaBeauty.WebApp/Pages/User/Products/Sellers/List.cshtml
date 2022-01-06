@@ -52,18 +52,23 @@
             <div class="dropdown-menu dropdown-menu-left">
         @if (User.IsInRole(Roles.CanEditProductSeller))
         {
-                       <a href="/@ViewData["culture"]/User/Product/Sellers/Edit/#:Id#?ReturnUrl=@Request.GetCurrentUrlEncoded()" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i>@Localizer["Edit"]</a>
+                               <a href="/@ViewData["culture"]/User/Product/Sellers/Edit/#:Id#?ReturnUrl=@Request.GetCurrentUrlEncoded()" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i>@Localizer["Edit"]</a>
         }
 
         @if (User.IsInRole(Roles.CanDeleteProductSeller))
         {
-                       <a href="/@ViewData["culture"]/User/Product/Sellers/List/@Model.ProductId?handler=Remove" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i>@Localizer["Edit"]</a>
+                               <a onclick="Remove(#:Id#)" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i>@Localizer["Edit"]</a>
         }
             </div>
         </div>
     </script>
 
     <script>
+        function RefreshData()
+        {
+            RefreshGrid('ListProductSeller');
+        }
+
         function GotoBack()
         {
             location.href='@ViewData["ReturnUrl"]';
@@ -75,11 +80,21 @@
     @if (User.IsInRole(Roles.CanAddProductSeller))
     {
         <text>
-                    function Add()
-                    {
-                        //var _Id= $('#ListProductSeller .VariantId')[0].innerHTML;
-                        location.href='/@ViewData["culture"]/User/Product/Sellers/Add/@Model.ProductId?ReturnUrl=@Request.GetCurrentUrlEncoded()';
-                    }
+                  function Add()
+                  {
+                      //var _Id= $('#ListProductSeller .VariantId')[0].innerHTML;
+                      location.href='/@ViewData["culture"]/User/Product/Sellers/Add/@Model.ProductId?ReturnUrl=@Request.GetCurrentUrlEncoded()';
+                  }
+        </text>
+    }
+
+    @if (User.IsInRole(Roles.CanDeleteProductSeller))
+    {
+        <text>
+                  function Remove(_Id)
+                  {
+                      RemoveData('/@ViewData["culture"]/User/Product/Sellers/List/@Model.ProductId?handler=Remove',{ProductSellerId:_Id, ProductId:'@Model.ProductId'});
+                  }
         </text>
     }
 </script>

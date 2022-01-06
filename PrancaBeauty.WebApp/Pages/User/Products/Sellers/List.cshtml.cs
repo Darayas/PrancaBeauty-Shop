@@ -2,6 +2,7 @@
 
 using AutoMapper;
 using Framework.Common.ExMethods;
+using Framework.Infrastructure;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using Microsoft.AspNetCore.Authorization;
@@ -14,6 +15,7 @@ using PrancaBeauty.Application.Contracts.Products;
 using PrancaBeauty.Application.Contracts.ProductSellers;
 using PrancaBeauty.WebApp.Authentication;
 using PrancaBeauty.WebApp.Common.ExMethod;
+using PrancaBeauty.WebApp.Common.Utility.MessageBox;
 using PrancaBeauty.WebApp.Models.ViewInput;
 using PrancaBeauty.WebApp.Models.ViewModel;
 using System;
@@ -27,19 +29,23 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Sellers
     [Authorize(Roles = Roles.CanViewListProductSellerList)]
     public class ListModel : PageModel
     {
+        private readonly IMsgBox _MsgBox;
         private readonly IMapper _Mapper;
+        private readonly ILocalizer _Localizer;
         private readonly IServiceProvider _ServiceProvider;
         private readonly IProductApplication _ProductApplication;
         private readonly IProductSellersApplication _ProductSellersApplication;
         private readonly IProductVariantItemsApplication _ProductVariantItemsApplication;
 
-        public ListModel(IServiceProvider serviceProvider, IProductApplication productApplication, IProductSellersApplication productSellersApplication, IMapper mapper, IProductVariantItemsApplication productVariantItemsApplication)
+        public ListModel(IServiceProvider serviceProvider, IProductApplication productApplication, IProductSellersApplication productSellersApplication, IMapper mapper, IProductVariantItemsApplication productVariantItemsApplication, IMsgBox msgBox, ILocalizer localizer)
         {
             _ServiceProvider = serviceProvider;
             _ProductApplication = productApplication;
             _ProductSellersApplication = productSellersApplication;
             _Mapper = mapper;
             _ProductVariantItemsApplication = productVariantItemsApplication;
+            _MsgBox = msgBox;
+            _Localizer = localizer;
         }
 
         public async Task<IActionResult> OnGetAsync(viGetListSellers Input, string ReturnUrl = null)
@@ -81,8 +87,28 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Sellers
             return new JsonResult(_DataGrid);
         }
 
-        public async Task<IActionResult> OnPostRemoveAsync()
+        public async Task<IActionResult> OnPostRemoveAsync(string ProductSellerId, string ProductId)
         {
+            if (ProductSellerId is null)
+                return _MsgBox.FaildMsg(_Localizer["IdCantBeNull"]);
+
+            if (ProductId is null)
+                return _MsgBox.FaildMsg(_Localizer["IdCantBeNull"]);
+
+            var _Result = await _ProductSellersApplication.RemoveProductSellerAsync(new InpRemoveProductSeller
+            {
+                ProductId = ProductId,
+                ProductSellerId = ProductSellerId
+            });
+            if (_Result.IsSucceeded)
+            {
+                return _MsgBox.SuccessMsg(_Localizer[_Result.Message], "RefreshData()");
+
+            }
+            else
+            {
+                return _MsgBox.FaildMsg(_Localizer[_Result.Message]);
+            }
 
         }
 

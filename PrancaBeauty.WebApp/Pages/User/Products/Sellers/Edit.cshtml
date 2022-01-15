@@ -1,4 +1,4 @@
-﻿@page "/{culture}/User/Product/Sellers/Edit/{ProductId}"
+﻿@page "/{culture}/User/Product/Sellers/Edit/{ProductId}/{ProductSellerId}"
 @model PrancaBeauty.WebApp.Pages.User.Products.Sellers.EditModel
 @{
     ViewData["Title"] = Localizer["EditProductSeller"];
@@ -30,7 +30,8 @@
     </div>
     <div class="col-md-8">
         <form id="FrmEditProdcutSeller">
-            <input name="Input.ProductId" type="hidden" value="@Model.Input.ProductId" />
+            <input asp-for="Input.ProductId" type="hidden" value="@Model.Input.ProductId" />
+            <input  asp-for="Input.ProductSellerId" type="hidden" value="@Model.Input.ProductSellerId" />
             @if (ViewData["VariantId"].ToString() != "")
             {
                 <input name="Input.VariantId" type="hidden" value="@ViewData["VariantId"]" />
@@ -86,6 +87,6 @@
 
     function SaveData()
     {
-        SendForm('/@ViewData["culture"]/User/Product/Sellers/Edit/@Model.Input.ProductId','FrmEditProdcutSeller');
+        SendForm('/@ViewData["culture"]/User/Product/Sellers/Edit/@Model.Input.ProductId/@Model.Input.ProductSellerId','FrmEditProdcutSeller');
     }
 </script>

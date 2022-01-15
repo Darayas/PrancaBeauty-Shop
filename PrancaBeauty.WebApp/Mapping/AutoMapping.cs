@@ -78,6 +78,8 @@ namespace PrancaBeauty.WebApp.Mapping
             CreateMap<viAddProductSeller, InpAddSellerWithVariantsToProdcut>();
             CreateMap<viAddProductSeller_Items, InpAddSellerWithVariantsToProdcut_Variants>();
 
+            CreateMap<viEditProductSeller, InpEditProductVariants>();
+            CreateMap<viEditProductSeller_Items, InpEditProductVariants_Variants>();
 
         }
     }

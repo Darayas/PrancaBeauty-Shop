@@ -50,7 +50,7 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Sellers
             
             #region CheckVariantId
             {
-                string _VariantId = await _ProductVariantItemsApplication.GetProductVariantAsync(new InpGetProductVariant { ProductId = Input.ProductId });
+                string _VariantId = await _ProductVariantItemsApplication.GetProductVariantIdAsync(new InpGetProductVariantId { ProductId = Input.ProductId });
                 if (_VariantId == "")
                 {
                     ViewData["ProductVariantEnable"] = true;

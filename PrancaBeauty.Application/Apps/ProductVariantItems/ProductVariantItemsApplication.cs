@@ -66,7 +66,7 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
 
                     #region برسی VariantId
                     {
-                        string VariantId = await GetProductVariantAsync(new InpGetProductVariant { ProductId = Input.ProductId });
+                        string VariantId = await GetProductVariantIdAsync(new InpGetProductVariantId { ProductId = Input.ProductId });
                         if (VariantId == null)
                             return new OperationResult().Failed("Error500");
 
@@ -341,7 +341,7 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
             return IsDuplicate;
         }
 
-        public async Task<string> GetProductVariantAsync(InpGetProductVariant Input)
+        public async Task<string> GetProductVariantIdAsync(InpGetProductVariantId Input)
         {
             try
             {

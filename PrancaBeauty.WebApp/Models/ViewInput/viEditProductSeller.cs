@@ -16,6 +16,11 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
         [RequiredString]
         [GUID]
         public string UserId { get; set; }
+        
+        [Display(Name = "ProductSellerId")]
+        [RequiredString]
+        [GUID]
+        public string ProductSellerId { get; set; }
 
         [Display(Name = "ProductId")]
         [RequiredString]

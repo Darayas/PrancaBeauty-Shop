@@ -52,7 +52,7 @@
             <div class="dropdown-menu dropdown-menu-left">
              @if (User.IsInRole(Roles.CanEditProductSeller))
              {
-                <a href="/@ViewData["culture"]/User/Product/Sellers/Edit/#:Id#?ReturnUrl=@Request.GetCurrentUrlEncoded()" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i>@Localizer["Edit"]</a>
+                <a href="/@ViewData["culture"]/User/Product/Sellers/Edit/@Model.ProductId/#:Id#?ReturnUrl=@Request.GetCurrentUrlEncoded()" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i>@Localizer["Edit"]</a>
              }
 
              @if (User.IsInRole(Roles.CanDeleteProductSeller))

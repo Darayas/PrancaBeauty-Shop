@@ -261,5 +261,36 @@ namespace PrancaBeauty.Application.Apps.ProductSellers
                 return default;
             }
         }
+
+        public async Task<string> GetUserIdByProductSellerIdAsync(InpGetUserIdByProductSellerId Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var qData = await _ProductSellersRepsoitory.Get
+                                                    .Where(a => a.Id == Guid.Parse(Input.ProductSellerId))
+                                                    .Select(a => a.UserId.ToString())
+                                                    .SingleOrDefaultAsync();
+
+                if (qData == null)
+                    return null;
+
+                return qData;
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
+            }
+        }
+
     }
 }

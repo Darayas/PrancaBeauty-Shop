@@ -1,3 +1,4 @@
+using AutoMapper;
 using Framework.Common.ExMethods;
 using Framework.Exceptions;
 using Microsoft.AspNetCore.Authorization;
@@ -6,13 +7,18 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.ProductSellers;
 using PrancaBeauty.Application.Apps.ProductVariantItems;
 using PrancaBeauty.Application.Contracts.ProductPropertiesValues;
+using PrancaBeauty.Application.Contracts.ProductSellers;
+using PrancaBeauty.Application.Contracts.ProductVariantItems;
+using PrancaBeauty.Application.Contracts.Results;
 using PrancaBeauty.WebApp.Authentication;
 using PrancaBeauty.WebApp.Common.ExMethod;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
 using PrancaBeauty.WebApp.Models.ViewInput;
 using System;
 using System.Globalization;
+using System.Linq;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace PrancaBeauty.WebApp.Pages.User.Products.Sellers
 {
@@ -21,9 +27,10 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Sellers
     {
         private readonly IMsgBox _MsgBox;
         private readonly IServiceProvider _ServiceProvider;
+        private readonly IMapper _Mapper;
         private readonly IProductSellersApplication _ProductSellersApplication;
         private readonly IProductVariantItemsApplication _ProductVariantItemsApplication;
-        public EditModel(IMsgBox msgBox, IServiceProvider serviceProvider, IProductSellersApplication productSellersApplication, IProductVariantItemsApplication productVariantItemsApplication)
+        public EditModel(IMsgBox msgBox, IServiceProvider serviceProvider, IProductSellersApplication productSellersApplication, IProductVariantItemsApplication productVariantItemsApplication, IMapper mapper)
         {
             _MsgBox = msgBox;
             _ServiceProvider = serviceProvider;
@@ -31,6 +38,7 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Sellers
             _ProductVariantItemsApplication = productVariantItemsApplication;
 
             Input = new viEditProductSeller();
+            _Mapper = mapper;
         }
 
         public async Task<IActionResult> OnGetAsync(viGetEditProductSeller Input)
@@ -43,7 +51,7 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Sellers
 
                 #region CheckVariantId
                 {
-                    string _VariantId = await _ProductVariantItemsApplication.GetProductVariantAsync(new InpGetProductVariant { ProductId = Input.ProductId });
+                    string _VariantId = await _ProductVariantItemsApplication.GetProductVariantIdAsync(new InpGetProductVariantId { ProductId = Input.ProductId });
                     if (_VariantId == "")
                     {
                         ViewData["ProductVariantEnable"] = true;
@@ -57,17 +65,56 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Sellers
                 }
                 #endregion
 
+                this.Input.ProductSellerId = Input.ProductSellerId;
+                this.Input.UserId = await _ProductSellersApplication.GetUserIdByProductSellerIdAsync(new InpGetUserIdByProductSellerId { ProductSellerId = Input.ProductSellerId });
+                this.Input.ProductId = Input.ProductId;
 
                 ViewData["ReturnUrl"] = Input.ReturnUrl ?? $"/{CultureInfo.CurrentCulture.Parent.Name}/User/Product/Sellers/List/{Input.ProductId}";
-
-                this.Input.UserId = User.GetUserDetails().UserId;
-                this.Input.ProductId = Input.ProductId;
 
                 return Page();
             }
             catch (ArgumentInvalidException ex)
             {
-                return _MsgBox.ModelStateMsg(ex.Message.Replace(",", "<br/>"));
+                return BadRequest(ex.Message);
+            }
+        }
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            try
+            {
+                #region Validations
+                if (!ModelState.IsValid)
+                    return _MsgBox.ModelStateMsg(ModelState.GetErrors());
+                #endregion
+
+                string _UserId = await _ProductSellersApplication.GetUserIdByProductSellerIdAsync(new InpGetUserIdByProductSellerId { ProductSellerId = Input.ProductSellerId });
+                if (_UserId == null)
+                    return _MsgBox.ModelStateMsg("IdNotFound");
+
+                string SellerId = await _ProductSellersApplication.GetSellerIdAsync(new InpGetSellerId { ProductId = Input.ProductId.ToString(), UserId = _UserId });
+                if (SellerId == null)
+                    return _MsgBox.ModelStateMsg("IdNotFound");
+
+                var _MappingData = _Mapper.Map<InpEditProductVariants>(Input);
+                _MappingData.SellerId = SellerId;
+
+                var _Result = await _ProductVariantItemsApplication.EditProductVariantsAsync(_MappingData);
+
+                if (_Result.IsSucceeded)
+                {
+
+                }
+                else
+                {
+
+                }
+
+                return Page();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                return BadRequest(ex.Message);
             }
         }
 

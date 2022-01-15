@@ -45,7 +45,7 @@ namespace PrancaBeauty.WebApp.Pages.User.Products
 
                 #endregion
 
-                ViewData["ReturnUrl"] = WebUtility.UrlDecode(ReturnUrl ?? $"/{CultureInfo.CurrentCulture.Parent.Name}/User/Products/List");
+                ViewData["ReturnUrl"] = ReturnUrl ?? $"/{CultureInfo.CurrentCulture.Parent.Name}/User/Products/List";
 
                 string _UserId = User.GetUserDetails().UserId;
                 if (User.IsInRole(Roles.CanEditProductForAllUser))

@@ -6,43 +6,43 @@
 }
 
 @section breadcrumbs{
-    <div class="breadcrumbs_area">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="breadcrumb_content">
-                        <ul>
-                            <li><a href="/@ViewData["Culture"]">@Localizer["Home"]</a></li>
-                            <li><a href="/@ViewData["Culture"]/User/Index">@Localizer["Dashboard"]</a></li>
-                            <li>@Localizer["ProductList"]</li>
-                        </ul>
-                    </div>
+<div class="breadcrumbs_area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb_content">
+                    <ul>
+                        <li><a href="/@ViewData["Culture"]">@Localizer["Home"]</a></li>
+                        <li><a href="/@ViewData["Culture"]/User/Index">@Localizer["Dashboard"]</a></li>
+                        <li>@Localizer["ProductList"]</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
+</div>
 }
 <div class="row">
     <div class="col-md-12">
         <div class="k-lang">
             @(Html.Kendo()
-                   .Grid<vmProductList>()
-                   .Name("ListProducts")
-                   .DefaultSettings(Localizer)
-                   .Columns(col=> {
-                       col.Bound(a => a.Id).Hidden().HtmlAttributes(new { @class = "RowId" }).Sortable(false);
-                       col.Bound(a => a.ImgUrl).Width(150).HtmlAttributes(new { style = "text-align:center" }).ClientTemplate("<img src='#=ImgUrl#'/>");
-                       col.Bound(a => a.Title).HtmlAttributes(new {style= "vertical-align:top;min-width:150px;max-width:400px" }).ClientTemplateId("TitleCell");
-                       col.Bound(a => a.AuthorName).ClientTemplateId("AuthorCell").Width(120);
-                       col.Bound(a => a.Status).ClientTemplateId("StatusCell").Width(70);
-                       col.Bound(a => a).Width(50).Title(" ")
-                                                  .HtmlAttributes(new { style= "overflow: visible; text-align: center;" })
-                                                  .ClientHeaderTemplate((User.IsInRole(Roles.CanAddProduct)? "<button class='btn btn-success btn-sm' onclick='Add()'><i class='fa fa-plus'></i></button>" : "") + "<button class='btn btn-primary btn-sm ml-1 mr-1' onclick='ShowSearchModal()'><i class='fa fa-search'></i></button>")
-                                                  .ClientTemplateId("DropDownCmd");
-                   })
-                   .DataSource(ds=>ds.Ajax()
-                                     .PageSize(10)
-                                     .Read(read=>read.Url($"/{CultureInfo.CurrentCulture.Parent.Name}/User/Products/List?handler=ReadData").Data("forgeryToken"))))
+            .Grid<vmProductList>()
+            .Name("ListProducts")
+            .DefaultSettings(Localizer)
+            .Columns(col=> {
+            col.Bound(a => a.Id).Hidden().HtmlAttributes(new { @class = "RowId" }).Sortable(false);
+            col.Bound(a => a.ImgUrl).Width(150).HtmlAttributes(new { style = "text-align:center" }).ClientTemplate("<img src='#=ImgUrl#'/>");
+            col.Bound(a => a.Title).HtmlAttributes(new {style= "vertical-align:top;min-width:150px;max-width:400px" }).ClientTemplateId("TitleCell");
+            col.Bound(a => a.AuthorName).ClientTemplateId("AuthorCell").Width(120);
+            col.Bound(a => a.Status).ClientTemplateId("StatusCell").Width(70);
+            col.Bound(a => a).Width(50).Title(" ")
+            .HtmlAttributes(new { style= "overflow: visible; text-align: center;" })
+            .ClientHeaderTemplate((User.IsInRole(Roles.CanAddProduct)? "<button class='btn btn-success btn-sm' onclick='Add()'><i class='fa fa-plus'></i></button>" : "") + "<button class='btn btn-primary btn-sm ml-1 mr-1' onclick='ShowSearchModal()'><i class='fa fa-search'></i></button>")
+            .ClientTemplateId("DropDownCmd");
+            })
+            .DataSource(ds=>ds.Ajax()
+            .PageSize(10)
+            .Read(read=>read.Url($"/{CultureInfo.CurrentCulture.Parent.Name}/User/Products/List?handler=ReadData").Data("forgeryToken"))))
         </div>
     </div>
 </div>
@@ -82,15 +82,15 @@
                         {
                             <div class="col-md-6">
                                 <LoadComponent id="AuthorUserId"
-                                               url="/@ViewData["culture"]/Shared/Compo/ComboUsers"
-                                               context="HttpContext"
-                                               data='new viCompo_Combo_Users{ FieldName="Input.AuthorUserId",UserId=Model.Input.AuthorUserId,LangId=null,ShowLabale=true  }'></LoadComponent>
+                                           url="/@ViewData["culture"]/Shared/Compo/ComboUsers"
+                                           context="HttpContext"
+                                           data='new viCompo_Combo_Users{ FieldName="Input.AuthorUserId",UserId=Model.Input.AuthorUserId,LangId=null,ShowLabale=true  }'></LoadComponent>
                             </div>
                             <div class="col-md-6">
                                 <LoadComponent id="SellerUserId"
-                                               url="/@ViewData["culture"]/Shared/Compo/ComboUsers"
-                                               context="HttpContext"
-                                               data='new viCompo_Combo_Users{ FieldName="Input.SellerUserId",UserId=Model.Input.SellerUserId,LangId=null,ShowLabale=true  }'></LoadComponent>
+                                           url="/@ViewData["culture"]/Shared/Compo/ComboUsers"
+                                           context="HttpContext"
+                                           data='new viCompo_Combo_Users{ FieldName="Input.SellerUserId",UserId=Model.Input.SellerUserId,LangId=null,ShowLabale=true  }'></LoadComponent>
                             </div>
                         }
                         else
@@ -178,7 +178,7 @@
                         <div class="Summery">
                             <div class="d-inline #:HasUnConfirmedReviews==true?'font-weight-bold':''#"><i class="fa fa-comment mr-1 ml-1"></i><span title="@Localizer["CountReviews"]"><a href="##">#:CountReviews#</a></span></div>
                             <div class="d-inline #:HasUnConfirmedAsk==true?'font-weight-bold':''#"><i class="fa fa-question mr-1 ml-1"></i><span title="@Localizer["CountAsks"]"><a href="##">#:CountAsks#</a></span></div>
-                            <div class="d-inline #:HasUnConfirmedSellerRequest==true?'font-weight-bold':''#"><i class="fa fa-users mr-1 ml-1"></i><span title="@Localizer["CountSellers"]"><a href="##">#:CountSellers#</a></span></div>
+                            <div class="d-inline #:HasUnConfirmedSellerRequest==true?'font-weight-bold text-danger':''#"><span title="@Localizer["CountSellers"]"><a onclick=GotoSellerList('#:Id#')><i class="fa fa-users mr-1 ml-1"></i> #:CountSellers#</a></span></div>
                             <div class='d-inline'><i class="fa fa-eye mr-1 ml-1"></i><span title="@Localizer["CountVisit"]"><a href="##">#:CountVisit#</a></span></div>
                         </div>
                     </div>
@@ -187,10 +187,10 @@
 </script>
 
 <script id="AuthorCell">
-                                                                            <a href="">
-                                                                                <div class="d-inline"><img class="img-responcive img-circle" src="#=AuthorImageUrl#" /></div>
-                                                                                <div class="d-inline">#=AuthorName#</div>
-                                                                            </a>
+    <a href="">
+        <div class="d-inline"><img class="img-responcive img-circle" src="#=AuthorImageUrl#" /></div>
+        <div class="d-inline">#=AuthorName#</div>
+    </a>
 </script>
 
 <script id="StatusCell">
@@ -203,25 +203,25 @@
     <div class="item-action dropdown">
         <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fa fa-bars fs-16 text-dark"></i></a>
         <div class="dropdown-menu dropdown-menu-left">
-            @if (User.IsInRole(Roles.CanEditProduct))
-            {
-                <a href="/@ViewData["Culture"]/User/Products/Edit/#:Id#?ReturnUrl=@Request.GetCurrentUrlEncoded()" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i>@Localizer["Edit"]</a>
-            }
+    @if (User.IsInRole(Roles.CanEditProduct))
+    {
+                    <a href="/@ViewData["Culture"]/User/Products/Edit/#:Id#?ReturnUrl=@Request.GetCurrentUrlEncoded()" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i>@Localizer["Edit"]</a>
+    }
 
-            @if (User.IsInRole(Roles.CanMoveToRecycleBinProduct))
-            {
-                if (User.IsInRole(Roles.CanRemoveProduct))
-                {
-                    <a onclick="Remove('#:Id#')" class="dropdown-item"><i class="dropdown-icon fa fa-times"></i>@Localizer["RemoveAlways"]</a>
-                }
+    @if (User.IsInRole(Roles.CanMoveToRecycleBinProduct))
+    {
+        if (User.IsInRole(Roles.CanRemoveProduct))
+        {
+                            <a onclick="Remove('#:Id#')" class="dropdown-item"><i class="dropdown-icon fa fa-times"></i>@Localizer["RemoveAlways"]</a>
+        }
 
-                <a onclick="MoveToRecycleBin('#:Id#')" class="dropdown-item #:Status==0?'hide':''#"><i class="dropdown-icon fa fa-trash"></i>@Localizer["MoveToRecycleBin"]</a>
-                <a onclick="RecoveryFromRecycleBin('#:Id#')" class="dropdown-item #:Status!=0?'hide':''#"><i class="dropdown-icon fa fa-undo"></i>@Localizer["RecoveryFromRecycleBin"]</a>
-            }
-            @if (User.IsInRole(Roles.CanViewListProductSellerList))
-            {
-                <a href="/@ViewData["Culture"]/User/Product/Sellers/List/#:Id#?ReturnUrl=@Request.GetCurrentUrlEncoded()" class="dropdown-item"><i class="dropdown-icon fa fa-users"></i>@Localizer["ProductSeller"]</a>
-            }
+                    <a onclick="MoveToRecycleBin('#:Id#')" class="dropdown-item #:Status==0?'hide':''#"><i class="dropdown-icon fa fa-trash"></i>@Localizer["MoveToRecycleBin"]</a>
+                    <a onclick="RecoveryFromRecycleBin('#:Id#')" class="dropdown-item #:Status!=0?'hide':''#"><i class="dropdown-icon fa fa-undo"></i>@Localizer["RecoveryFromRecycleBin"]</a>
+    }
+    @if (User.IsInRole(Roles.CanViewListProductSellerList))
+    {
+                    <a onclick="GotoSellerList('#:Id#')" class="dropdown-item"><i class="dropdown-icon fa fa-users"></i>@Localizer["ProductSeller"]</a>
+    }
         </div>
     </div>
 </script>
@@ -279,18 +279,18 @@
         var _IsSchedule = $('#CmbIsSchedule option:selected').val();
         var _Author="";
         var _Seller="";
-        @if (User.IsInRole(Roles.CanViewListAllAuthorUserProducts))
+    @if (User.IsInRole(Roles.CanViewListAllAuthorUserProducts))
+    {
+        @Html.Raw("_Author = $('#Input_AuthorUserId').val();")
+        @Html.Raw("_Seller = $('#Input_SellerUserId').val();")
+    }
+    else
+    {
+        if (!User.IsInRole(Roles.CanViewListAllSellerUserProducts))
         {
-            @Html.Raw("_Author = $('#Input_AuthorUserId').val();")
             @Html.Raw("_Seller = $('#Input_SellerUserId').val();")
         }
-        else
-        {
-            if (!User.IsInRole(Roles.CanViewListAllSellerUserProducts))
-            {
-                @Html.Raw("_Seller = $('#Input_SellerUserId').val();")
-            }
-        }
+    }
 
         var _Grid = $('#ListProducts').data('kendoGrid');
         _Grid.dataSource.transport.options.read.url = '/@CultureInfo.CurrentCulture.Parent.Name/User/Products/List?handler=ReadData&Input.LangId=' + _LangId + "&Input.Title=" + _Title + "&Input.Name=" + _Name + "&Input.AuthorUserId=" + _Author + "&Input.SellerUserId=" + _Seller + "&Input.IsDelete=" + _IsDelete + "&Input.IsConfirmed=" + _IsConfirmed + "&Input.IsDraft=" + _IsDraft + "&Input.IsSchedule=" + _IsSchedule;
@@ -305,4 +305,20 @@
             Search();
         }, 500);
     });
+
+    function GotoSellerList(_Id)
+    {
+        @if (User.IsInRole(Roles.CanViewListProductSellerList))
+        {
+            <text>
+                location.href="/@ViewData["Culture"]/User/Product/Sellers/List/"+_Id+"?ReturnUrl=@Request.GetCurrentUrlEncoded()";
+            </text>
+        }
+        else
+        {
+            <text>
+                Alert();
+            </text>
+        }
+    }
 </script>

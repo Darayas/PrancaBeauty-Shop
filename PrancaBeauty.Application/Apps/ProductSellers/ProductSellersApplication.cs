@@ -240,7 +240,7 @@ namespace PrancaBeauty.Application.Apps.ProductSellers
 
                 #region مرتب سازی
                 {
-                    qData = qData.OrderBy(a => a.FullName);
+                    qData = qData.OrderBy(a => a.Date).OrderByDescending(a => a.IsConfirm);
                 }
                 #endregion
 

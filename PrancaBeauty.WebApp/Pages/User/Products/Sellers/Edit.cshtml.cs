@@ -1,6 +1,7 @@
 using AutoMapper;
 using Framework.Common.ExMethods;
 using Framework.Exceptions;
+using Framework.Infrastructure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -26,11 +27,12 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Sellers
     public class EditModel : PageModel
     {
         private readonly IMsgBox _MsgBox;
+        private readonly ILocalizer _Localizer;
         private readonly IServiceProvider _ServiceProvider;
         private readonly IMapper _Mapper;
         private readonly IProductSellersApplication _ProductSellersApplication;
         private readonly IProductVariantItemsApplication _ProductVariantItemsApplication;
-        public EditModel(IMsgBox msgBox, IServiceProvider serviceProvider, IProductSellersApplication productSellersApplication, IProductVariantItemsApplication productVariantItemsApplication, IMapper mapper)
+        public EditModel(IMsgBox msgBox, IServiceProvider serviceProvider, IProductSellersApplication productSellersApplication, IProductVariantItemsApplication productVariantItemsApplication, IMapper mapper, ILocalizer localizer)
         {
             _MsgBox = msgBox;
             _ServiceProvider = serviceProvider;
@@ -39,6 +41,7 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Sellers
 
             Input = new viEditProductSeller();
             _Mapper = mapper;
+            _Localizer = localizer;
         }
 
         public async Task<IActionResult> OnGetAsync(viGetEditProductSeller Input)
@@ -103,14 +106,12 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Sellers
 
                 if (_Result.IsSucceeded)
                 {
-
+                    return _MsgBox.SuccessMsg(_Localizer[_Result.Message], "GotoBack()");
                 }
                 else
                 {
-
+                    return _MsgBox.FaildMsg(_Localizer[_Result.Message]);
                 }
-
-                return Page();
             }
             catch (ArgumentInvalidException ex)
             {

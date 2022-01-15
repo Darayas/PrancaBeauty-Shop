@@ -566,6 +566,34 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                         Description = "توانایی حذف فروشنده ی محصول"
                     }, default, false).Wait();
                 }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanChangeStatusProductSeller"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageProductSellerListPage",
+                        Sort = 280,
+                        Name = "CanChangeStatusProductSeller",
+                        NormalizedName = "CanChangeStatusProductSeller".ToUpper(),
+                        Description = "توانایی تایید یا رد فروشنده ی محصول"
+                    }, default, false).Wait();
+                }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanViewDetailsProductSeller"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageProductSellerListPage",
+                        Sort = 290,
+                        Name = "CanViewDetailsProductSeller",
+                        NormalizedName = "CanViewDetailsProductSeller".ToUpper(),
+                        Description = "توانایی مشاهده جزئیات فروشنده ی محصول"
+                    }, default, false).Wait();
+                }
             }
             #endregion
 

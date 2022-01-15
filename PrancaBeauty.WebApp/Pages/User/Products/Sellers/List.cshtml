@@ -59,6 +59,11 @@
              {
                   <a onclick="Remove('#:Id#')" class="dropdown-item"><i class="dropdown-icon fa fa-times"></i>@Localizer["Remove"]</a>
              }
+
+             @if (User.IsInRole(Roles.CanChangeStatusProductSeller))
+             {
+                  <a onclick="ChangeStatus('#:Id#')" class="dropdown-item"><i class="dropdown-icon fa fa-times"></i>@Localizer["Remove"]</a>
+             }
             </div>
         </div>
     </script>

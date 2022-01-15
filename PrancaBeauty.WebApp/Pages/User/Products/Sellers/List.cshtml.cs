@@ -54,7 +54,7 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Sellers
 
             ProductId = Input.ProductId;
             ProductTitle = await _ProductApplication.GetTitleByIdAsync(new InpGetTitleById { ProductId = Input.ProductId });
-            ViewData["ReturnUrl"] = WebUtility.UrlDecode(ReturnUrl ?? $"/{CultureInfo.CurrentCulture.Parent.Name}/User/Products/List");
+            ViewData["ReturnUrl"] = ReturnUrl ?? $"/{CultureInfo.CurrentCulture.Parent.Name}/User/Products/List";
 
             return Page();
         }

@@ -34,11 +34,12 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Sellers
             _MsgBox = msgBox;
             _ProductApplication = productApplication;
             _ServiceProvider = serviceProvider;
-            Input = new viAddProductSeller();
             _ProductSellersApplication = productSellersApplication;
             _Mapper = mapper;
             _Localizer = localizer;
             _ProductVariantItemsApplication = productVariantItemsApplication;
+
+            Input = new viAddProductSeller();
         }
 
         public async Task<IActionResult> OnGetAsync(viGetAddProductSeller Input)
@@ -46,8 +47,6 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Sellers
             #region Validations
             Input.CheckModelState(_ServiceProvider);
             #endregion
-
-            ViewData["ProductId"] = Input.ProductId;
             
             #region CheckVariantId
             {
@@ -69,6 +68,7 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Sellers
             ViewData["ReturnUrl"] = Input.ReturnUrl ?? $"/{CultureInfo.CurrentCulture.Parent.Name}/User/Product/Sellers/List/{Input.ProductId}";
 
             this.Input.UserId = User.GetUserDetails().UserId;
+            this.Input.ProductId = Input.ProductId;
 
             return Page();
         }

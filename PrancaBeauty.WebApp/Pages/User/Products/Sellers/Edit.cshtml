@@ -1,11 +1,12 @@
-﻿@page "/{culture}/User/Product/Sellers/Add/{ProductId}"
-@model PrancaBeauty.WebApp.Pages.User.Products.Sellers.AddModel
+﻿@page "/{culture}/User/Product/Sellers/Edit/{ProductId}"
+@model PrancaBeauty.WebApp.Pages.User.Products.Sellers.EditModel
 @{
-    ViewData["Title"] = Localizer["AddProductSeller"];
+    ViewData["Title"] = Localizer["EditProductSeller"];
     Layout = "~/Pages/Shared/_UserLayout.cshtml";
 }
 
-@section breadcrumbs{
+@section breadcrumbs
+{
 <div class="breadcrumbs_area">
     <div class="container">
         <div class="row">
@@ -15,7 +16,7 @@
                         <li><a href="/@ViewData["Culture"]">@Localizer["Home"]</a></li>
                         <li><a href="/@ViewData["Culture"]/User/Index">@Localizer["Dashboard"]</a></li>
                         <li><a href="/@ViewData["Culture"]/User/Products/List">@Localizer["ProductList"]</a></li>
-                        <li>@Localizer["AddProductSeller"]</li>
+                        <li>@Localizer["EditProductSeller"]</li>
                     </ul>
                 </div>
             </div>
@@ -28,11 +29,11 @@
         نکات
     </div>
     <div class="col-md-8">
-        <form id="FrmAddProdcutSeller">
+        <form id="FrmEditProdcutSeller">
             <input name="Input.ProductId" type="hidden" value="@Model.Input.ProductId" />
-            @if  (ViewData["VariantId"].ToString()  !=  "")
+            @if (ViewData["VariantId"].ToString() != "")
             {
-                    <input name="Input.VariantId" type="hidden" value="@ViewData["VariantId"]" />
+                <input name="Input.VariantId" type="hidden" value="@ViewData["VariantId"]" />
             }
             <div class="form-group">
                 <div class="row">
@@ -40,10 +41,11 @@
 
                         @if (User.IsInRole(Roles.CanAddProductSellerAllUser))
                         {
+                            <input asp-for="Input.UserId" id="" type="hidden" />
                             <LoadComponent id="UserId"
                                        url="/@ViewData["culture"]/Shared/Compo/ComboUsers"
                                        context="HttpContext"
-                                       data='new viCompo_Combo_Users{ FieldName="Input.UserId",ShowLabale=true,UserId=Model.Input.UserId  }'></LoadComponent>
+                                       data='new viCompo_Combo_Users{ FieldName="Input.UserId",ShowLabale=true,UserId=Model.Input.UserId,IsEnable=false  }'></LoadComponent>
                         }
                         else
                         {
@@ -58,7 +60,7 @@
                     <div class="col-md-12">
                         <LoadComponent id="ProductVariantCompo"
                                        context="HttpContext"
-                                       data='new viCompo_Variants {FieldName="Input.VariantId",ProductVariantEnable=bool.Parse(ViewData["ProductVariantEnable"].ToString()) ,VariantId=ViewData["VariantId"].ToString()}'
+                                       data='new viCompo_Variants {FieldName="Input.VariantId",ProductVariantEnable=bool.Parse(ViewData["ProductVariantEnable"].ToString()) ,VariantId=ViewData["VariantId"].ToString(),ProductId=Model.Input.ProductId,AuthorUserId=Model.Input.UserId}'
                                        url="/@ViewData["culture"]/User/Products/Compo/Variants"></LoadComponent>
                     </div>
                 </div>
@@ -84,6 +86,6 @@
 
     function SaveData()
     {
-        SendForm('/@ViewData["culture"]/User/Product/Sellers/Add/@Model.Input.ProductId','FrmAddProdcutSeller');
+        SendForm('/@ViewData["culture"]/User/Product/Sellers/Edit/@Model.Input.ProductId','FrmEditProdcutSeller');
     }
 </script>

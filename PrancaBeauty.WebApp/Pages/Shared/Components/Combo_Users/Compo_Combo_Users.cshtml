@@ -30,6 +30,7 @@
           .Filter(FilterType.Contains)
           .MinLength(2)
           .Value(Model.Input.UserId)
+          .Enable(Model.Input.IsEnable)
           .DataSource(sr => {
               sr.Read(read =>
               {

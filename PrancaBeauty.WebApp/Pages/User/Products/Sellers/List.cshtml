@@ -50,15 +50,15 @@
         <div class="item-action dropdown">
             <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fa fa-bars fs-16 text-dark"></i></a>
             <div class="dropdown-menu dropdown-menu-left">
-        @if (User.IsInRole(Roles.CanEditProductSeller))
-        {
-                               <a href="/@ViewData["culture"]/User/Product/Sellers/Edit/#:Id#?ReturnUrl=@Request.GetCurrentUrlEncoded()" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i>@Localizer["Edit"]</a>
-        }
+             @if (User.IsInRole(Roles.CanEditProductSeller))
+             {
+                <a href="/@ViewData["culture"]/User/Product/Sellers/Edit/#:Id#?ReturnUrl=@Request.GetCurrentUrlEncoded()" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i>@Localizer["Edit"]</a>
+             }
 
-        @if (User.IsInRole(Roles.CanDeleteProductSeller))
-        {
-                               <a onclick="Remove('#:Id#')" class="dropdown-item"><i class="dropdown-icon fa fa-times"></i>@Localizer["Remove"]</a>
-        }
+             @if (User.IsInRole(Roles.CanDeleteProductSeller))
+             {
+                  <a onclick="Remove('#:Id#')" class="dropdown-item"><i class="dropdown-icon fa fa-times"></i>@Localizer["Remove"]</a>
+             }
             </div>
         </div>
     </script>

@@ -387,6 +387,9 @@
   <data name="EditProduct" xml:space="preserve">
     <value>ویرایش محصول {0}</value>
   </data>
+  <data name="EditProductSeller" xml:space="preserve">
+    <value>ویرایش فروشنده محصول</value>
+  </data>
   <data name="EditProfile" xml:space="preserve">
     <value>ویرایش پروفایل</value>
   </data>

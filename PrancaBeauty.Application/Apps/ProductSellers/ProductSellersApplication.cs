@@ -83,12 +83,12 @@ namespace PrancaBeauty.Application.Apps.ProductSellers
 
                 #region برسی کاربر جاری که فروشنده ی محصول نباشد
                 {
-                    _ProductSellerId = await GetProductSellerIdAsync(new InpGetProductSellerId { ProductId = Input.ProductId, UserId = Input.UserId });
+                    _ProductSellerId = await GetProductSellerIdAsync(new InpGetProductSellerId { ProductId = Input.ProductId, SellerId = Input.SellerId });
                     if (_ProductSellerId == null)
                     {
                         var _Result = await AddSellerToProdcutAsync(new InpAddSellerToProdcut
                         {
-                            SellerId = await _SellerApplication.GetSellerIdByUserIdAsync(new InpGetSellerIdByUserId { UserId = Input.UserId }),
+                            SellerId = Input.SellerId,
                             ProductId = Input.ProductId,
                             IsConfirm = false
                         });
@@ -236,7 +236,7 @@ namespace PrancaBeauty.Application.Apps.ProductSellers
 
                 var qData = await _ProductSellersRepsoitory.Get
                                                            .Where(a => a.ProductId == Guid.Parse(Input.ProductId))
-                                                           .Where(a => a.tblSellers.UserId == Guid.Parse(Input.UserId))
+                                                           .Where(a => a.tblSellers.Id == Guid.Parse(Input.SellerId))
                                                            .Select(a => a.Id.ToString())
                                                            .SingleOrDefaultAsync();
 
@@ -310,6 +310,7 @@ namespace PrancaBeauty.Application.Apps.ProductSellers
         }
 
         public async Task<string> GetUserIdByProductSellerIdAsync(InpGetUserIdByProductSellerId Input)
+
         {
             try
             {
@@ -320,6 +321,36 @@ namespace PrancaBeauty.Application.Apps.ProductSellers
                 var qData = await _ProductSellersRepsoitory.Get
                                                     .Where(a => a.Id == Guid.Parse(Input.ProductSellerId))
                                                     .Select(a => a.tblSellers.UserId.ToString())
+                                                    .SingleOrDefaultAsync();
+
+                if (qData == null)
+                    return null;
+
+                return qData;
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
+            }
+        }
+        
+        public async Task<string> GetSellerIdByProductSellerIdAsync(InpGetSellerIdByProductSellerId Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var qData = await _ProductSellersRepsoitory.Get
+                                                    .Where(a => a.Id == Guid.Parse(Input.ProductSellerId))
+                                                    .Select(a => a.SellerId.ToString())
                                                     .SingleOrDefaultAsync();
 
                 if (qData == null)

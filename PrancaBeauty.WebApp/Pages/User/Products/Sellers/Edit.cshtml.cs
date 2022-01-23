@@ -44,7 +44,7 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Sellers
             _Localizer = localizer;
         }
 
-        public async Task<IActionResult> OnGetAsync(viGetEditProductSeller Input)
+        public async Task<IActionResult> OnGetAsync(viGetEditProductSeller Input,string LangId)
         {
             try
             {
@@ -69,11 +69,11 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Sellers
                 #endregion
 
                 this.Input.ProductSellerId = Input.ProductSellerId;
-                this.Input.UserId = await _ProductSellersApplication.GetUserIdByProductSellerIdAsync(new InpGetUserIdByProductSellerId { ProductSellerId = Input.ProductSellerId });
+                this.Input.SellerId = await _ProductSellersApplication.GetSellerIdByProductSellerIdAsync(new InpGetSellerIdByProductSellerId { ProductSellerId = Input.ProductSellerId });
                 this.Input.ProductId = Input.ProductId;
 
                 ViewData["ReturnUrl"] = Input.ReturnUrl ?? $"/{CultureInfo.CurrentCulture.Parent.Name}/User/Product/Sellers/List/{Input.ProductId}";
-
+                ViewData["LangId"] = LangId;
                 return Page();
             }
             catch (ArgumentInvalidException ex)
@@ -91,16 +91,16 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Sellers
                     return _MsgBox.ModelStateMsg(ModelState.GetErrors());
                 #endregion
 
-                string _UserId = await _ProductSellersApplication.GetUserIdByProductSellerIdAsync(new InpGetUserIdByProductSellerId { ProductSellerId = Input.ProductSellerId });
-                if (_UserId == null)
+                string _SellerId = await _ProductSellersApplication.GetSellerIdByProductSellerIdAsync(new InpGetSellerIdByProductSellerId { ProductSellerId = Input.ProductSellerId });
+                if (_SellerId == null)
                     return _MsgBox.ModelStateMsg("IdNotFound");
 
-                string SellerId = await _ProductSellersApplication.GetProductSellerIdAsync(new InpGetProductSellerId { ProductId = Input.ProductId.ToString(), UserId = _UserId });
-                if (SellerId == null)
+                string ProductSellerId = await _ProductSellersApplication.GetProductSellerIdAsync(new InpGetProductSellerId { ProductId = Input.ProductId.ToString(), SellerId = _SellerId });
+                if (ProductSellerId == null)
                     return _MsgBox.ModelStateMsg("IdNotFound");
 
                 var _MappingData = _Mapper.Map<InpEditProductVariants>(Input);
-                _MappingData.ProductSellerId = SellerId;
+                _MappingData.ProductSellerId = ProductSellerId;
 
                 var _Result = await _ProductVariantItemsApplication.EditProductVariantsAsync(_MappingData);
 

@@ -10,7 +10,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Products;
+using PrancaBeauty.Application.Apps.Seller;
 using PrancaBeauty.Application.Contracts.Products;
+using PrancaBeauty.Application.Contracts.Sellers;
 using PrancaBeauty.WebApp.Authentication;
 using PrancaBeauty.WebApp.Common.ExMethod;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
@@ -26,13 +28,15 @@ namespace PrancaBeauty.WebApp.Pages.User.Products
         private readonly IMsgBox _MsgBox;
         private readonly IMapper _Mapper;
         private readonly IProductApplication _ProductApplication;
-        public EditModel(ILocalizer localizer, IMsgBox msgBox, IProductApplication productApplication, ILogger logger, IMapper mapper)
+        private readonly ISellerApplication _SellerApplication;
+        public EditModel(ILocalizer localizer, IMsgBox msgBox, IProductApplication productApplication, ILogger logger, IMapper mapper, ISellerApplication sellerApplication)
         {
             _Localizer = localizer;
             _MsgBox = msgBox;
             _ProductApplication = productApplication;
             _Logger = logger;
             _Mapper = mapper;
+            _SellerApplication = sellerApplication;
         }
 
         public async Task<IActionResult> OnGetAsync(string Id, string ReturnUrl = null)
@@ -62,7 +66,7 @@ namespace PrancaBeauty.WebApp.Pages.User.Products
 
                 LangId = qData.LangId;
                 Input = _Mapper.Map<viEditProduct>(qData);
-
+                ViewData["SellerId"] = await _SellerApplication.GetSellerIdByUserIdAsync(new InpGetSellerIdByUserId { UserId = Input.AuthorUserId });
                 return Page();
             }
             catch (Exception ex)

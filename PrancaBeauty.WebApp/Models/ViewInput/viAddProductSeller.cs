@@ -8,10 +8,10 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
 {
     public class viAddProductSeller
     {
-        [Display(Name = "UserId")]
+        [Display(Name = "SellerId")]
         [RequiredString]
         [GUID]
-        public string UserId { get; set; }
+        public string SellerId { get; set; }
 
         [Display(Name = "ProductId")]
         [RequiredString]

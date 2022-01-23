@@ -15,9 +15,9 @@ namespace PrancaBeauty.Application.Contracts.ProductVariantItems
         [GUID]
         public string ProductId { get; set; }
 
-        [Display(Name = "UserId")]
+        [Display(Name = "SellerId")]
         [RequiredString]
         [GUID]
-        public string AuthorUserId { get; set; }
+        public string SellerId { get; set; }
     }
 }

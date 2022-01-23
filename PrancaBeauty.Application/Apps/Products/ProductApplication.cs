@@ -752,13 +752,14 @@ namespace PrancaBeauty.Application.Apps.Products
                 #region ثبت فروشنده ی محصول
                 string _ProductSellerId = null;
                 {
-                    _ProductSellerId = await _ProductSellersApplication.GetProductSellerIdAsync(new InpGetProductSellerId { ProductId = qData.Id.ToString(), UserId = qData.AuthorUserId.ToString() });
+                    string _SellerId = await _SellersApplication.GetSellerIdByUserIdAsync(new InpGetSellerIdByUserId { UserId = qData.AuthorUserId.ToString() });
+                    _ProductSellerId = await _ProductSellersApplication.GetProductSellerIdAsync(new InpGetProductSellerId { ProductId = qData.Id.ToString(), SellerId = _SellerId });
                     if (_ProductSellerId == null)
                     {
                         var _Result = await _ProductSellersApplication.AddSellerToProdcutAsync(new InpAddSellerToProdcut
                         {
                             ProductId = qData.Id.ToString(),
-                            SellerId = await _SellersApplication.GetSellerIdByUserIdAsync(new InpGetSellerIdByUserId { UserId = qData.AuthorUserId.ToString() }),
+                            SellerId = _SellerId,
                             IsConfirm = true
                         });
 

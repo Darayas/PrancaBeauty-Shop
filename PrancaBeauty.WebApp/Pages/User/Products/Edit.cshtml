@@ -194,7 +194,7 @@
                         <div class="card-body">
                             <LoadComponent id="ProductVariantCompo"
                                            context="HttpContext"
-                                           data='new viCompo_Variants {FieldName="Input.VariantId",ProductId=Model.Input.Id,AuthorUserId=Model.Input.AuthorUserId}'
+                                           data='new viCompo_Variants {FieldName="Input.VariantId",ProductId=Model.Input.Id,SellerId=ViewData["SellerId"].ToString()}'
                                            url="/@ViewData["culture"]/User/Products/Compo/Variants"></LoadComponent>
                         </div>
                     </div>

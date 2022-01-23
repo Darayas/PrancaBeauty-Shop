@@ -42,15 +42,15 @@
 
                         @if (User.IsInRole(Roles.CanAddProductSellerAllUser))
                         {
-                            <input asp-for="Input.UserId" id="" type="hidden" />
-                            <LoadComponent id="UserId"
-                                       url="/@ViewData["culture"]/Shared/Compo/ComboUsers"
-                                       context="HttpContext"
-                                       data='new viCompo_Combo_Users{ FieldName="Input.UserId",ShowLabale=true,UserId=Model.Input.UserId,IsEnable=false  }'></LoadComponent>
+                            <input asp-for="Input.SellerId" id="" type="hidden" />
+                            <LoadComponent id="SellerId"
+                                           url="/@ViewData["culture"]/Shared/Compo/ComboSellers"
+                                           context="HttpContext"
+                                           data='new viCompo_Combo_Sellers{ FieldName="Input.SellerId",SellerId=Model.Input.SellerId,LangId=ViewData["LangId"].ToString(),ShowLabale=true,IsEnable=false  }'></LoadComponent>
                         }
                         else
                         {
-                            <input asp-for="Input.UserId" type="hidden" />
+                            <input asp-for="Input.SellerId" type="hidden" />
                         }
 
                     </div>
@@ -61,7 +61,7 @@
                     <div class="col-md-12">
                         <LoadComponent id="ProductVariantCompo"
                                        context="HttpContext"
-                                       data='new viCompo_Variants {FieldName="Input.VariantId",ProductVariantEnable=bool.Parse(ViewData["ProductVariantEnable"].ToString()) ,VariantId=ViewData["VariantId"].ToString(),ProductId=Model.Input.ProductId,AuthorUserId=Model.Input.UserId}'
+                                       data='new viCompo_Variants {FieldName="Input.VariantId",ProductVariantEnable=bool.Parse(ViewData["ProductVariantEnable"].ToString()) ,VariantId=ViewData["VariantId"].ToString(),ProductId=Model.Input.ProductId,SellerId=Model.Input.SellerId}'
                                        url="/@ViewData["culture"]/User/Products/Compo/Variants"></LoadComponent>
                     </div>
                 </div>

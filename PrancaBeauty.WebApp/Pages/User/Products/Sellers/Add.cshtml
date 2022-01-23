@@ -43,11 +43,11 @@
                             <LoadComponent id="SellerId"
                                            url="/@ViewData["culture"]/Shared/Compo/ComboSellers"
                                            context="HttpContext"
-                                           data='new viCompo_Combo_Sellers{ FieldName="Input.SellerId",LangId=Model.Input.LangId,ShowLabale=true  }'></LoadComponent>
+                                           data='new viCompo_Combo_Sellers{ FieldName="Input.SellerId",LangId=ViewData["LangId"].ToString(),ShowLabale=true  }'></LoadComponent>
                         }
                         else
                         {
-                            <input asp-for="Input.UserId" type="hidden" />
+                            <input asp-for="Input.SellerId" type="hidden" />
                         }
 
                     </div>

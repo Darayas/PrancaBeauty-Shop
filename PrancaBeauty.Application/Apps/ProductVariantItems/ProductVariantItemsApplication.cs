@@ -4,7 +4,9 @@ using Framework.Infrastructure;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Apps.Products;
+using PrancaBeauty.Application.Apps.ProductSellers;
 using PrancaBeauty.Application.Contracts.ProductPropertiesValues;
+using PrancaBeauty.Application.Contracts.ProductSellers;
 using PrancaBeauty.Application.Contracts.ProductVariantItems;
 using PrancaBeauty.Application.Contracts.Results;
 using PrancaBeauty.Domin.Product.ProductAgg.Contracts;
@@ -181,7 +183,7 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
 
                 var qData = await _ProductVariantItemsRepository.Get
                                                                .Where(a => a.ProductId == Guid.Parse(Input.ProductId))
-                                                               .Where(a => a.tblProductSellers.tblSellers.UserId == Guid.Parse(Input.AuthorUserId))
+                                                               .Where(a => a.tblProductSellers.SellerId == Guid.Parse(Input.SellerId))
                                                                .Select(a => new OutGetAllVariantsByProductId
                                                                {
                                                                    Id = a.Id.ToString(),

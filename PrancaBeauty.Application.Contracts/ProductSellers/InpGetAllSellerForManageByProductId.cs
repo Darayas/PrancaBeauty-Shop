@@ -10,6 +10,11 @@ namespace PrancaBeauty.Application.Contracts.ProductSellers
 {
     public class InpGetAllSellerForManageByProductId
     {
+        [Display(Name = "LangId")]
+        [RequiredString]
+        [GUID]
+        public string LangId { get; set; }
+
         [Display(Name = "ProductId")]
         [RequiredString]
         [GUID]

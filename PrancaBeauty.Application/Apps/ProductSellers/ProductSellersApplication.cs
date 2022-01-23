@@ -4,9 +4,11 @@ using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Apps.ProductVariantItems;
+using PrancaBeauty.Application.Apps.Seller;
 using PrancaBeauty.Application.Contracts.ProductSellers;
 using PrancaBeauty.Application.Contracts.ProductVariantItems;
 using PrancaBeauty.Application.Contracts.Results;
+using PrancaBeauty.Application.Contracts.Sellers;
 using PrancaBeauty.Domin.Product.ProductSellerAgg.Contracts;
 using PrancaBeauty.Domin.Product.ProductSellerAgg.Entities;
 using PrancaBeauty.Domin.Users.SellerAgg.Entities;
@@ -26,12 +28,14 @@ namespace PrancaBeauty.Application.Apps.ProductSellers
         private readonly IServiceProvider _ServiceProvider;
         private readonly IProductSellersRepsoitory _ProductSellersRepsoitory;
         private readonly IProductVariantItemsApplication _ProductVariantItemsApplication;
-        public ProductSellersApplication(IProductSellersRepsoitory productSellersRepsoitory, ILogger logger, IServiceProvider serviceProvider, IProductVariantItemsApplication productVariantItemsApplication)
+        private readonly ISellerApplication _SellerApplication;
+        public ProductSellersApplication(IProductSellersRepsoitory productSellersRepsoitory, ILogger logger, IServiceProvider serviceProvider, IProductVariantItemsApplication productVariantItemsApplication, ISellerApplication sellerApplication)
         {
             _ProductSellersRepsoitory = productSellersRepsoitory;
             _Logger = logger;
             _ServiceProvider = serviceProvider;
             _ProductVariantItemsApplication = productVariantItemsApplication;
+            _SellerApplication = sellerApplication;
         }
 
         public async Task<OperationResult> AddSellerToProdcutAsync(InpAddSellerToProdcut Input)
@@ -75,21 +79,21 @@ namespace PrancaBeauty.Application.Apps.ProductSellers
                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
-                string _SellerId = null;
+                string _ProductSellerId = null;
 
                 #region برسی کاربر جاری که فروشنده ی محصول نباشد
                 {
-                    _SellerId = await GetSellerIdAsync(new InpGetSellerId { ProductId = Input.ProductId, UserId = Input.UserId });
-                    if (_SellerId == null)
+                    _ProductSellerId = await GetProductSellerIdAsync(new InpGetProductSellerId { ProductId = Input.ProductId, UserId = Input.UserId });
+                    if (_ProductSellerId == null)
                     {
                         var _Result = await AddSellerToProdcutAsync(new InpAddSellerToProdcut
                         {
-                            SellerId = Input.UserId,
+                            SellerId = await _SellerApplication.GetSellerIdByUserIdAsync(new InpGetSellerIdByUserId { UserId = Input.UserId }),
                             ProductId = Input.ProductId,
                             IsConfirm = false
                         });
                         if (_Result.IsSucceeded)
-                            _SellerId = _Result.Message;
+                            _ProductSellerId = _Result.Message;
                     }
                 }
                 #endregion
@@ -99,7 +103,7 @@ namespace PrancaBeauty.Application.Apps.ProductSellers
                     var _Result = await _ProductVariantItemsApplication.AddVariantsToProductAsync(new InpAddVariantsToProduct
                     {
                         ProductId = Input.ProductId,
-                        ProductSellerId = _SellerId,
+                        ProductSellerId = _ProductSellerId,
                         VariantId = Input.VariantId,
                         Variants = Input.Variants.Select(a => new InpAddVariantsToProduct_Variants
                         {
@@ -222,7 +226,7 @@ namespace PrancaBeauty.Application.Apps.ProductSellers
             }
         }
 
-        public async Task<string> GetSellerIdAsync(InpGetSellerId Input)
+        public async Task<string> GetProductSellerIdAsync(InpGetProductSellerId Input)
         {
             try
             {
@@ -268,6 +272,7 @@ namespace PrancaBeauty.Application.Apps.ProductSellers
                                                      {
                                                          Id = a.Id.ToString(),
                                                          FullName = a.tblSellers.tblUsers.FirstName + " " + a.tblSellers.tblUsers.LastName,
+                                                         SellerName = a.tblSellers.tblSeller_Translates.Where(a => a.LangId == Guid.Parse(Input.LangId)).Select(a => a.Title).Single(),
                                                          Date = a.Date,
                                                          IsConfirm = a.IsConfirm,
                                                          HasUnConfermVariants = !a.tblProductVariantItems.Any(b => b.IsConfirm == false)

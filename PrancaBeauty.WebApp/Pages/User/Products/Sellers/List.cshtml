@@ -34,6 +34,7 @@
             .Columns(col=> {
             col.Bound(a => a.Id).Hidden().HtmlAttributes(new { @class = "RowId" }).Sortable(false);
             col.Bound(a=>a.FullName);
+            col.Bound(a=>a.SellerName);
             col.Bound(a => a.Date).Width(90).HtmlAttributes(new { @class = "text-left" }).Sortable(false);
             col.Bound(a => a.IsConfirm).HtmlAttributes(new {style = "text-align:center;" }).ClientTemplate("<img style='width:32px' src='/Shared/img/#=IsConfirm#.png'/>").Width(50).Sortable(false);
             col.Bound(a => a.HasUnConfermVariants).HtmlAttributes(new {style = "text-align:center;" }).ClientTemplate("<img style='width:32px' src='/Shared/img/#=HasUnConfermVariants#.png'/>").Width(50).Sortable(false);
@@ -51,26 +52,26 @@
         <div class="item-action dropdown">
             <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fa fa-bars fs-16 text-dark"></i></a>
             <div class="dropdown-menu dropdown-menu-left">
-             @if (User.IsInRole(Roles.CanEditProductSeller))
-             {
-                <a href="/@ViewData["culture"]/User/Product/Sellers/Edit/@Model.ProductId/#:Id#?ReturnUrl=@Request.GetCurrentUrlEncoded()" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i>@Localizer["Edit"]</a>
-             }
+        @if (User.IsInRole(Roles.CanEditProductSeller))
+        {
+                    <a href="/@ViewData["culture"]/User/Product/Sellers/Edit/@Model.ProductId/#:Id#?ReturnUrl=@Request.GetCurrentUrlEncoded()" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i>@Localizer["Edit"]</a>
+        }
 
-             @if (User.IsInRole(Roles.CanDeleteProductSeller))
-             {
-                  <a onclick="Remove('#:Id#')" class="dropdown-item"><i class="dropdown-icon fa fa-times"></i>@Localizer["Remove"]</a>
-             }
+        @if (User.IsInRole(Roles.CanDeleteProductSeller))
+        {
+                      <a onclick="Remove('#:Id#')" class="dropdown-item"><i class="dropdown-icon fa fa-times"></i>@Localizer["Remove"]</a>
+        }
 
-             @if (User.IsInRole(Roles.CanChangeStatusProductSeller))
-             {
-                  <a onclick="ChangeStatus('#:Id#')" class='dropdown-item #=IsConfirm==true?"hide":""#'><i class="dropdown-icon fa fa-check"></i>@Localizer["Confirm"]</a>
-                  <a onclick="ChangeStatus('#:Id#')" class='dropdown-item  #=IsConfirm==false?"hide":""#'><i class="dropdown-icon fa fa-ban"></i>@Localizer["Reject"]</a>
-             }
-             
-             @if (User.IsInRole(Roles.CanViewDetailsProductSeller))
-             {
-                  <a href="/@ViewData["culture"]/User/Product/Sellers/Details/@Model.ProductId/#:Id#" class='dropdown-item'><i class="dropdown-icon fa fa-check"></i>@Localizer["Details"]</a>
-             }
+        @if (User.IsInRole(Roles.CanChangeStatusProductSeller))
+        {
+                      <a onclick="ChangeStatus('#:Id#')" class='dropdown-item #=IsConfirm==true?"hide":""#'><i class="dropdown-icon fa fa-check"></i>@Localizer["Confirm"]</a>
+                      <a onclick="ChangeStatus('#:Id#')" class='dropdown-item  #=IsConfirm==false?"hide":""#'><i class="dropdown-icon fa fa-ban"></i>@Localizer["Reject"]</a>
+        }
+
+        @if (User.IsInRole(Roles.CanViewDetailsProductSeller))
+        {
+                      <a href="/@ViewData["culture"]/User/Product/Sellers/Details/@Model.ProductId/#:Id#" class='dropdown-item'><i class="dropdown-icon fa fa-check"></i>@Localizer["Details"]</a>
+        }
             </div>
         </div>
     </script>
@@ -92,31 +93,31 @@
     @if (User.IsInRole(Roles.CanAddProductSeller))
     {
         <text>
-                  function Add()
-                  {
-                      //var _Id= $('#ListProductSeller .VariantId')[0].innerHTML;
-                      location.href='/@ViewData["culture"]/User/Product/Sellers/Add/@Model.ProductId?ReturnUrl=@Request.GetCurrentUrlEncoded()';
-                  }
+                      function Add()
+                      {
+                          //var _Id= $('#ListProductSeller .VariantId')[0].innerHTML;
+                          location.href='/@ViewData["culture"]/User/Product/Sellers/Add/@Model.ProductId?ReturnUrl=@Request.GetCurrentUrlEncoded()';
+                      }
         </text>
     }
 
     @if (User.IsInRole(Roles.CanDeleteProductSeller))
     {
         <text>
-                  function Remove(_Id)
-                  {
-                      RemoveData('/@ViewData["culture"]/User/Product/Sellers/List/@Model.ProductId?handler=Remove',{ProductSellerId:_Id, ProductId:'@Model.ProductId'});
-                  }
+                      function Remove(_Id)
+                      {
+                          RemoveData('/@ViewData["culture"]/User/Product/Sellers/List/@Model.ProductId?handler=Remove',{ProductSellerId:_Id, ProductId:'@Model.ProductId'});
+                      }
         </text>
     }
 
-     @if (User.IsInRole(Roles.CanChangeStatusProductSeller))
+    @if (User.IsInRole(Roles.CanChangeStatusProductSeller))
     {
         <text>
-                  function ChangeStatus(_Id)
-                  {
-                      AreYouSureData('/@ViewData["culture"]/User/Product/Sellers/List/@Model.ProductId?handler=ChangeStatus',{ProductSellerId:_Id, ProductId:'@Model.ProductId'});
-                  }
+                      function ChangeStatus(_Id)
+                      {
+                          AreYouSureData('/@ViewData["culture"]/User/Product/Sellers/List/@Model.ProductId?handler=ChangeStatus',{ProductSellerId:_Id, ProductId:'@Model.ProductId'});
+                      }
         </text>
     }
 </script>

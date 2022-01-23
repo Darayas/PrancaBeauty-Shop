@@ -1269,6 +1269,9 @@
   <data name="UserDeleted" xml:space="preserve">
     <value>کاربر با موفقیت حذف شد.</value>
   </data>
+  <data name="UserFullName" xml:space="preserve">
+    <value>نام کاربر</value>
+  </data>
   <data name="UserId" xml:space="preserve">
     <value>کاربر</value>
   </data>

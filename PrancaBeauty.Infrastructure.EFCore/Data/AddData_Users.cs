@@ -52,6 +52,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     ConcurrencyStamp = "37116a3b-0da5-460e-b266-d5243f62e5c8",
                     PhoneNumber = "09010112829",
                     PhoneNumberConfirmed = true,
+                    IsSeller = true
                 }, default, true).Wait();
 
 

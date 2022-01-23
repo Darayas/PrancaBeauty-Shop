@@ -59,7 +59,7 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Sellers
             return Page();
         }
 
-        public async Task<IActionResult> OnPostReadDataAsync([DataSourceRequest] DataSourceRequest request, string Text)
+        public async Task<IActionResult> OnPostReadDataAsync([DataSourceRequest] DataSourceRequest request, string Text,string LangId)
         {
             string UserId = User.GetUserDetails().UserId;
             if (User.IsInRole(Roles.CanViewListProductSellerListAllUser))
@@ -67,6 +67,7 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Sellers
 
             var qData = await _ProductSellersApplication.GetAllSellerForManageByProductIdAsync(new InpGetAllSellerForManageByProductId
             {
+                LangId= LangId,
                 FullName = Text,
                 Page = request.Page,
                 Take = request.PageSize,

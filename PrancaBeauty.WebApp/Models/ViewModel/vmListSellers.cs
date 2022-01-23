@@ -7,8 +7,11 @@ namespace PrancaBeauty.WebApp.Models.ViewModel
     {
         public string Id { get; set; }
 
-        [Display(Name = "SellerFullName")]
+        [Display(Name = "UserFullName")]
         public string FullName { get; set; }
+
+        [Display(Name = "SellerFullName")]
+        public string SellerName { get; set; }
 
         [Display(Name = "Date")]
         public string Date { get; set; }

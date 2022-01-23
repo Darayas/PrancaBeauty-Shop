@@ -95,7 +95,7 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Sellers
                 if (_UserId == null)
                     return _MsgBox.ModelStateMsg("IdNotFound");
 
-                string SellerId = await _ProductSellersApplication.GetSellerIdAsync(new InpGetSellerId { ProductId = Input.ProductId.ToString(), UserId = _UserId });
+                string SellerId = await _ProductSellersApplication.GetProductSellerIdAsync(new InpGetProductSellerId { ProductId = Input.ProductId.ToString(), UserId = _UserId });
                 if (SellerId == null)
                     return _MsgBox.ModelStateMsg("IdNotFound");
 

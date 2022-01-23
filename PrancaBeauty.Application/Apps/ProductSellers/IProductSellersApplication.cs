@@ -12,7 +12,7 @@ namespace PrancaBeauty.Application.Apps.ProductSellers
         Task<OperationResult> AddSellerWithVariantsToProdcutAsync(InpAddSellerWithVariantsToProdcut Input);
         Task<OperationResult> ChangeStatusProductSellerAsync(InpChangeStatusProductSeller Input);
         Task<(OutPagingData, List<vmGetAllSellerForManageByProductId>)> GetAllSellerForManageByProductIdAsync(InpGetAllSellerForManageByProductId Input);
-        Task<string> GetSellerIdAsync(InpGetSellerId Input);
+        Task<string> GetProductSellerIdAsync(InpGetProductSellerId Input);
         Task<string> GetUserIdByProductSellerIdAsync(InpGetUserIdByProductSellerId Input);
         Task<OperationResult> RemoveProductSellerAsync(InpRemoveProductSeller Input);
     }

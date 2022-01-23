@@ -20,9 +20,9 @@ namespace PrancaBeauty.Application.Contracts.Products
         [GUID]
         public string LangId { get; set; }
 
-        [Display(Name = "SellerUserId")]
+        [Display(Name = "SellerId")]
         [GUID]
-        public string SellerUserId { get; set; }
+        public string SellerId { get; set; }
 
         [Display(Name = "AuthorUserId")]
         [GUID]

@@ -15,6 +15,7 @@ using PrancaBeauty.Application.Apps.ProductPrices;
 using PrancaBeauty.Application.Apps.ProductPropertiesValues;
 using PrancaBeauty.Application.Apps.ProductSellers;
 using PrancaBeauty.Application.Apps.ProductVariantItems;
+using PrancaBeauty.Application.Apps.Seller;
 using PrancaBeauty.Application.Contracts.Currency;
 using PrancaBeauty.Application.Contracts.KeywordProducts;
 using PrancaBeauty.Application.Contracts.Languages;
@@ -26,6 +27,7 @@ using PrancaBeauty.Application.Contracts.Products;
 using PrancaBeauty.Application.Contracts.ProductSellers;
 using PrancaBeauty.Application.Contracts.ProductVariantItems;
 using PrancaBeauty.Application.Contracts.Results;
+using PrancaBeauty.Application.Contracts.Sellers;
 using PrancaBeauty.Domin.Product.ProductAgg.Contracts;
 using PrancaBeauty.Domin.Product.ProductAgg.Entities;
 using System;
@@ -51,8 +53,9 @@ namespace PrancaBeauty.Application.Apps.Products
         private readonly ILanguageApplication _LanguageApplication;
         private readonly IProductMediaApplication _ProductMediaApplication;
         private readonly IProductSellersApplication _ProductSellersApplication;
+        private readonly ISellerApplication _SellersApplication;
 
-        public ProductApplication(ILogger logger, ILocalizer localizer, IServiceProvider serviceProvider, IProductPriceApplication productPriceApplication, IProductRepository productRepository, ICategoryApplication categoryApplication, IProductVariantItemsApplication productVariantItemsApplication, IProductPropertiesValuesApplication productPropertiesValuesApplication, IKeywordProductsApplication keywordProductsApplication, IPostingRestrictionsApplication postingRestrictionsApplication, ICurrencyApplication currencyApplication, ILanguageApplication languageApplication, IProductMediaApplication productMediaApplication, IProductSellersApplication productSellersApplication)
+        public ProductApplication(ILogger logger, ILocalizer localizer, IServiceProvider serviceProvider, IProductPriceApplication productPriceApplication, IProductRepository productRepository, ICategoryApplication categoryApplication, IProductVariantItemsApplication productVariantItemsApplication, IProductPropertiesValuesApplication productPropertiesValuesApplication, IKeywordProductsApplication keywordProductsApplication, IPostingRestrictionsApplication postingRestrictionsApplication, ICurrencyApplication currencyApplication, ILanguageApplication languageApplication, IProductMediaApplication productMediaApplication, IProductSellersApplication productSellersApplication, ISellerApplication sellersApplication)
         {
             _Logger = logger;
             _Localizer = localizer;
@@ -68,6 +71,7 @@ namespace PrancaBeauty.Application.Apps.Products
             _LanguageApplication = languageApplication;
             _ProductMediaApplication = productMediaApplication;
             _ProductSellersApplication = productSellersApplication;
+            _SellersApplication = sellersApplication;
         }
 
         public async Task<(OutPagingData, List<OutGetProductsForManage>)> GetProductsForManageAsync(InpGetProductsForManage Input)
@@ -79,7 +83,7 @@ namespace PrancaBeauty.Application.Apps.Products
                 #endregion
 
                 var qData = _ProductRepository.Get
-                                              .Where(a => Input.SellerUserId != null ? a.tblProductSellers.Where(b => b.tblSellers.UserId == Guid.Parse(Input.SellerUserId)).Any() : true)
+                                              .Where(a => Input.SellerId != null ? a.tblProductSellers.Where(b => b.tblSellers.Id == Guid.Parse(Input.SellerId)).Any() : true)
                                               .Where(a => a.LangId == Guid.Parse(Input.LangId))
                                               .Select(a => new OutGetProductsForManage
                                               {
@@ -247,18 +251,18 @@ namespace PrancaBeauty.Application.Apps.Products
                 #endregion
 
                 #region ثبت فروشنده ی محصول
-                string _SellerId = null;
+                string _ProductSellerId = null;
                 {
                     var _Result = await _ProductSellersApplication.AddSellerToProdcutAsync(new InpAddSellerToProdcut
                     {
                         ProductId = ProductId,
-                        SellerId = Input.AuthorUserId,
+                        SellerId = await _SellersApplication.GetSellerIdByUserIdAsync(new InpGetSellerIdByUserId { UserId = Input.AuthorUserId }),
                         IsConfirm = true
                     });
 
                     if (_Result.IsSucceeded)
                     {
-                        _SellerId = _Result.Message;
+                        _ProductSellerId = _Result.Message;
                     }
                     else
                     {
@@ -274,7 +278,7 @@ namespace PrancaBeauty.Application.Apps.Products
                     var _Result = await _ProductVariantItemsApplication.AddVariantsToProductAsync(new InpAddVariantsToProduct
                     {
                         ProductId = ProductId,
-                        SellerId = _SellerId,
+                        ProductSellerId = _ProductSellerId,
                         VariantId = Input.VariantId,
                         Variants = Input.Variants.Select(a => new InpAddVariantsToProduct_Variants
                         {
@@ -746,21 +750,21 @@ namespace PrancaBeauty.Application.Apps.Products
                 #endregion
 
                 #region ثبت فروشنده ی محصول
-                string _SellerId = null;
+                string _ProductSellerId = null;
                 {
-                    _SellerId = await _ProductSellersApplication.GetSellerIdAsync(new InpGetSellerId { ProductId = qData.Id.ToString(), UserId = qData.AuthorUserId.ToString() });
-                    if (_SellerId == null)
+                    _ProductSellerId = await _ProductSellersApplication.GetSellerIdAsync(new InpGetSellerId { ProductId = qData.Id.ToString(), UserId = qData.AuthorUserId.ToString() });
+                    if (_ProductSellerId == null)
                     {
                         var _Result = await _ProductSellersApplication.AddSellerToProdcutAsync(new InpAddSellerToProdcut
                         {
                             ProductId = qData.Id.ToString(),
-                            SellerId = qData.AuthorUserId.ToString(),
+                            SellerId = await _SellersApplication.GetSellerIdByUserIdAsync(new InpGetSellerIdByUserId { UserId = qData.AuthorUserId.ToString() }),
                             IsConfirm = true
                         });
 
                         if (_Result.IsSucceeded)
                         {
-                            _SellerId = _Result.Message;
+                            _ProductSellerId = _Result.Message;
                         }
                         else
                         {
@@ -775,7 +779,7 @@ namespace PrancaBeauty.Application.Apps.Products
                     var _Result = await _ProductVariantItemsApplication.EditProductVariantsAsync(new InpEditProductVariants
                     {
                         ProductId = Input.Id,
-                        SellerId = _SellerId,
+                        ProductSellerId = _ProductSellerId,
                         VariantId = Input.VariantId,
                         Variants = Input.Variants.Select(a => new InpEditProductVariants_Variants
                         {

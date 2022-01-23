@@ -67,5 +67,30 @@ namespace PrancaBeauty.Application.Apps.Seller
                 return null;
             }
         }
+
+        public async Task<string> GetSellerIdByUserIdAsync(InpGetSellerIdByUserId Input)
+        {
+            try
+            {
+                #region Validation
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                return await _SellersRepository.Get
+                                               .Where(a => a.UserId == Guid.Parse(Input.UserId))
+                                               .Select(a => a.Id.ToString())
+                                               .SingleOrDefaultAsync();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
+            }
+        }
     }
 }

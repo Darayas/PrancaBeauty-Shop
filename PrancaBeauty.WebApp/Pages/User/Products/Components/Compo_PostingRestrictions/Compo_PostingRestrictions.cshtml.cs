@@ -38,6 +38,10 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Components.Compo_PostingRestri
 
                 Data = _Mapper.Map<List<vmCompo_PostingRestrictions>>(qData);
             }
+            else
+            {
+                Data = new List<vmCompo_PostingRestrictions>();
+            }
 
             return Page();
         }

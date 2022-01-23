@@ -99,7 +99,7 @@ namespace PrancaBeauty.Application.Apps.ProductSellers
                     var _Result = await _ProductVariantItemsApplication.AddVariantsToProductAsync(new InpAddVariantsToProduct
                     {
                         ProductId = Input.ProductId,
-                        SellerId = _SellerId,
+                        ProductSellerId = _SellerId,
                         VariantId = Input.VariantId,
                         Variants = Input.Variants.Select(a => new InpAddVariantsToProduct_Variants
                         {

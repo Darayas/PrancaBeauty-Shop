@@ -10,7 +10,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Products;
+using PrancaBeauty.Application.Apps.Seller;
 using PrancaBeauty.Application.Contracts.Products;
+using PrancaBeauty.Application.Contracts.Sellers;
 using PrancaBeauty.WebApp.Authentication;
 using PrancaBeauty.WebApp.Common.ExMethod;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
@@ -26,13 +28,15 @@ namespace PrancaBeauty.WebApp.Pages.User.Products
         private readonly IMsgBox _MsgBox;
         private readonly ILocalizer _Localizer;
         private readonly IProductApplication _ProductApplication;
+        private readonly ISellerApplication _SellerApplication;
 
-        public ListModel(IProductApplication productApplication, IMapper mapper, IMsgBox msgBox, ILocalizer localizer)
+        public ListModel(IProductApplication productApplication, IMapper mapper, IMsgBox msgBox, ILocalizer localizer, ISellerApplication sellerApplication)
         {
             _ProductApplication = productApplication;
             _Mapper = mapper;
             _MsgBox = msgBox;
             _Localizer = localizer;
+            _SellerApplication = sellerApplication;
         }
 
         public IActionResult OnGet(string LangId)
@@ -49,7 +53,7 @@ namespace PrancaBeauty.WebApp.Pages.User.Products
             {
                 if (!User.IsInRole(Roles.CanViewListAllSellerUserProducts))
                 {
-                    Input.SellerUserId = User.GetUserDetails().UserId;
+                    Input.SellerId = await _SellerApplication.GetSellerIdByUserIdAsync(new InpGetSellerIdByUserId { UserId = User.GetUserDetails().UserId });
                     Input.AuthorUserId = null;
                 }
                 else
@@ -66,7 +70,7 @@ namespace PrancaBeauty.WebApp.Pages.User.Products
                 Page = request.Page,
                 Take = request.PageSize,
                 LangId = Input.LangId,
-                SellerUserId = Input.SellerUserId,
+                SellerId = Input.SellerId,
                 AuthorUserId = Input.AuthorUserId,
                 Title = Input.Title,
                 Name = Input.Name,
@@ -138,7 +142,7 @@ namespace PrancaBeauty.WebApp.Pages.User.Products
             var _Result = await _ProductApplication.MoveToRecycleBinAsync(new InpMoveToRecycleBin() { ProductId = Id, AuthorUserId = _AuthorUserId });
             if (_Result.IsSucceeded)
             {
-                return _MsgBox.SuccessMsg(_Localizer[_Result.Message],"Search()");
+                return _MsgBox.SuccessMsg(_Localizer[_Result.Message], "Search()");
             }
             else
             {

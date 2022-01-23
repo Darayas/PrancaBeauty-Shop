@@ -52,7 +52,7 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
                         if (await CheckDuplicateForUserAsync(new InpCheckDuplicateForUser
                         {
                             ProductId = Input.ProductId,
-                            SellerId = Input.SellerId,
+                            ProductSellerId = Input.ProductSellerId,
                             VariantTitle = item.Title,
                             ProductVariantCode = item.ProductCode,
                             VariantValue = item.Value
@@ -80,7 +80,7 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
                         Id = new Guid().SequentialGuid(),
                         ProductVariantId = Guid.Parse(Input.VariantId),
                         ProductId = Guid.Parse(Input.ProductId),
-                        ProductSellerId = Guid.Parse(Input.SellerId),
+                        ProductSellerId = Guid.Parse(Input.ProductSellerId),
                         GuaranteeId = item.GuaranteeId != null ? Guid.Parse(item.GuaranteeId) : null,
                         Title = item.Title,
                         Value = item.Value,
@@ -266,7 +266,7 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
                     var _Result = await AddVariantsToProductAsync(new InpAddVariantsToProduct
                     {
                         ProductId = Input.ProductId,
-                        SellerId = Input.SellerId,
+                        ProductSellerId = Input.ProductSellerId,
                         VariantId = Input.VariantId,
                         Variants = qDataToAdd.Select(a => new InpAddVariantsToProduct_Variants
                         {
@@ -334,7 +334,7 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
         {
             var IsDuplicate = await _ProductVariantItemsRepository.Get
                                                                   .Where(a => a.ProductId == Guid.Parse(Input.ProductId))
-                                                                  .Where(a => a.ProductSellerId == Guid.Parse(Input.SellerId))
+                                                                  .Where(a => a.ProductSellerId == Guid.Parse(Input.ProductSellerId))
                                                                   .Where(a => a.ProductCode == Input.ProductVariantCode || a.Title == Input.VariantTitle || a.Value == Input.VariantValue)
                                                                   .AnyAsync();
 

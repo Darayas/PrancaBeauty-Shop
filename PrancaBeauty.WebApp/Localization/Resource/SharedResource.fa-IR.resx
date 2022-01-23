@@ -951,6 +951,9 @@
   <data name="Previous" xml:space="preserve">
     <value>قبلی</value>
   </data>
+  <data name="Price" xml:space="preserve">
+    <value>قیمت</value>
+  </data>
   <data name="ProdcutName is duplicate." xml:space="preserve">
     <value>نام محصول، ثبلا استفاده شده است. لطفا نام دیگری را انتخاب نمایید</value>
   </data>

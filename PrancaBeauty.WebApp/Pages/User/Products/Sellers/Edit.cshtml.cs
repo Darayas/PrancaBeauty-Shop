@@ -100,7 +100,7 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Sellers
                     return _MsgBox.ModelStateMsg("IdNotFound");
 
                 var _MappingData = _Mapper.Map<InpEditProductVariants>(Input);
-                _MappingData.SellerId = SellerId;
+                _MappingData.ProductSellerId = SellerId;
 
                 var _Result = await _ProductVariantItemsApplication.EditProductVariantsAsync(_MappingData);
 

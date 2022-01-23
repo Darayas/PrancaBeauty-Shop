@@ -98,8 +98,8 @@
                             if (!User.IsInRole(Roles.CanViewListAllSellerUserProducts))
                             {
                                 <div class="col-md-12">
-                                    <label asp-for="Input.SellerUserId"></label>
-                                    <input asp-for="Input.SellerUserId" type="text" id="txtSeller" class="form-control" placeholder="@Localizer["Seller"]" />
+                                    <label asp-for="Input.SellerId"></label>
+                                    <input asp-for="Input.SellerId" type="hidden" id="txtSeller" class="form-control" placeholder="@Localizer["Seller"]" />
                                 </div>
                             }
                         }
@@ -295,18 +295,18 @@
     @if (User.IsInRole(Roles.CanViewListAllAuthorUserProducts))
     {
         @Html.Raw("_Author = $('#Input_AuthorUserId').val();")
-        @Html.Raw("_Seller = $('#Input_SellerUserId').val();")
+        @Html.Raw("_Seller = $('#Input_SellerId').val();")
     }
     else
     {
         if (!User.IsInRole(Roles.CanViewListAllSellerUserProducts))
         {
-            @Html.Raw("_Seller = $('#Input_SellerUserId').val();")
+            @Html.Raw("_Seller = $('#Input_SellerId').val();")
         }
     }
 
         var _Grid = $('#ListProducts').data('kendoGrid');
-        _Grid.dataSource.transport.options.read.url = '/@CultureInfo.CurrentCulture.Parent.Name/User/Products/List?handler=ReadData&Input.LangId=' + _LangId + "&Input.Title=" + _Title + "&Input.Name=" + _Name + "&Input.AuthorUserId=" + _Author + "&Input.SellerUserId=" + _Seller + "&Input.IsDelete=" + _IsDelete + "&Input.IsConfirmed=" + _IsConfirmed + "&Input.IsDraft=" + _IsDraft + "&Input.IsSchedule=" + _IsSchedule;
+        _Grid.dataSource.transport.options.read.url = '/@CultureInfo.CurrentCulture.Parent.Name/User/Products/List?handler=ReadData&Input.LangId=' + _LangId + "&Input.Title=" + _Title + "&Input.Name=" + _Name + "&Input.AuthorUserId=" + _Author + "&Input.SellerId=" + _Seller + "&Input.IsDelete=" + _IsDelete + "&Input.IsConfirmed=" + _IsConfirmed + "&Input.IsDraft=" + _IsDraft + "&Input.IsSchedule=" + _IsSchedule;
         _Grid.dataSource.read();
         _Grid.refresh();
 

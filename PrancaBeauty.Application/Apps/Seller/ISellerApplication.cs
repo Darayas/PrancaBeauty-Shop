@@ -7,5 +7,6 @@ namespace PrancaBeauty.Application.Apps.Seller
     public interface ISellerApplication
     {
         Task<List<OutGetListSellerForCombo>> GetListSellerForComboAsync(InpGetListSellerForCombo Input);
+        Task<string> GetSellerIdByUserIdAsync(InpGetSellerIdByUserId Input);
     }
 }

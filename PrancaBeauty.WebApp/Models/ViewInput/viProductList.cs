@@ -11,8 +11,8 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
         [Display(Name = "LangId")]
         public string LangId { get; set; }
 
-        [Display(Name = "SellerUserId")]
-        public string SellerUserId { get; set; }
+        [Display(Name = "SellerId")]
+        public string SellerId { get; set; }
 
         [Display(Name = "AuthorUserId")]
         public string AuthorUserId { get; set; }

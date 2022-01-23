@@ -231,7 +231,7 @@ namespace PrancaBeauty.Application.Apps.ProductSellers
 
                 var qData = await _ProductSellersRepsoitory.Get
                                                            .Where(a => a.ProductId == Guid.Parse(Input.ProductId))
-                                                           .Where(a => a.UserId == Guid.Parse(Input.UserId))
+                                                           .Where(a => a.tblSellers.UserId == Guid.Parse(Input.UserId))
                                                            .Select(a => a.Id.ToString())
                                                            .SingleOrDefaultAsync();
 

@@ -66,6 +66,11 @@
                   <a onclick="ChangeStatus('#:Id#')" class='dropdown-item #=IsConfirm==true?"hide":""#'><i class="dropdown-icon fa fa-check"></i>@Localizer["Confirm"]</a>
                   <a onclick="ChangeStatus('#:Id#')" class='dropdown-item  #=IsConfirm==false?"hide":""#'><i class="dropdown-icon fa fa-ban"></i>@Localizer["Reject"]</a>
              }
+             
+             @if (User.IsInRole(Roles.CanViewDetailsProductSeller))
+             {
+                  <a href="/@ViewData["culture"]/User/Product/Sellers/Details/@Model.ProductId/#:Id#" class='dropdown-item'><i class="dropdown-icon fa fa-check"></i>@Localizer["Details"]</a>
+             }
             </div>
         </div>
     </script>

@@ -1,4 +1,5 @@
 ﻿using Framework.Domain;
+using PrancaBeauty.Domin.Product.ProductSellerAgg.Entities;
 using PrancaBeauty.Domin.Users.UserAgg.Entities;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ namespace PrancaBeauty.Domin.Users.SellerAgg.Entities
 
         public virtual tblUsers tblUsers { get; set; }
         public virtual ICollection<tblSeller_Translates> tblSeller_Translates { get; set; }
+        public virtual ICollection<tblProductSellers> tblProductSellers { get; set; }
 
     }
 }

@@ -357,6 +357,9 @@
   <data name="Description" xml:space="preserve">
     <value>توضیحات</value>
   </data>
+  <data name="Details" xml:space="preserve">
+    <value>جزئیات</value>
+  </data>
   <data name="Disable" xml:space="preserve">
     <value>غیرفعال</value>
   </data>
@@ -864,6 +867,9 @@
   <data name="Percent" xml:space="preserve">
     <value>درصد</value>
   </data>
+  <data name="PersoanlDetails" xml:space="preserve">
+    <value>اطلاعات شخصی</value>
+  </data>
   <data name="PhoneNumber" xml:space="preserve">
     <value>شماره موبایل</value>
   </data>
@@ -989,6 +995,9 @@
   </data>
   <data name="ProductTitle" xml:space="preserve">
     <value>عنوان محصول</value>
+  </data>
+  <data name="ProductVariantItemsFor" xml:space="preserve">
+    <value>تنوع محصولات برای :{0}</value>
   </data>
   <data name="ProductVariants" xml:space="preserve">
     <value>تنوع محصول</value>

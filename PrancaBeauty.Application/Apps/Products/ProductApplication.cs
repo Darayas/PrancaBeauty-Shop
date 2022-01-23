@@ -79,7 +79,7 @@ namespace PrancaBeauty.Application.Apps.Products
                 #endregion
 
                 var qData = _ProductRepository.Get
-                                              .Where(a => Input.SellerUserId != null ? a.tblProductSellers.Where(b => b.UserId == Guid.Parse(Input.SellerUserId)).Any() : true)
+                                              .Where(a => Input.SellerUserId != null ? a.tblProductSellers.Where(b => b.tblSellers.UserId == Guid.Parse(Input.SellerUserId)).Any() : true)
                                               .Where(a => a.LangId == Guid.Parse(Input.LangId))
                                               .Select(a => new OutGetProductsForManage
                                               {

@@ -1,0 +1,47 @@
+﻿@page "/{culture}/User/Product/Sellers/Details/{ProductId}/{ProductSellerId}"
+@model PrancaBeauty.WebApp.Pages.User.Products.Sellers.DetailsModel
+@{
+    ViewData["Title"] = Localizer["AddProductSeller"];
+    Layout = "~/Pages/Shared/_UserLayout.cshtml";
+}
+
+@section breadcrumbs{
+<div class="breadcrumbs_area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb_content">
+                    <ul>
+                        <li><a href="/@ViewData["Culture"]">@Localizer["Home"]</a></li>
+                        <li><a href="/@ViewData["Culture"]/User/Index">@Localizer["Dashboard"]</a></li>
+                        <li><a href="/@ViewData["Culture"]/User/Products/List">@Localizer["ProductList"]</a></li>
+                        <li><a href="/@ViewData["Culture"]/User/Product/Sellers/List/@Model.ProductId">@Localizer["ProductSellerList"]</a></li>
+                        <li>@Localizer["Details"]</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                @Localizer["PersoanlDetails"]
+            </div>
+            <div class="card-body"></div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                @Localizer["ProductVariantItemsFor",""]
+            </div>
+            <div class="card-body">
+
+            </div>
+        </div>
+    </div>
+</div>

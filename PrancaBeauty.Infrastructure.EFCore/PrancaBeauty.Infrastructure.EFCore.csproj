@@ -22,4 +22,10 @@
     <ProjectReference Include="..\PrancaBeauty.Infrastructure.EFCore.Identity\PrancaBeauty.Infrastructure.EFCore.Identity.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Data\AddData_FileServers.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

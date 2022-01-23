@@ -41,6 +41,7 @@ using PrancaBeauty.Application.Apps.ProductVariantItems;
 using PrancaBeauty.Application.Apps.ProductVariants;
 using PrancaBeauty.Application.Apps.Province;
 using PrancaBeauty.Application.Apps.Roles;
+using PrancaBeauty.Application.Apps.Seller;
 using PrancaBeauty.Application.Apps.Settings;
 using PrancaBeauty.Application.Apps.Templates;
 using PrancaBeauty.Application.Apps.Users;
@@ -225,6 +226,7 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddScoped<IFilePathApplication, FilePathApplication>();
             services.AddScoped<IGuaranteeApplications, GuaranteeApplications>();
             services.AddScoped<IPostingRestrictionsApplication, PostingRestrictionsApplication>();
+            services.AddScoped<ISellerApplication, SellerApplication>();
         }
     }
 }

@@ -18,6 +18,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Mapping.Sellers
             builder.HasKey(a => a.Id);
             builder.Property(a => a.Id).IsRequired().HasMaxLength(150);
             builder.Property(a => a.UserId).IsRequired().HasMaxLength(450);
+            builder.Property(a => a.LogoId).IsRequired(false).HasMaxLength(450);
             builder.Property(a => a.Name).IsRequired().HasMaxLength(200);
 
             builder.HasOne(a => a.tblUsers)
@@ -25,6 +26,12 @@ namespace PrancaBeauty.Infrastructure.EFCore.Mapping.Sellers
                 .HasPrincipalKey<tblUsers>(a => a.Id)
                 .HasForeignKey<tblSellers>(a => a.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasOne(a => a.tblFiles)
+               .WithMany(a => a.tblSellers)
+               .HasPrincipalKey(a => a.Id)
+               .HasForeignKey(a => a.LogoId)
+               .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

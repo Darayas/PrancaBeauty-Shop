@@ -89,11 +89,38 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Sellers
 
         public async Task<IActionResult> OnPostRemoveAsync(viListSellerRemove Input)
         {
+            if(!User.IsInRole(Roles.CanDeleteProductSeller))
+                return _MsgBox.FaildMsg(_Localizer["Error500"], "RefreshData()");
+
             #region Validations
             Input.CheckModelState(_ServiceProvider);
             #endregion
 
             var _Result = await _ProductSellersApplication.RemoveProductSellerAsync(new InpRemoveProductSeller
+            {
+                ProductId = Input.ProductId,
+                ProductSellerId = Input.ProductSellerId
+            });
+            if (_Result.IsSucceeded)
+            {
+                return _MsgBox.SuccessMsg(_Localizer[_Result.Message], "RefreshData()");
+            }
+            else
+            {
+                return _MsgBox.FaildMsg(_Localizer[_Result.Message]);
+            }
+        }
+
+        public async Task<IActionResult> OnPostChangeStatusAsync(viListSellerChangeStatus Input)
+        {
+            if (!User.IsInRole(Roles.CanChangeStatusProductSeller))
+                return _MsgBox.FaildMsg(_Localizer["Error500"], "RefreshData()");
+
+            #region Validations
+            Input.CheckModelState(_ServiceProvider);
+            #endregion
+
+            var _Result = await _ProductSellersApplication.ChangeStatusProductSellerAsync(new InpChangeStatusProductSeller
             {
                 ProductId = Input.ProductId,
                 ProductSellerId = Input.ProductSellerId

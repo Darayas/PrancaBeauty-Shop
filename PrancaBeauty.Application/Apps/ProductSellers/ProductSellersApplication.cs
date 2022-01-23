@@ -181,6 +181,46 @@ namespace PrancaBeauty.Application.Apps.ProductSellers
             }
         }
 
+        public async Task<OperationResult> ChangeStatusProductSellerAsync(InpChangeStatusProductSeller Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                #region تغییر وضعیت فروشنده ی محصول
+                {
+                    var qProductSeller = await _ProductSellersRepsoitory.Get
+                                                                        .Where(a => a.Id == Guid.Parse(Input.ProductSellerId))
+                                                                        .SingleOrDefaultAsync();
+                    if (qProductSeller == null)
+                        return new OperationResult().Failed("ProductSellerIdNotFound");
+
+                    if (qProductSeller.IsConfirm)
+                        qProductSeller.IsConfirm = false;
+                    else
+                        qProductSeller.IsConfirm = true;
+
+                    await _ProductSellersRepsoitory.UpdateAsync(qProductSeller, default, true);
+
+                }
+                #endregion
+
+                return new OperationResult().Succeeded();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
+
         public async Task<string> GetSellerIdAsync(InpGetSellerId Input)
         {
             try
@@ -228,7 +268,8 @@ namespace PrancaBeauty.Application.Apps.ProductSellers
                                                          Id = a.Id.ToString(),
                                                          FullName = a.tblUsers.FirstName + " " + a.tblUsers.LastName,
                                                          Date = a.Date,
-                                                         IsConfirm = a.IsConfirm
+                                                         IsConfirm = a.IsConfirm,
+                                                         HasUnConfermVariants = !a.tblProductVariantItems.Any(b => b.IsConfirm == false)
                                                      });
 
                 #region شرط

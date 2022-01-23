@@ -195,6 +195,9 @@
   <data name="AreYouSure" xml:space="preserve">
     <value>ایا مطمعن هستید؟</value>
   </data>
+  <data name="AreYouSureToDelete" xml:space="preserve">
+    <value>آیا مطمعن به حذف هستید؟</value>
+  </data>
   <data name="Author" xml:space="preserve">
     <value>نویسنده</value>
   </data>
@@ -278,6 +281,9 @@
   </data>
   <data name="ConcurrencyFailure" xml:space="preserve">
     <value>رکورد جاری پیشتر ویرایش شده‌است و تغییرات شما آن‌را بازنویسی خواهد کرد</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>تایید کردن</value>
   </data>
   <data name="ConfirmAccountDes" xml:space="preserve">
     <value>وضعیت ایمیل (نزولی)</value>
@@ -509,6 +515,9 @@
   </data>
   <data name="GUIDMsg" xml:space="preserve">
     <value>مقدار ارسال شده در {0} باید از نوع GUID باشد.</value>
+  </data>
+  <data name="HasUnConfermVariants" xml:space="preserve">
+    <value>تنوع تایید نشده</value>
   </data>
   <data name="HeaderStatusPaused" xml:space="preserve">
     <value>توقف آپلود</value>
@@ -1043,6 +1052,9 @@
   </data>
   <data name="ReisterDescription" xml:space="preserve">
     <value>توضیحات &lt;b&gt;ثبت نام&lt;/b&gt;</value>
+  </data>
+  <data name="Reject" xml:space="preserve">
+    <value>رد کردن</value>
   </data>
   <data name="RemmeberMe" xml:space="preserve">
     <value>مرا بخاطر بسپار</value>

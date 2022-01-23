@@ -12,5 +12,6 @@ namespace PrancaBeauty.Application.Contracts.ProductSellers
         public string FullName { get; set; }
         public DateTime Date { get; set; }
         public bool IsConfirm  { get; set; }
+        public bool HasUnConfermVariants { get; set; }
     }
 }

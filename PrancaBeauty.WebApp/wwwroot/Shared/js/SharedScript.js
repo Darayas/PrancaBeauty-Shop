@@ -103,6 +103,12 @@ function RemoveData(_Url, _Data = {}) {
     });
 }
 
+function AreYouSureData(_Url, _Data = {}) {
+    confirm(AreYouSureMsg, '', function () {
+        SendData(_Url, _Data);
+    });
+}
+
 function RefreshGrid(_GridId) {
     var _Grid = $('#' + _GridId).data('kendoGrid');
     _Grid.dataSource.read();

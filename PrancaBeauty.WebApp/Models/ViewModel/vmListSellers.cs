@@ -16,5 +16,7 @@ namespace PrancaBeauty.WebApp.Models.ViewModel
         [Display(Name = "IsConfirmed")]
         public bool IsConfirm { get; set; }
 
+        [Display(Name = "HasUnConfermVariants")]
+        public bool HasUnConfermVariants { get; set; }
     }
 }

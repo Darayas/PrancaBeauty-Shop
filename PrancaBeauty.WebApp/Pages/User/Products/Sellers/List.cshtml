@@ -36,6 +36,7 @@
             col.Bound(a=>a.FullName);
             col.Bound(a => a.Date).Width(90).HtmlAttributes(new { @class = "text-left" }).Sortable(false);
             col.Bound(a => a.IsConfirm).HtmlAttributes(new {style = "text-align:center;" }).ClientTemplate("<img style='width:32px' src='/Shared/img/#=IsConfirm#.png'/>").Width(50).Sortable(false);
+            col.Bound(a => a.HasUnConfermVariants).HtmlAttributes(new {style = "text-align:center;" }).ClientTemplate("<img style='width:32px' src='/Shared/img/#=HasUnConfermVariants#.png'/>").Width(50).Sortable(false);
             col.Bound(a => a).Width(50).Title(" ")
             .HtmlAttributes(new { style= "overflow: visible; text-align: center;" })
             .ClientHeaderTemplate((User.IsInRole(Roles.CanAddProductSeller)? "<button class='btn btn-success btn-sm' onclick='Add()'><i class='fa fa-plus'></i></button>" : "") + $"<button class='btn btn-primary btn-sm ml-1 mr-1' onclick='GotoBack()'><i class='fa fa-undo'></i></button>")
@@ -62,7 +63,8 @@
 
              @if (User.IsInRole(Roles.CanChangeStatusProductSeller))
              {
-                  <a onclick="ChangeStatus('#:Id#')" class="dropdown-item"><i class="dropdown-icon fa fa-times"></i>@Localizer["Remove"]</a>
+                  <a onclick="ChangeStatus('#:Id#')" class='dropdown-item #=IsConfirm==true?"hide":""#'><i class="dropdown-icon fa fa-check"></i>@Localizer["Confirm"]</a>
+                  <a onclick="ChangeStatus('#:Id#')" class='dropdown-item  #=IsConfirm==false?"hide":""#'><i class="dropdown-icon fa fa-ban"></i>@Localizer["Reject"]</a>
              }
             </div>
         </div>
@@ -99,6 +101,16 @@
                   function Remove(_Id)
                   {
                       RemoveData('/@ViewData["culture"]/User/Product/Sellers/List/@Model.ProductId?handler=Remove',{ProductSellerId:_Id, ProductId:'@Model.ProductId'});
+                  }
+        </text>
+    }
+
+     @if (User.IsInRole(Roles.CanChangeStatusProductSeller))
+    {
+        <text>
+                  function ChangeStatus(_Id)
+                  {
+                      AreYouSureData('/@ViewData["culture"]/User/Product/Sellers/List/@Model.ProductId?handler=ChangeStatus',{ProductSellerId:_Id, ProductId:'@Model.ProductId'});
                   }
         </text>
     }

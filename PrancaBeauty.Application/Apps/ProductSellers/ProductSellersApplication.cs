@@ -9,6 +9,7 @@ using PrancaBeauty.Application.Contracts.ProductVariantItems;
 using PrancaBeauty.Application.Contracts.Results;
 using PrancaBeauty.Domin.Product.ProductSellerAgg.Contracts;
 using PrancaBeauty.Domin.Product.ProductSellerAgg.Entities;
+using PrancaBeauty.Domin.Users.SellerAgg.Entities;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -44,7 +45,7 @@ namespace PrancaBeauty.Application.Apps.ProductSellers
                 var tProductSeller = new tblProductSellers
                 {
                     Id = new Guid().SequentialGuid(),
-                    UserId = Guid.Parse(Input.UserId),
+                    SellerId = Guid.Parse(Input.SellerId),
                     ProductId = Guid.Parse(Input.ProductId),
                     IsConfirm = Input.IsConfirm,
                     Date = DateTime.Now
@@ -83,7 +84,7 @@ namespace PrancaBeauty.Application.Apps.ProductSellers
                     {
                         var _Result = await AddSellerToProdcutAsync(new InpAddSellerToProdcut
                         {
-                            UserId = Input.UserId,
+                            SellerId = Input.UserId,
                             ProductId = Input.ProductId,
                             IsConfirm = false
                         });
@@ -262,11 +263,11 @@ namespace PrancaBeauty.Application.Apps.ProductSellers
 
                 var qData = _ProductSellersRepsoitory.Get
                                                      .Where(a => a.ProductId == Guid.Parse(Input.ProductId))
-                                                     .Where(a => Input.UserId != null ? a.UserId == Guid.Parse(Input.UserId) : true)
+                                                     .Where(a => Input.UserId != null ? a.tblSellers.UserId == Guid.Parse(Input.UserId) : true)
                                                      .Select(a => new vmGetAllSellerForManageByProductId
                                                      {
                                                          Id = a.Id.ToString(),
-                                                         FullName = a.tblUsers.FirstName + " " + a.tblUsers.LastName,
+                                                         FullName = a.tblSellers.tblUsers.FirstName + " " + a.tblSellers.tblUsers.LastName,
                                                          Date = a.Date,
                                                          IsConfirm = a.IsConfirm,
                                                          HasUnConfermVariants = !a.tblProductVariantItems.Any(b => b.IsConfirm == false)
@@ -313,7 +314,7 @@ namespace PrancaBeauty.Application.Apps.ProductSellers
 
                 var qData = await _ProductSellersRepsoitory.Get
                                                     .Where(a => a.Id == Guid.Parse(Input.ProductSellerId))
-                                                    .Select(a => a.UserId.ToString())
+                                                    .Select(a => a.tblSellers.UserId.ToString())
                                                     .SingleOrDefaultAsync();
 
                 if (qData == null)

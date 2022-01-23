@@ -252,7 +252,7 @@ namespace PrancaBeauty.Application.Apps.Products
                     var _Result = await _ProductSellersApplication.AddSellerToProdcutAsync(new InpAddSellerToProdcut
                     {
                         ProductId = ProductId,
-                        UserId = Input.AuthorUserId,
+                        SellerId = Input.AuthorUserId,
                         IsConfirm = true
                     });
 
@@ -754,7 +754,7 @@ namespace PrancaBeauty.Application.Apps.Products
                         var _Result = await _ProductSellersApplication.AddSellerToProdcutAsync(new InpAddSellerToProdcut
                         {
                             ProductId = qData.Id.ToString(),
-                            UserId = qData.AuthorUserId.ToString(),
+                            SellerId = qData.AuthorUserId.ToString(),
                             IsConfirm = true
                         });
 

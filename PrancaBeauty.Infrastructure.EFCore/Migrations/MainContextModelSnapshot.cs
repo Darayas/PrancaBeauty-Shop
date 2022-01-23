@@ -971,15 +971,15 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("UserId")
-                        .HasMaxLength(450)
+                    b.Property<Guid>("SellerId")
+                        .HasMaxLength(150)
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ProductId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("SellerId");
 
                     b.ToTable("tblProductSellers");
                 });
@@ -2350,15 +2350,15 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PrancaBeauty.Domin.Users.UserAgg.Entities.tblUsers", "tblUsers")
+                    b.HasOne("PrancaBeauty.Domin.Users.SellerAgg.Entities.tblSellers", "tblSellers")
                         .WithMany("tblProductSellers")
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("SellerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("tblProducts");
 
-                    b.Navigation("tblUsers");
+                    b.Navigation("tblSellers");
                 });
 
             modelBuilder.Entity("PrancaBeauty.Domin.Product.ProductTopicAgg.Entities.tblProductTopic", b =>
@@ -2939,6 +2939,8 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
 
             modelBuilder.Entity("PrancaBeauty.Domin.Users.SellerAgg.Entities.tblSellers", b =>
                 {
+                    b.Navigation("tblProductSellers");
+
                     b.Navigation("tblSeller_Translates");
                 });
 
@@ -2957,8 +2959,6 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                     b.Navigation("tblProductReviews");
 
                     b.Navigation("tblProductReviewsLikes");
-
-                    b.Navigation("tblProductSellers");
 
                     b.Navigation("tblProducts");
 

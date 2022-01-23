@@ -9,6 +9,7 @@ using PrancaBeauty.Application.Contracts.ProductProperties;
 using PrancaBeauty.Application.Contracts.Products;
 using PrancaBeauty.Application.Contracts.ProductSellers;
 using PrancaBeauty.Application.Contracts.ProductVariantItems;
+using PrancaBeauty.Application.Contracts.Sellers;
 using PrancaBeauty.Application.Contracts.Users;
 using PrancaBeauty.WebApp.Models.ViewInput;
 using PrancaBeauty.WebApp.Models.ViewModel;
@@ -80,6 +81,7 @@ namespace PrancaBeauty.WebApp.Mapping
 
             CreateMap<viEditProductSeller, InpEditProductVariants>();
             CreateMap<viEditProductSeller_Items, InpEditProductVariants_Variants>();
+            CreateMap<OutGetListSellerForCombo, vmCompo_Combo_Sellers>();
 
         }
     }

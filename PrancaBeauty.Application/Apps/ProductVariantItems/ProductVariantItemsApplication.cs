@@ -181,7 +181,7 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
 
                 var qData = await _ProductVariantItemsRepository.Get
                                                                .Where(a => a.ProductId == Guid.Parse(Input.ProductId))
-                                                               .Where(a => a.tblProductSellers.UserId == Guid.Parse(Input.AuthorUserId))
+                                                               .Where(a => a.tblProductSellers.tblSellers.UserId == Guid.Parse(Input.AuthorUserId))
                                                                .Select(a => new OutGetAllVariantsByProductId
                                                                {
                                                                    Id = a.Id.ToString(),

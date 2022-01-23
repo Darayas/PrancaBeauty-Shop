@@ -32,7 +32,7 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.Compo_Sellers
         public async Task<IActionResult> OnGetReadAsync(string _LangId, string Text)
         {
             var qData = await _SellerApplication.GetListSellerForComboAsync(new InpGetListSellerForCombo { LangId = _LangId, SellerTitle = Text });
-            var Data = _Mapper.Map<List<vmCompo_Combo_Users>>(qData);
+            var Data = _Mapper.Map<List<vmCompo_Combo_Sellers>>(qData);
             return new JsonResult(Data);
         }
 

@@ -12,10 +12,10 @@ namespace PrancaBeauty.Application.Contracts.ProductSellers
 {
     public class InpAddSellerToProdcut
     {
-        [Display(Name = "UserId")]
+        [Display(Name = "SellerId")]
         [RequiredString]
         [GUID]
-        public string UserId { get; set; }
+        public string SellerId { get; set; }
 
         [Display(Name = "ProductId")]
         [RequiredString]

@@ -40,10 +40,15 @@ namespace PrancaBeauty.Application.Apps.Seller
                                                         Id = a.Id.ToString(),
                                                         Name = a.Name,
                                                         Title = a.tblSeller_Translates.Where(b => b.LangId == Guid.Parse(Input.LangId)).Select(b => b.Title).Single(),
-                                                        LogoUrl = a.LogoId != null ? (a.tblFiles.tblFilePaths.tblFileServer.HttpDomin
-                                                                                        + a.tblFiles.tblFilePaths.tblFileServer.HttpPath
-                                                                                        + a.tblFiles.tblFilePaths.Path
-                                                                                        + a.tblFiles.FileName)
+                                                        LogoUrl = a.tblSeller_Translates.Where(a => a.LangId == Guid.Parse(Input.LangId)).Select(a => a.LogoId) != null ?
+                                                                                            (a.tblSeller_Translates.Where(a => a.LangId == Guid.Parse(Input.LangId))
+                                                                                                                   .Select(a => new
+                                                                                                                   {
+                                                                                                                       Url = a.tblFiles.tblFilePaths.tblFileServer.HttpDomin
+                                                                                                                             + a.tblFiles.tblFilePaths.tblFileServer.HttpPath
+                                                                                                                             + a.tblFiles.tblFilePaths.Path
+                                                                                                                             + a.tblFiles.FileName
+                                                                                                                   })).Single().Url
                                                                                     : PublicConst.DefaultSellerLogoImg
                                                     })
                                                     .Where(a => Input.SellerTitle != null ? (a.Name.Contains(Input.SellerTitle)) || (a.Title.Contains(Input.SellerTitle)) : true)

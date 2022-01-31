@@ -46,10 +46,8 @@
     <link href="~/lib/sweetalert/sweetalert.min.css" rel="stylesheet" />
 
     <!-- KendoUI CSS -->
-    <link href="~/lib/KendoUI/css/kendo.common-bootstrap.min.css" rel="stylesheet" />
-    <link href="~/lib/KendoUI/css/kendo.bootstrap.min.css" rel="stylesheet" />
-    <link href="~/lib/KendoUI/css/kendo.rtl.min.css" rel="stylesheet" />
-    <link href="~/lib/KendoUI/css/kendo.theme.min.css" rel="stylesheet" />
+    @*<link href="~/lib/KendoUI/css/kendo.bootstrap-main.min.css" rel="stylesheet" type="text/css" />*@
+    <link href="~/lib/KendoUI/css/Theme/prancabeauty-Kendo-Theme.css" rel="stylesheet" type="text/css" />
 
     @RenderSection("styles", false)
 }
@@ -67,7 +65,7 @@
 
 @section KendoScripts{
     <!-- KenoUI Js -->
-    <script src="~/lib/KendoUI/js/jszip.min.js"></script>
-    <script src="~/lib/KendoUI/js/kendo.all.min.js"></script>
-    <script src="~/lib/KendoUI/js/kendo.aspnetmvc.min.js"></script>
+	<script src="https://cdn.kendostatic.com/2022.1.119/js/jszip.min.js"></script>
+	<script src="https://cdn.kendostatic.com/2022.1.119/js/kendo.all.min.js"></script>
+	<script src="https://cdn.kendostatic.com/2022.1.119/js/kendo.aspnetmvc.min.js"></script>
 }

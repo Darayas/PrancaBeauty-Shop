@@ -2,6 +2,7 @@
 
 using AutoMapper;
 using Framework.Common.ExMethods;
+using Framework.Exceptions;
 using Framework.Infrastructure;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
@@ -50,16 +51,33 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Sellers
 
         public async Task<IActionResult> OnGetAsync(viGetListSellers Input, string ReturnUrl = null)
         {
-            Input.CheckModelState(_ServiceProvider);
+            try
+            {
+                Input.CheckModelState(_ServiceProvider);
 
-            ProductId = Input.ProductId;
-            ProductTitle = await _ProductApplication.GetTitleByIdAsync(new InpGetTitleById { ProductId = Input.ProductId });
-            ViewData["ReturnUrl"] = ReturnUrl ?? $"/{CultureInfo.CurrentCulture.Parent.Name}/User/Products/List";
+                #region Get product title
+                {
+                    var qSummary = await _ProductApplication.GetSummaryByIdAsync(new InpGetSummaryById { ProductId = Input.ProductId });
+                    if (qSummary == null)
+                        throw new ArgumentInvalidException("ProductId is invalid");
 
-            return Page();
+                    ProductTitle = qSummary.Title;
+                }
+                #endregion
+
+                ProductId = Input.ProductId;
+
+                ViewData["ReturnUrl"] = ReturnUrl ?? $"/{CultureInfo.CurrentCulture.Parent.Name}/User/Products/List";
+
+                return Page();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                return StatusCode(400);
+            }
         }
 
-        public async Task<IActionResult> OnPostReadDataAsync([DataSourceRequest] DataSourceRequest request, string Text,string LangId)
+        public async Task<IActionResult> OnPostReadDataAsync([DataSourceRequest] DataSourceRequest request, string Text, string LangId)
         {
             string UserId = User.GetUserDetails().UserId;
             if (User.IsInRole(Roles.CanViewListProductSellerListAllUser))
@@ -67,7 +85,7 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Sellers
 
             var qData = await _ProductSellersApplication.GetAllSellerForManageByProductIdAsync(new InpGetAllSellerForManageByProductId
             {
-                LangId= LangId,
+                LangId = LangId,
                 FullName = Text,
                 Page = request.Page,
                 Take = request.PageSize,
@@ -90,7 +108,7 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Sellers
 
         public async Task<IActionResult> OnPostRemoveAsync(viListSellerRemove Input)
         {
-            if(!User.IsInRole(Roles.CanDeleteProductSeller))
+            if (!User.IsInRole(Roles.CanDeleteProductSeller))
                 return _MsgBox.FaildMsg(_Localizer["Error500"], "RefreshData()");
 
             #region Validations

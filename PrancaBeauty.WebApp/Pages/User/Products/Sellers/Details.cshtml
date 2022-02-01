@@ -15,7 +15,7 @@
                         <li><a href="/@ViewData["Culture"]">@Localizer["Home"]</a></li>
                         <li><a href="/@ViewData["Culture"]/User/Index">@Localizer["Dashboard"]</a></li>
                         <li><a href="/@ViewData["Culture"]/User/Products/List">@Localizer["ProductList"]</a></li>
-                        <li><a href="/@ViewData["Culture"]/User/Product/Sellers/List/@Model.ProductId">@Localizer["ProductSellerList"]</a></li>
+                        <li><a href="/@ViewData["Culture"]/User/Product/Sellers/List/@Model.ProductId">@Localizer["ProductSellerList",Model.Data.ProductTitle]</a></li>
                         <li>@Localizer["Details"]</li>
                     </ul>
                 </div>
@@ -31,16 +31,48 @@
             <div class="card-header">
                 @Localizer["PersoanlDetails"]
             </div>
-            <div class="card-body"></div>
+            <div class="card-body">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-12"><label class="form-labael">@Html.DisplayNameFor(a=>a.Data.FulUserName):</label></div>
+                        <div class="col-md-12">
+                            @Html.DisplayFor(a=>a.Data.FulUserName)
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-12"><label class="form-labael">@Html.DisplayNameFor(a=>a.Data.SellerTitle):</label></div>
+                        <div class="col-md-12">
+                            @Html.DisplayFor(a=>a.Data.SellerTitle)
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-12"><label class="form-labael">@Html.DisplayNameFor(a=>a.Data.DateTime):</label></div>
+                        <div class="col-md-12">
+                            @Html.DisplayFor(a=>a.Data.DateTime)
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-12"><label class="form-labael">@Html.DisplayNameFor(a=>a.Data.IsSellerConfimed):</label></div>
+                        <div class="col-md-12">
+                            <img src="~/Shared/img/@(Model.Data.IsSellerConfimed).png" width="28" height="28" />
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="col-md-8">
         <div class="card">
             <div class="card-header">
-                @Localizer["ProductVariantItemsFor",""]
+                @Localizer["ProductVariantItemsFor",Model.Data.ProductTitle]
             </div>
             <div class="card-body">
-
             </div>
         </div>
     </div>

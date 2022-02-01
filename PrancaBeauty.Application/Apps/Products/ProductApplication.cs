@@ -847,7 +847,7 @@ namespace PrancaBeauty.Application.Apps.Products
             }
         }
 
-        public async Task<string> GetTitleByIdAsync(InpGetTitleById Input)
+        public async Task<OutGetSummaryById> GetSummaryByIdAsync(InpGetSummaryById Input)
         {
             try
             {
@@ -857,7 +857,12 @@ namespace PrancaBeauty.Application.Apps.Products
 
                 return await _ProductRepository.Get
                                                .Where(a => a.Id == Guid.Parse(Input.ProductId))
-                                               .Select(a => a.Title)
+                                               .Select(a => new OutGetSummaryById
+                                               {
+                                                   Id = a.Id.ToString(),
+                                                   Name = a.Name,
+                                                   Title = a.Title
+                                               })
                                                .SingleOrDefaultAsync();
 
             }

@@ -5,8 +5,10 @@ using Framework.Infrastructure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using PrancaBeauty.Application.Apps.Products;
 using PrancaBeauty.Application.Apps.ProductSellers;
 using PrancaBeauty.Application.Apps.Seller;
+using PrancaBeauty.Application.Contracts.Products;
 using PrancaBeauty.Application.Contracts.ProductSellers;
 using PrancaBeauty.Application.Contracts.Sellers;
 using PrancaBeauty.WebApp.Authentication;
@@ -27,8 +29,9 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Sellers
         private readonly ILocalizer _Localizer;
         private readonly IServiceProvider _ServiceProvider;
         private readonly ISellerApplication _SellersApplication;
+        private readonly IProductApplication _ProductApplication;
         private readonly IProductSellersApplication _ProductSellersApplication;
-        public DetailsModel(IMsgBox msgBox, IServiceProvider serviceProvider, IProductSellersApplication productSellersApplication, ISellerApplication sellersApplication, ILocalizer localizer, IMapper mapper)
+        public DetailsModel(IMsgBox msgBox, IServiceProvider serviceProvider, IProductSellersApplication productSellersApplication, ISellerApplication sellersApplication, ILocalizer localizer, IMapper mapper, IProductApplication productApplication)
         {
             _MsgBox = msgBox;
             _ServiceProvider = serviceProvider;
@@ -36,6 +39,7 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Sellers
             _SellersApplication = sellersApplication;
             _Localizer = localizer;
             _Mapper = mapper;
+            _ProductApplication = productApplication;
         }
 
         public async Task<IActionResult> OnGetAsync(viGetProductSellerDetails Input, string LangId)
@@ -51,7 +55,7 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Sellers
                 {
                     _SellerId = await _ProductSellersApplication.GetSellerIdByProductSellerIdAsync(new InpGetSellerIdByProductSellerId { ProductSellerId = Input.ProductSellerId });
                     if (_SellerId == null)
-                        return _MsgBox.FaildMsg(_Localizer["Error500"], "ReloadPage()");
+                        throw new ArgumentInvalidException("ProductSellerId is invalid");
                 }
                 #endregion
 
@@ -63,6 +67,17 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Sellers
                 #endregion
 
                 Data = _Mapper.Map<vmProductSellerDetails>(qSallerSummay);
+
+                #region Get product summary
+                {
+                    var qSummary = await _ProductApplication.GetSummaryByIdAsync(new InpGetSummaryById { ProductId = Input.ProductId });
+                    if (qSummary == null)
+                        throw new ArgumentInvalidException("ProductId is invalid");
+
+                    Data.ProductName = qSummary.Name;
+                    Data.ProductTitle = qSummary.Title;
+                }
+                #endregion
 
                 return Page();
             }

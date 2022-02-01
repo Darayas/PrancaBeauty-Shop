@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Contracts.Products
 {
-    public class InpGetTitleById
+    public class InpGetSummaryById
     {
         [Display]
         [RequiredString]

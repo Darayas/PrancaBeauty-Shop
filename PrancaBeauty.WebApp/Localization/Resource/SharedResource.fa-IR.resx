@@ -504,6 +504,9 @@
   <data name="FullName" xml:space="preserve">
     <value>نام کاربر</value>
   </data>
+  <data name="FulUserName" xml:space="preserve">
+    <value>نام کاربر</value>
+  </data>
   <data name="GotoBack" xml:space="preserve">
     <value> بازگشت</value>
   </data>
@@ -626,6 +629,9 @@
   </data>
   <data name="IsSchedule" xml:space="preserve">
     <value>زمانبندی شده</value>
+  </data>
+  <data name="IsSellerConfimed" xml:space="preserve">
+    <value>وضعیت تایید فروشنده</value>
   </data>
   <data name="ItemsPerPage" xml:space="preserve">
     <value>مورد بر صفحه</value>
@@ -1053,6 +1059,9 @@
   <data name="RegDate" xml:space="preserve">
     <value>تاریخ ثبت نام</value>
   </data>
+  <data name="RegDateTime" xml:space="preserve">
+    <value>تاریخ ثبت نام</value>
+  </data>
   <data name="Register" xml:space="preserve">
     <value>ثبت نام</value>
   </data>
@@ -1136,6 +1145,12 @@
   </data>
   <data name="SellerId" xml:space="preserve">
     <value>فروشنده</value>
+  </data>
+  <data name="SellerLogoUrl" xml:space="preserve">
+    <value>لگو فروشنده</value>
+  </data>
+  <data name="SellerTitle" xml:space="preserve">
+    <value>نام فروشندگی کاربر</value>
   </data>
   <data name="SellerUserId" xml:space="preserve">
     <value>فروشنده</value>

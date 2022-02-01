@@ -82,7 +82,8 @@ namespace PrancaBeauty.WebApp.Mapping
             CreateMap<viEditProductSeller, InpEditProductVariants>();
             CreateMap<viEditProductSeller_Items, InpEditProductVariants_Variants>();
             CreateMap<OutGetListSellerForCombo, vmCompo_Combo_Sellers>();
-            CreateMap<OutGetSummaryBySellerId, vmProductSellerDetails>();
+            CreateMap<OutGetSummaryBySellerId, vmProductSellerDetails>().ForMember(x => x.DateTime,
+                                                                                                    opt => opt.MapFrom(src => ((DateTime)src.DateTime).ToString("yyyy-MM-dd")));
 
         }
     }

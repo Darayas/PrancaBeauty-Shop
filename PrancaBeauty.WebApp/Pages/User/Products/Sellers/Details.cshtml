@@ -25,79 +25,161 @@
 </div>
 }
 
-<div class="row">
-    <div class="col-md-4">
-        <div class="card">
-            <div class="card-header">
-                @Localizer["PersoanlDetails"]
-            </div>
-            <div class="card-body">
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-md-12"><label class="form-labael">@Html.DisplayNameFor(a=>a.Data.FulUserName):</label></div>
-                        <div class="col-md-12">
-                            @Html.DisplayFor(a=>a.Data.FulUserName)
+<div class="form-group">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    @Localizer["PersoanlDetails"]
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12"><label class="form-labael">@Html.DisplayNameFor(a=>a.Data.FulUserName):</label></div>
+                            <div class="col-md-12">
+                                @Html.DisplayFor(a=>a.Data.FulUserName)
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-md-12"><label class="form-labael">@Html.DisplayNameFor(a=>a.Data.SellerTitle):</label></div>
-                        <div class="col-md-12">
-                            @Html.DisplayFor(a=>a.Data.SellerTitle)
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12"><label class="form-labael">@Html.DisplayNameFor(a=>a.Data.SellerTitle):</label></div>
+                            <div class="col-md-12">
+                                @Html.DisplayFor(a=>a.Data.SellerTitle)
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-md-12"><label class="form-labael">@Html.DisplayNameFor(a=>a.Data.DateTime):</label></div>
-                        <div class="col-md-12">
-                            @Html.DisplayFor(a=>a.Data.DateTime)
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12"><label class="form-labael">@Html.DisplayNameFor(a=>a.Data.DateTime):</label></div>
+                            <div class="col-md-12">
+                                @Html.DisplayFor(a=>a.Data.DateTime)
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-md-12"><label class="form-labael">@Html.DisplayNameFor(a=>a.Data.IsSellerConfimed):</label></div>
-                        <div class="col-md-12">
-                            <img src="~/Shared/img/@(Model.Data.IsSellerConfimed).png" width="28" height="28" />
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12"><label class="form-labael">@Html.DisplayNameFor(a=>a.Data.IsSellerConfimed):</label></div>
+                            <div class="col-md-12">
+                                <img src="~/Shared/img/@(Model.Data.IsSellerConfimed).png" width="28" height="28" />
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-8">
-        <div class="card">
-            <div class="card-header">
-                @Localizer["ProductVariantItemsFor",Model.Data.ProductTitle]
-            </div>
-            <div class="card-body">
-                @(Html.Kendo()
-                      .Grid<vmGetProductSellerVariants>()
-                      .Name("ListVariants")
-                      .DefaultSettings(Localizer)
-                      .Columns(col=> {
-                                col.Bound(a => a.Id).Hidden().HtmlAttributes(new { @class = "RowId" }).Sortable(false);
-                                col.Bound(a=>a.Title);
-                                col.Bound(a=>a.Value);
-                                col.Bound(a => a.Percent).HtmlAttributes(new { @class = "text-left" }).Sortable(false);
-                                col.Bound(a => a.GuaranteeTitle).Sortable(false);
-                                col.Bound(a=>a.SendBy);
-                                col.Bound(a=>a.SendFrom);
-                                col.Bound(a=>a.CountInStock);
-                                col.Bound(a => a.IsEnable).HtmlAttributes(new {style = "text-align:center;" }).ClientTemplate("<img style='width:32px' src='/Shared/img/#=IsEnable#.png'/>").Width(50).Sortable(false);
-                                col.Bound(a => a.IsConfirm).HtmlAttributes(new {style = "text-align:center;" }).ClientTemplate("<img style='width:32px' src='/Shared/img/#=IsConfirm#.png'/>").Width(50).Sortable(false);
-                                col.Bound(a => a).Width(50).Title(" ")
-                                                           .HtmlAttributes(new { style= "overflow: visible; text-align: center;" })
-                                                           .ClientHeaderTemplate((User.IsInRole(Roles.CanAddProductSeller)? "<button class='btn btn-success btn-sm' onclick='Add()'><i class='fa fa-plus'></i></button>" : "") + $"<button class='btn btn-primary btn-sm ml-1 mr-1' onclick='GotoBack()'><i class='fa fa-undo'></i></button>")
-                                                           .ClientTemplateId("DropDownCmd");
-                      })
-                      .DataSource(ds=>ds.Ajax()
-                                        .PageSize(10)
-                                        .Read(read=>read.Url($"/{CultureInfo.CurrentCulture.Parent.Name}/User/Product/Sellers/Details/{Model.ProductId}/{Model.ProductSellerId}?handler=ReadData&ProductId={Model.ProductId}&SellerId={Model.SellerId}").Data("forgeryToken"))))
-                                        
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    کارنامه ی کاربر
+                </div>
+                <div class="card-body">
+                </div>
             </div>
         </div>
     </div>
 </div>
+<div class="form-group">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    @Localizer["ProductVariantItemsFor",Model.Data.ProductTitle]
+                </div>
+                <div class="card-body">
+                    @(Html.Kendo()
+                    .Grid<vmGetProductSellerVariants>()
+                    .Name("ListVariants")
+                    .DefaultSettings(Localizer)
+                    .Columns(col=> {
+                    col.Bound(a => a.Id).Hidden().HtmlAttributes(new { @class = "RowId" }).Sortable(false);
+                    col.Bound(a=>a.Title);
+                    col.Bound(a=>a.Value);
+                    col.Bound(a => a.Percent).HtmlAttributes(new { @class = "text-left" }).Sortable(false);
+                    col.Bound(a => a.GuaranteeTitle).Sortable(false);
+                    col.Bound(a=>a.SendBy).ClientTemplate("<span>#:GetSendBy(SendBy)#</span>");
+                    col.Bound(a=>a.SendFrom).ClientTemplate("<span>#:GetSendFrom(SendFrom)#</span>");
+                    col.Bound(a=>a.CountInStock);
+                    col.Bound(a => a.IsEnable).HtmlAttributes(new {style = "text-align:center;" }).ClientTemplate("<img style='width:32px' src='/Shared/img/#=IsEnable#.png'/>").Width(50).Sortable(false);
+                    col.Bound(a => a.IsConfirm).HtmlAttributes(new {style = "text-align:center;" }).ClientTemplate("<img style='width:32px' src='/Shared/img/#=IsConfirm#.png'/>").Width(50).Sortable(false);
+                    col.Bound(a => a).Width(50).Title(" ")
+                    .HtmlAttributes(new { style= "overflow: visible; text-align: center;" })
+                    .ClientTemplateId("DropDownCmd");
+                    })
+                    .DataSource(ds=>ds.Ajax()
+                    .PageSize(10)
+                    .Read(read=>read.Url($"/{CultureInfo.CurrentCulture.Parent.Name}/User/Product/Sellers/Details/{Model.ProductId}/{Model.ProductSellerId}?handler=Read&ProductId={Model.ProductId}&SellerId={Model.SellerId}").Data("forgeryToken"))))
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script id="DropDownCmd">
+    <div class="item-action dropdown">
+        <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fa fa-bars fs-16 text-dark"></i></a>
+        <div class="dropdown-menu dropdown-menu-left">
+    @if (User.IsInRole(Roles.CanChangeStatusProductSeller))
+    {
+                          <a onclick="ChangeStatus('#:Id#')" class='dropdown-item #=IsConfirm==true?"hide":""#'><i class="dropdown-icon fa fa-check"></i>@Localizer["Confirm"]</a>
+                          <a onclick="ChangeStatus('#:Id#')" class='dropdown-item  #=IsConfirm==false?"hide":""#'><i class="dropdown-icon fa fa-ban"></i>@Localizer["Reject"]</a>
+    }
+        </div>
+    </div>
+</script>
+
+<script>
+    function RefreshData()
+    {
+        RefreshGrid('ListVariants');
+    }
+
+    function GetSendBy(_SendBy)
+    {
+        if(_SendBy=="0")
+        {
+            return "@Localizer["Prancabeauty"]";
+        }else if(_SendBy=="1")
+        {
+            return "@Localizer["Seller"]";
+        }else
+        {
+            return "@Localizer["UnKnown"]";
+        }
+
+    }
+    
+    function GetSendFrom(_SendFrom)
+    {
+        if(_SendFrom=="1")
+        {
+            return "@Localizer["OneDay"]";
+        }else if(_SendFrom=="2")
+        {
+            return "@Localizer["TwoDays"]";
+        }
+        else if(_SendFrom=="3")
+        {
+            return "@Localizer["ThreeDays"]";
+        }
+        else if(_SendFrom=="4")
+        {
+            return "@Localizer["FourDays"]";
+        }else
+        {
+            return "@Localizer["UnKnown"]";
+        }
+
+    }
+
+    @if (User.IsInRole(Roles.CanChangeStatusProductSeller))
+    {
+        <text>
+                   function ChangeStatus(_Id)
+                   {
+                       AreYouSureData('"/@ViewData["Culture"]/User/Product/Sellers/Details/@Model.ProductId/@Model.ProductSellerId?handler=ChangeStatus',{ProductSellerId:_Id, ProductId:'@Model.ProductId'});
+                   }
+        </text>
+    }
+</script>

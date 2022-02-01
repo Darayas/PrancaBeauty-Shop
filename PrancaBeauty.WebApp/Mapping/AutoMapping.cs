@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Framework.Infrastructure;
 using PrancaBeauty.Application.Contracts.Address;
 using PrancaBeauty.Application.Contracts.Categories;
 using PrancaBeauty.Application.Contracts.Currency;

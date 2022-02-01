@@ -8,5 +8,6 @@ namespace PrancaBeauty.Application.Apps.Seller
     {
         Task<List<OutGetListSellerForCombo>> GetListSellerForComboAsync(InpGetListSellerForCombo Input);
         Task<string> GetSellerIdByUserIdAsync(InpGetSellerIdByUserId Input);
+        Task<OutGetSummaryBySellerId> GetSummaryBySellerIdAsync(InpGetSummaryBySellerId Input);
     }
 }

@@ -16,6 +16,7 @@ namespace PrancaBeauty.Domin.Users.SellerAgg.Entities
         public Guid UserId { get; set; }
         public string Name { get; set; }
         public DateTime Date { get; set; }
+        public bool IsConfirm { get; set; }
 
         public virtual tblUsers tblUsers { get; set; }
         public virtual ICollection<tblSeller_Translates> tblSeller_Translates { get; set; }

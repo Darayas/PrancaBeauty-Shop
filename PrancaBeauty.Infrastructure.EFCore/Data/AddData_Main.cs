@@ -12,7 +12,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
         {
             try
             {
-                new AddData_FileServers().Run();
+                //new AddData_FileServers().Run();
                 //new AddData_FileType().Run();
                 //new AddData_FilePath().Run();
                 new AddData_Roles().Run();
@@ -31,7 +31,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                 //new AddData_ProductProperties().Run();
                 //new AddData_ProductVariants().Run();
                 //new AddData_Guarantee().Run();
-                new AddData_Category().Run();
+                //new AddData_Category().Run();
             }
             catch (Exception ex)
             {

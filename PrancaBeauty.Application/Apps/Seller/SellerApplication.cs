@@ -92,5 +92,50 @@ namespace PrancaBeauty.Application.Apps.Seller
                 return null;
             }
         }
+
+        public async Task<OutGetSummaryBySellerId> GetSummaryBySellerIdAsync(InpGetSummaryBySellerId Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var qData = await _SellersRepository.Get
+                                                    .Where(a => a.Id == Guid.Parse(Input.SellerId))
+                                                    .Select(a => new OutGetSummaryBySellerId
+                                                    {
+                                                        Id = a.Id.ToString(),
+                                                        FulUserName = a.tblUsers.FirstName + " " + a.tblUsers.LastName,
+                                                        DateTime = a.Date,
+                                                        SellerTitle = a.tblSeller_Translates.Where(a => a.LangId == Guid.Parse(Input.LangId)).Select(b => b.Title).Single(),
+                                                        SellerLogoUrl = a.tblSeller_Translates.Where(a => a.LangId == Guid.Parse(Input.LangId)).Select(b => new
+                                                        {
+                                                            LogoUrl = b.tblFiles.tblFilePaths.tblFileServer.HttpDomin
+                                                                        + b.tblFiles.tblFilePaths.tblFileServer.HttpPath
+                                                                        + b.tblFiles.tblFilePaths.Path
+                                                                        + b.tblFiles.FileName
+                                                        }).Single().LogoUrl,
+                                                        IsSellerConfimed = a.IsConfirm
+                                                    })
+                                                    .SingleOrDefaultAsync();
+
+                if (qData == null)
+                    return null;
+
+                return qData;
+
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
+            }
+        }
     }
 }

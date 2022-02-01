@@ -35,7 +35,7 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Components.Compo_Variants
             Data = new List<vmCompo_Variants>();
         }
 
-        public async Task<IActionResult> OnGetAsync()
+        public async Task<IActionResult> OnGetAsync(string LangId)
         {
             if (Input.FieldName == null)
                 Input.FieldName = "Input.VariantId";
@@ -45,7 +45,8 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Components.Compo_Variants
                 var qData = await _ProductVariantItemsApplication.GetAllVariantsByProductIdAsync(new InpGetAllVariantsByProductId
                 {
                     ProductId = Input.ProductId,
-                    SellerId = Input.SellerId
+                    SellerId = Input.SellerId,
+                    LangId = LangId
                 });
 
                 if (qData == null)

@@ -189,6 +189,7 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
                                                                    Id = a.Id.ToString(),
                                                                    VariantId = a.tblProductVariants.Id.ToString(),
                                                                    GuaranteeId = a.GuaranteeId.ToString(),
+                                                                   GuaranteeTitle = a.tblGuarantee.tblGuarantee_Translates.Where(b => b.LangId == Guid.Parse(Input.LangId)).Select(a => a.Title).Single(),
                                                                    Title = a.Title,
                                                                    Value = a.Value,
                                                                    ProductCode = a.ProductCode,
@@ -196,7 +197,8 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
                                                                    Percent = a.Percent,
                                                                    SendBy = a.SendBy,
                                                                    SendFrom = a.SendFrom,
-                                                                   IsEnable = a.IsEnable
+                                                                   IsEnable = a.IsEnable,
+                                                                   IsConfirm = a.IsConfirm
                                                                })
                                                                .ToListAsync();
 
@@ -372,5 +374,7 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
                 return null;
             }
         }
+
+
     }
 }

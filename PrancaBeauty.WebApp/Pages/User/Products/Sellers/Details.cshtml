@@ -73,6 +73,30 @@
                 @Localizer["ProductVariantItemsFor",Model.Data.ProductTitle]
             </div>
             <div class="card-body">
+                @(Html.Kendo()
+                      .Grid<vmGetProductSellerVariants>()
+                      .Name("ListVariants")
+                      .DefaultSettings(Localizer)
+                      .Columns(col=> {
+                                col.Bound(a => a.Id).Hidden().HtmlAttributes(new { @class = "RowId" }).Sortable(false);
+                                col.Bound(a=>a.Title);
+                                col.Bound(a=>a.Value);
+                                col.Bound(a => a.Percent).HtmlAttributes(new { @class = "text-left" }).Sortable(false);
+                                col.Bound(a => a.GuaranteeTitle).Sortable(false);
+                                col.Bound(a=>a.SendBy);
+                                col.Bound(a=>a.SendFrom);
+                                col.Bound(a=>a.CountInStock);
+                                col.Bound(a => a.IsEnable).HtmlAttributes(new {style = "text-align:center;" }).ClientTemplate("<img style='width:32px' src='/Shared/img/#=IsEnable#.png'/>").Width(50).Sortable(false);
+                                col.Bound(a => a.IsConfirm).HtmlAttributes(new {style = "text-align:center;" }).ClientTemplate("<img style='width:32px' src='/Shared/img/#=IsConfirm#.png'/>").Width(50).Sortable(false);
+                                col.Bound(a => a).Width(50).Title(" ")
+                                                           .HtmlAttributes(new { style= "overflow: visible; text-align: center;" })
+                                                           .ClientHeaderTemplate((User.IsInRole(Roles.CanAddProductSeller)? "<button class='btn btn-success btn-sm' onclick='Add()'><i class='fa fa-plus'></i></button>" : "") + $"<button class='btn btn-primary btn-sm ml-1 mr-1' onclick='GotoBack()'><i class='fa fa-undo'></i></button>")
+                                                           .ClientTemplateId("DropDownCmd");
+                      })
+                      .DataSource(ds=>ds.Ajax()
+                                        .PageSize(10)
+                                        .Read(read=>read.Url($"/{CultureInfo.CurrentCulture.Parent.Name}/User/Product/Sellers/Details/{Model.ProductId}/{Model.ProductSellerId}?handler=ReadData&ProductId={Model.ProductId}&SellerId={Model.SellerId}").Data("forgeryToken"))))
+                                        
             </div>
         </div>
     </div>

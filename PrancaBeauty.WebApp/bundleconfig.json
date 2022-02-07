@@ -52,5 +52,11 @@
     "inputFiles": [
       "wwwroot/lib/KendoUI/css/kendo.ltr.css"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/lib/KendoUI/css/Theme/Bs-Kendo-Theme.min.css",
+    "inputFiles": [
+      "wwwroot/lib/KendoUI/css/Theme/Bs-Kendo-Theme.css"
+    ]
   }
 ]

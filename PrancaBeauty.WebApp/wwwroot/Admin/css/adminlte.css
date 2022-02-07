@@ -287,7 +287,6 @@ html [type="button"],
 input[type="radio"],
 input[type="checkbox"] {
     box-sizing: border-box;
-    padding: 0;
 }
 
 input[type="date"],
@@ -3154,7 +3153,7 @@ input[type="button"].btn-block {
 }
 
     .dropdown-item .dropdown-icon {
-        margin: 0 7px !important;
+        margin: 0 0 0 7px !important;
         position: relative;
         top: 3px;
     }

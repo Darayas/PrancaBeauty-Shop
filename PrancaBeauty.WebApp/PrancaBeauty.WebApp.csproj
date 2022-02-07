@@ -33,6 +33,36 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\Main\fonts\icons\font-awesome\fonts\fa-brands-400.svg" />
+    <None Include="wwwroot\Main\fonts\icons\font-awesome\fonts\fa-brands-400.woff2" />
+    <None Include="wwwroot\Main\fonts\icons\font-awesome\fonts\fa-duotone-900.svg" />
+    <None Include="wwwroot\Main\fonts\icons\font-awesome\fonts\fa-duotone-900.woff2" />
+    <None Include="wwwroot\Main\fonts\icons\font-awesome\fonts\fa-light-300.svg" />
+    <None Include="wwwroot\Main\fonts\icons\font-awesome\fonts\fa-light-300.woff2" />
+    <None Include="wwwroot\Main\fonts\icons\font-awesome\fonts\fa-regular-400.svg" />
+    <None Include="wwwroot\Main\fonts\icons\font-awesome\fonts\fa-regular-400.woff2" />
+    <None Include="wwwroot\Main\fonts\icons\font-awesome\fonts\fa-solid-900.svg" />
+    <None Include="wwwroot\Main\fonts\icons\font-awesome\fonts\fa-solid-900.woff2" />
+    <None Include="wwwroot\Main\fonts\rtl\IRANSans\woff2\IRANSansWeb.woff2" />
+    <None Include="wwwroot\Main\fonts\rtl\IRANSans\woff2\IRANSansWeb_Bold.woff2" />
+    <None Include="wwwroot\Main\fonts\rtl\IRANSans\woff2\IRANSansWeb_Light.woff2" />
+    <None Include="wwwroot\Main\fonts\rtl\IRANSans\woff2\IRANSansWeb_Medium.woff2" />
+    <None Include="wwwroot\Main\fonts\rtl\IRANSans\woff2\IRANSansWeb_UltraLight.woff2" />
+    <None Include="wwwroot\Main\fonts\rtl\IranYekan\300\a80f71ff.woff2" />
+    <None Include="wwwroot\Main\fonts\rtl\IranYekan\400\1fdcadec.woff2" />
+    <None Include="wwwroot\Main\fonts\rtl\IranYekan\600\fe12f13a.woff2" />
+    <None Include="wwwroot\Main\fonts\rtl\samim\CHANGELOG.md" />
+    <None Include="wwwroot\Main\fonts\rtl\samim\Farsi-Digits-Without-Latin\Samim-Bold-FD-WOL.woff2" />
+    <None Include="wwwroot\Main\fonts\rtl\samim\Farsi-Digits-Without-Latin\Samim-FD-WOL.woff2" />
+    <None Include="wwwroot\Main\fonts\rtl\samim\Farsi-Digits\Samim-Bold-FD.woff2" />
+    <None Include="wwwroot\Main\fonts\rtl\samim\Farsi-Digits\Samim-FD.woff2" />
+    <None Include="wwwroot\Main\fonts\rtl\samim\LICENSE" />
+    <None Include="wwwroot\Main\fonts\rtl\samim\README.md" />
+    <None Include="wwwroot\Main\fonts\rtl\samim\Samim-Bold.woff2" />
+    <None Include="wwwroot\Main\fonts\rtl\samim\Samim.woff2" />
+    <None Include="wwwroot\Main\fonts\rtl\samim\Without-Latin\Samim-Bold-WOL.woff2" />
+    <None Include="wwwroot\Main\fonts\rtl\samim\Without-Latin\Samim-WOL.woff2" />
+    <None Include="wwwroot\Main\fonts\rtl\Yekan\Yekan.svg" />
     <None Include="wwwroot\lib\CKEditor5\build\ckeditor.js" />
     <None Include="wwwroot\lib\CKEditor5\build\ckeditor.js.map" />
     <None Include="wwwroot\lib\CKEditor5\build\translations\af.js" />

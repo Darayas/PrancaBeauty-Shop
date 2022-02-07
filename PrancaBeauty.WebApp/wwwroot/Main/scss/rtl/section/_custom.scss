@@ -1,0 +1,249 @@
+﻿.dir-ltr {
+    direction: ltr;
+}
+
+.nice-select {
+    padding-right: 18px !important;
+    padding-left: 30px !important;
+
+    &:after {
+        right: unset !important;
+        left: 12px;
+    }
+
+    .list {
+        right: 0px;
+        left: auto;
+
+        .option {
+            text-align: right;
+            padding-right: 18px !important;
+            padding-left: 29px !important;
+        }
+    }
+}
+
+err500 {
+    width: 100%;
+    display: inline-block;
+    padding: 15px;
+    background-color: #dc0000;
+    font-weight: 700;
+    font-size: 14px;
+    color: #ffffff;
+    text-align: center;
+    border: 1px solid #cb0000;
+}
+
+.loading {
+    position: fixed;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    background-color: rgba(0, 0, 0, 0.35);
+    z-index: 1000;
+
+    img {
+        position: absolute;
+        left: calc(50% - 100px);
+        top: calc(50vh - 100px);
+    }
+}
+
+.timer {
+    direction: ltr;
+    text-align: right;
+
+    div {
+        display: inline-block;
+    }
+}
+
+.resendbtn {
+    display: none;
+}
+
+.lang-flag {
+    width: 24px;
+    position: relative;
+    top: 6px;
+}
+
+.modal-footer > :not(:first-child) {
+    margin-right: .25rem !important;
+}
+
+.modal-footer > :not(:last-child) {
+    margin-left: .25rem !important;
+}
+
+.dropdown-item {
+    text-align: right !important;
+}
+
+
+.img-circle {
+    border-radius: 50%;
+}
+
+.fs-16px {
+    font-size: 16px;
+}
+
+.fs-14px {
+    font-size: 14px;
+}
+
+.fs-12px {
+    font-size: 12px;
+}
+
+.CompoSectionHeader {
+    padding: 0px 0px 20px 0;
+
+    div {
+        display: inline-block;
+    }
+
+    .Header {
+        float: right;
+    }
+
+    .BtnAdd {
+        float: left;
+    }
+}
+
+
+.thBtnAdd {
+    text-align: left;
+    direction: ltr;
+}
+
+.form-btn {
+    text-align: left;
+    direction: ltr;
+}
+
+.page-item:first-child .page-link {
+    margin-right: 0;
+    border-top-right-radius: .25rem;
+    border-bottom-right-radius: .25rem;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.page-item:last-child .page-link {
+    border-top-left-radius: .25rem;
+    border-bottom-left-radius: .25rem;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.editor {
+    min-height: 400px;
+    border: 1px solid #ced4da !important;
+    border-radius: .25rem !important;
+    margin-right: 35px;
+
+    ul {
+        padding-right: 15px;
+    }
+}
+
+.ck.ck-block-toolbar-button {
+    transform: translateX(calc(var(--ck-spacing-large)*.5)) !important;
+    color: #9a9a9a !important;
+}
+
+.text-left {
+    text-align: left;
+    direction: ltr;
+}
+
+.text-left {
+    text-align: right;
+    direction: rtl;
+}
+
+.text-paragraph {
+    font-size: 12px;
+    line-height: 1.7;
+    color: #232323;
+}
+
+.text-heading2 {
+    font-size: 18px;
+    color: #161616;
+    font-weight: 700;
+}
+
+.text-heading3 {
+    font-size: 15px;
+    color: #232323;
+}
+
+form {
+    .frmBtnAction {
+        text-align: left;
+    }
+}
+
+
+.TitleCell {
+    .title {
+        font-size: 16px !important;
+        font-weight: 800 !important;
+        display: block;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        width: 100%;
+        overflow: hidden;
+        margin-bottom: 2px;
+    }
+
+    .Category {
+        margin-bottom: 5px;
+
+        span {
+            font-weight: 700;
+        }
+    }
+
+    .date {
+        margin-bottom: 5px;
+        direction: ltr;
+    }
+
+    .Summery {
+        div {
+            margin-left: 10px;
+        }
+    }
+}
+
+.hide {
+    display: none !important;
+}
+
+.form-labael {
+    font-weight: 700;
+    font-size: 15px;
+}
+
+.dropdown-icon {
+    color: #6987ab;
+    margin-left: 0.5rem;
+    margin-right: -0.5rem;
+    width: 1em;
+    display: inline-block;
+    text-align: center;
+    vertical-align: -1px;
+    font-size: 16px;
+    font-weight: 600 !important;
+}
+.header_account_list > a span.cart_itemtotal {
+    font-size: 16px;
+    font-weight: 400;
+}

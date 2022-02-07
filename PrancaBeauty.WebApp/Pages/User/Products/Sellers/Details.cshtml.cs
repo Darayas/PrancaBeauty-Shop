@@ -69,10 +69,9 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Sellers
                 OutGetSummaryBySellerId qSallerSummay;
                 {
                     qSallerSummay = await _SellersApplication.GetSummaryBySellerIdAsync(new InpGetSummaryBySellerId { SellerId = _SellerId, LangId = LangId });
+                    Data = _Mapper.Map<vmProductSellerDetails>(qSallerSummay);
                 }
                 #endregion
-
-                Data = _Mapper.Map<vmProductSellerDetails>(qSallerSummay);
 
                 #region Get product summary
                 {

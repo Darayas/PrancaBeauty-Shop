@@ -21,7 +21,7 @@
                     <div class="language_currency top">
                         <ul>
                             <li class="language">
-                                <a href="#"><img src="~/Main/img/icon/language.png" alt=""> اینگلیسی <i class="icon-right ion-ios-arrow-down"></i></a>
+                                <a href="#"><img src="~/Main/img/icon/language.png" alt=""> اینگلیسی <i class="fas fa-angle-down"></i></a>
                                 <ul class="dropdown_language">
                                     <li><a href="#">فرانسه</a></li>
                                     <li><a href="#">اسپانیایی</a></li>
@@ -29,7 +29,7 @@
                                 </ul>
                             </li>
                             <li class="currency">
-                                <a href="#"> $ <i class="icon-right ion-ios-arrow-down"></i></a>
+                                <a href="#"> $ <i class="fas fa-angle-down"></i></a>
                                 <ul class="dropdown_currency">
                                     <li><a href="#">€ یورو</a></li>
                                     <li><a href="#">£ پوند</a></li>
@@ -45,23 +45,23 @@
                             <li class="account">
                                 @(await Html.PartialAsync("~/Pages/Shared/Partials/P_ChangeLanuage.cshtml"))
                             </li>
-                            <li><a href="#"><i class="icon-equalizer icons"></i> مقایسه (3)</a></li>
-                            <li><a href="#"><i class="icon-heart"></i> علاقه مندی (3)</a></li>
+                            <li><a href="#"><i class="fa-xs fas fa-exchange-alt"></i> مقایسه (3)</a></li>
+                            <li><a href="#"><i class="fa-xs fas fa-heart"></i> علاقه مندی (3)</a></li>
                         </ul>
                     </div>
                     <div class="header_account_area">
                         <div class="header_account_list search_list">
-                            <a href="javascript:void(0)"><i class="icon-magnifier icons"></i></a>
+                            <a href="javascript:void(0)"><i class="fa-xs fa fa-search"></i></a>
                             <div class="dropdown_search">
                                 <form action="#">
                                     <input placeholder="جستوجو" type="text">
-                                    <button type="submit"><i class="icon-magnifier icons"></i></button>
+                                    <button type="submit"><i class="fa-xs fa fa-search"></i></button>
                                 </form>
                             </div>
                         </div>
                         <div class="header_account_list  mini_cart_wrapper">
                             <a href="javascript:void(0)">
-                                <i class="icon-bag icons"></i>
+                                <i class="fa-xs fas fa-shopping-cart"></i>
                                 <span class="cart_itemtext"></span>
                                 <span class="cart_itemtotal">$59.00</span>
                                 <span class="item_count">2</span>
@@ -220,7 +220,7 @@
                                     @(await Html.PartialAsync("~/Pages/Shared/Partials/P_ChangeLanuage.cshtml"))
                                 </li>
                                 <li class="currency">
-                                    <a href="#"> $ <i class="icon-right ion-ios-arrow-down"></i></a>
+                                    <a href="#"> $ <i class="fas fa-angle-down"></i></a>
                                     <ul class="dropdown_currency">
                                         <li><a href="#">€ یورو</a></li>
                                         <li><a href="#">£ پوند</a></li>
@@ -236,19 +236,19 @@
                         <div class="setting_compare">
                             <ul>
                                 <li class="account">
-                                    <a href="#"> تنظیمات <i class="icon-right ion-ios-arrow-down"></i></a>
+                                    <a href="#"> تنظیمات <i class="fas fa-angle-down"></i></a>
                                     <ul class="dropdown_currency">
                                         <li><a href="#">€ یورو</a></li>
                                         <li><a href="#">£ پوند</a></li>
                                         <li><a href="#">$ دلار</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="#"><i class="icon-equalizer icons"></i> مقایسه (3)</a></li>
-                                <li><a href="#"><i class="icon-heart"></i> علاقه مندی (3)</a></li>
+                                <li><a href="#"><i class="fa-xs fas fa-exchange-alt"></i> مقایسه (3)</a></li>
+                                <li><a href="#"><i class="fa-xs fas fa-heart"></i> علاقه مندی (3)</a></li>
                                 @if (User.Identity.IsAuthenticated)
                                 {
                                     <li>
-                                        <a href="#"><img class="lang-flag" src="@(await User.GetUserProfileImgUrlAsync(Context))" /> @User.GetUserDetails().GivenName @User.GetUserDetails().SurName <i class="icon-right ion-ios-arrow-down"></i></a>
+                                        <a href="#"><img class="lang-flag" src="@(await User.GetUserProfileImgUrlAsync(Context))" /> @User.GetUserDetails().GivenName @User.GetUserDetails().SurName <i class="fas fa-angle-down"></i></a>
                                         <ul class="dropdown_language">
                                             <li><a href="/@ViewData["Culture"]/User/Index">@Localizer["UserPanel"]</a></li>
                                             @if (User.IsInRole(Roles.AdminPage))
@@ -267,8 +267,8 @@
                                 else
                                 {
                                     <li>
-                                        <div class="d-inline m-2"><a title="@Localizer["Login"]" href="/@ViewData["Culture"]/Auth/Login?ReturnUrl=@Context.Request.GetCurrentUrlEncoded()"><i class="icon-login"></i></a></div>
-                                        <div class="d-inline m-2"><a title="@Localizer["Register"]" href="/@ViewData["Culture"]/Auth/Register"><i class="icon-user"></i></a></div>
+                                        <div class="d-inline m-2"><a title="@Localizer["Login"]" href="/@ViewData["Culture"]/Auth/Login?ReturnUrl=@Context.Request.GetCurrentUrlEncoded()"><i class="fa-md fas fa-sign-in-alt"></i></a></div>
+                                        <div class="d-inline m-2"><a title="@Localizer["Register"]" href="/@ViewData["Culture"]/Auth/Register"><i class="fa-md fa fa-user-plus"></i></a></div>
                                     </li>
                                 }
                             </ul>
@@ -366,17 +366,17 @@
                             <!--main menu end-->
                             <div class="header_account_area">
                                 <div class="header_account_list search_list">
-                                    <a href="javascript:void(0)"><i class="icon-magnifier icons"></i></a>
+                                    <a href="javascript:void(0)"><i class="fa-xs fa fa-search"></i></a>
                                     <div class="dropdown_search">
                                         <form action="#">
                                             <input placeholder="جستوجو ..." type="text">
-                                            <button type="submit"><i class="icon-magnifier icons"></i></button>
+                                            <button type="submit"><i class="fa-xs fa fa-search"></i></button>
                                         </form>
                                     </div>
                                 </div>
                                 <div class="header_account_list  mini_cart_wrapper">
                                     <a href="javascript:void(0)">
-                                        <i class="icon-bag icons"></i>
+                                        <i class="fa-xs fas fa-shopping-cart"></i>
                                         <span class="cart_itemtext"></span>
                                         <span class="cart_itemtotal">$59.00</span>
                                         <span class="item_count">2</span>
@@ -516,7 +516,7 @@
                         <div class="subscribe_form">
                             <form id="mc-form" class="mc-form footer-newsletter">
                                 <input id="mc-email" type="email" autocomplete="off" placeholder="Your email address" />
-                                <button id="mc-submit"><i class="icon-arrow-right-circle icons"></i></button>
+                                <button id="mc-submit"><i class="fad fa-arrow-alt-circle-right"></i></button>
                             </form>
                             <!-- mailchimp-alerts Start -->
                             <div class="mailchimp-alerts text-centre">

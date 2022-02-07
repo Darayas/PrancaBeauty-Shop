@@ -32,24 +32,23 @@
                         <div class="card-body">
                             <div class="k-lang">
                                 @(Html.Kendo()
-                                  .Grid<vmCategoriesList>()
-                                  .Name("ListCategories")
-                                  .ToolBar(a => a.ClientTemplateId("ToolbarPanel"))
-                                  .DefaultSettings(Localizer)
-                                  .Columns(col=> {
-                                      col.Bound(a => a.Id).Hidden().HtmlAttributes(new { @class = "RowId" }).Sortable(false);
-                                      col.Bound(a => a.ImgUrl).HtmlAttributes(new { style="text-align:center;" }).Width(60).Title(" ").ClientTemplate("<img style='width:26px;' src='#=ImgUrl#' />").Sortable(false);
-                                      col.Bound(a => a.Name).Sortable(false);
-                                      col.Bound(a => a.Title).Sortable(false);
-                                      col.Bound(a => a.ParentTitle).Sortable(false);
-                                      col.Bound(a => a).Width(50).Title(" ")
-                                                                 .HtmlAttributes(new { style= "overflow: visible; text-align: center;" })
-                                                                 .ClientHeaderTemplate(User.IsInRole(Roles.CanAddCategory)? "<button class='btn btn-success btn-sm' onclick='Add()'><i class='fa fa-plus'></i></button>" : "")
-                                                                 .ClientTemplateId("DropDownCmd");
-                                  })
-                                  .DataSource(ds=>ds.Ajax()
-                                                    .PageSize(10)
-                                                    .Read(read=>read.Url($"/{CultureInfo.CurrentCulture.Parent.Name}/Admin/Category/List?handler=ReadData").Data("forgeryToken"))))
+                                .Grid<vmCategoriesList>()
+                                .Name("ListCategories")
+                                .DefaultSettings(Localizer)
+                                .Columns(col=> {
+                                col.Bound(a => a.Id).Hidden().HtmlAttributes(new { @class = "RowId" }).Sortable(false);
+                                col.Bound(a => a.ImgUrl).HtmlAttributes(new { style="text-align:center;" }).Width(60).Title(" ").ClientTemplate("<img style='width:26px;' src='#=ImgUrl#' />").Sortable(false);
+                                col.Bound(a => a.Name).Sortable(false);
+                                col.Bound(a => a.Title).Sortable(false);
+                                col.Bound(a => a.ParentTitle).Sortable(false);
+                                col.Bound(a => a).Width(50).Title(" ")
+                                .HtmlAttributes(new { style= "overflow: visible; text-align: center;" })
+                                .ClientHeaderTemplate("<button class='btn btn-primary btn-sm mr-1 ml-1' onclick='SearchModal()'><i class='fa fa-search'></i></button>"+(User.IsInRole(Roles.CanAddCategory)? "<button class='btn btn-success btn-sm' onclick='Add()'><i class='fa fa-plus'></i></button>" : ""))
+                                .ClientTemplateId("DropDownCmd");
+                                })
+                                .DataSource(ds=>ds.Ajax()
+                                .PageSize(10)
+                                .Read(read=>read.Url($"/{CultureInfo.CurrentCulture.Parent.Name}/Admin/Category/List?handler=ReadData").Data("forgeryToken"))))
                             </div>
                         </div>
                     </div>
@@ -61,14 +60,35 @@
     <!-- /.content -->
 </div>
 
-<div class="hide" id="ToolbarPanel">
-    <div class="row">
-        <div class="col-md-2">
-            <input type="text" onchange="Search()" asp-for="Input.Title" id="txtSearchTitle" class="form-control form-control-sm" placeholder="@Localizer["Title"]" />
-        </div>
-
-        <div class="col-md-2">
-            <input type="text" onchange="Search()" asp-for="Input.ParentTitle" id="txtSearchParentTitle" class="form-control form-control-sm" placeholder="@Localizer["ParentTitle"]" />
+<div class="modal ModalSearch" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">@Localizer["SearchCategory"]</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input type="text" asp-for="Input.Title" id="txtSearchTitle" class="form-control form-control-sm" placeholder="@Localizer["Title"]" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input type="text" asp-for="Input.ParentTitle" id="txtSearchParentTitle" class="form-control form-control-sm" placeholder="@Localizer["ParentTitle"]" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="Search();" class="btn btn-primary">@Localizer["Search"]</button>
+                <button type="button" onclick="ResetSearch()" class="btn btn-secondary" data-dismiss="modal">@Localizer["Reset"]</button>
+            </div>
         </div>
     </div>
 </div>
@@ -77,14 +97,14 @@
     <div class="item-action dropdown">
         <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fa fa-bars fs-16 text-dark"></i></a>
         <div class="dropdown-menu dropdown-menu-left">
-            @if (User.IsInRole(Roles.CanEditCategory))
-            {
-                <a href="/@ViewData["Culture"]/Admin/Category/Edit/#:Id#?ReturnUrl=@Request.GetCurrentUrl()" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i>@Localizer["Edit"]</a>
-            }
-            @if (User.IsInRole(Roles.CanRemoveCategory))
-            {
-                <a onClick="Remove('#:Id#')" class="dropdown-item"><i class="dropdown-icon fa fa-times"></i>@Localizer["Remove"]</a>
-            }
+    @if (User.IsInRole(Roles.CanEditCategory))
+    {
+                                    <a href="/@ViewData["Culture"]/Admin/Category/Edit/#:Id#?ReturnUrl=@Request.GetCurrentUrl()" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i>@Localizer["Edit"]</a>
+    }
+    @if (User.IsInRole(Roles.CanRemoveCategory))
+    {
+                                    <a onClick="Remove('#:Id#')" class="dropdown-item"><i class="dropdown-icon fa fa-times"></i>@Localizer["Remove"]</a>
+    }
         </div>
     </div>
 </script>
@@ -121,4 +141,16 @@
         _Grid.dataSource.read();
         _Grid.refresh();
     }
+
+    function SearchModal()
+     {
+         $('.ModalSearch').modal({keyboard: false,backdrop:'static'});
+     }
+
+     function ResetSearch()
+     {
+         $('#txtSearchParentTitle').val(null);
+         $('#txtSearchTitle').val(null);
+         Search();
+     }
 </script>

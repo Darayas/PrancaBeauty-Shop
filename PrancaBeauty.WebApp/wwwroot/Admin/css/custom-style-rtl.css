@@ -306,7 +306,7 @@ a:not([href]) {
     }
 
     .k-dropdown-wrap .k-select .k-icon {
-        top: 5px !important;
+        top: 5px ;
     }
 
 .content-header .breadcrumb {

@@ -46,8 +46,15 @@
     <link href="~/lib/sweetalert/sweetalert.min.css" rel="stylesheet" />
 
     <!-- KendoUI CSS -->
-    <link href="~/lib/KendoUI/css/Theme/prancabeauty-Kendo-Theme.css" rel="stylesheet" type="text/css" />
-
+    <link href="~/lib/KendoUI/css/Theme/Bs-Kendo-Theme.min.css" rel="stylesheet" />
+    @if (ViewData["LangDir"].ToString() == "rtl")
+    {
+        <link href="~/lib/KendoUI/css/kendo.rtl.min.css" rel="stylesheet" />
+    }
+    else
+    {
+        <link href="~/lib/KendoUI/css/kendo.ltr.min.css" rel="stylesheet" />
+    }
     @RenderSection("styles", false)
 }
 

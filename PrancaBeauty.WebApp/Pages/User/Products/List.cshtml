@@ -310,7 +310,7 @@
         _Grid.dataSource.read();
         _Grid.refresh();
 
-        ChangeUrl(_Grid.dataSource.transport.options.read.url);
+        ChangeUrl('/@CultureInfo.CurrentCulture.Parent.Name/User/Products/List?Input.LangId=' + _LangId + "&Input.Title=" + _Title + "&Input.Name=" + _Name + "&Input.AuthorUserId=" + _Author + "&Input.SellerId=" + _Seller + "&Input.IsDelete=" + _IsDelete + "&Input.IsConfirmed=" + _IsConfirmed + "&Input.IsDraft=" + _IsDraft + "&Input.IsSchedule=" + _IsSchedule);
     }
 
     $(document).ready(function () {

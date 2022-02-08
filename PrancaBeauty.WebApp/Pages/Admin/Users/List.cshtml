@@ -33,30 +33,29 @@
                         <div class="card-body">
                             <div class="k-lang">
                                 @(Html.Kendo()
-                                  .Grid<vmListUsers>()
-                                  .Name("ListUsers")
-                                  .ToolBar(a=>a.ClientTemplateId("ToolbarPanel"))
-                                  .DefaultSettings(Localizer)
-                                  .Columns(col=> {
-                                      col.Bound(a => a.Id).Hidden().HtmlAttributes(new { @class = "RowId" }).Sortable(false);
-                                      col.Bound(a => a.AccessLevelId).Hidden().HtmlAttributes(new { @class = "AccessLevelId" }).Sortable(false);
-                                      col.Bound(a => a.ImgUrl).Title(" ").HtmlAttributes(new { style = "text-align:center;" }).ClientTemplate("<img class='img-circle' style='width:64px; height:64px;' src='#=ImgUrl#'/>").Width(70).Sortable(false);
-                                      col.Bound(a => a.FullName).Width(150).Sortable(false);
-                                      col.Bound(a => a.Email).HtmlAttributes(new { @class= "text-left" }).Width(150).Sortable(false);
-                                      col.Bound(a => a.PhoneNumber).HtmlAttributes(new { @class = "text-left" }).Width(80).Sortable(false);
-                                      col.Bound(a => a.AccessLevelName).HtmlAttributes(new { @class = "text-left" }).Width(100).Sortable(false);
-                                      col.Bound(a => a.Date).Width(90).HtmlAttributes(new { @class = "text-left" }).Sortable(false);
-                                      col.Bound(a => a.IsEmailConfirmed).HtmlAttributes(new {style = "text-align:center;" }).ClientTemplate("<img style='width:32px' src='/Shared/img/#=IsEmailConfirmed#.png'/>").Width(50).Sortable(false);
-                                      col.Bound(a => a.IsPhoneNumberConfirmed).HtmlAttributes(new {style = "text-align:center;" }).ClientTemplate("<img style='width:32px' src='/Shared/img/#=IsPhoneNumberConfirmed#.png'/>").Width(50).Sortable(false);
-                                      col.Bound(a => a.IsActive).HtmlAttributes(new {style = "text-align:center;" }).ClientTemplate("<img style='width:32px' src='/Shared/img/#=IsActive#.png'/>").Width(50).Sortable(false);
-                                      col.Bound(a => a).Width(50).Title(" ")
-                                                                 .HtmlAttributes(new { style= "overflow: visible; text-align: center;" })
-                                                                 .ClientHeaderTemplate(User.IsInRole(Roles.CanAddUsers)? "<button class='btn btn-success btn-sm' onclick='Add()'><i class='fa fa-plus'></i></button>" : "")
-                                                                 .ClientTemplateId("DropDownCmd");
-                                  })
-                                  .DataSource(ds=>ds.Ajax()
-                                                    .PageSize(10)
-                                                    .Read(read=>read.Url($"/{CultureInfo.CurrentCulture.Parent.Name}/Admin/Users/List?handler=ReadData").Data("forgeryToken"))))
+                                .Grid<vmListUsers>()
+                                .Name("ListUsers")
+                                .DefaultSettings(Localizer)
+                                .Columns(col=> {
+                                col.Bound(a => a.Id).Hidden().HtmlAttributes(new { @class = "RowId" }).Sortable(false);
+                                col.Bound(a => a.AccessLevelId).Hidden().HtmlAttributes(new { @class = "AccessLevelId" }).Sortable(false);
+                                col.Bound(a => a.ImgUrl).Title(" ").HtmlAttributes(new { style = "text-align:center;" }).ClientTemplate("<img class='img-circle' style='width:64px; height:64px;' src='#=ImgUrl#'/>").Width(70).Sortable(false);
+                                col.Bound(a => a.FullName).Width(150).Sortable(false);
+                                col.Bound(a => a.Email).HtmlAttributes(new { @class= "text-left" }).Sortable(false);
+                                col.Bound(a => a.PhoneNumber).HtmlAttributes(new { @class = "text-left" }).Width(80).Sortable(false);
+                                col.Bound(a => a.AccessLevelName).HtmlAttributes(new { @class = "text-left" }).Width(100).Sortable(false);
+                                col.Bound(a => a.Date).Width(90).HtmlAttributes(new { @class = "text-left" }).Sortable(false);
+                                col.Bound(a => a.IsEmailConfirmed).HtmlAttributes(new {style = "text-align:center;" }).ClientTemplate("<img style='width:32px' src='/Shared/img/#=IsEmailConfirmed#.png'/>").Width(50).Sortable(false);
+                                col.Bound(a => a.IsPhoneNumberConfirmed).HtmlAttributes(new {style = "text-align:center;" }).ClientTemplate("<img style='width:32px' src='/Shared/img/#=IsPhoneNumberConfirmed#.png'/>").Width(50).Sortable(false);
+                                col.Bound(a => a.IsActive).HtmlAttributes(new {style = "text-align:center;" }).ClientTemplate("<img style='width:32px' src='/Shared/img/#=IsActive#.png'/>").Width(50).Sortable(false);
+                                col.Bound(a => a).Width(50).Title(" ")
+                                .HtmlAttributes(new { style= "overflow: visible; text-align: center;" })
+                                .ClientHeaderTemplate("<button class='btn btn-primary btn-sm mr-1 ml-1' onclick='SearchModal()'><i class='fa fa-search'></i></button>"+ (User.IsInRole(Roles.CanAddUsers)? "<button class='btn btn-success btn-sm' onclick='Add()'><i class='fa fa-plus'></i></button>" : ""))
+                                .ClientTemplateId("DropDownCmd");
+                                })
+                                .DataSource(ds=>ds.Ajax()
+                                .PageSize(10)
+                                .Read(read=>read.Url($"/{CultureInfo.CurrentCulture.Parent.Name}/Admin/Users/List?handler=ReadData").Data("forgeryToken"))))
                             </div>
                         </div>
                     </div>
@@ -68,60 +67,90 @@
     <!-- /.content -->
 </div>
 
+<div class="modal ModalSearch" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">@Localizer["SearchUsers"]</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input type="text" asp-for="Input.FullName" id="txtSearchFullName" class="form-control form-control-sm" placeholder="@Localizer["FullName"]" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input type="text" asp-for="Input.Email" id="txtSearchEmail" class="form-control form-control-sm text-left" placeholder="@Localizer["Email"]" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input type="text" asp-for="Input.PhoneNumber" id="txtSerachPhoneNumber" class="form-control form-control-sm text-left" placeholder="@Localizer["PhoneNumber"]" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <select asp-for="Input.FieldSort" id="txtSort" class="form-control">
+                                <option value="">@Localizer["Sorting"]</option>
+                                <option value="FullNameDes">@Localizer["SortFullNameDes"]</option>
+                                <option value="FullNameAes">@Localizer["SortFullNameAes"]</option>
+                                <option value="EmailDes">@Localizer["SortEmailDes"]</option>
+                                <option value="EmailAes">@Localizer["SortEmailAes"]</option>
+                                <option value="IsActiveDes">@Localizer["IsActiveDes"]</option>
+                                <option value="IsActiveAes">@Localizer["IsActiveAes"]</option>
+                                <option value="DateDes">@Localizer["DateDes"]</option>
+                                <option value="DateAes">@Localizer["DateAes"]</option>
+                                <option value="ConfirmEmailDes">@Localizer["ConfirmEmailDes"]</option>
+                                <option value="ConfirmEmailAes">@Localizer["ConfirmEmailAes"]</option>
+                                <option value="ConfirmPhoneNumberDes">@Localizer["ConfirmPhoneNumberDes"]</option>
+                                <option value="ConfirmPhoneNumberAes">@Localizer["ConfirmPhoneNumberAes"]</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="Search()" class="btn btn-primary">@Localizer["Search"]</button>
+                <button type="button" onclick="ResetSearch()" class="btn btn-secondary" data-dismiss="modal">@Localizer["Reset"]</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script id="DropDownCmd">
     <div class="item-action dropdown">
         <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fa fa-bars fs-16 text-dark"></i></a>
         <div class="dropdown-menu dropdown-menu-left">
-            @if (User.IsInRole(Roles.CanEditUsers))
-            {
-                <a href="/@ViewData["Culture"]/Admin/Users/Edit/#:Id#" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i>@Localizer["Edit"]</a>
-            }
-            @if (User.IsInRole(Roles.CanRemoveUsers))
-            {
-                <a onClick="Remove('#:Id#')" class="dropdown-item"><i class="dropdown-icon fa fa-times"></i>@Localizer["Remove"]</a>
-            }
-            @if (User.IsInRole(Roles.CanChangeUsersStatus))
-            {
-                <a onClick="ChangeStatus('#:Id#')" class="dropdown-item"><i class="dropdown-icon fa #=IsActive==true?'fa-ban':'fa-check'#"></i>#=IsActive==true?"@Localizer["ChangeStatusDisable"]":"@Localizer["ChangeStatusEnable"]"#</a>
-            }
-             @if (User.IsInRole(Roles.CanChangeUsersAccessLevel))
-            {
-                <a onClick="ChangeAccessLevel('#:Id#','#:AccessLevelId#')" class="dropdown-item"><i class="dropdown-icon fa fa-shield"></i>@Localizer["ChangeAccessLevel"]</a>
-            }
+    @if (User.IsInRole(Roles.CanEditUsers))
+    {
+                                        <a href="/@ViewData["Culture"]/Admin/Users/Edit/#:Id#" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i>@Localizer["Edit"]</a>
+    }
+    @if (User.IsInRole(Roles.CanRemoveUsers))
+    {
+                                        <a onClick="Remove('#:Id#')" class="dropdown-item"><i class="dropdown-icon fa fa-times"></i>@Localizer["Remove"]</a>
+    }
+    @if (User.IsInRole(Roles.CanChangeUsersStatus))
+    {
+                                        <a onClick="ChangeStatus('#:Id#')" class="dropdown-item"><i class="dropdown-icon fa #=IsActive==true?'fa-ban':'fa-check'#"></i>#=IsActive==true?"@Localizer["ChangeStatusDisable"]":"@Localizer["ChangeStatusEnable"]"#</a>
+    }
+    @if (User.IsInRole(Roles.CanChangeUsersAccessLevel))
+    {
+                                        <a onClick="ChangeAccessLevel('#:Id#','#:AccessLevelId#')" class="dropdown-item"><i class="dropdown-icon fa fa-shield"></i>@Localizer["ChangeAccessLevel"]</a>
+    }
         </div>
     </div>
 </script>
-
-<div class="hide" id="ToolbarPanel">
-    <div class="row">
-        <div class="col-md-2">
-            <input type="text" onchange="Search()" asp-for="Input.FullName" id="txtSearchFullName" class="form-control form-control-sm" placeholder="@Localizer["FullName"]" />
-        </div>
-        <div class="col-md-2">
-            <input type="text" onchange="Search()" asp-for="Input.Email" id="txtSearchEmail" class="form-control form-control-sm text-left" placeholder="@Localizer["Email"]" />
-        </div>
-        <div class="col-md-2">
-            <input type="text" onchange="Search()" asp-for="Input.PhoneNumber" id="txtSerachPhoneNumber" class="form-control form-control-sm text-left" placeholder="@Localizer["PhoneNumber"]" />
-        </div>
-        <div class="col-md-2">
-            <select onchange="Search()" asp-for="Input.FieldSort" id="txtSort" class="form-control form-control-sm">
-                <option value="">@Localizer["Sorting"]</option>
-                <option value="FullNameDes">@Localizer["SortFullNameDes"]</option>
-                <option value="FullNameAes">@Localizer["SortFullNameAes"]</option>
-                <option value="EmailDes">@Localizer["SortEmailDes"]</option>
-                <option value="EmailAes">@Localizer["SortEmailAes"]</option>
-                <option value="IsActiveDes">@Localizer["IsActiveDes"]</option>
-                <option value="IsActiveAes">@Localizer["IsActiveAes"]</option>
-                <option value="DateDes">@Localizer["DateDes"]</option>
-                <option value="DateAes">@Localizer["DateAes"]</option>
-                <option value="ConfirmEmailDes">@Localizer["ConfirmEmailDes"]</option>
-                <option value="ConfirmEmailAes">@Localizer["ConfirmEmailAes"]</option>
-                <option value="ConfirmPhoneNumberDes">@Localizer["ConfirmPhoneNumberDes"]</option>
-                <option value="ConfirmPhoneNumberAes">@Localizer["ConfirmPhoneNumberAes"]</option>
-            </select>
-        </div>
-    </div>
-</div>
 
 @if (User.IsInRole(Roles.CanAddUsers))
 {
@@ -185,4 +214,19 @@
     $(document).ready(function () {
         Search();
     });
+
+     function SearchModal()
+     {
+         $('.ModalSearch').modal({keyboard: false,backdrop:'static'});
+     }
+
+     function ResetSearch()
+     {
+         $('#txtSearchFullName').val(null);
+         $('#txtSearchEmail').val(null);
+         $('#txtSerachPhoneNumber').val(null);
+         $('#txtSort option:selected').val(null);
+
+         Search();
+     }
 </script>

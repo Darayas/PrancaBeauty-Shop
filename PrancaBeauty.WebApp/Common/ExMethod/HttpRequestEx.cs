@@ -30,9 +30,9 @@ namespace PrancaBeauty.WebApp.Common.ExMethod
 
         public static string GetCurrentUrlEncoded(this HttpRequest request)
         {
-            string Url = request.Scheme + "://" + request.Host + request.Path + request.QueryString;
+            string Url = request.Scheme + "://" + request.Host + request.Path;
             if (request.QueryString.HasValue)
-                Url += request.QueryString.Value;
+                Url += request.QueryString.Value.Replace("&amp;", "&");
 
             return WebUtility.UrlEncode(Url);
         }

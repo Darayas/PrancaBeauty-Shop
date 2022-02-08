@@ -16,7 +16,7 @@
                 </div>
                 <div class="offcanvas_menu_wrapper">
                     <div class="canvas_close">
-                        <a href="javascript:void(0)"><i class="ion-android-close"></i></a>
+                        <a href="javascript:void(0)"><i class="fa fa-times"></i></a>
                     </div>
                     <div class="language_currency top">
                         <ul>
@@ -28,16 +28,7 @@
                                     <li><a href="#">روسی</a></li>
                                 </ul>
                             </li>
-                            <li class="currency">
-                                <a href="#"> $ <i class="fas fa-angle-down"></i></a>
-                                <ul class="dropdown_currency">
-                                    <li><a href="#">€ یورو</a></li>
-                                    <li><a href="#">£ پوند</a></li>
-                                    <li><a href="#">$ دلار</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="tel:(00)123456789">(00) 123 456 789</a></li>
-
+                            <li class="phone"><a href="tel:(00)123456789">(00) 123 456 789</a></li>
                         </ul>
                     </div>
                     <div class="language_currency bottom">
@@ -78,7 +69,7 @@
                                             <p>1 x <span> $30.00 </span></p>
                                         </div>
                                         <div class="cart_remove">
-                                            <a href="#"><i class="ion-ios-close-outline"></i></a>
+                                            <a href="#"><i class="fa fa-times"></i></a>
                                         </div>
                                     </div>
                                     <div class="cart_item">
@@ -90,7 +81,7 @@
                                             <p>1 x <span> $29.00 </span></p>
                                         </div>
                                         <div class="cart_remove">
-                                            <a href="#"><i class="ion-ios-close-outline"></i></a>
+                                            <a href="#"><i class="fa fa-times"></i></a>
                                         </div>
                                     </div>
                                 </div>
@@ -219,15 +210,8 @@
                                 <li class="language">
                                     @(await Html.PartialAsync("~/Pages/Shared/Partials/P_ChangeLanuage.cshtml"))
                                 </li>
-                                <li class="currency">
-                                    <a href="#"> $ <i class="fas fa-angle-down"></i></a>
-                                    <ul class="dropdown_currency">
-                                        <li><a href="#">€ یورو</a></li>
-                                        <li><a href="#">£ پوند</a></li>
-                                        <li><a href="#">$ دلار</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="تماس:(00)123456789">(00) 123 456 789</a></li>
+                              
+                                <li class="phone"><a href="تماس:(00)123456789">(00) 123 456 789</a></li>
 
                             </ul>
                         </div>
@@ -235,14 +219,7 @@
                     <div class="col-lg-8 col-md-8">
                         <div class="setting_compare">
                             <ul>
-                                <li class="account">
-                                    <a href="#"> تنظیمات <i class="fas fa-angle-down"></i></a>
-                                    <ul class="dropdown_currency">
-                                        <li><a href="#">€ یورو</a></li>
-                                        <li><a href="#">£ پوند</a></li>
-                                        <li><a href="#">$ دلار</a></li>
-                                    </ul>
-                                </li>
+ 
                                 <li><a href="#"><i class="fa-xs fas fa-exchange-alt"></i> مقایسه (3)</a></li>
                                 <li><a href="#"><i class="fa-xs fas fa-heart"></i> علاقه مندی (3)</a></li>
                                 @if (User.Identity.IsAuthenticated)
@@ -393,7 +370,7 @@
                                                     <p>1 x <span> 10,000,000 ریال </span></p>
                                                 </div>
                                                 <div class="cart_remove">
-                                                    <a href="#"><i class="ion-ios-close-outline"></i></a>
+                                                    <a href="#"><i class="fa fa-times"></i></a>
                                                 </div>
                                             </div>
                                             <div class="cart_item">
@@ -405,7 +382,7 @@
                                                     <p>5 x <span> 100,000,000 ریال </span></p>
                                                 </div>
                                                 <div class="cart_remove">
-                                                    <a href="#"><i class="ion-ios-close-outline"></i></a>
+                                                    <a href="#"><i class="fa fa-times"></i></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -553,7 +530,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true"><i class="ion-android-close"></i></span>
+                <span aria-hidden="true"><i class="fa fa-times"></i></span>
             </button>
             <div class="modal_body">
                 <div class="container">

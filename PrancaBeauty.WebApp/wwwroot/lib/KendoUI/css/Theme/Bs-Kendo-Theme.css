@@ -11326,6 +11326,10 @@ kendo-sortable {
     list-style: none;
 }
 
+    .k-list-ul .k-list-item {
+        font-size: 14px;
+    }
+
 .k-list-item, .k-list-optionlabel {
     border: 0;
     outline: none;
@@ -12648,9 +12652,9 @@ kendo-badge-container {
 }
 
 .k-button-solid-base {
-    border-color: #e4e7eb;
+    border-color: #ffffff;
     color: #212529;
-    background-color: #e4e7eb;
+    background-color: #ffffff;
 }
 
     .k-button-solid-base:hover, .k-button-solid-base.k-hover {
@@ -14256,23 +14260,23 @@ textarea.k-input-inner {
         }
 
 .k-picker {
-    border-color: #e4e7eb;
-    color: #212529;
-    background-color: #e4e7eb;
+    border-color: #ced4da;
+    color: #333;
+    background-color: #ffffff;
 }
 
     .k-picker:hover, .k-picker.k-hover {
-        border-color: #c7cdd5;
-        background-color: #ced3db;
+        border-color: #ced4da;
+        background-color: #ffffff;
     }
 
-    .k-picker:focus, .k-picker.k-focus {
+    /*.k-picker:focus, .k-picker.k-focus {
         box-shadow: 0 0 0 0.25rem rgba(228, 231, 235, 0.5);
     }
 
     .k-picker:focus-within {
         box-shadow: 0 0 0 0.25rem rgba(228, 231, 235, 0.5);
-    }
+    }*/
 
     .k-picker.k-invalid, .k-picker.ng-invalid.ng-touched, .k-picker.ng-invalid.ng-dirty {
         border-color: #dc3545;
@@ -20734,6 +20738,7 @@ kendo-label > .k-label {
     outline: 0;
     -webkit-touch-callout: none;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    height:180px;
 }
 
     .k-treeview-group.ng-animating {
@@ -20772,7 +20777,16 @@ kendo-label > .k-label {
     -ms-flex-align: center;
     align-items: center;
     cursor: pointer;
+    z-index: 100;
 }
+
+    .k-treeview-toggle .k-icon {
+        transform: rotate(180deg);
+    }
+
+        .k-treeview-toggle .k-icon.k-i-collapse {
+            transform: rotate(360deg);
+        }
 
 .k-treeview-loading {
     margin-right: 0.5rem;
@@ -20799,12 +20813,18 @@ kendo-label > .k-label {
     align-content: center;
     vertical-align: middle;
     position: relative;
+    width: 100%;
 }
 
     .k-treeview-leaf .k-icon,
     .k-treeview-leaf .k-image,
     .k-treeview-leaf .k-sprite {
         margin-right: 0.5rem;
+    }
+
+    .k-treeview-leaf .k-image {
+        width: 24px;
+        height: 24px;
     }
 
     .k-treeview-leaf.k-focus {
@@ -20895,7 +20915,7 @@ kendo-label > .k-label {
 }
 
 .k-treeview-leaf:focus, .k-treeview-leaf.k-focus {
-    box-shadow: inset 0 0 0 2px rgba(33, 37, 41, 0.15);
+    /*box-shadow: inset 0 0 0 2px rgba(33, 37, 41, 0.15);*/
 }
 
 .k-treeview-leaf.k-selected {
@@ -28218,7 +28238,7 @@ div.k-grid-footer {
 .k-grid-pager {
     border-width: 1px 0 0;
     border-color: inherit;
-    font-size: inherit;
+    font-size: 12px;
 }
 
 .k-grid-pager-top {
@@ -38251,7 +38271,6 @@ kendo-scrollview.k-scrollview-wrap,
     }
 
 .k-combobox {
-    display: block;
     border: 1px solid #ced4da;
     overflow: hidden;
 }

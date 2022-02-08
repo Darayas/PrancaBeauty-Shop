@@ -1,140 +1,134 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Content Remove="wwwroot\Shared\js\SharedScript.min.js" />
-  </ItemGroup>
+	<ItemGroup>
+		<Content Remove="wwwroot\Shared\js\SharedScript.min.js" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="wwwroot\Shared\js\SharedScript.min.js" />
-  </ItemGroup>
+	<ItemGroup>
+		<_ContentIncludedByDefault Remove="wwwroot\Shared\js\SharedScript.min.js" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="AspNetCoreRateLimit" Version="4.0.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.1">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Telerik.UI.for.AspNet.Core" Version="2022.1.119" />
-    <PackageReference Include="UAParser" Version="3.1.47" />
-    <PackageReference Include="WebMarkupMin.AspNetCore5" Version="2.11.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="AspNetCoreRateLimit" Version="4.0.1" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.1">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Telerik.UI.for.AspNet.Core" Version="2022.1.119" />
+		<PackageReference Include="UAParser" Version="3.1.47" />
+		<PackageReference Include="WebMarkupMin.AspNetCore5" Version="2.11.0" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\PrancaBeauty.Infrastructure.Core\PrancaBeauty.Infrastructure.Core.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\PrancaBeauty.Infrastructure.Core\PrancaBeauty.Infrastructure.Core.csproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Pages\Auth\RecoveryPassword\Components\RecoveryBySMS\" />
-    <Folder Include="wwwroot\FileServer\Flags\" />
-  </ItemGroup>
+	<ItemGroup>
+		<Folder Include="Pages\Auth\RecoveryPassword\Components\RecoveryBySMS\" />
+		<Folder Include="wwwroot\FileServer\Flags\" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Include="wwwroot\Main\fonts\icons\font-awesome\fonts\fa-brands-400.svg" />
-    <None Include="wwwroot\Main\fonts\icons\font-awesome\fonts\fa-brands-400.woff2" />
-    <None Include="wwwroot\Main\fonts\icons\font-awesome\fonts\fa-duotone-900.svg" />
-    <None Include="wwwroot\Main\fonts\icons\font-awesome\fonts\fa-duotone-900.woff2" />
-    <None Include="wwwroot\Main\fonts\icons\font-awesome\fonts\fa-light-300.svg" />
-    <None Include="wwwroot\Main\fonts\icons\font-awesome\fonts\fa-light-300.woff2" />
-    <None Include="wwwroot\Main\fonts\icons\font-awesome\fonts\fa-regular-400.svg" />
-    <None Include="wwwroot\Main\fonts\icons\font-awesome\fonts\fa-regular-400.woff2" />
-    <None Include="wwwroot\Main\fonts\icons\font-awesome\fonts\fa-solid-900.svg" />
-    <None Include="wwwroot\Main\fonts\icons\font-awesome\fonts\fa-solid-900.woff2" />
-    <None Include="wwwroot\Main\fonts\rtl\IRANSans\woff2\IRANSansWeb.woff2" />
-    <None Include="wwwroot\Main\fonts\rtl\IRANSans\woff2\IRANSansWeb_Bold.woff2" />
-    <None Include="wwwroot\Main\fonts\rtl\IRANSans\woff2\IRANSansWeb_Light.woff2" />
-    <None Include="wwwroot\Main\fonts\rtl\IRANSans\woff2\IRANSansWeb_Medium.woff2" />
-    <None Include="wwwroot\Main\fonts\rtl\IRANSans\woff2\IRANSansWeb_UltraLight.woff2" />
-    <None Include="wwwroot\Main\fonts\rtl\IranYekan\300\a80f71ff.woff2" />
-    <None Include="wwwroot\Main\fonts\rtl\IranYekan\400\1fdcadec.woff2" />
-    <None Include="wwwroot\Main\fonts\rtl\IranYekan\600\fe12f13a.woff2" />
-    <None Include="wwwroot\Main\fonts\rtl\samim\CHANGELOG.md" />
-    <None Include="wwwroot\Main\fonts\rtl\samim\Farsi-Digits-Without-Latin\Samim-Bold-FD-WOL.woff2" />
-    <None Include="wwwroot\Main\fonts\rtl\samim\Farsi-Digits-Without-Latin\Samim-FD-WOL.woff2" />
-    <None Include="wwwroot\Main\fonts\rtl\samim\Farsi-Digits\Samim-Bold-FD.woff2" />
-    <None Include="wwwroot\Main\fonts\rtl\samim\Farsi-Digits\Samim-FD.woff2" />
-    <None Include="wwwroot\Main\fonts\rtl\samim\LICENSE" />
-    <None Include="wwwroot\Main\fonts\rtl\samim\README.md" />
-    <None Include="wwwroot\Main\fonts\rtl\samim\Samim-Bold.woff2" />
-    <None Include="wwwroot\Main\fonts\rtl\samim\Samim.woff2" />
-    <None Include="wwwroot\Main\fonts\rtl\samim\Without-Latin\Samim-Bold-WOL.woff2" />
-    <None Include="wwwroot\Main\fonts\rtl\samim\Without-Latin\Samim-WOL.woff2" />
-    <None Include="wwwroot\Main\fonts\rtl\Yekan\Yekan.svg" />
-    <None Include="wwwroot\lib\CKEditor5\build\ckeditor.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\ckeditor.js.map" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\af.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\ar.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\ast.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\az.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\bg.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\ca.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\cs.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\da.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\de-ch.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\de.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\el.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\en-au.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\en-gb.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\eo.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\es.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\et.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\eu.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\fa.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\fi.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\fr.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\gl.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\gu.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\he.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\hi.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\hr.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\hu.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\id.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\it.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\ja.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\kk.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\km.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\kn.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\ko.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\ku.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\lt.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\lv.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\nb.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\ne.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\nl.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\no.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\oc.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\pl.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\pt-br.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\pt.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\ro.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\ru.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\si.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\sk.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\sl.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\sq.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\sr-latn.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\sr.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\sv.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\th.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\tk.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\tr.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\tt.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\ug.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\uk.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\vi.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\zh-cn.js" />
-    <None Include="wwwroot\lib\CKEditor5\build\translations\zh.js" />
-    <None Include="wwwroot\lib\CKEditor5\src\ckeditor.js" />
-    <None Include="wwwroot\Shared\js\SharedScript.min.js" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="Localization\Resource\SharedResource.fa-IR.resx">
-      <Generator></Generator>
-    </EmbeddedResource>
-  </ItemGroup>
+	<ItemGroup>
+		<None Include="wwwroot\Main\fonts\icons\font-awesome\fonts\fa-brands-400.svg" />
+		<None Include="wwwroot\Main\fonts\icons\font-awesome\fonts\fa-brands-400.woff2" />
+		<None Include="wwwroot\Main\fonts\icons\font-awesome\fonts\fa-duotone-900.svg" />
+		<None Include="wwwroot\Main\fonts\icons\font-awesome\fonts\fa-duotone-900.woff2" />
+		<None Include="wwwroot\Main\fonts\icons\font-awesome\fonts\fa-light-300.svg" />
+		<None Include="wwwroot\Main\fonts\icons\font-awesome\fonts\fa-light-300.woff2" />
+		<None Include="wwwroot\Main\fonts\icons\font-awesome\fonts\fa-regular-400.svg" />
+		<None Include="wwwroot\Main\fonts\icons\font-awesome\fonts\fa-regular-400.woff2" />
+		<None Include="wwwroot\Main\fonts\icons\font-awesome\fonts\fa-solid-900.svg" />
+		<None Include="wwwroot\Main\fonts\icons\font-awesome\fonts\fa-solid-900.woff2" />
+		<None Include="wwwroot\Main\fonts\rtl\IRANSans\woff2\IRANSansWeb.woff2" />
+		<None Include="wwwroot\Main\fonts\rtl\IRANSans\woff2\IRANSansWeb_Bold.woff2" />
+		<None Include="wwwroot\Main\fonts\rtl\IRANSans\woff2\IRANSansWeb_Light.woff2" />
+		<None Include="wwwroot\Main\fonts\rtl\IRANSans\woff2\IRANSansWeb_Medium.woff2" />
+		<None Include="wwwroot\Main\fonts\rtl\IRANSans\woff2\IRANSansWeb_UltraLight.woff2" />
+		<None Include="wwwroot\Main\fonts\rtl\IranYekan\300\a80f71ff.woff2" />
+		<None Include="wwwroot\Main\fonts\rtl\IranYekan\400\1fdcadec.woff2" />
+		<None Include="wwwroot\Main\fonts\rtl\IranYekan\600\fe12f13a.woff2" />
+		<None Include="wwwroot\Main\fonts\rtl\samim\CHANGELOG.md" />
+		<None Include="wwwroot\Main\fonts\rtl\samim\Farsi-Digits-Without-Latin\Samim-Bold-FD-WOL.woff2" />
+		<None Include="wwwroot\Main\fonts\rtl\samim\Farsi-Digits-Without-Latin\Samim-FD-WOL.woff2" />
+		<None Include="wwwroot\Main\fonts\rtl\samim\Farsi-Digits\Samim-Bold-FD.woff2" />
+		<None Include="wwwroot\Main\fonts\rtl\samim\Farsi-Digits\Samim-FD.woff2" />
+		<None Include="wwwroot\Main\fonts\rtl\samim\LICENSE" />
+		<None Include="wwwroot\Main\fonts\rtl\samim\README.md" />
+		<None Include="wwwroot\Main\fonts\rtl\samim\Samim-Bold.woff2" />
+		<None Include="wwwroot\Main\fonts\rtl\samim\Samim.woff2" />
+		<None Include="wwwroot\Main\fonts\rtl\samim\Without-Latin\Samim-Bold-WOL.woff2" />
+		<None Include="wwwroot\Main\fonts\rtl\samim\Without-Latin\Samim-WOL.woff2" />
+		<None Include="wwwroot\Main\fonts\rtl\Yekan\Yekan.svg" />
+		<None Include="wwwroot\lib\CKEditor5\build\ckeditor.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\ckeditor.js.map" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\af.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\ar.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\ast.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\az.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\bg.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\ca.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\cs.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\da.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\de-ch.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\de.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\el.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\en-au.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\en-gb.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\eo.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\es.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\et.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\eu.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\fa.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\fi.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\fr.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\gl.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\gu.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\he.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\hi.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\hr.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\hu.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\id.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\it.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\ja.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\kk.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\km.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\kn.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\ko.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\ku.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\lt.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\lv.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\nb.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\ne.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\nl.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\no.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\oc.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\pl.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\pt-br.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\pt.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\ro.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\ru.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\si.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\sk.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\sl.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\sq.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\sr-latn.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\sr.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\sv.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\th.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\tk.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\tr.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\tt.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\ug.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\uk.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\vi.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\zh-cn.js" />
+		<None Include="wwwroot\lib\CKEditor5\build\translations\zh.js" />
+		<None Include="wwwroot\lib\CKEditor5\src\ckeditor.js" />
+		<None Include="wwwroot\Shared\js\SharedScript.min.js" />
+	</ItemGroup>
 
 </Project>

@@ -194,7 +194,7 @@ form {
 .TitleCell {
     .title {
         font-size: 16px !important;
-        font-weight: 800 !important;
+        font-weight: 600 !important;
         display: block;
         white-space: nowrap;
         text-overflow: ellipsis;
@@ -243,7 +243,24 @@ form {
     font-size: 16px;
     font-weight: 600 !important;
 }
+
 .header_account_list > a span.cart_itemtotal {
     font-size: 16px;
     font-weight: 400;
+}
+
+.swal2-actions {
+    direction: initial;
+}
+
+.swal2-styled.swal2-confirm {
+    background-color: rgb(12, 172, 37) !important;
+}
+
+.swal2-styled.swal2-cancel {
+    background-color: rgb(225, 40, 75) !important;
+}
+
+.dropdown-menu {
+    font-size: 14px;
 }

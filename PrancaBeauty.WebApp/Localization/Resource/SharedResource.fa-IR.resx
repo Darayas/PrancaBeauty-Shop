@@ -1149,6 +1149,9 @@
   <data name="SearchCategory" xml:space="preserve">
     <value>جستوجوی دسته</value>
   </data>
+  <data name="SearchUsers" xml:space="preserve">
+    <value>جستوجوی کاربران</value>
+  </data>
   <data name="Security" xml:space="preserve">
     <value>امنیت</value>
   </data>

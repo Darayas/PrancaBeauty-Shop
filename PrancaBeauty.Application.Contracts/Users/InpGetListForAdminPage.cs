@@ -21,7 +21,6 @@ namespace PrancaBeauty.Application.Contracts.Users
         public string FullName { get; set; }
 
         [Display(Name = "Sort")]
-        [NumRange(1, int.MaxValue)]
         public string Sort { get; set; }
 
         [Display(Name = "PageNum")]

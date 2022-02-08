@@ -422,7 +422,7 @@
             & > a {
                 text-transform: uppercase;
                 line-height: 16px;
-                font-size: 16px;
+                font-size: 14px;
                 display: inline-block;
                 font-weight: 400;
 
@@ -466,6 +466,10 @@
                         margin-right: 2px;
                     }
                 }
+            }
+
+            &.phone {
+                direction: ltr;
             }
         }
     }
@@ -867,7 +871,7 @@
 
                 & > a {
                     display: block;
-                    font-size: 16px;
+                    font-size: 15px;
                     line-height: 24px;
                     padding: 10px 30px;
                     text-transform: capitalize;
@@ -910,7 +914,7 @@
                     @include transition(.5s);
                     z-index: 99;
                     top: 100%;
-                    text-align: left;
+                    text-align: right;
 
                     & li {
                         & a {

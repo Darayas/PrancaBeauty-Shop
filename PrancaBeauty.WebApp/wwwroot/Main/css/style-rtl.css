@@ -913,7 +913,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 .language_currency > ul > li > a, .setting_compare > ul > li > a {
   text-transform: uppercase;
   line-height: 16px;
-  font-size: 16px;
+  font-size: 14px;
   display: inline-block;
   font-weight: 400;
 }
@@ -962,6 +962,9 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   .language_currency > ul > li > a img, .setting_compare > ul > li > a img {
     margin-right: 2px;
   }
+}
+.language_currency > ul > li.phone, .setting_compare > ul > li.phone {
+  direction: ltr;
 }
 
 .language_currency > ul > li:hover a:not([href]):not([tabindex]), .setting_compare > ul > li:hover a:not([href]):not([tabindex]) {
@@ -1354,7 +1357,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 }
 .main_menu nav > ul > li > a {
   display: block;
-  font-size: 16px;
+  font-size: 15px;
   line-height: 24px;
   padding: 10px 30px;
   text-transform: capitalize;
@@ -1397,7 +1400,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   transition: 0.5s;
   z-index: 99;
   top: 100%;
-  text-align: left;
+  text-align: right;
 }
 .main_menu nav > ul > li ul.sub_menu li a {
   font-size: 14px;
@@ -4883,7 +4886,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 .breadcrumb_content ul li {
   display: inline-block;
   text-transform: capitalize;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 20px;
   margin-left: 3px;
   padding-left: 13px;
@@ -8305,7 +8308,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 .panel-heading .panel-title a::before {
   position: absolute;
   content: "\f0d7";
-  font-family: "FontAwesome";
+  font-family: "Font Awesome 5 Pro";
   color: #333;
   font-size: 20px;
   width: 22px;
@@ -29988,7 +29991,7 @@ form .frmBtnAction {
 
 .TitleCell .title {
   font-size: 16px !important;
-  font-weight: 800 !important;
+  font-weight: 600 !important;
   display: block;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -30034,4 +30037,20 @@ form .frmBtnAction {
 .header_account_list > a span.cart_itemtotal {
   font-size: 16px;
   font-weight: 400;
+}
+
+.swal2-actions {
+  direction: initial;
+}
+
+.swal2-styled.swal2-confirm {
+  background-color: #0cac25 !important;
+}
+
+.swal2-styled.swal2-cancel {
+  background-color: #e1284b !important;
+}
+
+.dropdown-menu {
+  font-size: 14px;
 }

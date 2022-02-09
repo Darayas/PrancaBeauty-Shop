@@ -16,6 +16,7 @@ using PrancaBeauty.Application.Contracts.ProductSellers;
 using PrancaBeauty.Application.Contracts.ProductVariantItems;
 using PrancaBeauty.Application.Contracts.Sellers;
 using PrancaBeauty.WebApp.Authentication;
+using PrancaBeauty.WebApp.Common.ExMethod;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
 using PrancaBeauty.WebApp.Models.ViewInput;
 using PrancaBeauty.WebApp.Models.ViewModel;
@@ -117,6 +118,26 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Sellers
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        public async Task<IActionResult> OnPostChangeStatusAsync(viChangeStatusVariantItemId Input)
+        {
+            if (!User.IsInRole(Roles.CanChangeStatusProductSeller))
+                return _MsgBox.AccessDeniedMsg();
+
+            if (!ModelState.IsValid)
+                return _MsgBox.ModelStateMsg(ModelState.GetErrors());
+
+            var _Result = await _ProductVariantItemsApplication.ChangeStatusVariantItemAsync(new InpChangeStatusVariantItem
+            {
+                ProductId = Input.ProductId,
+                ProductSellerId = Input.ProductSellerId,
+                VariantItemId = Input.VariantItemId
+            });
+            if (_Result.IsSucceeded)
+                return _MsgBox.SuccessMsg(_Localizer[_Result.Message], "RefreshData()");
+            else
+                return _MsgBox.FaildMsg(_Localizer[_Result.Message]);
         }
 
         public vmProductSellerDetails Data { get; set; }

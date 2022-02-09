@@ -122,8 +122,8 @@
         <div class="dropdown-menu dropdown-menu-left">
     @if (User.IsInRole(Roles.CanChangeStatusProductSeller))
     {
-                          <a onclick="ChangeStatus('#:Id#')" class='dropdown-item #=IsConfirm==true?"hide":""#'><i class="dropdown-icon fa fa-check"></i>@Localizer["Confirm"]</a>
-                          <a onclick="ChangeStatus('#:Id#')" class='dropdown-item  #=IsConfirm==false?"hide":""#'><i class="dropdown-icon fa fa-ban"></i>@Localizer["Reject"]</a>
+                              <a onclick="ChangeStatus('#:Id#')" class='dropdown-item #=IsConfirm==true?"hide":""#'><i class="dropdown-icon fa fa-check"></i>@Localizer["Confirm"]</a>
+                              <a onclick="ChangeStatus('#:Id#')" class='dropdown-item  #=IsConfirm==false?"hide":""#'><i class="dropdown-icon fa fa-ban"></i>@Localizer["Reject"]</a>
     }
         </div>
     </div>
@@ -149,7 +149,7 @@
         }
 
     }
-    
+
     function GetSendFrom(_SendFrom)
     {
         if(_SendFrom=="1")
@@ -176,10 +176,10 @@
     @if (User.IsInRole(Roles.CanChangeStatusProductSeller))
     {
         <text>
-                   function ChangeStatus(_Id)
-                   {
-                       AreYouSureData('"/@ViewData["Culture"]/User/Product/Sellers/Details/@Model.ProductId/@Model.ProductSellerId?handler=ChangeStatus',{ProductSellerId:_Id, ProductId:'@Model.ProductId'});
-                   }
+                       function ChangeStatus(_Id)
+                       {
+                           AreYouSureData('/@ViewData["Culture"]/User/Product/Sellers/Details/@Model.ProductId/@Model.ProductSellerId?handler=ChangeStatus',{ProductSellerId:'@Model.ProductSellerId', ProductId:'@Model.ProductId',VariantItemId:_Id });
+                       }
         </text>
     }
 </script>

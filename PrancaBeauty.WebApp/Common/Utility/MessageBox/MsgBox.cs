@@ -51,6 +51,11 @@ namespace PrancaBeauty.WebApp.Common.Utility.MessageBox
         {
             return new JsResult(Show("", Message, MsgBoxType.success, _Localizer["OK"], CallBackFuncs));
         }
+
+        public JsResult AccessDeniedMsg(string CallBackFuncs = "function(){locaton.reload();}")
+        {
+            return new JsResult(Show("", _Localizer["AccessDeniedMsg"], MsgBoxType.error, _Localizer["OK"], CallBackFuncs));
+        }
     }
 
     public enum MsgBoxType

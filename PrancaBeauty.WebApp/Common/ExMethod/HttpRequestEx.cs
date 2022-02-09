@@ -21,7 +21,7 @@ namespace PrancaBeauty.WebApp.Common.ExMethod
 
         public static string GetCurrentUrl(this HttpRequest request)
         {
-            string Url = request.Scheme + "://" + request.Host + request.Path + request.QueryString;
+            string Url = request.Scheme + "://" + request.Host + request.Path;
             if (request.QueryString.HasValue)
                 Url += request.QueryString.Value;
 

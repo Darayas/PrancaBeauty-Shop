@@ -9,6 +9,7 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
     public interface IProductVariantItemsApplication
     {
         Task<OperationResult> AddVariantsToProductAsync(InpAddVariantsToProduct Input);
+        Task<OperationResult> ChangeStatusVariantItemAsync(InpChangeStatusVariantItem Input);
         Task<bool?> CheckHasPurchaseForVariantAsync(InpCheckHasPurchaseForVariant Input);
         Task<OperationResult> EditProductVariantsAsync(InpEditProductVariants Input);
         Task<List<OutGetAllVariantsByProductId>> GetAllVariantsByProductIdAsync(InpGetAllVariantsByProductId Input);

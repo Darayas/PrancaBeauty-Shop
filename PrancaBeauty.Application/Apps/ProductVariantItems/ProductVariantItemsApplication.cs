@@ -375,6 +375,45 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
             }
         }
 
+        public async Task<OperationResult> ChangeStatusVariantItemAsync(InpChangeStatusVariantItem Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
 
+                var qData = await _ProductVariantItemsRepository.Get
+                                                                .Where(a => a.Id == Guid.Parse(Input.VariantItemId))
+                                                                .Where(a => a.ProductId == Guid.Parse(Input.ProductId))
+                                                                .Where(a => a.ProductSellerId == Guid.Parse(Input.ProductSellerId))
+                                                                .SingleOrDefaultAsync();
+
+                if (qData == null)
+                    return new OperationResult().Failed("IdNotFound");
+
+                if (qData.IsConfirm)
+                {
+                    //_Logger.Information("تنوع رد شد");
+                    qData.IsConfirm = false; 
+                }
+                else
+                    qData.IsConfirm = true;
+
+                await _ProductVariantItemsRepository.UpdateAsync(qData, default, true);
+
+                return new OperationResult().Succeeded();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
     }
 }

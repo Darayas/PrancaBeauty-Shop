@@ -126,6 +126,9 @@
   <data name="AccessDenied" xml:space="preserve">
     <value>&lt;span style='font-wieght:700; font-size:16px;'&gt;403&lt;/span&gt;&lt;br/&gt;&lt;span style='font-wieght:400; font-size:12px;color:red;'&gt;دسترسی شما به این بخش، غیرمجاز میباشد&lt;/span&gt;</value>
   </data>
+  <data name="AccessDeniedMsg" xml:space="preserve">
+    <value>دسترسی شما به این بخش غیرمجاز میباشد.</value>
+  </data>
   <data name="AccessLevelHasUser" xml:space="preserve">
     <value>سطح دسترسی جاری، حاوی کاربرانی میباشد که ابتدا باید آن ها از عضویت این سطح دسترسی خارج شوند.</value>
   </data>

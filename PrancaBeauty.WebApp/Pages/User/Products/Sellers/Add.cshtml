@@ -6,22 +6,11 @@
 }
 
 @section breadcrumbs{
-<div class="breadcrumbs_area">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="breadcrumb_content">
-                    <ul>
-                        <li><a href="/@ViewData["Culture"]">@Localizer["Home"]</a></li>
-                        <li><a href="/@ViewData["Culture"]/User/Index">@Localizer["Dashboard"]</a></li>
-                        <li><a href="/@ViewData["Culture"]/User/Products/List">@Localizer["ProductList"]</a></li>
-                        <li>@Localizer["AddProductSeller"]</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<partial name="~/Pages/Shared/Partials/P_breadcrumbs.cshtml" model='new List<viBreadcrumbs>{
+        new viBreadcrumbs{ Title=Localizer["Home"], Url=$"/{ViewData["Culture"]}"},
+        new viBreadcrumbs{ Title=Localizer["Dashboard"], Url=$"/{ViewData["Culture"]}/User/Index"},
+        new viBreadcrumbs{ Title=Localizer["ProductList"], Url=$"/{ViewData["Culture"]}/User/Products/List"},
+        new viBreadcrumbs{ Title=Localizer["AddProductSeller"]}}'/>
 }
 <div class="row">
     <div class="col-md-4">
@@ -30,9 +19,9 @@
     <div class="col-md-8">
         <form id="FrmAddProdcutSeller">
             <input name="Input.ProductId" type="hidden" value="@Model.Input.ProductId" />
-            @if  (ViewData["VariantId"].ToString()  !=  "")
+            @if (ViewData["VariantId"].ToString() != "")
             {
-                    <input name="Input.VariantId" type="hidden" value="@ViewData["VariantId"]" />
+                <input name="Input.VariantId" type="hidden" value="@ViewData["VariantId"]" />
             }
             <div class="form-group">
                 <div class="row">
@@ -41,9 +30,9 @@
                         @if (User.IsInRole(Roles.CanAddProductSellerAllUser))
                         {
                             <LoadComponent id="SellerId"
-                                           url="/@ViewData["culture"]/Shared/Compo/ComboSellers"
-                                           context="HttpContext"
-                                           data='new viCompo_Combo_Sellers{ FieldName="Input.SellerId",LangId=ViewData["LangId"].ToString(),ShowLabale=true  }'></LoadComponent>
+                                       url="/@ViewData["culture"]/Shared/Compo/ComboSellers"
+                                       context="HttpContext"
+                                       data='new viCompo_Combo_Sellers{ FieldName="Input.SellerId",LangId=ViewData["LangId"].ToString(),ShowLabale=true  }'></LoadComponent>
                         }
                         else
                         {

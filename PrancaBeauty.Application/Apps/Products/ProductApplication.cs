@@ -878,6 +878,85 @@ namespace PrancaBeauty.Application.Apps.Products
             }
         }
 
+        public async Task<(bool IsConfirm, OutGetProductForDetails Product)> GetProductForDetailsAsync(InpGetProductForDetails Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                #region Check valid name and IsConfirm
+                string _ProductId = "";
+                {
+                    var _Result = await _ProductRepository.Get
+                                                          .Where(a => a.Name == Input.Name)
+                                                          .Where(a => a.IsDelete == false)
+                                                          .Where(a => a.IsDraft == false)
+                                                          .Select(a => new
+                                                          {
+                                                              Id = a.Id.ToString(),
+                                                              a.IsConfirmed
+                                                          })
+                                                          .SingleOrDefaultAsync();
+
+                    if (_Result == null)
+                        return (false, null);
+
+                    if (Input.CheckConfirm)
+                        if (!_Result.IsConfirmed)
+                            return (false, new OutGetProductForDetails());
+
+                    _ProductId = _Result.Id;
+                }
+                #endregion
+
+                var qData = await _ProductRepository.Get
+                                                    .Where(a => a.Id == Guid.Parse(_ProductId))
+                                                    .Select(a => new OutGetProductForDetails
+                                                    {
+                                                        Id = a.Id.ToString(),
+                                                        Title = a.Title,
+                                                        Name = a.Name,
+                                                        MetaDescription = a.MetaTagDescreption,
+                                                        Description = a.Description,
+                                                        MetaCanonical = a.MetaTagCanonical,
+                                                        MetaKeyword = a.MetaTagKeyword,
+                                                        CategoryTitle = a.tblCategory.tblCategory_Translates.Where(b => b.LangId == Guid.Parse(Input.LangId)).Select(b => b.Title).Single(),
+                                                        CategoryName = a.tblCategory.Name,
+                                                        Price = a.tblProductPrices.Where(a => a.IsActive).Select(a => a.Price).Single(),
+                                                        CurrencySymbol = a.tblProductPrices.Where(a => a.IsActive).Select(a => a.tblCurrency.Symbol).Single(),
+                                                        LstMedia = a.tblProductMedia.Select(b => new OutGetProductForDetails_Media
+                                                        {
+                                                            MediaTitle = b.tblFiles.Title,
+                                                            MediaUrl = b.tblFiles.tblFilePaths.tblFileServer.HttpDomin
+                                                                       + b.tblFiles.tblFilePaths.tblFileServer.HttpPath
+                                                                       + b.tblFiles.tblFilePaths.Path
+                                                                       + b.tblFiles.FileName,
+                                                            MimeType = b.tblFiles.tblFileTypes.MimeType,
+                                                            Sort = b.Sort
+                                                        }).ToList(),
+                                                        LstProperties = a.tblProductPropertiesValues.Select(b => new OutGetProductForDetails_Properties
+                                                        {
+                                                            Title = b.tblProductPropertis.tblProductPropertis_Translates.Where(b => b.LangId == Guid.Parse(Input.LangId)).Select(b => b.Title).Single(),
+                                                            Value = b.Value
+                                                        }).ToList()
+                                                    })
+                                                    .SingleAsync();
+
+                return (true, qData);
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return (false, null);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return (false, null);
+            }
+        }
 
     }
 }

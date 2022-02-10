@@ -1,4 +1,4 @@
-﻿@page "/Details/{Name}"
+﻿@page "/{culture}/Details/{Name}"
 @model PrancaBeauty.WebApp.Pages.Home.ProductDetailsModel
 @{
     ViewData["Title"] = "جزئیات محصول";
@@ -10,20 +10,12 @@
 
 
 <!--breadcrumbs area start-->
-<div class="breadcrumbs_area">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="breadcrumb_content">
-                    <ul>
-                        <li><a href="index.html">home</a></li>
-                        <li>product details</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
+<partial name="~/Pages/Shared/Partials/P_breadcrumbs.cshtml" model='new List<viBreadcrumbs>{
+        new viBreadcrumbs{ Title=Localizer["Home"], Url=$"/{ViewData["Culture"]}"},
+        new viBreadcrumbs{ Title="دسته اصلی", Url=$"/{ViewData["Culture"]}"},
+        new viBreadcrumbs{ Title=ViewData["Title"].ToString()} }'/>
+
 <!--breadcrumbs area end-->
 <!--product details start-->
 <div class="product_details mb-60">

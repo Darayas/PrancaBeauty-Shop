@@ -78,6 +78,7 @@ namespace PrancaBeauty.Application.Apps.Roles
                                                  HasChild = a.tblRoles_Childs.Any(),
                                                  ParentId = a.ParentId.HasValue ? a.ParentId.Value.ToString() : null
                                              })
+                                             .OrderBy(a=>a.Sort)
                                              .ToListAsync();
 
                 return qData;

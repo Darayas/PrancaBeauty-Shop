@@ -394,11 +394,14 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
 
                 if (qData.IsConfirm)
                 {
-                    //_Logger.Information("تنوع رد شد");
-                    qData.IsConfirm = false; 
+                    // TODO ثبت دلیل رد شدن
+                    qData.IsConfirm = false;
                 }
                 else
+                {
+                    // TODO ثبت اطلاع رسانی
                     qData.IsConfirm = true;
+                }
 
                 await _ProductVariantItemsRepository.UpdateAsync(qData, default, true);
 

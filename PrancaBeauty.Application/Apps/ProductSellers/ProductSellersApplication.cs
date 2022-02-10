@@ -203,9 +203,15 @@ namespace PrancaBeauty.Application.Apps.ProductSellers
                         return new OperationResult().Failed("ProductSellerIdNotFound");
 
                     if (qProductSeller.IsConfirm)
+                    {
+                        // TODO ثبت دلیل رد شدن
                         qProductSeller.IsConfirm = false;
+                    }
                     else
+                    {
+                        // TODO ارسال اطلاع رسانی
                         qProductSeller.IsConfirm = true;
+                    }
 
                     await _ProductSellersRepsoitory.UpdateAsync(qProductSeller, default, true);
 
@@ -339,7 +345,7 @@ namespace PrancaBeauty.Application.Apps.ProductSellers
                 return null;
             }
         }
-        
+
         public async Task<string> GetSellerIdByProductSellerIdAsync(InpGetSellerIdByProductSellerId Input)
         {
             try

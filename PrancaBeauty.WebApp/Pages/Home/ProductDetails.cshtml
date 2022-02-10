@@ -1,9 +1,10 @@
 ﻿@page "/{culture}/Details/{Name}"
 @model PrancaBeauty.WebApp.Pages.Home.ProductDetailsModel
 @{
-    ViewData["Title"] = "جزئیات محصول";
-    ViewData["Descreption"] = "توضیحات جزئیات محصول";
-    ViewData["canonical"] = null;
+    ViewData["Title"] = Model.Data.Title;
+    ViewData["Descreption"] = Model.Data.MetaDescription;
+    ViewData["canonical"] = Model.Data.MetaCanonical;
+    ViewData["Keywords"] = Model.Data.MetaKeyword;
 
     Layout = "~/Pages/Shared/_MainLayout.cshtml";
 }
@@ -13,8 +14,8 @@
 
 <partial name="~/Pages/Shared/Partials/P_breadcrumbs.cshtml" model='new List<viBreadcrumbs>{
         new viBreadcrumbs{ Title=Localizer["Home"], Url=$"/{ViewData["Culture"]}"},
-        new viBreadcrumbs{ Title="دسته اصلی", Url=$"/{ViewData["Culture"]}"},
-        new viBreadcrumbs{ Title=ViewData["Title"].ToString()} }'/>
+        new viBreadcrumbs{ Title=Model.Data.CategoryTitle, Url=$"/{ViewData["Culture"]}/Search/{Model.Data.CategoryName}"},
+        new viBreadcrumbs{ Title=ViewData["Title"].ToString()} }' />
 
 <!--breadcrumbs area end-->
 <!--product details start-->
@@ -25,35 +26,19 @@
                 <div class="product-details-tab">
                     <div id="img-1" class="zoomWrapper single-zoom">
                         <a href="#">
-                            <img id="zoom1" src="/Main/img/product/productbig4.jpg" data-zoom-image="/Main/img/product/productbig4.jpg" alt="big-1">
+                            <img id="zoom1" src="@Model.Data.LstMedia.OrderBy(a=>a.Sort).First().MediaUrl" data-zoom-image="@Model.Data.LstMedia.OrderBy(a=>a.Sort).First().MediaUrl" alt="@Model.Data.LstMedia.OrderBy(a=>a.Sort).First().MediaTitle">
                         </a>
                     </div>
                     <div class="single-zoom-thumb">
                         <ul class="s-tab-zoom owl-carousel single-product-active" id="gallery_01">
-                            <li>
-                                <a href="#" class="elevatezoom-gallery active" data-update="" data-image="/Main/img/product/productbig4.jpg" data-zoom-image="/Main/img/product/productbig4.jpg">
-                                    <img src="/Main/img/product/productbig4.jpg" alt="zo-th-1" />
-                                </a>
-
-                            </li>
-                            <li>
-                                <a href="#" class="elevatezoom-gallery active" data-update="" data-image="/Main/img/product/productbig1.jpg" data-zoom-image="/Main/img/product/productbig1.jpg">
-                                    <img src="/Main/img/product/productbig1.jpg" alt="zo-th-1" />
-                                </a>
-
-                            </li>
-                            <li>
-                                <a href="#" class="elevatezoom-gallery active" data-update="" data-image="/Main/img/product/productbig2.jpg" data-zoom-image="/Main/img/product/productbig2.jpg">
-                                    <img src="/Main/img/product/productbig2.jpg" alt="zo-th-1" />
-                                </a>
-
-                            </li>
-                            <li>
-                                <a href="#" class="elevatezoom-gallery active" data-update="" data-image="/Main/img/product/productbig3.jpg" data-zoom-image="/Main/img/product/productbig3.jpg">
-                                    <img src="/Main/img/product/productbig3.jpg" alt="zo-th-1" />
-                                </a>
-
-                            </li>
+                            @foreach (var item in Model.Data.LstMedia.OrderBy(a=>a.Sort))
+                            {
+                                <li>
+                                    <a href="#" class="elevatezoom-gallery active" data-update="" data-image="@item.MediaUrl" data-zoom-image="@item.MediaUrl">
+                                        <img src="@item.MediaUrl" alt="@item.MediaTitle" />
+                                    </a>
+                                </li>
+                            }
                         </ul>
                     </div>
                 </div>
@@ -62,7 +47,7 @@
                 <div class="product_d_right">
                     <form action="#">
                         <div class="productd_title_nav">
-                            <h1><a href="#">Lorem ipsum dolor sit amet elit</a></h1>
+                            <h1><a href="/@ViewData["culture"]/Details/@Model.Data.Name">@Model.Data.Title</a></h1>
                             <div class="product_nav">
                                 <ul>
                                     <li class="prev"><a href="product-details.html"><i class="fa fa-angle-left"></i></a></li>

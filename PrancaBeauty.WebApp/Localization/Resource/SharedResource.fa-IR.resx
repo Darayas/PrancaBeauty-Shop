@@ -1056,6 +1056,9 @@
   <data name="PublicDetials" xml:space="preserve">
     <value>جزئیات عمومی</value>
   </data>
+  <data name="Published" xml:space="preserve">
+    <value>منتشر شده</value>
+  </data>
   <data name="RangeGreaterThanZeroMsgMsg" xml:space="preserve">
     <value>{0} باید بیشتر از 0 باشد.</value>
   </data>

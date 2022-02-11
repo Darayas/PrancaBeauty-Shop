@@ -97,12 +97,11 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
                 #region Validations
                 Input.CheckModelState(_ServiceProvider);
 
-                if (Input.Roles == null)
-                    throw new ArgumentInvalidException("Roles cant be null.");
-
                 if (await _AccessLevelRepository.Get.AnyAsync(a => a.Name == Input.Name))
                     throw new ArgumentInvalidException("Name is duplicate.");
 
+                //if (Input.Roles == null)
+                //    throw new ArgumentInvalidException("Roles cant be null.");
                 #endregion
 
                 await _AccessLevelRepository.AddAsync(new tblAccessLevels
@@ -211,11 +210,11 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
                 #region برسی ورودی ها
                 Input.CheckModelState(_ServiceProvider);
 
-                if (Input.Roles == null)
-                    throw new ArgumentInvalidException("Roles cant be null.");
+                //if (Input.Roles == null)
+                //    throw new ArgumentInvalidException("Roles cant be null.");
 
-                if (Input.Roles.Count() == 0)
-                    throw new ArgumentInvalidException("Roles cant be null.");
+                //if (Input.Roles.Count() == 0)
+                //    throw new ArgumentInvalidException("Roles cant be null.");
                 #endregion
 
                 // واکشی اطلاعات قدیمی

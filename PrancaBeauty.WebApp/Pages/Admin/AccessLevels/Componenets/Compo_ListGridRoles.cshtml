@@ -4,7 +4,7 @@
 @if (Model.Input.AccessLevelId == null)
 {
     <script>
-        function IsSelected(_Id) {
+        function IsSelected(_Name) {
             return '';
         }
     </script>
@@ -12,10 +12,10 @@
 else
 {
     <script>
-            function IsSelected(_Id) {
-            var RolesName = '@string.Join(",", (string[])ViewData["SelectedRoles"])';
+            function IsSelected(_Name) {
+                var RolesNames = '@string.Join(",", (string[])ViewData["SelectedRoles"])';
 
-                if (RolesName.includes(_Id)) {
+                if (RolesNames.includes(_Name+",")) {
                     return 'checked';
                 } else {
                     return '';

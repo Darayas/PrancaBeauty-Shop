@@ -29,7 +29,7 @@ namespace PrancaBeauty.WebApp.Models.ViewModel
         public string CategoryId { get; set; }
 
         [Display(Name= "Status")]
-        public vmProductList_Status Status { get; set; }
+        public int Status { get; set; }
         public bool IsDelete { get; set; }
         public bool IsConfirm { get; set; }
         public bool IsDraft { get; set; }

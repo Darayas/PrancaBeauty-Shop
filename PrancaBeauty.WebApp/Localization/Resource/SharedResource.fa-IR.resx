@@ -189,6 +189,9 @@
   <data name="AddressHasFactors" xml:space="preserve">
     <value>آدرس دارای فاکتورهایی میباشد که امکان حذف آن وجود ندارد.</value>
   </data>
+  <data name="AddToWishlist" xml:space="preserve">
+    <value>افزودن به علاقه مندی</value>
+  </data>
   <data name="AdminPanel" xml:space="preserve">
     <value>پنل مدیریت</value>
   </data>
@@ -287,6 +290,9 @@
   </data>
   <data name="CodeMelli" xml:space="preserve">
     <value>کد ملی</value>
+  </data>
+  <data name="Compare" xml:space="preserve">
+    <value>مقایسه</value>
   </data>
   <data name="ConcurrencyFailure" xml:space="preserve">
     <value>رکورد جاری پیشتر ویرایش شده‌است و تغییرات شما آن‌را بازنویسی خواهد کرد</value>

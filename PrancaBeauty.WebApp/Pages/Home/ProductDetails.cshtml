@@ -34,7 +34,7 @@
                             @foreach (var item in Model.Data.LstMedia.OrderBy(a=>a.Sort))
                             {
                                 <li>
-                                    <a href="#" class="elevatezoom-gallery active" data-update="" data-image="@item.MediaUrl" data-zoom-image="@item.MediaUrl">
+                                    <a href="#" class="elevatezoom-gallery" data-image="@item.MediaUrl" data-zoom-image="@item.MediaUrl">
                                         <img src="@item.MediaUrl" alt="@item.MediaTitle" />
                                     </a>
                                 </li>
@@ -67,11 +67,19 @@
                             </ul>
                         </div>
                         <div class="price_box">
-                            <span class="current_price">£70.00</span>
-                            <span class="old_price">£80.00</span>
+                            <span class="current_price">@Model.Data.Price.ToN3() @Model.Data.CurrencySymbol</span>
+                            @*<span class="old_price">£80.00</span>*@
                         </div>
                         <div class="product_desc">
-                            <p>eget velit. Donec ac tempus ante. Fusce ultricies massa massa. Fusce aliquam, purus eget sagittis vulputate, sapien libero hendrerit est, sed commodo augue nisi non neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor, lorem et placerat vestibulum, metus nisi posuere nisl, in </p>
+                           <ul>
+                               @foreach(var item in Model.Data.LstProperties)
+                               {
+                                    <li>
+                                        <span class="fw-700">@item.Title</span>
+                                        <span>@item.Value</span>
+                                    </li>
+                               }
+                           </ul>
                         </div>
                         <div class="product_variant color">
                             <h3>Available Options</h3>
@@ -91,12 +99,12 @@
                         </div>
                         <div class=" product_d_action">
                             <ul>
-                                <li><a href="#" title="Add to wishlist">+ Add to Wishlist</a></li>
-                                <li><a href="#" title="Add to wishlist">+ Compare</a></li>
+                                <li><a href="#" title="Add to wishlist">+ @Localizer["AddToWishlist"]</a></li>
+                                <li><a href="#" title="Add to wishlist">+ @Localizer["Compare"]</a></li>
                             </ul>
                         </div>
                         <div class="product_meta">
-                            <span>Category: <a href="#">Clothing</a></span>
+                            <span class="fw-700">@Localizer["Category"]: <a href="/@ViewData["culture"]/Search/@Model.Data.CategoryName">@Model.Data.CategoryTitle</a></span>
                         </div>
 
                     </form>

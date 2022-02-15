@@ -571,7 +571,6 @@
         responsive: true,
         cursor: 'crosshair',
         zoomType: 'inner'
-
     });
 
 

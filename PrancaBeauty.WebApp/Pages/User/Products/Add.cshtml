@@ -311,7 +311,7 @@
         function OnComboSelectInput_LangId(e) {
             var _LangId = e.dataItem.Id;
 
-            LoadComponenet('/@ViewData["culture"]/Shared/Compo/ComboInputPrice', {
+            LoadComponent('/@ViewData["culture"]/Shared/Compo/ComboInputPrice', {
                 FieldName: 'Input.Price',
                 Price: '0',
                 LangId: _LangId
@@ -326,7 +326,7 @@
 
     function OnComboSelectInput_TopicId(e) {
 
-        LoadComponenet('/@ViewData["Culture"]/User/Products/Compo/ComboProductProperties',
+        LoadComponent('/@ViewData["Culture"]/User/Products/Compo/ComboProductProperties',
         {
             TopicId: e.dataItem.Id
         },

@@ -69,7 +69,7 @@
         function AddVariantInput() {
             var _Count = $('.ProductVariantsItemCompo').length;
 
-            LoadComponenet('/@ViewData["culture"]/User/Products/Compo/VariantsItem', {
+            LoadComponent('/@ViewData["culture"]/User/Products/Compo/VariantsItem', {
                 Index: _Count
             }, function (res) {
                 $('#CompoAddVariantSection').append("<div class='ProductVariantsItemCompo'>" + res + "</div>");

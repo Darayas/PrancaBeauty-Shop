@@ -52,7 +52,7 @@
 
             var _Count = $('.ProductKeywordsInputCompo').length;
 
-            LoadComponenet('/@ViewData["culture"]/User/Products/Compo/CompoInputKeywordInput', {
+            LoadComponent('/@ViewData["culture"]/User/Products/Compo/CompoInputKeywordInput', {
                 Index: _Count
             }, function (res) {
                 $('#CompoAddKeywordSection').append("<div class='ProductKeywordsInputCompo'>" + res + "</div>");

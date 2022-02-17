@@ -31,14 +31,14 @@
 
 <script>
     function Add() {
-        LoadComponenet('/@ViewData["Culture"]/User/EditProfile/Compo/AddAddress', {}, function (res) {
+        LoadComponent('/@ViewData["Culture"]/User/EditProfile/Compo/AddAddress', {}, function (res) {
             $('body').append(res);
             $('#AddAddress').modal({ backdrop: 'static', keyboard: false });
         });
     }
 
     function Edit(_Id) {
-        LoadComponenet('/@ViewData["Culture"]/User/EditProfile/Compo/EditAddress', { Id: _Id}, function (res) {
+        LoadComponent('/@ViewData["Culture"]/User/EditProfile/Compo/EditAddress', { Id: _Id}, function (res) {
             $('body').append(res);
             $('#EditAddress').modal({ backdrop: 'static', keyboard: false });
         });

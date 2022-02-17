@@ -36,7 +36,7 @@
     <script>
         function AddPostingRestrictionsInput() {
             var _Count = $('.ProductPostingRestrictionsInputCompo').length;
-            LoadComponenet('/@ViewData["culture"]/User/Products/Compo/PostingRestrictionsInput', {
+            LoadComponent('/@ViewData["culture"]/User/Products/Compo/PostingRestrictionsInput', {
                 Index: _Count
             }, function (res) {
                 $('#CompoAddPostingRestrictionsSection').append("<div class='ProductPostingRestrictionsInputCompo'>" + res + "</div>");

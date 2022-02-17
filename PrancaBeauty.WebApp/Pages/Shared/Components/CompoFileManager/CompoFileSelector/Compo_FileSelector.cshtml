@@ -73,7 +73,7 @@
 </div>
 <script>
     function AddFile@(FieldId)() {
-        LoadComponenet('/@ViewData["culture"]/Shared/Compo/ComboModalFileManager', {
+        LoadComponent('/@ViewData["culture"]/Shared/Compo/ComboModalFileManager', {
             FieldName: '@Model.Input.FieldName',
             SelectedFilesId: $('#@FieldId').val(),
             MaxFileCount:@Model.Input.MaxFileCount,
@@ -86,7 +86,7 @@
     }
 
     function RefreshFileSelector@(FieldId)(_SelectedFilesId, _CallbackFuncs = function () { }) {
-        LoadComponenet('/@ViewData["culture"]/Shared/Compo/ComboFileSelector', {
+        LoadComponent('/@ViewData["culture"]/Shared/Compo/ComboFileSelector', {
             FieldName: '@Model.Input.FieldName',
             SelectedFilesId: _SelectedFilesId,
             MaxFileCount: @Model.Input.MaxFileCount,

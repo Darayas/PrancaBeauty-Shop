@@ -24,13 +24,13 @@
         });
 
     function LoginByEmailPassword() {
-        LoadComponenet('/@ViewData["culture"]/Auth/Login/Components/LoginByEmailPassword', { ReturnUrl: null }, function (data) {
+        LoadComponent('/@ViewData["culture"]/Auth/Login/Components/LoginByEmailPassword', { ReturnUrl: null }, function (data) {
             $('#CompoLogin').html(data);
         });
     }
 
     function GotoOtpPage() {
-        LoadComponenet('/@ViewData["culture"]/Auth/Login/Components/LoginByPhoneNumber/OTP', { PhoneNumber: $('#Input_PhoneNumber').val() }, function (data) {
+        LoadComponent('/@ViewData["culture"]/Auth/Login/Components/LoginByPhoneNumber/OTP', { PhoneNumber: $('#Input_PhoneNumber').val() }, function (data) {
             $('#CompoLogin').html(data);
         });
     }

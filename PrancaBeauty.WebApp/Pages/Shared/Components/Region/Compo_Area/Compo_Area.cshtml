@@ -26,7 +26,7 @@
 
 <script>
     function OnComboSelect@(Model.Input.CountyFieldName.Replace(".","_"))(e) {
-        LoadComponenet('/@ViewData["Culture"]/Shared/Compo/Region/ComboProvince',
+        LoadComponent('/@ViewData["Culture"]/Shared/Compo/Region/ComboProvince',
             {
                 CountryId: e.dataItem.Id,
                 ProvinceId: null,
@@ -38,7 +38,7 @@
     }
 
     function OnComboSelect@(Model.Input.ProvinceFieldName.Replace(".","_"))(e) {
-        LoadComponenet('/@ViewData["Culture"]/Shared/Compo/Region/ComboCity',
+        LoadComponent('/@ViewData["Culture"]/Shared/Compo/Region/ComboCity',
             {
                 ProvinceId: e.dataItem.Id,
                 CityId: null,

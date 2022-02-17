@@ -183,7 +183,7 @@
 {
     <script>
         function ChangeAccessLevel(_Id,_AccessLevelId) {
-            LoadComponenet('/@ViewData["culture"]/Admin/Users/Compo/ChangeAccessLevel', { UserId: _Id, AccessLevelId: _AccessLevelId}, function (res) {
+            LoadComponent('/@ViewData["culture"]/Admin/Users/Compo/ChangeAccessLevel', { UserId: _Id, AccessLevelId: _AccessLevelId}, function (res) {
                 $('body').append(res);
                 $('#ChangeAccessLevel').modal({ backdrop: 'static', keyboard: false });
             });

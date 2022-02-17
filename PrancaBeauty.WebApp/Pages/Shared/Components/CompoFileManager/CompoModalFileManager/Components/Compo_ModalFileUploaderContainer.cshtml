@@ -9,7 +9,7 @@
 
 <script>
     function LoadFileUploader@(FieldId)(_UserId) {
-        LoadComponenet('/@ViewData["culture"]/Shared/Compo/ComboModalFileUploader', {
+        LoadComponent('/@ViewData["culture"]/Shared/Compo/ComboModalFileUploader', {
             FieldName: '@Model.Input.FieldName',
             UserId: _UserId
         }, function (res) {
@@ -47,7 +47,7 @@ else
 
 <script>
     function ReloadFileUploader@(FieldId)() {
-        LoadComponenet('/@ViewData["culture"]/Shared/Compo/ComboModalFileUploaderContainer', {
+        LoadComponent('/@ViewData["culture"]/Shared/Compo/ComboModalFileUploaderContainer', {
             FieldName: '@Model.Input.FieldName',
             UserId: '@Model.Input.UserId'
         }, function (res) {

@@ -102,7 +102,7 @@
 {
     <script>
     function ConfirmPhoneNumber() {
-        LoadComponenet('/@ViewData["culture"]/User/EditProfile/Compo/PhoneNumberConfirmation', { PhoneNumber: '@Model.Input.PhoneNumber' }, function (res) {
+        LoadComponent('/@ViewData["culture"]/User/EditProfile/Compo/PhoneNumberConfirmation', { PhoneNumber: '@Model.Input.PhoneNumber' }, function (res) {
                 $('body').append(res);
                 $('#PhoneNumberConfirmation').modal({ backdrop: 'static', keyboard: false });
             });

@@ -62,7 +62,7 @@
     </div>
     <script>
         function ResetFilters@(FieldId)() {
-            LoadComponenet('/@ViewData["culture"]/Shared/Compo/ComboModalFileManagerFilter', {
+            LoadComponent('/@ViewData["culture"]/Shared/Compo/ComboModalFileManagerFilter', {
                 Title: null,
                 UserId: null,
                 FileTypeId: null,
@@ -78,7 +78,7 @@
         }
 
         function AffectFilter@(FieldId)() {
-            LoadComponenet('/@ViewData["culture"]/Shared/Compo/ComboModalFileList', {
+            LoadComponent('/@ViewData["culture"]/Shared/Compo/ComboModalFileList', {
                 FieldName: '@Model.Input.FieldName',
                 FileTitle: $('#Input_FileTitle').val(),
                 FileTypeId: $('#Input_FileTypeId').val(),

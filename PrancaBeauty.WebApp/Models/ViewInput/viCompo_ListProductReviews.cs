@@ -13,7 +13,7 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
 
         [Display(Name = "Take")]
         [NumRange(1, int.MaxValue, ErrorMessage = "RangeGreaterThanZeroMsgMsg")]
-        public int Take { get; set; } = 10;
+        public int Take { get; set; }=10;
 
         [Display(Name = "Page")]
         [NumRange(1, int.MaxValue, ErrorMessage = "RangeGreaterThanZeroMsgMsg")]

@@ -1,52 +1,74 @@
 ﻿@page "/{culture}/Shared/Compo/ComboListProductReviews"
 @model PrancaBeauty.WebApp.Pages.Shared.Components.Compo_ProductReviews.Compo_ListProductReviewsModel
 
-<div class="reviews_wrapper">
-
-    @if(User.Identity.IsAuthenticated)
-    {
-        <LoadComponent url="/@ViewData["culture"]/Shared/Compo/ComboAddProductReviews"
-                                           data='new viCompo_ListProductReviews{ ProductId=Model.Data.Id,Page=1,Take=10 }' ,
-                                           context="HttpContext"></LoadComponent>
-    }
-
-    @if (Model.Data.Count() == 0)
-    {
-        <div class="alert alert-info">
-            @Localizer["NoReviewsFound"]
-        </div>
-    }
-    else
-    {
-        foreach (var item in Model.Data)
-        {
-            <div class="reviews_comment_box">
-                <div class="comment_thmb">
-                    <img src="@item.UserProfileImage" alt="@item.UserFullName">
-                </div>
-                <div class="comment_text">
-                    <div class="reviews_meta">
-                        <div class="star_rating">
-                            <ul>
-                                @for (int i = 1; i <= item.CountStar; i++)
-                                {
-                                    <li><i class="fa fa-star"></i></li>
-                                }
-
-                                @for (int i = 1; i <= 5 - item.CountStar; i++)
-                                {
-                                    <li><i class="fa fa-star-o"></i></li>
-                                }
-                            </ul>
-                        </div>
-                        <p><strong>@item.UserFullName </strong>- @item.Date</p>
-                        <span>
-                            @item.Text
-                        </span>
-                    </div>
-                </div>
+<div class=row>
+    <div class=col-md-4>
+        <div class=row>
+            <div classcol-md-12></div>
+            <div classcol-md-12>
+                <button onclick="ShowNewReviewModal()" class="btn btn-outline-info">@Localizer["AddNewReview"]</button>
             </div>
-        }
+        </div>
+    </div>
+    <div class=col-md-8>
+        <div class="reviews_wrapper">
 
-    }
+            @if (User.Identity.IsAuthenticated)
+            {
+                <LoadComponent url="/@ViewData["culture"]/Shared/Compo/ComboAddProductReviews"
+                           data='new viCompo_ListProductReviews{ ProductId=Model.Input.ProductId,Page=1,Take=10 }' ,
+                           context="HttpContext"></LoadComponent>
+            }
+
+            @if (Model.Data.Count() == 0)
+            {
+                <div class="alert alert-info">
+                    @Localizer["NoReviewsFound"]
+                </div>
+            }
+            else
+            {
+                foreach (var item in Model.Data)
+                {
+                    <div class="reviews_comment_box">
+                        <div class="comment_thmb">
+                            <img src="@item.UserProfileImage" alt="@item.UserFullName">
+                        </div>
+                        <div class="comment_text">
+                            <div class="reviews_meta">
+                                <div class="star_rating">
+                                    <ul>
+                                        @for (int i = 1; i <= item.CountStar; i++)
+                                        {
+                                            <li><i class="fa fa-star"></i></li>
+                                        }
+
+                                        @for (int i = 1; i <= 5 - item.CountStar; i++)
+                                        {
+                                            <li><i class="fa fa-star-o"></i></li>
+                                        }
+                                    </ul>
+                                </div>
+                                <p><strong>@item.UserFullName </strong>- @item.Date</p>
+                                <span>
+                                    @item.Text
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            }
+        </div>
+    </div>
+    <script>
+        function ShowNewReviewModal(){
+            LoadComponent('/@ViewData["culture"]/Shared/Compo/ComboAddProductReview',{ProductId: '@Model.Input.ProductId'},function(res){
+                $('body').append(res);
+                $('.ModalAddNewReview').modal({keyboard: false,backdrop:'static'});
+            });
+
+
+        }
+    </script>
 </div>

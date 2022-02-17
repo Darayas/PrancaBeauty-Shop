@@ -76,7 +76,7 @@ function SendForm(_url, _FormId, _Funcs_Success = function (res) { }) {
     });
 }
 
-function LoadComponenet(_Url, _Data, _CallbackFuncs = function (data) { }) {
+function LoadComponent(_Url, _Data, _CallbackFuncs = function (data) { }) {
     $.ajax({
         url: _Url,
         type: 'get',

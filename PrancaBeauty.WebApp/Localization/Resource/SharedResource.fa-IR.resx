@@ -210,6 +210,9 @@
   <data name="AreYouSureToDelete" xml:space="preserve">
     <value>آیا مطمعن به حذف هستید؟</value>
   </data>
+  <data name="Asks" xml:space="preserve">
+    <value>پرسش ها ({0})</value>
+  </data>
   <data name="Author" xml:space="preserve">
     <value>نویسنده</value>
   </data>
@@ -1136,6 +1139,9 @@
   </data>
   <data name="RetypeNewPassword" xml:space="preserve">
     <value>تایید کلمه عبور</value>
+  </data>
+  <data name="Reviews" xml:space="preserve">
+    <value>نظرات ({0})</value>
   </data>
   <data name="Roles" xml:space="preserve">
     <value>نقش ها</value>

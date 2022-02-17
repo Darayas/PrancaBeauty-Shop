@@ -27,6 +27,8 @@ namespace PrancaBeauty.Domin.Product.ProductReviewsAgg.Entities
         public int CountStar { get; set; }
         public string Advantages { get; set; } // نقاط قوت
         public string DisAdvantages { get; set; } // نقاط ضعف
+
+
         public virtual tblProducts tblProducts { get; set; }
         public virtual tblProductSellers tblProductSellers { get; set; }
         public virtual tblUsers tblUsers { get; set; }

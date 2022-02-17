@@ -155,7 +155,7 @@
         <div class="row">
                <div class="col-md-12">
                         <h2 class="title">
-                            <a href="/Product/#=UniqueNumber#/#=Name#" title="#=Title#">#=Title#</a>
+                            <a target="_blank" href="/@(ViewData["culture"])/Product/#=Name#" title="#=Title#">#=Title#</a>
                         </h2>
                     </div>
                 </div>
@@ -180,16 +180,16 @@
                             <div class="d-inline #:HasUnConfirmedAsk==true?'font-weight-bold':''#"><i class="fa fa-question mr-1 ml-1"></i><span title="@Localizer["CountAsks"]"><a href="##">#:CountAsks#</a></span></div>
                             <div class="d-inline #:HasUnConfirmedSellerRequest==true?'font-weight-bold text-danger':''#">
                                 <span title="@Localizer["CountSellers"]">
-                                @if (User.IsInRole(Roles.CanViewListProductSellerList))
-                                {
-                                        <a onclick=GotoSellerList('#:Id#')><i class="fa fa-users mr-1 ml-1"></i>
-                                            #:CountSellers#
-                                        </a>
-                                }
-                                else
-                                {
-                                        <a> #:CountSellers#</a>
-                                }
+    @if (User.IsInRole(Roles.CanViewListProductSellerList))
+    {
+                                                <a onclick=GotoSellerList('#:Id#')><i class="fa fa-users mr-1 ml-1"></i>
+                                                    #:CountSellers#
+                                                </a>
+    }
+    else
+    {
+                                                <a> #:CountSellers#</a>
+    }
                                 </span>
                             </div>
                             <div class='d-inline'><i class="fa fa-eye mr-1 ml-1"></i><span title="@Localizer["CountVisit"]"><a href="##">#:CountVisit#</a></span></div>
@@ -218,22 +218,22 @@
         <div class="dropdown-menu dropdown-menu-left">
     @if (User.IsInRole(Roles.CanEditProduct))
     {
-                        <a href="/@ViewData["Culture"]/User/Products/Edit/#:Id#?ReturnUrl=@Request.GetCurrentUrlEncoded()" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i>@Localizer["Edit"]</a>
+                                <a href="/@ViewData["Culture"]/User/Products/Edit/#:Id#?ReturnUrl=@Request.GetCurrentUrlEncoded()" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i>@Localizer["Edit"]</a>
     }
 
     @if (User.IsInRole(Roles.CanMoveToRecycleBinProduct))
     {
         if (User.IsInRole(Roles.CanRemoveProduct))
         {
-                                    <a onclick="Remove('#:Id#')" class="dropdown-item"><i class="dropdown-icon fa fa-times"></i>@Localizer["RemoveAlways"]</a>
+                                                    <a onclick="Remove('#:Id#')" class="dropdown-item"><i class="dropdown-icon fa fa-times"></i>@Localizer["RemoveAlways"]</a>
         }
 
-                        <a onclick="MoveToRecycleBin('#:Id#')" class="dropdown-item #:Status==0?'hide':''#"><i class="dropdown-icon fa fa-trash"></i>@Localizer["MoveToRecycleBin"]</a>
-                        <a onclick="RecoveryFromRecycleBin('#:Id#')" class="dropdown-item #:Status!=0?'hide':''#"><i class="dropdown-icon fa fa-undo"></i>@Localizer["RecoveryFromRecycleBin"]</a>
+                                <a onclick="MoveToRecycleBin('#:Id#')" class="dropdown-item #:Status==0?'hide':''#"><i class="dropdown-icon fa fa-trash"></i>@Localizer["MoveToRecycleBin"]</a>
+                                <a onclick="RecoveryFromRecycleBin('#:Id#')" class="dropdown-item #:Status!=0?'hide':''#"><i class="dropdown-icon fa fa-undo"></i>@Localizer["RecoveryFromRecycleBin"]</a>
     }
     @if (User.IsInRole(Roles.CanViewListProductSellerList))
     {
-                        <a onclick="GotoSellerList('#:Id#')" class="dropdown-item"><i class="dropdown-icon fa fa-users"></i>@Localizer["ProductSeller"]</a>
+                                <a onclick="GotoSellerList('#:Id#')" class="dropdown-item"><i class="dropdown-icon fa fa-users"></i>@Localizer["ProductSeller"]</a>
     }
         </div>
     </div>
@@ -322,10 +322,10 @@
     @if (User.IsInRole(Roles.CanViewListProductSellerList))
     {
         <text>
-        function GotoSellerList(_Id)
-        {
-            location.href = "/@ViewData["Culture"]/User/Product/Sellers/List/" + _Id + "?ReturnUrl=@Request.GetCurrentUrlEncoded()";
-        }
+                function GotoSellerList(_Id)
+                {
+                    location.href = "/@ViewData["Culture"]/User/Product/Sellers/List/" + _Id + "?ReturnUrl=@Request.GetCurrentUrlEncoded()";
+                }
         </text>
     }
 </script>

@@ -1,0 +1,35 @@
+﻿@page "/{culture}/Shared/Compo/ComboAddProductReview"
+@model PrancaBeauty.WebApp.Pages.Shared.Components.Compo_ProductReviews.Compo_AddProductReviewsModel
+
+<div class="comment_title">
+    <h2>@Localizer["AddAReview"]</h2>
+    @*<p>Your email address will not be published.  Required fields are marked </p>*@
+</div>
+<div class="product_ratting mb-10">
+    <h3>@Localizer["YourRating"]</h3>
+    <ul>
+        <li><a href="#"><i class="fa fa-star"></i></a></li>
+        <li><a href="#"><i class="fa fa-star"></i></a></li>
+        <li><a href="#"><i class="fa fa-star"></i></a></li>
+        <li><a href="#"><i class="fa fa-star"></i></a></li>
+        <li><a href="#"><i class="fa fa-star"></i></a></li>
+    </ul>
+</div>
+<div class="product_review_form">
+    <form action="#">
+        <div class="row">
+            <div class="col-12">
+                <label for="review_comment"></label>
+                <textarea name="comment" id="review_comment"></textarea>
+            </div>
+            <div class="col-lg-6 col-md-6">
+
+            </div>
+
+            <div class="col-lg-6 col-md-6">
+                
+            </div>
+        </div>
+        <button type="submit">@Localizer["SaveReview"]</button>
+    </form>
+</div>

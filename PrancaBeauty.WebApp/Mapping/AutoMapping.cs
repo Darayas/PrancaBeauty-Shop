@@ -6,6 +6,7 @@ using PrancaBeauty.Application.Contracts.Currency;
 using PrancaBeauty.Application.Contracts.Files;
 using PrancaBeauty.Application.Contracts.KeywordProducts;
 using PrancaBeauty.Application.Contracts.PostingRestrictions;
+using PrancaBeauty.Application.Contracts.ProdcutReviews;
 using PrancaBeauty.Application.Contracts.ProductProperties;
 using PrancaBeauty.Application.Contracts.Products;
 using PrancaBeauty.Application.Contracts.ProductSellers;
@@ -87,9 +88,11 @@ namespace PrancaBeauty.WebApp.Mapping
             CreateMap<viEditProductSeller_Items, InpEditProductVariants_Variants>();
             CreateMap<OutGetListSellerForCombo, vmCompo_Combo_Sellers>();
             CreateMap<OutGetAllVariantsByProductId, vmGetProductSellerVariants>();
-            CreateMap<OutGetSummaryBySellerId, vmProductSellerDetails>().ForMember(x => x.DateTime,
-                                                                                                    opt => opt.MapFrom(src => ((DateTime)src.DateTime).ToString("yyyy-MM-dd")));
-
+            CreateMap<OutGetSummaryBySellerId, vmProductSellerDetails>().ForMember(x => x.DateTime,opt => opt.MapFrom(src => ((DateTime)src.DateTime).ToString("yyyy-MM-dd")));
+            
+            CreateMap<OutGetReviewsForProductDetails, vmCompo_ListProductReviews>();
+            CreateMap<OutGetReviewsForProductDetailsMedia, vmCompo_ListProductReviewsMedia>();
+            CreateMap<OutGetReviewsForProductDetailsAttributes, vmCompo_ListProductReviewsAttributes>();
         }
     }
 }

@@ -9,6 +9,7 @@ namespace PrancaBeauty.Application.Contracts.ProdcutReviews
     public class OutGetReviewsForProductDetails
     {
         public string Id { get; set; }
+        public string UserProfileImage { get; set; }
         public string UserFullName { get; set; }
         public DateTime Date { get; set; }
         public string Text { get; set; }
@@ -21,6 +22,7 @@ namespace PrancaBeauty.Application.Contracts.ProdcutReviews
         public string SellerFullName { get; set; }
         public string SellerImgUrl { get; set; }
 
+        public int CountStar { get; set; }
         public int CountLikes { get; set; }
         public int CountDislike { get; set; }
 

@@ -1,3 +1,4 @@
+using AutoMapper;
 using Framework.Common.ExMethods;
 using Framework.Common.Utilities.Paging;
 using Framework.Exceptions;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.DependencyInjection;
 using PrancaBeauty.Application.Apps.ProductReviews;
+using PrancaBeauty.Application.Contracts.ProdcutReviews;
 using PrancaBeauty.WebApp.Models.ViewInput;
 using PrancaBeauty.WebApp.Models.ViewModel;
 using System;
@@ -18,16 +20,18 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.Compo_ProductReviews
     {
         private readonly ILogger _Logger;
         private readonly IServiceProvider _ServiceProvider;
+        private readonly IMapper _Mapper;
         private readonly IProductReviewsApplication _ProductReviewsApplication;
 
-        public Compo_ListProductReviewsModel(ILogger logger, IServiceProvider serviceProvider, IProductReviewsApplication productReviewsApplication)
+        public Compo_ListProductReviewsModel(ILogger logger, IServiceProvider serviceProvider, IProductReviewsApplication productReviewsApplication, IMapper mapper)
         {
             _Logger = logger;
             _ServiceProvider = serviceProvider;
             _ProductReviewsApplication = productReviewsApplication;
+            _Mapper = mapper;
         }
 
-        public async Task<IActionResult> OnGetAsync()
+        public async Task<IActionResult> OnGetAsync(string LangId)
         {
             try
             {
@@ -35,7 +39,16 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.Compo_ProductReviews
                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
+                var qData = await _ProductReviewsApplication.GetReviewsForProductDetailsAsync(new InpGetReviewsForProductDetails
+                {
+                    LangId = LangId,
+                    ProductId = Input.ProductId,
+                    Take = Input.Take,
+                    Page = Input.Page
+                });
 
+                Data = _Mapper.Map<List<vmCompo_ListProductReviews>>(qData.LstRevivews);
+                PagingData = qData.PageingData;
 
                 return Page();
             }
@@ -50,7 +63,7 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.Compo_ProductReviews
             }
         }
 
-        [BindProperty]
+        [BindProperty(SupportsGet = true)]
         public viCompo_ListProductReviews Input { get; set; }
         public List<vmCompo_ListProductReviews> Data { get; set; }
         public OutPagingData PagingData { get; set; }

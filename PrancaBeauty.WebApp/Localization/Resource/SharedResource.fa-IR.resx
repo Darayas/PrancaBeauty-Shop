@@ -159,6 +159,9 @@
   <data name="AddAddress" xml:space="preserve">
     <value>افزودن آدرس</value>
   </data>
+  <data name="AddAReview" xml:space="preserve">
+    <value>ثبت دیدگاه</value>
+  </data>
   <data name="AddCategory" xml:space="preserve">
     <value>افزودن دسته جدید</value>
   </data>
@@ -825,6 +828,9 @@
   <data name="NoItemFound" xml:space="preserve">
     <value>موردی یافت نشد.</value>
   </data>
+  <data name="NoReviewsFound" xml:space="preserve">
+    <value>هیچ دیدگاهی یافت نشد.</value>
+  </data>
   <data name="NotFound" xml:space="preserve">
     <value>موردی یافت نشد.</value>
   </data>
@@ -1161,6 +1167,9 @@
   <data name="SaveProductAsDraft" xml:space="preserve">
     <value>پیش نویس</value>
   </data>
+  <data name="SaveReview" xml:space="preserve">
+    <value>ثبت دیدگاه</value>
+  </data>
   <data name="Search" xml:space="preserve">
     <value>جستوجو</value>
   </data>
@@ -1421,5 +1430,8 @@
   </data>
   <data name="YourAccountIsDisabled" xml:space="preserve">
     <value>حساب کاربری شما غیرفعال شده است. لطفا با مدیریت در ارتباط باشید.</value>
+  </data>
+  <data name="YourRating" xml:space="preserve">
+    <value>امتیاز شما</value>
   </data>
 </root>

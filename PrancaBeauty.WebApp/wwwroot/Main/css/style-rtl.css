@@ -6318,6 +6318,9 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 .star_rating ul li a {
   color: #d52121;
 }
+.star_rating ul li i {
+  color: #d52121;
+}
 
 .reviews_comment_box {
   display: flex;

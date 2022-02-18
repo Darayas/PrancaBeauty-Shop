@@ -1,5 +1,4 @@
 ﻿.slider {
-    width: 320px;
     height: 2px;
     background: rgba(0, 0, 0, 0.2);
     border-radius: 2px;
@@ -19,12 +18,12 @@
     cursor: move;
     cursor: grab;
     cursor: -webkit-grab;
-    width: 32px;
-    height: 32px;
+    width: 16px;
+    height: 16px;
     position: absolute;
     outline: none;
-    top: 0;
-    z-index: 1;
+    top: 1px;
+    z-index: 2;
     border-radius: 50%;
     background: #fff;
     box-shadow: 0 2px 7px rgba(0, 0, 0, 0.2);

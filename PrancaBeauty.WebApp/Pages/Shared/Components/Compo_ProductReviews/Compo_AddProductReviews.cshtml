@@ -30,7 +30,7 @@
                         <div class=row>
                             <div class=col-md-12>
                                 <div class=form-group>
-                                    <label asp-for=Input.CountStar></label>
+                                    <label asp-for=Input.CountStar></label> (<span id="SelectedRate"></span>)
                                     <input asp-for=Input.CountStar class=form-control type="hidden" />
 
                                     <div class="slider" id="ratingSlider">
@@ -41,13 +41,9 @@
                                                 </svg>
                                             </div>
                                         </div>
-                                        <div class="text">
-                                            <span>Current Value</span>
-                                            <strong>-</strong>
-                                        </div>
                                     </div>
                                     <script>
-                                        LoadRatingSlider('ratingSlider',5);
+                                        LoadRatingSlider('ratingSlider','SelectedRate','Input_CountStar');
                                     </script>
                                 </div>
                             </div>

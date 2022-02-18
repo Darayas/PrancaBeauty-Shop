@@ -237,6 +237,9 @@
   <data name="AyeYouSureToMoveToRecycleBin" xml:space="preserve">
     <value>آیا مطمعن به انتقال این مورد به زباله دان هستید؟</value>
   </data>
+  <data name="Bad" xml:space="preserve">
+    <value>بد</value>
+  </data>
   <data name="BirthDate" xml:space="preserve">
     <value>تاریخ تولد</value>
   </data>
@@ -477,6 +480,9 @@
   <data name="Error500" xml:space="preserve">
     <value>عملیات با شکست مواجه شد.</value>
   </data>
+  <data name="Excellent" xml:space="preserve">
+    <value>عالی</value>
+  </data>
   <data name="File" xml:space="preserve">
     <value>فایل</value>
   </data>
@@ -539,6 +545,9 @@
   </data>
   <data name="FulUserName" xml:space="preserve">
     <value>نام کاربر</value>
+  </data>
+  <data name="Good" xml:space="preserve">
+    <value>خوب</value>
   </data>
   <data name="GotoBack" xml:space="preserve">
     <value> بازگشت</value>
@@ -1413,11 +1422,20 @@
   <data name="VariantValueTitle" xml:space="preserve">
     <value>مقدار نوع</value>
   </data>
+  <data name="VeryBad" xml:space="preserve">
+    <value>خیلی بد</value>
+  </data>
+  <data name="VeryGood" xml:space="preserve">
+    <value>خیلی خوب</value>
+  </data>
   <data name="View" xml:space="preserve">
     <value>نمایش</value>
   </data>
   <data name="WillBeSend" xml:space="preserve">
     <value>ارسال میشود</value>
+  </data>
+  <data name="WithoutRate" xml:space="preserve">
+    <value>بدون امتیاز</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>بله</value>

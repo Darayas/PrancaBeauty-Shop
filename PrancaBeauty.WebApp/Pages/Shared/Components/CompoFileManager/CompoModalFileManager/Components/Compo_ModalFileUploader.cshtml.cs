@@ -34,8 +34,7 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.CompoFileManager.CompoModa
             if (!ModelState.IsValid)
                 return Content(ModelState.GetErrors());
 
-            if (!User.IsInRole(Roles.CanManageAllUserFiles))
-                Input.UserId = User.GetUserDetails().UserId;
+            Input.UserId = User.GetUserDetails().UserId;
 
             var Result = await _FtpWapper.UploadFromFileManagerAsync(new InpUploadFromFileManager { FormFile = Input.Files, UserId = Input.UserId });
             if (Result.IsSucceeded)

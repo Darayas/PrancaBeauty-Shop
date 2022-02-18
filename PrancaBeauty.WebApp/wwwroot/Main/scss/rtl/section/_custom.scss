@@ -268,3 +268,35 @@ form {
 .fw-700 {
     font-weight: 700;
 }
+
+@media (min-width: 576px) {
+    .modal-dialog-scrollable {
+        max-height: calc(100% - 3.5rem);
+    }
+}
+
+.modal-dialog-scrollable {
+    display: -ms-flexbox;
+    display: flex;
+    max-height: calc(100% - 2rem);
+}
+
+@media (min-width: 576px) {
+    .modal-dialog-scrollable .modal-content {
+        max-height: calc(100vh - 3.5rem);
+    }
+}
+
+.modal-dialog-scrollable .modal-content {
+    max-height: calc(100vh - 2rem);
+    overflow: hidden;
+}
+
+.modal-dialog-scrollable .modal-body {
+    overflow-y: auto;
+}
+
+.modal-dialog-scrollable .modal-footer, .modal-dialog-scrollable .modal-header {
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+}

@@ -288,7 +288,7 @@ namespace PrancaBeauty.Application.Common.FtpWapper
                         FileServerId = qServer.Id,
                         Path = $"/{_Path.Trim('/')}/",
                         FileName = _FileName,
-                        UserId = null,
+                        UserId = UserId,
                         IsPrivate = false,
                         Title = _Title,
                         MimeType = (await _AniShell.GetRealExtentionAsync(_FormFile)).Item2,

@@ -42,36 +42,31 @@
 </section>
 
 @section styles{
-    <!-- SweetAlert -->
-    <link href="~/lib/sweetalert/sweetalert.min.css" rel="stylesheet" />
+<!-- SweetAlert -->
+<link href="~/lib/sweetalert/sweetalert.min.css" rel="stylesheet" />
 
-    <!-- KendoUI CSS -->
-    <link href="~/lib/KendoUI/css/Theme/Bs-Kendo-Theme.min.css" rel="stylesheet" />
-    @if (ViewData["LangDir"].ToString() == "rtl")
-    {
-        <link href="~/lib/KendoUI/css/kendo.rtl.min.css" rel="stylesheet" />
-    }
-    else
-    {
-        <link href="~/lib/KendoUI/css/kendo.ltr.min.css" rel="stylesheet" />
-    }
+<!-- KendoUI CSS -->
+<link href="~/lib/KendoUI/css/Theme/Bs-Kendo-Theme.min.css" rel="stylesheet" />
+
+<link href="~/lib/KendoUI/css/kendo.@(ViewData["LangDir"].ToString()).min.css" rel="stylesheet" />
+
     @RenderSection("styles", false)
 }
 
 @section scripts{
 
-    <!-- InputMask -->
-    <script src="~/lib/input-mask/jquery.inputmask.min.js"></script>
+<!-- InputMask -->
+<script src="~/lib/input-mask/jquery.inputmask.min.js"></script>
 
-    <!-- SweetAlert -->
-    <script src="~/lib/sweetalert/sweetalert.min.js"></script>
+<!-- SweetAlert -->
+<script src="~/lib/sweetalert/sweetalert.min.js"></script>
 
     @RenderSection("scripts", false)
 }
 
 @section KendoScripts{
-    <!-- KenoUI Js -->
-	<script src="https://cdn.kendostatic.com/2022.1.119/js/jszip.min.js"></script>
-	<script src="https://cdn.kendostatic.com/2022.1.119/js/kendo.all.min.js"></script>
-	<script src="https://cdn.kendostatic.com/2022.1.119/js/kendo.aspnetmvc.min.js"></script>
+<!-- KenoUI Js -->
+<script src="https://cdn.kendostatic.com/2022.1.119/js/jszip.min.js"></script>
+<script src="https://cdn.kendostatic.com/2022.1.119/js/kendo.all.min.js"></script>
+<script src="https://cdn.kendostatic.com/2022.1.119/js/kendo.aspnetmvc.min.js"></script>
 }

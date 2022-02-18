@@ -1,6 +1,10 @@
 ﻿@page "/{culture}/Shared/Compo/ComboAddProductReview"
 @model PrancaBeauty.WebApp.Pages.Shared.Components.Compo_ProductReviews.Compo_AddProductReviewsModel
 
+<script src="~/lib/Tagify/jQuery.tagify.min.js"></script>
+<script src="~/lib/RatingSlider/jquery.ui.touch-punch.min.js"></script>
+<script src="~/lib/RatingSlider/ratingSlider.js"></script>
+
 <div class="modal ModalAddNewReview" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -12,30 +16,70 @@
                     @*<p>Your email address will not be published.  Required fields are marked </p>*@
                 </div>
                 <div class="product_ratting mb-10">
-                    
                 </div>
                 <div class="product_review_form">
                     <form action="#">
                         <div class="row">
                             <div class="col-12">
-                                <label for="review_comment"></label>
-                                <textarea name="comment" id="review_comment"></textarea>
+                                <div class=form-group>
+                                    <label asp-for="Input.Text"></label>
+                                    <textarea asp-for="Input.Text" rows="4"></textarea>
+                                </div>
                             </div>
+                        </div>
+                        <div class=row>
+                            <div class=col-md-12>
+                                <div class=form-group>
+                                    <label asp-for=Input.CountStar></label>
+                                    <input asp-for=Input.CountStar class=form-control type="hidden" />
+
+                                    <div class="slider" id="ratingSlider">
+                                        <div class="ui-slider-handle">
+                                            <div class="smiley">
+                                                <svg viewBox="0 0 34 10" version="1.1">
+                                                    <path d=""></path>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <div class="text">
+                                            <span>Current Value</span>
+                                            <strong>-</strong>
+                                        </div>
+                                    </div>
+                                    <script>
+                                        LoadRatingSlider('ratingSlider',5);
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+                        <div class=row>
                             <div class="col-lg-6 col-md-6">
+                                <div class=form-group>
+                                    <label asp-for=Input.Advantages></label>
+                                    <input asp-for=Input.Advantages />
+                                    <script>
+                                        $('#Input_Advantages').tagify();
+                                    </script>
+                                </div>
                             </div>
 
                             <div class="col-lg-6 col-md-6">
+                                <div class=form-group>
+                                    <label asp-for=Input.DisAdvantages></label>
+                                    <input asp-for=Input.DisAdvantages />
+                                    <script>
+                                        $('#Input_DisAdvantages').tagify();
+                                    </script>
+                                </div>
                             </div>
                         </div>
-                        <button type="submit">@Localizer["SaveReview"]</button>
                     </form>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" onclick="" class="btn btn-primary">@Localizer["Search"]</button>
+                <button type="button" onclick="" class="btn btn-primary">@Localizer["SaveReview"]</button>
                 <button type="button" onclick="" class="btn btn-secondary" data-dismiss="modal">@Localizer["Cancel"]</button>
             </div>
         </div>
     </div>
 </div>
-

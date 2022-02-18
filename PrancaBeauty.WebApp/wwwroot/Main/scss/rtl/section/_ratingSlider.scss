@@ -1,0 +1,124 @@
+﻿.slider {
+    width: 320px;
+    height: 2px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 2px;
+    position: relative;
+}
+
+.slider .ui-slider-range {
+    border-radius: 2px;
+    background: #000;
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.slider .ui-slider-handle {
+    cursor: move;
+    cursor: grab;
+    cursor: -webkit-grab;
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    outline: none;
+    top: 0;
+    z-index: 1;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 2px 7px rgba(0, 0, 0, 0.2);
+    margin: -1px 0 0 0;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    transition: box-shadow .3s ease;
+}
+
+.slider .ui-slider-handle .smiley {
+    position: absolute;
+    left: 50%;
+    bottom: 100%;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid #000;
+    opacity: 0;
+    -webkit-transform: translate(-50%, -12px);
+    transform: translate(-50%, -12px);
+    transition: all .3s ease 0s;
+}
+
+.slider .ui-slider-handle .smiley:before, .slider .ui-slider-handle .smiley:after {
+    content: '';
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #000;
+    position: absolute;
+    top: 8px;
+}
+
+.slider .ui-slider-handle .smiley:before {
+    left: 7px;
+}
+
+.slider .ui-slider-handle .smiley:after {
+    right: 7px;
+}
+
+.slider .ui-slider-handle .smiley svg {
+    width: 16px;
+    height: 7px;
+    position: absolute;
+    left: 50%;
+    bottom: 5px;
+    margin: 0 0 0 -8px;
+}
+
+.slider .ui-slider-handle .smiley svg path {
+    stroke-width: 3.4;
+    stroke: #000;
+    fill: none;
+    stroke-linecap: round;
+}
+
+.slider .ui-slider-handle.ui-state-active {
+    cursor: grabbing;
+    cursor: -webkit-grabbing;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.32);
+}
+
+.slider .ui-slider-handle.ui-state-active + .text {
+    -webkit-transform: translate(0, -80px);
+    transform: translate(0, -80px);
+    transition: -webkit-transform .3s ease 0s;
+    transition: transform .3s ease 0s;
+    transition: transform .3s ease 0s, -webkit-transform .3s ease 0s;
+}
+
+.slider .ui-slider-handle.ui-state-active .smiley {
+    opacity: 1;
+    -webkit-transform: translate(-50%, -12px);
+    transform: translate(-50%, -12px);
+    transition: all .3s ease .1s;
+}
+
+.slider .text {
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    -webkit-transform: translate(0, -44px);
+    transform: translate(0, -44px);
+    transition: -webkit-transform .3s ease .2s;
+    transition: transform .3s ease .2s;
+    transition: transform .3s ease .2s, -webkit-transform .3s ease .2s;
+    font-size: 16px;
+}
+
+.slider .text strong {
+    color: #000;
+    font-weight: bold;
+}

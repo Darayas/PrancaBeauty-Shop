@@ -80,8 +80,7 @@
             AllowedMimeType: '@Model.Input.AllowedMimeType',
             MaxFileSize:@Model.Input.MaxFileSize
         }, function (res) {
-            $('body').append(res);
-            $('#CompoModalFileManager@(FieldId)').modal({backdrop: 'static', keyboard: false });
+            ShowModal(res,'CompoModalFileManager@(FieldId)');
         });
     }
 

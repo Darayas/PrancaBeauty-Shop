@@ -103,9 +103,7 @@
     <script>
     function ConfirmPhoneNumber() {
         LoadComponent('/@ViewData["culture"]/User/EditProfile/Compo/PhoneNumberConfirmation', { PhoneNumber: '@Model.Input.PhoneNumber' }, function (res) {
-                $('body').append(res);
-                $('#PhoneNumberConfirmation').modal({ backdrop: 'static', keyboard: false });
-            });
+                ShowModal(res,'#PhoneNumberConfirmation');
         }
     </script>
 }

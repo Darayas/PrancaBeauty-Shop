@@ -58,8 +58,7 @@
     <script>
         function ShowNewReviewModal(){
             LoadComponent('/@ViewData["culture"]/Shared/Compo/ComboAddProductReview',{ProductId: '@Model.Input.ProductId'},function(res){
-                $('body').append(res);
-                $('.ModalAddNewReview').modal({keyboard: false,backdrop:'static'});
+                ShowModal(res,'ModalAddNewReview');
             });
 
 

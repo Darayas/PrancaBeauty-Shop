@@ -32,7 +32,7 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="Close()">@Localizer["Close"]</button>
+                <button type="button" class="btn btn-secondary" onclick="CloseModal('PhoneNumberConfirmation')">@Localizer["Close"]</button>
                 <button type="button" onclick="SendForm('/@ViewData["culture"]/User/EditProfile/Compo/PhoneNumberConfirmation','frmConfirmPhoneNumber')" class="btn btn-primary">@Localizer["ConfirmPhoneNumber"]</button>
             </div>
         </div>
@@ -70,11 +70,6 @@
                 $('.timer').hide();
             }
         }).trigger('start');
-    }
-
-    function Close() {
-        $('#PhoneNumberConfirmation').remove();
-        $('.modal-backdrop').remove()
     }
     </script>
 </div>

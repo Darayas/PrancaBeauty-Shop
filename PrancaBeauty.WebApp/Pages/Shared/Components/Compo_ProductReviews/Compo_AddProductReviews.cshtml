@@ -12,7 +12,7 @@
 <script src="~/lib/KendoUI/js/kendo.all.min.js"></script>
 <script src="~/lib/KendoUI/js/kendo.aspnetmvc.min.js"></script>
 
-<div class="modal ModalAddNewReview" tabindex="-1" role="dialog">
+<div class="modal" id="ModalAddNewReview" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -102,7 +102,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" onclick="" class="btn btn-primary">@Localizer["SaveReview"]</button>
-                <button type="button" onclick="" class="btn btn-secondary" data-dismiss="modal">@Localizer["Cancel"]</button>
+                <button type="button" onclick="CloseModal('ModalAddNewReview')" class="btn btn-secondary">@Localizer["Cancel"]</button>
             </div>
         </div>
     </div>

@@ -14,7 +14,7 @@
             <div class="modal-header">
                 <h5 class="modal-title">@Localizer["FileManager"]</h5>
                 <button type="button" class="close">
-                    <span onclick="CloseModalFileManager@(FieldId)()" aria-hidden="true">&times;</span>
+                    <span onclick="CloseModal('CompoModalFileManager@(FieldId)')" aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
@@ -137,11 +137,6 @@
             RefreshFileSelector@(FieldId)(trim(_SelectedFilesId+","+_FileId ,','), function () {
                 RefreshFileList@(FieldId)();
             });
-        }
-
-        function CloseModalFileManager@(FieldId)() {
-            $('#CompoModalFileManager@(FieldId)').remove();
-            CloseModalBackdrop();
         }
     </script>
 </div>

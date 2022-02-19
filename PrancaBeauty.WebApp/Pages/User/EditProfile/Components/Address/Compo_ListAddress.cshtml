@@ -32,15 +32,13 @@
 <script>
     function Add() {
         LoadComponent('/@ViewData["Culture"]/User/EditProfile/Compo/AddAddress', {}, function (res) {
-            $('body').append(res);
-            $('#AddAddress').modal({ backdrop: 'static', keyboard: false });
+            ShowModal(res,'AddAddress');
         });
     }
 
     function Edit(_Id) {
         LoadComponent('/@ViewData["Culture"]/User/EditProfile/Compo/EditAddress', { Id: _Id}, function (res) {
-            $('body').append(res);
-            $('#EditAddress').modal({ backdrop: 'static', keyboard: false });
+             ShowModal(res,'EditAddress');
         });
     }
 

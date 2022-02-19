@@ -26,7 +26,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="Close()">@Localizer["Close"]</button>
+                <button type="button" class="btn btn-secondary" onclick="CloseModal('ChangeAccessLevel')">@Localizer["Close"]</button>
                 <button type="button" onclick="SaveAccessLevel()" class="btn btn-primary">@Localizer["Save"]</button>
             </div>
         </div>
@@ -37,10 +37,5 @@
     function SaveAccessLevel() {
         var _AccessLeveId = $('#Input_AccessLevelId').val();
         SendData('/@ViewData["Culture"]/Admin/Users/Compo/ChangeAccessLevel', { UserId: '@Model.Input.UserId', AccessLevelId: _AccessLeveId });
-    }
-
-    function Close() {
-        $('#ChangeAccessLevel').remove();
-        $('.modal-backdrop').remove()
     }
 </script>

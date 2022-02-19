@@ -159,9 +159,14 @@ function trim(Text, char) {
     return (start > 0 || end < Text.length) ? Text.substring(start, end) : Text;
 }
 
-function CloseModalBackdrop() {
-    $('.modal-backdrop').remove();
+function CloseModal(_ModalId) {
+    $('.' + _ModalId).remove();
     $('body').removeClass("modal-open");
 }
 
 function forgeryToken() { return kendo.antiForgeryTokens() }
+
+function ShowModal(_ModalHtmlCode, _ModalId) {
+    $('body').append("<div class='" + _ModalId + "'>" + _ModalHtmlCode + "<div class='modal-backdrop show'></div></div>");
+    $('#' + _ModalId).modal({ keyboard: false, backdrop: false });
+}

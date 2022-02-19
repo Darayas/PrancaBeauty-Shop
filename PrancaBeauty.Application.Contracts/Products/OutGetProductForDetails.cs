@@ -9,6 +9,7 @@ namespace PrancaBeauty.Application.Contracts.Products
     public class OutGetProductForDetails
     {
         public string Id { get; set; }
+        public string TopicId { get; set; }
         public string Name { get; set; }
         public string Title { get; set; }
         public double Price { get; set; } // TODO Discount

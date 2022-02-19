@@ -6,10 +6,15 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
 {
     public class viCompo_ListProductReviews
     {
-        [Display]
+        [Display(Name = "ProductId")]
         [RequiredString]
         [GUID]
         public string ProductId { get; set; }
+
+        [Display(Name = "TopicId")]
+        [RequiredString]
+        [GUID]
+        public string TopicId { get; set; }
 
         [Display(Name = "Take")]
         [NumRange(1, int.MaxValue, ErrorMessage = "RangeGreaterThanZeroMsgMsg")]

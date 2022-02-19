@@ -916,6 +916,7 @@ namespace PrancaBeauty.Application.Apps.Products
                                                     .Select(a => new OutGetProductForDetails
                                                     {
                                                         Id = a.Id.ToString(),
+                                                        TopicId=a.TopicId.ToString(),
                                                         Title = a.Title,
                                                         Name = a.Name,
                                                         MetaDescription = a.MetaTagDescreption,

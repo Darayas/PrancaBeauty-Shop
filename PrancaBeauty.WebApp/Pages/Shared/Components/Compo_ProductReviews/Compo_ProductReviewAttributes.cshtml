@@ -1,3 +1,19 @@
 ﻿@page "/{culture}/Shared/Compo/ComboProductReviewAttributes"
 @model PrancaBeauty.WebApp.Pages.Shared.Components.Compo_ProductReviews.Compo_ProductReviewAttributesModel
 
+@{
+    int Index = 0;
+    foreach (var item in Model.Input)
+    {
+        <div class=row>
+            <div class=col-md-12>
+                <div class=form-group>
+                    <input name="Input.LstAttribute[@Index].AttributeId" value="@item.AttributeId" type="hidden">
+                    <label for="Input_LstAttribute_@(Index)_Value">@item.Title</label>
+                    <input id="Input_LstAttribute_@(Index)_Value" name="Input.LstAttribute[@Index].Value">
+                </div>
+            </div>
+        </div>
+        Index++;
+    }
+}

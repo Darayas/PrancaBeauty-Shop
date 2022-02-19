@@ -8,6 +8,7 @@ using PrancaBeauty.Application.Contracts.KeywordProducts;
 using PrancaBeauty.Application.Contracts.PostingRestrictions;
 using PrancaBeauty.Application.Contracts.ProdcutReviews;
 using PrancaBeauty.Application.Contracts.ProductProperties;
+using PrancaBeauty.Application.Contracts.ProductReviewsAttributes;
 using PrancaBeauty.Application.Contracts.Products;
 using PrancaBeauty.Application.Contracts.ProductSellers;
 using PrancaBeauty.Application.Contracts.ProductVariantItems;
@@ -93,6 +94,8 @@ namespace PrancaBeauty.WebApp.Mapping
             CreateMap<OutGetReviewsForProductDetails, vmCompo_ListProductReviews>();
             CreateMap<OutGetReviewsForProductDetailsMedia, vmCompo_ListProductReviewsMedia>();
             CreateMap<OutGetReviewsForProductDetailsAttributes, vmCompo_ListProductReviewsAttributes>();
+
+            CreateMap<OutGetAttributesByTopicId, viCompo_ProductReviewAttributes>();
         }
     }
 }

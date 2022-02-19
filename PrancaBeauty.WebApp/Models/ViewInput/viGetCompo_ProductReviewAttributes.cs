@@ -1,18 +1,16 @@
 ﻿using Framework.Common.DataAnnotations.String;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace PrancaBeauty.WebApp.Models.ViewInput
 {
-    public class viGetCompo_AddProductReviews
+    public class viGetCompo_ProductReviewAttributes
     {
-        [Display(Name = "ProductId")]
-        [RequiredString]
-        [GUID]
-        public string ProductId { get; set; }
-
         [Display(Name = "TopicId")]
         [RequiredString]
         [GUID]
         public string TopicId { get; set; }
     }
+
+    
 }

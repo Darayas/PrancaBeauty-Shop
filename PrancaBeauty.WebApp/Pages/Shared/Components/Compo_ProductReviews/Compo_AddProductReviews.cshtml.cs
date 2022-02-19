@@ -15,6 +15,7 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.Compo_ProductReviews
 
         public IActionResult OnGet(viGetCompo_AddProductReviews Input)
         {
+            ViewData["TopicId"] = Input.TopicId;
             return Page();
         }
 

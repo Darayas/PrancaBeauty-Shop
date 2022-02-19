@@ -6,6 +6,7 @@ namespace PrancaBeauty.WebApp.Models.ViewModel
     public class vmProductDetails
     {
         public string Id { get; set; }
+        public string TopicId { get; set; }
         public string Name { get; set; }
         public string Title { get; set; }
         public double Price { get; set; } // TODO Discount

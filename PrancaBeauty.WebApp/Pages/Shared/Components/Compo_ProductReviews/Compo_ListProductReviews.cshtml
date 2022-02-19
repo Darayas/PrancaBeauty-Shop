@@ -57,7 +57,7 @@
     </div>
     <script>
         function ShowNewReviewModal(){
-            LoadComponent('/@ViewData["culture"]/Shared/Compo/ComboAddProductReview',{ProductId: '@Model.Input.ProductId'},function(res){
+            LoadComponent('/@ViewData["culture"]/Shared/Compo/ComboAddProductReview',{ProductId: '@Model.Input.ProductId',TopicId:'@Model.Input.TopicId'},function(res){
                 ShowModal(res,'ModalAddNewReview');
             });
 

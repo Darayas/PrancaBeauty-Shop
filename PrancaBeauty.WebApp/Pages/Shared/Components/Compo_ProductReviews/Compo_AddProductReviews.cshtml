@@ -31,74 +31,105 @@
                 <div class=row>
                     <div class=col-md-8>
                         <div class="product_review_form">
-                            <form action="#">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class=form-group>
-                                            <label asp-for="Input.Text"></label>
-                                            <textarea asp-for="Input.Text" rows="4"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
+                            <form id="frmAddReview">
+                                <input asp-for=Input.ProductId type="hidden" />
                                 <div class=row>
                                     <div class=col-md-12>
                                         <div class=form-group>
-                                            <label asp-for=Input.CountStar></label> (<span id="SelectedRate"></span>)
-                                            <input asp-for=Input.CountStar class=form-control type="hidden" />
+                                            <div class=card>
+                                                <div class=card-header>
+                                                    <span>@Localizer["Review"]</span>
+                                                </div>
+                                                <div class=card-body>
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <div class=form-group>
+                                                                <label asp-for="Input.Text"></label>
+                                                                <textarea asp-for="Input.Text" rows="4"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
-                                            <div class="slider" id="ratingSlider">
-                                                <div class="ui-slider-handle">
-                                                    <div class="smiley">
-                                                        <svg viewBox="0 0 34 10" version="1.1">
-                                                            <path d=""></path>
-                                                        </svg>
+                                                    <div class=row>
+                                                        <div class=col-md-12>
+                                                            <div class=form-group>
+                                                                <label asp-for=Input.CountStar></label> (<span id="SelectedRate"></span>)
+                                                                <input asp-for=Input.CountStar class=form-control type="hidden" />
+
+                                                                <div class="slider" id="ratingSlider">
+                                                                    <div class="ui-slider-handle">
+                                                                        <div class="smiley">
+                                                                            <svg viewBox="0 0 34 10" version="1.1">
+                                                                                <path d=""></path>
+                                                                            </svg>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <script>
+                                                                    LoadRatingSlider('ratingSlider','SelectedRate','Input_CountStar');
+                                                                </script>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class=row>
+                                                        <div class="col-lg-6 col-md-6">
+                                                            <div class=form-group>
+                                                                <label asp-for=Input.Advantages></label>
+                                                                <input asp-for=Input.Advantages />
+                                                                <script>
+                                                                    $('#Input_Advantages').tagify();
+                                                                </script>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-lg-6 col-md-6">
+                                                            <div class=form-group>
+                                                                <label asp-for=Input.DisAdvantages></label>
+                                                                <input asp-for=Input.DisAdvantages />
+                                                                <script>
+                                                                    $('#Input_DisAdvantages').tagify();
+                                                                </script>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <script>
-                                                LoadRatingSlider('ratingSlider','SelectedRate','Input_CountStar');
-                                            </script>
                                         </div>
                                     </div>
                                 </div>
-                                <div class=row>
-                                    <div class="col-lg-6 col-md-6">
-                                        <div class=form-group>
-                                            <label asp-for=Input.Advantages></label>
-                                            <input asp-for=Input.Advantages />
-                                            <script>
-                                                $('#Input_Advantages').tagify();
-                                            </script>
-                                        </div>
-                                    </div>
 
-                                    <div class="col-lg-6 col-md-6">
+                                <div class="row">
+                                    <div class="col-md-12">
                                         <div class=form-group>
-                                            <label asp-for=Input.DisAdvantages></label>
-                                            <input asp-for=Input.DisAdvantages />
-                                            <script>
-                                                $('#Input_DisAdvantages').tagify();
-                                            </script>
+                                            <div class=card>
+                                                <div class=card-header>
+                                                    <span>@Localizer["ReviewMedias"]</span>
+                                                </div>
+                                                <div class=card-body>
+                                                    <LoadComponent id="ReviewMediaCompo"
+                                                                   context="HttpContext"
+                                                                   data='new viCompo_FileSelector {ContainerId="ReviewMediaCompo" ,FieldName="Input.MediaIds",MaxFileCount=5, MaxFileSize=157286400,AllowedMimeType="image/jpg, image/jpeg, video/mp4"}'
+                                                                   url="/@ViewData["culture"]/Shared/Compo/ComboFileSelector"></LoadComponent>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class=form-group>
-                                            <LoadComponent id="ReviewMediaCompo"
-                                                           context="HttpContext"
-                                                           data='new viCompo_FileSelector {ContainerId="ReviewMediaCompo" ,FieldName="Input.MediaIds",MaxFileCount=5, MaxFileSize=157286400,AllowedMimeType="image/jpg, image/jpeg, video/mp4"}'
-                                                           url="/@ViewData["culture"]/Shared/Compo/ComboFileSelector"></LoadComponent>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class=form-group>
-                                            <LoadComponent id="ReviewAttributeCompo"
-                                                           context="HttpContext"
-                                                           data='new viGetCompo_ProductReviewAttributes {TopicId=ViewData["TopicId"].ToString()}'
-                                                           url="/@ViewData["culture"]/Shared/Compo/ComboProductReviewAttributes"></LoadComponent>
+                                            <div class=card>
+                                                <div class=card-header>
+                                                    <span>@Localizer["ReviewAttribute"]</span>
+                                                </div>
+                                                <div class=card-body>
+                                                    <LoadComponent id="ReviewAttributeCompo"
+                                                                   context="HttpContext"
+                                                                   data='new viGetCompo_ProductReviewAttributes {TopicId=ViewData["TopicId"].ToString()}'
+                                                                   url="/@ViewData["culture"]/Shared/Compo/ComboProductReviewAttributes"></LoadComponent>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -111,9 +142,15 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" onclick="" class="btn btn-primary">@Localizer["SaveReview"]</button>
+                <button type="button" onclick="SaveReview()" class="btn btn-primary">@Localizer["SaveReview"]</button>
                 <button type="button" onclick="CloseModal('ModalAddNewReview')" class="btn btn-secondary">@Localizer["Cancel"]</button>
             </div>
         </div>
     </div>
 </div>
+<script>
+    function SaveReview()
+    {
+        SendForm('/@ViewData["culture"]/Shared/Compo/ComboAddProductReview','frmAddReview');
+    }
+</script>

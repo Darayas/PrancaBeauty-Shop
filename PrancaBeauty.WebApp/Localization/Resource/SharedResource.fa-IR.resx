@@ -1167,6 +1167,15 @@
   <data name="RetypeNewPassword" xml:space="preserve">
     <value>تایید کلمه عبور</value>
   </data>
+  <data name="Review" xml:space="preserve">
+    <value>دیدگاه</value>
+  </data>
+  <data name="ReviewAttribute" xml:space="preserve">
+    <value>خصوصیات محصول از دیدگاه شما</value>
+  </data>
+  <data name="ReviewMedias" xml:space="preserve">
+    <value>فایل های ضمیمه</value>
+  </data>
   <data name="Reviews" xml:space="preserve">
     <value>نظرات ({0})</value>
   </data>

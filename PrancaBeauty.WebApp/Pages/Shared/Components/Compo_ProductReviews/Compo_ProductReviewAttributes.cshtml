@@ -9,11 +9,28 @@
             <div class=col-md-12>
                 <div class=form-group>
                     <input name="Input.LstAttribute[@Index].AttributeId" value="@item.AttributeId" type="hidden">
-                    <label for="Input_LstAttribute_@(Index)_Value">@item.Title</label>
-                    <input id="Input_LstAttribute_@(Index)_Value" name="Input.LstAttribute[@Index].Value">
+                    <label for="Input_LstAttribute_@(Index)_Value">@item.Title (<span id="SelectedRate@(Index)"></span>)</label>
+                    <input type="hidden" id="Input_LstAttribute_@(Index)_Value" name="Input.LstAttribute[@Index].Value">
+                    
+                    <div class="slider" id="AttributeSlider@(Index)">
+                        <div class="ui-slider-handle">
+                            <div class="smiley">
+                                <svg viewBox="0 0 34 10" version="1.1">
+                                    <path d=""></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
+        <script>
+            LoadRatingSlider('AttributeSlider@(Index)','SelectedRate@(Index)','Input_LstAttribute_@(Index)_Value');
+        </script>
         Index++;
     }
 }
+
+
+

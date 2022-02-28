@@ -69,7 +69,13 @@ namespace Framework.Common.ExMethods
             return strSanitizeHtml;
         }
 
-        public static string ToLowerCaseForUrl(this string UrlName)
+        public static string RemoveAllHtmlTags(this string str)
+        {
+            string _Text = str.ReplaceRegex("<.*?>", "");
+            return _Text;
+        }
+
+            public static string ToLowerCaseForUrl(this string UrlName)
         {
             string NewStr = "";
 

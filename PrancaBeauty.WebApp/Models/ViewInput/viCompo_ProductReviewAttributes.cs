@@ -4,7 +4,7 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
 {
     public class viCompo_ProductReviewAttributes
     {
-        public string AttributeId { get; set; }
+        public string Id { get; set; }
 
         [Display(Name = "Title")]
         public string Title { get; set; }

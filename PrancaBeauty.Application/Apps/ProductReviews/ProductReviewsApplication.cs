@@ -5,7 +5,9 @@ using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Contracts.ProdcutReviews;
+using PrancaBeauty.Application.Contracts.Results;
 using PrancaBeauty.Domin.Product.ProductReviewsAgg.Contracts;
+using PrancaBeauty.Domin.Product.ProductReviewsAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductReviewsLikesAgg.Entities;
 using System;
 using System.Collections.Generic;
@@ -95,6 +97,42 @@ namespace PrancaBeauty.Application.Apps.ProductReviews
             {
                 _Logger.Error(ex);
                 return default;
+            }
+        }
+
+        public async Task<OperationResult> AddReviewFromUserAsync(InpAddReviewFromUser Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var tProductReview = new tblProductReviews
+                {
+                    Id = new Guid().SequentialGuid(),
+                    ProductId = Guid.Parse(Input.ProductId),
+                    ProductSellerId = null,
+                    AuthorUserId = Guid.Parse(Input.AuthorUserId),
+                    Advantages = Input.Advantages,
+                    DisAdvantages = Input.DisAdvantages,
+                    CountStar = Input.CountStar,
+                    Date = DateTime.Now,
+                    IpAddress = Input.IpAddress,
+                    IsConfirm = false,
+                    IsRead = false,
+                    Text = Input.Text.RemoveAllHtmlTags()
+                };
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
             }
         }
     }

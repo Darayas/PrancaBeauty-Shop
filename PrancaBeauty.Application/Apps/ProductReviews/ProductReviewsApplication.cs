@@ -4,7 +4,9 @@ using Framework.Common.Utilities.Paging;
 using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using PrancaBeauty.Application.Apps.ProductReviewsMedia;
 using PrancaBeauty.Application.Contracts.ProdcutReviews;
+using PrancaBeauty.Application.Contracts.ProdcutReviewsMedia;
 using PrancaBeauty.Application.Contracts.Results;
 using PrancaBeauty.Domin.Product.ProductReviewsAgg.Contracts;
 using PrancaBeauty.Domin.Product.ProductReviewsAgg.Entities;
@@ -23,11 +25,14 @@ namespace PrancaBeauty.Application.Apps.ProductReviews
         private readonly IServiceProvider _ServiceProvider;
         private readonly ILocalizer _Localizer;
         private readonly IProductReviewsRepository _ProductReviewsRepository;
-        public ProductReviewsApplication(IProductReviewsRepository productReviewsRepository, ILogger logger, ILocalizer localizer)
+        private readonly IProductReviewsMediaApplication _ProductReviewsMediaApplication;
+        public ProductReviewsApplication(IProductReviewsRepository productReviewsRepository, ILogger logger, ILocalizer localizer, IServiceProvider serviceProvider, IProductReviewsMediaApplication productReviewsMediaApplication)
         {
             _ProductReviewsRepository = productReviewsRepository;
             _Logger = logger;
             _Localizer = localizer;
+            _ServiceProvider = serviceProvider;
+            _ProductReviewsMediaApplication = productReviewsMediaApplication;
         }
 
         public async Task<(OutPagingData PageingData, List<OutGetReviewsForProductDetails> LstRevivews)> GetReviewsForProductDetailsAsync(InpGetReviewsForProductDetails Input)
@@ -100,6 +105,34 @@ namespace PrancaBeauty.Application.Apps.ProductReviews
             }
         }
 
+        public async Task<OperationResult> RemoveProductReviewAsync(InpRemoveProductReview Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var qData = await _ProductReviewsRepository.Get.Where(a => a.Id == Guid.Parse(Input.ProductReviewId)).SingleOrDefaultAsync();
+                if (qData == null)
+                    return new OperationResult().Failed("IdIsInvalid");
+
+                await _ProductReviewsRepository.DeleteAsync(qData, default, true);
+
+                return new OperationResult().Succeeded();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
+
         public async Task<OperationResult> AddReviewFromUserAsync(InpAddReviewFromUser Input)
         {
             try
@@ -108,21 +141,44 @@ namespace PrancaBeauty.Application.Apps.ProductReviews
                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
-                var tProductReview = new tblProductReviews
+                #region Add review to product
+                string _ProductReviewId = new Guid().SequentialGuid().ToString();
                 {
-                    Id = new Guid().SequentialGuid(),
-                    ProductId = Guid.Parse(Input.ProductId),
-                    ProductSellerId = null,
-                    AuthorUserId = Guid.Parse(Input.AuthorUserId),
-                    Advantages = Input.Advantages,
-                    DisAdvantages = Input.DisAdvantages,
-                    CountStar = Input.CountStar,
-                    Date = DateTime.Now,
-                    IpAddress = Input.IpAddress,
-                    IsConfirm = false,
-                    IsRead = false,
-                    Text = Input.Text.RemoveAllHtmlTags()
-                };
+                    var tProductReview = new tblProductReviews
+                    {
+                        Id = Guid.Parse(_ProductReviewId),
+                        ProductId = Guid.Parse(Input.ProductId),
+                        ProductSellerId = null,
+                        AuthorUserId = Guid.Parse(Input.AuthorUserId),
+                        Advantages = Input.Advantages,
+                        DisAdvantages = Input.DisAdvantages,
+                        CountStar = Input.CountStar,
+                        Date = DateTime.Now,
+                        IpAddress = Input.IpAddress,
+                        IsConfirm = false,
+                        IsRead = false,
+                        Text = Input.Text.RemoveAllHtmlTags()
+                    };
+
+                    await _ProductReviewsRepository.AddAsync(tProductReview, default, true);
+                }
+                #endregion
+
+                #region Add media to review
+                {
+                    var _Result = await _ProductReviewsMediaApplication.AddMediaToReviewAsync(new InpAddMediaToReview
+                    {
+                        ProductReviewId = _ProductReviewId,
+                        MediaIds = Input.MediaIds
+                    });
+                    if (!_Result.IsSucceeded)
+                    {
+
+                    }
+                }
+                #endregion
+
+                return default;
             }
             catch (ArgumentInvalidException ex)
             {

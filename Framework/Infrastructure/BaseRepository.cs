@@ -46,14 +46,6 @@ namespace Framework.Infrastructure
                 await dbContext.SaveChangesAsync(cancellationToken);
         }
 
-        public virtual async Task DeleteAsync(Guid Id, CancellationToken cancellationToken, bool AutoSave = true)
-        {
-            var entity = await GetById(cancellationToken, Id);
-            DbEntities.Remove(entity);
-            if (AutoSave == true)
-                await dbContext.SaveChangesAsync(cancellationToken);
-        }
-
         public virtual async Task DeleteRangeAsync(IEnumerable<TEntity> Entities, CancellationToken cancellationToken, bool AutoSave = true)
         {
             DbEntities.RemoveRange(Entities);

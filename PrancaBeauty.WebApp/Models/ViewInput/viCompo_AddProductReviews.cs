@@ -12,11 +12,6 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
         [GUID]
         public string ProductId { get; set; }
 
-        [Display(Name = "TopicId")]
-        [RequiredString]
-        [GUID]
-        public string TopicId { get; set; }
-
         [Display(Name = "TextReview")]
         [RequiredString]
         [MaxLengthString(5000)]

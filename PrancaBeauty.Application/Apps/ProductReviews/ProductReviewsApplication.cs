@@ -4,9 +4,11 @@ using Framework.Common.Utilities.Paging;
 using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using PrancaBeauty.Application.Apps.ProductReviewsAttributeValues;
 using PrancaBeauty.Application.Apps.ProductReviewsMedia;
 using PrancaBeauty.Application.Contracts.ProdcutReviews;
 using PrancaBeauty.Application.Contracts.ProdcutReviewsMedia;
+using PrancaBeauty.Application.Contracts.ProductReviewsAttributeValues;
 using PrancaBeauty.Application.Contracts.Results;
 using PrancaBeauty.Domin.Product.ProductReviewsAgg.Contracts;
 using PrancaBeauty.Domin.Product.ProductReviewsAgg.Entities;
@@ -26,13 +28,15 @@ namespace PrancaBeauty.Application.Apps.ProductReviews
         private readonly ILocalizer _Localizer;
         private readonly IProductReviewsRepository _ProductReviewsRepository;
         private readonly IProductReviewsMediaApplication _ProductReviewsMediaApplication;
-        public ProductReviewsApplication(IProductReviewsRepository productReviewsRepository, ILogger logger, ILocalizer localizer, IServiceProvider serviceProvider, IProductReviewsMediaApplication productReviewsMediaApplication)
+        private readonly IProductReviewsAttributeValuesApplication _ProductReviewsAttributeValuesApplication;
+        public ProductReviewsApplication(IProductReviewsRepository productReviewsRepository, ILogger logger, ILocalizer localizer, IServiceProvider serviceProvider, IProductReviewsMediaApplication productReviewsMediaApplication, IProductReviewsAttributeValuesApplication productReviewsAttributeValuesApplication)
         {
             _ProductReviewsRepository = productReviewsRepository;
             _Logger = logger;
             _Localizer = localizer;
             _ServiceProvider = serviceProvider;
             _ProductReviewsMediaApplication = productReviewsMediaApplication;
+            _ProductReviewsAttributeValuesApplication = productReviewsAttributeValuesApplication;
         }
 
         public async Task<(OutPagingData PageingData, List<OutGetReviewsForProductDetails> LstRevivews)> GetReviewsForProductDetailsAsync(InpGetReviewsForProductDetails Input)
@@ -173,12 +177,26 @@ namespace PrancaBeauty.Application.Apps.ProductReviews
                     });
                     if (!_Result.IsSucceeded)
                     {
-
+                        await RemoveProductReviewAsync(new InpRemoveProductReview { ProductReviewId = _ProductReviewId });
                     }
                 }
                 #endregion
 
-                return default;
+                #region Add attribute to review
+                {
+                    var _Result = await _ProductReviewsAttributeValuesApplication.AddAttributesToReviewAsync(new InpAddAttributesToReview
+                    {
+                        ProductReviewId = _ProductReviewId,
+                        Items = Input.LstAttribute.Select(a => new InpAddAttributesToReviewItem { AttributeId = a.AttributeId, Value = a.Value }).ToList()
+                    });
+                    if (!_Result.IsSucceeded)
+                    {
+                        await RemoveProductReviewAsync(new InpRemoveProductReview { ProductReviewId = _ProductReviewId });
+                    }
+                }
+                #endregion
+
+                return new OperationResult().Succeeded();
             }
             catch (ArgumentInvalidException ex)
             {

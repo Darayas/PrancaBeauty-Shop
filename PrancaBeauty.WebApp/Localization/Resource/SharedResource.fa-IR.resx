@@ -1338,6 +1338,9 @@
   <data name="TwoWorkingDays" xml:space="preserve">
     <value>دو روز کاری</value>
   </data>
+  <data name="TypePurchased" xml:space="preserve">
+    <value>نوع خریداری شده</value>
+  </data>
   <data name="Unit" xml:space="preserve">
     <value>واحد</value>
   </data>

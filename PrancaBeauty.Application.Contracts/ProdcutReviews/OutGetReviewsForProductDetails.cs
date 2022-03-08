@@ -18,13 +18,12 @@ namespace PrancaBeauty.Application.Contracts.ProdcutReviews
         public bool IsRead { get; set; }
         public bool IsConfirm { get; set; }
 
-        public string SellerId { get; set; }
-        public string SellerFullName { get; set; }
-        public string SellerImgUrl { get; set; }
-
         public int CountStar { get; set; }
         public int CountLikes { get; set; }
         public int CountDislike { get; set; }
+
+        public bool IsBuyer { get; set; }
+        public List<OutGetReviewsForProductDetailsSellers> LstSellers { get; set; }
 
         public List<OutGetReviewsForProductDetailsMedia> LstMedia { get; set; }
         public List<OutGetReviewsForProductDetailsAttributes> LstAttributes { get; set; }
@@ -41,5 +40,13 @@ namespace PrancaBeauty.Application.Contracts.ProdcutReviews
         public string Id { get; set; }
         public string Title { get; set; }
         public string Value { get; set; }
+    }
+
+    public class OutGetReviewsForProductDetailsSellers
+    {
+        public string SellerId { get; set; }
+        public string SellerFullName { get; set; }
+        public string SellerImgUrl { get; set; }
+        public string VariantType { get; set; }
     }
 }

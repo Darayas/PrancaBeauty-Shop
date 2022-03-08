@@ -6344,6 +6344,30 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   padding: 12px;
   border-radius: 3px;
 }
+.reviews_comment_box .comment_text hr {
+  background-color: #ededed;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.reviews_comment_box .comment_text .Seller {
+  padding: 10px;
+}
+.reviews_comment_box .comment_text .Seller img {
+  width: 24px;
+  height: 24px;
+  margin-left: 5px;
+  position: relative;
+  top: -2px;
+}
+.reviews_comment_box .comment_text .Seller .attr {
+  margin-right: 25px;
+}
+.reviews_comment_box .comment_text .Seller .attr span:last-child {
+  font-weight: 700;
+}
+.reviews_comment_box .comment_text .Seller .seller {
+  font-weight: 700;
+}
 .reviews_comment_box .comment_text .Advantages {
   margin-right: 5px;
 }

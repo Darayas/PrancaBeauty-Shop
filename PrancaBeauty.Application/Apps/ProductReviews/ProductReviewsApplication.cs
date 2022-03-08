@@ -59,12 +59,13 @@ namespace PrancaBeauty.Application.Apps.ProductReviews
                                                                                                                 + a.tblUsers.tblProfileImage.tblFilePaths.Path
                                                                                                                 + a.tblUsers.tblProfileImage.FileName : PublicConst.DefaultUserProfileImg,
                                                          UserFullName = a.tblUsers.FirstName + " " + a.tblUsers.LastName,
-                                                         SellerId = a.tblProductSellers.SellerId.ToString(),
-                                                         SellerFullName = a.tblProductSellers.tblSellers.tblSeller_Translates.Where(b => b.LangId == Guid.Parse(Input.LangId)).Select(b => b.Title).Single(),
-                                                         SellerImgUrl = a.tblProductSellers.tblSellers.tblSeller_Translates.Where(b => b.LangId == Guid.Parse(Input.LangId)).Select(b => b.LogoId != null ? (b.tblFiles.tblFilePaths.tblFileServer.HttpDomin
-                                                                                                                                                                                          + b.tblFiles.tblFilePaths.tblFileServer.HttpPath
-                                                                                                                                                                                          + b.tblFiles.tblFilePaths.Path
-                                                                                                                                                                                          + b.tblFiles.FileName) : PublicConst.DefaultSellerLogoImg).Single(),
+                                                         IsBuyer = false, // TODO: همزمان با قسمت فاکتور ها تکمیل شود
+                                                                          //SellerId = a.tblProductSellers.SellerId.ToString(),
+                                                                          //SellerFullName = a.tblProductSellers.tblSellers.tblSeller_Translates.Where(b => b.LangId == Guid.Parse(Input.LangId)).Select(b => b.Title).Single(),
+                                                                          //SellerImgUrl = a.tblProductSellers.tblSellers.tblSeller_Translates.Where(b => b.LangId == Guid.Parse(Input.LangId)).Select(b => b.LogoId != null ? (b.tblFiles.tblFilePaths.tblFileServer.HttpDomin
+                                                                          //+ b.tblFiles.tblFilePaths.tblFileServer.HttpPath
+                                                                          // + b.tblFiles.tblFilePaths.Path
+                                                                          //+ b.tblFiles.FileName) : PublicConst.DefaultSellerLogoImg).Single(),
                                                          Date = a.Date,
                                                          Advantages = a.Advantages,
                                                          DisAdvantages = a.DisAdvantages,
@@ -155,7 +156,7 @@ namespace PrancaBeauty.Application.Apps.ProductReviews
                         ProductId = Guid.Parse(Input.ProductId),
                         ProductSellerId = null,
                         AuthorUserId = Guid.Parse(Input.AuthorUserId),
-                        Advantages = string.Join(',',JArray.Parse(Input.Advantages).Select(a=>a.Value<string>("value"))),
+                        Advantages = string.Join(',', JArray.Parse(Input.Advantages).Select(a => a.Value<string>("value"))),
                         DisAdvantages = string.Join(',', JArray.Parse(Input.DisAdvantages).Select(a => a.Value<string>("value"))),
                         CountStar = Input.CountStar,
                         Date = DateTime.Now,

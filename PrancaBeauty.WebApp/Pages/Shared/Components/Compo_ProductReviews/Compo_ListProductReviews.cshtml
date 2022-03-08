@@ -40,6 +40,7 @@
                                         <span>10</span>
                                     </button>
                                 </div>
+
                                 <p>
                                     @if (item.CountStar > 0)
                                     {
@@ -60,21 +61,78 @@
                                     }
                                     <strong>@item.UserFullName </strong>- @item.Date
                                 </p>
+
                                 <pre>@item.Text</pre>
+
                                 <div class="Advantages">
                                     <ul>
-                                        <li>
-                                            <i class="fa fa-plus text-success"></i>
-                                            <span>نقطه قوت یکم</span>
-                                        </li>
+                                        @foreach (var itemAdvantages in item.Advantages.Split(','))
+                                        {
+                                            <li>
+                                                <i class="fa fa-plus text-success"></i>
+                                                <span>@itemAdvantages</span>
+                                            </li>
+                                        }
 
-                                        <li>
-                                            <i class="fa fa-minus text-danger"></i>
-                                            <span>نقطه ضعف یکم</span>
-                                        </li>
-
+                                        @foreach (var itemDisAdvantages in item.DisAdvantages.Split(','))
+                                        {
+                                            <li>
+                                                <i class="fa fa-minus text-danger"></i>
+                                                <span>@itemDisAdvantages</span>
+                                            </li>
+                                        }
                                     </ul>
                                 </div>
+
+                                <hr>
+
+                                @if (item.IsBuyer)
+                                {
+                                    @foreach (var itemSeller in item.LstSellers)
+                                    {
+                                        <div class="Seller">
+                                            <div class=d-inline-block>
+                                                <img src="/Main/img/user.png" alt="" />
+                                                <span class=seller>فروشنده</span>
+                                            </div>
+                                            <div class=d-inline-block>
+                                                <span class=attr>
+                                                    <span>@Localizer["TypePurchased"]</span>:
+                                                    <span>آبی</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+
+                                <div class="Seller">
+                                    <div class=d-inline-block>
+                                        <img src="/Main/img/user.png" alt="" />
+                                        <span class=seller>فروشنده</span>
+                                    </div>
+                                    <div class=d-inline-block>
+                                        <span class=attr>
+                                            <span>@Localizer["TypePurchased"]</span>:
+                                            <span>آبی</span>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="Seller">
+                                    <div class=d-inline-block>
+                                        <img src="/Main/img/user.png" alt="" />
+                                        <span class=seller>
+                                            <span class=seller>فروشنده</span>
+                                        </span>
+                                    </div>
+                                    <div class=d-inline-block>
+                                        <span class=attr>
+                                            <span>@Localizer["TypePurchased"]</span>:
+                                            <span>آبی</span>
+                                        </span>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>

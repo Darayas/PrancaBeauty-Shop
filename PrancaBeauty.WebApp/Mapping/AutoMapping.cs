@@ -91,7 +91,7 @@ namespace PrancaBeauty.WebApp.Mapping
             CreateMap<OutGetAllVariantsByProductId, vmGetProductSellerVariants>();
             CreateMap<OutGetSummaryBySellerId, vmProductSellerDetails>().ForMember(x => x.DateTime,opt => opt.MapFrom(src => ((DateTime)src.DateTime).ToString("yyyy-MM-dd")));
             
-            CreateMap<OutGetReviewsForProductDetails, vmCompo_ListProductReviews>();
+            CreateMap<OutGetReviewsForProductDetails, vmCompo_ListProductReviews>().ForMember(a=>a.Date,a=>a.MapFrom(b=>b.Date.ToString("dd MMMM yyyy")));
             CreateMap<OutGetReviewsForProductDetailsMedia, vmCompo_ListProductReviewsMedia>();
             CreateMap<OutGetReviewsForProductDetailsAttributes, vmCompo_ListProductReviewsAttributes>();
 

@@ -31,19 +31,16 @@
                         <div class="comment_text">
                             <div class="reviews_meta">
                                 <div class="star_rating">
-                                    <ul>
-                                        @for (int i = 1; i <= item.CountStar; i++)
-                                        {
-                                            <li><i class="fa fa-star"></i></li>
-                                        }
-
-                                        @for (int i = 1; i <= 5 - item.CountStar; i++)
-                                        {
-                                            <li><i class="fa fa-star-o"></i></li>
-                                        }
-                                    </ul>
+                                    <button onclick="" class="btn btn-link">
+                                        <i class="fa fa-thumbs-up"></i>
+                                        <span>10</span>
+                                    </button>
+                                    <button onclick="" class="btn btn-link">
+                                        <i class="fa fa-thumbs-down"></i>
+                                        <span>10</span>
+                                    </button>
                                 </div>
-                                <p><strong>@item.UserFullName </strong>- @item.Date</p>
+                                <p><span class=count-star>@item.CountStar</span><strong>@item.UserFullName </strong>- @item.Date</p>
                                 <pre>@item.Text</pre>
                             </div>
                         </div>

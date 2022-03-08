@@ -647,6 +647,18 @@
 .star_rating {
     float: left;
 
+    .btn-link {
+        text-decoration: unset;
+        color: #8b8b8b;
+        padding: 6px 6px;
+        font-size: 14px;
+
+        .fa-thumbs-down {
+            position: relative;
+            top: 3px;
+        }
+    }
+
     & ul {
         & li {
             display: inline-block;
@@ -674,6 +686,16 @@
         margin-right: 21px;
         padding: 12px;
         border-radius: 3px;
+
+        & .count-star {
+            background-color: #05a905;
+            padding: 1px 13px;
+            font-size: 14px;
+            color: white;
+            font-weight: 700;
+            border-radius: 5px;
+            margin-left: 5px;
+        }
 
         &::before {
             background: #fff;

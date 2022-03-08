@@ -6312,6 +6312,16 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 .star_rating {
   float: left;
 }
+.star_rating .btn-link {
+  text-decoration: unset;
+  color: #8b8b8b;
+  padding: 6px 6px;
+  font-size: 14px;
+}
+.star_rating .btn-link .fa-thumbs-down {
+  position: relative;
+  top: 3px;
+}
 .star_rating ul li {
   display: inline-block;
 }
@@ -6333,6 +6343,15 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   margin-right: 21px;
   padding: 12px;
   border-radius: 3px;
+}
+.reviews_comment_box .comment_text .count-star {
+  background-color: #05a905;
+  padding: 1px 13px;
+  font-size: 14px;
+  color: white;
+  font-weight: 700;
+  border-radius: 5px;
+  margin-left: 5px;
 }
 .reviews_comment_box .comment_text::before {
   background: #fff;
@@ -30795,4 +30814,8 @@ pre {
   font-size: 14px;
   color: #212529;
   font-family: inherit;
+}
+
+.fa.fa-star {
+  font-weight: 900;
 }

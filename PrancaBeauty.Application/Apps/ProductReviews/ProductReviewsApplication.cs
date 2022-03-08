@@ -84,6 +84,7 @@ namespace PrancaBeauty.Application.Apps.ProductReviews
                                                          LstMedia = a.tblProductReviewsMedia.OrderBy(b => b.Sort).Select(b => new OutGetReviewsForProductDetailsMedia
                                                          {
                                                              Id = b.Id.ToString(),
+                                                             MimeType = b.tblFiles.tblFileTypes.MimeType,
                                                              FileUrl = b.tblFiles.tblFilePaths.tblFileServer.HttpDomin
                                                                         + b.tblFiles.tblFilePaths.tblFileServer.HttpPath
                                                                         + b.tblFiles.tblFilePaths.Path

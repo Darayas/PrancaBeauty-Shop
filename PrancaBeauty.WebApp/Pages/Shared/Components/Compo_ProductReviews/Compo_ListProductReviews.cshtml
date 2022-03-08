@@ -84,10 +84,31 @@
                                     </ul>
                                 </div>
 
-                                <hr>
+                                @if (item.LstMedia.Count > 0)
+                                {
+                                    <hr>
+                                    <div class="Medias">
+                                        <ul>
+                                            @foreach (var itemMedia in item.LstMedia)
+                                            {
+                                                <li>
+                                                    @if (itemMedia.MimeType.StartsWith("video/"))
+                                                    {
+                                                        <img onclick="PreviewVideo('@itemMedia.FileUrl')" src="" alt="@ViewData["ProductTitle"].ToString()" />
+                                                    }
+                                                    else if (itemMedia.MimeType.StartsWith("image/"))
+                                                    {
+                                                        <img onclick="PreviewImage('@itemMedia.FileUrl')" src="@itemMedia.FileUrl" alt="@ViewData["ProductTitle"].ToString()" />
+                                                    }
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
+                                }
 
                                 @if (item.IsBuyer)
                                 {
+                                    <hr>
                                     @foreach (var itemSeller in item.LstSellers)
                                     {
                                         <div class="Seller">
@@ -105,34 +126,6 @@
                                     }
                                 }
 
-                                <div class="Seller">
-                                    <div class=d-inline-block>
-                                        <img src="/Main/img/user.png" alt="" />
-                                        <span class=seller>فروشنده</span>
-                                    </div>
-                                    <div class=d-inline-block>
-                                        <span class=attr>
-                                            <span>@Localizer["TypePurchased"]</span>:
-                                            <span>آبی</span>
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <div class="Seller">
-                                    <div class=d-inline-block>
-                                        <img src="/Main/img/user.png" alt="" />
-                                        <span class=seller>
-                                            <span class=seller>فروشنده</span>
-                                        </span>
-                                    </div>
-                                    <div class=d-inline-block>
-                                        <span class=attr>
-                                            <span>@Localizer["TypePurchased"]</span>:
-                                            <span>آبی</span>
-                                        </span>
-                                    </div>
-                                </div>
-
                             </div>
                         </div>
                     </div>
@@ -146,8 +139,50 @@
             LoadComponent('/@ViewData["culture"]/Shared/Compo/ComboAddProductReview',{ProductId: '@Model.Input.ProductId',TopicId:'@Model.Input.TopicId'},function(res){
                 ShowModal(res,'ModalAddNewReview');
             });
+        }
 
+        function PreviewImage(_ImgUrl)
+        {
+            $('#ModalImgPreview img').attr("src",_ImgUrl);
+            $('#ModalImgPreview').modal();
+        }
 
+        function PreviewVideo(_VideoUrl)
+        {
+            $('#ModalVideoPreview video source').attr("src",_VideoUrl);
+            $('#ModalVideoPreview').modal();
         }
     </script>
+
+    <div class="modal fade" id="ModalImgPreview" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <img src="" alt="@ViewData["ProductTitle"].ToString()" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="ModalVideoPreview" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <video controls>
+                        <source src="" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

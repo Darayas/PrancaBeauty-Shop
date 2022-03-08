@@ -46,6 +46,7 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.Compo_ProductReviews
                     Take = Input.Take,
                     Page = Input.Page
                 });
+                ViewData["ProductTitle"] = ""; // TODO
 
                 Data = _Mapper.Map<List<vmCompo_ListProductReviews>>(qData.LstRevivews);
                 PagingData = qData.PageingData;

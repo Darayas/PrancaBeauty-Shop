@@ -689,8 +689,26 @@
 
         & hr {
             background-color: $grey_color;
-            margin-top:10px;
-            margin-bottom:10px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        & .Medias {
+            padding: 10px;
+
+            ul {
+                li {
+                    display: inline-block;
+                    margin-left: 5px;
+
+                    img {
+                        width: 24px;
+                        height: 24px;
+                        border-radius: 5px;
+                        cursor: pointer;
+                    }
+                }
+            }
         }
 
         & .Seller {

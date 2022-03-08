@@ -919,6 +919,7 @@ namespace PrancaBeauty.Application.Apps.Products
                                                         TopicId=a.TopicId.ToString(),
                                                         Title = a.Title,
                                                         Name = a.Name,
+                                                        AvgStarRating=a.tblProductReviews.Average(a=>a.CountStar),
                                                         MetaDescription = a.MetaTagDescreption,
                                                         Description = a.Description,
                                                         MetaCanonical = a.MetaTagCanonical,

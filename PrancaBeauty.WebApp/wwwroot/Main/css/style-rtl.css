@@ -6349,6 +6349,19 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   margin-top: 10px;
   margin-bottom: 10px;
 }
+.reviews_comment_box .comment_text .Medias {
+  padding: 10px;
+}
+.reviews_comment_box .comment_text .Medias ul li {
+  display: inline-block;
+  margin-left: 5px;
+}
+.reviews_comment_box .comment_text .Medias ul li img {
+  width: 24px;
+  height: 24px;
+  border-radius: 5px;
+  cursor: pointer;
+}
 .reviews_comment_box .comment_text .Seller {
   padding: 10px;
 }

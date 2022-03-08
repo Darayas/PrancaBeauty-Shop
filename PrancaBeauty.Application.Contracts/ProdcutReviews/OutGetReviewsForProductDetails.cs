@@ -32,6 +32,7 @@ namespace PrancaBeauty.Application.Contracts.ProdcutReviews
     public class OutGetReviewsForProductDetailsMedia
     {
         public string Id { get; set; }
+        public string MimeType { get; set; }
         public string FileUrl { get; set; }
     }
 

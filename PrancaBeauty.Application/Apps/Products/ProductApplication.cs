@@ -916,10 +916,11 @@ namespace PrancaBeauty.Application.Apps.Products
                                                     .Select(a => new OutGetProductForDetails
                                                     {
                                                         Id = a.Id.ToString(),
-                                                        TopicId=a.TopicId.ToString(),
+                                                        TopicId = a.TopicId.ToString(),
                                                         Title = a.Title,
                                                         Name = a.Name,
-                                                        AvgStarRating=a.tblProductReviews.Average(a=>a.CountStar),
+                                                        AvgStarRating = a.tblProductReviews.Where(b => b.CountStar > 0).Average(b => b.CountStar),
+                                                        CountUserInStarRating = a.tblProductReviews.Where(b => b.CountStar > 0).Count(),
                                                         MetaDescription = a.MetaTagDescreption,
                                                         Description = a.Description,
                                                         MetaCanonical = a.MetaTagCanonical,

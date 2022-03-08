@@ -117,12 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="0" xml:space="preserve">
-    <value>سسسس</value>
-  </data>
-  <data name="1" xml:space="preserve">
-    <value>یییی</value>
-  </data>
   <data name="AccessDenied" xml:space="preserve">
     <value>&lt;span style='font-wieght:700; font-size:16px;'&gt;403&lt;/span&gt;&lt;br/&gt;&lt;span style='font-wieght:400; font-size:12px;color:red;'&gt;دسترسی شما به این بخش، غیرمجاز میباشد&lt;/span&gt;</value>
   </data>
@@ -1361,6 +1355,9 @@
   </data>
   <data name="UploadWithError" xml:space="preserve">
     <value>خطا در آپلود</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>کاربر</value>
   </data>
   <data name="UserAlreadyHasPassword" xml:space="preserve">
     <value>کاربر از قبل دارای کلمه عبور می باشد</value>

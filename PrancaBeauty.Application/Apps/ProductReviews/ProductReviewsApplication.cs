@@ -40,7 +40,7 @@ namespace PrancaBeauty.Application.Apps.ProductReviews
             _ProductReviewsAttributeValuesApplication = productReviewsAttributeValuesApplication;
         }
 
-        public async Task<(OutPagingData PageingData, List<OutGetReviewsForProductDetails> LstRevivews)> GetReviewsForProductDetailsAsync(InpGetReviewsForProductDetails Input)
+        public async Task<(OutPagingData PageingData,OutGetReviewsForProductDetails RevivewsData)> GetReviewsForProductDetailsAsync(InpGetReviewsForProductDetails Input)
         {
             try
             {
@@ -48,10 +48,18 @@ namespace PrancaBeauty.Application.Apps.ProductReviews
                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
-                #region Get data
+                #region Get Data
+                OutGetReviewsForProductDetails ReviewData = new();
+                {
+                    ReviewData.ProductTitle = "";
+                    ReviewData.LstMedias = new List<OutGetReviewsForProductDetailsMedia>();
+                }
+                #endregion
+
+                #region Get Reviews
                 var qData = _ProductReviewsRepository.Get
                                                      .Where(a => a.ProductId == Guid.Parse(Input.ProductId))
-                                                     .Select(a => new OutGetReviewsForProductDetails
+                                                     .Select(a => new OutGetReviewsForProductDetailsItems
                                                      {
                                                          Id = a.Id.ToString(),
                                                          UserProfileImage = a.tblUsers.ProfileImgId != null ? a.tblUsers.tblProfileImage.tblFilePaths.tblFileServer.HttpDomin
@@ -92,13 +100,13 @@ namespace PrancaBeauty.Application.Apps.ProductReviews
                                                          }).ToList()
                                                      })
                                                      .OrderByDescending(a => a.Date);
-                #endregion
 
-                #region Paging data
                 var _PagingData = PagingData.Calc(await qData.LongCountAsync(), Input.Page, Input.Take);
+
+                ReviewData.LstReviews = await qData.Skip((int)_PagingData.Skip).Take(Input.Take).ToListAsync();
                 #endregion
 
-                return (_PagingData, await qData.Skip((int)_PagingData.Skip).Take(Input.Take).ToListAsync());
+                return (_PagingData, ReviewData);
             }
             catch (ArgumentInvalidException ex)
             {

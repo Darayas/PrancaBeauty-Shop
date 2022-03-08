@@ -54,6 +54,8 @@
                 }
 
                 &.review {
+                    margin-right: 8px;
+
                     & a {
                         color: #5a5a5a;
                         margin-left: 10px;
@@ -586,6 +588,22 @@
 
 .reviews_wrapper {
     text-align: right;
+
+    & .lstMedia {
+        ul {
+            li {
+                display: inline-block;
+                margin-left: 5px;
+
+                img {
+                    width: 24px;
+                    height: 24px;
+                    border-radius: 5px;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
 
     & h2 {
         font-size: 18px;

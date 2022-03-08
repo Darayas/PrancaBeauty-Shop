@@ -6,6 +6,14 @@ namespace PrancaBeauty.WebApp.Models.ViewModel
 {
     public class vmCompo_ListProductReviews
     {
+        public string ProductTitle { get; set; }
+        public List<vmCompo_ListProductReviewsMedia> LstMedias { get; set; }
+
+        public List<vmCompo_ListProductReviewsItems> LstReviews { get; set; }
+    }
+
+    public class vmCompo_ListProductReviewsItems
+    {
         public string Id { get; set; }
         public string UserProfileImage { get; set; }
         public string UserFullName { get; set; }
@@ -22,7 +30,7 @@ namespace PrancaBeauty.WebApp.Models.ViewModel
         public int CountDislike { get; set; }
 
         public bool IsBuyer { get; set; }
-        public List<OutGetReviewsForProductDetailsSellers> LstSellers { get; set; }
+        public List<vmGetReviewsForProductDetailsSellers> LstSellers { get; set; }
 
         public List<vmCompo_ListProductReviewsMedia> LstMedia { get; set; }
         public List<vmCompo_ListProductReviewsAttributes> LstAttributes { get; set; }
@@ -42,7 +50,7 @@ namespace PrancaBeauty.WebApp.Models.ViewModel
         public string Value { get; set; }
     }
 
-    public class OutGetReviewsForProductDetailsSellers
+    public class vmGetReviewsForProductDetailsSellers
     {
         public string SellerId { get; set; }
         public string SellerFullName { get; set; }

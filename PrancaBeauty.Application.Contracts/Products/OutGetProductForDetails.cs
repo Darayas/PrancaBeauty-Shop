@@ -12,7 +12,8 @@ namespace PrancaBeauty.Application.Contracts.Products
         public string TopicId { get; set; }
         public string Name { get; set; }
         public string Title { get; set; }
-        public int AvgStarRating { get; set; }
+        public double AvgStarRating { get; set; }
+        public int CountUserInStarRating { get; set; }
         public double Price { get; set; } // TODO Discount
         public string CurrencySymbol { get; set; }
         public string MetaDescription { get; set; }

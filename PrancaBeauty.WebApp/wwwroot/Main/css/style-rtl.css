@@ -5811,6 +5811,9 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 .product_d_right .product_ratting ul li a:hover {
   color: #d52121;
 }
+.product_d_right .product_ratting ul li.review {
+  margin-right: 8px;
+}
 .product_d_right .product_ratting ul li.review a {
   color: #5a5a5a;
   margin-left: 10px;
@@ -6262,6 +6265,16 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 
 .reviews_wrapper {
   text-align: right;
+}
+.reviews_wrapper .lstMedia ul li {
+  display: inline-block;
+  margin-left: 5px;
+}
+.reviews_wrapper .lstMedia ul li img {
+  width: 24px;
+  height: 24px;
+  border-radius: 5px;
+  cursor: pointer;
 }
 .reviews_wrapper h2 {
   font-size: 18px;

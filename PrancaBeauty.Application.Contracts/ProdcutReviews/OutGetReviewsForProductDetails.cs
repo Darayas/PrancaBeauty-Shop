@@ -6,7 +6,16 @@ using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Contracts.ProdcutReviews
 {
+
     public class OutGetReviewsForProductDetails
+    {
+        public string ProductTitle { get; set; }
+        public List<OutGetReviewsForProductDetailsMedia> LstMedias { get; set; }
+
+        public List<OutGetReviewsForProductDetailsItems> LstReviews { get; set; }
+    }
+
+    public class OutGetReviewsForProductDetailsItems
     {
         public string Id { get; set; }
         public string UserProfileImage { get; set; }
@@ -19,6 +28,7 @@ namespace PrancaBeauty.Application.Contracts.ProdcutReviews
         public bool IsConfirm { get; set; }
 
         public int CountStar { get; set; }
+
         public int CountLikes { get; set; }
         public int CountDislike { get; set; }
 

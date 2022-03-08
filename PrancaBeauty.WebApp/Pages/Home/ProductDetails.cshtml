@@ -9,7 +9,6 @@
     Layout = "~/Pages/Shared/_MainLayout.cshtml";
 }
 
-
 <!--breadcrumbs area start-->
 
 <partial name="~/Pages/Shared/Partials/P_breadcrumbs.cshtml" model='new List<viBreadcrumbs>{
@@ -656,3 +655,11 @@
     </div>
 </div>
 <!--shipping area end-->
+
+@section styles{
+    <link href="~/lib/sweetalert/sweetalert.min.css" rel="stylesheet" />
+}
+
+@section scripts{
+    <script src="~/lib/sweetalert/sweetalert.min.js"></script>
+}

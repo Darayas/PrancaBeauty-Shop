@@ -4,6 +4,7 @@ using Framework.Common.Utilities.Paging;
 using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
 using PrancaBeauty.Application.Apps.ProductReviewsAttributeValues;
 using PrancaBeauty.Application.Apps.ProductReviewsMedia;
 using PrancaBeauty.Application.Contracts.ProdcutReviews;
@@ -154,8 +155,8 @@ namespace PrancaBeauty.Application.Apps.ProductReviews
                         ProductId = Guid.Parse(Input.ProductId),
                         ProductSellerId = null,
                         AuthorUserId = Guid.Parse(Input.AuthorUserId),
-                        Advantages = Input.Advantages,
-                        DisAdvantages = Input.DisAdvantages,
+                        Advantages = string.Join(',',JArray.Parse(Input.Advantages).Select(a=>a.Value<string>("value"))),
+                        DisAdvantages = string.Join(',', JArray.Parse(Input.DisAdvantages).Select(a => a.Value<string>("value"))),
                         CountStar = Input.CountStar,
                         Date = DateTime.Now,
                         IpAddress = Input.IpAddress,

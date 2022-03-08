@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Framework.Common.ExMethods;
 using Framework.Infrastructure;
 using PrancaBeauty.Application.Contracts.Address;
 using PrancaBeauty.Application.Contracts.Categories;
@@ -90,8 +91,9 @@ namespace PrancaBeauty.WebApp.Mapping
             CreateMap<OutGetListSellerForCombo, vmCompo_Combo_Sellers>();
             CreateMap<OutGetAllVariantsByProductId, vmGetProductSellerVariants>();
             CreateMap<OutGetSummaryBySellerId, vmProductSellerDetails>().ForMember(x => x.DateTime,opt => opt.MapFrom(src => ((DateTime)src.DateTime).ToString("yyyy-MM-dd")));
-            
-            CreateMap<OutGetReviewsForProductDetails, vmCompo_ListProductReviews>().ForMember(a=>a.Date,a=>a.MapFrom(b=>b.Date.ToString("dd MMMM yyyy")));
+
+            CreateMap<OutGetReviewsForProductDetails, vmCompo_ListProductReviews>()
+                                                                                   .ForMember(a => a.Date, a => a.MapFrom(b => b.Date.ToString("dd MMMM yyyy")));
             CreateMap<OutGetReviewsForProductDetailsMedia, vmCompo_ListProductReviewsMedia>();
             CreateMap<OutGetReviewsForProductDetailsAttributes, vmCompo_ListProductReviewsAttributes>();
 

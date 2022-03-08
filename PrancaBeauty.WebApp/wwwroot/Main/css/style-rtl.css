@@ -6344,11 +6344,20 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   padding: 12px;
   border-radius: 3px;
 }
+.reviews_comment_box .comment_text .Advantages {
+  margin-right: 5px;
+}
+.reviews_comment_box .comment_text .Advantages i {
+  margin-left: 5px;
+  position: relative;
+  top: 2px;
+}
+.reviews_comment_box .comment_text .Advantages span {
+  font-size: 12px;
+}
 .reviews_comment_box .comment_text .count-star {
-  background-color: #05a905;
   padding: 1px 13px;
   font-size: 14px;
-  color: white;
   font-weight: 700;
   border-radius: 5px;
   margin-left: 5px;

@@ -687,11 +687,23 @@
         padding: 12px;
         border-radius: 3px;
 
+        & .Advantages {
+            margin-right: 5px;
+
+            & i {
+                margin-left: 5px;
+                position: relative;
+                top: 2px;
+            }
+
+            & span {
+                font-size: 12px;
+            }
+        }
+
         & .count-star {
-            background-color: #05a905;
             padding: 1px 13px;
             font-size: 14px;
-            color: white;
             font-weight: 700;
             border-radius: 5px;
             margin-left: 5px;

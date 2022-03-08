@@ -40,8 +40,41 @@
                                         <span>10</span>
                                     </button>
                                 </div>
-                                <p><span class=count-star>@item.CountStar</span><strong>@item.UserFullName </strong>- @item.Date</p>
+                                <p>
+                                    @if (item.CountStar > 0)
+                                    {
+                                        if (item.CountStar == 1)
+                                        {
+                                            <span class="count-star bg-danger">@item.CountStar</span>
+                                        }
+
+                                        if (item.CountStar == 2 || item.CountStar == 3)
+                                        {
+                                            <span class="count-star bg-warning">@item.CountStar</span>
+                                        }
+
+                                        if (item.CountStar == 4 || item.CountStar == 5)
+                                        {
+                                            <span class="count-star bg-success">@item.CountStar</span>
+                                        }
+                                    }
+                                    <strong>@item.UserFullName </strong>- @item.Date
+                                </p>
                                 <pre>@item.Text</pre>
+                                <div class="Advantages">
+                                    <ul>
+                                        <li>
+                                            <i class="fa fa-plus text-success"></i>
+                                            <span>نقطه قوت یکم</span>
+                                        </li>
+
+                                        <li>
+                                            <i class="fa fa-minus text-danger"></i>
+                                            <span>نقطه ضعف یکم</span>
+                                        </li>
+
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>

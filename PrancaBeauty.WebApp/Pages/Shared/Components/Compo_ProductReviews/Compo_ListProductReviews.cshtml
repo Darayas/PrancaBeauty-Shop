@@ -14,7 +14,7 @@
     </div>
     <div class=col-md-8>
         <div class="reviews_wrapper">
-            @if (Model.Data.Count() == 0)
+            @if (Model.Data.LstReviews.Count() == 0)
             {
                 <div class="alert alert-info">
                     @Localizer["NoReviewsFound"]
@@ -23,17 +23,34 @@
             else
             {
                 <div class="lstMedia">
-                    <ul>
-                        @foreach (var item in Model.Data)
+                    <script>
+                      $(document).ready(function(){
+                         $('.demo').slick({
+                          dots: false,
+                          slidesToShow: 9,
+                          slidesToScroll: 1,
+                          touchMove: false
+                        });
+                      });
+                    </script>
+                    <ul class=demo>
+                        @foreach (var item in Model.Data.LstMedias)
                         {
                             <li>
-
+                                @if (item.MimeType.StartsWith("video/"))
+                                {
+                                    <img onclick="PreviewVideo('@item.FileUrl')" src="" alt="@Model.Data.ProductTitle" />
+                                }
+                                else if (item.MimeType.StartsWith("image/"))
+                                {
+                                    <img onclick="PreviewImage('@item.FileUrl')" src="@item.FileUrl" alt="@Model.Data.ProductTitle" />
+                                }
                             </li>
                         }
 
                     </ul>
                 </div>
-                foreach (var item in Model.Data)
+                foreach (var item in Model.Data.LstReviews)
                 {
                     <div class="reviews_comment_box">
                         <div class="comment_thmb">
@@ -105,11 +122,11 @@
                                                 <li>
                                                     @if (itemMedia.MimeType.StartsWith("video/"))
                                                     {
-                                                        <img onclick="PreviewVideo('@itemMedia.FileUrl')" src="" alt="@ViewData["ProductTitle"].ToString()" />
+                                                        <img onclick="PreviewVideo('@itemMedia.FileUrl')" src="" alt="@Model.Data.ProductTitle" />
                                                     }
                                                     else if (itemMedia.MimeType.StartsWith("image/"))
                                                     {
-                                                        <img onclick="PreviewImage('@itemMedia.FileUrl')" src="@itemMedia.FileUrl" alt="@ViewData["ProductTitle"].ToString()" />
+                                                        <img onclick="PreviewImage('@itemMedia.FileUrl')" src="@itemMedia.FileUrl" alt="@Model.Data.ProductTitle" />
                                                     }
                                                 </li>
                                             }
@@ -174,7 +191,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <img src="" alt="@ViewData["ProductTitle"].ToString()" />
+                    <img src="" alt="@Model.Data.ProductTitle" />
                 </div>
             </div>
         </div>

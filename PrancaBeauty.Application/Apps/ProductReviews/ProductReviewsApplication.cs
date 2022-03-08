@@ -7,9 +7,11 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
 using PrancaBeauty.Application.Apps.ProductReviewsAttributeValues;
 using PrancaBeauty.Application.Apps.ProductReviewsMedia;
+using PrancaBeauty.Application.Apps.Products;
 using PrancaBeauty.Application.Contracts.ProdcutReviews;
 using PrancaBeauty.Application.Contracts.ProdcutReviewsMedia;
 using PrancaBeauty.Application.Contracts.ProductReviewsAttributeValues;
+using PrancaBeauty.Application.Contracts.Products;
 using PrancaBeauty.Application.Contracts.Results;
 using PrancaBeauty.Domin.Product.ProductReviewsAgg.Contracts;
 using PrancaBeauty.Domin.Product.ProductReviewsAgg.Entities;
@@ -27,10 +29,11 @@ namespace PrancaBeauty.Application.Apps.ProductReviews
         private readonly ILogger _Logger;
         private readonly IServiceProvider _ServiceProvider;
         private readonly ILocalizer _Localizer;
+        private readonly IProductApplication _ProductApplication;
         private readonly IProductReviewsRepository _ProductReviewsRepository;
         private readonly IProductReviewsMediaApplication _ProductReviewsMediaApplication;
         private readonly IProductReviewsAttributeValuesApplication _ProductReviewsAttributeValuesApplication;
-        public ProductReviewsApplication(IProductReviewsRepository productReviewsRepository, ILogger logger, ILocalizer localizer, IServiceProvider serviceProvider, IProductReviewsMediaApplication productReviewsMediaApplication, IProductReviewsAttributeValuesApplication productReviewsAttributeValuesApplication)
+        public ProductReviewsApplication(IProductReviewsRepository productReviewsRepository, ILogger logger, ILocalizer localizer, IServiceProvider serviceProvider, IProductReviewsMediaApplication productReviewsMediaApplication, IProductReviewsAttributeValuesApplication productReviewsAttributeValuesApplication, IProductApplication productApplication)
         {
             _ProductReviewsRepository = productReviewsRepository;
             _Logger = logger;
@@ -38,9 +41,10 @@ namespace PrancaBeauty.Application.Apps.ProductReviews
             _ServiceProvider = serviceProvider;
             _ProductReviewsMediaApplication = productReviewsMediaApplication;
             _ProductReviewsAttributeValuesApplication = productReviewsAttributeValuesApplication;
+            _ProductApplication = productApplication;
         }
 
-        public async Task<(OutPagingData PageingData,OutGetReviewsForProductDetails RevivewsData)> GetReviewsForProductDetailsAsync(InpGetReviewsForProductDetails Input)
+        public async Task<(OutPagingData PageingData, OutGetReviewsForProductDetails RevivewsData)> GetReviewsForProductDetailsAsync(InpGetReviewsForProductDetails Input)
         {
             try
             {
@@ -48,11 +52,23 @@ namespace PrancaBeauty.Application.Apps.ProductReviews
                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
-                #region Get Data
                 OutGetReviewsForProductDetails ReviewData = new();
+
+                #region Get Product Data
                 {
-                    ReviewData.ProductTitle = "";
-                    ReviewData.LstMedias = new List<OutGetReviewsForProductDetailsMedia>();
+                    ReviewData.ProductTitle = (await _ProductApplication.GetSummaryByIdAsync(new InpGetSummaryById { ProductId = Input.ProductId })).Title;
+                }
+                #endregion
+
+                #region Get All Media
+                {
+                    ReviewData.LstMedias = (await _ProductReviewsMediaApplication.GetAllReviewMediaAsync(new InpGetAllReviewMedia { ProductId = Input.ProductId }))
+                                                    .Select(a => new OutGetReviewsForProductDetailsMedia
+                                                    {
+                                                        Id = a.Id,
+                                                        MimeType = a.MimeType,
+                                                        FileUrl = a.FileUrl
+                                                    }).ToList();
                 }
                 #endregion
 

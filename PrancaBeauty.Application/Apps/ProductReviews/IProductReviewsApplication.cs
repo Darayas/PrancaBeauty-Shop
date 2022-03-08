@@ -9,7 +9,7 @@ namespace PrancaBeauty.Application.Apps.ProductReviews
     public interface IProductReviewsApplication
     {
         Task<OperationResult> AddReviewFromUserAsync(InpAddReviewFromUser Input);
-        Task<(OutPagingData PageingData, List<OutGetReviewsForProductDetails> LstRevivews)> GetReviewsForProductDetailsAsync(InpGetReviewsForProductDetails Input);
+        Task<(OutPagingData PageingData, OutGetReviewsForProductDetails RevivewsData)> GetReviewsForProductDetailsAsync(InpGetReviewsForProductDetails Input);
         Task<OperationResult> RemoveProductReviewAsync(InpRemoveProductReview Input);
     }
 }

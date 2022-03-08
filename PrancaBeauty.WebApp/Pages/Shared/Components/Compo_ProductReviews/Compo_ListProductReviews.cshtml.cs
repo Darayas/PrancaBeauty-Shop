@@ -48,7 +48,7 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.Compo_ProductReviews
                 });
                 ViewData["ProductTitle"] = ""; // TODO
 
-                Data = _Mapper.Map<List<vmCompo_ListProductReviews>>(qData.LstRevivews);
+                Data = _Mapper.Map<vmCompo_ListProductReviews>(qData.RevivewsData);
                 PagingData = qData.PageingData;
 
                 return Page();
@@ -66,7 +66,7 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.Compo_ProductReviews
 
         [BindProperty(SupportsGet = true)]
         public viCompo_ListProductReviews Input { get; set; }
-        public List<vmCompo_ListProductReviews> Data { get; set; }
+        public vmCompo_ListProductReviews Data { get; set; }
         public OutPagingData PagingData { get; set; }
     }
 }

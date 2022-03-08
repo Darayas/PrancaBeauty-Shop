@@ -7,9 +7,9 @@ namespace PrancaBeauty.WebApp.Models.ViewModel
     public class vmCompo_ListProductReviews
     {
         public string ProductTitle { get; set; }
-        public List<vmCompo_ListProductReviewsMedia> LstMedias { get; set; }
+        public List<vmCompo_ListProductReviewsMedia> LstMedias { get; set; } = new List<vmCompo_ListProductReviewsMedia>();
 
-        public List<vmCompo_ListProductReviewsItems> LstReviews { get; set; }
+        public List<vmCompo_ListProductReviewsItems> LstReviews { get; set; } = new List<vmCompo_ListProductReviewsItems>();
     }
 
     public class vmCompo_ListProductReviewsItems

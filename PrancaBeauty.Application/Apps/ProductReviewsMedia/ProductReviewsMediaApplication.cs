@@ -1,8 +1,10 @@
 ﻿using Framework.Common.ExMethods;
 using Framework.Exceptions;
 using Framework.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Contracts.ProdcutReviewsMedia;
 using PrancaBeauty.Application.Contracts.Results;
+using PrancaBeauty.Domin.FileServer.FileTypeAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductReviewsMediaAgg.Contracts;
 using PrancaBeauty.Domin.Product.ProductReviewsMediaAgg.Entities;
 using System;
@@ -62,6 +64,44 @@ namespace PrancaBeauty.Application.Apps.ProductReviewsMedia
             {
                 _Logger.Error(ex);
                 return new OperationResult().Failed("Error500");
+            }
+        }
+
+        public async Task<List<OutGetAllReviewMedia>> GetAllReviewMediaAsync(InpGetAllReviewMedia Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var qData = await _ProductReviewsMediaRepository.Get
+                                                    .Where(a => a.tblProductReviews.ProductId == Guid.Parse(Input.ProductId))
+                                                    .Select(a => new OutGetAllReviewMedia
+                                                    {
+                                                        Id = a.Id.ToString(),
+                                                        MimeType = a.tblFiles.tblFileTypes.MimeType,
+                                                        FileUrl = a.tblFiles.tblFilePaths.tblFileServer.HttpDomin
+                                                                        + a.tblFiles.tblFilePaths.tblFileServer.HttpPath
+                                                                        + a.tblFiles.tblFilePaths.Path
+                                                                        + a.tblFiles.FileName
+                                                    })
+                                                    .ToListAsync();
+
+                if (qData == null)
+                    return null;
+
+                return qData;
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
             }
         }
     }

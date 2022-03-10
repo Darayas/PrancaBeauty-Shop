@@ -80,6 +80,7 @@ namespace PrancaBeauty.Application.Apps.ProductReviewsMedia
                                                     .Select(a => new OutGetAllReviewMedia
                                                     {
                                                         Id = a.Id.ToString(),
+                                                        CommentId = a.ProductReviewsId.ToString(),
                                                         MimeType = a.tblFiles.tblFileTypes.MimeType,
                                                         FileUrl = a.tblFiles.tblFilePaths.tblFileServer.HttpDomin
                                                                         + a.tblFiles.tblFilePaths.tblFileServer.HttpPath

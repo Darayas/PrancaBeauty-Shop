@@ -29,18 +29,17 @@
                             <li>
                                 @if (item.MimeType.StartsWith("video/"))
                                 {
-                                    <img onclick="PreviewVideo('@item.FileUrl')" src="" alt="@Model.Data.ProductTitle" />
+                                    <img onclick="PreviewVideo('@item.FileUrl')" src="~/Shared/img/video-img.jpg" alt="@Model.Data.ProductTitle" />
                                 }
                                 else if (item.MimeType.StartsWith("image/"))
                                 {
-                                    <img onclick="PreviewImage('@item.FileUrl')" src="@item.FileUrl" alt="@Model.Data.ProductTitle" />
+                                    <img onclick="PreviewImage('@item.FileUrl','textComment@(item.CommentId)')" src="@item.FileUrl" alt="@Model.Data.ProductTitle" />
                                 }
                             </li>
                         }
 
                     </ul>
                 </div>
-                int i = 0;
                 foreach (var item in Model.Data.LstReviews)
                 {
                     <div class="reviews_comment_box">
@@ -49,7 +48,7 @@
                         </div>
                         <div class="comment_text">
                             <div class="reviews_meta">
-                                <div id="textComment@(i)">
+                                <div id="textComment@(item.Id)">
                                     <div class="star_rating">
                                         <button onclick="" class="btn btn-link">
                                             <i class="fa fa-thumbs-up"></i>
@@ -114,11 +113,11 @@
                                                 <li>
                                                     @if (itemMedia.MimeType.StartsWith("video/"))
                                                     {
-                                                        <img onclick="PreviewVideo('@itemMedia.FileUrl')" src="" alt="@Model.Data.ProductTitle" />
+                                                        <img onclick="PreviewVideo('@itemMedia.FileUrl')" src="~/Shared/img/video-img.jpg" alt="@Model.Data.ProductTitle" />
                                                     }
                                                     else if (itemMedia.MimeType.StartsWith("image/"))
                                                     {
-                                                        <img onclick="PreviewImage('@itemMedia.FileUrl','textComment@(i)')" src="@itemMedia.FileUrl" alt="@Model.Data.ProductTitle" />
+                                                        <img onclick="PreviewImage('@itemMedia.FileUrl','textComment@(item.Id)')" src="@itemMedia.FileUrl" alt="@Model.Data.ProductTitle" />
                                                     }
                                                 </li>
                                             }
@@ -149,8 +148,29 @@
                             </div>
                         </div>
                     </div>
-                    i++;
                 }
+
+                <div class=paging>
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
             }
         </div>
     </div>
@@ -171,6 +191,7 @@
         function PreviewVideo(_VideoUrl)
         {
             $('#ModalVideoPreview video source').attr("src",_VideoUrl);
+            $('#ModalVideoPreview #textVideoComment').html($('#'+_textCommentId).html());
             $('#ModalVideoPreview').modal();
         }
     </script>
@@ -185,10 +206,13 @@
                 </div>
                 <div class="modal-body">
                     <div class=row>
-                        <div class=col-md-8>
+                        <div class=col-md-7>
                             <img src="" alt="@Model.Data.ProductTitle" />
                         </div>
-                        <div class="col-md-4" id="textImgComment">
+                        <div class="col-md-5">
+                            <div class="reviews_comment_box noBorder">
+                                <div class=comment_text id=textImgComment></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -197,7 +221,7 @@
     </div>
 
     <div class="modal fade" id="ModalVideoPreview" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -205,9 +229,18 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <video controls>
-                        <source src="" type="video/mp4">
-                    </video>
+                    <div class=row>
+                        <div class=col-md-7>
+                            <video controls>
+                                <source src="" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="reviews_comment_box noBorder">
+                                <div class=comment_text id=textVideoComment></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

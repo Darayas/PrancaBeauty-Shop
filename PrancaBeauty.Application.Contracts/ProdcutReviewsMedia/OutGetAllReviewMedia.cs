@@ -9,6 +9,7 @@ namespace PrancaBeauty.Application.Contracts.ProdcutReviewsMedia
     public class OutGetAllReviewMedia
     {
         public string Id { get; set; }
+        public string CommentId { get; set; }
         public string MimeType { get; set; }
         public string FileUrl { get; set; }
     }

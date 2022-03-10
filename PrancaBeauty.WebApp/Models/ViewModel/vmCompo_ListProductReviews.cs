@@ -39,6 +39,7 @@ namespace PrancaBeauty.WebApp.Models.ViewModel
     public class vmCompo_ListProductReviewsMedia
     {
         public string Id { get; set; }
+        public string CommentId { get; set; }
         public string MimeType { get; set; }
         public string FileUrl { get; set; }
     }

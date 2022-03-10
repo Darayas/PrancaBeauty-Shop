@@ -66,6 +66,7 @@ namespace PrancaBeauty.Application.Apps.ProductReviews
                                                     .Select(a => new OutGetReviewsForProductDetailsMedia
                                                     {
                                                         Id = a.Id,
+                                                        CommentId = a.CommentId,
                                                         MimeType = a.MimeType,
                                                         FileUrl = a.FileUrl
                                                     }).ToList();

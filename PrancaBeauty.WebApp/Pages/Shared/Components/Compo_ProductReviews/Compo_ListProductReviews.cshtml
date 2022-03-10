@@ -50,13 +50,13 @@
                             <div class="reviews_meta">
                                 <div id="textComment@(item.Id)">
                                     <div class="star_rating">
-                                        <button onclick="" class="btn btn-link">
+                                        <button onclick="Like('@item.Id')" class="btn btn-link @(item.IsLike?"IsLike":"")">
                                             <i class="fa fa-thumbs-up"></i>
-                                            <span>10</span>
+                                            <span>@item.CountLikes</span>
                                         </button>
-                                        <button onclick="" class="btn btn-link">
+                                        <button onclick="DisLike('@item.Id')" class="btn btn-link @(item.IsDisLike?"IsDisLike":"")">
                                             <i class="fa fa-thumbs-down"></i>
-                                            <span>10</span>
+                                            <span>@item.CountDislike</span>
                                         </button>
                                     </div>
 
@@ -205,6 +205,18 @@
             LoadComponent('/@ViewData["culture"]/Shared/Compo/ComboListProductReviews',{ ProductId:'@Model.Input.ProductId', TopicId:'@Model.Input.TopicId' ,PageNum:_Page },function(res){
                 $('#LstReviews').html(res);
             });
+        }
+
+        function Like(_ReviewId)
+        {
+            SendData('/@ViewData["culture"]/Shared/Compo/ComboListProductReviews?handler=Like',{},function(){
+
+            });
+        }
+
+        function DisLike(_ReviewId)
+        {
+
         }
     </script>
 

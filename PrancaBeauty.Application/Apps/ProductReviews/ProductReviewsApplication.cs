@@ -3,6 +3,7 @@ using Framework.Common.ExMethods;
 using Framework.Common.Utilities.Paging;
 using Framework.Exceptions;
 using Framework.Infrastructure;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
 using PrancaBeauty.Application.Apps.ProductReviewsAttributeValues;
@@ -98,6 +99,8 @@ namespace PrancaBeauty.Application.Apps.ProductReviews
                                                          IsRead = a.IsRead,
                                                          Text = a.Text,
                                                          CountStar = a.CountStar,
+                                                         IsLike = Input.UserId != null ? a.tblProductReviewsLikes.Where(a => a.Type == ProductReviewsLikesEnum.Like).Any(a => a.UserId == Guid.Parse(Input.UserId)) : false,
+                                                         IsDisLike = Input.UserId != null ? a.tblProductReviewsLikes.Where(a => a.Type == ProductReviewsLikesEnum.Dislike).Any(a => a.UserId == Guid.Parse(Input.UserId)) : false,
                                                          CountLikes = a.tblProductReviewsLikes.Where(a => a.Type == ProductReviewsLikesEnum.Like).Count(),
                                                          CountDislike = a.tblProductReviewsLikes.Where(a => a.Type == ProductReviewsLikesEnum.Dislike).Count(),
                                                          LstAttributes = a.tblProductReviewsAttributeValues.Select(b => new OutGetReviewsForProductDetailsAttributes
@@ -237,5 +240,7 @@ namespace PrancaBeauty.Application.Apps.ProductReviews
                 return new OperationResult().Failed("Error500");
             }
         }
+
+       
     }
 }

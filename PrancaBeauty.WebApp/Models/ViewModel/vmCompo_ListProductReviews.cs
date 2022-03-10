@@ -26,7 +26,10 @@ namespace PrancaBeauty.WebApp.Models.ViewModel
 
         public int CountStar { get; set; }
 
+        public bool IsLike { get; set; }
         public int CountLikes { get; set; }
+
+        public bool IsDisLike { get; set; }
         public int CountDislike { get; set; }
 
         public bool IsBuyer { get; set; }

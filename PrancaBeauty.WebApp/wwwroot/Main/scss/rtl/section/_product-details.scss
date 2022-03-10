@@ -723,6 +723,16 @@
         padding: 12px;
         border-radius: 3px;
 
+        .IsLike {
+            font-weight: 700;
+            color: #1fbd00;
+        }
+
+        .IsDisLike {
+            font-weight: 700;
+            color: #d50000;
+        }
+
         & hr {
             background-color: $grey_color;
             margin-top: 10px;

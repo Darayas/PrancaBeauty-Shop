@@ -21,7 +21,11 @@ namespace PrancaBeauty.Application.Contracts.ProdcutReviews
         [GUID]
         public string LangId { get; set; }
 
-        [Display(Name ="Take")]
+        [Display(Name = "UserId")]
+        [GUID]
+        public string UserId { get; set; } // شناسه کاربر خواننده
+
+        [Display(Name = "Take")]
         [NumRange(1, int.MaxValue, ErrorMessage = "RangeGreaterThanZeroMsgMsg")]
         public int Take { get; set; } = 10;
 

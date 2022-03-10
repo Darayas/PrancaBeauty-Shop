@@ -87,7 +87,33 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.Compo_ProductReviews
 
                 var Result = await _ProductReviewsLikeApplicatio.LikeReviewAsync(new InpLikeReview { ReviewId = Input.ReviewId, UserId = User.GetUserDetails().UserId });
 
-                return new JsonResult(new { Count = Result });
+                return new JsonResult(new { Count = Result.CountLike,IsLike=Result.IsLike });
+            }
+            catch (ArgumentInvalidException)
+            {
+                return new JsonResult(new { Count = -1 });
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new JsonResult(new { Count = -1 });
+            }
+        }
+
+        public async Task<IActionResult> OnPostDisLikeAsync(viCompo_ListProductReviewDisLike Input)
+        {
+            try
+            {
+                if (User.Identity.IsAuthenticated == false)
+                    return new JsonResult(new { Count = -2 });
+
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var Result = await _ProductReviewsLikeApplicatio.DisLikeReviewAsync(new InpDisLikeReview { ReviewId = Input.ReviewId, UserId = User.GetUserDetails().UserId });
+
+                return new JsonResult(new { Count = Result.CountDisLike, IsLike = Result.IsDisLike });
             }
             catch (ArgumentInvalidException)
             {

@@ -5,6 +5,7 @@ namespace PrancaBeauty.Application.Apps.ProductReviewsLike
 {
     public interface IProductReviewsLikeApplication
     {
-        Task<int> LikeReviewAsync(InpLikeReview Input);
+        Task<(int CountDisLike, bool IsDisLike)> DisLikeReviewAsync(InpDisLikeReview Input);
+        Task<(int CountLike, bool IsLike)> LikeReviewAsync(InpLikeReview Input);
     }
 }

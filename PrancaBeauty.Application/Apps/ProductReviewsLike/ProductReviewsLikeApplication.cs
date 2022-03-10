@@ -28,7 +28,7 @@ namespace PrancaBeauty.Application.Apps.ProductReviewsLike
             _ServiceProvider = serviceProvider;
         }
 
-        public async Task<int> LikeReviewAsync(InpLikeReview Input)
+        public async Task<(int CountLike, bool IsLike)> LikeReviewAsync(InpLikeReview Input)
         {
             try
             {
@@ -36,16 +36,18 @@ namespace PrancaBeauty.Application.Apps.ProductReviewsLike
                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
+                // TODO کاربری که دیس لایک کرده باشد امکان لایک ندارد
+
                 var qReviewLike = await _ProductReviewsLikeRepository.Get
-                                                                   .Where(a => a.Id == Guid.Parse(Input.ReviewId))
+                                                                   .Where(a => a.ProductReviewId == Guid.Parse(Input.ReviewId))
                                                                    .Where(a => a.Type == ProductReviewsLikesEnum.Like)
                                                                    .Where(a => a.UserId == Guid.Parse(Input.UserId))
                                                                    .SingleOrDefaultAsync();
-
+                bool _IsLike = false;
                 if (qReviewLike != null)
                 {
                     await _ProductReviewsLikeRepository.DeleteAsync(qReviewLike, default, true);
-
+                    _IsLike = false;
                 }
                 else
                 {
@@ -57,21 +59,72 @@ namespace PrancaBeauty.Application.Apps.ProductReviewsLike
                         Date = DateTime.Now,
                         Type = ProductReviewsLikesEnum.Like
                     }, default, true);
+                    _IsLike = true;
                 }
 
-                return await _ProductReviewsLikeRepository.Get.Where(a => a.Id == Guid.Parse(Input.ReviewId))
+                return (await _ProductReviewsLikeRepository.Get.Where(a => a.ProductReviewId == Guid.Parse(Input.ReviewId))
                                                               .Where(a => a.Type == ProductReviewsLikesEnum.Like)
-                                                              .CountAsync();
+                                                              .CountAsync(), _IsLike);
             }
             catch (ArgumentInvalidException ex)
             {
                 _Logger.Debug(ex);
-                return -1;
+                return (-1, false);
             }
             catch (Exception ex)
             {
                 _Logger.Error(ex);
-                return -1;
+                return (-1, false);
+            }
+        }
+
+        public async Task<(int CountDisLike, bool IsDisLike)> DisLikeReviewAsync(InpDisLikeReview Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                // TODO کاربری که دیس لایک کرده باشد امکان لایک ندارد
+
+                var qReviewDisLike = await _ProductReviewsLikeRepository.Get
+                                                                   .Where(a => a.ProductReviewId == Guid.Parse(Input.ReviewId))
+                                                                   .Where(a => a.Type == ProductReviewsLikesEnum.Dislike)
+                                                                   .Where(a => a.UserId == Guid.Parse(Input.UserId))
+                                                                   .SingleOrDefaultAsync();
+                bool _IsDisLike = false;
+                if (qReviewDisLike != null)
+                {
+                    await _ProductReviewsLikeRepository.DeleteAsync(qReviewDisLike, default, true);
+                    _IsDisLike = false;
+                }
+                else
+                {
+                    await _ProductReviewsLikeRepository.AddAsync(new tblProductReviewsLikes()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ProductReviewId = Guid.Parse(Input.ReviewId),
+                        UserId = Guid.Parse(Input.UserId),
+                        Date = DateTime.Now,
+                        Type = ProductReviewsLikesEnum.Dislike
+                    }, default, true);
+                    _IsDisLike = true;
+                }
+
+                return (await _ProductReviewsLikeRepository.Get.Where(a => a.ProductReviewId == Guid.Parse(Input.ReviewId))
+                                                              .Where(a => a.Type == ProductReviewsLikesEnum.Dislike)
+                                                              .CountAsync(), _IsDisLike);
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return (-1, false);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return (-1, false);
             }
         }
     }

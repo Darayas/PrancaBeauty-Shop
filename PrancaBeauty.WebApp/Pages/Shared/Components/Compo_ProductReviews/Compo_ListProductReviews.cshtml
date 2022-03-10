@@ -52,11 +52,11 @@
                                     <div class="star_rating">
                                         <button onclick="Like('@item.Id')" class="btn btn-link @(item.IsLike?"IsLike":"")">
                                             <i class="fa fa-thumbs-up"></i>
-                                            <span>@item.CountLikes</span>
+                                            <span id="Like@(item.Id)">@item.CountLikes</span>
                                         </button>
                                         <button onclick="DisLike('@item.Id')" class="btn btn-link @(item.IsDisLike?"IsDisLike":"")">
                                             <i class="fa fa-thumbs-down"></i>
-                                            <span>@item.CountDislike</span>
+                                            <span id="DisLike@(item.Id)">@item.CountDislike</span>
                                         </button>
                                     </div>
 
@@ -209,14 +209,72 @@
 
         function Like(_ReviewId)
         {
-            SendData('/@ViewData["culture"]/Shared/Compo/ComboListProductReviews?handler=Like',{},function(){
-
+            SendData('/@ViewData["culture"]/Shared/Compo/ComboListProductReviews?handler=Like',{ ReviewId:_ReviewId },function(res){
+                
+                if(res.Count==-1)
+                {
+                    //$('#Like'+_ReviewId).text(res.Count);
+                    $('#Like'+_ReviewId).parent('.btn').css('text-decoration','underline');
+                }
+                else if(res.Count==-2)
+                {
+                    Alert('',PleaseLogin,'error');
+                }
+                else
+                {
+                    $('#Like'+_ReviewId).text(res.Count);
+                    if(res.IsLike==true)
+                    {
+                       //if($('#Like'+_ReviewId).parent('.btn').hasClass('IsLike'))
+                       //{
+                       //    $('#Like'+_ReviewId).parent('.btn').removeClass('IsLike');
+                       //}
+                       //else
+                       //{
+                           $('#Like'+_ReviewId).parent('.btn').addClass('IsLike');
+                       //}
+                    }
+                    else
+                    {
+                        $('#Like'+_ReviewId).parent('.btn').removeClass('IsLike');
+                    }
+                }
             });
         }
 
         function DisLike(_ReviewId)
         {
-
+            SendData('/@ViewData["culture"]/Shared/Compo/ComboListProductReviews?handler=DisLike',{ ReviewId:_ReviewId },function(res){
+               
+                if(res.Count==-1)
+                {
+                    //$('#DisLike'+_ReviewId).text(res.Count);
+                    $('#DisLike'+_ReviewId).parent('.btn').css('text-decoration','underline');
+                }
+                else if(res.Count==-2)
+                {
+                    Alert('',PleaseLogin,'error');
+                }
+                else
+                {
+                    $('#DisLike'+_ReviewId).text(res.Count);
+                    if(res.IsLike==true)
+                    {
+                       //if($('#DisLike'+_ReviewId).parent('.btn').hasClass('IsDisLike'))
+                       //{
+                       //    $('#DisLike'+_ReviewId).parent('.btn').removeClass('IsDisLike');
+                       //}
+                       //else
+                       //{
+                           $('#DisLike'+_ReviewId).parent('.btn').addClass('IsDisLike');
+                       //}
+                    }
+                    else
+                    {
+                        $('#DisLike'+_ReviewId).parent('.btn').removeClass('IsDisLike');
+                    }
+                }
+            });
         }
     </script>
 

@@ -13,6 +13,7 @@ namespace Framework.Common.Utilities.Paging
             try
             {
                 int _Skip = 0;
+                int CountPages = 5;
 
                 Page = Page <= 0 ? 1 : Page;
 
@@ -25,7 +26,9 @@ namespace Framework.Common.Utilities.Paging
                         CountAllPage = 1,
                         Page = 1,
                         Take = Take,
-                        Skip = 0
+                        Skip = 0,
+                        StartPage = 1,
+                        EndPage = 1
                     };
                 }
 
@@ -43,13 +46,18 @@ namespace Framework.Common.Utilities.Paging
                 if (_Skip < 0)
                     _Skip = 0;
 
+                int StartPage = Page - CountPages <= 0 ? 1 : Page - CountPages;
+                int EndPage = Page + CountPages > _CountAllPage ? _CountAllPage : Page + CountPages;
+
                 return new OutPagingData()
                 {
                     CountAllItem = CountAllItem,
                     CountAllPage = _CountAllPage,
                     Page = Page,
                     Skip = _Skip,
-                    Take = Take
+                    Take = Take,
+                    StartPage = StartPage,
+                    EndPage = EndPage
                 };
             }
             catch
@@ -60,7 +68,9 @@ namespace Framework.Common.Utilities.Paging
                     CountAllPage = 1,
                     Page = 1,
                     Take = Take,
-                    Skip = 0
+                    Skip = 0,
+                    StartPage = 1,
+                    EndPage = 1
                 };
             }
         }

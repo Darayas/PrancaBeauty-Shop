@@ -39,14 +39,14 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.Compo_ProductReviews
                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
+                Input.Take = 1;
                 var qData = await _ProductReviewsApplication.GetReviewsForProductDetailsAsync(new InpGetReviewsForProductDetails
                 {
                     LangId = LangId,
                     ProductId = Input.ProductId,
                     Take = Input.Take,
-                    Page = Input.Page
+                    Page = Input.PageNum
                 });
-                ViewData["ProductTitle"] = ""; // TODO
 
                 Data = _Mapper.Map<vmCompo_ListProductReviews>(qData.RevivewsData);
                 PagingData = qData.PageingData;

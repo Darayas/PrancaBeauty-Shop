@@ -23,17 +23,7 @@
             else
             {
                 <div class="lstMedia">
-                    <script>
-                      $(document).ready(function(){
-                         $('.demo').slick({
-                          dots: false,
-                          slidesToShow: 9,
-                          slidesToScroll: 1,
-                          touchMove: false
-                        });
-                      });
-                    </script>
-                    <ul class=demo>
+                    <ul id=lstMedia>
                         @foreach (var item in Model.Data.LstMedias)
                         {
                             <li>
@@ -50,6 +40,7 @@
 
                     </ul>
                 </div>
+                int i = 0;
                 foreach (var item in Model.Data.LstReviews)
                 {
                     <div class="reviews_comment_box">
@@ -58,60 +49,61 @@
                         </div>
                         <div class="comment_text">
                             <div class="reviews_meta">
-                                <div class="star_rating">
-                                    <button onclick="" class="btn btn-link">
-                                        <i class="fa fa-thumbs-up"></i>
-                                        <span>10</span>
-                                    </button>
-                                    <button onclick="" class="btn btn-link">
-                                        <i class="fa fa-thumbs-down"></i>
-                                        <span>10</span>
-                                    </button>
+                                <div id="textComment@(i)">
+                                    <div class="star_rating">
+                                        <button onclick="" class="btn btn-link">
+                                            <i class="fa fa-thumbs-up"></i>
+                                            <span>10</span>
+                                        </button>
+                                        <button onclick="" class="btn btn-link">
+                                            <i class="fa fa-thumbs-down"></i>
+                                            <span>10</span>
+                                        </button>
+                                    </div>
+
+                                    <p>
+                                        @if (item.CountStar > 0)
+                                        {
+                                            if (item.CountStar == 1)
+                                            {
+                                                <span class="count-star bg-danger">@item.CountStar</span>
+                                            }
+
+                                            if (item.CountStar == 2 || item.CountStar == 3)
+                                            {
+                                                <span class="count-star bg-warning">@item.CountStar</span>
+                                            }
+
+                                            if (item.CountStar == 4 || item.CountStar == 5)
+                                            {
+                                                <span class="count-star bg-success">@item.CountStar</span>
+                                            }
+                                        }
+                                        <strong>@item.UserFullName </strong>- @item.Date
+                                    </p>
+
+                                    <pre>@item.Text</pre>
+
+                                    <div class="Advantages">
+                                        <ul>
+                                            @foreach (var itemAdvantages in item.Advantages.Split(','))
+                                            {
+                                                <li>
+                                                    <i class="fa fa-plus text-success"></i>
+                                                    <span>@itemAdvantages</span>
+                                                </li>
+                                            }
+
+                                            @foreach (var itemDisAdvantages in item.DisAdvantages.Split(','))
+                                            {
+                                                <li>
+                                                    <i class="fa fa-minus text-danger"></i>
+                                                    <span>@itemDisAdvantages</span>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
                                 </div>
-
-                                <p>
-                                    @if (item.CountStar > 0)
-                                    {
-                                        if (item.CountStar == 1)
-                                        {
-                                            <span class="count-star bg-danger">@item.CountStar</span>
-                                        }
-
-                                        if (item.CountStar == 2 || item.CountStar == 3)
-                                        {
-                                            <span class="count-star bg-warning">@item.CountStar</span>
-                                        }
-
-                                        if (item.CountStar == 4 || item.CountStar == 5)
-                                        {
-                                            <span class="count-star bg-success">@item.CountStar</span>
-                                        }
-                                    }
-                                    <strong>@item.UserFullName </strong>- @item.Date
-                                </p>
-
-                                <pre>@item.Text</pre>
-
-                                <div class="Advantages">
-                                    <ul>
-                                        @foreach (var itemAdvantages in item.Advantages.Split(','))
-                                        {
-                                            <li>
-                                                <i class="fa fa-plus text-success"></i>
-                                                <span>@itemAdvantages</span>
-                                            </li>
-                                        }
-
-                                        @foreach (var itemDisAdvantages in item.DisAdvantages.Split(','))
-                                        {
-                                            <li>
-                                                <i class="fa fa-minus text-danger"></i>
-                                                <span>@itemDisAdvantages</span>
-                                            </li>
-                                        }
-                                    </ul>
-                                </div>
-
                                 @if (item.LstMedia.Count > 0)
                                 {
                                     <hr>
@@ -126,7 +118,7 @@
                                                     }
                                                     else if (itemMedia.MimeType.StartsWith("image/"))
                                                     {
-                                                        <img onclick="PreviewImage('@itemMedia.FileUrl')" src="@itemMedia.FileUrl" alt="@Model.Data.ProductTitle" />
+                                                        <img onclick="PreviewImage('@itemMedia.FileUrl','textComment@(i)')" src="@itemMedia.FileUrl" alt="@Model.Data.ProductTitle" />
                                                     }
                                                 </li>
                                             }
@@ -157,8 +149,8 @@
                             </div>
                         </div>
                     </div>
+                    i++;
                 }
-
             }
         </div>
     </div>
@@ -169,9 +161,10 @@
             });
         }
 
-        function PreviewImage(_ImgUrl)
+        function PreviewImage(_ImgUrl,_textCommentId)
         {
             $('#ModalImgPreview img').attr("src",_ImgUrl);
+            $('#ModalImgPreview #textImgComment').html($('#'+_textCommentId).html());
             $('#ModalImgPreview').modal();
         }
 
@@ -183,7 +176,7 @@
     </script>
 
     <div class="modal fade" id="ModalImgPreview" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -191,7 +184,13 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <img src="" alt="@Model.Data.ProductTitle" />
+                    <div class=row>
+                        <div class=col-md-8>
+                            <img src="" alt="@Model.Data.ProductTitle" />
+                        </div>
+                        <div class="col-md-4" id="textImgComment">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

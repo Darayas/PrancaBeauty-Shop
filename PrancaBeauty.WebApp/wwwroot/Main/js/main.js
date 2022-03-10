@@ -767,3 +767,13 @@ $('.card-arrow-down').click(function () {
         _ParentCard.children('.card-body').slideUp('medium');
     }
 });
+
+$(document).ready(function () {
+    $('#lstMedia').slick({
+        dots: false,
+        slidesToShow: 12,
+        slidesToScroll: 1,
+        touchMove: false,
+        centerMode: false
+    });
+});

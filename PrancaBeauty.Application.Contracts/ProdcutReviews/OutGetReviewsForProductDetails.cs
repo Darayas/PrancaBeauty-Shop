@@ -10,8 +10,9 @@ namespace PrancaBeauty.Application.Contracts.ProdcutReviews
     public class OutGetReviewsForProductDetails
     {
         public string ProductTitle { get; set; }
-        public List<OutGetReviewsForProductDetailsMedia> LstMedias { get; set; }
 
+        public List<OutGetReviewsForProductDetailsAttributes> LstAttributes { get; set; }
+        public List<OutGetReviewsForProductDetailsMedia> LstMedias { get; set; }
         public List<OutGetReviewsForProductDetailsItems> LstReviews { get; set; }
     }
 
@@ -39,7 +40,7 @@ namespace PrancaBeauty.Application.Contracts.ProdcutReviews
         public List<OutGetReviewsForProductDetailsSellers> LstSellers { get; set; }
 
         public List<OutGetReviewsForProductDetailsMedia> LstMedia { get; set; }
-        public List<OutGetReviewsForProductDetailsAttributes> LstAttributes { get; set; }
+        
     }
 
     public class OutGetReviewsForProductDetailsMedia

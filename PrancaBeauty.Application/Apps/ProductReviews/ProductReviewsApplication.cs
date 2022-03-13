@@ -61,6 +61,12 @@ namespace PrancaBeauty.Application.Apps.ProductReviews
                 }
                 #endregion
 
+                #region Get avg attributes
+                {
+                    ReviewData.LstAttributes= 
+                }
+                #endregion
+
                 #region Get All Media
                 {
                     ReviewData.LstMedias = (await _ProductReviewsMediaApplication.GetAllReviewMediaAsync(new InpGetAllReviewMedia { ProductId = Input.ProductId }))
@@ -241,6 +247,6 @@ namespace PrancaBeauty.Application.Apps.ProductReviews
             }
         }
 
-       
+
     }
 }

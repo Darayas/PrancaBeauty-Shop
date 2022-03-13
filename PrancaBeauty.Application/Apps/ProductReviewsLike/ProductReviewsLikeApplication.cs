@@ -36,7 +36,7 @@ namespace PrancaBeauty.Application.Apps.ProductReviewsLike
                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
-                // TODO کاربری که دیس لایک کرده باشد امکان لایک ندارد
+
 
                 var qReviewLike = await _ProductReviewsLikeRepository.Get
                                                                    .Where(a => a.ProductReviewId == Guid.Parse(Input.ReviewId))
@@ -51,15 +51,20 @@ namespace PrancaBeauty.Application.Apps.ProductReviewsLike
                 }
                 else
                 {
-                    await _ProductReviewsLikeRepository.AddAsync(new tblProductReviewsLikes()
+                    if (!await _ProductReviewsLikeRepository.Get.Where(a => a.ProductReviewId == Guid.Parse(Input.ReviewId) && a.UserId == Guid.Parse(Input.UserId)).AnyAsync())
                     {
-                        Id = new Guid().SequentialGuid(),
-                        ProductReviewId = Guid.Parse(Input.ReviewId),
-                        UserId = Guid.Parse(Input.UserId),
-                        Date = DateTime.Now,
-                        Type = ProductReviewsLikesEnum.Like
-                    }, default, true);
-                    _IsLike = true;
+                        await _ProductReviewsLikeRepository.AddAsync(new tblProductReviewsLikes()
+                        {
+                            Id = new Guid().SequentialGuid(),
+                            ProductReviewId = Guid.Parse(Input.ReviewId),
+                            UserId = Guid.Parse(Input.UserId),
+                            Date = DateTime.Now,
+                            Type = ProductReviewsLikesEnum.Like
+                        }, default, true);
+                        _IsLike = true;
+                    }
+                    else
+                        _IsLike = false;
                 }
 
                 return (await _ProductReviewsLikeRepository.Get.Where(a => a.ProductReviewId == Guid.Parse(Input.ReviewId))
@@ -101,15 +106,20 @@ namespace PrancaBeauty.Application.Apps.ProductReviewsLike
                 }
                 else
                 {
-                    await _ProductReviewsLikeRepository.AddAsync(new tblProductReviewsLikes()
+                    if (!await _ProductReviewsLikeRepository.Get.Where(a => a.ProductReviewId == Guid.Parse(Input.ReviewId) && a.UserId == Guid.Parse(Input.UserId)).AnyAsync())
                     {
-                        Id = new Guid().SequentialGuid(),
-                        ProductReviewId = Guid.Parse(Input.ReviewId),
-                        UserId = Guid.Parse(Input.UserId),
-                        Date = DateTime.Now,
-                        Type = ProductReviewsLikesEnum.Dislike
-                    }, default, true);
-                    _IsDisLike = true;
+                        await _ProductReviewsLikeRepository.AddAsync(new tblProductReviewsLikes()
+                        {
+                            Id = new Guid().SequentialGuid(),
+                            ProductReviewId = Guid.Parse(Input.ReviewId),
+                            UserId = Guid.Parse(Input.UserId),
+                            Date = DateTime.Now,
+                            Type = ProductReviewsLikesEnum.Dislike
+                        }, default, true);
+                        _IsDisLike = true;
+                    }
+                    else
+                        _IsDisLike = false;
                 }
 
                 return (await _ProductReviewsLikeRepository.Get.Where(a => a.ProductReviewId == Guid.Parse(Input.ReviewId))

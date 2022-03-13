@@ -960,6 +960,9 @@
   <data name="PleaseLogin" xml:space="preserve">
     <value>لطفا ابتدا لاگین نمایید</value>
   </data>
+  <data name="PleaseLoginForAddNewReview" xml:space="preserve">
+    <value>برای ثبت دیدگاه، لطفا ابتدا لاگین نمایید</value>
+  </data>
   <data name="PleaseSelectCategory" xml:space="preserve">
     <value>انتخاب دسته</value>
   </data>

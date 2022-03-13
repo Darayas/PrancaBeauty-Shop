@@ -62,5 +62,10 @@ namespace PrancaBeauty.Application.Apps.ProductReviewsAttributeValues
                 return new OperationResult().Failed("Error500");
             }
         }
+
+        public async Task<OutGetAvgAttributesByReviewId> GetAvgAttributesByReviewIdAsync(InpGetAvgAttributesByReviewId Input)
+        {
+
+        }
     }
 }

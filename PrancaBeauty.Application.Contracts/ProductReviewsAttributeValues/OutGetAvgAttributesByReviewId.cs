@@ -8,5 +8,7 @@ namespace PrancaBeauty.Application.Contracts.ProductReviewsAttributeValues
 {
     public class OutGetAvgAttributesByReviewId
     {
+        public string Title { get; set; }
+        public double Avg { get; set; }
     }
 }

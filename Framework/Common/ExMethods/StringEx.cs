@@ -33,6 +33,11 @@ namespace Framework.Common.ExMethods
             return Decrypt;
         }
 
+        public static Guid ToGuid(this string text)
+        {
+            return Guid.Parse(text);
+        }
+
         public static string ToMD5(this string text)
         {
             string Md5Hash = EncryptProvider.Md5(text);
@@ -76,7 +81,7 @@ namespace Framework.Common.ExMethods
             return _Text;
         }
 
-            public static string ToLowerCaseForUrl(this string UrlName)
+        public static string ToLowerCaseForUrl(this string UrlName)
         {
             string NewStr = "";
 

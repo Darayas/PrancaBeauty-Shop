@@ -7,8 +7,9 @@ namespace PrancaBeauty.WebApp.Models.ViewModel
     public class vmCompo_ListProductReviews
     {
         public string ProductTitle { get; set; }
-        public List<vmCompo_ListProductReviewsMedia> LstMedias { get; set; } = new List<vmCompo_ListProductReviewsMedia>();
 
+        public List<vmCompo_ListProductReviewsAttributes> LstAttributes { get; set; }
+        public List<vmCompo_ListProductReviewsMedia> LstMedias { get; set; } = new List<vmCompo_ListProductReviewsMedia>();
         public List<vmCompo_ListProductReviewsItems> LstReviews { get; set; } = new List<vmCompo_ListProductReviewsItems>();
     }
 
@@ -36,7 +37,7 @@ namespace PrancaBeauty.WebApp.Models.ViewModel
         public List<vmGetReviewsForProductDetailsSellers> LstSellers { get; set; }
 
         public List<vmCompo_ListProductReviewsMedia> LstMedia { get; set; }
-        public List<vmCompo_ListProductReviewsAttributes> LstAttributes { get; set; }
+
     }
 
     public class vmCompo_ListProductReviewsMedia
@@ -49,9 +50,8 @@ namespace PrancaBeauty.WebApp.Models.ViewModel
 
     public class vmCompo_ListProductReviewsAttributes
     {
-        public string Id { get; set; }
         public string Title { get; set; }
-        public string Value { get; set; }
+        public double Avg { get; set; }
     }
 
     public class vmGetReviewsForProductDetailsSellers

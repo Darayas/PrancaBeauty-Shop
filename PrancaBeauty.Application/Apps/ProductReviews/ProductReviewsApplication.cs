@@ -63,7 +63,13 @@ namespace PrancaBeauty.Application.Apps.ProductReviews
 
                 #region Get avg attributes
                 {
-                    ReviewData.LstAttributes= 
+                    ReviewData.LstAttributes = (await _ProductReviewsAttributeValuesApplication.GetAvgAttributesByReviewIdAsync(new InpGetAvgAttributesByReviewId { ProductId = Input.ProductId, LangId = Input.LangId }))
+                                                        .Select(a => new OutGetReviewsForProductDetailsAttributes
+                                                        {
+                                                            Title = a.Title,
+                                                            Avg = a.Avg
+                                                        })
+                                                        .ToList();
                 }
                 #endregion
 
@@ -109,12 +115,6 @@ namespace PrancaBeauty.Application.Apps.ProductReviews
                                                          IsDisLike = Input.UserId != null ? a.tblProductReviewsLikes.Where(a => a.Type == ProductReviewsLikesEnum.Dislike).Any(a => a.UserId == Guid.Parse(Input.UserId)) : false,
                                                          CountLikes = a.tblProductReviewsLikes.Where(a => a.Type == ProductReviewsLikesEnum.Like).Count(),
                                                          CountDislike = a.tblProductReviewsLikes.Where(a => a.Type == ProductReviewsLikesEnum.Dislike).Count(),
-                                                         LstAttributes = a.tblProductReviewsAttributeValues.Select(b => new OutGetReviewsForProductDetailsAttributes
-                                                         {
-                                                             Id = b.Id.ToString(),
-                                                             Value = b.Value,
-                                                             Title = b.tblProductReviewsAttribute.tblProductReviewsAttribute_Translate.Where(c => c.LangId == Guid.Parse(Input.LangId)).Select(c => c.Title).Single()
-                                                         }).ToList(),
                                                          LstMedia = a.tblProductReviewsMedia.OrderBy(b => b.Sort).Select(b => new OutGetReviewsForProductDetailsMedia
                                                          {
                                                              Id = b.Id.ToString(),

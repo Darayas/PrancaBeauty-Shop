@@ -14,7 +14,7 @@ namespace PrancaBeauty.Domin.Product.ProductReviewsAttributeValuesAgg.Entities
         public Guid Id { get; set; }
         public Guid ProductReviewId { get; set; }
         public Guid ProductReviewAttributeId { get; set; }
-        public string Value { get; set; }
+        public double Value { get; set; }
 
         public virtual tblProductReviews tblProductReviews { get; set; }
         public virtual tblProductReviewsAttribute tblProductReviewsAttribute { get; set; }

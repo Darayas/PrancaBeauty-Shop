@@ -48,7 +48,7 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.Compo_ProductReviews
                 if (User.Identity.IsAuthenticated)
                     _UserId = User.GetUserDetails().UserId;
 
-                Input.Take = 1;
+                Input.Take = 10;
                 var qData = await _ProductReviewsApplication.GetReviewsForProductDetailsAsync(new InpGetReviewsForProductDetails
                 {
                     LangId = LangId,
@@ -125,6 +125,33 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.Compo_ProductReviews
                 return new JsonResult(new { Count = -1 });
             }
         }
+        
+        public async Task<IActionResult> OnPostChangeStatusAsync(viCompo_ListProductReviewChangeStatus Input)
+        {
+            try
+            {
+                if (User.Identity.IsAuthenticated == false)
+                    return new JsonResult(new { Count = -2 });
+
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var Result = await _ProductReviewsLikeApplicatio.DisLikeReviewAsync(new InpDisLikeReview { ReviewId = Input.ReviewId, UserId = User.GetUserDetails().UserId });
+
+                return new JsonResult(new { Count = Result.CountDisLike, IsLike = Result.IsDisLike });
+            }
+            catch (ArgumentInvalidException)
+            {
+                return new JsonResult(new { Count = -1 });
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new JsonResult(new { Count = -1 });
+            }
+        }
+
 
         [BindProperty(SupportsGet = true)]
         public viCompo_ListProductReviews Input { get; set; }

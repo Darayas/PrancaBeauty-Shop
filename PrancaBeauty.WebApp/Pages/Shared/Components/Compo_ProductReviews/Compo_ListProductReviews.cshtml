@@ -76,18 +76,35 @@
                         <div class="comment_thmb">
                             <img src="@item.UserProfileImage" alt="@item.UserFullName">
                         </div>
-                        <div class="comment_text">
+                        <div class="comment_text @(item.IsConfirm==false?"NotConfirmed":"")">
                             <div class="reviews_meta">
                                 <div id="textComment@(item.Id)">
                                     <div class="star_rating">
-                                        <button onclick="Like('@item.Id')" class="btn btn-link @(item.IsLike?"IsLike":"")">
-                                            <i class="fa fa-thumbs-up"></i>
-                                            <span id="Like@(item.Id)">@item.CountLikes</span>
+                                        @if (item.IsConfirm)
+                                        {
+                                            <button onclick="Like('@item.Id')" class="btn btn-link @(item.IsLike?"IsLike":"")">
+                                                <i class="fa fa-thumbs-up"></i>
+                                                <span id="Like@(item.Id)">@item.CountLikes</span>
+                                            </button>
+
+                                            <button onclick="DisLike('@item.Id')" class="btn btn-link @(item.IsDisLike?"IsDisLike":"")">
+                                                <i class="fa fa-thumbs-down"></i>
+                                                <span id="DisLike@(item.Id)">@item.CountDislike</span>
+                                            </button>
+
+                                            <button onclick="ChangeStatus('@item.Id')" class="btn btn-link">
+                                                <i class="fa fa-times"></i>
+                                            </button>
+                                        }
+
+                                        <button onclick="ChangeStatus('@item.Id')" class="btn btn-link @(item.IsLike?"IsLike":"")">
+                                            <i class="fa fa-check"></i>
                                         </button>
-                                        <button onclick="DisLike('@item.Id')" class="btn btn-link @(item.IsDisLike?"IsDisLike":"")">
-                                            <i class="fa fa-thumbs-down"></i>
-                                            <span id="DisLike@(item.Id)">@item.CountDislike</span>
+
+                                        <button onclick="MoveToTrash('@item.Id')" class="btn btn-link @(item.IsLike?"IsLike":"")">
+                                            <i class="fa fa-trash"></i>
                                         </button>
+
                                     </div>
 
                                     <p>
@@ -214,13 +231,14 @@
         @if (User.Identity.IsAuthenticated)
         {
             <text>
-                                                function ShowNewReviewModal() {
-                                                    LoadComponent('/@ViewData["culture"]/Shared/Compo/ComboAddProductReview',{ ProductId: '@Model.Input.ProductId',TopicId: '@Model.Input.TopicId'},function(res){
-                                                        ShowModal(res, 'ModalAddNewReview');
-                                                    });
-                                                }
+                                                                function ShowNewReviewModal() {
+                                                                    LoadComponent('/@ViewData["culture"]/Shared/Compo/ComboAddProductReview',{ ProductId: '@Model.Input.ProductId',TopicId: '@Model.Input.TopicId'},function(res){
+                                                                        ShowModal(res, 'ModalAddNewReview');
+                                                                    });
+                                                                }
             </text>
         }
+
         function PreviewImage(_ImgUrl,_textCommentId)
         {
             $('#ModalImgPreview img').attr("src",_ImgUrl);
@@ -309,6 +327,16 @@
                     }
                 }
             });
+        }
+
+        function ChangeStatus(_Id)
+        {
+            SendData('/@ViewData["culture"]/Shared/Compo/ComboListProductReviews?handler=ChangeStatus',{ReviewId:_Id});
+        }
+
+        function MoveToTrash(_Id)
+        {
+
         }
     </script>
 

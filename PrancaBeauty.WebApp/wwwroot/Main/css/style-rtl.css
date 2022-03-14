@@ -6372,6 +6372,16 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   padding: 12px;
   border-radius: 3px;
 }
+.reviews_comment_box .comment_text.NotConfirmed {
+  background-color: #fff3f3;
+  border: 1px solid #d52121 !important;
+}
+.reviews_comment_box .comment_text.NotConfirmed::before {
+  background: #fff;
+  border-top: 1px solid #d52121 !important;
+  border-right: 1px solid #d52121 !important;
+  background-color: #fff3f3;
+}
 .reviews_comment_box .comment_text .IsLike {
   font-weight: 700;
   color: #1fbd00;

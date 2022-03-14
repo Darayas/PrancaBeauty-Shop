@@ -723,6 +723,18 @@
         padding: 12px;
         border-radius: 3px;
 
+        &.NotConfirmed {
+            background-color: #fff3f3;
+            border: 1px solid $secondary_color !important;
+
+            &::before {
+                background: #fff;
+                border-top: 1px solid $secondary_color !important;
+                border-right: 1px solid $secondary_color !important;
+                background-color: #fff3f3;
+            }
+        }
+
         .IsLike {
             font-weight: 700;
             color: #1fbd00;
@@ -942,7 +954,6 @@
         margin-bottom: 54px;
     }
 }
-
 /* 12. product grouped css here */
 
 .grouped_form {
@@ -1040,12 +1051,7 @@
 .box_quantity.group button {
     margin-left: 0;
 }
-
 /*product grouped css end*/
-
-
-
-
 /*variabla product css here*/
 .p_section1.related_product {
     & .slick-list {
@@ -1083,11 +1089,6 @@
         }
     }
 }
-
-
-
-
-
 /*product sidebar css here*/
 .product_sidebar {
     margin-bottom: 60px;

@@ -97,11 +97,11 @@
                                             </button>
                                         }
 
-                                        <button onclick="ChangeStatus('@item.Id')" class="btn btn-link @(item.IsLike?"IsLike":"")">
+                                        <button onclick="ChangeStatus('@item.Id')" class="btn btn-link">
                                             <i class="fa fa-check"></i>
                                         </button>
 
-                                        <button onclick="MoveToTrash('@item.Id')" class="btn btn-link @(item.IsLike?"IsLike":"")">
+                                        <button onclick="MoveToTrash('@item.Id')" class="btn btn-link">
                                             <i class="fa fa-trash"></i>
                                         </button>
 
@@ -231,11 +231,11 @@
         @if (User.Identity.IsAuthenticated)
         {
             <text>
-                                                                function ShowNewReviewModal() {
-                                                                    LoadComponent('/@ViewData["culture"]/Shared/Compo/ComboAddProductReview',{ ProductId: '@Model.Input.ProductId',TopicId: '@Model.Input.TopicId'},function(res){
-                                                                        ShowModal(res, 'ModalAddNewReview');
-                                                                    });
-                                                                }
+                                                                    function ShowNewReviewModal() {
+                                                                        LoadComponent('/@ViewData["culture"]/Shared/Compo/ComboAddProductReview',{ ProductId: '@Model.Input.ProductId',TopicId: '@Model.Input.TopicId'},function(res){
+                                                                            ShowModal(res, 'ModalAddNewReview');
+                                                                        });
+                                                                    }
             </text>
         }
 
@@ -336,7 +336,18 @@
 
         function MoveToTrash(_Id)
         {
+            
+        }
 
+        function RefreshReviews()
+        {
+            LoadComponent('/@ViewData["culture"]/Shared/Compo/ComboListProductReviews',{
+                ProductId:'@Model.Input.ProductId',
+                TopicId:'@Model.Input.TopicId',
+                PageNum:'@Model.Input.PageNum'
+            },function (res){
+                $('#reviews').html(res);
+            });
         }
     </script>
 

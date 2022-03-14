@@ -487,6 +487,34 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                         Description = "توانایی تایید یا رد محصول"
                     }, default, false).Wait();
                 }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanChangeStatusProductReviews"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageProductsPage",
+                        Sort = 240,
+                        Name = "CanChangeStatusProductReviews",
+                        NormalizedName = "CanChangeStatusProductReviews".ToUpper(),
+                        Description = "توانایی تایید یا رد دیدگاه محصول"
+                    }, default, false).Wait();
+                }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanChangeRemoveProductReviews"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageProductsPage",
+                        Sort = 245,
+                        Name = "CanChangeRemoveProductReviews",
+                        NormalizedName = "CanChangeRemoveProductReviews".ToUpper(),
+                        Description = "توانایی حذف دیدگاه محصول"
+                    }, default, false).Wait();
+                }
             }
             #endregion
 

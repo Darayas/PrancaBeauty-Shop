@@ -247,6 +247,47 @@ namespace PrancaBeauty.Application.Apps.ProductReviews
             }
         }
 
+        public async Task<OperationResult> ChanageStatusReviewAsync(InpChanageStatusReview Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
 
+                var qData = await _ProductReviewsRepository.Get
+                                                .Where(a => a.Id == Input.ReviewId.ToGuid())
+                                                .Where(a => a.tblProducts.AuthorUserId == Input.AuthorUserId.ToGuid())
+                                                .SingleOrDefaultAsync();
+
+                if (qData == null)
+                    return new OperationResult().Failed("ReviewNotFound");
+
+                if (qData.IsConfirm)
+                {
+                    qData.IsRead = false;
+                    qData.IsConfirm = false;
+                }
+                else
+                {
+                    qData.IsRead = true;
+                    qData.IsConfirm = true;
+                }
+
+                await _ProductReviewsRepository.UpdateAsync(qData, default);
+
+                return new OperationResult().Succeeded();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
     }
 }

@@ -1176,6 +1176,9 @@
   <data name="ReviewMedias" xml:space="preserve">
     <value>فایل های ضمیمه</value>
   </data>
+  <data name="ReviewNotFound" xml:space="preserve">
+    <value>دیدگاه مورد نظر شما یافت نشد</value>
+  </data>
   <data name="Reviews" xml:space="preserve">
     <value>نظرات ({0})</value>
   </data>

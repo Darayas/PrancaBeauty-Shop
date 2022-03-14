@@ -50,18 +50,28 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.Compo_ProductReviews
                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
+                #region Check permissions
+                bool _HasFullControl = false;
                 string _UserId = null;
-                if (User.Identity.IsAuthenticated)
-                    _UserId = User.GetUserDetails().UserId;
+                {
+                    if (User.Identity.IsAuthenticated)
+                    {
+                        _UserId = User.GetUserDetails().UserId;
 
-                Input.Take = 1;
+                        if (User.IsInRole(Roles.CanChangeStatusProductReviewsForAllUser))
+                            _HasFullControl = true;
+                    }
+                }
+                #endregion
+
                 var qData = await _ProductReviewsApplication.GetReviewsForProductDetailsAsync(new InpGetReviewsForProductDetails
                 {
                     LangId = LangId,
                     ProductId = Input.ProductId,
                     Take = Input.Take,
                     Page = Input.PageNum,
-                    UserId = _UserId
+                    UserId = _UserId,
+                    HasFullControl = _HasFullControl
                 });
 
                 Data = _Mapper.Map<vmCompo_ListProductReviews>(qData.RevivewsData);
@@ -143,7 +153,11 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.Compo_ProductReviews
                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
-                var Result = await _ProductReviewsApplication.ChanageStatusReviewAsync(new InpChanageStatusReview { ReviewId = Input.ReviewId, AuthorUserId = User.GetUserDetails().UserId });
+                string _UserId = User.GetUserDetails().UserId;
+                if (User.IsInRole(Roles.CanChangeStatusProductReviewsForAllUser))
+                    _UserId = null;
+
+                var Result = await _ProductReviewsApplication.ChanageStatusReviewAsync(new InpChanageStatusReview { ReviewId = Input.ReviewId, AuthorUserId = _UserId });
 
                 if (Result.IsSucceeded)
                     return _MsgBox.SuccessMsg(_Localizer[Result.Message], "RefreshReviews()");

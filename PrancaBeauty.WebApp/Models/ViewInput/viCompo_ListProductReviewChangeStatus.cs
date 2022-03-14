@@ -9,5 +9,6 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
         [RequiredString]
         [GUID]
         public string ReviewId { get; set; }
+
     }
 }

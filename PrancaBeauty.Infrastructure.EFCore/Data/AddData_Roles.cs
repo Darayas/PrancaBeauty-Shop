@@ -488,6 +488,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     }, default, false).Wait();
                 }
 
+                
                 if (!_repRoles.Get.Any(a => a.Name == "CanChangeStatusProductReviews"))
                 {
                     _repRoles.AddAsync(new tblRoles()
@@ -501,8 +502,23 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                         Description = "توانایی تایید یا رد دیدگاه محصول"
                     }, default, false).Wait();
                 }
+                
+                if (!_repRoles.Get.Any(a => a.Name == "CanChangeStatusProductReviewsForAllUser"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageProductsPage",
+                        Sort = 241,
+                        Name = "CanChangeStatusProductReviewsForAllUser",
+                        NormalizedName = "CanChangeStatusProductReviewsForAllUser".ToUpper(),
+                        Description = "توانایی تایید یا رد دیدگاه محصولات دیگر کاربران"
+                    }, default, false).Wait();
+                }
 
-                if (!_repRoles.Get.Any(a => a.Name == "CanChangeRemoveProductReviews"))
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanChangeRemoveProductReviewsForAllUser"))
                 {
                     _repRoles.AddAsync(new tblRoles()
                     {
@@ -513,6 +529,20 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                         Name = "CanChangeRemoveProductReviews",
                         NormalizedName = "CanChangeRemoveProductReviews".ToUpper(),
                         Description = "توانایی حذف دیدگاه محصول"
+                    }, default, false).Wait();
+                }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanChangeRemoveProductReviewsForAllUser"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageProductsPage",
+                        Sort = 246,
+                        Name = "CanChangeRemoveProductReviewsForAllUser",
+                        NormalizedName = "CanChangeRemoveProductReviewsForAllUser".ToUpper(),
+                        Description = "توانایی حذف دیدگاه محصولات دیگر کاربران"
                     }, default, false).Wait();
                 }
             }

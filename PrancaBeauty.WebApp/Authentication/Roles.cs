@@ -51,7 +51,8 @@ namespace PrancaBeauty.WebApp.Authentication
         public const string CanChangeStatusProduct = "CanChangeStatusProduct";
         public const string CanChangeStatusProductReviews = "CanChangeStatusProductReviews";
         public const string CanChangeRemoveProductReviews = "CanChangeRemoveProductReviews";
-
+        public const string CanChangeStatusProductReviewsForAllUser = "CanChangeStatusProductReviewsForAllUser";
+        public const string CanChangeRemoveProductReviewsForAllUser = "CanChangeRemoveProductReviewsForAllUser";
         #endregion
 
         #region ProductSeller

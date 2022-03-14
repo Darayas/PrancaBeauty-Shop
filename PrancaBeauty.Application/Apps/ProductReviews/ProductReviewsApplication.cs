@@ -89,6 +89,7 @@ namespace PrancaBeauty.Application.Apps.ProductReviews
                 #region Get Reviews
                 var qData = _ProductReviewsRepository.Get
                                                      .Where(a => a.ProductId == Guid.Parse(Input.ProductId))
+                                                     .Where(a => Input.HasFullControl ? true : Input.UserId != null ? (( a.tblProducts.AuthorUserId == Input.UserId.ToGuid()) ? true : a.IsConfirm == true): a.IsConfirm == true)
                                                      .Select(a => new OutGetReviewsForProductDetailsItems
                                                      {
                                                          Id = a.Id.ToString(),
@@ -257,7 +258,7 @@ namespace PrancaBeauty.Application.Apps.ProductReviews
 
                 var qData = await _ProductReviewsRepository.Get
                                                 .Where(a => a.Id == Input.ReviewId.ToGuid())
-                                                .Where(a => a.tblProducts.AuthorUserId == Input.AuthorUserId.ToGuid())
+                                                .Where(a => Input.AuthorUserId != null ? a.tblProducts.AuthorUserId == Input.AuthorUserId.ToGuid() : true)
                                                 .SingleOrDefaultAsync();
 
                 if (qData == null)

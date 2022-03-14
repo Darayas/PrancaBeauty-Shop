@@ -25,6 +25,9 @@ namespace PrancaBeauty.Application.Contracts.ProdcutReviews
         [GUID]
         public string UserId { get; set; } // شناسه کاربر خواننده
 
+        [Display(Name = "HasFullControl")]
+        public bool HasFullControl { get; set; }
+
         [Display(Name = "Take")]
         [NumRange(1, int.MaxValue, ErrorMessage = "RangeGreaterThanZeroMsgMsg")]
         public int Take { get; set; } = 10;

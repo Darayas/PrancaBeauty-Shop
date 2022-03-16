@@ -14,10 +14,16 @@ namespace PrancaBeauty.Domin.Product.ProductAskLikesAgg.Entities
         public Guid Id { get; set; }
         public Guid ProductAskId { get; set; }
         public Guid UserId { get; set; }
-        public bool IsLike { get; set; }
+        public ProductAskLikesEnum Type { get; set; }
         public DateTime Date { get; set; }
 
         public virtual tblProductAsk tblProductAsk { get; set; }
         public virtual tblUsers tblUsers { get; set; }
+    }
+
+    public enum ProductAskLikesEnum
+    {
+        Like,
+        Dislike
     }
 }

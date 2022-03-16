@@ -109,9 +109,9 @@
                                             }
                                         }
 
-                                        @if (User.IsInRole(Roles.CanChangeRemoveProductReviews))
+                                        @if (User.IsInRole(Roles.CanRemoveProductReviews))
                                         {
-                                            <button onclick="MoveToTrash('@item.Id')" class="btn btn-link">
+                                            <button onclick="Remove('@item.Id')" class="btn btn-link">
                                                 <i class="fa fa-trash"></i>
                                             </button>
                                         }
@@ -348,12 +348,12 @@
             </text>
         }
 
-        @if (User.IsInRole(Roles.CanChangeRemoveProductReviews))
+        @if (User.IsInRole(Roles.CanRemoveProductReviews))
         {
             <text>
-            function MoveToTrash(_Id)
+            function Remove(_Id)
             {
-
+                RemoveData('/@ViewData["culture"]/Shared/Compo/ComboListProductReviews?handler=Remove',{ReviewId:_Id});
             }
             </text>
         }

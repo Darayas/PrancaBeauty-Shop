@@ -13,7 +13,7 @@ else
 {
     <script>
             function IsSelected(_Name) {
-                var RolesNames = '@string.Join(",", (string[])ViewData["SelectedRoles"])';
+                var RolesNames = '@string.Join(",", (string[])ViewData["SelectedRoles"]),';
 
                 if (RolesNames.includes(_Name+",")) {
                     return 'checked';

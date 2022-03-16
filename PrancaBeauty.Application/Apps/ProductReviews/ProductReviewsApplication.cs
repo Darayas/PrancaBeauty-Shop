@@ -89,7 +89,7 @@ namespace PrancaBeauty.Application.Apps.ProductReviews
                 #region Get Reviews
                 var qData = _ProductReviewsRepository.Get
                                                      .Where(a => a.ProductId == Guid.Parse(Input.ProductId))
-                                                     .Where(a => Input.HasFullControl ? true : Input.UserId != null ? (( a.tblProducts.AuthorUserId == Input.UserId.ToGuid()) ? true : a.IsConfirm == true): a.IsConfirm == true)
+                                                     .Where(a => Input.HasFullControl ? true : Input.UserId != null ? ((a.tblProducts.AuthorUserId == Input.UserId.ToGuid()) ? true : a.IsConfirm == true) : a.IsConfirm == true)
                                                      .Select(a => new OutGetReviewsForProductDetailsItems
                                                      {
                                                          Id = a.Id.ToString(),
@@ -276,6 +276,38 @@ namespace PrancaBeauty.Application.Apps.ProductReviews
                 }
 
                 await _ProductReviewsRepository.UpdateAsync(qData, default);
+
+                return new OperationResult().Succeeded();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
+
+        public async Task<OperationResult> RemoveReviewAsync(InpRemoveReview Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var qData = await _ProductReviewsRepository.Get
+                                                .Where(a => a.Id == Input.ReviewId.ToGuid())
+                                                .Where(a => Input.UserId != null ? a.tblProducts.AuthorUserId == Input.UserId.ToGuid() : true)
+                                                .SingleOrDefaultAsync();
+
+                if (qData == null)
+                    return new OperationResult().Failed("IdNotFound");
+
+                await _ProductReviewsRepository.DeleteAsync(qData, default, true);
 
                 return new OperationResult().Succeeded();
             }

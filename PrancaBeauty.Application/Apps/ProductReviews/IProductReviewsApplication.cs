@@ -12,5 +12,6 @@ namespace PrancaBeauty.Application.Apps.ProductReviews
         Task<OperationResult> ChanageStatusReviewAsync(InpChanageStatusReview Input);
         Task<(OutPagingData PageingData, OutGetReviewsForProductDetails RevivewsData)> GetReviewsForProductDetailsAsync(InpGetReviewsForProductDetails Input);
         Task<OperationResult> RemoveProductReviewAsync(InpRemoveProductReview Input);
+        Task<OperationResult> RemoveReviewAsync(InpRemoveReview Input);
     }
 }

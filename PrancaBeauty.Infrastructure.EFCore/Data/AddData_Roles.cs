@@ -517,8 +517,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     }, default, false).Wait();
                 }
 
-
-                if (!_repRoles.Get.Any(a => a.Name == "CanChangeRemoveProductReviewsForAllUser"))
+                if (!_repRoles.Get.Any(a => a.Name == "CanRemoveProductReviews"))
                 {
                     _repRoles.AddAsync(new tblRoles()
                     {
@@ -526,13 +525,13 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                         ParentId = _Id,
                         PageName = "ManageProductsPage",
                         Sort = 245,
-                        Name = "CanChangeRemoveProductReviews",
-                        NormalizedName = "CanChangeRemoveProductReviews".ToUpper(),
+                        Name = "CanRemoveProductReviews",
+                        NormalizedName = "CanRemoveProductReviews".ToUpper(),
                         Description = "توانایی حذف دیدگاه محصول"
                     }, default, false).Wait();
                 }
 
-                if (!_repRoles.Get.Any(a => a.Name == "CanChangeRemoveProductReviewsForAllUser"))
+                if (!_repRoles.Get.Any(a => a.Name == "CanRemoveProductReviewsForAllUser"))
                 {
                     _repRoles.AddAsync(new tblRoles()
                     {
@@ -540,8 +539,8 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                         ParentId = _Id,
                         PageName = "ManageProductsPage",
                         Sort = 246,
-                        Name = "CanChangeRemoveProductReviewsForAllUser",
-                        NormalizedName = "CanChangeRemoveProductReviewsForAllUser".ToUpper(),
+                        Name = "CanRemoveProductReviewsForAllUser",
+                        NormalizedName = "CanRemoveProductReviewsForAllUser".ToUpper(),
                         Description = "توانایی حذف دیدگاه محصولات دیگر کاربران"
                     }, default, false).Wait();
                 }

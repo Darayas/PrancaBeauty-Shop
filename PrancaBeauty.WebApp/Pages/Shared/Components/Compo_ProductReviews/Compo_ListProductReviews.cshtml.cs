@@ -175,6 +175,38 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.Compo_ProductReviews
             }
         }
 
+        public async Task<IActionResult> OnPostRemoveAsync(viCompo_ListProductReviewRemove Input)
+        {
+            try
+            {
+                if (!User.IsInRole(Roles.CanRemoveProductReviews))
+                    return _MsgBox.AccessDeniedMsg();
+
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                string _UserId = User.GetUserDetails().UserId;
+                if (User.IsInRole(Roles.CanRemoveProductReviewsForAllUser))
+                    _UserId = null;
+
+                var _Result = await _ProductReviewsApplication.RemoveReviewAsync(new InpRemoveReview { ReviewId = Input.ReviewId, UserId = _UserId });
+
+                if (_Result.IsSucceeded)
+                    return _MsgBox.SuccessMsg(_Localizer[_Result.Message], "RefreshReviews()");
+                else
+                    return _MsgBox.FaildMsg(_Localizer[_Result.Message]);
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                return _MsgBox.FaildMsg(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return _MsgBox.FaildMsg(_Localizer["Error500"]);
+            }
+        }
 
         [BindProperty(SupportsGet = true)]
         public viCompo_ListProductReviews Input { get; set; }

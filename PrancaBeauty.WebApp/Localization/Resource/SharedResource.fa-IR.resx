@@ -1170,6 +1170,9 @@
   <data name="Review" xml:space="preserve">
     <value>دیدگاه</value>
   </data>
+  <data name="ReviewAddedSuccessfull" xml:space="preserve">
+    <value>دیدگاه شما با موفقیت ثبت شد. بعد از تایید به نمایش عموم گذاشته خواهد شد.</value>
+  </data>
   <data name="ReviewAttribute" xml:space="preserve">
     <value>خصوصیات محصول از دیدگاه شما</value>
   </data>

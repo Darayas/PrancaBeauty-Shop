@@ -76,11 +76,11 @@ namespace PrancaBeauty.Application.Apps.ProductReviewsAttributeValues
                 #endregion
 
                 var qData = await _IProductReviewsAttributeRepository.Get
-                                                                     .Where(a => a.tblProductReviewsAttributeValues.Where(b=>b.tblProductReviews.ProductId == Input.ProductId.ToGuid() && b.Value>0).Any())
+                                                                     .Where(a => a.tblProductReviewsAttributeValues.Where(b => b.tblProductReviews.ProductId == Input.ProductId.ToGuid() && b.Value > 0 && b.tblProductReviews.IsConfirm).Any())
                                                                      .Select(a => new OutGetAvgAttributesByReviewId
                                                                      {
                                                                          Title = a.tblProductReviewsAttribute_Translate.Where(b => b.LangId == Input.LangId.ToGuid()).Select(a => a.Title).Single(),
-                                                                         Avg = a.tblProductReviewsAttributeValues.Average(b => b.Value)
+                                                                         Avg = a.tblProductReviewsAttributeValues.Count(a => a.tblProductReviews.IsConfirm) > 0 ? a.tblProductReviewsAttributeValues.Where(a => a.tblProductReviews.IsConfirm).Average(b => b.Value) : 0
                                                                      })
                                                                      .ToListAsync();
 

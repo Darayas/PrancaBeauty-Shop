@@ -60,7 +60,7 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.Compo_ProductReviews
                 var _Result = await _ProductReviewsApplication.AddReviewFromUserAsync(_MappedData);
                 if (_Result.IsSucceeded)
                 {
-                    return _MsgBox.SuccessMsg(_Localizer[_Result.Message]);
+                    return _MsgBox.SuccessMsg(_Localizer["ReviewAddedSuccessfull"], "ReloadPage()");
                 }
                 else
                 {

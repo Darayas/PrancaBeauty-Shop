@@ -919,7 +919,7 @@ namespace PrancaBeauty.Application.Apps.Products
                                                         TopicId = a.TopicId.ToString(),
                                                         Title = a.Title,
                                                         Name = a.Name,
-                                                        AvgStarRating = a.tblProductReviews.Where(b => b.CountStar > 0).Average(b => b.CountStar),
+                                                        AvgStarRating = a.tblProductReviews.Count(a => a.CountStar > 0) > 0 ? a.tblProductReviews.Where(b => b.CountStar > 0).Average(b => b.CountStar) : 0,
                                                         CountUserInStarRating = a.tblProductReviews.Where(b => b.CountStar > 0).Count(),
                                                         MetaDescription = a.MetaTagDescreption,
                                                         Description = a.Description,

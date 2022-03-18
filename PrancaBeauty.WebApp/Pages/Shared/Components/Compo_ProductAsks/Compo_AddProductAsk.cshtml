@@ -1,0 +1,40 @@
+﻿@page "/{culture}/Shared/Compo/ComboAddProductAsk"
+@model PrancaBeauty.WebApp.Pages.Shared.Components.Compo_ProductAsks.Compo_AddProductAskModel
+
+<div class="modal" id="ModalAddNewAsk" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                @if (Model.Input.AskId == null)
+                {
+                    <h5 class="modal-title">@Localizer["AddNewAsk"]</h5>
+                }
+                else
+                {
+                    <h5 class="modal-title">@Localizer["AddNewAnswer"]</h5>
+                }
+            </div>
+            <div class="modal-body">
+                <form id="frmAddAsk">
+                    <input asp-for=Input.ProductId type="hidden" />
+                    <input asp-for=Input.AskId type="hidden" />
+                    <div class=row>
+                        <div class=col-md-12>
+                            <div class=form-group>
+                                <textarea class="form-control" rows=4 asp-for=Input.Text></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=row>
+                        <div class=col-md-12>
+                            <div class=form-group>
+                                <button type="button" onclick="SendForm('/@ViewData["culture"]/Shared/Compo/ComboAddProductAsk','frmAddAsk')" class="btn btn-success">@Localizer["Save"]</button>
+                                <button type="button" onclick="CloseModal('ModalAddNewAsk')" class="btn btn-primary">@Localizer["Cancel"]</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

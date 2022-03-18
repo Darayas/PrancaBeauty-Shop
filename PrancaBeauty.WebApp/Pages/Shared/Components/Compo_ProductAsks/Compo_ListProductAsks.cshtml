@@ -84,3 +84,10 @@
         </div>
     </div>
 </div>
+<script>
+    function ShowNewAskModal(_AskId=null){
+        LoadComponent('/@ViewData["culture"]/Shared/Compo/ComboAddProductAsk',{ProductId:'@Model.Input.ProductId',AskId:_AskId},function(res){
+            ShowModal(res,'ModalAddNewAsk');
+        });
+    }
+</script>

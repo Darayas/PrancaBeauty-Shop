@@ -4,7 +4,9 @@ using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Contracts.ProductAsks;
+using PrancaBeauty.Application.Contracts.Results;
 using PrancaBeauty.Domin.Product.ProductAskAgg.Contarcts;
+using PrancaBeauty.Domin.Product.ProductAskAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductAskLikesAgg.Entities;
 using System;
 using System.Collections.Generic;
@@ -66,6 +68,41 @@ namespace PrancaBeauty.Application.Apps.ProductAsk
             {
                 _Logger.Error(ex);
                 return default;
+            }
+        }
+
+        public async Task<OperationResult> AddNewAskAsync(InpAddNewAsk Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var tProductAsk = new tblProductAsk
+                {
+                    Id = new Guid().SequentialGuid(),
+                    ProductId = Input.ProductId.ToGuid(),
+                    UserId = Input.UserId.ToGuid(),
+                    AskId = Input.AskId == null ? null : Input.AskId.ToGuid(),
+                    Date = DateTime.Now,
+                    IsConfirm = false,
+                    Text = Input.Text.RemoveAllHtmlTags()
+                };
+
+                await _ProductAskRepository.AddAsync(tProductAsk, default, true);
+
+                return new OperationResult().Succeeded();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
             }
         }
     }

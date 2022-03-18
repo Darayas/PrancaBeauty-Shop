@@ -17,7 +17,7 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
 
         [Display(Name = "Page")]
         [NumRange(1, int.MaxValue)]
-        public int Page { get; set; } = 1;
+        public int PageNum { get; set; } = 1;
 
     }
 }

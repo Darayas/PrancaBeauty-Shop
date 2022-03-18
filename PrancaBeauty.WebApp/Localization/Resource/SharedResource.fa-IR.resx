@@ -165,6 +165,12 @@
   <data name="AddNewAccessLevel" xml:space="preserve">
     <value>افزودن</value>
   </data>
+  <data name="AddNewAnswer" xml:space="preserve">
+    <value>ثبت پاسخ</value>
+  </data>
+  <data name="AddNewAsk" xml:space="preserve">
+    <value>پرسیدن یک سوال</value>
+  </data>
   <data name="AddNewCategory" xml:space="preserve">
     <value>افزودن دسته جدید</value>
   </data>
@@ -207,11 +213,17 @@
   <data name="AllowExtentionsMsg" xml:space="preserve">
     <value>{0} انتخاب شده با نام '{1}' دارای فرمت غیرمجار میباشد. پسوند های مجاز: {2}</value>
   </data>
+  <data name="Answer" xml:space="preserve">
+    <value>پاسخ</value>
+  </data>
   <data name="AreYouSure" xml:space="preserve">
     <value>ایا مطمعن هستید؟</value>
   </data>
   <data name="AreYouSureToDelete" xml:space="preserve">
     <value>آیا مطمعن به حذف هستید؟</value>
+  </data>
+  <data name="AskNotice" xml:space="preserve">
+    <value>نکات افزودن پرسش</value>
   </data>
   <data name="Asks" xml:space="preserve">
     <value>پرسش ها ({0})</value>
@@ -959,6 +971,9 @@
   </data>
   <data name="PleaseLogin" xml:space="preserve">
     <value>لطفا ابتدا لاگین نمایید</value>
+  </data>
+  <data name="PleaseLoginForAddNewAsk" xml:space="preserve">
+    <value>برای پرسیدن سوال، باید ابتدا لاگین نمایید</value>
   </data>
   <data name="PleaseLoginForAddNewReview" xml:space="preserve">
     <value>برای ثبت دیدگاه، لطفا ابتدا لاگین نمایید</value>

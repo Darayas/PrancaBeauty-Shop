@@ -33,7 +33,7 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.Compo_ProductAsks
                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
-
+                return Page();
             }
             catch (ArgumentInvalidException ex)
             {

@@ -700,6 +700,7 @@
 }
 
 
+
 .reviews_comment_box {
     display: flex;
     margin-bottom: 22px;
@@ -832,13 +833,46 @@
     }
 }
 
+.reviews_answer {
+    margin-right: 25px;
+    border-bottom: 1px solid $grey_color;
+
+    &:last-child {
+        border-bottom: unset !important;
+    }
+
+    & p {
+        font-size: 14px;
+        margin-top: 15px;
+        margin-bottom: 5px;
+
+        & strong {
+            font-weight: 500;
+            color: $fonts_color;
+            margin-right: 5px;
+        }
+    }
+
+    .btn-link {
+        text-decoration: none;
+        font-size: 14px;
+        margin-top: 10px;
+        margin-right: -10px;
+    }
+
+    .star_rating {
+        float: unset !important;
+        text-align: left;
+        margin-top: 5px;
+    }
+}
+
 .reviews_meta {
     & p {
-        font-size: 15px;
+        font-size: 16px;
         margin-bottom: 15px;
 
         & strong {
-            text-transform: uppercase;
             font-weight: 500;
             color: $fonts_color;
         }

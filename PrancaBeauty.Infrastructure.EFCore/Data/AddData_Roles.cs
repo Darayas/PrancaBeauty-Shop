@@ -544,6 +544,63 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                         Description = "توانایی حذف دیدگاه محصولات دیگر کاربران"
                     }, default, false).Wait();
                 }
+
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanChangeStatusProductAsks"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageProductsPage",
+                        Sort = 240,
+                        Name = "CanChangeStatusProductAsks",
+                        NormalizedName = "CanChangeStatusProductAsks".ToUpper(),
+                        Description = "توانایی تایید یا رد پرسش محصول"
+                    }, default, false).Wait();
+                }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanChangeStatusProductAsksForAllUser"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageProductsPage",
+                        Sort = 241,
+                        Name = "CanChangeStatusProductAsksForAllUser",
+                        NormalizedName = "CanChangeStatusProductAsksForAllUser".ToUpper(),
+                        Description = "توانایی تایید یا رد پرسش محصولات دیگر کاربران"
+                    }, default, false).Wait();
+                }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanRemoveProductAsks"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageProductsPage",
+                        Sort = 245,
+                        Name = "CanRemoveProductAsks",
+                        NormalizedName = "CanRemoveProductAsks".ToUpper(),
+                        Description = "توانایی حذف پرسش محصول"
+                    }, default, false).Wait();
+                }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanRemoveProductAsksForAllUser"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageProductsPage",
+                        Sort = 246,
+                        Name = "CanRemoveProductAsksForAllUser",
+                        NormalizedName = "CanRemoveProductAsksForAllUser".ToUpper(),
+                        Description = "توانایی حذف پرسش محصولات دیگر کاربران"
+                    }, default, false).Wait();
+                }
             }
             #endregion
 

@@ -849,6 +849,9 @@
   <data name="No" xml:space="preserve">
     <value>خیر</value>
   </data>
+  <data name="NoAsksFound" xml:space="preserve">
+    <value>پرسشی یافت نشد.</value>
+  </data>
   <data name="NoFileSeleted" xml:space="preserve">
     <value>&lt;span&gt;فایلی انتخاب نشده است. (&lt;a style="color:#d52121" onclick="{0}"&gt;افزودن&lt;/a&gt;)&lt;/span&gt;</value>
   </data>

@@ -207,33 +207,7 @@
                     </div>
                 }
 
-                <div class=paging>
-                    @{
-                        var CommentPaging = Model.PagingData;
-                    }
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination">
-                            <li class="page-item">
-                                <a onclick="GotoCommentPage('@(CommentPaging.Page - 1 <= 0 ? 1 : CommentPaging.Page - 1)')" class="page-link" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                    <span class="sr-only">Previous</span>
-                                </a>
-                            </li>
-
-                            @for (var i = CommentPaging.StartPage; i <= CommentPaging.EndPage; i++)
-                            {
-                                <li class="page-item @(CommentPaging.Page==i?"active":"")"><a onclick="GotoCommentPage('@i')" class="page-link">@i</a></li>
-                            }
-
-                            <li class="page-item">
-                                <a onclick="GotoCommentPage('@(CommentPaging.Page + 1 >CommentPaging.CountAllPage ? CommentPaging.CountAllPage : CommentPaging.Page + 1)')" class="page-link" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                    <span class="sr-only">Next</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
+               
             }
         </div>
     </div>

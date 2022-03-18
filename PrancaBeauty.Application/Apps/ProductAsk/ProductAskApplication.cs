@@ -41,12 +41,14 @@ namespace PrancaBeauty.Application.Apps.ProductAsk
 
                 var qData = _ProductAskRepository.Get
                                     .Where(a => a.ProductId == Input.ProductId.ToGuid())
+                                    .Where(a => a.AskId == null)
+                                    /*.Where(a=>a.IsConfirm)*/
                                     .OrderByDescending(a => a.Date)
                                     .Select(ask => new OutGetListAsks
                                     {
                                         Id = ask.Id.ToString(),
                                         Text = ask.Text,
-                                        LstAnswer = ask.tblProductAsk_Childs.Select(answer => new OutGetListAsks_Answer
+                                        LstAnswer = ask.tblProductAsk_Childs/*.Where(a=>a.IsConfirm)*/.Select(answer => new OutGetListAsks_Answer
                                         {
                                             Id = answer.Id.ToString(),
                                             FullName = answer.tblUsers.FirstName + " " + answer.tblUsers.LastName,

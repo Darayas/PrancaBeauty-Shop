@@ -33,54 +33,79 @@
     </div>
     <div class="col-md-8">
         <div class="reviews_wrapper">
-
-            <div class="reviews_comment_box">
-                <div class="comment_thmb">
-                    <img src="/Main/img/blog/comment2.jpg" alt="">
+            @if (Model.Data.Count() == 0)
+            {
+                <div class="alert alert-info">
+                    @Localizer["NoAsksFound"]
                 </div>
-                <div class="comment_text">
-                    <div class="reviews_meta">
-                        <p><strong>admin </strong></p>
-                        <span>در این بخش سوال کاربر خریدار به نمایش گذاشته خواهد شد</span>
-                    </div>
+            }
+            else
+            {
+                foreach (var item in Model.Data)
+                {
+                    <div class="reviews_comment_box">
+                        <div class="comment_thmb">
+                            <img src="/Shared/img/question.png" alt="question icon">
+                        </div>
+                        <div class="comment_text">
+                            <div class="reviews_meta">
+                                <span>@item.Text</span>
+                            </div>
 
-                    <div class="reviews_answer">
-                        <p>@Localizer["Answer"]:<strong>admin </strong></p>
-                        <span>در این بخش پاسخ اول نمایش داده میشود</span>
-                        <div class=star_rating>
-                            <button onclick="Like('')" class="btn btn-link">
-                                <i class="fa fa-thumbs-up"></i>
-                                <span id="">10</span>
-                            </button>
+                            @foreach (var itemAns in item.LstAnswer)
+                            {
+                                <div class="reviews_answer">
+                                    <p>@Localizer["Answer"]:<strong>@itemAns.FullName </strong></p>
+                                    <span>@itemAns.Text</span>
+                                    <div class=star_rating>
+                                        <button onclick="Like('')" class="btn btn-link">
+                                            <i class="fa fa-thumbs-up"></i>
+                                            <span id="">@itemAns.CountLikes</span>
+                                        </button>
 
-                            <button onclick="DisLike('')" class="btn btn-link">
-                                <i class="fa fa-thumbs-down"></i>
-                                <span id="">10</span>
-                            </button>
+                                        <button onclick="DisLike('')" class="btn btn-link">
+                                            <i class="fa fa-thumbs-down"></i>
+                                            <span id="">@itemAns.CountDisLike</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            }
+
+                            <div class="reviews_answer">
+                                <button type="button" onclick="ShowNewAskModal('@item.Id')" class="btn btn-link">@Localizer["AddNewAnswer"]</button>
+                            </div>
                         </div>
                     </div>
+                }
 
-                    <div class="reviews_answer">
-                        <p>@Localizer["Answer"]: <strong>admin </strong></p>
-                        <span>در این بخش پاسخ دوم نمایش داده میشود</span>
-                        <div class=star_rating>
-                            <button onclick="Like('')" class="btn btn-link">
-                                <i class="fa fa-thumbs-up"></i>
-                                <span id="">10</span>
-                            </button>
+                <div class=paging>
+                    @{
+                        var CommentPaging = Model.PagingData;
+                    }
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a onclick="GotoAskPage('@(CommentPaging.Page - 1 <= 0 ? 1 : CommentPaging.Page - 1)')" class="page-link" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            </li>
 
-                            <button onclick="DisLike('')" class="btn btn-link">
-                                <i class="fa fa-thumbs-down"></i>
-                                <span id="">10</span>
-                            </button>
-                        </div>
-                    </div>
+                            @for (var i = CommentPaging.StartPage; i <= CommentPaging.EndPage; i++)
+                            {
+                                <li class="page-item @(CommentPaging.Page==i?"active":"")"><a onclick="GotoAskPage('@i')" class="page-link">@i</a></li>
+                            }
 
-                    <div class="reviews_answer">
-                        <button type="button" class="btn btn-link">@Localizer["AddNewAnswer"]</button>
-                    </div>
+                            <li class="page-item">
+                                <a onclick="GotoAskPage('@(CommentPaging.Page + 1 >CommentPaging.CountAllPage ? CommentPaging.CountAllPage : CommentPaging.Page + 1)')" class="page-link" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
-            </div>
+            }
         </div>
     </div>
 </div>
@@ -90,4 +115,104 @@
             ShowModal(res,'ModalAddNewAsk');
         });
     }
+
+    function GotoAskPage(_Page){
+            LoadComponent('/@ViewData["culture"]Shared/Compo/ComboListProductAsks',{ ProductId:'@Model.Input.ProductId',PageNum:_Page },function(res){
+                $('#LstAsks').html(res);
+            });
+        }
+
+        function LikeAsk(_ReviewId)
+        {
+            SendData('/@ViewData["culture"]/Shared/Compo/ComboListProductReviews?handler=Like',{ ReviewId:_ReviewId },function(res){
+
+                if(res.Count==-1)
+                {
+                    //$('#Like'+_ReviewId).text(res.Count);
+                    $('#Like'+_ReviewId).parent('.btn').css('text-decoration','underline');
+                }
+                else if(res.Count==-2)
+                {
+                    Alert('',PleaseLogin,'error');
+                }
+                else
+                {
+                    $('#Like'+_ReviewId).text(res.Count);
+                    if(res.IsLike==true)
+                    {
+                       //if($('#Like'+_ReviewId).parent('.btn').hasClass('IsLike'))
+                       //{
+                       //    $('#Like'+_ReviewId).parent('.btn').removeClass('IsLike');
+                       //}
+                       //else
+                       //{
+                           $('#Like'+_ReviewId).parent('.btn').addClass('IsLike');
+                       //}
+                    }
+                    else
+                    {
+                        $('#Like'+_ReviewId).parent('.btn').removeClass('IsLike');
+                    }
+                }
+            });
+        }
+
+        function DisLikeAsk(_ReviewId)
+        {
+            SendData('/@ViewData["culture"]/Shared/Compo/ComboListProductReviews?handler=DisLike',{ ReviewId:_ReviewId },function(res){
+
+                if(res.Count==-1)
+                {
+                    //$('#DisLike'+_ReviewId).text(res.Count);
+                    $('#DisLike'+_ReviewId).parent('.btn').css('text-decoration','underline');
+                }
+                else if(res.Count==-2)
+                {
+                    Alert('',PleaseLogin,'error');
+                }
+                else
+                {
+                    $('#DisLike'+_ReviewId).text(res.Count);
+                    if(res.IsLike==true)
+                    {
+                       //if($('#DisLike'+_ReviewId).parent('.btn').hasClass('IsDisLike'))
+                       //{
+                       //    $('#DisLike'+_ReviewId).parent('.btn').removeClass('IsDisLike');
+                       //}
+                       //else
+                       //{
+                           $('#DisLike'+_ReviewId).parent('.btn').addClass('IsDisLike');
+                       //}
+                    }
+                    else
+                    {
+                        $('#DisLike'+_ReviewId).parent('.btn').removeClass('IsDisLike');
+                    }
+                }
+            });
+        }
+    @if (User.IsInRole(Roles.CanChangeStatusProductAsks))
+    {
+        <text>
+                    function ChangeStatusAsk(_Id)
+                    {
+                        SendData('/@ViewData["culture"]/Shared/Compo/ComboListProductReviews?handler=ChangeStatus',{ReviewId:_Id});
+                    }
+        </text>
+    }
+
+    @if (User.IsInRole(Roles.CanRemoveProductAsks))
+    {
+        <text>
+                function RemoveAsk(_Id)
+                {
+                    RemoveData('/@ViewData["culture"]/Shared/Compo/ComboListProductReviews?handler=Remove',{ReviewId:_Id});
+                }
+        </text>
+    }
+
+        function RefreshAsks()
+        {
+            GotoAskPage('@Model.Input.PageNum');
+        }
 </script>

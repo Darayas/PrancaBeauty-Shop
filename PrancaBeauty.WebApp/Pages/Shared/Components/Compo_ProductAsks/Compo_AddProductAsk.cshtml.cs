@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.ProductAsk;
 using PrancaBeauty.Application.Contracts.ProductAsks;
+using PrancaBeauty.WebApp.Common.ExMethod;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
 using System;
 using System.Threading.Tasks;
@@ -47,10 +48,12 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.Compo_ProductAsks
                 #endregion
 
                 var _MappedData = _Mapper.Map<InpAddNewAsk>(Input);
+                _MappedData.UserId = User.GetUserDetails().UserId;
+
                 var _Result = await _ProductAskApplication.AddNewAskAsync(_MappedData);
-                if(_Result.IsSucceeded)
+                if (_Result.IsSucceeded)
                 {
-                    return _MsgBox.SuccessMsg(_Localizer[_Result.Message],"ReloadPage()");
+                    return _MsgBox.SuccessMsg(_Localizer[_Result.Message], "ReloadPage()");
                 }
                 else
                 {

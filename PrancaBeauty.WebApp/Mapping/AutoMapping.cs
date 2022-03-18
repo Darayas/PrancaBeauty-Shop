@@ -106,6 +106,8 @@ namespace PrancaBeauty.WebApp.Mapping
             CreateMap<viCompo_AddProductReviewsAttributes, InpAddReviewFromUserAttributes>();
 
             CreateMap<viCompo_AddProductAsk, InpAddNewAsk>();
+            CreateMap<OutGetListAsks, vmCompo_ListProductAsks>();
+            CreateMap<OutGetListAsks_Answer, vmGetListAsks_Answer>();
         }
     }
 }

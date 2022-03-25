@@ -418,5 +418,33 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
                 return new OperationResult().Failed("Error500");
             }
         }
+
+        public async Task<OutGetProductPriceByVariantItemId> GetProductPriceByVariantItemIdAsync(InpGetProductPriceByVariantItemId Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var qData = await _ProductVariantItemsRepository.Get
+                                                                .Where(a => a.Id == Input.ProductVariantItemId.ToGuid())
+                                                                .Select(a => new
+                                                                {
+
+                                                                })
+                                                                .SingleOrDefaultAsync();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return default;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return default;
+            }
+        }
     }
 }

@@ -142,7 +142,7 @@
 
                                     <div class="Advantages">
                                         <ul>
-                                            @if (item.Advantages.Split(',').Count() > 0)
+                                            @if (item.Advantages != "")
                                             {
                                                 foreach (var itemAdvantages in item.Advantages.Split(','))
                                                 {
@@ -152,7 +152,7 @@
                                                     </li>
                                                 }
                                             }
-                                            @if (item.DisAdvantages.Split(',').Count() > 0)
+                                            @if (item.DisAdvantages != "")
                                             {
                                                 foreach (var itemDisAdvantages in item.DisAdvantages.Split(','))
                                                 {
@@ -246,11 +246,11 @@
         @if (User.Identity.IsAuthenticated)
         {
             <text>
-                      function ShowNewReviewModal() {
-                          LoadComponent('/@ViewData["culture"]/Shared/Compo/ComboAddProductReview',{ ProductId: '@Model.Input.ProductId',TopicId: '@Model.Input.TopicId'},function(res){
-                              ShowModal(res, 'ModalAddNewReview');
-                          });
-                      }
+                          function ShowNewReviewModal() {
+                              LoadComponent('/@ViewData["culture"]/Shared/Compo/ComboAddProductReview',{ ProductId: '@Model.Input.ProductId',TopicId: '@Model.Input.TopicId'},function(res){
+                                  ShowModal(res, 'ModalAddNewReview');
+                              });
+                          }
             </text>
         }
 
@@ -346,20 +346,20 @@
         @if (User.IsInRole(Roles.CanChangeStatusProductReviews))
         {
             <text>
-                    function ChangeStatus(_Id)
-                    {
-                        SendData('/@ViewData["culture"]/Shared/Compo/ComboListProductReviews?handler=ChangeStatus',{ReviewId:_Id});
-                    }
+                        function ChangeStatus(_Id)
+                        {
+                            SendData('/@ViewData["culture"]/Shared/Compo/ComboListProductReviews?handler=ChangeStatus',{ReviewId:_Id});
+                        }
             </text>
         }
 
         @if (User.IsInRole(Roles.CanRemoveProductReviews))
         {
             <text>
-                function Remove(_Id)
-                {
-                    RemoveData('/@ViewData["culture"]/Shared/Compo/ComboListProductReviews?handler=Remove',{ReviewId:_Id});
-                }
+                    function Remove(_Id)
+                    {
+                        RemoveData('/@ViewData["culture"]/Shared/Compo/ComboListProductReviews?handler=Remove',{ReviewId:_Id});
+                    }
             </text>
         }
 

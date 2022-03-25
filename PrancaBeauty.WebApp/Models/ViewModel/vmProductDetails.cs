@@ -7,14 +7,13 @@ namespace PrancaBeauty.WebApp.Models.ViewModel
     {
         public string Id { get; set; }
         public string TopicId { get; set; }
+        public double ProductVariantItemIdForPrice { get; set; }
         public string Name { get; set; }
         public string Title { get; set; }
         public double AvgStarRating { get; set; }
         public int CountUserInStarRating { get; set; }
         public int CountReviews { get; set; }
         public int CountAsk { get; set; }
-        public double Price { get; set; } // TODO Discount
-        public string CurrencySymbol { get; set; }
         public string MetaDescription { get; set; }
         public string MetaCanonical { get; set; }
         public string MetaKeyword { get; set; }

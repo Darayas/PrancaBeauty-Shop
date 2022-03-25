@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PrancaBeauty.Application.Contracts.ProductVariantItems
+namespace PrancaBeauty.Application.Contracts.Products
 {
-    public class OutGetProductPriceByVariantItemId
+    public class OutGetProductPriceByVariantId
     {
         public double ProductPrice { get; set; }
         public double ProductOldPrice { get; set; }

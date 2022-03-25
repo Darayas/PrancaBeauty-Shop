@@ -917,6 +917,7 @@ namespace PrancaBeauty.Application.Apps.Products
                                                     {
                                                         Id = a.Id.ToString(),
                                                         TopicId = a.TopicId.ToString(),
+                                                        ProductVariantItemIdForPrice=0, // TODO
                                                         Title = a.Title,
                                                         Name = a.Name,
                                                         AvgStarRating = a.tblProductReviews.Count(a => a.CountStar > 0) > 0 ? a.tblProductReviews.Where(b => b.CountStar > 0).Average(b => b.CountStar) : 0,
@@ -963,6 +964,14 @@ namespace PrancaBeauty.Application.Apps.Products
             }
         }
 
-       
+        public async Task<OutGetProductPriceByVariantId> GetProductPriceByVariantIdAsync(InpGetProductPriceByVariantId Input)
+        {
+            var qData = await _ProductVariantItemsApplication.GetProductPriceByVariantItemIdAsync(new InpGetProductPriceByVariantItemId { ProductVariantItemId = Input.ProductVariantItemId });
+
+            if (qData == null)
+                return null;
+
+            return new OutGetProductPriceByVariantId { ProductPrice = qData.ProductPrice, ProductOldPrice = qData.ProductOldPrice, CurrencySymbol = qData.CurrencySymbol };
+        }
     }
 }

@@ -1,3 +1,11 @@
 ﻿@page "/{culture}/Shared/Compo/ProductSelectedPrice"
 @model PrancaBeauty.WebApp.Pages.Shared.Components.Compo_ProductSelectedPricess.Compo_ProductSelectedPriceModel
 
+<div class="price_box">
+    <span class="current_price">@Model.Data.ProductPrice @Model.Data.CurrencySymbol</span>
+    @if(Model.Data.ProductOldPrice!="0")
+    {
+        <span class="old_price">Model.Data.ProductOldPrice @Model.Data.CurrencySymbol</span>
+    }
+    
+</div>

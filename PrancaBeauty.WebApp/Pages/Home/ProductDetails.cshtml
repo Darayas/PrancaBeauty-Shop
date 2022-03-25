@@ -49,10 +49,10 @@
                             <h1><a href="/@ViewData["culture"]/Details/@Model.Data.Name">@Model.Data.Title</a></h1>
                             @*<div class="product_nav">
                                 <ul>
-                                    <li class="prev"><a href="product-details.html"><i class="fa fa-angle-left"></i></a></li>
-                                    <li class="next"><a href="variable-product.html"><i class="fa fa-angle-right"></i></a></li>
+                                <li class="prev"><a href="product-details.html"><i class="fa fa-angle-left"></i></a></li>
+                                <li class="next"><a href="variable-product.html"><i class="fa fa-angle-right"></i></a></li>
                                 </ul>
-                            </div>*@
+                                </div>*@
                         </div>
 
                         <div class="product_ratting">
@@ -69,10 +69,12 @@
                                 <li class="review"> (@Model.Data.CountUserInStarRating @Localizer["User"])</li>
                             </ul>
                         </div>
-                        <div class="price_box">
-                            <span class="current_price">@Model.Data.Price.ToN3() @Model.Data.CurrencySymbol</span>
-                            @*<span class="old_price">£80.00</span>*@
-                        </div>
+
+                        <LoadComponent id="ProductPrice"
+                                       url="/@ViewData["culture"]/Shared/Compo/ProductSelectedPrice"
+                                       data='new viGetCompo_ProductSelectedPrice{ ProductVariantItemId="" }' ,
+                                       context="HttpContext"></LoadComponent>
+
                         <div class="product_desc">
                             <ul>
                                 @foreach (var item in Model.Data.LstProperties)

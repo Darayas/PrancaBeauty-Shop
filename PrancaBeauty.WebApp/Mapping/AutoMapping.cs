@@ -110,6 +110,10 @@ namespace PrancaBeauty.WebApp.Mapping
             CreateMap<viCompo_AddProductAsk, InpAddNewAsk>();
             CreateMap<OutGetListAsks, vmCompo_ListProductAsks>();
             CreateMap<OutGetListAsks_Answer, vmGetListAsks_Answer>();
+
+            CreateMap<OutGetProductPriceByVariantId, vmCompo_ProductSelectedPrice>()
+                                                                 .ForMember(a => a.ProductOldPrice, a => a.MapFrom(b => b.ProductOldPrice.ToN3()))
+                                                                 .ForMember(a => a.ProductPrice, a => a.MapFrom(b => b.ProductPrice.ToN3()));
         }
     }
 }

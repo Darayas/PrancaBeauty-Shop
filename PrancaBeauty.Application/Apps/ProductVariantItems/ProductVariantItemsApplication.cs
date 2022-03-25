@@ -431,19 +431,32 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
                                                                 .Where(a => a.Id == Input.ProductVariantItemId.ToGuid())
                                                                 .Select(a => new
                                                                 {
-
+                                                                    MainPrice = a.tblProducts.tblProductPrices.Where(b => b.IsActive).Select(b => b.Price).Single(),
+                                                                    CurrencySymbol = a.tblProducts.tblProductPrices.Where(b => b.IsActive).Select(b => b.tblCurrency.Symbol).Single(),
+                                                                    SellerPercentPrice = a.Percent,
+                                                                    SavePercentPrice = 0, // TODO: For Discount
                                                                 })
                                                                 .SingleOrDefaultAsync();
+
+                if (qData == null)
+                    return null;
+
+                double _OldProductPrice = qData.MainPrice + ((qData.MainPrice / 100) * qData.SellerPercentPrice);
+                double _ProductPrice = _OldProductPrice + ((_OldProductPrice / 100) * qData.SavePercentPrice);
+                if (qData.SavePercentPrice == 0)
+                    _OldProductPrice = 0;
+
+                return new OutGetProductPriceByVariantItemId { ProductPrice = _ProductPrice, ProductOldPrice = _OldProductPrice, CurrencySymbol = qData.CurrencySymbol };
             }
             catch (ArgumentInvalidException ex)
             {
                 _Logger.Debug(ex);
-                return default;
+                return null;
             }
             catch (Exception ex)
             {
                 _Logger.Error(ex);
-                return default;
+                return null;
             }
         }
     }

@@ -23,5 +23,7 @@ namespace PrancaBeauty.Application.Contracts.ProductAsks
         public int CountLikes { get; set; }
         public int CountDisLike { get; set; }
         public bool IsConfirm { get; set; }
+        public bool IsLike { get; set; }
+        public bool IsDisLike { get; set; }
     }
 }

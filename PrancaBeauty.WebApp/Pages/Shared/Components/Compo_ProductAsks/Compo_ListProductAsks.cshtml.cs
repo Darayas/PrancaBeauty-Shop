@@ -7,10 +7,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.ProductAsk;
 using PrancaBeauty.Application.Apps.ProductAskLikes;
+using PrancaBeauty.Application.Contracts.ProdcutReviews;
 using PrancaBeauty.Application.Contracts.ProductAskLikes;
 using PrancaBeauty.Application.Contracts.ProductAsks;
 using PrancaBeauty.Application.Contracts.ProductReviewLikes;
+using PrancaBeauty.WebApp.Authentication;
 using PrancaBeauty.WebApp.Common.ExMethod;
+using PrancaBeauty.WebApp.Common.Utility.MessageBox;
 using PrancaBeauty.WebApp.Models.ViewInput;
 using PrancaBeauty.WebApp.Models.ViewModel;
 using System;
@@ -23,18 +26,21 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.Compo_ProductAsks
     {
         private readonly ILogger _Logger;
         private readonly IMapper _Mapper;
+        private readonly IMsgBox _MsgBox;
         private readonly IServiceProvider _ServiceProvider;
         private readonly ILocalizer _Localizer;
         private readonly IProductAskApplication _ProductAskApplication;
         private readonly IProductAskLikesApplication _ProductAskLikesApplication;
 
-        public Compo_ListProductAsksModel(ILogger logger, IServiceProvider serviceProvider, ILocalizer localizer, IProductAskApplication productAskApplication, IMapper mapper)
+        public Compo_ListProductAsksModel(ILogger logger, IServiceProvider serviceProvider, ILocalizer localizer, IProductAskApplication productAskApplication, IMapper mapper, IProductAskLikesApplication productAskLikesApplication, IMsgBox msgBox)
         {
             _Logger = logger;
             _ServiceProvider = serviceProvider;
             _Localizer = localizer;
             _ProductAskApplication = productAskApplication;
             _Mapper = mapper;
+            _ProductAskLikesApplication = productAskLikesApplication;
+            _MsgBox = msgBox;
         }
 
         public async Task<IActionResult> OnGetAsync()
@@ -45,9 +51,28 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.Compo_ProductAsks
                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
-                Input.Take = 1;
+                #region Check permissions
+                bool _HasFullControl = false;
+                string _UserId = null;
+                {
+                    if (User.Identity.IsAuthenticated)
+                    {
+                        _UserId = User.GetUserDetails().UserId;
 
-                var qData = await _ProductAskApplication.GetListAsksAsync(new InpGetListAsks { ProductId = Input.ProductId, Take = Input.Take, Page = Input.PageNum });
+                        if (User.IsInRole(Roles.CanChangeStatusProductAsksForAllUser))
+                            _HasFullControl = true;
+                    }
+                }
+                #endregion
+
+                var qData = await _ProductAskApplication.GetListAsksAsync(new InpGetListAsks
+                {
+                    ProductId = Input.ProductId,
+                    Take = Input.Take,
+                    Page = Input.PageNum,
+                    UserId = _UserId,
+                    HasFullControl = _HasFullControl
+                });
 
                 PagingData = qData.PagingData;
                 Data = _Mapper.Map<List<vmCompo_ListProductAsks>>(qData.LstAsks);
@@ -114,6 +139,39 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.Compo_ProductAsks
             {
                 _Logger.Error(ex);
                 return new JsonResult(new { Count = -1 });
+            }
+        }
+
+        public async Task<IActionResult> OnPostChangeStatusAsync(viCompo_ListProductAskChangeStatus Input)
+        {
+            try
+            {
+                if (!User.IsInRole(Roles.CanChangeStatusProductReviews))
+                    return _MsgBox.AccessDeniedMsg();
+
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                string _UserId = User.GetUserDetails().UserId;
+                if (User.IsInRole(Roles.CanChangeStatusProductReviewsForAllUser))
+                    _UserId = null;
+
+                var Result = await _ProductAskApplication.ChanageStatusAskAsync(new InpChanageStatusAsk { AskId = Input.AskId, AuthorUserId = _UserId });
+
+                if (Result.IsSucceeded)
+                    return _MsgBox.SuccessMsg(_Localizer[Result.Message], "RefreshAsks()");
+                else
+                    return _MsgBox.FaildMsg(_Localizer[Result.Message]);
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                return _MsgBox.FaildMsg(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return _MsgBox.FaildMsg(_Localizer["Error500"]);
             }
         }
 

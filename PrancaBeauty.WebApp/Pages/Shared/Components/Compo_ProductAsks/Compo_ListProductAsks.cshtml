@@ -47,73 +47,73 @@
                         <div class="comment_thmb">
                             <img src="/Shared/img/question.png" alt="question icon">
                         </div>
-                        <div class="comment_text">
+                        <div class="comment_text @(item.IsConfirm==false?"NotConfirmed":"")">
                             <div class="reviews_meta">
                                 <span>@item.Text</span>
                             </div>
                             <div class=star_rating>
 
-                                        @if (User.IsInRole(Roles.CanChangeStatusProductReviews))
-                                        {
-                                            if (item.IsConfirm)
-                                            {
-                                                <button onclick="ChangeStatusAsk('@item.Id')" class="btn btn-link">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                            }
-                                            else
-                                            {
-                                                <button onclick="ChangeStatusAsk('@item.Id')" class="btn btn-link">
-                                                    <i class="fa fa-check"></i>
-                                                </button>
-                                            }
-                                        }
+                                @if (User.IsInRole(Roles.CanChangeStatusProductAsks))
+                                {
+                                    if (item.IsConfirm)
+                                    {
+                                        <button onclick="ChangeStatusAsk('@item.Id')" class="btn btn-link">
+                                            <i class="fa fa-times"></i>
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        <button onclick="ChangeStatusAsk('@item.Id')" class="btn btn-link">
+                                            <i class="fa fa-check"></i>
+                                        </button>
+                                    }
+                                }
 
-                                        @if (User.IsInRole(Roles.CanRemoveProductReviews))
-                                        {
-                                            <button onclick="RemoveAsk('@item.Id')" class="btn btn-link">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                        }
-                                    </div>
+                                @if (User.IsInRole(Roles.CanRemoveProductAsks))
+                                {
+                                    <button onclick="RemoveAsk('@item.Id')" class="btn btn-link">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                }
+                            </div>
                             @foreach (var itemAns in item.LstAnswer)
                             {
-                                <div class="reviews_answer">
+                                <div class="reviews_answer @(itemAns.IsConfirm==false?"NotConfirmed":"")">
                                     <p>@Localizer["Answer"]:<strong>@itemAns.FullName </strong></p>
                                     <span>@itemAns.Text</span>
                                     <div class=star_rating>
-                                        @if (item.IsConfirm)
+                                        @if (itemAns.IsConfirm)
                                         {
-                                            <button onclick="LikeAsk('@item.Id')" class="btn btn-link">
+                                            <button onclick="LikeAsk('@itemAns.Id')" class="btn btn-link @(itemAns.IsLike?"IsLike":"")">
                                                 <i class="fa fa-thumbs-up"></i>
-                                                <span id="LikeAsk@(item.Id)">@itemAns.CountLikes</span>
+                                                <span id="LikeAsk@(itemAns.Id)">@itemAns.CountLikes</span>
                                             </button>
 
-                                            <button onclick="DisLikeAsk('@item.Id')" class="btn btn-link">
+                                            <button onclick="DisLikeAsk('@itemAns.Id')" class="btn btn-link @(itemAns.IsDisLike?"IsDisLike":"")">
                                                 <i class="fa fa-thumbs-down"></i>
-                                                <span id="DisLikeAsk@(item.Id)">@itemAns.CountDisLike</span>
+                                                <span id="DisLikeAsk@(itemAns.Id)">@itemAns.CountDisLike</span>
                                             </button>
                                         }
 
-                                        @if (User.IsInRole(Roles.CanChangeStatusProductReviews))
+                                        @if (User.IsInRole(Roles.CanChangeStatusProductAsks))
                                         {
-                                            if (item.IsConfirm)
+                                            if (itemAns.IsConfirm)
                                             {
-                                                <button onclick="ChangeStatusAsk('@item.Id')" class="btn btn-link">
+                                                <button onclick="ChangeStatusAsk('@itemAns.Id')" class="btn btn-link">
                                                     <i class="fa fa-times"></i>
                                                 </button>
                                             }
                                             else
                                             {
-                                                <button onclick="ChangeStatusAsk('@item.Id')" class="btn btn-link">
+                                                <button onclick="ChangeStatusAsk('@itemAns.Id')" class="btn btn-link">
                                                     <i class="fa fa-check"></i>
                                                 </button>
                                             }
                                         }
 
-                                        @if (User.IsInRole(Roles.CanRemoveProductReviews))
+                                        @if (User.IsInRole(Roles.CanRemoveProductAsks))
                                         {
-                                            <button onclick="RemoveAsk('@item.Id')" class="btn btn-link">
+                                            <button onclick="RemoveAsk('@itemAns.Id')" class="btn btn-link">
                                                 <i class="fa fa-trash"></i>
                                             </button>
                                         }
@@ -172,14 +172,14 @@
             });
         }
 
-        function LikeAsk(_ReviewId)
+        function LikeAsk(_AskId)
         {
-            SendData('/@ViewData["culture"]/Shared/Compo/ComboListProductAsks?handler=Like',{ ReviewId:_ReviewId },function(res){
+            SendData('/@ViewData["culture"]/Shared/Compo/ComboListProductAsks?handler=Like',{ AskId:_AskId },function(res){
 
                 if(res.Count==-1)
                 {
-                    //$('#LikeAsk'+_ReviewId).text(res.Count);
-                    $('#LikeAsk'+_ReviewId).parent('.btn').css('text-decoration','underline');
+                    //$('#LikeAsk'+_AskId).text(res.Count);
+                    $('#LikeAsk'+_AskId).parent('.btn').css('text-decoration','underline');
                 }
                 else if(res.Count==-2)
                 {
@@ -187,34 +187,34 @@
                 }
                 else
                 {
-                    $('#LikeAsk'+_ReviewId).text(res.Count);
+                    $('#LikeAsk'+_AskId).text(res.Count);
                     if(res.IsLike==true)
                     {
-                       //if($('#LikeAsk'+_ReviewId).parent('.btn').hasClass('IsLike'))
+                       //if($('#LikeAsk'+_AskId).parent('.btn').hasClass('IsLike'))
                        //{
-                       //    $('#LikeAsk'+_ReviewId).parent('.btn').removeClass('IsLike');
+                       //    $('#LikeAsk'+_AskId).parent('.btn').removeClass('IsLike');
                        //}
                        //else
                        //{
-                           $('#LikeAsk'+_ReviewId).parent('.btn').addClass('IsLike');
+                           $('#LikeAsk'+_AskId).parent('.btn').addClass('IsLike');
                        //}
                     }
                     else
                     {
-                        $('#LikeAsk'+_ReviewId).parent('.btn').removeClass('IsLike');
+                        $('#LikeAsk'+_AskId).parent('.btn').removeClass('IsLike');
                     }
                 }
             });
         }
 
-        function DisLikeAsk(_ReviewId)
+        function DisLikeAsk(_AskId)
         {
-            SendData('/@ViewData["culture"]/Shared/Compo/ComboListProductAsks?handler=DisLike',{ ReviewId:_ReviewId },function(res){
+            SendData('/@ViewData["culture"]/Shared/Compo/ComboListProductAsks?handler=DisLike',{ AskId:_AskId },function(res){
 
                 if(res.Count==-1)
                 {
-                    //$('#DisLikeAsk'+_ReviewId).text(res.Count);
-                    $('#DisLikeAsk'+_ReviewId).parent('.btn').css('text-decoration','underline');
+                    //$('#DisLikeAsk'+_AskId).text(res.Count);
+                    $('#DisLikeAsk'+_AskId).parent('.btn').css('text-decoration','underline');
                 }
                 else if(res.Count==-2)
                 {
@@ -222,21 +222,21 @@
                 }
                 else
                 {
-                    $('#DisLikeAsk'+_ReviewId).text(res.Count);
+                    $('#DisLikeAsk'+_AskId).text(res.Count);
                     if(res.IsLike==true)
                     {
-                       //if($('#DisLikeAsk'+_ReviewId).parent('.btn').hasClass('IsDisLike'))
+                       //if($('#DisLikeAsk'+_AskId).parent('.btn').hasClass('IsDisLike'))
                        //{
-                       //    $('#DisLikeAsk'+_ReviewId).parent('.btn').removeClass('IsDisLike');
+                       //    $('#DisLikeAsk'+_AskId).parent('.btn').removeClass('IsDisLike');
                        //}
                        //else
                        //{
-                           $('#DisLikeAsk'+_ReviewId).parent('.btn').addClass('IsDisLike');
+                           $('#DisLikeAsk'+_AskId).parent('.btn').addClass('IsDisLike');
                        //}
                     }
                     else
                     {
-                        $('#DisLikeAsk'+_ReviewId).parent('.btn').removeClass('IsDisLike');
+                        $('#DisLikeAsk'+_AskId).parent('.btn').removeClass('IsDisLike');
                     }
                 }
             });
@@ -244,20 +244,20 @@
     @if (User.IsInRole(Roles.CanChangeStatusProductAsks))
     {
         <text>
-                        function ChangeStatusAsk(_Id)
-                        {
-                            SendData('/@ViewData["culture"]/Shared/Compo/ComboListProductAsks?handler=ChangeStatus',{ReviewId:_Id});
-                        }
+                            function ChangeStatusAsk(_Id)
+                            {
+                                SendData('/@ViewData["culture"]/Shared/Compo/ComboListProductAsks?handler=ChangeStatus',{AskId:_Id});
+                            }
         </text>
     }
 
     @if (User.IsInRole(Roles.CanRemoveProductAsks))
     {
         <text>
-                    function RemoveAsk(_Id)
-                    {
-                        RemoveData('/@ViewData["culture"]/Shared/Compo/ComboListProductAsks?handler=Remove',{ReviewId:_Id});
-                    }
+                        function RemoveAsk(_Id)
+                        {
+                            RemoveData('/@ViewData["culture"]/Shared/Compo/ComboListProductAsks?handler=Remove',{AskId:_Id});
+                        }
         </text>
     }
 

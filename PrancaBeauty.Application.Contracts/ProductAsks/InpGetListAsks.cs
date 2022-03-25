@@ -18,5 +18,12 @@ namespace PrancaBeauty.Application.Contracts.ProductAsks
         [Display(Name = "Page")]
         [NumRange(1, int.MaxValue)]
         public int Page { get; set; } = 1;
+
+        [Display(Name = "UserId")]
+        [GUID]
+        public string UserId { get; set; } // شناسه کاربر خواننده
+
+        [Display(Name = "HasFullControl")]
+        public bool HasFullControl { get; set; }
     }
 }

@@ -6464,6 +6464,18 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   margin-right: 25px;
   border-bottom: 1px solid #ededed;
 }
+.reviews_answer.NotConfirmed {
+  background-color: #fff3f3;
+  border: 1px solid #d52121 !important;
+  padding-right: 10px;
+  margin-top: 25px;
+}
+.reviews_answer.NotConfirmed::before {
+  background: #fff;
+  border-top: 1px solid #d52121 !important;
+  border-right: 1px solid #d52121 !important;
+  background-color: #fff3f3;
+}
 .reviews_answer:last-child {
   border-bottom: unset !important;
 }

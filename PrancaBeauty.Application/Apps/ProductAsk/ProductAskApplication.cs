@@ -3,11 +3,14 @@ using Framework.Common.Utilities.Paging;
 using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using PrancaBeauty.Application.Contracts.ProdcutReviews;
 using PrancaBeauty.Application.Contracts.ProductAsks;
 using PrancaBeauty.Application.Contracts.Results;
 using PrancaBeauty.Domin.Product.ProductAskAgg.Contarcts;
 using PrancaBeauty.Domin.Product.ProductAskAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductAskLikesAgg.Entities;
+using PrancaBeauty.Domin.Product.ProductReviewsAgg.Contracts;
+using PrancaBeauty.Domin.Product.ProductReviewsLikesAgg.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,22 +45,27 @@ namespace PrancaBeauty.Application.Apps.ProductAsk
                 var qData = _ProductAskRepository.Get
                                     .Where(a => a.ProductId == Input.ProductId.ToGuid())
                                     .Where(a => a.AskId == null)
-                                    /*.Where(a=>a.IsConfirm)*/
+                                    .Where(a => Input.HasFullControl ? true : Input.UserId != null ? ((a.tblProducts.AuthorUserId == Input.UserId.ToGuid()) ? true : a.IsConfirm == true) : a.IsConfirm == true)
                                     .OrderByDescending(a => a.Date)
                                     .Select(ask => new OutGetListAsks
                                     {
                                         Id = ask.Id.ToString(),
                                         Text = ask.Text,
                                         IsConfirm = ask.IsConfirm,
-                                        LstAnswer = ask.tblProductAsk_Childs.OrderByDescending(a => a.Date)/*.Where(a=>a.IsConfirm)*/.Select(answer => new OutGetListAsks_Answer
-                                        {
-                                            Id = answer.Id.ToString(),
-                                            FullName = answer.tblUsers.FirstName + " " + answer.tblUsers.LastName,
-                                            Text = answer.Text,
-                                            IsConfirm = answer.IsConfirm,
-                                            CountLikes = answer.tblProductAskLikes.Count(c => c.Type == ProductAskLikesEnum.Like),
-                                            CountDisLike = answer.tblProductAskLikes.Count(c => c.Type == ProductAskLikesEnum.Dislike)
-                                        }).ToList()
+                                        LstAnswer = ask.tblProductAsk_Childs
+                                                       .Where(a => Input.HasFullControl ? true : Input.UserId != null ? ((a.tblProducts.AuthorUserId == Input.UserId.ToGuid()) ? true : a.IsConfirm == true) : a.IsConfirm == true)
+                                                       .OrderByDescending(a => a.Date)
+                                                       .Select(answer => new OutGetListAsks_Answer
+                                                       {
+                                                           Id = answer.Id.ToString(),
+                                                           FullName = answer.tblUsers.FirstName + " " + answer.tblUsers.LastName,
+                                                           Text = answer.Text,
+                                                           IsConfirm = answer.IsConfirm,
+                                                           IsLike = Input.UserId != null ? answer.tblProductAskLikes.Where(a => a.Type == ProductAskLikesEnum.Like).Any(a => a.UserId == Guid.Parse(Input.UserId)) : false,
+                                                           IsDisLike = Input.UserId != null ? answer.tblProductAskLikes.Where(a => a.Type == ProductAskLikesEnum.Dislike).Any(a => a.UserId == Guid.Parse(Input.UserId)) : false,
+                                                           CountLikes = answer.tblProductAskLikes.Count(c => c.Type == ProductAskLikesEnum.Like),
+                                                           CountDisLike = answer.tblProductAskLikes.Count(c => c.Type == ProductAskLikesEnum.Dislike)
+                                                       }).ToList()
                                     });
 
                 var _PagingData = PagingData.Calc(await qData.CountAsync(), Input.Page, Input.Take);
@@ -72,6 +80,47 @@ namespace PrancaBeauty.Application.Apps.ProductAsk
             {
                 _Logger.Error(ex);
                 return default;
+            }
+        }
+
+        public async Task<OperationResult> ChanageStatusAskAsync(InpChanageStatusAsk Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var qData = await _ProductAskRepository.Get
+                                                .Where(a => a.Id == Input.AskId.ToGuid())
+                                                .Where(a => Input.AuthorUserId != null ? a.tblProducts.AuthorUserId == Input.AuthorUserId.ToGuid() : true)
+                                                .SingleOrDefaultAsync();
+
+                if (qData == null)
+                    return new OperationResult().Failed("ReviewNotFound");
+
+                if (qData.IsConfirm)
+                {
+                    qData.IsConfirm = false;
+                }
+                else
+                {
+                    qData.IsConfirm = true;
+                }
+
+                await _ProductAskRepository.UpdateAsync(qData, default);
+
+                return new OperationResult().Succeeded();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
             }
         }
 

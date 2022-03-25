@@ -11,5 +11,6 @@ namespace PrancaBeauty.Application.Apps.ProductAsk
         Task<OperationResult> AddNewAskAsync(InpAddNewAsk Input);
         Task<OperationResult> ChanageStatusAskAsync(InpChanageStatusAsk Input);
         Task<(OutPagingData PagingData, List<OutGetListAsks> LstAsks)> GetListAsksAsync(InpGetListAsks Input);
+        Task<OperationResult> RemoveAskAsync(InpRemoveAsk Input);
     }
 }

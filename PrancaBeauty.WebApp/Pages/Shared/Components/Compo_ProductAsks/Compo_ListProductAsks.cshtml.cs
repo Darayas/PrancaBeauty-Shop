@@ -146,7 +146,7 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.Compo_ProductAsks
         {
             try
             {
-                if (!User.IsInRole(Roles.CanChangeStatusProductReviews))
+                if (!User.IsInRole(Roles.CanChangeStatusProductAsks))
                     return _MsgBox.AccessDeniedMsg();
 
                 #region Validations
@@ -154,7 +154,7 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.Compo_ProductAsks
                 #endregion
 
                 string _UserId = User.GetUserDetails().UserId;
-                if (User.IsInRole(Roles.CanChangeStatusProductReviewsForAllUser))
+                if (User.IsInRole(Roles.CanChangeStatusProductAsksForAllUser))
                     _UserId = null;
 
                 var Result = await _ProductAskApplication.ChanageStatusAskAsync(new InpChanageStatusAsk { AskId = Input.AskId, AuthorUserId = _UserId });
@@ -163,6 +163,39 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.Compo_ProductAsks
                     return _MsgBox.SuccessMsg(_Localizer[Result.Message], "RefreshAsks()");
                 else
                     return _MsgBox.FaildMsg(_Localizer[Result.Message]);
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                return _MsgBox.FaildMsg(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return _MsgBox.FaildMsg(_Localizer["Error500"]);
+            }
+        }
+
+        public async Task<IActionResult> OnPostRemoveAsync(viCompo_ListProductAskRemove Input)
+        {
+            try
+            {
+                if (!User.IsInRole(Roles.CanRemoveProductAsks))
+                    return _MsgBox.AccessDeniedMsg();
+
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                string _UserId = User.GetUserDetails().UserId;
+                if (User.IsInRole(Roles.CanRemoveProductAsksForAllUser))
+                    _UserId = null;
+
+                var _Result = await _ProductAskApplication.RemoveAskAsync(new InpRemoveAsk { AskId = Input.AskId, UserId = _UserId });
+
+                if (_Result.IsSucceeded)
+                    return _MsgBox.SuccessMsg(_Localizer[_Result.Message], "RefreshAsks()");
+                else
+                    return _MsgBox.FaildMsg(_Localizer[_Result.Message]);
             }
             catch (ArgumentInvalidException ex)
             {

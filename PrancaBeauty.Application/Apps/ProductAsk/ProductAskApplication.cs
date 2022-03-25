@@ -158,5 +158,52 @@ namespace PrancaBeauty.Application.Apps.ProductAsk
                 return new OperationResult().Failed("Error500");
             }
         }
+
+        public async Task<OperationResult> RemoveAskAsync(InpRemoveAsk Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var qData = await _ProductAskRepository.Get
+                                                .Where(a => a.Id == Input.AskId.ToGuid())
+                                                .Where(a => Input.UserId != null ? a.tblProducts.AuthorUserId == Input.UserId.ToGuid() : true)
+                                                .Include(a => a.tblProductAsk_Childs)
+                                                .SingleOrDefaultAsync();
+
+                if (qData == null)
+                    return new OperationResult().Failed("IdNotFound");
+
+                #region Remove Child if exists
+                {
+                    //if (qData.tblProductAsk_Childs.Count() > 0)
+                    //{
+                    foreach (var item in qData.tblProductAsk_Childs)
+                    {
+                        await _ProductAskRepository.DeleteAsync(item, default, false);
+                    }
+
+                    await _ProductAskRepository.SaveChangeAsync();
+                    //}
+                }
+                #endregion
+
+                await _ProductAskRepository.DeleteAsync(qData, default, true);
+
+                return new OperationResult().Succeeded();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
     }
 }

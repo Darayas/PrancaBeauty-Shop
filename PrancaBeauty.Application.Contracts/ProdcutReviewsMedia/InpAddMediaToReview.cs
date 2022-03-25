@@ -15,7 +15,7 @@ namespace PrancaBeauty.Application.Contracts.ProdcutReviewsMedia
         [GUID]
         public string ProductReviewId { get; set; }
 
-        [Display(Name = "ProductReviewId")]
+        [Display(Name = "MediaIds")]
         [RequiredString]
         [GUID]
         public string MediaIds { get; set; }

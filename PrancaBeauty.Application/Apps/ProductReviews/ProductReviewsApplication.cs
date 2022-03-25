@@ -192,8 +192,8 @@ namespace PrancaBeauty.Application.Apps.ProductReviews
                         ProductId = Guid.Parse(Input.ProductId),
                         ProductSellerId = null,
                         AuthorUserId = Guid.Parse(Input.AuthorUserId),
-                        Advantages = string.Join(',', JArray.Parse(Input.Advantages).Select(a => a.Value<string>("value"))),
-                        DisAdvantages = string.Join(',', JArray.Parse(Input.DisAdvantages).Select(a => a.Value<string>("value"))),
+                        Advantages = Input.Advantages != null ? string.Join(',', JArray.Parse(Input.Advantages).Select(a => a.Value<string>("value"))) : "",
+                        DisAdvantages = Input.DisAdvantages != null ? string.Join(',', JArray.Parse(Input.DisAdvantages).Select(a => a.Value<string>("value"))) : "",
                         CountStar = Input.CountStar,
                         Date = DateTime.Now,
                         IpAddress = Input.IpAddress,
@@ -208,28 +208,34 @@ namespace PrancaBeauty.Application.Apps.ProductReviews
 
                 #region Add media to review
                 {
-                    var _Result = await _ProductReviewsMediaApplication.AddMediaToReviewAsync(new InpAddMediaToReview
+                    if (Input.MediaIds != null)
                     {
-                        ProductReviewId = _ProductReviewId,
-                        MediaIds = Input.MediaIds
-                    });
-                    if (!_Result.IsSucceeded)
-                    {
-                        await RemoveProductReviewAsync(new InpRemoveProductReview { ProductReviewId = _ProductReviewId });
+                        var _Result = await _ProductReviewsMediaApplication.AddMediaToReviewAsync(new InpAddMediaToReview
+                        {
+                            ProductReviewId = _ProductReviewId,
+                            MediaIds = Input.MediaIds
+                        });
+                        if (!_Result.IsSucceeded)
+                        {
+                            await RemoveProductReviewAsync(new InpRemoveProductReview { ProductReviewId = _ProductReviewId });
+                        }
                     }
                 }
                 #endregion
 
                 #region Add attribute to review
                 {
-                    var _Result = await _ProductReviewsAttributeValuesApplication.AddAttributesToReviewAsync(new InpAddAttributesToReview
+                    if (Input.LstAttribute != null)
                     {
-                        ProductReviewId = _ProductReviewId,
-                        Items = Input.LstAttribute.Select(a => new InpAddAttributesToReviewItem { AttributeId = a.AttributeId, Value = a.Value }).ToList()
-                    });
-                    if (!_Result.IsSucceeded)
-                    {
-                        await RemoveProductReviewAsync(new InpRemoveProductReview { ProductReviewId = _ProductReviewId });
+                        var _Result = await _ProductReviewsAttributeValuesApplication.AddAttributesToReviewAsync(new InpAddAttributesToReview
+                        {
+                            ProductReviewId = _ProductReviewId,
+                            Items = Input.LstAttribute.Select(a => new InpAddAttributesToReviewItem { AttributeId = a.AttributeId, Value = a.Value }).ToList()
+                        });
+                        if (!_Result.IsSucceeded)
+                        {
+                            await RemoveProductReviewAsync(new InpRemoveProductReview { ProductReviewId = _ProductReviewId });
+                        }
                     }
                 }
                 #endregion

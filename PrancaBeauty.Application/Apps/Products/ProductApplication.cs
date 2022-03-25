@@ -930,6 +930,7 @@ namespace PrancaBeauty.Application.Apps.Products
                                                         Price = a.tblProductPrices.Where(a => a.IsActive).Select(a => a.Price).Single(),
                                                         CurrencySymbol = a.tblProductPrices.Where(a => a.IsActive).Select(a => a.tblCurrency.Symbol).Single(),
                                                         CountReviews = a.tblProductReviews.Where(a => a.IsConfirm).Count(),
+                                                        CountAsk = a.tblProductAsk.Where(a => a.AskId == null).Where(a => a.IsConfirm).Count(),
                                                         LstMedia = a.tblProductMedia.Select(b => new OutGetProductForDetails_Media
                                                         {
                                                             MediaTitle = b.tblFiles.Title,

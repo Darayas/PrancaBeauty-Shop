@@ -61,7 +61,7 @@
                                 {
                                     <li><i class="fa fa-star"></i></li>
                                 }
-                                @for (var i = 1; i <= 5 - Model.Data.AvgStarRating; i++)
+                                @for (var i = Model.Data.AvgStarRating; i <= 5; i++)
                                 {
                                     <li><i class="fa fa-star-o"></i></li>
                                 }
@@ -145,7 +145,7 @@
                                 <a data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">@Localizer["Reviews",Model.Data.CountReviews]</a>
                             </li>
                             <li>
-                                <a data-toggle="tab" href="#Asks" role="tab" aria-controls="reviews" aria-selected="false">@Localizer["Asks","1k"]</a>
+                                <a data-toggle="tab" href="#Asks" role="tab" aria-controls="reviews" aria-selected="false">@Localizer["Asks",Model.Data.CountAsk]</a>
                             </li>
                         </ul>
                     </div>

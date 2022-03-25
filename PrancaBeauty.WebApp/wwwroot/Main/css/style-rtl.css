@@ -6336,7 +6336,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 .star_rating .btn-link {
   text-decoration: unset;
   color: #8b8b8b;
-  padding: 6px 6px;
+  padding: 6px 10px;
   font-size: 14px;
 }
 .star_rating .btn-link .fa-thumbs-down {

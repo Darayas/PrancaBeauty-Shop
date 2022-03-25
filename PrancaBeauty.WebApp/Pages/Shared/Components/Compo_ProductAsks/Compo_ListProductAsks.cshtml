@@ -120,10 +120,15 @@
                                     </div>
                                 </div>
                             }
-
-                            <div class="reviews_answer">
-                                <button type="button" onclick="ShowNewAskModal('@item.Id')" class="btn btn-link">@Localizer["AddNewAnswer"]</button>
-                            </div>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                if (item.IsConfirm)
+                                {
+                                    <div class="reviews_answer">
+                                        <button type="button" onclick="ShowNewAskModal('@item.Id')" class="btn btn-link">@Localizer["AddNewAnswer"]</button>
+                                    </div>
+                                }
+                            }
                         </div>
                     </div>
                 }
@@ -244,20 +249,20 @@
     @if (User.IsInRole(Roles.CanChangeStatusProductAsks))
     {
         <text>
-                            function ChangeStatusAsk(_Id)
-                            {
-                                SendData('/@ViewData["culture"]/Shared/Compo/ComboListProductAsks?handler=ChangeStatus',{AskId:_Id});
-                            }
+                                    function ChangeStatusAsk(_Id)
+                                    {
+                                        SendData('/@ViewData["culture"]/Shared/Compo/ComboListProductAsks?handler=ChangeStatus',{AskId:_Id});
+                                    }
         </text>
     }
 
     @if (User.IsInRole(Roles.CanRemoveProductAsks))
     {
         <text>
-                        function RemoveAsk(_Id)
-                        {
-                            RemoveData('/@ViewData["culture"]/Shared/Compo/ComboListProductAsks?handler=Remove',{AskId:_Id});
-                        }
+                                function RemoveAsk(_Id)
+                                {
+                                    RemoveData('/@ViewData["culture"]/Shared/Compo/ComboListProductAsks?handler=Remove',{AskId:_Id});
+                                }
         </text>
     }
 

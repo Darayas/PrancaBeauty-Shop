@@ -97,10 +97,12 @@ namespace PrancaBeauty.WebApp.Mapping
             CreateMap<OutGetReviewsForProductDetailsItems, vmCompo_ListProductReviewsItems>()
                                                                                    .ForMember(a => a.Date, a => a.MapFrom(b => b.Date.ToString("dd MMMM yyyy")));
             CreateMap<OutGetReviewsForProductDetailsMedia, vmCompo_ListProductReviewsMedia>();
-            CreateMap<OutGetReviewsForProductDetailsAttributes, vmCompo_ListProductReviewsAttributes>();
+            CreateMap<OutGetReviewsForProductDetailsAttributes, vmCompo_ListProductReviewsAttributes>()
+                                                                                    .ForMember(a => a.Avg, a => a.MapFrom(b => Math.Round(b.Avg)));
             CreateMap<OutGetReviewsForProductDetailsSellers, vmGetReviewsForProductDetailsSellers>();
 
             CreateMap<OutGetAttributesByTopicId, viCompo_ProductReviewAttributes>();
+                                                                       
 
             CreateMap<viCompo_AddProductReviews, InpAddReviewFromUser>();
             CreateMap<viCompo_AddProductReviewsAttributes, InpAddReviewFromUserAttributes>();

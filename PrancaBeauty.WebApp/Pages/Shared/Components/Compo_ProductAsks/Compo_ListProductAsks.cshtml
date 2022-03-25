@@ -51,22 +51,72 @@
                             <div class="reviews_meta">
                                 <span>@item.Text</span>
                             </div>
+                            <div class=star_rating>
 
+                                        @if (User.IsInRole(Roles.CanChangeStatusProductReviews))
+                                        {
+                                            if (item.IsConfirm)
+                                            {
+                                                <button onclick="ChangeStatusAsk('@item.Id')" class="btn btn-link">
+                                                    <i class="fa fa-times"></i>
+                                                </button>
+                                            }
+                                            else
+                                            {
+                                                <button onclick="ChangeStatusAsk('@item.Id')" class="btn btn-link">
+                                                    <i class="fa fa-check"></i>
+                                                </button>
+                                            }
+                                        }
+
+                                        @if (User.IsInRole(Roles.CanRemoveProductReviews))
+                                        {
+                                            <button onclick="RemoveAsk('@item.Id')" class="btn btn-link">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        }
+                                    </div>
                             @foreach (var itemAns in item.LstAnswer)
                             {
                                 <div class="reviews_answer">
                                     <p>@Localizer["Answer"]:<strong>@itemAns.FullName </strong></p>
                                     <span>@itemAns.Text</span>
                                     <div class=star_rating>
-                                        <button onclick="Like('')" class="btn btn-link">
-                                            <i class="fa fa-thumbs-up"></i>
-                                            <span id="">@itemAns.CountLikes</span>
-                                        </button>
+                                        @if (item.IsConfirm)
+                                        {
+                                            <button onclick="LikeAsk('@item.Id')" class="btn btn-link">
+                                                <i class="fa fa-thumbs-up"></i>
+                                                <span id="LikeAsk@(item.Id)">@itemAns.CountLikes</span>
+                                            </button>
 
-                                        <button onclick="DisLike('')" class="btn btn-link">
-                                            <i class="fa fa-thumbs-down"></i>
-                                            <span id="">@itemAns.CountDisLike</span>
-                                        </button>
+                                            <button onclick="DisLikeAsk('@item.Id')" class="btn btn-link">
+                                                <i class="fa fa-thumbs-down"></i>
+                                                <span id="DisLikeAsk@(item.Id)">@itemAns.CountDisLike</span>
+                                            </button>
+                                        }
+
+                                        @if (User.IsInRole(Roles.CanChangeStatusProductReviews))
+                                        {
+                                            if (item.IsConfirm)
+                                            {
+                                                <button onclick="ChangeStatusAsk('@item.Id')" class="btn btn-link">
+                                                    <i class="fa fa-times"></i>
+                                                </button>
+                                            }
+                                            else
+                                            {
+                                                <button onclick="ChangeStatusAsk('@item.Id')" class="btn btn-link">
+                                                    <i class="fa fa-check"></i>
+                                                </button>
+                                            }
+                                        }
+
+                                        @if (User.IsInRole(Roles.CanRemoveProductReviews))
+                                        {
+                                            <button onclick="RemoveAsk('@item.Id')" class="btn btn-link">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        }
                                     </div>
                                 </div>
                             }
@@ -117,19 +167,19 @@
     }
 
     function GotoAskPage(_Page){
-            LoadComponent('/@ViewData["culture"]Shared/Compo/ComboListProductAsks',{ ProductId:'@Model.Input.ProductId',PageNum:_Page },function(res){
+            LoadComponent('/@ViewData["culture"]/Shared/Compo/ComboListProductAsks',{ ProductId:'@Model.Input.ProductId',PageNum:_Page },function(res){
                 $('#LstAsks').html(res);
             });
         }
 
         function LikeAsk(_ReviewId)
         {
-            SendData('/@ViewData["culture"]/Shared/Compo/ComboListProductReviews?handler=Like',{ ReviewId:_ReviewId },function(res){
+            SendData('/@ViewData["culture"]/Shared/Compo/ComboListProductAsks?handler=Like',{ ReviewId:_ReviewId },function(res){
 
                 if(res.Count==-1)
                 {
-                    //$('#Like'+_ReviewId).text(res.Count);
-                    $('#Like'+_ReviewId).parent('.btn').css('text-decoration','underline');
+                    //$('#LikeAsk'+_ReviewId).text(res.Count);
+                    $('#LikeAsk'+_ReviewId).parent('.btn').css('text-decoration','underline');
                 }
                 else if(res.Count==-2)
                 {
@@ -137,21 +187,21 @@
                 }
                 else
                 {
-                    $('#Like'+_ReviewId).text(res.Count);
+                    $('#LikeAsk'+_ReviewId).text(res.Count);
                     if(res.IsLike==true)
                     {
-                       //if($('#Like'+_ReviewId).parent('.btn').hasClass('IsLike'))
+                       //if($('#LikeAsk'+_ReviewId).parent('.btn').hasClass('IsLike'))
                        //{
-                       //    $('#Like'+_ReviewId).parent('.btn').removeClass('IsLike');
+                       //    $('#LikeAsk'+_ReviewId).parent('.btn').removeClass('IsLike');
                        //}
                        //else
                        //{
-                           $('#Like'+_ReviewId).parent('.btn').addClass('IsLike');
+                           $('#LikeAsk'+_ReviewId).parent('.btn').addClass('IsLike');
                        //}
                     }
                     else
                     {
-                        $('#Like'+_ReviewId).parent('.btn').removeClass('IsLike');
+                        $('#LikeAsk'+_ReviewId).parent('.btn').removeClass('IsLike');
                     }
                 }
             });
@@ -159,12 +209,12 @@
 
         function DisLikeAsk(_ReviewId)
         {
-            SendData('/@ViewData["culture"]/Shared/Compo/ComboListProductReviews?handler=DisLike',{ ReviewId:_ReviewId },function(res){
+            SendData('/@ViewData["culture"]/Shared/Compo/ComboListProductAsks?handler=DisLike',{ ReviewId:_ReviewId },function(res){
 
                 if(res.Count==-1)
                 {
-                    //$('#DisLike'+_ReviewId).text(res.Count);
-                    $('#DisLike'+_ReviewId).parent('.btn').css('text-decoration','underline');
+                    //$('#DisLikeAsk'+_ReviewId).text(res.Count);
+                    $('#DisLikeAsk'+_ReviewId).parent('.btn').css('text-decoration','underline');
                 }
                 else if(res.Count==-2)
                 {
@@ -172,21 +222,21 @@
                 }
                 else
                 {
-                    $('#DisLike'+_ReviewId).text(res.Count);
+                    $('#DisLikeAsk'+_ReviewId).text(res.Count);
                     if(res.IsLike==true)
                     {
-                       //if($('#DisLike'+_ReviewId).parent('.btn').hasClass('IsDisLike'))
+                       //if($('#DisLikeAsk'+_ReviewId).parent('.btn').hasClass('IsDisLike'))
                        //{
-                       //    $('#DisLike'+_ReviewId).parent('.btn').removeClass('IsDisLike');
+                       //    $('#DisLikeAsk'+_ReviewId).parent('.btn').removeClass('IsDisLike');
                        //}
                        //else
                        //{
-                           $('#DisLike'+_ReviewId).parent('.btn').addClass('IsDisLike');
+                           $('#DisLikeAsk'+_ReviewId).parent('.btn').addClass('IsDisLike');
                        //}
                     }
                     else
                     {
-                        $('#DisLike'+_ReviewId).parent('.btn').removeClass('IsDisLike');
+                        $('#DisLikeAsk'+_ReviewId).parent('.btn').removeClass('IsDisLike');
                     }
                 }
             });
@@ -194,20 +244,20 @@
     @if (User.IsInRole(Roles.CanChangeStatusProductAsks))
     {
         <text>
-                    function ChangeStatusAsk(_Id)
-                    {
-                        SendData('/@ViewData["culture"]/Shared/Compo/ComboListProductReviews?handler=ChangeStatus',{ReviewId:_Id});
-                    }
+                        function ChangeStatusAsk(_Id)
+                        {
+                            SendData('/@ViewData["culture"]/Shared/Compo/ComboListProductAsks?handler=ChangeStatus',{ReviewId:_Id});
+                        }
         </text>
     }
 
     @if (User.IsInRole(Roles.CanRemoveProductAsks))
     {
         <text>
-                function RemoveAsk(_Id)
-                {
-                    RemoveData('/@ViewData["culture"]/Shared/Compo/ComboListProductReviews?handler=Remove',{ReviewId:_Id});
-                }
+                    function RemoveAsk(_Id)
+                    {
+                        RemoveData('/@ViewData["culture"]/Shared/Compo/ComboListProductAsks?handler=Remove',{ReviewId:_Id});
+                    }
         </text>
     }
 

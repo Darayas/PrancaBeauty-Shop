@@ -553,7 +553,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                         Id = new Guid().SequentialGuid(),
                         ParentId = _Id,
                         PageName = "ManageProductsPage",
-                        Sort = 240,
+                        Sort = 250,
                         Name = "CanChangeStatusProductAsks",
                         NormalizedName = "CanChangeStatusProductAsks".ToUpper(),
                         Description = "توانایی تایید یا رد پرسش محصول"
@@ -567,7 +567,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                         Id = new Guid().SequentialGuid(),
                         ParentId = _Id,
                         PageName = "ManageProductsPage",
-                        Sort = 241,
+                        Sort = 251,
                         Name = "CanChangeStatusProductAsksForAllUser",
                         NormalizedName = "CanChangeStatusProductAsksForAllUser".ToUpper(),
                         Description = "توانایی تایید یا رد پرسش محصولات دیگر کاربران"
@@ -581,7 +581,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                         Id = new Guid().SequentialGuid(),
                         ParentId = _Id,
                         PageName = "ManageProductsPage",
-                        Sort = 245,
+                        Sort = 525,
                         Name = "CanRemoveProductAsks",
                         NormalizedName = "CanRemoveProductAsks".ToUpper(),
                         Description = "توانایی حذف پرسش محصول"
@@ -595,7 +595,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                         Id = new Guid().SequentialGuid(),
                         ParentId = _Id,
                         PageName = "ManageProductsPage",
-                        Sort = 246,
+                        Sort = 256,
                         Name = "CanRemoveProductAsksForAllUser",
                         NormalizedName = "CanRemoveProductAsksForAllUser".ToUpper(),
                         Description = "توانایی حذف پرسش محصولات دیگر کاربران"

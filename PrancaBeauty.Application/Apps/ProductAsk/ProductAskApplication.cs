@@ -48,11 +48,13 @@ namespace PrancaBeauty.Application.Apps.ProductAsk
                                     {
                                         Id = ask.Id.ToString(),
                                         Text = ask.Text,
-                                        LstAnswer = ask.tblProductAsk_Childs/*.Where(a=>a.IsConfirm)*/.Select(answer => new OutGetListAsks_Answer
+                                        IsConfirm = ask.IsConfirm,
+                                        LstAnswer = ask.tblProductAsk_Childs.OrderByDescending(a => a.Date)/*.Where(a=>a.IsConfirm)*/.Select(answer => new OutGetListAsks_Answer
                                         {
                                             Id = answer.Id.ToString(),
                                             FullName = answer.tblUsers.FirstName + " " + answer.tblUsers.LastName,
                                             Text = answer.Text,
+                                            IsConfirm = answer.IsConfirm,
                                             CountLikes = answer.tblProductAskLikes.Count(c => c.Type == ProductAskLikesEnum.Like),
                                             CountDisLike = answer.tblProductAskLikes.Count(c => c.Type == ProductAskLikesEnum.Dislike)
                                         }).ToList()

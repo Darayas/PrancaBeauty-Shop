@@ -24,6 +24,7 @@ namespace PrancaBeauty.Application.Contracts.ProductVariantItems
         [GUID]
         public string VariantId { get; set; }
 
+
         public List<InpAddVariantsToProduct_Variants> Variants { get; set; }
     }
 

@@ -42,10 +42,17 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
                 #region Validations
                 Input.CheckModelState(_ServiceProvider);
 
-                if (Input.Variants == null)
-                    throw new ArgumentInvalidException($"{nameof(Input.Variants)} cant be null.");
+                if (Input.Variants is null)
+                    throw new ArgumentInvalidException($"Variants cant be null.");
+
+                if (Input.Variants.Count() == 0)
+                    throw new ArgumentInvalidException($"Variants count must be greater than zero.");
 
                 #endregion
+
+                bool FirstIsMainVariant = true;
+                if (await _ProductVariantItemsRepository.Get.Where(a => a.ProductId == Input.ProductId.ToGuid()).AnyAsync(a => a.IsMain))
+                    FirstIsMainVariant = false;
 
                 foreach (var item in Input.Variants)
                 {
@@ -91,10 +98,13 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
                         IsEnable = item.IsEnable,
                         Percent = double.Parse(item.Percent, new CultureInfo("en-US")),
                         SendBy = item.SendBy,
-                        SendFrom = item.SendFrom
+                        SendFrom = item.SendFrom,
+                        IsMain = FirstIsMainVariant
                     };
 
                     await _ProductVariantItemsRepository.AddAsync(tVariantItem, default, false);
+
+                    FirstIsMainVariant = false;
                 }
 
                 await _ProductVariantItemsRepository.SaveChangeAsync();
@@ -154,12 +164,15 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
 
                 foreach (var item in qData)
                 {
-                    var _Result = await CheckHasPurchaseForVariantAsync(new InpCheckHasPurchaseForVariant { VariantItemId = item.Id.ToString() });
-                    if (_Result.HasValue == false)
-                        return new OperationResult().Failed("Error500");
+                    if (item.IsMain == false)
+                    {
+                        var _Result = await CheckHasPurchaseForVariantAsync(new InpCheckHasPurchaseForVariant { VariantItemId = item.Id.ToString() });
+                        if (_Result.HasValue == false)
+                            return new OperationResult().Failed("Error500");
 
-                    if (_Result.Value == false)
-                        await _ProductVariantItemsRepository.DeleteAsync(item, default, false);
+                        if (_Result.Value == false)
+                            await _ProductVariantItemsRepository.DeleteAsync(item, default, false);
+                    }
                 }
 
                 await _ProductVariantItemsRepository.SaveChangeAsync();

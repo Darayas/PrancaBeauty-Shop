@@ -1455,6 +1455,9 @@
   <data name="Variants" xml:space="preserve">
     <value />
   </data>
+  <data name="Variants count must be greater than zero." xml:space="preserve">
+    <value>حداقل یک تنوع محصولی ثبت کنید</value>
+  </data>
   <data name="VariantTitle" xml:space="preserve">
     <value>عنوان نوع</value>
   </data>

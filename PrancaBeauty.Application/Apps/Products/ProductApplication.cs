@@ -186,6 +186,12 @@ namespace PrancaBeauty.Application.Apps.Products
 
                 if (Input.Keywords.Count() == 0)
                     throw new ArgumentInvalidException($"keyword count must be greater than zero.");
+
+                if (Input.Variants is null)
+                    throw new ArgumentInvalidException($"Variants cant be null.");
+
+                if (Input.Variants.Count() == 0)
+                    throw new ArgumentInvalidException($"Variants count must be greater than zero.");
                 #endregion
 
                 // برسی تکراری نبودن نام محصول
@@ -917,7 +923,7 @@ namespace PrancaBeauty.Application.Apps.Products
                                                     {
                                                         Id = a.Id.ToString(),
                                                         TopicId = a.TopicId.ToString(),
-                                                        ProductVariantItemIdForPrice=0, // TODO
+                                                        ProductVariantItemIdForPrice = a.tblProductVariantItems.Select(b => new { ItemId = b.Id, SellerPercentWithDiscount = b.Percent - 0 /* TODO: Calc discount */ }).OrderBy(b => b.SellerPercentWithDiscount).Select(b => b.ItemId.ToString()).First(),
                                                         Title = a.Title,
                                                         Name = a.Name,
                                                         AvgStarRating = a.tblProductReviews.Count(a => a.CountStar > 0) > 0 ? a.tblProductReviews.Where(b => b.CountStar > 0).Average(b => b.CountStar) : 0,

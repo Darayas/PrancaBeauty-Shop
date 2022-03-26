@@ -146,6 +146,8 @@ namespace PrancaBeauty.Application.Apps.ProductSellers
                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
+                // TODO: وجود یک فروشنده که نویسنده هم باشد اجباری است
+
                 #region حذف تنوع
                 {
                     var _Result = await _ProductVariantItemsApplication.RemoveAllVariantsFromProductAsync(new InpRemoveVariantsFromProduct

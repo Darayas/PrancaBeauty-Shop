@@ -1105,6 +1105,9 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                     b.Property<bool>("IsEnable")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsMain")
+                        .HasColumnType("bit");
+
                     b.Property<double>("Percent")
                         .HasColumnType("float");
 
@@ -2095,7 +2098,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                     b.HasOne("PrancaBeauty.Domin.Product.ProductAskAgg.Entities.tblProductAsk", "tblProductAsk_Parent")
                         .WithMany("tblProductAsk_Childs")
                         .HasForeignKey("AskId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("PrancaBeauty.Domin.Product.ProductAgg.Entities.tblProducts", "tblProducts")
                         .WithMany("tblProductAsk")

@@ -12,8 +12,8 @@ using PrancaBeauty.Infrastructure.EFCore.Context;
 namespace PrancaBeauty.Infrastructure.EFCore.Migrations
 {
     [DbContext(typeof(MainContext))]
-    [Migration("20220316194749_mig6")]
-    partial class mig6
+    [Migration("20220326121107_mig1")]
+    partial class mig1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -1105,6 +1105,9 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsEnable")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsMain")
                         .HasColumnType("bit");
 
                     b.Property<double>("Percent")

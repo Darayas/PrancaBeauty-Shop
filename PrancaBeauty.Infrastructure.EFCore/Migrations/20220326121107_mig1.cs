@@ -721,7 +721,8 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", maxLength: 150, nullable: false),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", maxLength: 450, nullable: false),
                     Name = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsConfirm = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1164,7 +1165,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", maxLength: 150, nullable: false),
                     ProductAskId = table.Column<Guid>(type: "uniqueidentifier", maxLength: 150, nullable: false),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", maxLength: 450, nullable: false),
-                    IsLike = table.Column<bool>(type: "bit", nullable: false),
+                    Type = table.Column<int>(type: "int", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -1241,7 +1242,8 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                     SendFrom = table.Column<int>(type: "int", nullable: false),
                     CountInStock = table.Column<int>(type: "int", nullable: false),
                     IsEnable = table.Column<bool>(type: "bit", nullable: false),
-                    IsConfirm = table.Column<bool>(type: "bit", nullable: false)
+                    IsConfirm = table.Column<bool>(type: "bit", nullable: false),
+                    IsMain = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1279,7 +1281,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", maxLength: 150, nullable: false),
                     ProductReviewId = table.Column<Guid>(type: "uniqueidentifier", maxLength: 150, nullable: false),
                     ProductReviewAttributeId = table.Column<Guid>(type: "uniqueidentifier", maxLength: 150, nullable: false),
-                    Value = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false)
+                    Value = table.Column<double>(type: "float", maxLength: 200, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1305,7 +1307,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", maxLength: 150, nullable: false),
                     ProductReviewId = table.Column<Guid>(type: "uniqueidentifier", maxLength: 150, nullable: false),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", maxLength: 450, nullable: false),
-                    IsLike = table.Column<bool>(type: "bit", nullable: false),
+                    Type = table.Column<int>(type: "int", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -1689,8 +1691,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_tblProductReviewsMedia_FileId",
                 table: "tblProductReviewsMedia",
-                column: "FileId",
-                unique: true);
+                column: "FileId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_tblProductReviewsMedia_ProductReviewsId",

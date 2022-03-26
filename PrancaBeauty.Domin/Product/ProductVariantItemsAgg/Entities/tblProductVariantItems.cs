@@ -29,6 +29,7 @@ namespace PrancaBeauty.Domin.Product.ProductVariantsItemsAgg.Entities
 
         public bool IsEnable { get; set; }
         public bool IsConfirm { get; set; }
+        public bool IsMain { get; set; }
 
         public virtual tblProductVariants tblProductVariants { get; set; }
         public virtual tblProducts tblProducts { get; set; }

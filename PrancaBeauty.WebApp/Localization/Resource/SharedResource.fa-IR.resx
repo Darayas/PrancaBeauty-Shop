@@ -195,6 +195,9 @@
   <data name="AddressHasFactors" xml:space="preserve">
     <value>آدرس دارای فاکتورهایی میباشد که امکان حذف آن وجود ندارد.</value>
   </data>
+  <data name="AddToCart" xml:space="preserve">
+    <value>افزودن به سبد خرید</value>
+  </data>
   <data name="AddToWishlist" xml:space="preserve">
     <value>افزودن به علاقه مندی</value>
   </data>
@@ -617,6 +620,9 @@
   </data>
   <data name="InCompleteProductReason" xml:space="preserve">
     <value>محصول با شناسه [{0}] ، بصورت ناقص ثبت شد. دلیل: {1}</value>
+  </data>
+  <data name="indisponible" xml:space="preserve">
+    <value>ناموجود</value>
   </data>
   <data name="Input cant be null." xml:space="preserve">
     <value>اطلاعات لازم را وارد کنید</value>

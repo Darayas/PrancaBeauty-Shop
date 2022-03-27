@@ -2,10 +2,16 @@
 @model PrancaBeauty.WebApp.Pages.Shared.Components.Compo_ProductSelectedPricess.Compo_ProductSelectedPriceModel
 
 <div class="price_box">
-    <span class="current_price">@Model.Data.ProductPrice @Model.Data.CurrencySymbol</span>
-    @if(Model.Data.ProductOldPrice!="")
+    @if (Model.Data != null)
     {
-        <span class="old_price">@Model.Data.ProductOldPrice @Model.Data.CurrencySymbol</span>
+        <span class="current_price">@Model.Data.ProductPrice @Model.Data.CurrencySymbol</span>
+        @if (Model.Data.ProductOldPrice != "")
+        {
+            <span class="old_price">@Model.Data.ProductOldPrice @Model.Data.CurrencySymbol</span>
+        }
+
+    }else
+    {
+        <span class="current_price">@Localizer["indisponible"]</span>
     }
-    
 </div>

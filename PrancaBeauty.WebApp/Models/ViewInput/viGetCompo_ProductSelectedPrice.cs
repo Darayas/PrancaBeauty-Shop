@@ -6,7 +6,7 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
     public class viGetCompo_ProductSelectedPrice
     {
         [Display(Name = "ProductVariantItemId")]
-        [RequiredString]
+        //[RequiredString]
         [GUID]
         public string ProductVariantItemId { get; set; }
     }

@@ -3,9 +3,9 @@
 
 <div class="price_box">
     <span class="current_price">@Model.Data.ProductPrice @Model.Data.CurrencySymbol</span>
-    @if(Model.Data.ProductOldPrice!="0")
+    @if(Model.Data.ProductOldPrice!="")
     {
-        <span class="old_price">Model.Data.ProductOldPrice @Model.Data.CurrencySymbol</span>
+        <span class="old_price">@Model.Data.ProductOldPrice @Model.Data.CurrencySymbol</span>
     }
     
 </div>

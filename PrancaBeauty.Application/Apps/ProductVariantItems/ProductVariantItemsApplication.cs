@@ -104,11 +104,13 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
                     {
                         tVariantItem.IsMain = true;
                         tVariantItem.IsEnable = true;
+                        tVariantItem.IsConfirm = true;
                     }
                     else
                     {
                         tVariantItem.IsMain = false;
                         tVariantItem.IsEnable = item.IsEnable;
+                        tVariantItem.IsConfirm = false;
                     }
 
                     await _ProductVariantItemsRepository.AddAsync(tVariantItem, default, false);
@@ -335,7 +337,10 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
                             if (qData != null)
                             {
                                 if (qData.IsMain)
+                                {
                                     qData.IsEnable = true;
+                                    qData.IsConfirm = true;
+                                }
                                 else
                                     qData.IsEnable = item.IsEnable;
 
@@ -430,6 +435,9 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
                 if (qData == null)
                     return new OperationResult().Failed("IdNotFound");
 
+                if (qData.IsMain == false)
+                    return new OperationResult().Failed("CantChangeStatusMainVariant");
+
                 if (qData.IsConfirm)
                 {
                     // TODO ثبت دلیل رد شدن
@@ -480,7 +488,7 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
                     return null;
 
                 double _OldProductPrice = qData.MainPrice + ((qData.MainPrice / 100) * qData.SellerPercentPrice);
-                double _ProductPrice = _OldProductPrice + ((_OldProductPrice / 100) * qData.SavePercentPrice);
+                double _ProductPrice = _OldProductPrice - ((_OldProductPrice / 100) * qData.SavePercentPrice);
                 if (qData.SavePercentPrice == 0)
                     _OldProductPrice = 0;
 

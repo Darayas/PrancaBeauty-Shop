@@ -255,6 +255,9 @@
   <data name="Cancel" xml:space="preserve">
     <value>انصراف</value>
   </data>
+  <data name="CantChangeStatusMainVariant" xml:space="preserve">
+    <value>امکان تغییر وضعیت این نوع وجود نه دارد</value>
+  </data>
   <data name="CantRemoveMainSellerFromProductSeller" xml:space="preserve">
     <value>امکان حذف این فروشنده وجود ندارد. فروشنده ی جاری، نویسنده ی محصول هم میباشد</value>
   </data>
@@ -1262,6 +1265,9 @@
   </data>
   <data name="SellerLogoUrl" xml:space="preserve">
     <value>لگو فروشنده</value>
+  </data>
+  <data name="Sellers" xml:space="preserve">
+    <value>فروشندگان این کالا</value>
   </data>
   <data name="SellerTitle" xml:space="preserve">
     <value>نام فروشندگی کاربر</value>

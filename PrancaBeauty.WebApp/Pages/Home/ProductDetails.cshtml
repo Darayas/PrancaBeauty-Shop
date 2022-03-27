@@ -129,6 +129,12 @@
     </div>
 </div>
 <!--product details end-->
+<!--product Sellers start-->
+<LoadComponent id="ProductPrice"
+               url="/@ViewData["culture"]/Shared/Compo/ProductSellers"
+               data='new viGetCompo_ProductSellers{ ProductId=Model.Data.Id  }' ,
+               context="HttpContext"></LoadComponent>
+<!--product Sellers end-->
 <!--product info start-->
 <div class="product_d_info mb-57">
     <div class="container">

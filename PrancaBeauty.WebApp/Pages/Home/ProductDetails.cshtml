@@ -72,7 +72,7 @@
 
                         <LoadComponent id="ProductPrice"
                                        url="/@ViewData["culture"]/Shared/Compo/ProductSelectedPrice"
-                                       data='new viGetCompo_ProductSelectedPrice{ ProductVariantItemId="" }' ,
+                                       data='new viGetCompo_ProductSelectedPrice{ ProductVariantItemId=Model.Data.ProductVariantItemIdForPrice }' ,
                                        context="HttpContext"></LoadComponent>
 
                         <div class="product_desc">

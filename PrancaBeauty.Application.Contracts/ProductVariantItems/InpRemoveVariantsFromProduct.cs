@@ -1,5 +1,4 @@
-﻿using Framework.Common.DataAnnotations.File;
-using Framework.Common.DataAnnotations.String;
+﻿using Framework.Common.DataAnnotations.String;
 using System.ComponentModel.DataAnnotations;
 
 namespace PrancaBeauty.Application.Contracts.ProductVariantItems
@@ -10,6 +9,11 @@ namespace PrancaBeauty.Application.Contracts.ProductVariantItems
         [RequiredString]
         [GUID]
         public string ProductId { get; set; }
+
+        [Display(Name = "CountryId")]
+        [GUID]
+        public string ProductSellerId { get; set; }
+
 
     }
 }

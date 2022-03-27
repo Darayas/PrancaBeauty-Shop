@@ -146,13 +146,28 @@ namespace PrancaBeauty.Application.Apps.ProductSellers
                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
-                // TODO: وجود یک فروشنده که نویسنده هم باشد اجباری است
+                #region برسی قابل حذف بودن فروشنده
+                {
+                    var _Result = await _ProductSellersRepsoitory.Get
+                                                                 .Where(a => a.Id == Input.ProductSellerId.ToGuid())
+                                                                 .Where(a => a.ProductId == Input.ProductId.ToGuid())
+                                                                 .Select(a => new
+                                                                 {
+                                                                     CanRemoveProductSeller = a.tblSellers.UserId != a.tblProducts.AuthorUserId
+                                                                 })
+                                                                 .SingleOrDefaultAsync();
+
+                    if (_Result.CanRemoveProductSeller == false)
+                        return new OperationResult().Failed("CantRemoveMainSellerFromProductSeller");
+                }
+                #endregion
 
                 #region حذف تنوع
                 {
                     var _Result = await _ProductVariantItemsApplication.RemoveAllVariantsFromProductAsync(new InpRemoveVariantsFromProduct
                     {
-                        ProductId = Input.ProductId
+                        ProductId = Input.ProductId,
+                        ProductSellerId = Input.ProductSellerId
                     });
                     if (!_Result.IsSucceeded)
                     {

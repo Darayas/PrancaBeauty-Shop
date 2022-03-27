@@ -141,6 +141,7 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
 
                 var qData = await _ProductVariantItemsRepository.Get
                                                                 .Where(a => a.ProductId == Guid.Parse(Input.ProductId))
+                                                                .Where(a => Input.ProductSellerId != null ? a.ProductSellerId == Input.ProductSellerId.ToGuid() : true)
                                                                 .Select(a => a.Id.ToString())
                                                                 .ToArrayAsync();
 
@@ -471,7 +472,7 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
                                                                     MainPrice = a.tblProducts.tblProductPrices.Where(b => b.IsActive).Select(b => b.Price).Single(),
                                                                     CurrencySymbol = a.tblProducts.tblProductPrices.Where(b => b.IsActive).Select(b => b.tblCurrency.Symbol).Single(),
                                                                     SellerPercentPrice = a.Percent,
-                                                                    SavePercentPrice = 0, // TODO: For Discount
+                                                                    SavePercentPrice = 0, // TODO: Calc Discount
                                                                 })
                                                                 .SingleOrDefaultAsync();
 

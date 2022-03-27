@@ -67,6 +67,43 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
 
                 _Context.SaveChanges();
             }
+
+            if (!_repUser.Get.Any(a => a.UserName == "test9025@gmail.com"))
+            {
+                Guid UserId = new Guid().SequentialGuid();
+                _repUser.AddAsync(new tblUsers()
+                {
+                    Id = UserId,
+                    AccessLevelId = _repAccessLevel.Get.Where(a => a.Name == "GeneralManager").Select(a => a.Id).Single(),
+                    FirstName = "حسن",
+                    LastName = "حسینی",
+                    IsActive = true,
+                    Date = DateTime.Now,
+                    UserName = "test9025@gmail.com",
+                    NormalizedUserName = "test9025@gmail.com".ToUpper(),
+                    Email = "test9025@gmail.com",
+                    NormalizedEmail = "test9025@gmail.com".ToUpper(),
+                    EmailConfirmed = true,
+                    PasswordHash = "AQAAAAEAACcQAAAAEO3Ro+1N3qaDwJUK02Qih+FlDMKZxhO0Z2JPMgd3rgrQSPeFLQh3txpgkEvlFMRUXA==", // 123456
+                    SecurityStamp = "QHZXXDN4PZUNNXGC6LQRVNOZ5EGGIKWH",
+                    ConcurrencyStamp = "37116a3b-0da5-460e-b266-d5243f62e5c8",
+                    PhoneNumber = "09147922542",
+                    PhoneNumberConfirmed = true,
+                    IsSeller = true
+                }, default, true).Wait();
+
+
+                foreach (var item in _repRoles.Get.ToList())
+                {
+                    _Context.Add(new IdentityUserRole<Guid>
+                    {
+                        UserId = UserId,
+                        RoleId = item.Id
+                    });
+                }
+
+                _Context.SaveChanges();
+            }
         }
     }
 }

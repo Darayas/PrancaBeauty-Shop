@@ -255,6 +255,9 @@
   <data name="Cancel" xml:space="preserve">
     <value>انصراف</value>
   </data>
+  <data name="CantRemoveMainSellerFromProductSeller" xml:space="preserve">
+    <value>امکان حذف این فروشنده وجود ندارد. فروشنده ی جاری، نویسنده ی محصول هم میباشد</value>
+  </data>
   <data name="CantSend" xml:space="preserve">
     <value>ارسال نمیشود</value>
   </data>

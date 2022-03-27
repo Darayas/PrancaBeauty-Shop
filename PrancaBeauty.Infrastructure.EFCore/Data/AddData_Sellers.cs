@@ -80,6 +80,49 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                 }, default, false).Wait();
             }
 
+            if (!_SellerRepository.Get.Where(a => a.tblUsers.UserName == "test9025@gmail.com").Where(a => a.Name == "DotnetLearn").Any())
+            {
+                _SellerRepository.AddAsync(new tblSellers
+                {
+                    Id = new Guid().SequentialGuid(),
+                    UserId = _UserRepository.Get.Where(a => a.UserName == "test9025@gmail.com").Select(a => a.Id).Single(),
+                    Name = "DotnetLearn",
+                    Date = DateTime.Now,
+                    tblSeller_Translates = new List<tblSeller_Translates> {
+                        new tblSeller_Translates{
+                            Id= new Guid().SequentialGuid(),
+                            LangId= _LanguageRepository.Get.Where(a=>a.Code=="fa-IR").Select(a=>a.Id).Single(),
+                            Title="دات نت لرن",
+                            tblFiles = new tblFiles()
+                            {
+                                Id = new Guid().SequentialGuid(),
+                                FilePathId = _FilePaths.Get.Where(a => a.Path == "/image/png/2021/1/1/").Where(a => a.tblFileServer.Name == "Public").Select(a => a.Id).Single(),
+                                Title = "DotnetLeaarnSellerFaLogo",
+                                Date = DateTime.Now,
+                                FileName = "DotnetLearnSellerFaLogo.png",
+                                FileTypeId = _FileTypes.Get.Where(a => a.MimeType == "image/png").Select(a => a.Id).Single(),
+                                SizeOnDisk = 0
+                            }
+                        },
+                        new tblSeller_Translates{
+                            Id= new Guid().SequentialGuid(),
+                            LangId= _LanguageRepository.Get.Where(a=>a.Code=="en-US").Select(a=>a.Id).Single(),
+                            Title="DotnetLearn",
+                            tblFiles = new tblFiles()
+                            {
+                                Id = new Guid().SequentialGuid(),
+                                FilePathId = _FilePaths.Get.Where(a => a.Path == "/image/png/2021/1/1/").Where(a => a.tblFileServer.Name == "Public").Select(a => a.Id).Single(),
+                                Title = "DotnetLearnSellerEnLogo",
+                                Date = DateTime.Now,
+                                FileName = "DotnetLearnSellerEnLogo.png",
+                                FileTypeId = _FileTypes.Get.Where(a => a.MimeType == "image/png").Select(a => a.Id).Single(),
+                                SizeOnDisk = 0
+                            }
+                        }
+                    }
+                }, default, false).Wait();
+            }
+
             _SellerRepository.SaveChangeAsync().Wait();
         }
     }

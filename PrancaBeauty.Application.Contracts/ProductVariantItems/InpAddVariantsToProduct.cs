@@ -62,6 +62,8 @@ namespace PrancaBeauty.Application.Contracts.ProductVariantItems
         [Display(Name = "IsEnable")]
         public bool IsEnable { get; set; }
 
+        public bool IsDelete { get; set; }
+
         [Display(Name = "SendFrom")]
         public ProductVariantItems_SendFromEnum SendFrom { get; set; } // ارسال از: 1، 2، 3، 4 رور کاری آینده
 

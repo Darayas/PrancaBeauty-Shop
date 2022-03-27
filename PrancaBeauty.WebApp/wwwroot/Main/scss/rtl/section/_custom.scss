@@ -2,6 +2,12 @@
     direction: ltr;
 }
 
+.disabled {
+    pointer-events: none;
+    background-color: #e8e8e8;
+    cursor: not-allowed;
+}
+
 .nice-select {
     padding-right: 18px !important;
     padding-left: 30px !important;

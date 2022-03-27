@@ -296,7 +296,8 @@ namespace PrancaBeauty.Application.Apps.Products
                             SendBy = a.SendBy,
                             SendFrom = a.SendFrom,
                             Title = a.Title,
-                            Value = a.Value
+                            Value = a.Value,
+                            IsDelete = a.IsDelete
                         }).ToList()
                     });
                     if (!_Result.IsSucceeded)

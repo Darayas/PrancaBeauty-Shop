@@ -22,5 +22,6 @@ namespace PrancaBeauty.Application.Contracts.ProductVariantItems
         public ProductVariantItems_SendFromEnum SendFrom { get; set; } // ارسال از: 1، 2، 3، 4 رور کاری آینده
         public int CountInStock { get; set; }
         public bool IsConfirm { get; set; }
+        public bool IsMain { get; set; }
     }
 }

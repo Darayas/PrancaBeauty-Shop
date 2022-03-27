@@ -54,7 +54,7 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
                 if (await _ProductVariantItemsRepository.Get.Where(a => a.ProductId == Input.ProductId.ToGuid()).AnyAsync(a => a.IsMain))
                     FirstIsMainVariant = false;
 
-                foreach (var item in Input.Variants)
+                foreach (var item in Input.Variants.Where(a => a.IsDelete == false))
                 {
                     #region برسی تکراری نبودن نوع
                     {
@@ -95,12 +95,21 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
                         Value = item.Value,
                         ProductCode = item.ProductCode,
                         CountInStock = item.CountInStock,
-                        IsEnable = item.IsEnable,
                         Percent = double.Parse(item.Percent, new CultureInfo("en-US")),
                         SendBy = item.SendBy,
                         SendFrom = item.SendFrom,
-                        IsMain = FirstIsMainVariant
                     };
+
+                    if (FirstIsMainVariant)
+                    {
+                        tVariantItem.IsMain = true;
+                        tVariantItem.IsEnable = true;
+                    }
+                    else
+                    {
+                        tVariantItem.IsMain = false;
+                        tVariantItem.IsEnable = item.IsEnable;
+                    }
 
                     await _ProductVariantItemsRepository.AddAsync(tVariantItem, default, false);
 
@@ -137,7 +146,7 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
 
 
 
-                await RemoveRangeByVariantItemIdAsync(Input.ProductId, qData);
+                await RemoveRangeByVariantItemIdAsync(Input.ProductId, qData, false);
 
                 return new OperationResult().Succeeded();
             }
@@ -153,7 +162,7 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
             }
         }
 
-        private async Task<OperationResult> RemoveRangeByVariantItemIdAsync(string ProductId, string[] VariantsItemId)
+        private async Task<OperationResult> RemoveRangeByVariantItemIdAsync(string ProductId, string[] VariantsItemId, bool CheckIsMain)
         {
             try
             {
@@ -164,15 +173,17 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
 
                 foreach (var item in qData)
                 {
-                    if (item.IsMain == false)
-                    {
-                        var _Result = await CheckHasPurchaseForVariantAsync(new InpCheckHasPurchaseForVariant { VariantItemId = item.Id.ToString() });
-                        if (_Result.HasValue == false)
-                            return new OperationResult().Failed("Error500");
+                    if (CheckIsMain)
+                        if (item.IsMain == true)
+                            continue;
 
-                        if (_Result.Value == false)
-                            await _ProductVariantItemsRepository.DeleteAsync(item, default, false);
-                    }
+                    var _Result = await CheckHasPurchaseForVariantAsync(new InpCheckHasPurchaseForVariant { VariantItemId = item.Id.ToString() });
+                    if (_Result.HasValue == false)
+                        return new OperationResult().Failed("Error500");
+
+                    if (_Result.Value == false)
+                        await _ProductVariantItemsRepository.DeleteAsync(item, default, false);
+
                 }
 
                 await _ProductVariantItemsRepository.SaveChangeAsync();
@@ -211,7 +222,8 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
                                                                    SendBy = a.SendBy,
                                                                    SendFrom = a.SendFrom,
                                                                    IsEnable = a.IsEnable,
-                                                                   IsConfirm = a.IsConfirm
+                                                                   IsConfirm = a.IsConfirm,
+                                                                   IsMain = a.IsMain
                                                                })
                                                                .ToListAsync();
 
@@ -268,9 +280,12 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
                                                       .Select(a => a.Id)
                                                       .ToArray();
 
-                    var _Result = await RemoveRangeByVariantItemIdAsync(Input.ProductId, qDataToDelete);
-                    if (_Result.IsSucceeded == false)
-                        return new OperationResult().Failed(_Result.Message);
+                    if (qDataToDelete.Count() > 0)
+                    {
+                        var _Result = await RemoveRangeByVariantItemIdAsync(Input.ProductId, qDataToDelete, true);
+                        if (_Result.IsSucceeded == false)
+                            return new OperationResult().Failed(_Result.Message);
+                    }
                 }
                 #endregion
 
@@ -279,27 +294,29 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
                     var qDataToAdd = Input.Variants.Where(a => a.IsDelete == false)
                                                    .Where(a => a.Id == null)
                                                    .ToList();
-
-                    var _Result = await AddVariantsToProductAsync(new InpAddVariantsToProduct
+                    if (qDataToAdd.Any())
                     {
-                        ProductId = Input.ProductId,
-                        ProductSellerId = Input.ProductSellerId,
-                        VariantId = Input.VariantId,
-                        Variants = qDataToAdd.Select(a => new InpAddVariantsToProduct_Variants
+                        var _Result = await AddVariantsToProductAsync(new InpAddVariantsToProduct
                         {
-                            GuaranteeId = a.GuaranteeId,
-                            ProductCode = a.ProductCode,
-                            Title = a.Title,
-                            Value = a.Value,
-                            CountInStock = a.CountInStock,
-                            IsEnable = a.IsEnable,
-                            Percent = a.Percent,
-                            SendBy = a.SendBy,
-                            SendFrom = a.SendFrom
-                        }).ToList()
-                    });
-                    if (_Result.IsSucceeded == false)
-                        return new OperationResult().Failed(_Result.Message);
+                            ProductId = Input.ProductId,
+                            ProductSellerId = Input.ProductSellerId,
+                            VariantId = Input.VariantId,
+                            Variants = qDataToAdd.Select(a => new InpAddVariantsToProduct_Variants
+                            {
+                                GuaranteeId = a.GuaranteeId,
+                                ProductCode = a.ProductCode,
+                                Title = a.Title,
+                                Value = a.Value,
+                                CountInStock = a.CountInStock,
+                                IsEnable = a.IsEnable,
+                                Percent = a.Percent,
+                                SendBy = a.SendBy,
+                                SendFrom = a.SendFrom
+                            }).ToList()
+                        });
+                        if (_Result.IsSucceeded == false)
+                            return new OperationResult().Failed(_Result.Message);
+                    }
                 }
                 #endregion
 
@@ -309,27 +326,34 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
                                                     .Where(a => a.Id != null)
                                                     .ToList();
 
-                    foreach (var item in qDataToEdit)
+                    if (qDataToEdit.Any())
                     {
-                        var qData = await _ProductVariantItemsRepository.Get.Where(a => a.Id == Guid.Parse(item.Id)).SingleOrDefaultAsync();
-                        if (qData != null)
+                        foreach (var item in qDataToEdit)
                         {
-                            qData.Title = item.Title;
-                            qData.Value = item.Value;
-                            qData.CountInStock = item.CountInStock;
-                            qData.GuaranteeId = item.GuaranteeId != null ? Guid.Parse(item.GuaranteeId) : null;
-                            qData.IsEnable = item.IsEnable;
-                            qData.Percent = double.Parse(item.Percent, new CultureInfo("en-US"));
-                            qData.ProductCode = item.ProductCode;
-                            qData.ProductVariantId = Guid.Parse(Input.VariantId);
-                            qData.SendBy = item.SendBy;
-                            qData.SendFrom = item.SendFrom;
+                            var qData = await _ProductVariantItemsRepository.Get.Where(a => a.Id == Guid.Parse(item.Id)).SingleOrDefaultAsync();
+                            if (qData != null)
+                            {
+                                if (qData.IsMain)
+                                    qData.IsEnable = true;
+                                else
+                                    qData.IsEnable = item.IsEnable;
 
-                            await _ProductVariantItemsRepository.UpdateAsync(qData, default, false);
+                                qData.Title = item.Title;
+                                qData.Value = item.Value;
+                                qData.CountInStock = item.CountInStock;
+                                qData.GuaranteeId = item.GuaranteeId != null ? Guid.Parse(item.GuaranteeId) : null;
+                                qData.Percent = double.Parse(item.Percent, new CultureInfo("en-US"));
+                                qData.ProductCode = item.ProductCode;
+                                qData.ProductVariantId = Guid.Parse(Input.VariantId);
+                                qData.SendBy = item.SendBy;
+                                qData.SendFrom = item.SendFrom;
+
+                                await _ProductVariantItemsRepository.UpdateAsync(qData, default, false);
+                            }
                         }
-                    }
 
-                    await _ProductVariantItemsRepository.SaveChangeAsync();
+                        await _ProductVariantItemsRepository.SaveChangeAsync();
+                    }
                 }
                 #endregion
 

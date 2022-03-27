@@ -18,5 +18,6 @@ namespace PrancaBeauty.WebApp.Models.ViewModel
         public bool IsEnable { get; set; }
         public ProductVariantItems_SendFromEnum SendFrom { get; set; } // ارسال از: 1، 2، 3، 4 رور کاری آینده
         public int CountInStock { get; set; }
+        public bool IsMain { get; set; }
     }
 }

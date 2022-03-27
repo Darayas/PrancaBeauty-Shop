@@ -9,7 +9,10 @@
 
 
         <div class="card-option">
-            <div onclick="CheckAndRemoveVariants('@Model.Input.Index','@Model.Input.Id')" class="card-Remove">×</div>
+            @if (!Model.Input.IsMain)
+            {
+                <div onclick="CheckAndRemoveVariants('@Model.Input.Index','@Model.Input.Id')" class="card-Remove">×</div>
+            }
             <div><a data-toggle="collapse" data-target="#Variants@(Model.Input.Index)"> <i class="fa fa-angle-down"></i></a></div>
         </div>
     </div>
@@ -46,7 +49,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <select class="form-control" asp-for="Input.IsEnable" name="Input.Variants[@Model.Input.Index].IsEnable">
+                            <select class="form-control @(Model.Input.IsMain?"disabled":"")" asp-for="Input.IsEnable"  name="Input.Variants[@Model.Input.Index].IsEnable"  >
                                 <option value="true">@Localizer["Enable"]</option>
                                 <option value="false">@Localizer["Disable"]</option>
                             </select>

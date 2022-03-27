@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Apps.Products;
 using PrancaBeauty.Application.Apps.ProductSellers;
 using PrancaBeauty.Application.Contracts.ProductPropertiesValues;
-using PrancaBeauty.Application.Contracts.ProductSellers;
 using PrancaBeauty.Application.Contracts.ProductVariantItems;
 using PrancaBeauty.Application.Contracts.Results;
 using PrancaBeauty.Domin.Product.ProductAgg.Contracts;
@@ -493,6 +492,66 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
                     _OldProductPrice = 0;
 
                 return new OutGetProductPriceByVariantItemId { ProductPrice = _ProductPrice, ProductOldPrice = _OldProductPrice, CurrencySymbol = qData.CurrencySymbol };
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
+            }
+        }
+
+        public async Task<List<OutGetAllProductSellerByVariantValue>> GetAllProductSellerByVariantValueAsync(InpGetAllProductSellerByVariantValue Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var qData = await _ProductVariantItemsRepository.Get
+                                                    .Where(a => a.ProductId == Input.ProductId.ToGuid())
+                                                    .Where(a => a.Value == Input.VariaintValue)
+                                                    .Where(a => a.IsEnable && a.IsConfirm && a.CountInStock > 0)
+                                                    .Select(a => new OutGetAllProductSellerByVariantValue
+                                                    {
+                                                        VariantId = a.Id.ToString(),
+                                                        SellerName = a.tblProductSellers.tblSellers.tblSeller_Translates.Where(b => b.LangId == Input.LangId.ToGuid()).Select(b => b.Title).Single(),
+                                                        SendBy = a.SendBy,
+                                                        SendFrom = a.SendFrom,
+                                                        GarrantyName = a.tblGuarantee.tblGuarantee_Translates.Where(b => b.LangId == Input.LangId.ToGuid()).Select(b => b.Title).Single(),
+                                                        CurrencySymbol = a.tblProducts.tblProductPrices.Where(b => b.IsActive).Select(b => b.tblCurrency.Symbol).Single(),
+                                                        PercentSavePrice = 0, // TODO: Calc Discound
+                                                        SellerLogo = a.tblProductSellers.tblSellers.tblSeller_Translates.Where(b => b.LangId == Input.LangId.ToGuid()).Select(b => new
+                                                        {
+                                                            LogoImg = b.tblFiles.tblFilePaths.tblFileServer.HttpDomin
+                                                                      + b.tblFiles.tblFilePaths.tblFileServer.HttpPath
+                                                                      + b.tblFiles.tblFilePaths.Path
+                                                                      + b.tblFiles.FileName
+                                                        }).Single().LogoImg,
+                                                        Price = a.tblProducts.tblProductPrices.Where(b => b.IsActive).Select(b => b.Price).Single(),
+                                                        SellerPercentPrice = a.Percent
+                                                    })
+                                                    .ToListAsync();
+
+                qData = qData.Select(a => new OutGetAllProductSellerByVariantValue
+                {
+                    VariantId=a.VariantId,
+                    CurrencySymbol = a.CurrencySymbol,
+                    GarrantyName = a.GarrantyName,
+                    PercentSavePrice = a.PercentSavePrice,
+                    SellerLogo=a.SellerLogo,
+                    SellerName=a.SellerName,
+                    SendBy=a.SendBy,
+                    SendFrom=a.SendFrom,
+                    
+                }).ToList();
+
+                return qData;
             }
             catch (ArgumentInvalidException ex)
             {

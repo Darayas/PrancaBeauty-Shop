@@ -33,10 +33,10 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.Compo_ProductSeller
             try
             {
                 #region Validations
-                Input.CheckModelState(_ServiceProvider);
+                //Input.CheckModelState(_ServiceProvider);
                 #endregion
 
-
+                return Page();
             }
             catch (ArgumentInvalidException ex)
             {

@@ -41,8 +41,8 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     FtpData = _FtpData,
                     Capacity = 10737418240,
                     Description = "",
-                    HttpDomin = "http://127.0.0.111",
-                    HttpPath = "/Main",
+                    HttpDomin = "http://127.0.0.10",
+                    HttpPath = "/Public",
                     IsActive = true,
                 }, default, false).Wait();
             }

@@ -91,7 +91,7 @@ namespace PrancaBeauty.WebApp.Mapping
             CreateMap<viEditProductSeller_Items, InpEditProductVariants_Variants>();
             CreateMap<OutGetListSellerForCombo, vmCompo_Combo_Sellers>();
             CreateMap<OutGetAllVariantsByProductId, vmGetProductSellerVariants>();
-            CreateMap<OutGetSummaryBySellerId, vmProductSellerDetails>().ForMember(x => x.DateTime,opt => opt.MapFrom(src => ((DateTime)src.DateTime).ToString("yyyy-MM-dd")));
+            CreateMap<OutGetSummaryBySellerId, vmProductSellerDetails>().ForMember(x => x.DateTime, opt => opt.MapFrom(src => ((DateTime)src.DateTime).ToString("yyyy-MM-dd")));
 
             CreateMap<OutGetReviewsForProductDetails, vmCompo_ListProductReviews>();
             CreateMap<OutGetReviewsForProductDetailsItems, vmCompo_ListProductReviewsItems>()
@@ -102,7 +102,7 @@ namespace PrancaBeauty.WebApp.Mapping
             CreateMap<OutGetReviewsForProductDetailsSellers, vmGetReviewsForProductDetailsSellers>();
 
             CreateMap<OutGetAttributesByTopicId, viCompo_ProductReviewAttributes>();
-                                                                       
+
 
             CreateMap<viCompo_AddProductReviews, InpAddReviewFromUser>();
             CreateMap<viCompo_AddProductReviewsAttributes, InpAddReviewFromUserAttributes>();
@@ -110,6 +110,11 @@ namespace PrancaBeauty.WebApp.Mapping
             CreateMap<viCompo_AddProductAsk, InpAddNewAsk>();
             CreateMap<OutGetListAsks, vmCompo_ListProductAsks>();
             CreateMap<OutGetListAsks_Answer, vmGetListAsks_Answer>();
+
+            CreateMap<OutGetListSellerByVariantValue, vmCompo_ProductSellers>()
+                                                                 .ForMember(a => a.MainPrice, a => a.MapFrom(b => b.MainPrice.ToN3()))
+                                                                 .ForMember(a => a.PercentSavePrice, a => a.MapFrom(b => b.PercentSavePrice.ToString(new CultureInfo("en-US"))))
+                                                                 .ForMember(a => a.OldPrice, a => a.MapFrom(b => b.OldPrice.ToN3()));
 
             CreateMap<OutGetProductPriceByVariantId, vmCompo_ProductSelectedPrice>()
                                                                  .ForMember(a => a.ProductOldPrice, a => a.MapFrom(b => b.ProductOldPrice.ToN3()))

@@ -393,6 +393,47 @@ namespace PrancaBeauty.Application.Apps.ProductSellers
             }
         }
 
-        
+        public async Task<List<OutGetListSellerByVariantValue>> GetListSellerByVariantValueAsync(InpGetListSellerByVariantValue Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var qData = await _ProductVariantItemsApplication.GetAllProductSellerByVariantValueAsync(new InpGetAllProductSellerByVariantValue
+                {
+                    LangId=Input.LangId,
+                    ProductId=Input.ProductId,
+                    VariaintValue=Input.VariaintValue
+                });
+
+                var SellerData = qData.Select(a => new OutGetListSellerByVariantValue
+                {
+                    CurrencySymbol=a.CurrencySymbol,
+                    GarrantyName=a.GarrantyName,
+                    MainPrice=a.MainPrice,
+                    OldPrice=a.OldPrice,
+                    PercentSavePrice=a.PercentSavePrice,
+                    SellerLogo=a.SellerLogo,
+                    SellerName=a.SellerName,
+                    SendBy=a.SendBy,
+                    SendFrom=a.SendFrom,
+                    VariantId=a.VariantId
+                }).ToList();
+
+                return SellerData;
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
+            }
+        }
     }
 }

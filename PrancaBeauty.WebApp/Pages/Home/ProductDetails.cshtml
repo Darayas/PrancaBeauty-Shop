@@ -132,7 +132,7 @@
 <!--product Sellers start-->
 @if (Model.Data.ProductVariantItemIdForPrice != null)
 {
-    <LoadComponent id="ProductPrice"
+    <LoadComponent id="ProductSellers"
                url="/@ViewData["culture"]/Shared/Compo/ProductSellers"
                data='new viGetCompo_ProductSellers{ ProductId=Model.Data.Id  }' ,
                context="HttpContext"></LoadComponent>

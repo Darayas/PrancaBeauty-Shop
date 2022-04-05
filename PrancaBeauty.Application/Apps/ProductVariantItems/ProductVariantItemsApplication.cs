@@ -548,7 +548,10 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
                     SellerName=a.SellerName,
                     SendBy=a.SendBy,
                     SendFrom=a.SendFrom,
-                    
+                    Price=a.Price,
+                    SellerPercentPrice=a.SellerPercentPrice,
+                    OldPrice=a.PercentSavePrice==0 ? 0 : a.Price+ ((a.Price/100)*a.SellerPercentPrice),
+                    MainPrice= a.Price+ ((a.Price/100)*a.SellerPercentPrice) - ((a.Price + ((a.Price/100)*a.SellerPercentPrice)/100) * a.PercentSavePrice)
                 }).ToList();
 
                 return qData;

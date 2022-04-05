@@ -5,6 +5,7 @@ using Framework.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.ProductSellers;
+using PrancaBeauty.Application.Contracts.ProductSellers;
 using PrancaBeauty.WebApp.Models.ViewInput;
 using PrancaBeauty.WebApp.Models.ViewModel;
 using System;
@@ -28,13 +29,22 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.Compo_ProductSeller
             _ProductSellersApplication = productSellersApplication;
         }
 
-        public async Task<IActionResult> OnGetAsync(viGetCompo_ProductSellers Input)
+        public async Task<IActionResult> OnGetAsync(viGetCompo_ProductSellers Input, string LangId)
         {
             try
             {
                 #region Validations
-                //Input.CheckModelState(_ServiceProvider);
+                Input.CheckModelState(_ServiceProvider);
                 #endregion
+
+                var qData = await _ProductSellersApplication.GetListSellerByVariantValueAsync(new InpGetListSellerByVariantValue
+                {
+                    LangId=LangId,
+                    ProductId=Input.ProductId,
+                    VariaintValue=Input.VariaintValue
+                });
+
+                Data= _Mapper.Map<List<vmCompo_ProductSellers>>(qData);
 
                 return Page();
             }

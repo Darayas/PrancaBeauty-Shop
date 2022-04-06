@@ -354,6 +354,23 @@
                 &:first-child {
                     margin-right: 0;
                 }
+
+                &.active {
+                    position: relative;
+                    top: -10px !important;
+
+                    &:after {
+                        font-family: "Font Awesome 5 Pro";
+                        content: '\f00c';
+                        font-weight: 700;
+                        color: white;
+                        width: 24px;
+                        height: 24px;
+                        border-radius: 12px;
+                        padding: 5px;
+                        background-color: #73cc0074;
+                    }
+                }
             }
         }
     }

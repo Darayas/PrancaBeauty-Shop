@@ -8,7 +8,7 @@
         <ul>
             @foreach (var item in Model.Data.LstItems)
             {
-                <li class="@(Model.Data.DefaultVariantValue==item.Value?"active":"")" title="@item.Title" style="background-color:@item.Value" onclick="LoadDetails('@item.Value')"></li>
+                <li id="item@(item.Value)" class="@(Model.Data.DefaultVariantValue==item.Value?"active":"")" title="@item.Title" style="background-color:@item.Value" onclick="LoadDetails('@item.Value')"></li>
             }
         </ul>
     </div>

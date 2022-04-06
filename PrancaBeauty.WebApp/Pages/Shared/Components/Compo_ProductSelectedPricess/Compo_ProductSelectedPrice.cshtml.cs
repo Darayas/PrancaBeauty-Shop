@@ -41,11 +41,12 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.Compo_ProductSelectedPrice
                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
-                if(Input.ProductVariantItemId != null)
+                if(Input.ProductVariantValue != null)
                 {
                     var qData = await _ProductApplication.GetProductPriceByVariantIdAsync(new InpGetProductPriceByVariantId()
                     {
-                        ProductVariantItemId = Input.ProductVariantItemId
+                        ProductId=Input.ProductId,
+                        ProductVariantValue = Input.ProductVariantValue
                     });
 
                     if (qData == null)

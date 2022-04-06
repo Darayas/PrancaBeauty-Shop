@@ -12,7 +12,7 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
 
         [Display(Name = "ProductVariantValue")]
         [RequiredString]
-        [GUID]
+        [MaxLengthString(100)]
         public string ProductVariantValue { get; set; }
     }
 }

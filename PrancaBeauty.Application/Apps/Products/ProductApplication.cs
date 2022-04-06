@@ -974,7 +974,7 @@ namespace PrancaBeauty.Application.Apps.Products
 
         public async Task<OutGetProductPriceByVariantId> GetProductPriceByVariantIdAsync(InpGetProductPriceByVariantId Input)
         {
-            var qData = await _ProductVariantItemsApplication.GetProductPriceByVariantItemIdAsync(new InpGetProductPriceByVariantItemId { ProductVariantItemId = Input.ProductVariantItemId });
+            var qData = await _ProductVariantItemsApplication.GetProductPriceByVariantItemIdAsync(new InpGetProductPriceByVariantItemId { ProductId=Input.ProductId, ProductVariantValue = Input.ProductVariantValue });
 
             if (qData == null)
                 return null;

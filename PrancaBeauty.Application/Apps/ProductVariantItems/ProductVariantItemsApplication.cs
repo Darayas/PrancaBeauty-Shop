@@ -473,7 +473,9 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
                 #endregion
 
                 var qData = await _ProductVariantItemsRepository.Get
-                                                                .Where(a => a.Id == Input.ProductVariantItemId.ToGuid())
+                                                                .Where(a => a.ProductId==Input.ProductId.ToGuid())
+                                                                .Where(a => a.IsEnable && a.IsConfirm && a.CountInStock > 0)
+                                                                .Where(a => a.Value==Input.ProductVariantValue)
                                                                 .Select(a => new
                                                                 {
                                                                     MainPrice = a.tblProducts.tblProductPrices.Where(b => b.IsActive).Select(b => b.Price).Single(),
@@ -481,17 +483,20 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
                                                                     SellerPercentPrice = a.Percent,
                                                                     SavePercentPrice = 0, // TODO: Calc Discount
                                                                 })
-                                                                .SingleOrDefaultAsync();
+                                                                .Select(a => new OutGetProductPriceByVariantItemId
+                                                                {
+                                                                    ProductOldPrice = a.SavePercentPrice==0 ? 0 : a.MainPrice + ((a.MainPrice / 100) * a.SellerPercentPrice),
+                                                                    ProductPrice = a.MainPrice + ((a.MainPrice / 100) * a.SellerPercentPrice) - (((a.MainPrice + ((a.MainPrice / 100) * a.SellerPercentPrice)) / 100) * a.SavePercentPrice),
+                                                                    CurrencySymbol=a.CurrencySymbol
+                                                                })
+                                                                .OrderBy(a => a.ProductPrice)
+                                                                .FirstOrDefaultAsync();
 
                 if (qData == null)
                     return null;
 
-                double _OldProductPrice = qData.MainPrice + ((qData.MainPrice / 100) * qData.SellerPercentPrice);
-                double _ProductPrice = _OldProductPrice - ((_OldProductPrice / 100) * qData.SavePercentPrice);
-                if (qData.SavePercentPrice == 0)
-                    _OldProductPrice = 0;
 
-                return new OutGetProductPriceByVariantItemId { ProductPrice = _ProductPrice, ProductOldPrice = _OldProductPrice, CurrencySymbol = qData.CurrencySymbol };
+                return qData;
             }
             catch (ArgumentInvalidException ex)
             {

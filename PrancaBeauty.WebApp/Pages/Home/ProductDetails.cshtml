@@ -72,7 +72,7 @@
 
                         <LoadComponent id="ProductPrice"
                                        url="/@ViewData["culture"]/Shared/Compo/ProductSelectedPrice"
-                                       data='new viGetCompo_ProductSelectedPrice{ ProductVariantItemId=Model.Data.ProductVariantItemIdForPrice }' ,
+                                       data='new viGetCompo_ProductSelectedPrice{ ProductId=Model.Data.Id,ProductVariantValue=Model.Data.DefaultProductVariantValue }' ,
                                        context="HttpContext"></LoadComponent>
 
                         <div class="product_desc">
@@ -89,7 +89,7 @@
 
                         <LoadComponent id="ProductVariantItems"
                                        url="/@ViewData["culture"]/Shared/Compo/ProductVariantItem"
-                                       data='new viCompo_ProductVariantItem{ ProductId=Model.Data.Id,ProductVariantId=Model.Data.ProductVariantItemIdForPrice  }' ,
+                                       data='new viCompo_ProductVariantItem{ ProductId=Model.Data.Id,ProductVariantValue=Model.Data.DefaultProductVariantValue  }' ,
                                        context="HttpContext"></LoadComponent>
 
                         <div class="product_variant quantity">
@@ -127,7 +127,7 @@
 <!--product details end-->
 <!--product Sellers start-->
 <div class="ProductSellers">
-    @if (Model.Data.ProductVariantItemIdForPrice != null)
+    @if (Model.Data.DefaultProductVariantValue != null)
     {
         <LoadComponent id="ProductSellers"
                    url="/@ViewData["culture"]/Shared/Compo/ProductSellers"
@@ -617,8 +617,14 @@
 <script>
     function LoadDetails(_Val)
     {
+        LoadComponent('/@ViewData["culture"]/Shared/Compo/ProductSelectedPrice',{ProductId:'@Model.Data.Id',ProductVariantValue:_Val},function(res){
+            $('#ProductPrice').html(res);
+        });
+        
         LoadComponent('/@ViewData["culture"]/Shared/Compo/ProductSellers',{ProductId:'@Model.Data.Id',VariaintValue:_Val},function(res){
             $('.ProductSellers').html(res);
+            $('.product_variant ul li').removeClass('active');
+            $('#item'+_Val).addClass('active');
         });
     }
 </script>

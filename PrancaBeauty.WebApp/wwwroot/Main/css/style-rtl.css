@@ -6080,7 +6080,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 .product_variant.color ul li:hover {
   border-color: #E88888;
 }
-.product_variant.color ul li:last-child {
+.product_variant.color ul li:first-child {
   margin-right: 0;
 }
 .product_variant.color ul li a {

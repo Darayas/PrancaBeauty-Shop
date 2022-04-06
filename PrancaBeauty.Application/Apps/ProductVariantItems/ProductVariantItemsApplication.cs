@@ -567,5 +567,44 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
                 return null;
             }
         }
+
+        public async Task<OutGetAllProductVariantsForProductDetails> GetAllProductVariantsForProductDetailsAsync(InpGetAllProductVariantsForProductDetails Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var qData = await _ProductVariantItemsRepository.Get
+                                                                .Where(a => a.ProductId==Input.ProductId.ToGuid())
+                                                                .Where(a => a.IsEnable && a.IsConfirm && a.CountInStock > 0)
+                                                                .Select(a => new OutGetAllProductVariantsForProductDetails
+                                                                {
+                                                                    Title=a.tblProductVariants.tblProductVariants_Translates.Where(b => b.LangId==Input.LangId.ToGuid()).Select(b => b.Title).Single(),
+                                                                    VariantType=a.tblProductVariants.VariantType,
+                                                                    LstItems= a.tblProductVariants.tblProductVariantItems
+                                                                                                  //.GroupBy(b => b.Value)
+                                                                                                  .Select(b => new OutGetAllProductVariantsForProductDetailsItem
+                                                                                                  {
+                                                                                                      //Title=b.Select(c => c.Title).First(),
+                                                                                                      //Value=b.Key,
+                                                                                                      Title=b.Title,
+                                                                                                      Value=b.Value
+                                                                                                  }).DistinctBy(a=>a.Value).ToList()
+                                                                })
+                                                                .SingleOrDefaultAsync();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
+            }
+        }
     }
 }

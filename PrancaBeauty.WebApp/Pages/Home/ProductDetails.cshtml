@@ -134,7 +134,7 @@
 {
     <LoadComponent id="ProductSellers"
                url="/@ViewData["culture"]/Shared/Compo/ProductSellers"
-               data='new viGetCompo_ProductSellers{ ProductId=Model.Data.Id  }' ,
+               data='new viGetCompo_ProductSellers{ ProductId=Model.Data.Id,VariaintValue=Model.Data.DefaultProductVariantValue  }' ,
                context="HttpContext"></LoadComponent>
 }
 <!--product Sellers end-->

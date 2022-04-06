@@ -925,6 +925,7 @@ namespace PrancaBeauty.Application.Apps.Products
                                                         Id = a.Id.ToString(),
                                                         TopicId = a.TopicId.ToString(),
                                                         ProductVariantItemIdForPrice = a.tblProductVariantItems.Any(a => a.IsConfirm && a.IsEnable && a.CountInStock > 0) ? a.tblProductVariantItems.Where(a => a.IsConfirm && a.IsEnable && a.CountInStock > 0).Select(b => new { ItemId = b.Id, SellerPercentWithDiscount = b.Percent - 0 /* TODO: Calc discount */ }).OrderBy(b => b.SellerPercentWithDiscount).Select(b => b.ItemId.ToString()).First() : null,
+                                                        DefaultProductVariantValue = a.tblProductVariantItems.Any(a => a.IsConfirm && a.IsEnable && a.CountInStock > 0) ? a.tblProductVariantItems.Where(a => a.IsConfirm && a.IsEnable && a.CountInStock > 0).Select(b => new { VariantValue = b.Value, SellerPercentWithDiscount = b.Percent - 0 /* TODO: Calc discount */ }).OrderBy(b => b.SellerPercentWithDiscount).Select(b => b.VariantValue).First() : null,
                                                         Title = a.Title,
                                                         Name = a.Name,
                                                         AvgStarRating = a.tblProductReviews.Count(a => a.CountStar > 0) > 0 ? a.tblProductReviews.Where(b => b.CountStar > 0).Average(b => b.CountStar) : 0,

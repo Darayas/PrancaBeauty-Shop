@@ -434,7 +434,7 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
                 if (qData == null)
                     return new OperationResult().Failed("IdNotFound");
 
-                if (qData.IsMain == false)
+                if (qData.IsMain == true)
                     return new OperationResult().Failed("CantChangeStatusMainVariant");
 
                 if (qData.IsConfirm)

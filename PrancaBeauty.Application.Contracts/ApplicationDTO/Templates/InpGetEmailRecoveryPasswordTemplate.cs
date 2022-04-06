@@ -1,0 +1,18 @@
+﻿using Framework.Common.DataAnnotations.String;
+using System.ComponentModel.DataAnnotations;
+
+namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Templates
+{
+    public class InpGetEmailRecoveryPasswordTemplate
+    {
+        [Display(Name = "LangCode")]
+        [RequiredString]
+        [MaxLengthString(100)]
+        public string LangCode { get; set; }
+
+        [Display(Name = "Url")]
+        [RequiredString]
+        [MaxLengthString(500)]
+        public string Url { get; set; }
+    }
+}

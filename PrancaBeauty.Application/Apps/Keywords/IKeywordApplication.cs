@@ -1,5 +1,5 @@
-﻿using PrancaBeauty.Application.Contracts.Keywords;
-using PrancaBeauty.Application.Contracts.Results;
+﻿using PrancaBeauty.Application.Contracts.ApplicationDTO.Keywords;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Results;
 using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Apps.Keywords

@@ -5,9 +5,9 @@ using Framework.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.ProductVariantItems;
-using PrancaBeauty.Application.Contracts.ProductVariantItems;
-using PrancaBeauty.WebApp.Models.ViewInput;
-using PrancaBeauty.WebApp.Models.ViewModel;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.ProductVariantItems;
+using PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput;
+using PrancaBeauty.Application.Contracts.PresentationDTO.ViewModel;
 using System;
 using System.Threading.Tasks;
 

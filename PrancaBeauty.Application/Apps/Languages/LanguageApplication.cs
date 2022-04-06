@@ -1,7 +1,7 @@
 ﻿using Framework.Common.ExMethods;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
-using PrancaBeauty.Application.Contracts.Languages;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Languages;
 using PrancaBeauty.Domin.Region.LanguagesAgg.Contracts;
 using System;
 using System.Collections.Generic;

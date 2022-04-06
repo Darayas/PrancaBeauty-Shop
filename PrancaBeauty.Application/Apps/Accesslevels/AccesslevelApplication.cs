@@ -5,9 +5,9 @@ using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Apps.AccesslevelsRoles;
 using PrancaBeauty.Application.Apps.Roles;
-using PrancaBeauty.Application.Contracts.AccesslevelRoles;
-using PrancaBeauty.Application.Contracts.AccessLevels;
-using PrancaBeauty.Application.Contracts.Results;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.AccesslevelRoles;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.AccessLevels;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Results;
 using PrancaBeauty.Domin.Users.AccessLevelAgg.Contracts;
 using PrancaBeauty.Domin.Users.AccessLevelAgg.Entities;
 using System;
@@ -111,7 +111,7 @@ namespace PrancaBeauty.Application.Apps.Accesslevels
                     tblAccessLevel_Roles = Input.Roles.Select(role => new tblAccessLevel_Roles()
                     {
                         Id = new Guid().SequentialGuid(),
-                        RoleId = Guid.Parse(_RoleApplication.GetIdByNameAsync(new Contracts.Roles.InpGetIdByName { Name = role }).Result)
+                        RoleId = Guid.Parse(_RoleApplication.GetIdByNameAsync(new PrancaBeauty.Application.Contracts.ApplicationDTO.Roles.InpGetIdByName { Name = role }).Result)
                     }).ToList()
                 }, default, true);
 

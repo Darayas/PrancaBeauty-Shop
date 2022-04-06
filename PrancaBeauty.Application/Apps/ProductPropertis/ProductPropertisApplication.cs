@@ -2,7 +2,7 @@
 using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
-using PrancaBeauty.Application.Contracts.ProductProperties;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.ProductProperties;
 using PrancaBeauty.Domin.Product.ProductPropertisAgg.Contracts;
 using System;
 using System.Collections.Generic;

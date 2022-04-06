@@ -6,10 +6,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.ProductReviews;
-using PrancaBeauty.Application.Contracts.ProdcutReviews;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.ProdcutReviews;
 using PrancaBeauty.WebApp.Common.ExMethod;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
-using PrancaBeauty.WebApp.Models.ViewInput;
+using PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput;
 using System;
 using System.Threading.Tasks;
 

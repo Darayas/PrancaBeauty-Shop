@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using PrancaBeauty.Application.Contracts.KeywordProducts;
-using PrancaBeauty.Application.Contracts.Keywords;
-using PrancaBeauty.Application.Contracts.Products;
-using PrancaBeauty.Application.Contracts.ProductVariantItems;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.KeywordProducts;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Keywords;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Products;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.ProductVariantItems;
 using System;
 using System.Collections.Generic;
 using System.Linq;

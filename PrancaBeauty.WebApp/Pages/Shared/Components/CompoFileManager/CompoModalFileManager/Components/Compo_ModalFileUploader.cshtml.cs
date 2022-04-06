@@ -6,10 +6,10 @@ using Framework.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Common.FtpWapper;
-using PrancaBeauty.Application.Contracts.Common.FtpWapper;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Common.FtpWapper;
 using PrancaBeauty.WebApp.Authentication;
 using PrancaBeauty.WebApp.Common.ExMethod;
-using PrancaBeauty.WebApp.Models.ViewInput;
+using PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput;
 
 namespace PrancaBeauty.WebApp.Pages.Shared.Components.CompoFileManager.CompoModalFileManager.Components
 {

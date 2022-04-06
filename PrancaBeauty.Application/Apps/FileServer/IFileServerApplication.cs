@@ -1,4 +1,4 @@
-﻿using PrancaBeauty.Application.Contracts.FileServer;
+﻿using PrancaBeauty.Application.Contracts.ApplicationDTO.FileServer;
 using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Apps.FileServer

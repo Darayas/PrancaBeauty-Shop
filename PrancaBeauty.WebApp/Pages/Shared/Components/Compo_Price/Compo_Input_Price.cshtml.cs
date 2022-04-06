@@ -7,10 +7,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Currency;
 using PrancaBeauty.Application.Apps.Languages;
-using PrancaBeauty.Application.Contracts.Currency;
-using PrancaBeauty.Application.Contracts.Languages;
-using PrancaBeauty.WebApp.Models.ViewInput;
-using PrancaBeauty.WebApp.Models.ViewModel;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Currency;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Languages;
+using PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput;
+using PrancaBeauty.Application.Contracts.PresentationDTO.ViewModel;
 
 namespace PrancaBeauty.WebApp.Pages.Shared.Components.Compo_Price
 {

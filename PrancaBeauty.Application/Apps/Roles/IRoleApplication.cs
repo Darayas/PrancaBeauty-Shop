@@ -1,4 +1,4 @@
-﻿using PrancaBeauty.Application.Contracts.Roles;
+﻿using PrancaBeauty.Application.Contracts.ApplicationDTO.Roles;
 using PrancaBeauty.Domin.Users.UserAgg.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;

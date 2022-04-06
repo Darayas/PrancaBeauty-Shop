@@ -1,4 +1,4 @@
-﻿using PrancaBeauty.Application.Contracts.City;
+﻿using PrancaBeauty.Application.Contracts.ApplicationDTO.City;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

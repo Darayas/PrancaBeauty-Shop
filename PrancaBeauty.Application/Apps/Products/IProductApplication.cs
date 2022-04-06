@@ -1,6 +1,6 @@
 ﻿using Framework.Common.Utilities.Paging;
-using PrancaBeauty.Application.Contracts.Products;
-using PrancaBeauty.Application.Contracts.Results;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Products;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Results;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

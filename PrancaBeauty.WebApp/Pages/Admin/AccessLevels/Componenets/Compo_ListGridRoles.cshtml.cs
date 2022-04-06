@@ -7,9 +7,9 @@ using Kendo.Mvc.UI;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Roles;
-using PrancaBeauty.Application.Contracts.Roles;
-using PrancaBeauty.WebApp.Models.ViewInput;
-using PrancaBeauty.WebApp.Models.ViewModel;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Roles;
+using PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput;
+using PrancaBeauty.Application.Contracts.PresentationDTO.ViewModel;
 
 namespace PrancaBeauty.WebApp.Pages.Admin.AccessLevels.Componenets
 {

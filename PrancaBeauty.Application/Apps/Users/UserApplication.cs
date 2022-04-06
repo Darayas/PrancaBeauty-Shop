@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Apps.Accesslevels;
 using PrancaBeauty.Application.Apps.Templates;
 using PrancaBeauty.Application.Common.FtpWapper;
-using PrancaBeauty.Application.Contracts.AccessLevels;
-using PrancaBeauty.Application.Contracts.Common.FtpWapper;
-using PrancaBeauty.Application.Contracts.Results;
-using PrancaBeauty.Application.Contracts.Templates;
-using PrancaBeauty.Application.Contracts.Users;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.AccessLevels;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Common.FtpWapper;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Results;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Templates;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Users;
 using PrancaBeauty.Domin.Users.UserAgg.Contracts;
 using PrancaBeauty.Domin.Users.UserAgg.Entities;
 using System;
@@ -723,7 +723,7 @@ namespace PrancaBeauty.Application.Apps.Users
             }
         }
 
-        public async Task<(OutPagingData, List<Contracts.Users.OutGetListForAdminPage>)> GetListForAdminPageAsync(Contracts.Users.InpGetListForAdminPage Input)
+        public async Task<(OutPagingData, List<Contracts.ApplicationDTO.Users.OutGetListForAdminPage>)> GetListForAdminPageAsync(Contracts.ApplicationDTO.Users.InpGetListForAdminPage Input)
         {
             try
             {
@@ -737,7 +737,7 @@ namespace PrancaBeauty.Application.Apps.Users
 
                 // آماده سازی اولیه ی کویری
                 var qData = _UserRepository.Get
-                    .Select(a => new Contracts.Users.OutGetListForAdminPage
+                    .Select(a => new Contracts.ApplicationDTO.Users.OutGetListForAdminPage
                     {
                         Id = a.Id.ToString(),
                         AccessLevelId = a.AccessLevelId.ToString(),
@@ -1076,7 +1076,7 @@ namespace PrancaBeauty.Application.Apps.Users
 
                     string _Url = Input.UrlToChangeEmail.Replace("[Token]", WebUtility.UrlEncode(EncryptedData));
 
-                    await _EmailSender.SendAsync(NewEmail, _Localizer["ChangeEmailSubject"], await _TemplateApplication.GetEmailChangeTemplateAsync(new Contracts.Templates.InpGetEmailChangeTemplate { LangCode = CultureInfo.CurrentCulture.Name, Url = _Url }));
+                    await _EmailSender.SendAsync(NewEmail, _Localizer["ChangeEmailSubject"], await _TemplateApplication.GetEmailChangeTemplateAsync(new InpGetEmailChangeTemplate { LangCode = CultureInfo.CurrentCulture.Name, Url = _Url }));
 
                     FlgChangeEmail = true;
                 }

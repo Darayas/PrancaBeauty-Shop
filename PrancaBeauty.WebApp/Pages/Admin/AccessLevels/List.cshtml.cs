@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 using PrancaBeauty.WebApp.Authentication;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
 using PrancaBeauty.WebApp.Common.ExMethod;
-using PrancaBeauty.Application.Contracts.AccessLevels;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.AccessLevels;
 using Framework.Infrastructure;
 
 namespace PrancaBeauty.WebApp.Pages.Admin.AccessLevels

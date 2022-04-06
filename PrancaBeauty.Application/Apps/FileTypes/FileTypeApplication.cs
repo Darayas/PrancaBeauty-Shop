@@ -2,7 +2,7 @@
 using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
-using PrancaBeauty.Application.Contracts.FileTypes;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.FileTypes;
 using PrancaBeauty.Domin.FileServer.FileTypeAgg.Contracts;
 using System;
 using System.Collections.Generic;

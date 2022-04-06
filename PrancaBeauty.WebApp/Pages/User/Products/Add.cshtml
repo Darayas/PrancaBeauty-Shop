@@ -45,7 +45,7 @@
                                 <label asp-for="Input.LangId"></label>
                                 <LoadComponent id="ProductLangCompo"
                                                context="HttpContext"
-                                               data='new viCompo_Combo_Language { FieldName="Input.LangId",LangId= await _LanguageApplication.GetLangIdByLangCodeAsync(new PrancaBeauty.Application.Contracts.Languages.InpGetLangIdByLangCode {  Code=CultureInfo.CurrentCulture.Name})}'
+                                               data='new viCompo_Combo_Language { FieldName="Input.LangId",LangId= await _LanguageApplication.GetLangIdByLangCodeAsync(new PrancaBeauty.Application.Contracts.ApplicationDTO.Languages.InpGetLangIdByLangCode {  Code=CultureInfo.CurrentCulture.Name})}'
                                                url="/@ViewData["culture"]/Shared/Compo/ComboLanguage"></LoadComponent>
                             </div>
 
@@ -76,7 +76,7 @@
                             <div class="form-group">
                                 <LoadComponent id="PriceCompo"
                                                context="HttpContext"
-                                               data='new viCompo_Input_Price { FieldName="Input.Price",Price="0",LangId=await _LanguageApplication.GetLangIdByLangCodeAsync(new PrancaBeauty.Application.Contracts.Languages.InpGetLangIdByLangCode { Code=CultureInfo.CurrentCulture.Name })}'
+                                               data='new viCompo_Input_Price { FieldName="Input.Price",Price="0",LangId=await _LanguageApplication.GetLangIdByLangCodeAsync(new PrancaBeauty.Application.Contracts.ApplicationDTO.Languages.InpGetLangIdByLangCode { Code=CultureInfo.CurrentCulture.Name })}'
                                                url="/@ViewData["culture"]/Shared/Compo/ComboInputPrice"></LoadComponent>
                             </div>
                         </div>

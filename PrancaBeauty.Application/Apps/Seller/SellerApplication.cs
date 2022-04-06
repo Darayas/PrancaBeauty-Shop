@@ -3,7 +3,7 @@ using Framework.Common.ExMethods;
 using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
-using PrancaBeauty.Application.Contracts.Sellers;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Sellers;
 using PrancaBeauty.Domin.Users.SellerAgg.Contracts;
 using System;
 using System.Collections.Generic;

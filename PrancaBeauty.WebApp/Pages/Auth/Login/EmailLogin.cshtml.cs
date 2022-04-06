@@ -8,7 +8,7 @@ using Framework.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Users;
-using PrancaBeauty.Application.Contracts.Users;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Users;
 using PrancaBeauty.WebApp.Authentication;
 using PrancaBeauty.WebApp.Common.ExMethod;
 

@@ -1,4 +1,4 @@
-﻿using PrancaBeauty.Application.Contracts.Templates;
+﻿using PrancaBeauty.Application.Contracts.ApplicationDTO.Templates;
 using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Apps.Templates

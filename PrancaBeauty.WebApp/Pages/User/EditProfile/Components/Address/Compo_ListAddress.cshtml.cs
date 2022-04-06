@@ -14,10 +14,10 @@ using Microsoft.CodeAnalysis.CSharp;
 using PrancaBeauty.Application.Apps.Address;
 using PrancaBeauty.Application.Apps.Languages;
 using PrancaBeauty.Application.Apps.Users;
-using PrancaBeauty.Application.Contracts.Address;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Address;
 using PrancaBeauty.WebApp.Common.ExMethod;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
-using PrancaBeauty.WebApp.Models.ViewModel;
+using PrancaBeauty.Application.Contracts.PresentationDTO.ViewModel;
 
 namespace PrancaBeauty.WebApp.Pages.User.EditProfile.Components.Address
 {

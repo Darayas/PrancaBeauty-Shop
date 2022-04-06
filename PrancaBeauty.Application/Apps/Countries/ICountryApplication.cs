@@ -1,4 +1,4 @@
-﻿using PrancaBeauty.Application.Contracts.Countries;
+﻿using PrancaBeauty.Application.Contracts.ApplicationDTO.Countries;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

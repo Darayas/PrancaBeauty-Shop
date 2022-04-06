@@ -10,11 +10,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Categories;
 using PrancaBeauty.Application.Apps.Languages;
-using PrancaBeauty.Application.Contracts.Categories;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Categories;
 using PrancaBeauty.WebApp.Authentication;
 using PrancaBeauty.WebApp.Common.ExMethod;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
-using PrancaBeauty.WebApp.Models.ViewInput;
+using PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput;
 
 namespace PrancaBeauty.WebApp.Pages.Admin.Categories
 {

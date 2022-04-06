@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using PrancaBeauty.WebApp.Models.ViewInput;
+using PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput;
 
 namespace PrancaBeauty.WebApp.Pages.Shared.Components.CompoFileManager.CompoModalFileManager
 {

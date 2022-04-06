@@ -2,8 +2,8 @@
 using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
-using PrancaBeauty.Application.Contracts.PostingRestrictions;
-using PrancaBeauty.Application.Contracts.Results;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.PostingRestrictions;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Results;
 using PrancaBeauty.Domin.Product.PostingRestrictionsAgg.Contracts;
 using PrancaBeauty.Domin.Product.PostingRestrictionsAgg.Entites;
 using System;

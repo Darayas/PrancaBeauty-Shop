@@ -7,11 +7,11 @@ using Microsoft.AspNetCore.Http;
 using PrancaBeauty.Application.Apps.FilePath;
 using PrancaBeauty.Application.Apps.Files;
 using PrancaBeauty.Application.Apps.FileServer;
-using PrancaBeauty.Application.Contracts.Common.FtpWapper;
-using PrancaBeauty.Application.Contracts.FilePath;
-using PrancaBeauty.Application.Contracts.Files;
-using PrancaBeauty.Application.Contracts.FileServer;
-using PrancaBeauty.Application.Contracts.Results;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Common.FtpWapper;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.FilePath;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Files;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.FileServer;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Results;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -161,7 +161,7 @@ namespace PrancaBeauty.Application.Common.FtpWapper
             }
         }
 
-        public async Task<bool> RemoveFileAsync(Contracts.Common.FtpWapper.InpRemoveFile Input)
+        public async Task<bool> RemoveFileAsync(Contracts.ApplicationDTO.Common.FtpWapper.InpRemoveFile Input)
         {
             try
             {
@@ -186,7 +186,7 @@ namespace PrancaBeauty.Application.Common.FtpWapper
                     return false;
 
                 // حذف فایل از دیتابیس
-                var _Result = await _FileApplication.RemoveFileAsync(new Contracts.Files.InpRemoveFile { FileId = Input.FileId, UserId = Input.UserId });
+                var _Result = await _FileApplication.RemoveFileAsync(new Contracts.ApplicationDTO.Files.InpRemoveFile { FileId = Input.FileId, UserId = Input.UserId });
                 if (_Result.IsSucceeded)
                     return true;
                 else

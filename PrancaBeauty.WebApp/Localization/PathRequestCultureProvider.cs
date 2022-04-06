@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using PrancaBeauty.Application.Apps.Languages;
-using PrancaBeauty.Application.Contracts.Languages;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Languages;
 using PrancaBeauty.WebApp.Common.Utility.IpAddress;
 using System;
 using System.Collections.Generic;

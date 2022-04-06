@@ -45,6 +45,7 @@ using PrancaBeauty.Application.Apps.Seller;
 using PrancaBeauty.Application.Apps.Settings;
 using PrancaBeauty.Application.Apps.Templates;
 using PrancaBeauty.Application.Apps.Users;
+using PrancaBeauty.Application.Common.ExMethods;
 using PrancaBeauty.Application.Common.FtpWapper;
 using PrancaBeauty.Domin.Categories.CategoriesAgg.Contracts;
 using PrancaBeauty.Domin.FileServer.FileAgg.Contracts;
@@ -129,6 +130,7 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
     {
         public static void Config(this IServiceCollection services)
         {
+            services.AddCustomAutoMapper();
             services.AddDbContext<MainContext>(opt => opt.UseSqlServer("Server=.;Database=PrancaBeautyDb;Trusted_Connection=True;"));
 
             services.AddScoped<ILogger, Serilogger>();

@@ -5,7 +5,7 @@ using Framework.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.ProductReviewsAttribute;
-using PrancaBeauty.WebApp.Models.ViewInput;
+using PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -34,7 +34,7 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.Compo_ProductReviews
                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
-                var qData = await _ProductReviewsAttributeApplication.GetAttributesByTopicIdAsync(new Application.Contracts.ProductReviewsAttributes.InpGetAttributesByTopicId
+                var qData = await _ProductReviewsAttributeApplication.GetAttributesByTopicIdAsync(new Application.Contracts.ApplicationDTO.ProductReviewsAttributes.InpGetAttributesByTopicId
                 {
                     LangId = LangId,
                     TopicId = Input.TopicId

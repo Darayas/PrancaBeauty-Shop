@@ -1,11 +1,9 @@
 ﻿using Framework.Application.Consts;
 using Microsoft.AspNetCore.Http;
 using PrancaBeauty.Application.Apps.Users;
-using PrancaBeauty.Application.Contracts.Users;
-using PrancaBeauty.WebApp.Models.ViewModel;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Users;
+using PrancaBeauty.Application.Contracts.PresentationDTO.ViewModel;
 using System;
-using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;

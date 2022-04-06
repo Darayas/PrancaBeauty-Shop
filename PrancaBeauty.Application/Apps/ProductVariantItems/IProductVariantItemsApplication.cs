@@ -1,6 +1,6 @@
-﻿using PrancaBeauty.Application.Contracts.ProductPropertiesValues;
-using PrancaBeauty.Application.Contracts.ProductVariantItems;
-using PrancaBeauty.Application.Contracts.Results;
+﻿using PrancaBeauty.Application.Contracts.ApplicationDTO.ProductPropertiesValues;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.ProductVariantItems;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Results;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

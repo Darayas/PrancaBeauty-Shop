@@ -10,7 +10,7 @@ using PrancaBeauty.Application.Apps.Files;
 using PrancaBeauty.Application.Common.FtpWapper;
 using PrancaBeauty.WebApp.Authentication;
 using PrancaBeauty.WebApp.Common.ExMethod;
-using PrancaBeauty.WebApp.Models.ViewInput;
+using PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput;
 
 namespace PrancaBeauty.WebApp.Pages.User.Products.Components.Compo_SimpleUploader
 {
@@ -33,10 +33,10 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Components.Compo_SimpleUploade
                 return new JsonResult(new { error = new { message = ModelState.GetErrors("\n\t") } });
 
             string _UserId = User.GetUserDetails().UserId;
-            var Result = await _FtpWapper.UploadFromFileManagerAsync(new Application.Contracts.Common.FtpWapper.InpUploadFromFileManager { FormFile = Input.upload, UserId = _UserId });
+            var Result = await _FtpWapper.UploadFromFileManagerAsync(new Application.Contracts.ApplicationDTO.Common.FtpWapper.InpUploadFromFileManager { FormFile = Input.upload, UserId = _UserId });
             if (Result.IsSucceeded)
             {
-                var FileUrl = await _FileApplication.GetFileUrlAsync(new Application.Contracts.Files.InpGetFileUrl { FileId = Result.Message });
+                var FileUrl = await _FileApplication.GetFileUrlAsync(new Application.Contracts.ApplicationDTO.Files.InpGetFileUrl { FileId = Result.Message });
                 if (FileUrl == null)
                     return new JsonResult(new { error = new { message = _Localizer["PleaseTryAgain"] } });
                 else

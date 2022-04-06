@@ -73,7 +73,7 @@
                                         int i = 0;
                                         foreach (var item in Model.Input.LstTranslate)
                                         {
-                                            var qLang =await _LanguageApplication.GetLangDetailsByIdAsync(new PrancaBeauty.Application.Contracts.Languages.InpGetLangDetailsById { LangId= item.LangId });
+                                            var qLang =await _LanguageApplication.GetLangDetailsByIdAsync(new PrancaBeauty.Application.Contracts.ApplicationDTO.Languages.InpGetLangDetailsById { LangId= item.LangId });
                                             items.Add()
                                                      .ImageUrl(qLang.FlagUrl)
                                                      .Text(qLang.NativeName)

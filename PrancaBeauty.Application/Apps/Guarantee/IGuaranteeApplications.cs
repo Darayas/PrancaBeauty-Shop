@@ -1,4 +1,4 @@
-﻿using PrancaBeauty.Application.Contracts.Guarantee;
+﻿using PrancaBeauty.Application.Contracts.ApplicationDTO.Guarantee;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using PrancaBeauty.Application.Apps.Settings;
-using PrancaBeauty.Application.Contracts.Settings;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Settings;
 using System;
 using System.Collections.Generic;
 using System.Globalization;

@@ -3,7 +3,7 @@ using Framework.Common.ExMethods;
 using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
-using PrancaBeauty.Application.Contracts.FileServer;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.FileServer;
 using PrancaBeauty.Domin.FileServer.ServerAgg.Contracts;
 using System;
 using System.Linq;

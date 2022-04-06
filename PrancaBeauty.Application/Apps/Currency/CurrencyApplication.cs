@@ -2,7 +2,7 @@
 using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
-using PrancaBeauty.Application.Contracts.Currency;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Currency;
 using PrancaBeauty.Domin.Region.CurrnencyAgg.Contracts;
 using System;
 using System.Linq;

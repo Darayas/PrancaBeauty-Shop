@@ -1,4 +1,4 @@
-﻿using PrancaBeauty.Application.Contracts.ProductReviewLikes;
+﻿using PrancaBeauty.Application.Contracts.ApplicationDTO.ProductReviewLikes;
 using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Apps.ProductReviewsLike

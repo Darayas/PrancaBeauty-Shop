@@ -1,5 +1,5 @@
-﻿using PrancaBeauty.Application.Contracts.ProductMedia;
-using PrancaBeauty.Application.Contracts.Results;
+﻿using PrancaBeauty.Application.Contracts.ApplicationDTO.ProductMedia;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Results;
 using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Apps.ProductMedia

@@ -1,4 +1,4 @@
-﻿using PrancaBeauty.Application.Contracts.ProductVariants;
+﻿using PrancaBeauty.Application.Contracts.ApplicationDTO.ProductVariants;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

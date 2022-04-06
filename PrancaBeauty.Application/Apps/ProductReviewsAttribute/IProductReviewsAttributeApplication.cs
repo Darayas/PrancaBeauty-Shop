@@ -1,4 +1,4 @@
-﻿using PrancaBeauty.Application.Contracts.ProductReviewsAttributes;
+﻿using PrancaBeauty.Application.Contracts.ApplicationDTO.ProductReviewsAttributes;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

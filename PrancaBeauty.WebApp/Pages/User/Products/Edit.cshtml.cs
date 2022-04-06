@@ -11,12 +11,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Products;
 using PrancaBeauty.Application.Apps.Seller;
-using PrancaBeauty.Application.Contracts.Products;
-using PrancaBeauty.Application.Contracts.Sellers;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Products;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Sellers;
 using PrancaBeauty.WebApp.Authentication;
 using PrancaBeauty.WebApp.Common.ExMethod;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
-using PrancaBeauty.WebApp.Models.ViewInput;
+using PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput;
 
 namespace PrancaBeauty.WebApp.Pages.User.Products
 {

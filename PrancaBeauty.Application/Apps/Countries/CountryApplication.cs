@@ -2,7 +2,7 @@
 using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
-using PrancaBeauty.Application.Contracts.Countries;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Countries;
 using PrancaBeauty.Domin.Region.CountryAgg.Contracts;
 using System;
 using System.Collections.Generic;

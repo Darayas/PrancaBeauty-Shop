@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Localization;
 using PrancaBeauty.Application.Apps.Languages;
 using PrancaBeauty.Application.Apps.Settings;
-using PrancaBeauty.Application.Contracts.Languages;
-using PrancaBeauty.Application.Contracts.Settings;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Languages;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Settings;
 using PrancaBeauty.WebApp.Common.ExMethod;
 using System;
 using System.Collections.Generic;

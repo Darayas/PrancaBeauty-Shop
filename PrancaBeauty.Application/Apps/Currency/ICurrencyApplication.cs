@@ -1,4 +1,4 @@
-﻿using PrancaBeauty.Application.Contracts.Currency;
+﻿using PrancaBeauty.Application.Contracts.ApplicationDTO.Currency;
 using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Apps.Currency

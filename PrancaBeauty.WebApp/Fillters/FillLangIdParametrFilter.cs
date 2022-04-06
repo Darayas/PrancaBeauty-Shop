@@ -1,7 +1,7 @@
 ﻿using Kendo.Mvc.Extensions;
 using Microsoft.AspNetCore.Mvc.Filters;
 using PrancaBeauty.Application.Apps.Languages;
-using PrancaBeauty.Application.Contracts.Languages;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Languages;
 using System;
 using System.Collections.Generic;
 using System.Globalization;

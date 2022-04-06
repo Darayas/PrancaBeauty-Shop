@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
-using PrancaBeauty.Application.Contracts.Common.FtpWapper;
-using PrancaBeauty.Application.Contracts.Results;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Common.FtpWapper;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Results;
 using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Common.FtpWapper

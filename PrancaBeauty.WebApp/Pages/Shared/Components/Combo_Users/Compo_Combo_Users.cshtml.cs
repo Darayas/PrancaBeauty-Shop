@@ -6,8 +6,8 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Users;
-using PrancaBeauty.WebApp.Models.ViewInput;
-using PrancaBeauty.WebApp.Models.ViewModel;
+using PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput;
+using PrancaBeauty.Application.Contracts.PresentationDTO.ViewModel;
 
 namespace PrancaBeauty.WebApp.Pages.Shared.Components.Combo_Users
 {
@@ -31,7 +31,7 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.Combo_Users
 
         public async Task<IActionResult> OnGetReadAsync(string _LangId, string Text)
         {
-            var qData = await _UserApplication.GetListForComboAsync(new Application.Contracts.Users.InpGetListForCombo { LangId = _LangId, Name = Text });
+            var qData = await _UserApplication.GetListForComboAsync(new Application.Contracts.ApplicationDTO.Users.InpGetListForCombo { LangId = _LangId, Name = Text });
             var Data = _Mapper.Map<List<vmCompo_Combo_Users>>(qData);
             return new JsonResult(Data);
         }

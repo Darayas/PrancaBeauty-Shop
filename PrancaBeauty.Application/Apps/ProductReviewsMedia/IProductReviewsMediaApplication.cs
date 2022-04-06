@@ -1,5 +1,5 @@
-﻿using PrancaBeauty.Application.Contracts.ProdcutReviewsMedia;
-using PrancaBeauty.Application.Contracts.Results;
+﻿using PrancaBeauty.Application.Contracts.ApplicationDTO.ProdcutReviewsMedia;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Results;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

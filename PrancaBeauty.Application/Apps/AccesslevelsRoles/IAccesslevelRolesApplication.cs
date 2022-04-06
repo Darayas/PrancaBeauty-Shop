@@ -1,5 +1,5 @@
-﻿using PrancaBeauty.Application.Contracts.AccesslevelRoles;
-using PrancaBeauty.Application.Contracts.Results;
+﻿using PrancaBeauty.Application.Contracts.ApplicationDTO.AccesslevelRoles;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Results;
 using System;
 using System.Threading.Tasks;
 

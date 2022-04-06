@@ -2,8 +2,8 @@
 using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
-using PrancaBeauty.Application.Contracts.ProductAskLikes;
-using PrancaBeauty.Application.Contracts.ProductReviewLikes;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.ProductAskLikes;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.ProductReviewLikes;
 using PrancaBeauty.Domin.Product.ProductAskLikesAgg.Contracts;
 using PrancaBeauty.Domin.Product.ProductAskLikesAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductReviewsLikesAgg.Contracts;

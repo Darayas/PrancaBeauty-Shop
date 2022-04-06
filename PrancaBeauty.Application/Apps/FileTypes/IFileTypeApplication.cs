@@ -1,4 +1,4 @@
-﻿using PrancaBeauty.Application.Contracts.FileTypes;
+﻿using PrancaBeauty.Application.Contracts.ApplicationDTO.FileTypes;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

@@ -2,8 +2,8 @@
 using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
-using PrancaBeauty.Application.Contracts.ProdcutReviewsMedia;
-using PrancaBeauty.Application.Contracts.Results;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.ProdcutReviewsMedia;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Results;
 using PrancaBeauty.Domin.FileServer.FileTypeAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductReviewsMediaAgg.Contracts;
 using PrancaBeauty.Domin.Product.ProductReviewsMediaAgg.Entities;

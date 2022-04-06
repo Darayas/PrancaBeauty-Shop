@@ -6,9 +6,9 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.ProductTopic;
-using PrancaBeauty.WebApp.Models.ViewInput;
-using PrancaBeauty.WebApp.Models.ViewModel;
-using PrancaBeauty.Application.Contracts.ProductTopics;
+using PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput;
+using PrancaBeauty.Application.Contracts.PresentationDTO.ViewModel;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.ProductTopics;
 
 namespace PrancaBeauty.WebApp.Pages.Shared.Components.Combo_Topics
 {

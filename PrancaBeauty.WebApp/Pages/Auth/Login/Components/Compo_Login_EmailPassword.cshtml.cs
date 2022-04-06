@@ -2,12 +2,12 @@ using Framework.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Users;
-using PrancaBeauty.Application.Contracts.Users;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Users;
 using PrancaBeauty.WebApp.Authentication;
 using PrancaBeauty.WebApp.Common.ExMethod;
 using PrancaBeauty.WebApp.Common.Types;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
-using PrancaBeauty.WebApp.Models.ViewInput;
+using PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput;
 using System.Threading.Tasks;
 
 namespace PrancaBeauty.WebApp.Pages.Auth.Login.Components

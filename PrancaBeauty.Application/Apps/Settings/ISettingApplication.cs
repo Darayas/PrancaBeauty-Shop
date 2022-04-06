@@ -1,4 +1,4 @@
-﻿using PrancaBeauty.Application.Contracts.Settings;
+﻿using PrancaBeauty.Application.Contracts.ApplicationDTO.Settings;
 using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Apps.Settings

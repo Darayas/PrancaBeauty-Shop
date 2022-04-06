@@ -5,9 +5,9 @@ using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Apps.FilePath;
 using PrancaBeauty.Application.Apps.FileTypes;
-using PrancaBeauty.Application.Contracts.FilePath;
-using PrancaBeauty.Application.Contracts.Files;
-using PrancaBeauty.Application.Contracts.Results;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.FilePath;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Files;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Results;
 using PrancaBeauty.Domin.FileServer.FileAgg.Contracts;
 using PrancaBeauty.Domin.FileServer.FileAgg.Entities;
 using System;
@@ -49,7 +49,7 @@ namespace PrancaBeauty.Application.Apps.Files
                     return new OperationResult().Failed("FileInfoIsDuplicated");
 
                 // اعتبار سنجی نوع فایل
-                string FileTypeId = await _FileTypeApplication.GetIdByMimeTypeAsync(new Contracts.FileTypes.InpGetIdByMimeType { MimeType = Input.MimeType.ToLower() });
+                string FileTypeId = await _FileTypeApplication.GetIdByMimeTypeAsync(new Contracts.ApplicationDTO.FileTypes.InpGetIdByMimeType { MimeType = Input.MimeType.ToLower() });
                 if (FileTypeId == null)
                     return new OperationResult().Failed("MimeTypeIsInvalid");
 

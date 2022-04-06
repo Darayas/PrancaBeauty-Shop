@@ -1,6 +1,6 @@
 ﻿using Framework.Common.Utilities.Paging;
-using PrancaBeauty.Application.Contracts.Results;
-using PrancaBeauty.Application.Contracts.Users;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Results;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Users;
 using PrancaBeauty.Domin.Users.UserAgg.Entities;
 using System;
 using System.Collections.Generic;

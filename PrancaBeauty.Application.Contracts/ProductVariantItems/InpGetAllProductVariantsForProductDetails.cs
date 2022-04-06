@@ -14,10 +14,5 @@ namespace PrancaBeauty.Application.Contracts.ProductVariantItems
         [RequiredString]
         [GUID]
         public string ProductId { get; set; }
-
-        [Display(Name = "DefaultVariantId")]
-        [RequiredString]
-        [GUID]
-        public string DefaultVariantId { get; set; }
     }
 }

@@ -584,16 +584,21 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
                                                                     Title=a.tblProductVariants.tblProductVariants_Translates.Where(b => b.LangId==Input.LangId.ToGuid()).Select(b => b.Title).Single(),
                                                                     VariantType=a.tblProductVariants.VariantType,
                                                                     LstItems= a.tblProductVariants.tblProductVariantItems
-                                                                                                  //.GroupBy(b => b.Value)
+                                                                                                  .GroupBy(b => b.Value)
                                                                                                   .Select(b => new OutGetAllProductVariantsForProductDetailsItem
                                                                                                   {
-                                                                                                      //Title=b.Select(c => c.Title).First(),
-                                                                                                      //Value=b.Key,
-                                                                                                      Title=b.Title,
-                                                                                                      Value=b.Value
-                                                                                                  }).DistinctBy(a=>a.Value).ToList()
+                                                                                                      Title=b.Select(c => c.Title).First(),
+                                                                                                      Value=b.Key,
+                                                                                                      //Title=b.Title,
+                                                                                                      //Value=b.Value
+                                                                                                  }).ToList()
                                                                 })
-                                                                .SingleOrDefaultAsync();
+                                                                .FirstOrDefaultAsync();
+
+                if (qData==null)
+                    return null;
+
+                return qData;
             }
             catch (ArgumentInvalidException ex)
             {

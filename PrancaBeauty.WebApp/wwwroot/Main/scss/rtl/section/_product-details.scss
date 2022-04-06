@@ -343,6 +343,9 @@
                 padding: 2px;
                 border: 1px solid #ccc;
                 margin-right: 5px;
+                cursor: pointer;
+                width: 30px;
+                height: 30px;
 
                 &:hover {
                     border-color: #E88888;
@@ -350,36 +353,6 @@
 
                 &:first-child {
                     margin-right: 0;
-                }
-
-                & a {
-                    width: 30px;
-                    height: 30px;
-                    display: block;
-                }
-
-                &.color1 {
-                    & a {
-                        background: #000000;
-                    }
-                }
-
-                &.color2 {
-                    & a {
-                        background: #BEBEBE;
-                    }
-                }
-
-                &.color3 {
-                    & a {
-                        background: #FE0000;
-                    }
-                }
-
-                &.color4 {
-                    & a {
-                        background: #FFFF01;
-                    }
                 }
             }
         }

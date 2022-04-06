@@ -6076,29 +6076,15 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   padding: 2px;
   border: 1px solid #ccc;
   margin-right: 5px;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
 }
 .product_variant.color ul li:hover {
   border-color: #E88888;
 }
 .product_variant.color ul li:first-child {
   margin-right: 0;
-}
-.product_variant.color ul li a {
-  width: 30px;
-  height: 30px;
-  display: block;
-}
-.product_variant.color ul li.color1 a {
-  background: #000000;
-}
-.product_variant.color ul li.color2 a {
-  background: #BEBEBE;
-}
-.product_variant.color ul li.color3 a {
-  background: #FE0000;
-}
-.product_variant.color ul li.color4 a {
-  background: #FFFF01;
 }
 .product_variant.size {
   margin-bottom: 30px;

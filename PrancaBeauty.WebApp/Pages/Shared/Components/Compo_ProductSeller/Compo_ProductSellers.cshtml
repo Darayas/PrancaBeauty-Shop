@@ -28,17 +28,27 @@
                                 <span>@item.GarrantyName</span>
                             </div>
                             <div class="Price col-md-3">
-                                @if (item.PercentSavePrice!="0")
-                                {
-                                    <span>@(item.PercentSavePrice)%</span>
-                                }
 
-                                <span>@item.MainPrice @item.CurrencySymbol</span>
+                                <span>
+                                    @if (item.PercentSavePrice!="0")
+                                    {
+                                        @(item.PercentSavePrice)
+                                        <span>%</span>
+                                    }
+                                </span>
 
-                                @if (item.PercentSavePrice!="0")
-                                {
-                                    <span>@item.OldPrice @item.CurrencySymbol</span>
-                                }
+                                <span>
+                                    @item.MainPrice @item.CurrencySymbol
+                                </span>
+
+
+                                <span>
+                                    @if (item.PercentSavePrice!="0")
+                                    {
+                                        @item.OldPrice @item.CurrencySymbol
+                                    }
+                                </span>
+
                             </div>
                             <div class="addToCart col-md-2">
                                 <button class="btn btn-danger" type="button">@Localizer["AddToCart"]</button>

@@ -111,6 +111,9 @@ namespace PrancaBeauty.WebApp.Mapping
             CreateMap<OutGetListAsks, vmCompo_ListProductAsks>();
             CreateMap<OutGetListAsks_Answer, vmGetListAsks_Answer>();
 
+            CreateMap<OutGetAllProductVariantsForProductDetails, vmCompo_ProductVariantItem>();
+            CreateMap<OutGetAllProductVariantsForProductDetailsItem, vmLstCompo_ProductVariantItem>();
+
             CreateMap<OutGetListSellerByVariantValue, vmCompo_ProductSellers>()
                                                                  .ForMember(a => a.MainPrice, a => a.MapFrom(b => b.MainPrice.ToN3()))
                                                                  .ForMember(a => a.PercentSavePrice, a => a.MapFrom(b => b.PercentSavePrice.ToString(new CultureInfo("en-US"))))

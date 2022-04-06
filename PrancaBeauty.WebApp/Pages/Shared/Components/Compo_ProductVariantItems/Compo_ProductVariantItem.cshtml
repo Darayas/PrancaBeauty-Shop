@@ -1,13 +1,15 @@
 ﻿@page "/{culture}/Shared/Compo/ProductVariantItem"
 @model PrancaBeauty.WebApp.Pages.Shared.Components.Compo_ProductVariantItems.Compo_ProductVariantItemModel
 
-<div class="product_variant color">
-    <h3>Available Options</h3>
-    <label>color</label>
-    <ul>
-        <li class="color1"><a href="#"></a></li>
-        <li class="color2"><a href="#"></a></li>
-        <li class="color3"><a href="#"></a></li>
-        <li class="color4"><a href="#"></a></li>
-    </ul>
-</div>
+@if (Model.Data.VariantType=="RadioButton")
+{
+    <div class="product_variant color">
+        <label>@Model.Data.Title</label>
+        <ul>
+            @foreach (var item in Model.Data.LstItems)
+            {
+                <li class="@(Model.Data.DefaultVariantValue==item.Value?"active":"")" title="@item.Title" style="background-color:@item.Value" onclick="LoadDetails('@item.Value')"></li>
+            }
+        </ul>
+    </div>
+}

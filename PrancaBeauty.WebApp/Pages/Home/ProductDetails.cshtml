@@ -89,7 +89,7 @@
 
                         <LoadComponent id="ProductVariantItems"
                                        url="/@ViewData["culture"]/Shared/Compo/ProductVariantItem"
-                                       data='new viCompo_ProductVariantItem{  }' ,
+                                       data='new viCompo_ProductVariantItem{ ProductId=Model.Data.Id,ProductVariantId=Model.Data.ProductVariantItemIdForPrice  }' ,
                                        context="HttpContext"></LoadComponent>
 
                         <div class="product_variant quantity">
@@ -126,13 +126,15 @@
 </div>
 <!--product details end-->
 <!--product Sellers start-->
-@if (Model.Data.ProductVariantItemIdForPrice != null)
-{
-    <LoadComponent id="ProductSellers"
-               url="/@ViewData["culture"]/Shared/Compo/ProductSellers"
-               data='new viGetCompo_ProductSellers{ ProductId=Model.Data.Id,VariaintValue=Model.Data.DefaultProductVariantValue  }' ,
-               context="HttpContext"></LoadComponent>
-}
+<div class="ProductSellers">
+    @if (Model.Data.ProductVariantItemIdForPrice != null)
+    {
+        <LoadComponent id="ProductSellers"
+                   url="/@ViewData["culture"]/Shared/Compo/ProductSellers"
+                   data='new viGetCompo_ProductSellers{ ProductId=Model.Data.Id,VariaintValue=Model.Data.DefaultProductVariantValue  }' ,
+                   context="HttpContext"></LoadComponent>
+    }
+</div>
 <!--product Sellers end-->
 <!--product info start-->
 <div class="product_d_info mb-57">
@@ -612,4 +614,12 @@
 
 @section scripts{
 <script src="~/lib/sweetalert/sweetalert.min.js"></script>
+<script>
+    function LoadDetails(_Val)
+    {
+        LoadComponent('/@ViewData["culture"]/Shared/Compo/ProductSellers',{ProductId:'@Model.Data.Id',VariaintValue:_Val},function(res){
+            $('.ProductSellers').html(res);
+        });
+    }
+</script>
 }

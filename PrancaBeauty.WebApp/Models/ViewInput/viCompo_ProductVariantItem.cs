@@ -10,9 +10,9 @@ namespace PrancaBeauty.WebApp.Models.ViewInput
         [GUID]
         public string ProductId { get; set; }
 
-        [Display(Name = "ProductId")]
+        [Display(Name = "ProductVariantValue")]
         [RequiredString]
         [GUID]
-        public string ProductVariantId { get; set; }
+        public string ProductVariantValue { get; set; }
     }
 }

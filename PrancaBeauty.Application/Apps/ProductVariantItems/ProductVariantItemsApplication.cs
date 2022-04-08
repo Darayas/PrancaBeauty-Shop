@@ -464,7 +464,7 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
             }
         }
 
-        public async Task<OutGetProductPriceByVariantItemId> GetProductPriceByVariantItemIdAsync(InpGetProductPriceByVariantItemId Input)
+        public async Task<OutGetProductPriceByVariantItemId> GetProductPriceByVariantValueAsync(InpGetProductPriceByVariantValue Input)
         {
             try
             {
@@ -481,7 +481,7 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
                                                                     MainPrice = a.tblProducts.tblProductPrices.Where(b => b.IsActive).Select(b => b.Price).Single(),
                                                                     CurrencySymbol = a.tblProducts.tblProductPrices.Where(b => b.IsActive).Select(b => b.tblCurrency.Symbol).Single(),
                                                                     SellerPercentPrice = a.Percent,
-                                                                    SavePercentPrice = 0, // TODO: Calc Discount
+                                                                    SavePercentPrice = a.DiscountId != null ? (a.tblProductDiscounts.Percent) : 0
                                                                 })
                                                                 .Select(a => new OutGetProductPriceByVariantItemId
                                                                 {
@@ -530,7 +530,7 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
                                                         SendFrom = a.SendFrom,
                                                         GarrantyName = a.tblGuarantee.tblGuarantee_Translates.Where(b => b.LangId == Input.LangId.ToGuid()).Select(b => b.Title).Single(),
                                                         CurrencySymbol = a.tblProducts.tblProductPrices.Where(b => b.IsActive).Select(b => b.tblCurrency.Symbol).Single(),
-                                                        PercentSavePrice = 0, // TODO: Calc Discound
+                                                        PercentSavePrice = a.DiscountId != null ? (a.tblProductDiscounts.Percent) : 0,
                                                         SellerLogo = a.tblProductSellers.tblSellers.tblSeller_Translates.Where(b => b.LangId == Input.LangId.ToGuid()).Select(b => new
                                                         {
                                                             LogoImg = b.tblFiles.tblFilePaths.tblFileServer.HttpDomin
@@ -556,7 +556,7 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
                     Price=a.Price,
                     SellerPercentPrice=a.SellerPercentPrice,
                     OldPrice=a.PercentSavePrice==0 ? 0 : a.Price+ ((a.Price/100)*a.SellerPercentPrice),
-                    MainPrice= a.Price+ ((a.Price/100)*a.SellerPercentPrice) - ((a.Price + ((a.Price/100)*a.SellerPercentPrice)/100) * a.PercentSavePrice)
+                    MainPrice=(a.Price+ ((a.Price/100)*a.SellerPercentPrice)) - (((a.Price+ ((a.Price/100)*a.SellerPercentPrice))/100)*a.PercentSavePrice)
                 }).ToList();
 
                 return qData;

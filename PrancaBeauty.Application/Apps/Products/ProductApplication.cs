@@ -924,8 +924,8 @@ namespace PrancaBeauty.Application.Apps.Products
                                                     {
                                                         Id = a.Id.ToString(),
                                                         TopicId = a.TopicId.ToString(),
-                                                        ProductVariantItemIdForPrice = a.tblProductVariantItems.Any(a => a.IsConfirm && a.IsEnable && a.CountInStock > 0) ? a.tblProductVariantItems.Where(a => a.IsConfirm && a.IsEnable && a.CountInStock > 0).Select(b => new { ItemId = b.Id, SellerPercentWithDiscount = b.Percent - 0 /* TODO: Calc discount */ }).OrderBy(b => b.SellerPercentWithDiscount).Select(b => b.ItemId.ToString()).First() : null,
-                                                        DefaultProductVariantValue = a.tblProductVariantItems.Any(a => a.IsConfirm && a.IsEnable && a.CountInStock > 0) ? a.tblProductVariantItems.Where(a => a.IsConfirm && a.IsEnable && a.CountInStock > 0).Select(b => new { VariantValue = b.Value, SellerPercentWithDiscount = b.Percent - 0 /* TODO: Calc discount */ }).OrderBy(b => b.SellerPercentWithDiscount).Select(b => b.VariantValue).First() : null,
+                                                        //ProductVariantItemIdForPrice = a.tblProductVariantItems.Any(a => a.IsConfirm && a.IsEnable && a.CountInStock > 0) ? a.tblProductVariantItems.Where(a => a.IsConfirm && a.IsEnable && a.CountInStock > 0).Select(b => new { ItemId = b.Id, SellerPercentWithDiscount = b.Percent - 0 /* TODO: Calc discount */ }).OrderBy(b => b.SellerPercentWithDiscount).Select(b => b.ItemId.ToString()).First() : null,
+                                                        DefaultProductVariantValue = a.tblProductVariantItems.Any(a => a.IsConfirm && a.IsEnable && a.CountInStock > 0) ? a.tblProductVariantItems.Where(a => a.IsConfirm && a.IsEnable && a.CountInStock > 0).Select(b => new { VariantValue = b.Value, SellerPercentWithDiscount = b.Percent - (b.DiscountId != null ? (b.tblProductDiscounts.Percent) : 0) }).OrderBy(b => b.SellerPercentWithDiscount).Select(b => b.VariantValue).First() : null,
                                                         Title = a.Title,
                                                         Name = a.Name,
                                                         AvgStarRating = a.tblProductReviews.Count(a => a.CountStar > 0) > 0 ? a.tblProductReviews.Where(b => b.CountStar > 0).Average(b => b.CountStar) : 0,
@@ -972,9 +972,9 @@ namespace PrancaBeauty.Application.Apps.Products
             }
         }
 
-        public async Task<OutGetProductPriceByVariantId> GetProductPriceByVariantIdAsync(InpGetProductPriceByVariantId Input)
+        public async Task<OutGetProductPriceByVariantId> GetProductPriceByVariantValueAsync(Contracts.ApplicationDTO.Products.InpGetProductPriceByVariantValue Input)
         {
-            var qData = await _ProductVariantItemsApplication.GetProductPriceByVariantItemIdAsync(new InpGetProductPriceByVariantItemId { ProductId=Input.ProductId, ProductVariantValue = Input.ProductVariantValue });
+            var qData = await _ProductVariantItemsApplication.GetProductPriceByVariantValueAsync(new Contracts.ApplicationDTO.ProductVariantItems.InpGetProductPriceByVariantValue { ProductId=Input.ProductId, ProductVariantValue = Input.ProductVariantValue });
 
             if (qData == null)
                 return null;

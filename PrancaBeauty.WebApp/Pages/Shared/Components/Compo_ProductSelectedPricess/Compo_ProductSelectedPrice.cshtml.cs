@@ -43,7 +43,7 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.Compo_ProductSelectedPrice
 
                 if(Input.ProductVariantValue != null)
                 {
-                    var qData = await _ProductApplication.GetProductPriceByVariantIdAsync(new InpGetProductPriceByVariantId()
+                    var qData = await _ProductApplication.GetProductPriceByVariantValueAsync(new InpGetProductPriceByVariantValue()
                     {
                         ProductId=Input.ProductId,
                         ProductVariantValue = Input.ProductVariantValue

@@ -2,6 +2,7 @@
 using Framework.Domain;
 using PrancaBeauty.Domin.Product.GuaranteeAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductAgg.Entities;
+using PrancaBeauty.Domin.Product.ProductDiscountAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductSellerAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductVariantAgg.Entities;
 using System;
@@ -19,6 +20,7 @@ namespace PrancaBeauty.Domin.Product.ProductVariantsItemsAgg.Entities
         public Guid ProductId { get; set; }
         public Guid ProductSellerId { get; set; }
         public Guid? GuaranteeId { get; set; }
+        public Guid? DiscountId { get; set; }
         public string ProductCode { get; set; }
         public string Title { get; set; }
         public string Value { get; set; }
@@ -35,6 +37,7 @@ namespace PrancaBeauty.Domin.Product.ProductVariantsItemsAgg.Entities
         public virtual tblProducts tblProducts { get; set; }
         public virtual tblProductSellers tblProductSellers { get; set; }
         public virtual tblGuarantee tblGuarantee { get; set; }
+        public virtual tblProductDiscounts tblProductDiscounts { get; set; }
     }
 
   

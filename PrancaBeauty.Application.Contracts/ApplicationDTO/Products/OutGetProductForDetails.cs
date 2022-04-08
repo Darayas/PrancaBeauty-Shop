@@ -10,7 +10,7 @@ namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Products
     {
         public string Id { get; set; }
         public string TopicId { get; set; }
-        public string ProductVariantItemIdForPrice { get; set; }
+        //public string ProductVariantItemIdForPrice { get; set; }
         public string DefaultProductVariantValue { get; set; }
         public int CountExistsInStock { get; set; }
         public string Name { get; set; }

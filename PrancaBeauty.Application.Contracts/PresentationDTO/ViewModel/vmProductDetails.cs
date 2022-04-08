@@ -7,7 +7,7 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewModel
     {
         public string Id { get; set; }
         public string TopicId { get; set; }
-        public string ProductVariantItemIdForPrice { get; set; }
+        //public string ProductVariantItemIdForPrice { get; set; }
         public string DefaultProductVariantValue { get; set; }
         public string Name { get; set; }
         public string Title { get; set; }

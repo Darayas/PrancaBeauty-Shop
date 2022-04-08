@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Products
 {
-    public class InpGetProductPriceByVariantId
+    public class InpGetProductPriceByVariantValue
     {
         [Display(Name = "ProductId")]
         [RequiredString]

@@ -26,7 +26,7 @@ namespace PrancaBeauty.Application.Apps.Guarantee
             _ServiceProvider = serviceProvider;
         }
 
-        public async Task<List<OutGetListForCombo>> GetListForComboAsync(InpGetListForCombo Input)
+        public async Task<List<OutGetGuaranteeListForCombo>> GetListForComboAsync(InpGetListForCombo Input)
         {
             try
             {
@@ -36,7 +36,7 @@ namespace PrancaBeauty.Application.Apps.Guarantee
 
                 var qData = await _GuaranteeRepository.Get
                                                      .Where(a => a.IsEnable)
-                                                     .Select(a => new OutGetListForCombo()
+                                                     .Select(a => new OutGetGuaranteeListForCombo()
                                                      {
                                                          Id = a.Id.ToString(),
                                                          Name = a.Name,

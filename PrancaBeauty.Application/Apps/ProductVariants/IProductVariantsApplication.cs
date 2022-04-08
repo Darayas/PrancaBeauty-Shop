@@ -6,6 +6,6 @@ namespace PrancaBeauty.Application.Apps.ProductVariants
 {
     public interface IProductVariantsApplication
     {
-        Task<List<outGetLstForCombo>> GetLstForComboAsync(InpGetLstForCombo Input);
+        Task<List<outGetProductVariantsLstForCombo>> GetLstForComboAsync(InpGetLstForCombo Input);
     }
 }

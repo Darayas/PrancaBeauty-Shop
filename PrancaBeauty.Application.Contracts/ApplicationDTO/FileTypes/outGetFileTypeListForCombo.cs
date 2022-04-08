@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PrancaBeauty.Application.Contracts.ApplicationDTO.ProductTopics
+namespace PrancaBeauty.Application.Contracts.ApplicationDTO.FileTypes
 {
-    public class OutGetListForCombo
+    public class outGetFileTypeListForCombo
     {
         public string Id { get; set; }
-        public string Name { get; set; }
-        public string Title { get; set; }
         public string ImgUrl { get; set; }
+        public string MimeType { get; set; }
+        public string FileEx { get; set; }
     }
 }

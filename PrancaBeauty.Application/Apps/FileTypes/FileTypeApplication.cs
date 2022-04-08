@@ -52,7 +52,7 @@ namespace PrancaBeauty.Application.Apps.FileTypes
             }
         }
 
-        public async Task<List<outGetListForCombo>> GetListForComboAsync(InpGetListForCombo Input)
+        public async Task<List<outGetFileTypeListForCombo>> GetListForComboAsync(InpGetListForCombo Input)
         {
             try
             {
@@ -62,7 +62,7 @@ namespace PrancaBeauty.Application.Apps.FileTypes
 
                 var qData = await _FileTypeRepository.Get
                                                      .Where(a => Input.Title != null ? a.MimeType.Contains(Input.Title) : true)
-                                                     .Select(a => new outGetListForCombo
+                                                     .Select(a => new outGetFileTypeListForCombo
                                                      {
                                                          Id = a.Id.ToString(),
                                                          MimeType = a.MimeType,

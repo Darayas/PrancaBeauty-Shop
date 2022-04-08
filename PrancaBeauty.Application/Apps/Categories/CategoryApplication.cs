@@ -36,7 +36,7 @@ namespace PrancaBeauty.Application.Apps.Categories
             _ServiceProvider = serviceProvider;
         }
 
-        public async Task<(OutPagingData, List<OutGetListForAdminPage>)> GetListForAdminPageAsync(InpGetListForAdminPage Input)
+        public async Task<(OutPagingData, List<OutGetCategoryListForAdminPage>)> GetListForAdminPageAsync(InpGetListForAdminPage Input)
         {
             try
             {
@@ -45,7 +45,7 @@ namespace PrancaBeauty.Application.Apps.Categories
                 #endregion
 
                 // آماده سازی اولیه ی کویری
-                var qData = _CategoryRepository.Get.Select(a => new OutGetListForAdminPage
+                var qData = _CategoryRepository.Get.Select(a => new OutGetCategoryListForAdminPage
                 {
                     Id = a.Id.ToString(),
                     ParentId = a.ParentId.ToString(),
@@ -80,7 +80,7 @@ namespace PrancaBeauty.Application.Apps.Categories
             }
         }
 
-        public async Task<List<OutGetListForCombo>> GetListForComboAsync(InpGetListForCombo Input)
+        public async Task<List<OutGetCategoryListForCombo>> GetListForComboAsync(InpGetListForCombo Input)
         {
             try
             {
@@ -90,7 +90,7 @@ namespace PrancaBeauty.Application.Apps.Categories
 
                 var qData = await _CategoryRepository.Get
                                                      .Where(a => Input.ParentId != null ? a.ParentId == Guid.Parse(Input.ParentId) /*&& a.Id != Guid.Parse(ParentId)*/ : a.ParentId == null)
-                                                     .Select(a => new OutGetListForCombo
+                                                     .Select(a => new OutGetCategoryListForCombo
                                                      {
                                                          Id = a.Id.ToString(),
                                                          ParentId = a.ParentId.ToString(),
@@ -227,7 +227,7 @@ namespace PrancaBeauty.Application.Apps.Categories
             }
         }
 
-        public async Task<OutGetForEdit> GetForEditAsync(InpGetForEdit Input)
+        public async Task<OutGetCategoryForEdit> GetForEditAsync(InpGetForEdit Input)
         {
             try
             {
@@ -238,7 +238,7 @@ namespace PrancaBeauty.Application.Apps.Categories
 
                 var qData = await _CategoryRepository.Get
                                                     .Where(a => a.Id == Guid.Parse(Input.Id))
-                                                    .Select(a => new OutGetForEdit
+                                                    .Select(a => new OutGetCategoryForEdit
                                                     {
                                                         Id = a.Id.ToString(),
                                                         Name = a.Name,

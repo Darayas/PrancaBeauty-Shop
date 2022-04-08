@@ -54,10 +54,6 @@ WebApplication app = null;
 
     builder.Services.AddCustomWebMarkupMin();
 
-    builder.Services.Config();
-
-    builder.Services.AddInject();
-
     builder.Services.RateLimitConfig(builder.Configuration);
 
     builder.Services.AddCustomIdentity()

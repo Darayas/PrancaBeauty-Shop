@@ -26,7 +26,7 @@ namespace PrancaBeauty.Application.Apps.ProductTopic
             _ServiceProvider = serviceProvider;
         }
 
-        public async Task<List<OutGetListForCombo>> GetListForComboAsync(InpGetListForCombo Input)
+        public async Task<List<OutGetProductTopicsListForCombo>> GetListForComboAsync(InpGetListForCombo Input)
         {
             try
             {
@@ -35,7 +35,7 @@ namespace PrancaBeauty.Application.Apps.ProductTopic
                 #endregion
 
                 var qData = await _ProductTopicRepository.Get
-                                                         .Select(a => new OutGetListForCombo()
+                                                         .Select(a => new OutGetProductTopicsListForCombo()
                                                          {
                                                              Id = a.Id.ToString(),
                                                              Name = a.Name,

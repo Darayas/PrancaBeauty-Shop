@@ -25,7 +25,7 @@ namespace PrancaBeauty.Application.Apps.Province
             _ServiceProvider = serviceProvider;
         }
 
-        public async Task<List<OutGetListForCombo>> GetListForComboAsync(InpGetListForCombo Input)
+        public async Task<List<OutGetProvinceListForCombo>> GetListForComboAsync(InpGetListForCombo Input)
         {
             try
             {
@@ -36,7 +36,7 @@ namespace PrancaBeauty.Application.Apps.Province
                 var qData = await _ProvinceRepository.Get
                                                      .Where(a => a.IsActive)
                                                      .Where(a => a.CountryId == Guid.Parse(Input.CountryId))
-                                                     .Select(a => new OutGetListForCombo
+                                                     .Select(a => new OutGetProvinceListForCombo
                                                      {
                                                          Id = a.Id.ToString(),
                                                          Name = a.Name,

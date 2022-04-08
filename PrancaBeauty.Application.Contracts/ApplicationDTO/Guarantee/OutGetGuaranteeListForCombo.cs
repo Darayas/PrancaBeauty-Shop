@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PrancaBeauty.Application.Contracts.ApplicationDTO.City
+namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Guarantee
 {
-    public class OutGetListForCombo
+    public class OutGetGuaranteeListForCombo
     {
         public string Id { get; set; }
         public string Name { get; set; }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Categories
 {
-    public class OutGetForEdit
+    public class OutGetCategoryForEdit
     {
         public string Id { get; set; }
         public string ParentId { get; set; }

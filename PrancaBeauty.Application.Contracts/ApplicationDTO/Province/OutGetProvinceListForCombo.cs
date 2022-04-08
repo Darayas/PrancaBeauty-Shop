@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PrancaBeauty.Application.Contracts.ApplicationDTO.ProductVariants
+namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Province
 {
-    public class outGetLstForCombo
+    public class OutGetProvinceListForCombo
     {
         public string Id { get; set; }
+        public string Name { get; set; }
         public string Title { get; set; }
     }
 }

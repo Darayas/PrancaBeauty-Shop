@@ -535,7 +535,7 @@ namespace PrancaBeauty.Application.Apps.Products
             }
         }
 
-        public async Task<OutGetForEdit> GetForEditAsync(InpGetForEdit Input)
+        public async Task<OutGetProductForEdit> GetForEditAsync(InpGetForEdit Input)
         {
             try
             {
@@ -548,7 +548,7 @@ namespace PrancaBeauty.Application.Apps.Products
                 var qData = await _ProductRepository.Get
                                                   .Where(a => Input.UserId != null ? a.AuthorUserId == Guid.Parse(Input.UserId) : true)
                                                   .Where(a => a.Id == Guid.Parse(Input.ProductId))
-                                                  .Select(a => new OutGetForEdit
+                                                  .Select(a => new OutGetProductForEdit
                                                   {
                                                       Id = a.Id.ToString(),
                                                       AuthorUserId = a.AuthorUserId.ToString(),

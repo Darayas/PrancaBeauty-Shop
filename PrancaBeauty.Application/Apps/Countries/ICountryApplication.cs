@@ -6,6 +6,6 @@ namespace PrancaBeauty.Application.Apps.Countries
 {
     public interface ICountryApplication
     {
-        Task<List<OutGetListForCombo>> GetListForComboAsync(InpGetListForCombo Input);
+        Task<List<OutGetCourtriesListForCombo>> GetListForComboAsync(InpGetListForCombo Input);
     }
 }

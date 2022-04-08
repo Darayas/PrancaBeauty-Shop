@@ -26,7 +26,7 @@ namespace PrancaBeauty.Application.Apps.ProductVariants
             _ServiceProvider = serviceProvider;
         }
 
-        public async Task<List<outGetLstForCombo>> GetLstForComboAsync(InpGetLstForCombo Input)
+        public async Task<List<outGetProductVariantsLstForCombo>> GetLstForComboAsync(InpGetLstForCombo Input)
         {
             try
             {
@@ -35,7 +35,7 @@ namespace PrancaBeauty.Application.Apps.ProductVariants
                 #endregion
 
                 var qData = await _ProductVariantsRepository.Get
-                                                           .Select(a => new outGetLstForCombo
+                                                           .Select(a => new outGetProductVariantsLstForCombo
                                                            {
                                                                Id = a.Id.ToString(),
                                                                Title = a.tblProductVariants_Translates.Where(b => b.LangId == Guid.Parse(Input.LangId)).Select(b => b.Title).Single()

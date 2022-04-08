@@ -27,7 +27,7 @@ namespace PrancaBeauty.Application.Apps.Cities
         }
 
 
-        public async Task<List<OutGetListForCombo>> GetListForComboAsync(InpGetListForCombo Input)
+        public async Task<List<OutGetCityListForCombo>> GetListForComboAsync(InpGetListForCombo Input)
         {
             try
             {
@@ -38,7 +38,7 @@ namespace PrancaBeauty.Application.Apps.Cities
                 var qData = await _CityRepository.Get
                                                 .Where(a => a.IsActive)
                                                 .Where(a => a.ProvinceId == Guid.Parse(Input.ProvinceId))
-                                                .Select(a => new OutGetListForCombo
+                                                .Select(a => new OutGetCityListForCombo
                                                 {
                                                     Id = a.Id.ToString(),
                                                     Name = a.Name,

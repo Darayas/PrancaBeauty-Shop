@@ -9,6 +9,6 @@ namespace PrancaBeauty.Application.Apps.FileTypes
         Task<string[]> GetAllFileExtentionAsync();
         Task<string[]> GetAllFileMimeTypeAsync();
         Task<string> GetIdByMimeTypeAsync(InpGetIdByMimeType Input);
-        Task<List<outGetListForCombo>> GetListForComboAsync(InpGetListForCombo Input);
+        Task<List<outGetFileTypeListForCombo>> GetListForComboAsync(InpGetListForCombo Input);
     }
 }

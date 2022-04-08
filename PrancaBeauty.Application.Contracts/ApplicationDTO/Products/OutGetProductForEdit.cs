@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Products
 {
-    public class OutGetForEdit
+    public class OutGetProductForEdit
     {
         public string Id { get; set; }
 

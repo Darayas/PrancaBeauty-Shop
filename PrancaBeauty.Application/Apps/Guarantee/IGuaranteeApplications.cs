@@ -6,6 +6,6 @@ namespace PrancaBeauty.Application.Apps.Guarantee
 {
     public interface IGuaranteeApplications
     {
-        Task<List<OutGetListForCombo>> GetListForComboAsync(InpGetListForCombo Input);
+        Task<List<OutGetGuaranteeListForCombo>> GetListForComboAsync(InpGetListForCombo Input);
     }
 }

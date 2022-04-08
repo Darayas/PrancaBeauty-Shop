@@ -25,6 +25,7 @@ using PrancaBeauty.Application.Apps.Languages;
 using PrancaBeauty.Application.Apps.PostingRestrictions;
 using PrancaBeauty.Application.Apps.ProductAsk;
 using PrancaBeauty.Application.Apps.ProductAskLikes;
+using PrancaBeauty.Application.Apps.ProductDiscount;
 using PrancaBeauty.Application.Apps.ProductMedia;
 using PrancaBeauty.Application.Apps.ProductPrices;
 using PrancaBeauty.Application.Apps.ProductPropertiesValues;
@@ -59,6 +60,7 @@ using PrancaBeauty.Domin.Product.PostingRestrictionsAgg.Contracts;
 using PrancaBeauty.Domin.Product.ProductAgg.Contracts;
 using PrancaBeauty.Domin.Product.ProductAskAgg.Contarcts;
 using PrancaBeauty.Domin.Product.ProductAskLikesAgg.Contracts;
+using PrancaBeauty.Domin.Product.ProductDiscountAgg.Contracts;
 using PrancaBeauty.Domin.Product.ProductMediaAgg.Contracts;
 using PrancaBeauty.Domin.Product.ProductPricesAgg.Contracts;
 using PrancaBeauty.Domin.Product.ProductPropertiesValuesAgg.Contracts;
@@ -101,6 +103,7 @@ using PrancaBeauty.Infrastructure.EFCore.Repository.PostingRestrictions;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Product;
 using PrancaBeauty.Infrastructure.EFCore.Repository.ProductAsk;
 using PrancaBeauty.Infrastructure.EFCore.Repository.ProductAskLikes;
+using PrancaBeauty.Infrastructure.EFCore.Repository.ProductDiscount;
 using PrancaBeauty.Infrastructure.EFCore.Repository.ProductMedia;
 using PrancaBeauty.Infrastructure.EFCore.Repository.ProductPrices;
 using PrancaBeauty.Infrastructure.EFCore.Repository.ProductProperties;
@@ -189,6 +192,7 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddScoped<IGuaranteeRepository, GuaranteeRepository>();
             services.AddScoped<IGuarantee_TranslatesRepository, Guarantee_TranslatesRepository>();
             services.AddScoped<IPostingRestrictionsRepository, PostingRestrictionsRepository>();
+            services.AddScoped<IProductDiscountRepository, ProductDiscountRepository>();
 
             // Applications
             services.AddScoped<IUserApplication, UserApplication>();
@@ -229,6 +233,7 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddScoped<IGuaranteeApplications, GuaranteeApplications>();
             services.AddScoped<IPostingRestrictionsApplication, PostingRestrictionsApplication>();
             services.AddScoped<ISellerApplication, SellerApplication>();
+            services.AddScoped<IProductDiscountApplication, ProductDiscountApplication>();
         }
     }
 }

@@ -552,7 +552,7 @@
   <data name="FontIconCode" xml:space="preserve">
     <value>کد فونت ایکن</value>
   </data>
-  <data name="FourDays = 4" xml:space="preserve">
+  <data name="FourDays" xml:space="preserve">
     <value>چهار روز</value>
   </data>
   <data name="FourWorkingDays" xml:space="preserve">
@@ -563,6 +563,9 @@
   </data>
   <data name="FulUserName" xml:space="preserve">
     <value>نام کاربر</value>
+  </data>
+  <data name="FutureWork" xml:space="preserve">
+    <value>کاری آینده</value>
   </data>
   <data name="Good" xml:space="preserve">
     <value>خوب</value>

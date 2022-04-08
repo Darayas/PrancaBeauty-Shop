@@ -6024,7 +6024,6 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 .product_variant.quantity button {
   border: 0;
   font-size: 16px;
-  margin-right: 20px;
   background: #d52121;
   height: 42px;
   line-height: 42px;
@@ -6915,6 +6914,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 .product_area .seller-item .Shipping {
   font-size: 12px;
   color: #929292;
+  font-weight: 700;
 }
 .product_area .seller-item .Garrunty {
   font-weight: 700;
@@ -6927,14 +6927,18 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 .product_area .seller-item .Price span:nth-child(1) {
   color: #d52121;
   font-size: 12px;
+  display: inline-block;
+  font-weight: 700;
 }
 .product_area .seller-item .Price span:nth-child(2) {
   font-weight: 700;
   font-size: 14px;
+  display: inline-block;
 }
 .product_area .seller-item .Price span:nth-child(3) {
   font-size: 12px;
   text-decoration: line-through;
+  display: inline-block;
 }
 /* 13. cart page css here */
 .header_cart_page {

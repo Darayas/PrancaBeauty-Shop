@@ -13,3 +13,29 @@
         </ul>
     </div>
 }
+
+@if (Model.Data.VariantType=="ComboBox")
+{
+    <div class="product_variant">
+        <div class=row>
+            <div class=col-md-4>
+                <div class=form-group>
+                    <label>@Model.Data.Title</label>
+                    <select class="form-control" id="SelCombo" onchange="LoadDetails($('#SelCombo option:selected').val())">
+                        @foreach (var item in Model.Data.LstItems)
+                        {
+                            if (Model.Data.DefaultVariantValue==item.Value)
+                            {
+                                <option selected value="@item.Value">@item.Title</option>
+                            }
+                            else
+                            {
+                                <option value="@item.Value">@item.Title</option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+}

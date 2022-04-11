@@ -8,6 +8,7 @@ using PrancaBeauty.Domin.Product.ProductReviewsMediaAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductTopicAgg.Entities;
 using PrancaBeauty.Domin.Region.CountryAgg.Entities;
 using PrancaBeauty.Domin.Region.LanguagesAgg.Entities;
+using PrancaBeauty.Domin.Sliders.SliderAgg.Entities;
 using PrancaBeauty.Domin.Users.SellerAgg.Entities;
 using PrancaBeauty.Domin.Users.UserAgg.Entities;
 using System;
@@ -41,6 +42,7 @@ namespace PrancaBeauty.Domin.FileServer.FileAgg.Entities
         public virtual ICollection<tblProductTopic> tblProductTopic { get; set; }
         public virtual ICollection<tblSeller_Translates> tblSeller_Translates { get; set; }
         public virtual ICollection<tblUsers> tblUserProfile { get; set; }
+        public virtual ICollection<tblSlider> tblSlider { get; set; }
 
     }
 }

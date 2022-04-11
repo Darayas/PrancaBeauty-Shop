@@ -44,6 +44,7 @@ using PrancaBeauty.Application.Apps.Province;
 using PrancaBeauty.Application.Apps.Roles;
 using PrancaBeauty.Application.Apps.Seller;
 using PrancaBeauty.Application.Apps.Settings;
+using PrancaBeauty.Application.Apps.Slider;
 using PrancaBeauty.Application.Apps.Templates;
 using PrancaBeauty.Application.Apps.Users;
 using PrancaBeauty.Application.Common.ExMethods;
@@ -80,6 +81,7 @@ using PrancaBeauty.Domin.Region.CurrnencyAgg.Contracts;
 using PrancaBeauty.Domin.Region.LanguagesAgg.Contracts;
 using PrancaBeauty.Domin.Region.ProvinceAgg.Contracts;
 using PrancaBeauty.Domin.Settings.SettingsAgg.Contracts;
+using PrancaBeauty.Domin.Sliders.SliderAgg.Contracts;
 using PrancaBeauty.Domin.Templates.TemplatesAgg.Contracts;
 using PrancaBeauty.Domin.Users.AccessLevelAgg.Contracts;
 using PrancaBeauty.Domin.Users.AddressAgg.Contracts;
@@ -123,6 +125,7 @@ using PrancaBeauty.Infrastructure.EFCore.Repository.Region;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Roles;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Sellers;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Settings;
+using PrancaBeauty.Infrastructure.EFCore.Repository.Slider;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Templates;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Users;
 using PrancaBeauty.Infrastructure.Logger.Serilogger;
@@ -136,12 +139,12 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddCustomAutoMapper();
             services.AddDbContext<MainContext>(opt => opt.UseSqlServer("Server=.;Database=PrancaBeautyDb;Trusted_Connection=True;"));
 
-            services.AddScoped<ILogger, Serilogger>();
-            services.AddScoped<IEmailSender, GmailSender>();
-            services.AddScoped<ISmsSender, KaveNegarSmsSender>();
-            services.AddScoped<IDownloader, Downloader>();
-            services.AddScoped<IIPList, IPList>();
-            services.AddScoped<IAniShell, AniShell>();
+            services.AddSingleton<ILogger, Serilogger>();
+            services.AddSingleton<IEmailSender, GmailSender>();
+            services.AddSingleton<ISmsSender, KaveNegarSmsSender>();
+            services.AddSingleton<IDownloader, Downloader>();
+            services.AddSingleton<IIPList, IPList>();
+            services.AddSingleton<IAniShell, AniShell>();
             services.AddScoped<IFtpClient, FtpClient>();
             services.AddScoped<IFtpWapper, FtpWapper>();
 
@@ -193,6 +196,7 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddScoped<IGuarantee_TranslatesRepository, Guarantee_TranslatesRepository>();
             services.AddScoped<IPostingRestrictionsRepository, PostingRestrictionsRepository>();
             services.AddScoped<IProductDiscountRepository, ProductDiscountRepository>();
+            services.AddScoped<ISliderRepository, SliderRepository>();
 
             // Applications
             services.AddScoped<IUserApplication, UserApplication>();
@@ -234,6 +238,7 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddScoped<IPostingRestrictionsApplication, PostingRestrictionsApplication>();
             services.AddScoped<ISellerApplication, SellerApplication>();
             services.AddScoped<IProductDiscountApplication, ProductDiscountApplication>();
+            services.AddScoped<ISliderApplication, SliderApplication>();
         }
     }
 }

@@ -75,5 +75,13 @@ namespace PrancaBeauty.WebApp.Authentication
         #region Files
         public const string CanManageAllUserFiles = "CanManageAllUserFiles";
         #endregion
+
+        #region Slider
+        public const string CanManageSlider = "CanManageSlider";
+        public const string CanViewListSlider = "CanViewListSlider";
+        public const string CanAddSlide = "CanAddSlide";
+        public const string CanEditSlide = "CanEditSlide";
+        public const string CanRemoveSlide = "CanRemoveSlide";
+        #endregion
     }
 }

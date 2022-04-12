@@ -1,4 +1,5 @@
-﻿using Framework.Infrastructure;
+﻿using Framework.Exceptions;
+using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.Sliders;
 using PrancaBeauty.Domin.Sliders.SliderAgg.Contracts;
@@ -46,6 +47,27 @@ namespace PrancaBeauty.Application.Apps.Slider
                                                    .ToListAsync();
 
                 return qData;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
+            }
+        }
+
+        public async Task<string> GetListSlideForManageAsync(InpGetListSlideForManage Input)
+        {
+            try
+            {
+                #region Validations
+
+                #endregion
+
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return null;
             }
             catch (Exception ex)
             {

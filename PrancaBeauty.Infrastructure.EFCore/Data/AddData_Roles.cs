@@ -776,6 +776,85 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
             }
             #endregion
 
+            #region ManageSlider
+            {
+                Guid _Id = new Guid().SequentialGuid();
+                if (!_repRoles.Get.Any(a => a.Name == "CanManageSlider"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = _Id,
+                        ParentId = null,
+                        PageName = "ManageSliderPage",
+                        Sort = 370,
+                        Name = "CanManageSlider",
+                        NormalizedName = "CanManageSlider".ToUpper(),
+                        Description = "توانایی مدیریت اسلاید ها"
+                    }, default, false).Wait();
+                }
+                else
+                {
+                    _Id = _repRoles.Get.Where(a => a.Name == "CanManageSlider").Select(a => a.Id).Single();
+                }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanViewListSlider"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageSliderPage",
+                        Sort = 380,
+                        Name = "CanViewListSlider",
+                        NormalizedName = "CanViewListSlider".ToUpper(),
+                        Description = "توانایی مشاهده لیست اسلاید ها"
+                    }, default, false).Wait();
+                }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanAddSlide"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageSliderPage",
+                        Sort = 390,
+                        Name = "CanAddSlide",
+                        NormalizedName = "CanAddSlide".ToUpper(),
+                        Description = "توانایی افزودن اسلاید جدید"
+                    }, default, false).Wait();
+                }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanEditSlide"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageSliderPage",
+                        Sort = 390,
+                        Name = "CanEditSlide",
+                        NormalizedName = "CanEditSlide".ToUpper(),
+                        Description = "توانایی ویرایش اسلاید"
+                    }, default, false).Wait();
+                }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanRemoveSlide"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageSliderPage",
+                        Sort = 390,
+                        Name = "CanRemoveSlide",
+                        NormalizedName = "CanRemoveSlide".ToUpper(),
+                        Description = "توانایی حذف اسلاید"
+                    }, default, false).Wait();
+                }
+            }
+            #endregion
+
             _repRoles.SaveChangeAsync().Wait();
 
         }

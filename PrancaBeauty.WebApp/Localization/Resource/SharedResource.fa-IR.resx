@@ -489,6 +489,9 @@
   <data name="Enable" xml:space="preserve">
     <value>فعال</value>
   </data>
+  <data name="EndDate" xml:space="preserve">
+    <value>تاریخ پایان</value>
+  </data>
   <data name="Err429Msg" xml:space="preserve">
     <value>&lt;span style='font-weight:700;color:red;font-size:18px;'&gt;تعداد درخواست های ارسالی به سرور بیش از حد مجاز میباشد.&lt;/span&gt;&lt;br/&gt;&lt;span style='font-weight:600;font-size:16px;'&gt;لطفا 1 دقیقه ی دیگر مجددا تلاش نمایید.&lt;/span&gt;</value>
   </data>
@@ -750,6 +753,9 @@
   <data name="LimitToResendSms2Minute" xml:space="preserve">
     <value>شما کمتر از 2 دقیقه قبل اقدام به لاگین کرده اید. لطفا 2 دقیقه صبر نمایید و مجددا اقدام کنید</value>
   </data>
+  <data name="Link" xml:space="preserve">
+    <value>لینک</value>
+  </data>
   <data name="LinkExipred" xml:space="preserve">
     <value>لینک منقضی شده است. لطفا مجددا اقدام نمایید</value>
   </data>
@@ -758,6 +764,9 @@
   </data>
   <data name="ListCategories" xml:space="preserve">
     <value>لیست دسته بندی ها</value>
+  </data>
+  <data name="ListSlider" xml:space="preserve">
+    <value>لیست اسلایدر</value>
   </data>
   <data name="ListUsers" xml:space="preserve">
     <value>لیست کاربران</value>
@@ -1248,6 +1257,9 @@
   <data name="SearchCategory" xml:space="preserve">
     <value>جستوجوی دسته</value>
   </data>
+  <data name="SearchSlider" xml:space="preserve">
+    <value>جستو اسلاید</value>
+  </data>
   <data name="SearchUsers" xml:space="preserve">
     <value>جستوجوی کاربران</value>
   </data>
@@ -1335,6 +1347,9 @@
   <data name="Sorting" xml:space="preserve">
     <value>مرتب سازی</value>
   </data>
+  <data name="StartDate" xml:space="preserve">
+    <value>تاریخ شروع</value>
+  </data>
   <data name="Status" xml:space="preserve">
     <value>وضعیت</value>
   </data>
@@ -1406,6 +1421,9 @@
   </data>
   <data name="UploadWithError" xml:space="preserve">
     <value>خطا در آپلود</value>
+  </data>
+  <data name="Url" xml:space="preserve">
+    <value>لینک</value>
   </data>
   <data name="User" xml:space="preserve">
     <value>کاربر</value>

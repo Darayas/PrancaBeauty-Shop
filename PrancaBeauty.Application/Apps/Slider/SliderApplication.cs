@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.Results;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.Sliders;
 using PrancaBeauty.Domin.Sliders.SliderAgg.Contracts;
+using PrancaBeauty.Domin.Sliders.SliderAgg.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -179,6 +180,71 @@ namespace PrancaBeauty.Application.Apps.Slider
                     }
                 }
 
+
+                return new OperationResult().Succeeded();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return default;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return default;
+            }
+        }
+
+        public async Task<OperationResult> AddSlideAsync(InpAddSlide Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+
+                if (Input.StartDate==null && Input.EndDate!=null)
+                    Input.StartDate=DateTime.Now;
+
+
+                if (Input.StartDate.HasValue && Input.EndDate.HasValue)
+                    if (Input.StartDate.Value >= Input.EndDate.Value)
+                        return new OperationResult().Failed("EndDateMustBeGreaterThanStartDate");
+                #endregion
+
+                #region Check Title Duplicate
+                {
+                    var IsDuplicate = await _SliderRepository.Get.AnyAsync(a => a.Title==Input.Title);
+                    if (IsDuplicate)
+                        return new OperationResult().Failed("TitleIsDuplicated");
+                }
+                #endregion
+
+                #region Get SortNum
+                int _Sort = 0;
+                {
+                    _Sort= await _SliderRepository.Get.CountAsync();
+                }
+                #endregion
+
+                #region Add Slide
+                var tSlide = new tblSlider
+                {
+                    Id=new Guid().SequentialGuid(),
+                    UserId=Input.UserId.ToGuid(),
+                    Title=Input.Title,
+                    Date=DateTime.Now,
+                    FileId=Input.FileId.ToGuid(),
+                    Url=Input.Url,
+                    Sort=_Sort,
+                    IsEnable=Input.IsEnable,
+                    IsFollow=Input.IsFollow,
+                    StartDate=Input.StartDate,
+                    EndDate=Input.EndDate,
+                    IsActive=Input.StartDate==null ? true : (Input.StartDate.Value<=DateTime.Now ? true : false)
+                };
+
+                await _SliderRepository.AddAsync(tSlide, default, true);
+                #endregion
 
                 return new OperationResult().Succeeded();
             }

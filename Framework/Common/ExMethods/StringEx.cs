@@ -57,7 +57,8 @@ namespace Framework.Common.ExMethods
 
         public static bool CheckCharsForUrlName(this string text)
         {
-            return Regex.IsMatch(text, @"^[A-Za-z0-9\-]*$");
+            //return Regex.IsMatch(text, @"^[A-Za-z0-9\-]*$");
+            return true;
         }
 
         public static bool CheckCharsForProductTitle(this string text)

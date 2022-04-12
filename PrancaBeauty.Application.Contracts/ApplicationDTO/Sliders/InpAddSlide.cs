@@ -1,10 +1,16 @@
 ﻿using Framework.Common.DataAnnotations.String;
+using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput
+namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Sliders
 {
-    public class viAddSlide
+    public class InpAddSlide
     {
+        [Display(Name = "UserId")]
+        [RequiredString]
+        [GUID]
+        public string UserId { get; set; }
+
         [Display(Name = "FileId")]
         [RequiredString]
         [GUID]
@@ -28,12 +34,9 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput
         public bool IsEnable { get; set; }
 
         [Display(Name = "StartDate")]
-        [Date]
-        public string StartDate { get; set; }
+        public DateTime? StartDate { get; set; }
 
         [Display(Name = "EndDate")]
-        [MaxLengthString(150)]
-        [Date]
-        public string EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
     }
 }

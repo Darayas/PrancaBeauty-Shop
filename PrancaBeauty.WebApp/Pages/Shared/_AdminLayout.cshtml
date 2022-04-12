@@ -247,6 +247,39 @@
                                 </li>
                             }
 
+                            @if (User.IsInRole(Roles.CanManageSlider))
+                            {
+                                <li class="nav-item has-treeview">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon fa fa-shield"></i>
+                                        <p>
+                                            @Localizer["ManageSlider"]
+                                            <i class="right fa fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        @if (User.IsInRole(Roles.CanAddSlide))
+                                        {
+                                            <li class="nav-item">
+                                                <a href="/@CultureInfo.CurrentCulture.Parent.Name/Admin/Slider/Add" class="nav-link active">
+                                                    <i class="fa fa-circle-o nav-icon"></i>
+                                                    <p>@Localizer["AddNewSlide"]</p>
+                                                </a>
+                                            </li>
+                                        }
+                                        @if (User.IsInRole(Roles.CanViewListSlider))
+                                        {
+                                            <li class="nav-item">
+                                                <a href="/@CultureInfo.CurrentCulture.Parent.Name/Admin/Slider/List" class="nav-link">
+                                                    <i class="fa fa-circle-o nav-icon"></i>
+                                                    <p>@Localizer["ListSlider"]</p>
+                                                </a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </li>
+                            }
+
                             @if (User.IsInRole(Roles.CanManageAccessLevel))
                             {
                                 <li class="nav-item has-treeview">

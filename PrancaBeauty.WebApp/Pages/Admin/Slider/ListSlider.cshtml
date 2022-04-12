@@ -40,12 +40,12 @@
                                 col.Bound(a => a.Id).Hidden().HtmlAttributes(new { @class = "RowId" }).Sortable(false);
                                 col.Bound(a => a.ImgUrl).HtmlAttributes(new { style="text-align:center;" }).Width(60).Title(" ").ClientTemplate("<img style='width:128px;' src='#=ImgUrl#' />").Sortable(false);
                                 col.Bound(a => a.Title).Sortable(false);
-                                col.Bound(a => a.Url).Sortable(false).ClientTemplate($"<a href='#=Url#'>{Localizer["Link"]}</a>");
-                                col.Bound(a => a.Sort).Sortable(false);
-                                col.Bound(a => a.IsEnable).Sortable(false).Width(60).Title(" ").ClientTemplate("<img style='width:28px;' src='/Shared/img/#=IsEnable#.png' />").Sortable(false);
-                                col.Bound(a => a.IsActive).Sortable(false).Width(60).Title(" ").ClientTemplate("<img style='width:28px;' src='/Shared/img/#=IsActive#.png' />").Sortable(false);
-                                col.Bound(a => a.StartDate).Sortable(false);
-                                col.Bound(a => a.EndDate).Sortable(false);
+                                col.Bound(a => a.Url).Width(70).Sortable(false).ClientTemplate($"<a href='#=Url#'>{Localizer["Link"]}</a>");
+                                col.Bound(a => a.Sort).Width(50).Sortable(false).HtmlAttributes(new { @class="DataGridSorting" }).ClientTemplate("<span onClick='Sorting('#=Id#','up')'><i class='fa fa-angle-up'></i></span><span>#=Sort#</span><span onClick='Sorting('#=Id#','down')'><i class='fa fa-angle-down'></i></span>");
+                                col.Bound(a => a.IsEnable).Sortable(false).Width(60).ClientTemplate("<img style='width:28px;' src='/Shared/img/#=IsEnable#.png' />").Sortable(false);
+                                col.Bound(a => a.IsActive).Sortable(false).Width(60).ClientTemplate("<img style='width:28px;' src='/Shared/img/#=IsActive#.png' />").Sortable(false);
+                                col.Bound(a => a.StartDate).Width(150).Sortable(false);
+                                col.Bound(a => a.EndDate).Width(150).Sortable(false);
                                 col.Bound(a => a).Width(50).Title(" ")
                                 .HtmlAttributes(new { style= "overflow: visible; text-align: center;" })
                                 .ClientHeaderTemplate("<button class='btn btn-primary btn-sm mr-1 ml-1' onclick='SearchModal()'><i class='fa fa-search'></i></button>"+(User.IsInRole(Roles.CanAddSlide)? "<button class='btn btn-success btn-sm' onclick='Add()'><i class='fa fa-plus'></i></button>" : ""))
@@ -148,5 +148,9 @@
      {
          $('#txtSearchTitle').val(null);
          Search();
+     }
+     function Sorting(_Id,_Action)
+     {
+         SendData('/@ViewData["culture"]/Admin/Slider/List?handler=sort',{Id:_Id,Action:_Action});
      }
 </script>

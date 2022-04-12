@@ -177,6 +177,9 @@
   <data name="AddNewReview" xml:space="preserve">
     <value>ثبت دیدگاه جدید</value>
   </data>
+  <data name="AddNewSlide" xml:space="preserve">
+    <value>افزودن اسلاید جدید</value>
+  </data>
   <data name="AddNewUsers" xml:space="preserve">
     <value>افزودن کاربر جدید</value>
   </data>
@@ -806,6 +809,9 @@
   </data>
   <data name="ManageCategories" xml:space="preserve">
     <value>مدیرت دسته بندی ها</value>
+  </data>
+  <data name="ManageSlider" xml:space="preserve">
+    <value>مدیریت اسلاید ها</value>
   </data>
   <data name="ManageUsers" xml:space="preserve">
     <value>مدیریت کاربران</value>

@@ -328,3 +328,17 @@ pre {
     border-radius: 5px;
     width: 100%;
 }
+
+
+.DataGridSorting {
+    span {
+        &:nth-chlid(1) {
+        }
+
+        &:nth-chlid(2) {
+        }
+
+        &:nth-chlid(3) {
+        }
+    }
+}

@@ -5,5 +5,7 @@
         public string Title { get; set; }
         public string Url { get; set; }
         public string ImgUrl { get; set; }
+        public bool IsFollow { get; set; }
+
     }
 }

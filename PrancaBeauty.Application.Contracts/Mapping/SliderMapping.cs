@@ -14,6 +14,7 @@ namespace PrancaBeauty.Application.Contracts.Mapping
         public SliderMapping()
         {
             CreateMap<OutGetLstSlidesForMainSlider, vmMainPageSliderView>();
+            CreateMap<OutGetListSlideForManage, vmSliderList>();
         }
     }
 }

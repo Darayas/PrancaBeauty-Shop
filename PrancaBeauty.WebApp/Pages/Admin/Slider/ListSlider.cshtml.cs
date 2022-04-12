@@ -1,11 +1,13 @@
 using AutoMapper;
 using Framework.Infrastructure;
+using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Slider;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.Categories;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Sliders;
 using PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput;
 using PrancaBeauty.Application.Contracts.PresentationDTO.ViewModel;
 using PrancaBeauty.WebApp.Authentication;
@@ -38,24 +40,20 @@ namespace PrancaBeauty.WebApp.Pages.Admin.Slider
 
         public async Task<IActionResult> OnPostReadDataAsync([DataSourceRequest] DataSourceRequest request, string LangId)
         {
-            var qData = await _SliderApplication.GetListForAdminPageAsync(new InpGetListForAdminPage
+            var qData = await _SliderApplication.GetListSlideForManageAsync(new InpGetListSlideForManage
             {
-                LangId = LangId,
                 Title = Input.Title,
-                ParentTitle = Input.ParentTitle,
-                PageNum = request.Page,
+                CurrentPage = request.Page,
                 Take = request.PageSize
             });
 
-            //var qListData = _Mapper.Map<List<vmCategoriesList>>(qData.Item2);
+            var qListData = _Mapper.Map<List<vmSliderList>>(qData.LstSlider);
 
-            //var _DataGrid = qListData.ToDataSourceResult(request);
-            //_DataGrid.Total = (int)qData.Item1.CountAllItem;
-            //_DataGrid.Data = qListData;
+            var _DataGrid = qListData.ToDataSourceResult(request);
+            _DataGrid.Total = (int)qData.Paging.CountAllItem;
+            _DataGrid.Data = qListData;
 
-            //return new JsonResult(_DataGrid);
-
-            return default;
+            return new JsonResult(_DataGrid);
         }
 
         public async Task<IActionResult> OnPostRemoveAsync(viListSliderRemove Input)
@@ -76,6 +74,11 @@ namespace PrancaBeauty.WebApp.Pages.Admin.Slider
             //    return _MsgBox.FaildMsg(_Localizer[_Result.Message]);
             //}
 
+            return default;
+        }
+
+        public async Task<IActionResult> OnPostSortAsync(viListSliderSorting Input)
+        {
             return default;
         }
 

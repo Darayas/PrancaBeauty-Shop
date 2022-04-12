@@ -14,6 +14,7 @@ namespace PrancaBeauty.Domin.Sliders.SliderAgg.Entities
         public int Sort { get; set; }
         public string Url { get; set; }
         public bool IsFollow { get; set; } // Follow, NoFollow
+        public DateTime Date { get; set; }
 
         public bool IsEnable { get; set; }
         public bool IsActive { get; set; }

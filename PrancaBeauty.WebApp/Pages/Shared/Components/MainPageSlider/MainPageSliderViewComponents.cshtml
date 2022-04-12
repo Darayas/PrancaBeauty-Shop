@@ -4,7 +4,7 @@
     <div class="slider_area owl-carousel">
         @foreach (var item in Model)
         {
-            <a href="@item.Url" class="single_slider d-flex align-items-center" title="@item.Title" data-bgimg="@item.ImgUrl"></a>
+            <a @(item.IsFollow?"":"rel=nofollow") href="@item.Url" class="single_slider d-flex align-items-center" title="@item.Title" data-bgimg="@item.ImgUrl"></a>
         }
     </div>
 </section>

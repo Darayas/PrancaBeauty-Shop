@@ -259,5 +259,102 @@ namespace PrancaBeauty.Application.Apps.Slider
                 return default;
             }
         }
+
+        public async Task<OutGetSlideForEdit> GetSlideForEditAsync(InpGetSlideForEdit Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var qData = await _SliderRepository.Get.Where(a => a.Id==Input.Id.ToGuid())
+                                                   .Select(a => new OutGetSlideForEdit
+                                                   {
+                                                       Id=a.Id.ToString(),
+                                                       Title=a.Title,
+                                                       StartDate=a.StartDate,
+                                                       EndDate=a.EndDate,
+                                                       Url=a.Url,
+                                                       FileId=a.FileId.ToString(),
+                                                       IsEnable=a.IsEnable,
+                                                       IsFollow=a.IsFollow
+                                                   })
+                                                   .SingleOrDefaultAsync();
+
+                if (qData==null)
+                    return null;
+
+                return qData;
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return default;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return default;
+            }
+        }
+
+        public async Task<OperationResult> SaveEditSlideAsync(InpSaveEditSlide Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+
+                if (Input.StartDate==null && Input.EndDate!=null)
+                    Input.StartDate=DateTime.Now;
+
+
+                if (Input.StartDate.HasValue && Input.EndDate.HasValue)
+                    if (Input.StartDate.Value >= Input.EndDate.Value)
+                        return new OperationResult().Failed("EndDateMustBeGreaterThanStartDate");
+                #endregion
+
+                #region Check Title Duplicate
+                {
+                    var IsDuplicate = await _SliderRepository.Get.Where(a => a.Id!=Input.Id.ToGuid()).AnyAsync(a => a.Title==Input.Title);
+                    if (IsDuplicate)
+                        return new OperationResult().Failed("TitleIsDuplicated");
+                }
+                #endregion
+
+                #region Edit Slide
+                {
+                    var qData = await _SliderRepository.Get.Where(a => a.Id==Input.Id.ToGuid()).SingleOrDefaultAsync();
+                    if (qData==null)
+                        return new OperationResult().Failed("IdNotFound");
+
+                    qData.Title = Input.Title;
+                    qData.FileId=Input.FileId.ToGuid();
+                    qData.Url=Input.Url;
+                    qData.IsFollow= Input.IsFollow;
+                    qData.IsEnable=Input.IsEnable;
+                    qData.StartDate=Input.StartDate;
+                    qData.EndDate=Input.EndDate;
+                    qData.IsActive=Input.StartDate==null ? true : (Input.StartDate.Value<=DateTime.Now ? true : false);
+
+                    await _SliderRepository.UpdateAsync(qData, default, true);
+                }
+                #endregion
+
+                return new OperationResult().Succeeded();
+
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return default;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return default;
+            }
+        }
     }
 }

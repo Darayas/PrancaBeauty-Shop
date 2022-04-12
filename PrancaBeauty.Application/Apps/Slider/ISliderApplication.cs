@@ -11,7 +11,9 @@ namespace PrancaBeauty.Application.Apps.Slider
         Task<OperationResult> AddSlideAsync(InpAddSlide Input);
         Task<(OutPagingData Paging, List<OutGetListSlideForManage> LstSlider)> GetListSlideForManageAsync(InpGetListSlideForManage Input);
         Task<List<OutGetLstSlidesForMainSlider>> GetLstSlidesForMainSliderAsync();
+        Task<OutGetSlideForEdit> GetSlideForEditAsync(InpGetSlideForEdit Input);
         Task<OperationResult> RemoveSliderAsync(InpRemoveSlider Input);
+        Task<OperationResult> SaveEditSlideAsync(InpSaveEditSlide Input);
         Task<OperationResult> SortingSliderAsync(InpSortingSlider Input);
     }
 }

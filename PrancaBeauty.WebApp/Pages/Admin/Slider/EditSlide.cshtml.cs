@@ -9,7 +9,6 @@ using PrancaBeauty.Application.Apps.Slider;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.Sliders;
 using PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput;
 using PrancaBeauty.WebApp.Authentication;
-using PrancaBeauty.WebApp.Common.ExMethod;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
 using System;
 using System.Globalization;
@@ -17,8 +16,8 @@ using System.Threading.Tasks;
 
 namespace PrancaBeauty.WebApp.Pages.Admin.Slider
 {
-    [Authorize(Roles = Roles.CanAddSlide)]
-    public class AddSlideModel : PageModel
+    [Authorize(Roles = Roles.CanEditSlide)]
+    public class EditSlideModel : PageModel
     {
         private readonly ILogger _Logger;
         private readonly IMsgBox _MsgBox;
@@ -27,7 +26,7 @@ namespace PrancaBeauty.WebApp.Pages.Admin.Slider
         private readonly ILocalizer _Localizer;
         private readonly ISliderApplication _SliderApplication;
 
-        public AddSlideModel(ILogger logger, IServiceProvider serviceProvider, ILocalizer localizer, ISliderApplication sliderApplication, IMsgBox msgBox, IMapper mapper)
+        public EditSlideModel(ILogger logger, IServiceProvider serviceProvider, ILocalizer localizer, ISliderApplication sliderApplication, IMsgBox msgBox, IMapper mapper)
         {
             _Logger=logger;
             _ServiceProvider=serviceProvider;
@@ -37,25 +36,50 @@ namespace PrancaBeauty.WebApp.Pages.Admin.Slider
             _Mapper=mapper;
         }
 
-        public IActionResult OnGet(string ReturnUrl = null)
+        public async Task<IActionResult> OnGetAsync(viGetEditSlide Input)
         {
-            ViewData["ReturnUrl"]=ReturnUrl??$"/{CultureInfo.CurrentCulture.Parent.Name}/Admin/Slider/List";
+            try
+            {
+                #region Validation
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
 
-            return Page();
+                ViewData["ReturnUrl"]=Input.ReturnUrl??$"/{CultureInfo.CurrentCulture.Parent.Name}/Admin/Slider/List";
+
+                var qData = await _SliderApplication.GetSlideForEditAsync(new InpGetSlideForEdit
+                {
+                    Id= Input.Id
+                });
+
+                if (qData==null)
+                    return StatusCode(400);
+
+                this.Input= _Mapper.Map<viEditSlide>(qData);
+
+                return Page();
+            }
+            catch (ArgumentInvalidException)
+            {
+                return StatusCode(400);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return StatusCode(500);
+            }
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
             try
             {
-                #region Validations
+                #region Validation
                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
-                var _MappedData = _Mapper.Map<InpAddSlide>(Input);
-                _MappedData.UserId= User.GetUserDetails().UserId;
+                var _MappedData = _Mapper.Map<InpSaveEditSlide>(Input);
 
-                var _Result = await _SliderApplication.AddSlideAsync(_MappedData);
+                var _Result = await _SliderApplication.SaveEditSlideAsync(_MappedData);
                 if (_Result.IsSucceeded)
                 {
                     return _MsgBox.SuccessMsg(_Localizer[_Result.Message], "GotoList()");
@@ -64,6 +88,7 @@ namespace PrancaBeauty.WebApp.Pages.Admin.Slider
                 {
                     return _MsgBox.FaildMsg(_Localizer[_Result.Message]);
                 }
+
             }
             catch (ArgumentInvalidException ex)
             {
@@ -77,6 +102,6 @@ namespace PrancaBeauty.WebApp.Pages.Admin.Slider
         }
 
         [BindProperty]
-        public viAddSlide Input { get; set; }
+        public viEditSlide Input { get; set; }
     }
 }

@@ -459,6 +459,9 @@
   <data name="EditProfile" xml:space="preserve">
     <value>ویرایش پروفایل</value>
   </data>
+  <data name="EditSlide" xml:space="preserve">
+    <value>ویرایش اسلاید</value>
+  </data>
   <data name="Email" xml:space="preserve">
     <value>ایمیل</value>
   </data>
@@ -700,7 +703,7 @@
     <value>وضعیت</value>
   </data>
   <data name="IsFollow" xml:space="preserve">
-    <value>وضعیت Follow</value>
+    <value>وضعیت لینک</value>
   </data>
   <data name="IsNotConfirmed" xml:space="preserve">
     <value>تایید نشده</value>

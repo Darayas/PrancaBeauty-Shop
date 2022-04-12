@@ -1,7 +1,7 @@
-﻿@page "/{culture}/Admin/Slider/Add"
-@model PrancaBeauty.WebApp.Pages.Admin.Slider.AddSlideModel
+﻿@page "/{culture}/Admin/Slider/Edit/{Id}"
+@model PrancaBeauty.WebApp.Pages.Admin.Slider.EditSlideModel
 @{
-    ViewData["Title"] = Localizer["AddSlide"];
+    ViewData["Title"] = Localizer["EditSlide"];
     Layout = "~/pages/shared/_AdminLayout.cshtml";
 }
 
@@ -31,13 +31,14 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <form id="frmAddSlide">
+                            <form id="frmEditSlide">
+                                <input asp-for="Input.Id" type="hidden" />
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <LoadComponent id="ImagesCompo"
                                                            context="HttpContext"
-                                                           data='new viCompo_FileSelector {ContainerId="ImagesCompo" ,FieldName="Input.FileId",MaxFileCount=1, MaxFileSize=2097152 /* 2 MB */,AllowedMimeType="image/jpg, image/jpeg, image/png"}'
+                                                           data='new viCompo_FileSelector {ContainerId="ImagesCompo" ,FieldName="Input.FileId",MaxFileCount=1, MaxFileSize=2097152 /* 2 MB */,AllowedMimeType="image/jpg, image/jpeg, image/png",SelectedFilesId=Model.Input.FileId.ToLower()}'
                                                            url="/@ViewData["culture"]/Shared/Compo/ComboFileSelector"></LoadComponent>
                                         </div>
                                     </div>
@@ -67,7 +68,7 @@
                                     <div class="row">
                                         <div class="col-md-5">
                                             <label asp-for=Input.StartDate></label>
-                                            <input asp-for=Input.StartDate value="" class="Date form-control text-left" />
+                                            <input asp-for=Input.StartDate class="Date form-control text-left" />
                                         </div>
                                         <div class="col-md-5">
                                             <label asp-for=Input.EndDate></label>
@@ -87,7 +88,7 @@
                                     <div class="row">
                                         <div class="col-md-12 text-left">
                                             <hr />
-                                            <button onclick="SendForm('/@ViewData["Culture"]/Admin/Slider/Add', 'frmAddSlide')" type="button" class="btn btn-success">@Localizer["Save"]</button>
+                                            <button onclick="SendForm('/@ViewData["Culture"]/Admin/Slider/Edit/@(Model.Input.Id)', 'frmEditSlide')" type="button" class="btn btn-success">@Localizer["Save"]</button>
                                             <button onclick="GotoList()" type="button" class="btn btn-warning">@Localizer["GotoList"]</button>
                                         </div>
                                     </div>

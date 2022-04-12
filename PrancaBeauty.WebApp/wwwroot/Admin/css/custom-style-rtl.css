@@ -346,3 +346,7 @@ a:not([href]) {
     color: white;
     border-radius: 5px;
 }
+
+.table thead th {
+    border-bottom: 2px solid #dee2e6;
+}

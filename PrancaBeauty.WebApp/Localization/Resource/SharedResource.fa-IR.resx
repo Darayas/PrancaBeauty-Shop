@@ -198,6 +198,9 @@
   <data name="AddressHasFactors" xml:space="preserve">
     <value>آدرس دارای فاکتورهایی میباشد که امکان حذف آن وجود ندارد.</value>
   </data>
+  <data name="AddSlide" xml:space="preserve">
+    <value>افزودن اسلاید جدید</value>
+  </data>
   <data name="AddToCart" xml:space="preserve">
     <value>افزودن به سبد خرید</value>
   </data>
@@ -555,6 +558,9 @@
   <data name="FirstName" xml:space="preserve">
     <value>نام</value>
   </data>
+  <data name="Follow" xml:space="preserve">
+    <value>دنبال شود</value>
+  </data>
   <data name="FontIconCode" xml:space="preserve">
     <value>کد فونت ایکن</value>
   </data>
@@ -689,6 +695,9 @@
   </data>
   <data name="IsEnable" xml:space="preserve">
     <value>وضعیت</value>
+  </data>
+  <data name="IsFollow" xml:space="preserve">
+    <value>وضعیت Follow</value>
   </data>
   <data name="IsNotConfirmed" xml:space="preserve">
     <value>تایید نشده</value>
@@ -884,6 +893,9 @@
   </data>
   <data name="NoFileSeleted" xml:space="preserve">
     <value>&lt;span&gt;فایلی انتخاب نشده است. (&lt;a style="color:#d52121" onclick="{0}"&gt;افزودن&lt;/a&gt;)&lt;/span&gt;</value>
+  </data>
+  <data name="NoFollow" xml:space="preserve">
+    <value>دنبال نشود</value>
   </data>
   <data name="NoItemFound" xml:space="preserve">
     <value>موردی یافت نشد.</value>

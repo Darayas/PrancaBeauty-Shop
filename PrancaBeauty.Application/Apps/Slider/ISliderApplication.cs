@@ -1,4 +1,5 @@
 ﻿using Framework.Common.Utilities.Paging;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Results;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.Sliders;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -9,5 +10,7 @@ namespace PrancaBeauty.Application.Apps.Slider
     {
         Task<(OutPagingData Paging, List<OutGetListSlideForManage> LstSlider)> GetListSlideForManageAsync(InpGetListSlideForManage Input);
         Task<List<OutGetLstSlidesForMainSlider>> GetLstSlidesForMainSliderAsync();
+        Task<OperationResult> RemoveSliderAsync(InpRemoveSlider Input);
+        Task<OperationResult> SortingSliderAsync(InpSortingSlider Input);
     }
 }

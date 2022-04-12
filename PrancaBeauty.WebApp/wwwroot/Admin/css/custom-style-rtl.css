@@ -44,7 +44,7 @@
 
 body {
     font-family: 'Vazir', sans-serif !important;
-    text-align:right;
+    text-align: right;
 }
 
 .ltr {
@@ -306,7 +306,7 @@ a:not([href]) {
     }
 
     .k-dropdown-wrap .k-select .k-icon {
-        top: 5px ;
+        top: 5px;
     }
 
 .content-header .breadcrumb {
@@ -317,4 +317,32 @@ a:not([href]) {
     .content-header .breadcrumb {
         float: right;
     }
+}
+
+
+.DataGridSorting span:nth-child(1) {
+    display: inline-block;
+    padding: 5px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor:pointer;
+    background-color:#00b214;
+    color:white;
+    border-radius:5px;
+}
+
+.DataGridSorting span:nth-child(2) {
+    display: inline-block;
+    margin: 0px 5px;
+}
+
+.DataGridSorting span:nth-child(3) {
+    display: inline-block;
+    padding: 5px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    background-color: #d80f0f;
+    color: white;
+    border-radius: 5px;
 }

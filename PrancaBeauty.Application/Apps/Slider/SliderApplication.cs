@@ -3,6 +3,7 @@ using Framework.Common.Utilities.Paging;
 using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Results;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.Sliders;
 using PrancaBeauty.Domin.Sliders.SliderAgg.Contracts;
 using System;
@@ -84,11 +85,102 @@ namespace PrancaBeauty.Application.Apps.Slider
                                                           + a.tblFiles.tblFilePaths.Path
                                                           + a.tblFiles.FileName
                                              })
-                                             .OrderByDescending(a => a.Date);
+                                             .OrderBy(a => a.Sort);
 
                 var _PagingData = PagingData.Calc(await qData.CountAsync(), Input.CurrentPage, Input.Take);
                 return (_PagingData, await qData.Skip((int)_PagingData.Skip).Take(_PagingData.Take).ToListAsync());
 
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return default;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return default;
+            }
+        }
+
+        public async Task<OperationResult> RemoveSliderAsync(InpRemoveSlider Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var qData = await _SliderRepository.Get.Where(a => a.Id==Input.Id.ToGuid()).SingleOrDefaultAsync();
+                if (qData==null)
+                    return new OperationResult().Failed("IdNotFound");
+
+                await _SliderRepository.DeleteAsync(qData, default, true);
+
+                return new OperationResult().Succeeded();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return default;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return default;
+            }
+        }
+
+        public async Task<OperationResult> SortingSliderAsync(InpSortingSlider Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var qListSlide = await _SliderRepository.Get.OrderBy(a => a.Sort).ToListAsync();
+                var qCurrentItem = qListSlide.Where(a => a.Id==Input.Id.ToGuid()).SingleOrDefault();
+                if (qCurrentItem==null)
+                    return new OperationResult().Failed("IdNotFound");
+
+                int IndexOfCurrentItem = qListSlide.IndexOf(qCurrentItem);
+
+                if (Input.Action==InpSortingSliderItem.Up)
+                {
+                    if (IndexOfCurrentItem!=0)
+                    {
+                        var PriveItem = qListSlide[IndexOfCurrentItem-1];
+
+                        int OldPriveIndex = PriveItem.Sort;
+                        PriveItem.Sort=IndexOfCurrentItem;
+                        qCurrentItem.Sort=OldPriveIndex;
+
+                        await _SliderRepository.UpdateAsync(PriveItem, default, false);
+                        await _SliderRepository.UpdateAsync(qCurrentItem, default, false);
+
+                        await _SliderRepository.SaveChangeAsync();
+                    }
+                }
+                else if (Input.Action==InpSortingSliderItem.Down)
+                {
+                    if (IndexOfCurrentItem<(qListSlide.Count()-1))
+                    {
+                        var NextItem = qListSlide[IndexOfCurrentItem+1];
+
+                        int OldPriveIndex = NextItem.Sort;
+                        NextItem.Sort=IndexOfCurrentItem;
+                        qCurrentItem.Sort=OldPriveIndex;
+
+                        await _SliderRepository.UpdateAsync(NextItem, default, false);
+                        await _SliderRepository.UpdateAsync(qCurrentItem, default, false);
+
+                        await _SliderRepository.SaveChangeAsync();
+                    }
+                }
+
+
+                return new OperationResult().Succeeded();
             }
             catch (ArgumentInvalidException ex)
             {

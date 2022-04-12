@@ -41,7 +41,7 @@
                                 col.Bound(a => a.ImgUrl).HtmlAttributes(new { style="text-align:center;" }).Width(60).Title(" ").ClientTemplate("<img style='width:128px;' src='#=ImgUrl#' />").Sortable(false);
                                 col.Bound(a => a.Title).Sortable(false);
                                 col.Bound(a => a.Url).Width(70).Sortable(false).ClientTemplate($"<a href='#=Url#'>{Localizer["Link"]}</a>");
-                                col.Bound(a => a.Sort).Width(50).Sortable(false).HtmlAttributes(new { @class="DataGridSorting" }).ClientTemplate("<span onClick='Sorting('#=Id#','up')'><i class='fa fa-angle-up'></i></span><span>#=Sort#</span><span onClick='Sorting('#=Id#','down')'><i class='fa fa-angle-down'></i></span>");
+                                col.Bound(a => a.Sort).Width(80).Sortable(false).HtmlAttributes(new { @class="DataGridSorting" }).ClientTemplate("<span onclick=Sorting('#=Id#','0')><i class='fa fa-angle-up'></i></span><span>#=Sort#</span><span onclick=Sorting('#=Id#','1')><i class='fa fa-angle-down'></i></span>");
                                 col.Bound(a => a.IsEnable).Sortable(false).Width(60).ClientTemplate("<img style='width:28px;' src='/Shared/img/#=IsEnable#.png' />").Sortable(false);
                                 col.Bound(a => a.IsActive).Sortable(false).Width(60).ClientTemplate("<img style='width:28px;' src='/Shared/img/#=IsActive#.png' />").Sortable(false);
                                 col.Bound(a => a.StartDate).Width(150).Sortable(false);
@@ -126,6 +126,7 @@
 }
 
 <script>
+
     function RefreshData() {
         RefreshGrid('ListSlider');
     }
@@ -149,8 +150,10 @@
          $('#txtSearchTitle').val(null);
          Search();
      }
+
+    
      function Sorting(_Id,_Action)
      {
-         SendData('/@ViewData["culture"]/Admin/Slider/List?handler=sort',{Id:_Id,Action:_Action});
+         SendData('/@ViewData["culture"]/Admin/Slider/List?handler=Sorting',{Id:_Id,Act:_Action});
      }
 </script>

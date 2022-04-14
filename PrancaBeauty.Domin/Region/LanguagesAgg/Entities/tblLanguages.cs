@@ -48,7 +48,7 @@ namespace PrancaBeauty.Domin.Region.LanguagesAgg.Entities
         public virtual ICollection<tblProducts> tblProducts { get; set; }
         public virtual ICollection<tblCurrency_Translates> tblCurrency_Translates { get; set; }
         public virtual ICollection<tblGuarantee_Translates> tblGuarantee_Translates { get; set; }
-        public virtual ICollection<tblShowcasesTranslate> tblShowCasesTranslate { get; set; }
+        public virtual ICollection<tblShowcasesTranslates> tblShowCasesTranslate { get; set; }
 
 
         public virtual tblCountries tblCountries { get; set; }

@@ -127,7 +127,7 @@ using PrancaBeauty.Infrastructure.EFCore.Repository.Region;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Roles;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Sellers;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Settings;
-using PrancaBeauty.Infrastructure.EFCore.Repository.Showcase;
+using PrancaBeauty.Infrastructure.EFCore.Repository.Showcases;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Slider;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Templates;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Users;
@@ -200,7 +200,7 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddScoped<IPostingRestrictionsRepository, PostingRestrictionsRepository>();
             services.AddScoped<IProductDiscountRepository, ProductDiscountRepository>();
             services.AddScoped<ISliderRepository, SliderRepository>();
-            services.AddScoped<IShowcasesRepository, ShowCasesRepository>();
+            services.AddScoped<ShowcaseRepository, ShowcaseRepository>();
             services.AddScoped<IShowcaseTranslateRepository, ShowcaseTranslateRepository>();
 
             // Applications

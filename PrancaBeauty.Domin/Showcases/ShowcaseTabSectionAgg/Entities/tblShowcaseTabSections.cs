@@ -17,6 +17,8 @@ namespace PrancaBeauty.Domin.Showcases.ShowcaseTabSectionAgg.Entities
         public int MdSize { get; set; } // Medium
         public int SmSize { get; set; } // Smal
         public int XsSize { get; set; } // Extra Small
+        public bool IsSlider { get; set; }
+        public int CountInSlider { get; set; }
 
         public virtual tblShowcaseTabs tblShowcaseTabs { get; set; }
         public virtual tblShowcaseTabSections tblShowcaseTabSectionsParent { get; set; }

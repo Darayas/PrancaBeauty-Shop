@@ -44,7 +44,7 @@ namespace PrancaBeauty.Domin.FileServer.FileAgg.Entities
         public virtual ICollection<tblSeller_Translates> tblSeller_Translates { get; set; }
         public virtual ICollection<tblUsers> tblUserProfile { get; set; }
         public virtual ICollection<tblSlider> tblSlider { get; set; }
-        public virtual ICollection<tblSectionCategories> tblSectionCategories { get; set; }
+        public virtual ICollection<tblSectionCategoryTranslate> tblSectionCategoryTranslate { get; set; }
 
     }
 }

@@ -12,7 +12,7 @@ using PrancaBeauty.Domin.Region.CountryAgg.Entities;
 using PrancaBeauty.Domin.Region.CurrnencyAgg.Entities;
 using PrancaBeauty.Domin.Region.ProvinceAgg.Entities;
 using PrancaBeauty.Domin.Settings.SettingsAgg.Entities;
-using PrancaBeauty.Domin.Showcases.SectionCategories.Entities;
+using PrancaBeauty.Domin.Showcases.SectionCategoryAgg.Entities;
 using PrancaBeauty.Domin.Showcases.ShowcaseAgg.Entities;
 using PrancaBeauty.Domin.Showcases.ShowcaseTabAgg.Entities;
 using PrancaBeauty.Domin.Templates.TemplatesAgg.Entitis;

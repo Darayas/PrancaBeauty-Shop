@@ -22,6 +22,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Mapping.Showcases
             builder.Property(a => a.Name).IsRequired().HasMaxLength(100);
             builder.Property(a => a.CssStyle).IsRequired(false).HasMaxLength(500);
             builder.Property(a => a.CssClass).IsRequired(false).HasMaxLength(200);
+            builder.Property(a => a.BackgroundColorCode).IsRequired(false).HasMaxLength(100);
 
             builder.HasOne(a => a.tblUser)
                    .WithMany(a => a.tblShowCases)

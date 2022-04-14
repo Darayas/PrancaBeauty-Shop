@@ -11,6 +11,7 @@ using PrancaBeauty.Domin.Product.ProductSellerAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductTopicAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductVariantsItemsAgg.Entities;
 using PrancaBeauty.Domin.Region.LanguagesAgg.Entities;
+using PrancaBeauty.Domin.Showcases.SectionProductAgg.Entities;
 using PrancaBeauty.Domin.Users.UserAgg.Entities;
 using System;
 using System.Collections.Generic;
@@ -58,5 +59,6 @@ namespace PrancaBeauty.Domin.Product.ProductAgg.Entities
         public virtual ICollection<tblProductVariantItems> tblProductVariantItems { get; set; }
         public virtual ICollection<tblProductSellers> tblProductSellers { get; set; }
         public virtual ICollection<tblPostingRestrictions> tblPostingRestrictions { get; set; }
+        public virtual ICollection<tblSectionProducts> tblSectionProducts { get; set; }
     }
 }

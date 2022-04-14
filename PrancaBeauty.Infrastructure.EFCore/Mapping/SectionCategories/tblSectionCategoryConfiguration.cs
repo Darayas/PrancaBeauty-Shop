@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using PrancaBeauty.Domin.Showcases.SectionCategories.Entities;
+using PrancaBeauty.Domin.Showcases.SectionCategoryAgg.Entities;
 
 namespace PrancaBeauty.Infrastructure.EFCore.Mapping.SectionCategories
 {

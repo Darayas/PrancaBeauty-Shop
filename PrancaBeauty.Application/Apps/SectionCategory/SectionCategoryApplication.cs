@@ -1,5 +1,5 @@
 ﻿using Framework.Infrastructure;
-using PrancaBeauty.Domin.Showcases.SectionCategories.Contracts;
+using PrancaBeauty.Domin.Showcases.SectionCategoryAgg.Contracts;
 using System;
 
 namespace PrancaBeauty.Application.Apps.SectionCategory

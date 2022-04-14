@@ -1,7 +1,7 @@
 ﻿using Framework.Domain;
 using PrancaBeauty.Domin.FileServer.FileAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductAgg.Entities;
-using PrancaBeauty.Domin.Showcases.SectionCategories.Entities;
+using PrancaBeauty.Domin.Showcases.SectionCategoryAgg.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

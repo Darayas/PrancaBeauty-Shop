@@ -3,7 +3,7 @@ using PrancaBeauty.Domin.FileServer.FileAgg.Entities;
 using PrancaBeauty.Domin.Region.LanguagesAgg.Entities;
 using System;
 
-namespace PrancaBeauty.Domin.Showcases.SectionCategories.Entities
+namespace PrancaBeauty.Domin.Showcases.SectionCategoryAgg.Entities
 {
     public class tblSectionCategoryTranslate : IEntity
     {

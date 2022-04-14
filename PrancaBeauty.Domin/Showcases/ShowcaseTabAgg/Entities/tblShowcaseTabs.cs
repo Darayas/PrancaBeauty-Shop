@@ -11,6 +11,7 @@ namespace PrancaBeauty.Domin.Showcases.ShowcaseTabAgg.Entities
         public Guid Id { get; set; }
         public Guid ShowcaseId { get; set; }
         public string Name { get; set; }
+        public string BackgroundColorCode { get; set; }
         public int Sort { get; set; }
         public bool IsEnable { get; set; }
         public bool IsActive { get; set; }

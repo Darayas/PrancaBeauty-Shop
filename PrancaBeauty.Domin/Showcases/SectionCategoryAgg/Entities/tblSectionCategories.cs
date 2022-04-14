@@ -4,7 +4,7 @@ using PrancaBeauty.Domin.Showcases.ShowcaseTabSectionAgg.Entities;
 using System;
 using System.Collections.Generic;
 
-namespace PrancaBeauty.Domin.Showcases.SectionCategories.Entities
+namespace PrancaBeauty.Domin.Showcases.SectionCategoryAgg.Entities
 {
     public class tblSectionCategories : IEntity
     {

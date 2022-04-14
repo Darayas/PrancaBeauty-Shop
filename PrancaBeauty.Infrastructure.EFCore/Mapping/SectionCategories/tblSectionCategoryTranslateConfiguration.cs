@@ -1,12 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore;
-using PrancaBeauty.Domin.Showcases.SectionCategories.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using PrancaBeauty.Domin.Showcases.SectionCategoryAgg.Entities;
 using PrancaBeauty.Infrastructure.EFCore.Contracts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PrancaBeauty.Infrastructure.EFCore.Mapping.SectionCategories
 {
@@ -19,7 +14,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Mapping.SectionCategories
             builder.Property(a => a.LangId).IsRequired().HasMaxLength(150);
             builder.Property(a => a.SectionCategoryId).IsRequired().HasMaxLength(150);
             builder.Property(a => a.FileId).IsRequired().HasMaxLength(150);
-            builder.Property(a => a.Title).IsRequired().HasMaxLength(100);
+            builder.Property(a => a.Title).IsRequired(false).HasMaxLength(100);
 
             builder.HasOne(a => a.tblLanguages)
                    .WithMany(a => a.tblSectionCategoryTranslate)

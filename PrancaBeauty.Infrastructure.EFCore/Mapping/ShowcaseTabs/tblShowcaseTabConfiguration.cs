@@ -13,6 +13,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Mapping.ShowcaseTabs
             builder.Property(a => a.Id).IsRequired().HasMaxLength(150);
             builder.Property(a => a.ShowcaseId).IsRequired().HasMaxLength(150);
             builder.Property(a => a.Name).IsRequired().HasMaxLength(150);
+            builder.Property(a => a.BackgroundColorCode).IsRequired(false).HasMaxLength(100);
 
             builder.HasOne(a => a.tblShowcases)
                    .WithMany(a => a.tblShowcaseTabs)

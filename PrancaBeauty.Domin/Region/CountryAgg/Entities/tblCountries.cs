@@ -5,6 +5,7 @@ using PrancaBeauty.Domin.Product.ProductPricesAgg.Entities;
 using PrancaBeauty.Domin.Region.CurrnencyAgg.Entities;
 using PrancaBeauty.Domin.Region.LanguagesAgg.Entities;
 using PrancaBeauty.Domin.Region.ProvinceAgg.Entities;
+using PrancaBeauty.Domin.Showcases.ShowcaseAgg.Entities;
 using PrancaBeauty.Domin.Users.AddressAgg.Entities;
 using System;
 using System.Collections.Generic;
@@ -29,5 +30,6 @@ namespace PrancaBeauty.Domin.Region.CountryAgg.Entities
         public virtual ICollection<tblLanguages> tblLanguages { get; set; }
         public virtual ICollection<tblCurrencies> tblCurrencies { get; set; }
         public virtual ICollection<tblPostingRestrictions> tblPostingRestrictions { get; set; }
+        public virtual ICollection<tblShowcases> tblShowCases { get; set; }
     }
 }

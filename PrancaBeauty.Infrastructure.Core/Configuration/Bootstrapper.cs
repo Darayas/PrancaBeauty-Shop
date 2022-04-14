@@ -44,6 +44,7 @@ using PrancaBeauty.Application.Apps.Province;
 using PrancaBeauty.Application.Apps.Roles;
 using PrancaBeauty.Application.Apps.Seller;
 using PrancaBeauty.Application.Apps.Settings;
+using PrancaBeauty.Application.Apps.Showcases;
 using PrancaBeauty.Application.Apps.Slider;
 using PrancaBeauty.Application.Apps.Templates;
 using PrancaBeauty.Application.Apps.Users;
@@ -81,6 +82,7 @@ using PrancaBeauty.Domin.Region.CurrnencyAgg.Contracts;
 using PrancaBeauty.Domin.Region.LanguagesAgg.Contracts;
 using PrancaBeauty.Domin.Region.ProvinceAgg.Contracts;
 using PrancaBeauty.Domin.Settings.SettingsAgg.Contracts;
+using PrancaBeauty.Domin.Showcases.ShowcaseAgg.Contracts;
 using PrancaBeauty.Domin.Sliders.SliderAgg.Contracts;
 using PrancaBeauty.Domin.Templates.TemplatesAgg.Contracts;
 using PrancaBeauty.Domin.Users.AccessLevelAgg.Contracts;
@@ -125,6 +127,7 @@ using PrancaBeauty.Infrastructure.EFCore.Repository.Region;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Roles;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Sellers;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Settings;
+using PrancaBeauty.Infrastructure.EFCore.Repository.Showcase;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Slider;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Templates;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Users;
@@ -197,6 +200,8 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddScoped<IPostingRestrictionsRepository, PostingRestrictionsRepository>();
             services.AddScoped<IProductDiscountRepository, ProductDiscountRepository>();
             services.AddScoped<ISliderRepository, SliderRepository>();
+            services.AddScoped<IShowcasesRepository, ShowCasesRepository>();
+            services.AddScoped<IShowcaseTranslateRepository, ShowcaseTranslateRepository>();
 
             // Applications
             services.AddScoped<IUserApplication, UserApplication>();
@@ -239,6 +244,7 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddScoped<ISellerApplication, SellerApplication>();
             services.AddScoped<IProductDiscountApplication, ProductDiscountApplication>();
             services.AddScoped<ISliderApplication, SliderApplication>();
+            services.AddScoped<IShowcaseApplication, ShowcaseApplication>();
         }
     }
 }

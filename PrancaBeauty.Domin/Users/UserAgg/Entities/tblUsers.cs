@@ -9,6 +9,7 @@ using PrancaBeauty.Domin.Product.ProductReviewsAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductReviewsLikesAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductSellerAgg.Entities;
 using PrancaBeauty.Domin.Region.LanguagesAgg.Entities;
+using PrancaBeauty.Domin.Showcases.ShowcaseAgg.Entities;
 using PrancaBeauty.Domin.Sliders.SliderAgg.Entities;
 using PrancaBeauty.Domin.Users.AccessLevelAgg.Entities;
 using PrancaBeauty.Domin.Users.AddressAgg.Entities;
@@ -46,6 +47,7 @@ namespace PrancaBeauty.Domin.Users.UserAgg.Entities
         public virtual ICollection<tblProductAsk> tblProductAsk { get; set; }
         public virtual ICollection<tblProductAskLikes> tblProductAskLikes { get; set; }
         public virtual ICollection<tblSlider> tblSlider { get; set; }
+        public virtual ICollection<tblShowcases> tblShowCases { get; set; }
 
     }
 }

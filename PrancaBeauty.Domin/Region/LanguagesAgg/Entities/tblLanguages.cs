@@ -13,6 +13,7 @@ using PrancaBeauty.Domin.Region.CurrnencyAgg.Entities;
 using PrancaBeauty.Domin.Region.ProvinceAgg.Entities;
 using PrancaBeauty.Domin.Settings.SettingsAgg.Entities;
 using PrancaBeauty.Domin.Showcases.ShowcaseAgg.Entities;
+using PrancaBeauty.Domin.Showcases.ShowcaseTabAgg.Entities;
 using PrancaBeauty.Domin.Templates.TemplatesAgg.Entitis;
 using PrancaBeauty.Domin.Users.SellerAgg.Entities;
 using PrancaBeauty.Domin.Users.UserAgg.Entities;
@@ -49,6 +50,7 @@ namespace PrancaBeauty.Domin.Region.LanguagesAgg.Entities
         public virtual ICollection<tblCurrency_Translates> tblCurrency_Translates { get; set; }
         public virtual ICollection<tblGuarantee_Translates> tblGuarantee_Translates { get; set; }
         public virtual ICollection<tblShowcasesTranslates> tblShowCasesTranslate { get; set; }
+        public virtual ICollection<tblShowcaseTabTranslates> tblShowcaseTabTranslates { get; set; }
 
 
         public virtual tblCountries tblCountries { get; set; }

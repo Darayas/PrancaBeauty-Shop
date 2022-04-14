@@ -1,6 +1,7 @@
 ﻿using Framework.Domain;
 using PrancaBeauty.Domin.Region.LanguagesAgg.Entities;
 using System;
+using System.Collections.Generic;
 
 namespace PrancaBeauty.Domin.Showcases.ShowcaseAgg.Entities
 {

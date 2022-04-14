@@ -26,7 +26,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Mapping.Showcases
                    .WithMany(a => a.tblShowcasesTranslates)
                    .HasPrincipalKey(a => a.Id)
                    .HasForeignKey(a => a.ShowcaseId)
-                   .OnDelete(DeleteBehavior.Restrict);
+                   .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

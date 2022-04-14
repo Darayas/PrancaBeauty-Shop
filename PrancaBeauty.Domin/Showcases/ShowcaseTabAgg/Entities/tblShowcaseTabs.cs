@@ -1,5 +1,6 @@
 ﻿using Framework.Domain;
 using PrancaBeauty.Domin.Showcases.ShowcaseAgg.Entities;
+using PrancaBeauty.Domin.Showcases.ShowcaseTabSectionAgg.Entities;
 using System;
 using System.Collections.Generic;
 
@@ -18,5 +19,6 @@ namespace PrancaBeauty.Domin.Showcases.ShowcaseTabAgg.Entities
 
         public virtual tblShowcases tblShowcases { get; set; }
         public virtual ICollection<tblShowcaseTabTranslates> tblShowcaseTabTranslates { get; set; }
+        public virtual ICollection<tblShowcaseTabSections> tblShowcaseTabSections { get; set; }
     }
 }

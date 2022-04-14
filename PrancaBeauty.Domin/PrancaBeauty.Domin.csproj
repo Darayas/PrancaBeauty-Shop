@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Showcases\ShowcaseTabSectionAgg\Contracts\" />
+    <Folder Include="Showcases\SectionCategories\Contracts\" />
   </ItemGroup>
 
 </Project>

@@ -14,7 +14,7 @@ namespace PrancaBeauty.Domin.Showcases.ShowcaseAgg.Entities
     {
         public Guid Id { get; set; }
         public Guid UserId { get; set; }
-        public Guid CountryId { get; set; }
+        public Guid? CountryId { get; set; }
         public string Name { get; set; }
         public string BackgroundColorCode { get; set; }
         public string CssStyle { get; set; }

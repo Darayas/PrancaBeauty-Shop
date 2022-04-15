@@ -384,6 +384,9 @@
   <data name="CountVisit" xml:space="preserve">
     <value>تعداد بازدید</value>
   </data>
+  <data name="CountyTitle" xml:space="preserve">
+    <value>کشور</value>
+  </data>
   <data name="CurrentPassword" xml:space="preserve">
     <value>کلمه عبور فعلی</value>
   </data>
@@ -679,7 +682,7 @@
     <value>موجودی</value>
   </data>
   <data name="IsActive" xml:space="preserve">
-    <value>وضعیت</value>
+    <value>قابل نمایش</value>
   </data>
   <data name="IsActiveAes" xml:space="preserve">
     <value>وضعیت (صعودی)</value>
@@ -707,6 +710,9 @@
   </data>
   <data name="IsFollow" xml:space="preserve">
     <value>وضعیت لینک</value>
+  </data>
+  <data name="IsFullWidth" xml:space="preserve">
+    <value>پهنا کامل</value>
   </data>
   <data name="IsNotConfirmed" xml:space="preserve">
     <value>تایید نشده</value>

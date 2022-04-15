@@ -282,7 +282,7 @@ namespace PrancaBeauty.Application.Common.FtpWapper
                 if (_Result == true)
                 {
                     var _Id = new Guid().SequentialGuid().ToString();
-                    await _FileApplication.AddFileAsync(new InpAddFile()
+                    var _UploadResult = await _FileApplication.AddFileAsync(new InpAddFile()
                     {
                         Id = _Id,
                         FileServerId = qServer.Id,
@@ -295,7 +295,10 @@ namespace PrancaBeauty.Application.Common.FtpWapper
                         SizeOnDisk = _FormFile.Length
                     });
 
-                    return new OperationResult().Succeeded(_Id);
+                    if (_UploadResult.IsSucceeded)
+                        return new OperationResult().Succeeded(_Id);
+                    else
+                        return new OperationResult().Failed(_UploadResult.Message);
                 }
                 else
                 {

@@ -41,6 +41,6 @@
                   .Events(e=>e.Complete("OnComplete"+FieldId)
                               .Error("OnError"+FieldId))
                   .Validation(async validation=> validation.AllowedExtensions(await _FileTypeApplication.GetAllFileExtentionAsync()))
-                  .Async(a=> a.Batch(false).SaveUrl($"/{ViewData["culture"]}/Shared/Compo/ComboModalFileUploader?Input.UserId={Model.Input.UserId}")
+                  .Async(a=> a.Batch(true).SaveUrl($"/{ViewData["culture"]}/Shared/Compo/ComboModalFileUploader?Input.UserId={Model.Input.UserId}")
                               .AutoUpload(false)))
 </div>

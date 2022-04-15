@@ -1,6 +1,7 @@
 ﻿using Framework.Common.DataAnnotations;
 using Framework.Common.DataAnnotations.File;
 using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput
@@ -14,6 +15,6 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput
         [RequiredFile]
         [FileSize(524288000, MinFileSize: 1)]
         [AllowExtentions("image/jpg,image/png,image/jpeg,application/zip,application/rar,video/mp4")]
-        public IFormFile Files { get; set; }
+        public List<IFormFile> Files { get; set; }
     }
 }

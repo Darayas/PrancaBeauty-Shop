@@ -33,7 +33,7 @@ namespace PrancaBeauty.WebApp.Pages.User.Products.Components.Compo_SimpleUploade
                 return new JsonResult(new { error = new { message = ModelState.GetErrors("\n\t") } });
 
             string _UserId = User.GetUserDetails().UserId;
-            var Result = await _FtpWapper.UploadFromFileManagerAsync(new Application.Contracts.ApplicationDTO.Common.FtpWapper.InpUploadFromFileManager { FormFile = Input.upload, UserId = _UserId });
+            var Result = await _FtpWapper.UploadFromFileManagerAsync(new Application.Contracts.ApplicationDTO.Common.FtpWapper.InpUploadFromFileManager { FormFile = new List<IFormFile> { Input.upload }, UserId = _UserId });
             if (Result.IsSucceeded)
             {
                 var FileUrl = await _FileApplication.GetFileUrlAsync(new Application.Contracts.ApplicationDTO.Files.InpGetFileUrl { FileId = Result.Message });

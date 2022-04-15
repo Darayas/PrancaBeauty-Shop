@@ -1,6 +1,7 @@
 ﻿using Framework.Common.DataAnnotations.File;
 using Framework.Common.DataAnnotations.String;
 using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Common.FtpWapper
@@ -16,6 +17,6 @@ namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Common.FtpWapper
         [RequiredFile]
         [FileSize(10485760, MinFileSize: 10)]
         [AllowExtentions("image/jpg,image/png,image/gif,image/jpeg")]
-        public IFormFile FormFile { get; set; }
+        public List<IFormFile> FormFile { get; set; }
     }
 }

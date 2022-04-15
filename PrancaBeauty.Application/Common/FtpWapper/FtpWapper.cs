@@ -4,6 +4,7 @@ using Framework.Common.ExMethods;
 using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using PrancaBeauty.Application.Apps.FilePath;
 using PrancaBeauty.Application.Apps.Files;
 using PrancaBeauty.Application.Apps.FileServer;
@@ -215,18 +216,29 @@ namespace PrancaBeauty.Application.Common.FtpWapper
                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
-                var _ValidFileType = (await _AniShell.GetRealExtentionAsync(Input.FormFile));
-                if (_ValidFileType == default)
-                    return new OperationResult().Failed("FileFormatIsNotAllowed");
+                bool IsSuccess = true;
+                string Message = null;
+                foreach (var item in Input.FormFile)
+                {
+                    var _ValidFileType = (await _AniShell.GetRealExtentionAsync(item));
+                    if (_ValidFileType == default)
+                        return new OperationResult().Failed("FileFormatIsNotAllowed");
 
-                string _Path = $"/{_ValidFileType.Item2}/{DateTime.Now.Year}/{DateTime.Now.Month}/{DateTime.Now.Day}/";
-                string _FileName = new Guid().SequentialGuid().ToString().Replace("-", "") + "." + _ValidFileType.Item1;
+                    string _Path = $"/{_ValidFileType.Item2}/{DateTime.Now.Year}/{DateTime.Now.Month}/{DateTime.Now.Day}/";
+                    string _FileName = new Guid().SequentialGuid().ToString().Replace("-", "") + "." + _ValidFileType.Item1;
 
-                var _Result = await UploadFileAsync(Input.FormFile, Input.UserId, _Path, _FileName, Input.FormFile.FileName.Split('.').First());
-                if (_Result.IsSucceeded)
-                    return new OperationResult().Succeeded(_Result.Message);
+                    var _Result = await UploadFileAsync(item, Input.UserId, _Path, _FileName, item.FileName.Split('.').First());
+                    if (!_Result.IsSucceeded)
+                    {
+                        IsSuccess = false;
+                        Message += _Result.Message+",";
+                    }
+                }
+                if (IsSuccess)
+                    return new OperationResult().Succeeded();
                 else
-                    return new OperationResult().Failed(_Result.Message);
+                    return new OperationResult().Failed(Message);
+
             }
             catch (ArgumentInvalidException ex)
             {

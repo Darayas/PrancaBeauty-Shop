@@ -42,8 +42,10 @@ using PrancaBeauty.Application.Apps.ProductVariantItems;
 using PrancaBeauty.Application.Apps.ProductVariants;
 using PrancaBeauty.Application.Apps.Province;
 using PrancaBeauty.Application.Apps.Roles;
-using PrancaBeauty.Application.Apps.SectionCategory;
+using PrancaBeauty.Application.Apps.SectionFreeItem;
 using PrancaBeauty.Application.Apps.SectionProduct;
+using PrancaBeauty.Application.Apps.SectionProductCategory;
+using PrancaBeauty.Application.Apps.SectionProductKeyword;
 using PrancaBeauty.Application.Apps.Seller;
 using PrancaBeauty.Application.Apps.Settings;
 using PrancaBeauty.Application.Apps.Showcases;
@@ -86,8 +88,10 @@ using PrancaBeauty.Domin.Region.CurrnencyAgg.Contracts;
 using PrancaBeauty.Domin.Region.LanguagesAgg.Contracts;
 using PrancaBeauty.Domin.Region.ProvinceAgg.Contracts;
 using PrancaBeauty.Domin.Settings.SettingsAgg.Contracts;
-using PrancaBeauty.Domin.Showcases.SectionCategoryAgg.Contracts;
+using PrancaBeauty.Domin.Showcases.SectionFreeItemAgg.Contracts;
 using PrancaBeauty.Domin.Showcases.SectionProductAgg.Contracts;
+using PrancaBeauty.Domin.Showcases.SectionProductCategoryAgg.Contracts;
+using PrancaBeauty.Domin.Showcases.SectionProductKeywordAgg.Contracts;
 using PrancaBeauty.Domin.Showcases.ShowcaseAgg.Contracts;
 using PrancaBeauty.Domin.Showcases.ShowcaseTabAgg.Contracts;
 using PrancaBeauty.Domin.Showcases.ShowcaseTabSectionAgg.Contracts;
@@ -133,8 +137,10 @@ using PrancaBeauty.Infrastructure.EFCore.Repository.ProductVariants;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Province;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Region;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Roles;
-using PrancaBeauty.Infrastructure.EFCore.Repository.SectionCategory;
+using PrancaBeauty.Infrastructure.EFCore.Repository.SectionFreeItem;
 using PrancaBeauty.Infrastructure.EFCore.Repository.SectionProduct;
+using PrancaBeauty.Infrastructure.EFCore.Repository.SectionProductCategory;
+using PrancaBeauty.Infrastructure.EFCore.Repository.SectionProductKeyword;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Sellers;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Settings;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Showcases;
@@ -217,9 +223,11 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddScoped<IShowcaseTabsRepository, ShowcaseTabRepository>();
             services.AddScoped<IShowcaseTabsTranslateRepository, ShowcaseTabTranslateRepository>();
             services.AddScoped<IShowcaseTabSectionRepository, ShowcaseTabSectionRepository>();
-            services.AddScoped<ISectionCategoryRepository, SectionCategoryRepository>();
-            services.AddScoped<ISectionCategoryTranslateRepository, SectionCategoryTranslateRepository>();
+            services.AddScoped<ISectionFreeItemRepository, SectionFreeItemRepository>();
+            services.AddScoped<ISectionFreeItemTranslateRepository, SectionFreeItemTranslateRepository>();
             services.AddScoped<ISectionProductRepository, SectionProductRepository>();
+            services.AddScoped<ISectionProductCategoryRepository, SectionProductCategoryRepository>();
+            services.AddScoped<ISectionProductKeywordRepository, SectionProductKeywordRepository>();
 
             // Applications
             services.AddScoped<IUserApplication, UserApplication>();
@@ -265,8 +273,10 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddScoped<IShowcaseApplication, ShowcaseApplication>();
             services.AddScoped<IShowcaseTabApplication, ShowcaseTabApplication>();
             services.AddScoped<IShowcaseTabSectionApplication, ShowcaseTabSectionApplication>();
-            services.AddScoped<ISectionCategoryApplication, SectionCategoryApplication>();
+            services.AddScoped<ISectionFreeItemApplication, SectionFreeItemApplication>();
             services.AddScoped<ISectionProductApplication, SectionProductApplication>();
+            services.AddScoped<ISectionProductCategoryApplication, SectionProductCategoryApplication>();
+            services.AddScoped<ISectionProductKeywordApplication, SectionProductKeywordApplication>();
         }
     }
 }

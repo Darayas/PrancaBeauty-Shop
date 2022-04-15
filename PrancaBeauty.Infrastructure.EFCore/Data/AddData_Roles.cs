@@ -488,7 +488,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     }, default, false).Wait();
                 }
 
-                
+
                 if (!_repRoles.Get.Any(a => a.Name == "CanChangeStatusProductReviews"))
                 {
                     _repRoles.AddAsync(new tblRoles()
@@ -502,7 +502,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                         Description = "توانایی تایید یا رد دیدگاه محصول"
                     }, default, false).Wait();
                 }
-                
+
                 if (!_repRoles.Get.Any(a => a.Name == "CanChangeStatusProductReviewsForAllUser"))
                 {
                     _repRoles.AddAsync(new tblRoles()
@@ -832,7 +832,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                         Id = new Guid().SequentialGuid(),
                         ParentId = _Id,
                         PageName = "ManageSliderPage",
-                        Sort = 390,
+                        Sort = 400,
                         Name = "CanEditSlide",
                         NormalizedName = "CanEditSlide".ToUpper(),
                         Description = "توانایی ویرایش اسلاید"
@@ -846,10 +846,89 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                         Id = new Guid().SequentialGuid(),
                         ParentId = _Id,
                         PageName = "ManageSliderPage",
-                        Sort = 390,
+                        Sort = 410,
                         Name = "CanRemoveSlide",
                         NormalizedName = "CanRemoveSlide".ToUpper(),
                         Description = "توانایی حذف اسلاید"
+                    }, default, false).Wait();
+                }
+            }
+            #endregion
+
+            #region ManageShowcasae
+            {
+                Guid _Id = new Guid().SequentialGuid();
+                if (!_repRoles.Get.Any(a => a.Name == "CanManageShowcase"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = _Id,
+                        ParentId = null,
+                        PageName = "ManageShowcasePage",
+                        Sort = 420,
+                        Name = "CanManageShowcase",
+                        NormalizedName = "CanManageShowcase".ToUpper(),
+                        Description = "توانایی مدیریت ویترین ها"
+                    }, default, false).Wait();
+                }
+                else
+                {
+                    _Id = _repRoles.Get.Where(a => a.Name == "CanManageShowcase").Select(a => a.Id).Single();
+                }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanViewListShowcase"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageShowcasePage",
+                        Sort = 420,
+                        Name = "CanViewListShowcase",
+                        NormalizedName = "CanViewListShowcase".ToUpper(),
+                        Description = "توانایی مشاهده لیست ویترین ها"
+                    }, default, false).Wait();
+                }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanAddShowcase"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageShowcasePage",
+                        Sort = 430,
+                        Name = "CanAddShowcase",
+                        NormalizedName = "CanAddShowcase".ToUpper(),
+                        Description = "توانایی افزودن ویترین جدید"
+                    }, default, false).Wait();
+                }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanEditShowcase"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageShowcasePage",
+                        Sort = 440,
+                        Name = "CanEditShowcase",
+                        NormalizedName = "CanEditShowcase".ToUpper(),
+                        Description = "توانایی ویرایش ویترین"
+                    }, default, false).Wait();
+                }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanRemoveShowcase"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageShowcasePage",
+                        Sort = 450,
+                        Name = "CanRemoveShowcase",
+                        NormalizedName = "CanRemoveShowcase".ToUpper(),
+                        Description = "توانایی حذف ویترین"
                     }, default, false).Wait();
                 }
             }

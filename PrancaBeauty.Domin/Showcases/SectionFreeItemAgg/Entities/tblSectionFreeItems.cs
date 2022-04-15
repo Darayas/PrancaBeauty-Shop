@@ -4,19 +4,17 @@ using PrancaBeauty.Domin.Showcases.ShowcaseTabSectionAgg.Entities;
 using System;
 using System.Collections.Generic;
 
-namespace PrancaBeauty.Domin.Showcases.SectionCategoryAgg.Entities
+namespace PrancaBeauty.Domin.Showcases.SectionFreeItemAgg.Entities
 {
-    public class tblSectionCategories : IEntity
+    public class tblSectionFreeItems : IEntity
     {
         public Guid Id { get; set; }
         public Guid ShowcaseTabSectionId { get; set; }
-        public Guid CategoryId { get; set; }
         public string Name { get; set; }
         public int Sort { get; set; }
 
         public virtual tblShowcaseTabSections tblShowcaseTabSections { get; set; }
-        public virtual tblCategoris tblCategoris { get; set; }
-        public virtual ICollection<tblSectionCategoryTranslate> tblSectionCategoryTranslate { get; set; }
+        public virtual ICollection<tblSectionFreeItemTranslate> tblSectionFreeItemTranslate { get; set; }
 
     }
 }

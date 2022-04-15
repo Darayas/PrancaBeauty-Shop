@@ -177,6 +177,9 @@
   <data name="AddNewReview" xml:space="preserve">
     <value>ثبت دیدگاه جدید</value>
   </data>
+  <data name="AddNewShowcase" xml:space="preserve">
+    <value>افزودن ویترین جدید</value>
+  </data>
   <data name="AddNewSlide" xml:space="preserve">
     <value>افزودن اسلاید جدید</value>
   </data>
@@ -783,6 +786,9 @@
   <data name="ListCategories" xml:space="preserve">
     <value>لیست دسته بندی ها</value>
   </data>
+  <data name="ListShowcase" xml:space="preserve">
+    <value>لیست ویترین ها</value>
+  </data>
   <data name="ListSlider" xml:space="preserve">
     <value>لیست اسلایدر</value>
   </data>
@@ -824,6 +830,9 @@
   </data>
   <data name="ManageCategories" xml:space="preserve">
     <value>مدیرت دسته بندی ها</value>
+  </data>
+  <data name="ManageShowcase" xml:space="preserve">
+    <value>مدیریت ویترین ها</value>
   </data>
   <data name="ManageSlider" xml:space="preserve">
     <value>مدیریت اسلاید ها</value>

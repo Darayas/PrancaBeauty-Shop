@@ -3,18 +3,19 @@ using PrancaBeauty.Domin.FileServer.FileAgg.Entities;
 using PrancaBeauty.Domin.Region.LanguagesAgg.Entities;
 using System;
 
-namespace PrancaBeauty.Domin.Showcases.SectionCategoryAgg.Entities
+namespace PrancaBeauty.Domin.Showcases.SectionFreeItemAgg.Entities
 {
-    public class tblSectionCategoryTranslate : IEntity
+    public class tblSectionFreeItemTranslate : IEntity
     {
         public Guid Id { get; set; }
         public Guid LangId { get; set; }
-        public Guid SectionCategoryId { get; set; }
+        public Guid SectionFreeItemId { get; set; }
         public Guid FileId { get; set; }
         public string Title { get; set; }
+        public string Url { get; set; }
 
         public virtual tblFiles tblFiles { get; set; }
         public virtual tblLanguages tblLanguages { get; set; }
-        public virtual tblSectionCategories tblSectionCategories { get; set; }
+        public virtual tblSectionFreeItems tblSectionFreeItems { get; set; }
     }
 }

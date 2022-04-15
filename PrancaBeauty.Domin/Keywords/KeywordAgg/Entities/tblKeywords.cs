@@ -1,5 +1,6 @@
 ﻿using Framework.Domain;
 using PrancaBeauty.Domin.Keywords.Keywords_Products.Entities;
+using PrancaBeauty.Domin.Showcases.SectionProductKeywordAgg.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,5 +17,6 @@ namespace PrancaBeauty.Domin.Keywords.KeywordAgg.Entities
         public string Description { get; set; }
 
         public virtual ICollection<tblKeywords_Products> tblKeywords_Products { get; set; }
+        public virtual ICollection<tblSectionProductKeyword> tblSectionProductKeyword { get; set; }
     }
 }

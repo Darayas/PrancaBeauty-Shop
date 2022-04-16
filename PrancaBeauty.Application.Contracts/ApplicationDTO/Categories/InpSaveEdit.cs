@@ -24,7 +24,7 @@ namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Categories
 
         [Display(Name = "CategoryImage")]
         [FileSize(102400)]
-        [AllowExtentions("image/jpg,image/jpeg")]
+        [AllowExtentions("image/jpg,image/jpeg,image/png")]
         public IFormFile Image { get; set; }
 
         [Display(Name = "ImgCategoryUrl")]

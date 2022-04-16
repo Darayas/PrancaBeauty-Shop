@@ -314,7 +314,7 @@ namespace PrancaBeauty.Application.Apps.Products
                     var _Result = await _PostingRestrictionsApplication.AddPostingRestrictionsToProductAsync(new InpAddPostingRestrictionsToProduct
                     {
                         ProductId = ProductId,
-                        PostingRestrictions = Input.PostingRestrictions.Select(a => new InpAddPostingRestrictionsToProduct_Restrictions
+                        PostingRestrictions = Input.PostingRestrictions.Where(a => a.IsDelete==false).Select(a => new InpAddPostingRestrictionsToProduct_Restrictions
                         {
                             CountryId = a.CountryId,
                             Posting = a.Posting
@@ -564,7 +564,7 @@ namespace PrancaBeauty.Application.Apps.Products
                                                       Date = a.Date,
                                                       MetaTagKeyword = a.MetaTagKeyword,
                                                       Price = a.tblProductPrices.Where(a => a.IsActive).Where(a => a.CurrencyId == Guid.Parse(_CurrencyId)).Select(b => b.Price).Single(),
-                                                      ProductImagesId = string.Join(",", a.tblProductMedia.Select(a => a.FileId).Single())
+                                                      ProductImagesId = string.Join(",", a.tblProductMedia.Select(a => a.FileId).ToList())
                                                   })
                                                   .SingleOrDefaultAsync();
 
@@ -723,7 +723,7 @@ namespace PrancaBeauty.Application.Apps.Products
                     var _Result = await _PostingRestrictionsApplication.EditPostingRestrictionsAsync(new InpEditPostingRestrictions
                     {
                         ProductId = Input.Id,
-                        PostingRestrictions = Input.PostingRestrictions.Select(a => new InpEditPostingRestrictions_Restrictions
+                        PostingRestrictions = Input.PostingRestrictions.Where(a => a.IsDelete==false).Select(a => new InpEditPostingRestrictions_Restrictions
                         {
                             CountryId = a.CountryId,
                             Posting = a.Posting

@@ -14,7 +14,7 @@ namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Common.FtpWapper
 
         [Display(Name = "FormFile")]
         [FileSize(102400)]
-        [AllowExtentions("image/jpg,image/jpeg")]
+        [AllowExtentions("image/jpg,image/jpeg,image/png")]
         public IFormFile FormFile { get; set; }
 
     }

@@ -13,6 +13,7 @@ namespace PrancaBeauty.Domin.Showcases.SectionFreeItemAgg.Entities
         public Guid FileId { get; set; }
         public string Title { get; set; }
         public string Url { get; set; }
+        public string HtmlText { get; set; }
 
         public virtual tblFiles tblFiles { get; set; }
         public virtual tblLanguages tblLanguages { get; set; }

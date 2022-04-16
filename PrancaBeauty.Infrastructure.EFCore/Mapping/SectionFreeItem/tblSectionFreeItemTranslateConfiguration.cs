@@ -15,7 +15,8 @@ namespace PrancaBeauty.Infrastructure.EFCore.Mapping.SectionFreeItem
             builder.Property(a => a.SectionFreeItemId).IsRequired().HasMaxLength(150);
             builder.Property(a => a.FileId).IsRequired().HasMaxLength(150);
             builder.Property(a => a.Title).IsRequired(false).HasMaxLength(100);
-            builder.Property(a => a.Url).IsRequired().HasMaxLength(500);
+            builder.Property(a => a.Url).IsRequired(false).HasMaxLength(500);
+            builder.Property(a => a.HtmlText).IsRequired(false);
 
             builder.HasOne(a => a.tblLanguages)
                    .WithMany(a => a.tblSectionFreeItemTranslate)

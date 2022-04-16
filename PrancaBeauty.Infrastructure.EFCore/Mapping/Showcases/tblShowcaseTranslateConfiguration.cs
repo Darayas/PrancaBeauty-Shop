@@ -13,8 +13,8 @@ namespace PrancaBeauty.Infrastructure.EFCore.Mapping.Showcases
             builder.Property(a => a.Id).IsRequired().HasMaxLength(150);
             builder.Property(a => a.LangId).IsRequired().HasMaxLength(150);
             builder.Property(a => a.ShowcaseId).IsRequired().HasMaxLength(150);
-            builder.Property(a => a.Title).IsRequired(false).HasMaxLength(150);
-            builder.Property(a => a.Description).IsRequired(false).HasMaxLength(150);
+            builder.Property(a => a.Title).IsRequired(false).HasMaxLength(100);
+            builder.Property(a => a.Description).IsRequired(false).HasMaxLength(200);
 
             builder.HasOne(a => a.tblLanguage)
                    .WithMany(a => a.tblShowCasesTranslate)

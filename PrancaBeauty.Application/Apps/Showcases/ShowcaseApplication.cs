@@ -3,8 +3,11 @@ using Framework.Common.Utilities.Paging;
 using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Results;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.Showcase;
 using PrancaBeauty.Domin.Showcases.ShowcaseAgg.Contracts;
+using PrancaBeauty.Domin.Showcases.ShowcaseAgg.Entities;
+using PrancaBeauty.Domin.Sliders.SliderAgg.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,6 +54,75 @@ namespace PrancaBeauty.Application.Apps.Showcases
 
                 var _PagingData = PagingData.Calc(await qData.LongCountAsync(), Input.Page, Input.Take);
                 return (_PagingData, await qData.Skip((int)_PagingData.Skip).Take(_PagingData.Take).ToListAsync());
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Error(ex);
+                return default;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return default;
+            }
+        }
+
+        public async Task<OperationResult> AddShowcaseAsync(InpAddShowcase Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+
+                if (Input.EndDate.HasValue)
+                    if (Input.StartDate >= Input.EndDate.Value)
+                        return new OperationResult().Failed("EndDateMustBeGreaterThanStartDate");
+                #endregion
+
+                #region Check Name duplicate
+                if (await _ShowcaseRepository.Get.AnyAsync(a => a.Name==Input.Name))
+                    return new OperationResult().Failed("NameIsDuplicate");
+
+                #endregion
+
+                #region Get SortNum
+                int _Sort = 0;
+                {
+                    _Sort= await _ShowcaseRepository.Get.CountAsync();
+                }
+                #endregion
+
+                #region Add Showcase
+                {
+                    var tShowcase = new tblShowcases
+                    {
+                        Id= new Guid().SequentialGuid(),
+                        Name=Input.Name,
+                        CountryId=Input.CountryId!=null ? Input.CountryId.ToGuid() : null,
+                        UserId=Input.UserId.ToGuid(),
+                        BackgroundColorCode=Input.BackgroundColorCode,
+                        CssClass=Input.CssClass,
+                        CssStyle=Input.CssStyle,
+                        StartDate=Input.StartDate,
+                        EndDate=Input.EndDate,
+                        IsActive=Input.StartDate<DateTime.Now ? true : false,
+                        IsEnable=Input.IsEnable,
+                        IsFullWidth=Input.IsFullWidth,
+                        Sort=0,
+                        tblShowcasesTranslates= Input.LstTranslate.Select(a => new tblShowcasesTranslates
+                        {
+                            Id= new Guid().SequentialGuid(),
+                            LangId=a.LangId.ToGuid(),
+                            Title=a.Title,
+                            Description=a.Description
+                        }).ToList()
+                    };
+
+                    await _ShowcaseRepository.AddAsync(tShowcase, default, true);
+                }
+                #endregion
+
+                return new OperationResult().Succeeded();
             }
             catch (ArgumentInvalidException ex)
             {

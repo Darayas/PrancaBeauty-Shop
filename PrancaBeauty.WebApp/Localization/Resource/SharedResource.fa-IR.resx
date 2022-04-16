@@ -201,6 +201,9 @@
   <data name="AddressHasFactors" xml:space="preserve">
     <value>آدرس دارای فاکتورهایی میباشد که امکان حذف آن وجود ندارد.</value>
   </data>
+  <data name="AddShowcase" xml:space="preserve">
+    <value>افزودن ویترین جدید</value>
+  </data>
   <data name="AddSlide" xml:space="preserve">
     <value>افزودن اسلاید جدید</value>
   </data>
@@ -257,6 +260,9 @@
   </data>
   <data name="AyeYouSureToMoveToRecycleBin" xml:space="preserve">
     <value>آیا مطمعن به انتقال این مورد به زباله دان هستید؟</value>
+  </data>
+  <data name="BackgroundColorCode" xml:space="preserve">
+    <value>رنگ پشت زمینه</value>
   </data>
   <data name="Bad" xml:space="preserve">
     <value>بد</value>
@@ -387,10 +393,19 @@
   <data name="CountyTitle" xml:space="preserve">
     <value>کشور</value>
   </data>
+  <data name="CssClass" xml:space="preserve">
+    <value>کلاس های css</value>
+  </data>
+  <data name="CssStyle" xml:space="preserve">
+    <value>استایل های css</value>
+  </data>
   <data name="CurrentPassword" xml:space="preserve">
     <value>کلمه عبور فعلی</value>
   </data>
   <data name="Dashboard" xml:space="preserve">
+    <value>پیشخوان</value>
+  </data>
+  <data name="Dashborad" xml:space="preserve">
     <value>پیشخوان</value>
   </data>
   <data name="Date" xml:space="preserve">
@@ -893,6 +908,9 @@
   </data>
   <data name="Name is duplicate." xml:space="preserve">
     <value>نام تکراری است.</value>
+  </data>
+  <data name="NameIsDuplicate" xml:space="preserve">
+    <value>نام تکراری میباشد.</value>
   </data>
   <data name="NationalCode" xml:space="preserve">
     <value>کد ملی</value>

@@ -1,11 +1,17 @@
 ﻿using Framework.Common.DataAnnotations.String;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput
+namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Showcase
 {
-    public class viAddShowcase
+    public class InpAddShowcase
     {
+        [Display(Name = "UserId")]
+        [RequiredString]
+        [GUID]
+        public string UserId { get; set; }
+
         [Display(Name = "CountryId")]
         [GUID]
         public string CountryId { get; set; }
@@ -34,15 +40,15 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput
         public bool IsEnable { get; set; }
 
         [Display(Name = "StartDate")]
-        public string StartDate { get; set; }
+        public DateTime StartDate { get; set; }
 
         [Display(Name = "EndDate")]
-        public string EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
 
-        public List<viAddShowcase_Translate> LstTranslate { get; set; }
+        public List<InpAddShowcase_Translate> LstTranslate { get; set; }
     }
 
-    public class viAddShowcase_Translate
+    public class InpAddShowcase_Translate
     {
         [Display(Name = "LangId")]
         [RequiredString]

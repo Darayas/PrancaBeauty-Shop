@@ -32,7 +32,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <form id="frmAddCategory">
+                            <form id="frmAddShowcase">
                                 <div class="form-group">
                                     <div class="row">
                                         <div class=col-md-5>
@@ -40,8 +40,10 @@
                                             <input asp-for=Input.Name class=form-control />
                                         </div>
                                         <div class=col-md-3>
-                                            <label asp-for=Input.CountryId></label>
-                                            <input asp-for=Input.CountryId class=form-control />
+                                            <LoadComponent url="/@ViewData["Culture"]/Shared/Compo/Region/ComboCountris"
+                                                           id="CompoCountries"
+                                                           context="HttpContext"
+                                                           data='new viCompo_Combo_Countries { CountryId=Model.Input.CountryId,FieldName="Input.CountryId",ShowLabel=true}'></LoadComponent>
                                         </div>
                                         <div class=col-md-2>
                                             <label asp-for=Input.IsFullWidth></label>
@@ -71,11 +73,11 @@
                                         </div>
                                         <div class=col-md-2>
                                             <label asp-for=Input.StartDate></label>
-                                            <input asp-for=Input.StartDate class="form-control text-left" />
+                                            <input asp-for=Input.StartDate autocomplete=off class="form-control text-left Date" />
                                         </div>
                                         <div class=col-md-2>
                                             <label asp-for=Input.EndDate></label>
-                                            <input asp-for=Input.EndDate class="form-control text-left" />
+                                            <input asp-for=Input.EndDate autocomplete=off class="form-control text-left Date" />
                                         </div>
                                     </div>
                                 </div>
@@ -122,7 +124,7 @@
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <label asp-for="Input.LstTranslate[i].Description"></label>
-                                                        <textarea asp-for="Input.LstTranslate[i].Description" class="form-control" rows="4"></textarea>
+                                                        <input asp-for="Input.LstTranslate[i].Description" class="form-control" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -138,7 +140,7 @@
                                     <div class="row">
                                         <div class="col-md-12 text-left">
                                             <hr />
-                                            <button onclick="SendForm('/@ViewData["Culture"]/Admin/Category/Add', 'frmAddCategory')" type="button" class="btn btn-success">@Localizer["Save"]</button>
+                                            <button onclick="SendForm('/@ViewData["Culture"]/Admin/Showcase/Add', 'frmAddShowcase')" type="button" class="btn btn-success">@Localizer["Save"]</button>
                                             <button onclick="GotoList()" type="button" class="btn btn-warning">@Localizer["GotoList"]</button>
                                         </div>
                                     </div>
@@ -154,13 +156,33 @@
     <!-- /.content -->
 </div>
 
+@section styles{
+<link href="~/lib/PersianDatePicker/persian-datepicker.min.css" rel="stylesheet" />
+}
+
 @section scripts{
 <script src="~/lib/input-mask/jquery.inputmask.min.js"></script>
+<script src="~/lib/PersianDatePicker/persian-date.min.js"></script>
+<script src="~/lib/PersianDatePicker/persian-datepicker.min.js"></script>
+
 <script>
     $(document).ready(function () {
-        $('#Input_Name').inputmask({
-            regex: '[a-zA-Z_]*',
-            placeholder: ''
+       $(".Date").persianDatepicker({
+            format: 'YYYY/MM/DD HH:mm:ss',
+            toolbox: {
+                calendarSwitch: {
+                    enabled: false
+                }
+            },
+            calendar: {
+                persian: {
+                    locale: 'en'
+                }
+            },
+            timePicker: {
+                enabled: true
+            },
+            initialValue:false
         });
     });
 

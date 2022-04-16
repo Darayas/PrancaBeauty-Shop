@@ -45,7 +45,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                         IsPrivate = false,
                         SizeOnDisk = 0,
                         FileTypeId = _repFileType.Get.Where(a => a.MimeType == "image/png").Select(a => a.Id).Single(),
-                        FilePathId = _repFilePath.Get.Where(a => a.Path == "/image/png/2021/1/1/").Select(a => a.Id).Single()
+                        FilePathId = _repFilePath.Get.Where(a => a.Path == "/image/png/2022/1/1/").Select(a => a.Id).Single()
                     },
                     tblProductTopic_Translates = new List<tblProductTopic_Translates>() {
                         new tblProductTopic_Translates(){
@@ -77,7 +77,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                         IsPrivate = false,
                         SizeOnDisk = 0,
                         FileTypeId = _repFileType.Get.Where(a => a.MimeType == "image/png").Select(a => a.Id).Single(),
-                        FilePathId = _repFilePath.Get.Where(a => a.Path == "/image/png/2021/1/1/").Select(a => a.Id).Single()
+                        FilePathId = _repFilePath.Get.Where(a => a.Path == "/image/png/2022/1/1/").Select(a => a.Id).Single()
                     },
                     tblProductTopic_Translates = new List<tblProductTopic_Translates>() {
                         new tblProductTopic_Translates(){

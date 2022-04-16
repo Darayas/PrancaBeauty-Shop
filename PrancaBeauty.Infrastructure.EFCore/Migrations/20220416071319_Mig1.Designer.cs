@@ -12,8 +12,8 @@ using PrancaBeauty.Infrastructure.EFCore.Context;
 namespace PrancaBeauty.Infrastructure.EFCore.Migrations
 {
     [DbContext(typeof(MainContext))]
-    [Migration("20220412073924_mig5")]
-    partial class mig5
+    [Migration("20220416071319_Mig1")]
+    partial class Mig1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -1555,6 +1555,368 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                     b.ToTable("tblSettings");
                 });
 
+            modelBuilder.Entity("PrancaBeauty.Domin.Showcases.SectionFreeItemAgg.Entities.tblSectionFreeItems", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(150)
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<Guid>("ShowcaseTabSectionId")
+                        .HasMaxLength(150)
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Sort")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ShowcaseTabSectionId");
+
+                    b.ToTable("tblSectionFreeItems");
+                });
+
+            modelBuilder.Entity("PrancaBeauty.Domin.Showcases.SectionFreeItemAgg.Entities.tblSectionFreeItemTranslate", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(150)
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("FileId")
+                        .HasMaxLength(150)
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("LangId")
+                        .HasMaxLength(150)
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("SectionFreeItemId")
+                        .HasMaxLength(150)
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Title")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FileId");
+
+                    b.HasIndex("LangId");
+
+                    b.HasIndex("SectionFreeItemId");
+
+                    b.ToTable("tblSectionFreeItemTranslate");
+                });
+
+            modelBuilder.Entity("PrancaBeauty.Domin.Showcases.SectionProductAgg.Entities.tblSectionProducts", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(150)
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ProductId")
+                        .HasMaxLength(150)
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ShowcaseTabSectionId")
+                        .HasMaxLength(150)
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Sort")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("ShowcaseTabSectionId");
+
+                    b.ToTable("tblSectionProducts");
+                });
+
+            modelBuilder.Entity("PrancaBeauty.Domin.Showcases.SectionProductCategoryAgg.Entities.tblSectionProductCategory", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(150)
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CategoryId")
+                        .HasMaxLength(150)
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("CountFetch")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OrderBy")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("ShowcaseTabSectionId")
+                        .HasMaxLength(150)
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("ShowcaseTabSectionId");
+
+                    b.ToTable("tblSectionProductCategory");
+                });
+
+            modelBuilder.Entity("PrancaBeauty.Domin.Showcases.SectionProductKeywordAgg.Entities.tblSectionProductKeyword", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(150)
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("CountFetch")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("KeywordId")
+                        .HasMaxLength(150)
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("OrderBy")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("ShowcaseTabSectionId")
+                        .HasMaxLength(150)
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("KeywordId");
+
+                    b.ToTable("tblSectionProductKeyword");
+                });
+
+            modelBuilder.Entity("PrancaBeauty.Domin.Showcases.ShowcaseAgg.Entities.tblShowcases", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(150)
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("BackgroundColorCode")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<Guid?>("CountryId")
+                        .HasMaxLength(150)
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CssClass")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("CssStyle")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsEnable")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsFullWidth")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("Sort")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("UserId")
+                        .HasMaxLength(450)
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CountryId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("tblShowcases");
+                });
+
+            modelBuilder.Entity("PrancaBeauty.Domin.Showcases.ShowcaseAgg.Entities.tblShowcasesTranslates", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(150)
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<Guid>("LangId")
+                        .HasMaxLength(150)
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ShowcaseId")
+                        .HasMaxLength(150)
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Title")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LangId");
+
+                    b.HasIndex("ShowcaseId");
+
+                    b.ToTable("tblShowcasesTranslates");
+                });
+
+            modelBuilder.Entity("PrancaBeauty.Domin.Showcases.ShowcaseTabAgg.Entities.tblShowcaseTabs", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(150)
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("BackgroundColorCode")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsEnable")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<Guid>("ShowcaseId")
+                        .HasMaxLength(150)
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Sort")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ShowcaseId");
+
+                    b.ToTable("tblShowcaseTabs");
+                });
+
+            modelBuilder.Entity("PrancaBeauty.Domin.Showcases.ShowcaseTabAgg.Entities.tblShowcaseTabTranslates", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(150)
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("LangId")
+                        .HasMaxLength(150)
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ShowcaseTabId")
+                        .HasMaxLength(150)
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LangId");
+
+                    b.HasIndex("ShowcaseTabId");
+
+                    b.ToTable("tblShowcaseTabTranslates");
+                });
+
+            modelBuilder.Entity("PrancaBeauty.Domin.Showcases.ShowcaseTabSectionAgg.Entities.tblShowcaseTabSections", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(150)
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("CountInSection")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsSlider")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("LgSize")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MdSize")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<Guid?>("ParentId")
+                        .HasMaxLength(150)
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ShowcaseTabId")
+                        .HasMaxLength(150)
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("SmSize")
+                        .HasColumnType("int");
+
+                    b.Property<int>("XlSize")
+                        .HasColumnType("int");
+
+                    b.Property<int>("XsSize")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ParentId");
+
+                    b.HasIndex("ShowcaseTabId");
+
+                    b.ToTable("tblShowcaseTabSections");
+                });
+
             modelBuilder.Entity("PrancaBeauty.Domin.Sliders.SliderAgg.Entities.tblSlider", b =>
                 {
                     b.Property<Guid>("Id")
@@ -2715,6 +3077,186 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                     b.Navigation("tblLanguages");
                 });
 
+            modelBuilder.Entity("PrancaBeauty.Domin.Showcases.SectionFreeItemAgg.Entities.tblSectionFreeItems", b =>
+                {
+                    b.HasOne("PrancaBeauty.Domin.Showcases.ShowcaseTabSectionAgg.Entities.tblShowcaseTabSections", "tblShowcaseTabSections")
+                        .WithMany("tblSectionFreeItems")
+                        .HasForeignKey("ShowcaseTabSectionId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("tblShowcaseTabSections");
+                });
+
+            modelBuilder.Entity("PrancaBeauty.Domin.Showcases.SectionFreeItemAgg.Entities.tblSectionFreeItemTranslate", b =>
+                {
+                    b.HasOne("PrancaBeauty.Domin.FileServer.FileAgg.Entities.tblFiles", "tblFiles")
+                        .WithMany("tblSectionFreeItemTranslate")
+                        .HasForeignKey("FileId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("PrancaBeauty.Domin.Region.LanguagesAgg.Entities.tblLanguages", "tblLanguages")
+                        .WithMany("tblSectionFreeItemTranslate")
+                        .HasForeignKey("LangId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("PrancaBeauty.Domin.Showcases.SectionFreeItemAgg.Entities.tblSectionFreeItems", "tblSectionFreeItems")
+                        .WithMany("tblSectionFreeItemTranslate")
+                        .HasForeignKey("SectionFreeItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("tblFiles");
+
+                    b.Navigation("tblLanguages");
+
+                    b.Navigation("tblSectionFreeItems");
+                });
+
+            modelBuilder.Entity("PrancaBeauty.Domin.Showcases.SectionProductAgg.Entities.tblSectionProducts", b =>
+                {
+                    b.HasOne("PrancaBeauty.Domin.Product.ProductAgg.Entities.tblProducts", "tblProducts")
+                        .WithMany("tblSectionProducts")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("PrancaBeauty.Domin.Showcases.ShowcaseTabSectionAgg.Entities.tblShowcaseTabSections", "tblShowcaseTabSections")
+                        .WithMany("tblSectionProducts")
+                        .HasForeignKey("ShowcaseTabSectionId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("tblProducts");
+
+                    b.Navigation("tblShowcaseTabSections");
+                });
+
+            modelBuilder.Entity("PrancaBeauty.Domin.Showcases.SectionProductCategoryAgg.Entities.tblSectionProductCategory", b =>
+                {
+                    b.HasOne("PrancaBeauty.Domin.Categories.CategoriesAgg.Entities.tblCategoris", "tblCategory")
+                        .WithMany("tblSectionProductCategory")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("PrancaBeauty.Domin.Showcases.ShowcaseTabSectionAgg.Entities.tblShowcaseTabSections", "tblShowcaseTabSections")
+                        .WithMany("tblSectionProductCategory")
+                        .HasForeignKey("ShowcaseTabSectionId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("tblCategory");
+
+                    b.Navigation("tblShowcaseTabSections");
+                });
+
+            modelBuilder.Entity("PrancaBeauty.Domin.Showcases.SectionProductKeywordAgg.Entities.tblSectionProductKeyword", b =>
+                {
+                    b.HasOne("PrancaBeauty.Domin.Keywords.KeywordAgg.Entities.tblKeywords", "tblKeywords")
+                        .WithMany("tblSectionProductKeyword")
+                        .HasForeignKey("KeywordId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("PrancaBeauty.Domin.Showcases.ShowcaseTabSectionAgg.Entities.tblShowcaseTabSections", "tblShowcaseTabSections")
+                        .WithMany("tblSectionProductKeyword")
+                        .HasForeignKey("KeywordId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("tblKeywords");
+
+                    b.Navigation("tblShowcaseTabSections");
+                });
+
+            modelBuilder.Entity("PrancaBeauty.Domin.Showcases.ShowcaseAgg.Entities.tblShowcases", b =>
+                {
+                    b.HasOne("PrancaBeauty.Domin.Region.CountryAgg.Entities.tblCountries", "tblCountry")
+                        .WithMany("tblShowCases")
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("PrancaBeauty.Domin.Users.UserAgg.Entities.tblUsers", "tblUser")
+                        .WithMany("tblShowCases")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("tblCountry");
+
+                    b.Navigation("tblUser");
+                });
+
+            modelBuilder.Entity("PrancaBeauty.Domin.Showcases.ShowcaseAgg.Entities.tblShowcasesTranslates", b =>
+                {
+                    b.HasOne("PrancaBeauty.Domin.Region.LanguagesAgg.Entities.tblLanguages", "tblLanguage")
+                        .WithMany("tblShowCasesTranslate")
+                        .HasForeignKey("LangId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("PrancaBeauty.Domin.Showcases.ShowcaseAgg.Entities.tblShowcases", "tblShowcase")
+                        .WithMany("tblShowcasesTranslates")
+                        .HasForeignKey("ShowcaseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("tblLanguage");
+
+                    b.Navigation("tblShowcase");
+                });
+
+            modelBuilder.Entity("PrancaBeauty.Domin.Showcases.ShowcaseTabAgg.Entities.tblShowcaseTabs", b =>
+                {
+                    b.HasOne("PrancaBeauty.Domin.Showcases.ShowcaseAgg.Entities.tblShowcases", "tblShowcases")
+                        .WithMany("tblShowcaseTabs")
+                        .HasForeignKey("ShowcaseId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("tblShowcases");
+                });
+
+            modelBuilder.Entity("PrancaBeauty.Domin.Showcases.ShowcaseTabAgg.Entities.tblShowcaseTabTranslates", b =>
+                {
+                    b.HasOne("PrancaBeauty.Domin.Region.LanguagesAgg.Entities.tblLanguages", "tblLanguages")
+                        .WithMany("tblShowcaseTabTranslates")
+                        .HasForeignKey("LangId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("PrancaBeauty.Domin.Showcases.ShowcaseTabAgg.Entities.tblShowcaseTabs", "tblShowcaseTabs")
+                        .WithMany("tblShowcaseTabTranslates")
+                        .HasForeignKey("ShowcaseTabId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("tblLanguages");
+
+                    b.Navigation("tblShowcaseTabs");
+                });
+
+            modelBuilder.Entity("PrancaBeauty.Domin.Showcases.ShowcaseTabSectionAgg.Entities.tblShowcaseTabSections", b =>
+                {
+                    b.HasOne("PrancaBeauty.Domin.Showcases.ShowcaseTabSectionAgg.Entities.tblShowcaseTabSections", "tblShowcaseTabSectionsParent")
+                        .WithMany("tblShowcaseTabSectionsChild")
+                        .HasForeignKey("ParentId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("PrancaBeauty.Domin.Showcases.ShowcaseTabAgg.Entities.tblShowcaseTabs", "tblShowcaseTabs")
+                        .WithMany("tblShowcaseTabSections")
+                        .HasForeignKey("ShowcaseTabId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("tblShowcaseTabSectionsParent");
+
+                    b.Navigation("tblShowcaseTabs");
+                });
+
             modelBuilder.Entity("PrancaBeauty.Domin.Sliders.SliderAgg.Entities.tblSlider", b =>
                 {
                     b.HasOne("PrancaBeauty.Domin.FileServer.FileAgg.Entities.tblFiles", "tblFiles")
@@ -2878,6 +3420,8 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                     b.Navigation("tblCategory_Translates");
 
                     b.Navigation("tblProducts");
+
+                    b.Navigation("tblSectionProductCategory");
                 });
 
             modelBuilder.Entity("PrancaBeauty.Domin.FileServer.FileAgg.Entities.tblFiles", b =>
@@ -2891,6 +3435,8 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                     b.Navigation("tblProductReviewsMedia");
 
                     b.Navigation("tblProductTopic");
+
+                    b.Navigation("tblSectionFreeItemTranslate");
 
                     b.Navigation("tblSeller_Translates");
 
@@ -2917,6 +3463,8 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
             modelBuilder.Entity("PrancaBeauty.Domin.Keywords.KeywordAgg.Entities.tblKeywords", b =>
                 {
                     b.Navigation("tblKeywords_Products");
+
+                    b.Navigation("tblSectionProductKeyword");
                 });
 
             modelBuilder.Entity("PrancaBeauty.Domin.Product.GuaranteeAgg.Entities.tblGuarantee", b =>
@@ -2945,6 +3493,8 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                     b.Navigation("tblProductSellers");
 
                     b.Navigation("tblProductVariantItems");
+
+                    b.Navigation("tblSectionProducts");
                 });
 
             modelBuilder.Entity("PrancaBeauty.Domin.Product.ProductAskAgg.Entities.tblProductAsk", b =>
@@ -3027,6 +3577,8 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                     b.Navigation("tblPostingRestrictions");
 
                     b.Navigation("tblProvinces");
+
+                    b.Navigation("tblShowCases");
                 });
 
             modelBuilder.Entity("PrancaBeauty.Domin.Region.CurrnencyAgg.Entities.tblCurrencies", b =>
@@ -3060,9 +3612,15 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
 
                     b.Navigation("tblProvinces_Translate");
 
+                    b.Navigation("tblSectionFreeItemTranslate");
+
                     b.Navigation("tblSeller_Translates");
 
                     b.Navigation("tblSettings");
+
+                    b.Navigation("tblShowCasesTranslate");
+
+                    b.Navigation("tblShowcaseTabTranslates");
 
                     b.Navigation("tblTamplates");
 
@@ -3076,6 +3634,38 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                     b.Navigation("tblCities");
 
                     b.Navigation("tblProvinces_Translate");
+                });
+
+            modelBuilder.Entity("PrancaBeauty.Domin.Showcases.SectionFreeItemAgg.Entities.tblSectionFreeItems", b =>
+                {
+                    b.Navigation("tblSectionFreeItemTranslate");
+                });
+
+            modelBuilder.Entity("PrancaBeauty.Domin.Showcases.ShowcaseAgg.Entities.tblShowcases", b =>
+                {
+                    b.Navigation("tblShowcaseTabs");
+
+                    b.Navigation("tblShowcasesTranslates");
+                });
+
+            modelBuilder.Entity("PrancaBeauty.Domin.Showcases.ShowcaseTabAgg.Entities.tblShowcaseTabs", b =>
+                {
+                    b.Navigation("tblShowcaseTabSections");
+
+                    b.Navigation("tblShowcaseTabTranslates");
+                });
+
+            modelBuilder.Entity("PrancaBeauty.Domin.Showcases.ShowcaseTabSectionAgg.Entities.tblShowcaseTabSections", b =>
+                {
+                    b.Navigation("tblSectionFreeItems");
+
+                    b.Navigation("tblSectionProductCategory");
+
+                    b.Navigation("tblSectionProductKeyword");
+
+                    b.Navigation("tblSectionProducts");
+
+                    b.Navigation("tblShowcaseTabSectionsChild");
                 });
 
             modelBuilder.Entity("PrancaBeauty.Domin.Users.AccessLevelAgg.Entities.tblAccessLevels", b =>
@@ -3120,6 +3710,8 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                     b.Navigation("tblProducts");
 
                     b.Navigation("tblSellers");
+
+                    b.Navigation("tblShowCases");
 
                     b.Navigation("tblSlider");
                 });

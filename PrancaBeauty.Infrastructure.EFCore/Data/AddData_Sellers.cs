@@ -53,7 +53,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                             tblFiles = new tblFiles()
                             {
                                 Id = new Guid().SequentialGuid(),
-                                FilePathId = _FilePaths.Get.Where(a => a.Path == "/image/png/2021/1/1/").Where(a => a.tblFileServer.Name == "Public").Select(a => a.Id).Single(),
+                                FilePathId = _FilePaths.Get.Where(a => a.Path == "/image/png/2022/1/1/").Where(a => a.tblFileServer.Name == "Public").Select(a => a.Id).Single(),
                                 Title = "DarayasSellerFaLogo",
                                 Date = DateTime.Now,
                                 FileName = "DarayasSellerFaLogo.png",
@@ -68,7 +68,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                             tblFiles = new tblFiles()
                             {
                                 Id = new Guid().SequentialGuid(),
-                                FilePathId = _FilePaths.Get.Where(a => a.Path == "/image/png/2021/1/1/").Where(a => a.tblFileServer.Name == "Public").Select(a => a.Id).Single(),
+                                FilePathId = _FilePaths.Get.Where(a => a.Path == "/image/png/2022/1/1/").Where(a => a.tblFileServer.Name == "Public").Select(a => a.Id).Single(),
                                 Title = "DarayasSellerEnLogo",
                                 Date = DateTime.Now,
                                 FileName = "DarayasSellerEnLogo.png",
@@ -96,7 +96,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                             tblFiles = new tblFiles()
                             {
                                 Id = new Guid().SequentialGuid(),
-                                FilePathId = _FilePaths.Get.Where(a => a.Path == "/image/png/2021/1/1/").Where(a => a.tblFileServer.Name == "Public").Select(a => a.Id).Single(),
+                                FilePathId = _FilePaths.Get.Where(a => a.Path == "/image/png/2022/1/1/").Where(a => a.tblFileServer.Name == "Public").Select(a => a.Id).Single(),
                                 Title = "DotnetLeaarnSellerFaLogo",
                                 Date = DateTime.Now,
                                 FileName = "DotnetLearnSellerFaLogo.png",
@@ -111,7 +111,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                             tblFiles = new tblFiles()
                             {
                                 Id = new Guid().SequentialGuid(),
-                                FilePathId = _FilePaths.Get.Where(a => a.Path == "/image/png/2021/1/1/").Where(a => a.tblFileServer.Name == "Public").Select(a => a.Id).Single(),
+                                FilePathId = _FilePaths.Get.Where(a => a.Path == "/image/png/2022/1/1/").Where(a => a.tblFileServer.Name == "Public").Select(a => a.Id).Single(),
                                 Title = "DotnetLearnSellerEnLogo",
                                 Date = DateTime.Now,
                                 FileName = "DotnetLearnSellerEnLogo.png",

@@ -12,27 +12,27 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
         {
             try
             {
-                //new AddData_FileServers().Run();
-                //new AddData_FileType().Run();
-                //new AddData_FilePath().Run();
+                new AddData_FileServers().Run();
+                new AddData_FileType().Run();
+                new AddData_FilePath().Run();
                 new AddData_Roles().Run();
-                //new AddData_AccessLevel().Run();
-                //new AddData_Countris().Run();
-                //new AddData_languages().Run();
-                //new AddData_Currencies().Run();
-                //new AddData_CountrisTranslates().Run();
-                //new AddData_Province().Run();
-                //new AddData_Cities().Run();
-                //new AddData_Users().Run();
-                //new AddData_Sellers().Run();
-                //new AddData_Settings().Run();
-                //new AddData_Template().Run();
-                //new AddData_ProductTopics().Run();
-                //new AddData_ProductProperties().Run();
-                //new AddData_ProductVariants().Run();
-                //new AddData_Guarantee().Run();
-                //new AddData_Category().Run();
-                //new AddData_ProductReviewAttributes().Run();
+                new AddData_AccessLevel().Run();
+                new AddData_Countris().Run();
+                new AddData_languages().Run();
+                new AddData_Currencies().Run();
+                new AddData_CountrisTranslates().Run();
+                new AddData_Province().Run();
+                new AddData_Cities().Run();
+                new AddData_Users().Run();
+                new AddData_Sellers().Run();
+                new AddData_Settings().Run();
+                new AddData_Template().Run();
+                new AddData_ProductTopics().Run();
+                new AddData_ProductProperties().Run();
+                new AddData_ProductVariants().Run();
+                new AddData_Guarantee().Run();
+                new AddData_Category().Run();
+                new AddData_ProductReviewAttributes().Run();
             }
             catch (Exception ex)
             {

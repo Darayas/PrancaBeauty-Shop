@@ -66,7 +66,7 @@ namespace PrancaBeauty.WebApp.Pages.Admin.Showcases
 
                 var _Result = await _ShowcaseApplication.AddShowcaseAsync(_MappedData);
                 if (_Result.IsSucceeded)
-                    return _MsgBox.SuccessMsg(_Localizer[_Result.Message]);
+                    return _MsgBox.SuccessMsg(_Localizer[_Result.Message], "GotoList()");
                 else
                     return _MsgBox.FaildMsg(_Localizer[_Result.Message]);
 

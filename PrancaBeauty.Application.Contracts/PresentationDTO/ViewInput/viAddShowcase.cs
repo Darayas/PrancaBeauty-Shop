@@ -34,6 +34,7 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput
         public bool IsEnable { get; set; }
 
         [Display(Name = "StartDate")]
+        [RequiredString]
         public string StartDate { get; set; }
 
         [Display(Name = "EndDate")]

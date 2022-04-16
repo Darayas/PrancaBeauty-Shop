@@ -38,6 +38,7 @@
                                 .DefaultSettings(Localizer)
                                 .Columns(col=> {
                                     col.Bound(a => a.Id).Hidden().HtmlAttributes(new { @class = "RowId" }).Sortable(false);
+                                    col.Bound(a => a.Name).Sortable(false);
                                     col.Bound(a => a.Title).Sortable(false);
                                     col.Bound(a => a.CountyTitle).Sortable(false);
                                     col.Bound(a => a.Sort).Width(80).Sortable(false).HtmlAttributes(new { @class="DataGridSorting" }).ClientTemplate("<span onclick=Sorting('#=Id#','0')><i class='fa fa-angle-up'></i></span><span>#=Sort#</span><span onclick=Sorting('#=Id#','1')><i class='fa fa-angle-down'></i></span>");
@@ -103,4 +104,9 @@
     function RefreshData() {
         RefreshGrid('ListShowcase');
     }
+
+         function Sorting(_Id,_Action)
+     {
+         SendData('/@ViewData["culture"]/Admin/Showcase/List?handler=Sorting',{Id:_Id,Act:_Action});
+     }
 </script>

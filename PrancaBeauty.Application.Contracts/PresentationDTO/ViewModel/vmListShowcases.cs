@@ -14,6 +14,9 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewModel
         [Display(Name = "CountyTitle")]
         public string CountyTitle { get; set; }
 
+        [Display(Name = "Name")]
+        public string Name { get; set; }
+
         [Display(Name = "Title")]
         public string Title { get; set; }
 

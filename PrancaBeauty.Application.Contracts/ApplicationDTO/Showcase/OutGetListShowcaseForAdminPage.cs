@@ -6,6 +6,7 @@ namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Showcase
     {
         public string Id { get; set; }
         public string CountyTitle { get; set; }
+        public string Name { get; set; }
         public string Title { get; set; }
         public bool IsFullWidth { get; set; }
         public int Sort { get; set; }

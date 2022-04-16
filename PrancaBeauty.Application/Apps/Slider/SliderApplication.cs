@@ -202,7 +202,7 @@ namespace PrancaBeauty.Application.Apps.Slider
                 #region Validations
                 Input.CheckModelState(_ServiceProvider);
 
-                if (Input.StartDate==null && Input.EndDate!=null)
+                if (Input.StartDate==null)
                     Input.StartDate=DateTime.Now;
 
 
@@ -250,13 +250,13 @@ namespace PrancaBeauty.Application.Apps.Slider
             }
             catch (ArgumentInvalidException ex)
             {
-                _Logger.Debug(ex);
-                return default;
+                _Logger.Error(ex);
+                return new OperationResult().Failed(ex.Message);
             }
             catch (Exception ex)
             {
                 _Logger.Error(ex);
-                return default;
+                return new OperationResult().Failed("Error500");
             }
         }
 

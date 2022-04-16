@@ -480,6 +480,9 @@
   <data name="EditProfile" xml:space="preserve">
     <value>ویرایش پروفایل</value>
   </data>
+  <data name="EditShowcase" xml:space="preserve">
+    <value>ویرایش ویترین</value>
+  </data>
   <data name="EditSlide" xml:space="preserve">
     <value>ویرایش اسلاید</value>
   </data>
@@ -1379,6 +1382,9 @@
   </data>
   <data name="ShopMainPage" xml:space="preserve">
     <value>فروشگاه</value>
+  </data>
+  <data name="ShowCaseHasTab.PleaseRemove" xml:space="preserve">
+    <value>ویترین انتخاب شده قابل حذف نمیباشد. لطفا ابتدا تب های آن را حذف نمایید.</value>
   </data>
   <data name="SmsCodeIsSent" xml:space="preserve">
     <value>کد پیامک شد.</value>

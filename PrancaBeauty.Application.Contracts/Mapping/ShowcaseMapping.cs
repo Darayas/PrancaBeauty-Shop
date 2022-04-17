@@ -2,6 +2,7 @@
 using PrancaBeauty.Application.Contracts.ApplicationDTO.Showcase;
 using PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput;
 using PrancaBeauty.Application.Contracts.PresentationDTO.ViewModel;
+using System.Globalization;
 
 namespace PrancaBeauty.Application.Contracts.Mapping
 {
@@ -12,6 +13,13 @@ namespace PrancaBeauty.Application.Contracts.Mapping
             // Add
             CreateMap<viAddShowcase, InpAddShowcase>();
             CreateMap<viAddShowcase_Translate, InpAddShowcase_Translate>();
+            
+            // Edit
+            CreateMap<OutGetShowcaseForEdit, viEditShowcase>()
+                .ForMember(x => x.StartDate,opt => opt.MapFrom(src => src.StartDate.HasValue? src.StartDate.Value.ToString("yyyy-MM-dd HH:mm:ss", new CultureInfo("en-US")):""))
+                .ForMember(x => x.EndDate, opt => opt.MapFrom(src => src.EndDate.HasValue? src.EndDate.Value.ToString("yyyy-MM-dd HH:mm:ss", new CultureInfo("en-US")):""));
+
+            CreateMap<OutGetShowcaseForEdit_Translate, viEditShowcase_Translate>();
 
             // List
             CreateMap<OutGetListShowcaseForAdminPage, vmListShowcases>()

@@ -657,6 +657,9 @@
   <data name="IdIsInvalid" xml:space="preserve">
     <value>شناسه مورد نظر یافت نشد.</value>
   </data>
+  <data name="IdNotFound" xml:space="preserve">
+    <value>شناسه یافت نشد</value>
+  </data>
   <data name="ImgUrl" xml:space="preserve">
     <value>تصویر شاخص</value>
   </data>

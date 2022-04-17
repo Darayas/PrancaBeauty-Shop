@@ -240,5 +240,53 @@ namespace PrancaBeauty.Application.Apps.Showcases
                 return new OperationResult().Failed("Error500");
             }
         }
+
+        public async Task<OutGetShowcaseForEdit> GetShowcaseForEditAsync(InpGetShowcaseForEdit Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var qData = await _ShowcaseRepository.Get
+                                            .Where(a => a.Id==Input.Id.ToGuid())
+                                            .Select(a => new OutGetShowcaseForEdit
+                                            {
+                                                Id=a.Id.ToString(),
+                                                CountryId=a.CountryId.ToString(),
+                                                Name=a.Name,
+                                                BackgroundColorCode=a.BackgroundColorCode,
+                                                CssClass=a.CssClass,
+                                                CssStyle=a.CssStyle,
+                                                IsEnable=a.IsEnable,
+                                                IsFullWidth=a.IsFullWidth,
+                                                StartDate=a.StartDate,
+                                                EndDate=a.EndDate,
+                                                LstTranslate=a.tblShowcasesTranslates.Select(a => new OutGetShowcaseForEdit_Translate
+                                                {
+                                                    LangId=a.LangId.ToString(),
+                                                    Title=a.Title,
+                                                    Description=a.Description,
+                                                }).ToList()
+                                            })
+                                            .SingleOrDefaultAsync();
+
+                if (qData==null)
+                    return null;
+
+                return qData;
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Error(ex);
+                return default;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return default;
+            }
+        }
     }
 }

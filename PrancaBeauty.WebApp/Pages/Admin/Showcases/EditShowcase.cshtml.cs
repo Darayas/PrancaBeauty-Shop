@@ -1,9 +1,12 @@
 using AutoMapper;
+using Framework.Common.ExMethods;
+using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Showcases;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Showcase;
 using PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput;
 using PrancaBeauty.WebApp.Authentication;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
@@ -12,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace PrancaBeauty.WebApp.Pages.Admin.Showcases
 {
-    [Authorize(Roles =Roles.CanEditShowcase)]
+    [Authorize(Roles = Roles.CanEditShowcase)]
     public class EditShowcaseModel : PageModel
     {
         private readonly ILogger _Logger;
@@ -34,8 +37,29 @@ namespace PrancaBeauty.WebApp.Pages.Admin.Showcases
 
         public async Task<IActionResult> OnGetAsync(viGetEditShowcase Input)
         {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
 
-            return Page();
+                var qData = await _ShowcaseApplication.GetShowcaseForEditAsync(new InpGetShowcaseForEdit { Id=Input.Id });
+                if (qData==null)
+                    throw new ArgumentInvalidException(_Localizer["IdNotFound"]);
+
+                this.Input=_Mapper.Map<viEditShowcase>(qData);
+
+                return Page();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return StatusCode(500);
+            }
         }
 
         [BindProperty]

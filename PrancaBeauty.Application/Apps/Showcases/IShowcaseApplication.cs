@@ -10,6 +10,7 @@ namespace PrancaBeauty.Application.Apps.Showcases
     {
         Task<OperationResult> AddShowcaseAsync(InpAddShowcase Input);
         Task<(OutPagingData, List<OutGetListShowcaseForAdminPage>)> GetListShowcaseForAdminPageAsync(InpGetListShowcaseForAdminPage Input);
+        Task<OutGetShowcaseForEdit> GetShowcaseForEditAsync(InpGetShowcaseForEdit Input);
         Task<OperationResult> RemoveShowcaseAsync(InpRemoveShowcase Input);
         Task<OperationResult> SortingShowcaseAsync(InpSortingShowcase Input);
     }

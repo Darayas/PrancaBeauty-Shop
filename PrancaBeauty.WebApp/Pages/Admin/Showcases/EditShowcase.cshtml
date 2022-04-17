@@ -5,3 +5,208 @@
     Layout = "~/pages/shared/_AdminLayout.cshtml";
 }
 
+@inject PrancaBeauty.Application.Apps.Languages.ILanguageApplication _LanguageApplication
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">@ViewData["Title"]</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/@CultureInfo.CurrentCulture.Parent.Name/admin/index">@Localizer["Dashborad"]</a></li>
+                        <li class="breadcrumb-item"><a href="/@CultureInfo.CurrentCulture.Parent.Name/Admin/Showcase/List">@Localizer["ListShowcase"]</a></li>
+                        <li class="breadcrumb-item active">@ViewData["Title"]</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <form id="frmEditShowcase">
+                                <input asp-for=Input.Id type="hidden" />
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class=col-md-5>
+                                            <label asp-for=Input.Name></label>
+                                            <input asp-for=Input.Name class=form-control />
+                                        </div>
+                                        <div class=col-md-3>
+                                            <LoadComponent url="/@ViewData["Culture"]/Shared/Compo/Region/ComboCountris"
+                                                           id="CompoCountries"
+                                                           context="HttpContext"
+                                                           data='new viCompo_Combo_Countries { CountryId=Model.Input.CountryId,FieldName="Input.CountryId",ShowLabel=true}'></LoadComponent>
+                                        </div>
+                                        <div class=col-md-2>
+                                            <label asp-for=Input.IsFullWidth></label>
+                                            <select asp-for=Input.IsFullWidth class=form-control>
+                                                <option value="false">@Localizer["Disable"]</option>
+                                                <option value="true">@Localizer["Enable"]</option>
+                                            </select>
+                                        </div>
+                                        <div class=col-md-2>
+                                            <label asp-for=Input.IsEnable></label>
+                                            <select asp-for=Input.IsEnable class=form-control>
+                                                <option value="false">@Localizer["Disable"]</option>
+                                                <option value="true">@Localizer["Enable"]</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class=col-md-2>
+                                            <label asp-for=Input.BackgroundColorCode></label>
+                                            <input asp-for=Input.BackgroundColorCode class=form-control type="color" />
+                                        </div>
+                                        <div class=col-md-6>
+                                            <label asp-for=Input.CssClass></label>
+                                            <input asp-for=Input.CssClass class="form-control text-left" />
+                                        </div>
+                                        <div class=col-md-2>
+                                            <label asp-for=Input.StartDate></label>
+                                            <input asp-for=Input.StartDate autocomplete=off class="form-control text-left StartDate" />
+                                        </div>
+                                        <div class=col-md-2>
+                                            <label asp-for=Input.EndDate></label>
+                                            <input asp-for=Input.EndDate autocomplete=off class="form-control text-left EndDate" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class=col-md-12>
+                                            <label asp-for=Input.CssStyle></label>
+                                            <input asp-for=Input.CssStyle class="form-control text-left" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="k-lang">
+                                    @(Html.Kendo().TabStrip()
+                                    .Name("Tab_Lang")
+                                    .TabPosition(TabStripTabPosition.Top)
+                                    .Animation(animation =>
+                                    {
+                                    animation.Open(config =>
+                                    {
+                                    config.Fade(FadeDirection.In);
+                                    });
+                                    })
+                                    .SelectedIndex(0)
+                                    .Items(async items =>
+                                    {
+                                    int i = 0;
+                                    foreach (var item in Model.Input.LstTranslate)
+                                    {
+                                        var qLang =await _LanguageApplication.GetLangDetailsByIdAsync(new PrancaBeauty.Application.Contracts.ApplicationDTO.Languages.InpGetLangDetailsById { LangId= item.LangId });
+                                        items.Add()
+                                            .ImageUrl(qLang.FlagUrl)
+                                            .Text(qLang.NativeName)
+                                            .Content(@<text>
+                                                            <input type="hidden" asp-for="Input.LstTranslate[i].LangId" />
+                                                            <div class="form-group">
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <label asp-for="Input.LstTranslate[i].Title"></label>
+                                                                        <input asp-for="Input.LstTranslate[i].Title" class="form-control" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <label asp-for="Input.LstTranslate[i].Description"></label>
+                                                                        <input asp-for="Input.LstTranslate[i].Description" class="form-control" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            @{
+                                                                i++;
+                                                            }
+                                                    </text>);
+                                        }
+
+                                    }))
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-12 text-left">
+                                            <hr />
+                                            <button onclick="SendForm('/@ViewData["Culture"]/Admin/Showcase/Edit/@Model.Input.Id', 'frmEditShowcase')" type="button" class="btn btn-success">@Localizer["Save"]</button>
+                                            <button onclick="GotoList()" type="button" class="btn btn-warning">@Localizer["GotoList"]</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
+</div>
+
+@section styles{
+<link href="~/lib/PersianDatePicker/persian-datepicker.min.css" rel="stylesheet" />
+}
+
+@section scripts{
+<script src="~/lib/input-mask/jquery.inputmask.min.js"></script>
+<script src="~/lib/PersianDatePicker/persian-date.min.js"></script>
+<script src="~/lib/PersianDatePicker/persian-datepicker.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+       $(".StartDate").persianDatepicker({
+            format: 'YYYY/MM/DD HH:mm:ss',
+            toolbox: {
+                calendarSwitch: {
+                    enabled: false
+                }
+            },
+            calendar: {
+                persian: {
+                    locale: 'en'
+                }
+            },
+            timePicker: {
+                enabled: true
+            },
+            initialValue:true
+        });
+
+        $(".EndDate").persianDatepicker({
+            format: 'YYYY/MM/DD HH:mm:ss',
+            toolbox: {
+                calendarSwitch: {
+                    enabled: false
+                }
+            },
+            calendar: {
+                persian: {
+                    locale: 'en'
+                }
+            },
+            timePicker: {
+                enabled: true
+            },
+            initialValue:false
+        });
+    });
+
+    function GotoList() {
+        location.href = '@ViewData["ReturnUrl"]';
+    }
+</script>
+}

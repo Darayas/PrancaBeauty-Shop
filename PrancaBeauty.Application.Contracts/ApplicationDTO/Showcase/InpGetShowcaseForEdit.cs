@@ -1,9 +1,9 @@
 ﻿using Framework.Common.DataAnnotations.String;
 using System.ComponentModel.DataAnnotations;
 
-namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput
+namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Showcase
 {
-    public class viGetEditShowcase
+    public class InpGetShowcaseForEdit
     {
         [Display(Name = "Id")]
         [RequiredString]

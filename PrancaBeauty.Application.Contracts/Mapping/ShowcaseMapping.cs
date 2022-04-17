@@ -16,10 +16,11 @@ namespace PrancaBeauty.Application.Contracts.Mapping
             
             // Edit
             CreateMap<OutGetShowcaseForEdit, viEditShowcase>()
-                .ForMember(x => x.StartDate,opt => opt.MapFrom(src => src.StartDate.HasValue? src.StartDate.Value.ToString("yyyy-MM-dd HH:mm:ss", new CultureInfo("en-US")):""))
-                .ForMember(x => x.EndDate, opt => opt.MapFrom(src => src.EndDate.HasValue? src.EndDate.Value.ToString("yyyy-MM-dd HH:mm:ss", new CultureInfo("en-US")):""));
-
+                                .ForMember(x => x.StartDate,opt => opt.MapFrom(src => src.StartDate.HasValue? src.StartDate.Value.ToString("yyyy-MM-dd HH:mm:ss", new CultureInfo("en-US")):""))
+                                .ForMember(x => x.EndDate, opt => opt.MapFrom(src => src.EndDate.HasValue? src.EndDate.Value.ToString("yyyy-MM-dd HH:mm:ss", new CultureInfo("en-US")):""));
             CreateMap<OutGetShowcaseForEdit_Translate, viEditShowcase_Translate>();
+            CreateMap<viEditShowcase, InpSaveEditShowcase>();
+            CreateMap<viEditShowcase_Translate, InpSaveEditShowcase_Translate>();
 
             // List
             CreateMap<OutGetListShowcaseForAdminPage, vmListShowcases>()

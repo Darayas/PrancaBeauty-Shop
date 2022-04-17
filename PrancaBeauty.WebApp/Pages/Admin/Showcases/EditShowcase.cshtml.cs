@@ -9,8 +9,10 @@ using PrancaBeauty.Application.Apps.Showcases;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.Showcase;
 using PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput;
 using PrancaBeauty.WebApp.Authentication;
+using PrancaBeauty.WebApp.Common.ExMethod;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
 using System;
+using System.Globalization;
 using System.Threading.Tasks;
 
 namespace PrancaBeauty.WebApp.Pages.Admin.Showcases
@@ -35,13 +37,15 @@ namespace PrancaBeauty.WebApp.Pages.Admin.Showcases
             _ShowcaseApplication=showcaseApplication;
         }
 
-        public async Task<IActionResult> OnGetAsync(viGetEditShowcase Input)
+        public async Task<IActionResult> OnGetAsync(viGetEditShowcase Input, string ReturnUrl = null)
         {
             try
             {
                 #region Validations
                 Input.CheckModelState(_ServiceProvider);
                 #endregion
+
+                ViewData["ReturnUrl"]=ReturnUrl??$"/{CultureInfo.CurrentCulture.Parent.Name}/Admin/Showcase/List";
 
                 var qData = await _ShowcaseApplication.GetShowcaseForEditAsync(new InpGetShowcaseForEdit { Id=Input.Id });
                 if (qData==null)
@@ -50,6 +54,35 @@ namespace PrancaBeauty.WebApp.Pages.Admin.Showcases
                 this.Input=_Mapper.Map<viEditShowcase>(qData);
 
                 return Page();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return StatusCode(500);
+            }
+        }
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var _MappedData = _Mapper.Map<InpSaveEditShowcase>(Input);
+                _MappedData.UserId= User.GetUserDetails().UserId;
+
+                var _Result = await _ShowcaseApplication.SaveEditShowcaseAsync(_MappedData);
+                if (_Result.IsSucceeded)
+                    return _MsgBox.SuccessMsg(_Localizer[_Result.Message], "GotoList()");
+                else
+                    return _MsgBox.FaildMsg(_Localizer[_Result.Message]);
+
             }
             catch (ArgumentInvalidException ex)
             {

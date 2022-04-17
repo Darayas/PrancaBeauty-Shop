@@ -12,6 +12,7 @@ namespace PrancaBeauty.Application.Apps.Showcases
         Task<(OutPagingData, List<OutGetListShowcaseForAdminPage>)> GetListShowcaseForAdminPageAsync(InpGetListShowcaseForAdminPage Input);
         Task<OutGetShowcaseForEdit> GetShowcaseForEditAsync(InpGetShowcaseForEdit Input);
         Task<OperationResult> RemoveShowcaseAsync(InpRemoveShowcase Input);
+        Task<OperationResult> SaveEditShowcaseAsync(InpSaveEditShowcase Input);
         Task<OperationResult> SortingShowcaseAsync(InpSortingShowcase Input);
     }
 }

@@ -19,12 +19,14 @@ namespace PrancaBeauty.Application.Apps.Showcases
         private readonly ILogger _Logger;
         private readonly IServiceProvider _ServiceProvider;
         private readonly IShowcaseRepository _ShowcaseRepository;
+        private readonly IShowcaseTranslateRepository _ShowcaseTranslateRepository;
 
-        public ShowcaseApplication(ILogger logger, IServiceProvider serviceProvider, IShowcaseRepository showcaseRepository)
+        public ShowcaseApplication(ILogger logger, IServiceProvider serviceProvider, IShowcaseRepository showcaseRepository, IShowcaseTranslateRepository showcaseTranslateRepository)
         {
             _Logger=logger;
             _ServiceProvider=serviceProvider;
             _ShowcaseRepository=showcaseRepository;
+            _ShowcaseTranslateRepository=showcaseTranslateRepository;
         }
 
         public async Task<(OutPagingData, List<OutGetListShowcaseForAdminPage>)> GetListShowcaseForAdminPageAsync(InpGetListShowcaseForAdminPage Input)
@@ -276,6 +278,96 @@ namespace PrancaBeauty.Application.Apps.Showcases
                     return null;
 
                 return qData;
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Error(ex);
+                return default;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return default;
+            }
+        }
+
+        public async Task<OperationResult> SaveEditShowcaseAsync(InpSaveEditShowcase Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+
+                if (Input.StartDate==null)
+                    Input.StartDate=DateTime.Now;
+
+                if (Input.EndDate.HasValue)
+                    if (Input.StartDate >= Input.EndDate.Value)
+                        return new OperationResult().Failed("EndDateMustBeGreaterThanStartDate");
+                #endregion
+
+                #region Check Name duplicate
+                if (await _ShowcaseRepository.Get.Where(a => a.Id!=Input.Id.ToGuid()).AnyAsync(a => a.Name==Input.Name))
+                    return new OperationResult().Failed("NameIsDuplicate");
+
+                #endregion
+
+                #region Edit showcase
+                {
+                    var qData = await _ShowcaseRepository.Get
+                                            .Where(a => a.Id==Input.Id.ToGuid())
+                                            .SingleOrDefaultAsync();
+
+                    if (qData==null)
+                        return new OperationResult().Failed("IdNotFound");
+
+                    qData.CountryId=Input.CountryId.ToGuid();
+                    qData.UserId=Input.UserId.ToGuid();
+                    qData.Name=Input.Name;
+                    qData.IsFullWidth=Input.IsFullWidth;
+                    qData.BackgroundColorCode= Input.BackgroundColorCode;
+                    qData.CssClass=Input.CssClass;
+                    qData.CssStyle=Input.CssStyle;
+                    qData.EndDate=Input.EndDate;
+                    qData.StartDate=Input.StartDate.Value;
+                    qData.IsEnable=Input.IsEnable;
+                    qData.IsActive=Input.StartDate<DateTime.Now ? true : false;
+
+                    await _ShowcaseRepository.UpdateAsync(qData, default, true);
+
+                }
+                #endregion
+
+                #region Edit showcase translate
+                {
+                    #region Remove old translates
+                    {
+                        var qOldData = await _ShowcaseTranslateRepository.Get
+                                                        .Where(a => a.ShowcaseId==Input.Id.ToGuid())
+                                                        .ToListAsync();
+
+                        await _ShowcaseTranslateRepository.DeleteRangeAsync(qOldData, default, true);
+                    }
+                    #endregion
+
+                    #region Add new translates
+                    {
+                        var qNewData = Input.LstTranslate.Select(b => new tblShowcasesTranslates
+                        {
+                            Id= new Guid().SequentialGuid(),
+                            ShowcaseId=Input.Id.ToGuid(),
+                            LangId=b.LangId.ToGuid(),
+                            Title=b.Title,
+                            Description=b.Description
+                        });
+
+                        await _ShowcaseTranslateRepository.AddRangeAsync(qNewData, default, true);
+                    }
+                    #endregion
+                }
+                #endregion
+
+                return new OperationResult().Succeeded();
             }
             catch (ArgumentInvalidException ex)
             {

@@ -3,15 +3,20 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput
+namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Showcase
 {
 
-    public class viEditShowcase
+    public class InpSaveEditShowcase
     {
         [Display(Name = "Id")]
         [RequiredString]
         [GUID]
         public string Id { get; set; }
+
+        [Display(Name = "UserId")]
+        [RequiredString]
+        [GUID]
+        public string UserId { get; set; }
 
         [Display(Name = "CountryId")]
         [GUID]
@@ -41,16 +46,15 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput
         public bool IsEnable { get; set; }
 
         [Display(Name = "StartDate")]
-        [RequiredString]
-        public string StartDate { get; set; }
+        public DateTime? StartDate { get; set; }
 
         [Display(Name = "EndDate")]
-        public string EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
 
-        public List<viEditShowcase_Translate> LstTranslate { get; set; }
+        public List<InpSaveEditShowcase_Translate> LstTranslate { get; set; }
     }
 
-    public class viEditShowcase_Translate
+    public class InpSaveEditShowcase_Translate
     {
         [Display(Name = "LangId")]
         [RequiredString]

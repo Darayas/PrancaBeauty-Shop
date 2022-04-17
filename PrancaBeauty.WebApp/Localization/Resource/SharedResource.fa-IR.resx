@@ -816,6 +816,9 @@
   <data name="ListShowcase" xml:space="preserve">
     <value>لیست ویترین ها</value>
   </data>
+  <data name="ListShowcaseTab" xml:space="preserve">
+    <value>لیست Tab ها</value>
+  </data>
   <data name="ListSlider" xml:space="preserve">
     <value>لیست اسلایدر</value>
   </data>

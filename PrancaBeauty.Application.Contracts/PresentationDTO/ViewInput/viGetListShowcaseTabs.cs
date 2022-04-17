@@ -5,9 +5,9 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput
 {
     public class viGetListShowcaseTabs
     {
-        [Display(Name = "Id")]
+        [Display(Name = "ShowcaseId")]
         [RequiredString]
         [GUID]
-        public string Id { get; set; }
+        public string ShowcaseId { get; set; }
     }
 }

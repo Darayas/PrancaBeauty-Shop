@@ -2,12 +2,14 @@ using AutoMapper;
 using Framework.Common.ExMethods;
 using Framework.Exceptions;
 using Framework.Infrastructure;
+using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.ShowcaseTabs;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.Showcase;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.ShowcaseTab;
 using PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput;
 using PrancaBeauty.Application.Contracts.PresentationDTO.ViewModel;
 using PrancaBeauty.WebApp.Authentication;
@@ -39,36 +41,43 @@ namespace PrancaBeauty.WebApp.Pages.Admin.Showcases.Tabs
 
         public IActionResult OnGet(viGetListShowcaseTabs Input, string ReturnUrl = null)
         {
-            if (!ModelState.IsValid)
-                return StatusCode(400);
-            ViewData["Id"]=Input.Id;
-            ViewData["ReturnUrl"]=ReturnUrl??$"/{CultureInfo.CurrentCulture.Parent.Name}/Admin/Showcase/List";
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
 
-            return Page();
+                ViewData["Id"]=Input.ShowcaseId;
+                ViewData["ReturnUrl"]=ReturnUrl??$"/{CultureInfo.CurrentCulture.Parent.Name}/Admin/Showcase/List";
+
+                return Page();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         public async Task<IActionResult> OnPostReadDataAsync([DataSourceRequest] DataSourceRequest request, string LangId)
         {
-            //    var qData = await _ShowcaseApplication.GetListShowcaseForAdminPageAsync(new InpGetListShowcaseForAdminPage
-            //    {
-            //        LangId=LangId,
-            //        CountryId=Input.CountryId,
-            //        Title = Input.Title,
-            //        Page = request.Page,
-            //        Take = request.PageSize
-            //    });
+            var qData = await _ShowcaseTabApplication.GetListShowcaseTabForAdminPageAsync(new InpGetListShowcaseTabForAdminPage
+            {
+                ShowcaseId=Input.ShowcaseId,
+                LangId=LangId,
+                Title = Input.Title,
+                Page = request.Page,
+                Take = request.PageSize
+            });
 
+            var _DataGrid = qData.Item2.ToDataSourceResult(request);
+            _DataGrid.Total = (int)qData.PagingData.CountAllItem;
+            _DataGrid.Data =_Mapper.Map<List<vmListShowcaseTabs>>(qData.LstData);
 
-            //    var _DataGrid = qData.Item2.ToDataSourceResult(request);
-            //    _DataGrid.Total = (int)qData.Item1.CountAllItem;
-            //    _DataGrid.Data =_Mapper.Map<List<vmListShowcases>>(qData.Item2);
-
-            //return new JsonResult(_DataGrid);
-            return default;
+            return new JsonResult(_DataGrid);
         }
 
 
-        [BindProperty(SupportsGet = true)]
+        [BindProperty]
         public viListShowcaseTabs Input { get; set; }
     }
 }

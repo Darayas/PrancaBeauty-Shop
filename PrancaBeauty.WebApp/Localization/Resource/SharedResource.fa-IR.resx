@@ -204,6 +204,9 @@
   <data name="AddShowcase" xml:space="preserve">
     <value>افزودن ویترین جدید</value>
   </data>
+  <data name="AddShowcaseTab" xml:space="preserve">
+    <value>افزودن تب جدید</value>
+  </data>
   <data name="AddSlide" xml:space="preserve">
     <value>افزودن اسلاید جدید</value>
   </data>
@@ -818,6 +821,9 @@
   </data>
   <data name="ListShowcaseTab" xml:space="preserve">
     <value>لیست Tab ها</value>
+  </data>
+  <data name="ListShowcaseTabs" xml:space="preserve">
+    <value>لیست Tabهای ویترین</value>
   </data>
   <data name="ListSlider" xml:space="preserve">
     <value>لیست اسلایدر</value>

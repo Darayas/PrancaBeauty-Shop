@@ -1,4 +1,4 @@
-﻿@page "/{culture}/Admin/ShowcaseTabs/List/{Id}"
+﻿@page "/{culture}/Admin/ShowcaseTabs/List/{ShowcaseId}"
 @model PrancaBeauty.WebApp.Pages.Admin.Showcases.Tabs.ListShowcaseTabsModel
 @{
     ViewData["Title"] = Localizer["ListShowcaseTabs"];
@@ -40,9 +40,7 @@
                                 col.Bound(a => a.Id).Hidden().HtmlAttributes(new { @class = "RowId" }).Sortable(false);
                                 col.Bound(a => a.Name).Sortable(false);
                                 col.Bound(a => a.Title).Sortable(false);
-                                col.Bound(a => a.CountyTitle).Sortable(false);
                                 col.Bound(a => a.Sort).Width(80).Sortable(false).HtmlAttributes(new { @class="DataGridSorting" }).ClientTemplate("<span onclick=Sorting('#=Id#','0')><i class='fa fa-angle-up'></i></span><span>#=Sort#</span><span onclick=Sorting('#=Id#','1')><i class='fa fa-angle-down'></i></span>");
-                                col.Bound(a => a.IsFullWidth).Sortable(false).Width(60).ClientTemplate("<img style='width:28px;' src='/Shared/img/#=IsFullWidth#.png' />").Sortable(false);
                                 col.Bound(a => a.IsEnable).Sortable(false).Width(60).ClientTemplate("<img style='width:28px;' src='/Shared/img/#=IsEnable#.png' />").Sortable(false);
                                 col.Bound(a => a.IsActive).Sortable(false).Width(60).ClientTemplate("<img style='width:28px;' src='/Shared/img/#=IsActive#.png' />").Sortable(false);
                                 col.Bound(a => a.StartDate).Width(150).Sortable(false);
@@ -54,7 +52,7 @@
                                 })
                                 .DataSource(ds=>ds.Ajax()
                                 .PageSize(10)
-                                .Read(read=>read.Url($"/{CultureInfo.CurrentCulture.Parent.Name}/Admin/ShowcaseTab/List/{ViewData["Id"].ToString()}?handler=ReadData").Data("forgeryToken"))))
+                                .Read(read=>read.Url($"/{CultureInfo.CurrentCulture.Parent.Name}/Admin/ShowcaseTabs/List/{ViewData["Id"].ToString()}?handler=ReadData").Data("forgeryToken"))))
                             </div>
                         </div>
                     </div>
@@ -72,7 +70,7 @@
         <div class="dropdown-menu dropdown-menu-left">
     @if (User.IsInRole(Roles.CanEditShowcaseTab))
     {
-                            <a href="/@ViewData["Culture"]/Admin/ShowcaseTab/Edit/#:Id#" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i>@Localizer["Edit"]</a>
+                            <a href="/@ViewData["Culture"]/Admin/ShowcaseTabs/Edit/#:Id#" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i>@Localizer["Edit"]</a>
     }
     @if (User.IsInRole(Roles.CanRemoveShowcaseTab))
     {
@@ -86,7 +84,7 @@
 {
     <script>
         function Add() {
-            location.href = '/@ViewData["Culture"]/Admin/ShowcaseTab/Add?ReturnUrl=@(System.Net.WebUtility.UrlEncode(Request.GetCurrentUrl()))';
+            location.href = '/@ViewData["Culture"]/Admin/ShowcaseTabs/Add/@ViewData["Id"]?ReturnUrl=@(System.Net.WebUtility.UrlEncode(Request.GetCurrentUrl()))';
         }
     </script>
 }
@@ -95,7 +93,7 @@
 {
     <script>
         function Remove(_Id) {
-            RemoveData('/@ViewData["Culture"]/Admin/ShowcaseTab/List?handler=Remove', {Id:_Id});
+            RemoveData('/@ViewData["Culture"]/Admin/ShowcaseTabs/List?handler=Remove', {Id:_Id});
         }
     </script>
 }
@@ -107,6 +105,11 @@
 
      function Sorting(_Id,_Action)
      {
-         SendData('/@ViewData["culture"]/Admin/ShowcaseTab/List/@(ViewData["Id"])?handler=Sorting',{Id:_Id,Act:_Action});
+         SendData('/@ViewData["culture"]/Admin/ShowcaseTabs/List/@(ViewData["Id"])?handler=Sorting',{Id:_Id,Act:_Action});
+     }
+
+     function GotShowcaseList()
+     {
+         location.href='@ViewData["ReturnUrl"]';
      }
 </script>

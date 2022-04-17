@@ -80,7 +80,7 @@
     }
     @if (User.IsInRole(Roles.CanViewListShowcaseTab))
     {
-                    <a href="/@ViewData["Culture"]/Admin/ShowcaseTabs/List/#:Id#?ReturnUrl=@(Request.GetCurrentUrlEncoded())" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i>@Localizer["ListShowcaseTab"]</a>
+                    <a href="/@ViewData["Culture"]/Admin/ShowcaseTabs/List/#:Id#?ReturnUrl=@(Request.GetCurrentUrlEncoded())" class="dropdown-item"><i class="dropdown-icon fa fa-bars"></i>@Localizer["ListShowcaseTab"]</a>
     }
         </div>
     </div>

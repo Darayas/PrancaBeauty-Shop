@@ -934,6 +934,71 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
             }
             #endregion
 
+            #region ManageShowcasae
+            {
+                Guid _Id = new Guid().SequentialGuid();
+                if (!_repRoles.Get.Any(a => a.Name == "CanViewListShowcaseTab"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = _Id,
+                        ParentId = null,
+                        PageName = "ManageShowcaseTabPage",
+                        Sort = 460,
+                        Name = "CanViewListShowcaseTab",
+                        NormalizedName = "CanViewListShowcaseTab".ToUpper(),
+                        Description = "توانایی مدیریت Tab های ویترین"
+                    }, default, false).Wait();
+                }
+                else
+                {
+                    _Id = _repRoles.Get.Where(a => a.Name == "CanViewListShowcaseTab").Select(a => a.Id).Single();
+                }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanAddShowcaseTab"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageShowcaseTabPage",
+                        Sort = 470,
+                        Name = "CanAddShowcaseTab",
+                        NormalizedName = "CanAddShowcaseTab".ToUpper(),
+                        Description = "توانایی افزودن Tab به ویترین"
+                    }, default, false).Wait();
+                }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanEditShowcaseTab"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageShowcaseTabPage",
+                        Sort = 480,
+                        Name = "CanEditShowcaseTab",
+                        NormalizedName = "CanEditShowcaseTab".ToUpper(),
+                        Description = "توانایی ویرایش Tab های ویترین"
+                    }, default, false).Wait();
+                }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanRemoveShowcaseTab"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageShowcaseTabPage",
+                        Sort = 490,
+                        Name = "CanRemoveShowcaseTab",
+                        NormalizedName = "CanRemoveShowcaseTab".ToUpper(),
+                        Description = "توانایی حذف Tab های ویترین"
+                    }, default, false).Wait();
+                }
+            }
+            #endregion
+
             _repRoles.SaveChangeAsync().Wait();
 
         }

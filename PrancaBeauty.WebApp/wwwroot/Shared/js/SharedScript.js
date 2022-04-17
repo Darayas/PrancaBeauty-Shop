@@ -138,7 +138,9 @@ function Alert(_Title, _Text, _Type = 'info') {
 }
 
 function Logout(_ReturnUrl) {
-    document.cookie = 'PrancaBeautyAuth=; expires=Thu, 01-Jan-70 00:00:01 GMT; path=/;';
+    for (var i = 0; i < 10; i++) {
+        document.cookie = 'PrancaBeautyAuth' + i + '=; expires=Thu, 01-Jan-70 00:00:01 GMT; path=/;';
+    }
     location.href = _ReturnUrl;
 }
 

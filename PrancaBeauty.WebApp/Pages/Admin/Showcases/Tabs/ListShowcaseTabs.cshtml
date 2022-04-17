@@ -1,0 +1,112 @@
+﻿@page "/{culture}/Admin/ShowcaseTabs/List/{Id}"
+@model PrancaBeauty.WebApp.Pages.Admin.Showcases.Tabs.ListShowcaseTabsModel
+@{
+    ViewData["Title"] = Localizer["ListShowcaseTabs"];
+    Layout = "~/pages/shared/_AdminLayout.cshtml";
+}
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">@ViewData["Title"]</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/@CultureInfo.CurrentCulture.Parent.Name/Admin/index">@Localizer["Dashborad"]</a></li>
+                        <li class="breadcrumb-item"><a href="/@CultureInfo.CurrentCulture.Parent.Name/Admin/Showcase/List">@Localizer["ListShowcase"]</a></li>
+                        <li class="breadcrumb-item active">@ViewData["Title"]</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="k-lang">
+                                @(Html.Kendo()
+                                .Grid<vmListShowcaseTabs>()
+                                .Name("ListShowcaseTab")
+                                .DefaultSettings(Localizer)
+                                .Columns(col=> {
+                                col.Bound(a => a.Id).Hidden().HtmlAttributes(new { @class = "RowId" }).Sortable(false);
+                                col.Bound(a => a.Name).Sortable(false);
+                                col.Bound(a => a.Title).Sortable(false);
+                                col.Bound(a => a.CountyTitle).Sortable(false);
+                                col.Bound(a => a.Sort).Width(80).Sortable(false).HtmlAttributes(new { @class="DataGridSorting" }).ClientTemplate("<span onclick=Sorting('#=Id#','0')><i class='fa fa-angle-up'></i></span><span>#=Sort#</span><span onclick=Sorting('#=Id#','1')><i class='fa fa-angle-down'></i></span>");
+                                col.Bound(a => a.IsFullWidth).Sortable(false).Width(60).ClientTemplate("<img style='width:28px;' src='/Shared/img/#=IsFullWidth#.png' />").Sortable(false);
+                                col.Bound(a => a.IsEnable).Sortable(false).Width(60).ClientTemplate("<img style='width:28px;' src='/Shared/img/#=IsEnable#.png' />").Sortable(false);
+                                col.Bound(a => a.IsActive).Sortable(false).Width(60).ClientTemplate("<img style='width:28px;' src='/Shared/img/#=IsActive#.png' />").Sortable(false);
+                                col.Bound(a => a.StartDate).Width(150).Sortable(false);
+                                col.Bound(a => a.EndDate).Width(150).Sortable(false);
+                                col.Bound(a => a).Width(50).Title(" ")
+                                .HtmlAttributes(new { style= "overflow: visible; text-align: center;" })
+                                .ClientHeaderTemplate(User.IsInRole(Roles.CanAddShowcaseTab)? "<button class='btn btn-success btn-sm' onclick='Add()'><i class='fa fa-plus'></i></button>" : "")
+                                .ClientTemplateId("DropDownCmd");
+                                })
+                                .DataSource(ds=>ds.Ajax()
+                                .PageSize(10)
+                                .Read(read=>read.Url($"/{CultureInfo.CurrentCulture.Parent.Name}/Admin/ShowcaseTab/List/{ViewData["Id"].ToString()}?handler=ReadData").Data("forgeryToken"))))
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
+</div>
+
+<script id="DropDownCmd">
+    <div class="item-action dropdown">
+        <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fa fa-bars fs-16 text-dark"></i></a>
+        <div class="dropdown-menu dropdown-menu-left">
+    @if (User.IsInRole(Roles.CanEditShowcaseTab))
+    {
+                            <a href="/@ViewData["Culture"]/Admin/ShowcaseTab/Edit/#:Id#" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i>@Localizer["Edit"]</a>
+    }
+    @if (User.IsInRole(Roles.CanRemoveShowcaseTab))
+    {
+                            <a onClick="Remove('#:Id#')" class="dropdown-item"><i class="dropdown-icon fa fa-times"></i>@Localizer["Remove"]</a>
+    }
+        </div>
+    </div>
+</script>
+
+@if (User.IsInRole(Roles.CanAddShowcaseTab))
+{
+    <script>
+        function Add() {
+            location.href = '/@ViewData["Culture"]/Admin/ShowcaseTab/Add?ReturnUrl=@(System.Net.WebUtility.UrlEncode(Request.GetCurrentUrl()))';
+        }
+    </script>
+}
+
+@if (User.IsInRole(Roles.CanRemoveShowcaseTab))
+{
+    <script>
+        function Remove(_Id) {
+            RemoveData('/@ViewData["Culture"]/Admin/ShowcaseTab/List?handler=Remove', {Id:_Id});
+        }
+    </script>
+}
+
+<script>
+    function RefreshData() {
+        RefreshGrid('ListShowcaseTab');
+    }
+
+     function Sorting(_Id,_Action)
+     {
+         SendData('/@ViewData["culture"]/Admin/ShowcaseTab/List/@(ViewData["Id"])?handler=Sorting',{Id:_Id,Act:_Action});
+     }
+</script>

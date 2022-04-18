@@ -127,7 +127,7 @@
                                     <div class="row">
                                         <div class="col-md-12 text-left">
                                             <hr />
-                                            <button onclick="SendForm('/@ViewData["Culture"]/Admin/ShowcaseTab/Add/@(ViewData["Id"])', 'frmAddShowcaseTab')" type="button" class="btn btn-success">@Localizer["Save"]</button>
+                                            <button onclick="SendForm('/@ViewData["Culture"]/Admin/ShowcaseTabs/Add/@(Model.Input.ShowcaseId)', 'frmAddShowcaseTab')" type="button" class="btn btn-success">@Localizer["Save"]</button>
                                             <button onclick="GotoList()" type="button" class="btn btn-warning">@Localizer["GotoList"]</button>
                                         </div>
                                     </div>

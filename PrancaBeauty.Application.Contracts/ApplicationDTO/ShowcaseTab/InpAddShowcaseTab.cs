@@ -25,7 +25,7 @@ namespace PrancaBeauty.Application.Contracts.ApplicationDTO.ShowcaseTab
         public bool IsEnable { get; set; }
 
         [Display(Name = "StartDate")]
-        public DateTime StartDate { get; set; }
+        public DateTime? StartDate { get; set; }
 
         [Display(Name = "EndDate")]
         public DateTime? EndDate { get; set; }

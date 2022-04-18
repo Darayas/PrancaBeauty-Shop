@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Languages;
 using PrancaBeauty.Application.Apps.ShowcaseTabs;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.ShowcaseTab;
 using PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput;
 using PrancaBeauty.WebApp.Authentication;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
@@ -47,11 +48,14 @@ namespace PrancaBeauty.WebApp.Pages.Admin.Showcases.Tabs
                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
-                ViewData["Id"]=Input.ShowcaseId;
                 ViewData["ReturnUrl"]=ReturnUrl??$"/{CultureInfo.CurrentCulture.Parent.Name}/Admin/ShowcaseTab/List";
 
                 var qLang = await _LanguageApplication.GetAllLanguageForSiteLangAsync();
-                this.Input = new viAddShowcaseTab() { LstTranslate = qLang.Select(a => new viAddShowcaseTab_Translate { LangId=a.Id }).ToList() };
+                this.Input = new viAddShowcaseTab()
+                {
+                    ShowcaseId=Input.ShowcaseId,
+                    LstTranslate = qLang.Select(a => new viAddShowcaseTab_Translate { LangId=a.Id }).ToList()
+                };
 
                 return Page();
             }
@@ -69,7 +73,13 @@ namespace PrancaBeauty.WebApp.Pages.Admin.Showcases.Tabs
                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
+                var _MappedData = _Mapper.Map<InpAddShowcaseTab>(Input);
 
+                var _Result = await _ShowcaseTabApplication.AddShowcaseTabAsync(_MappedData);
+                if (_Result.IsSucceeded)
+                    return _MsgBox.SuccessMsg(_Localizer[_Result.Message], "GotoList()");
+                else
+                    return _MsgBox.FaildMsg(_Localizer[_Result.Message]);
 
             }
             catch (ArgumentInvalidException ex)

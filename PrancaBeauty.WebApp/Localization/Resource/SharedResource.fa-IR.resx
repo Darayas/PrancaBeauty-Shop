@@ -1464,6 +1464,9 @@
   <data name="TitleIsDuplicated" xml:space="preserve">
     <value>عنوان وارد شده تکراری میباشد</value>
   </data>
+  <data name="TitleLangIsDuplicate" xml:space="preserve">
+    <value>یک یا چند مورد از عناوینی که در بخش زبان ها وارد کرده اید برای ویترین جاری تکراری میباشد.</value>
+  </data>
   <data name="TokenIsInvalid" xml:space="preserve">
     <value>توکن ارسال شده معتبر نمیباشد</value>
   </data>

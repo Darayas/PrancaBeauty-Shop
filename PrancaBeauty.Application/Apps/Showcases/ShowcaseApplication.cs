@@ -113,7 +113,7 @@ namespace PrancaBeauty.Application.Apps.Showcases
                         IsActive=Input.StartDate<DateTime.Now ? true : false,
                         IsEnable=Input.IsEnable,
                         IsFullWidth=Input.IsFullWidth,
-                        Sort=0,
+                        Sort=_Sort,
                         tblShowcasesTranslates= Input.LstTranslate.Select(a => new tblShowcasesTranslates
                         {
                             Id= new Guid().SequentialGuid(),

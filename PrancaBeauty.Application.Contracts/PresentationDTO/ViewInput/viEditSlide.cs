@@ -33,12 +33,11 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput
         public bool IsEnable { get; set; }
 
         [Display(Name = "StartDate")]
-        [Date]
+        // TODO DA: DateTime
         public string StartDate { get; set; }
 
         [Display(Name = "EndDate")]
-        [MaxLengthString(150)]
-        [Date]
+        // TODO DA: DateTime
         public string EndDate { get; set; }
     }
 }

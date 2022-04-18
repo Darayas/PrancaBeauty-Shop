@@ -3,6 +3,7 @@ using Framework.Common.Utilities.Paging;
 using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Results;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.Showcase;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.ShowcaseTab;
 using PrancaBeauty.Domin.Showcases.ShowcaseTabAgg.Contracts;
@@ -51,6 +52,45 @@ namespace PrancaBeauty.Application.Apps.ShowcaseTabs
 
                 var _PagingData = PagingData.Calc(await qData.LongCountAsync(), Input.Page, Input.Take);
                 return (_PagingData, await qData.Skip((int)_PagingData.Skip).Take(_PagingData.Take).ToListAsync());
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return default;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return default;
+            }
+        }
+
+        public async Task<OperationResult> AddShowcaseTabAsync(InpAddShowcaseTab Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                #region Check name duplicate
+
+                #endregion
+
+                #region Check title duplicate
+
+                #endregion
+
+                #region Get sorting num
+
+                #endregion
+
+                #region Add showcaseTab
+
+                #endregion
+
+                return new OperationResult().Succeeded();
+
             }
             catch (ArgumentInvalidException ex)
             {

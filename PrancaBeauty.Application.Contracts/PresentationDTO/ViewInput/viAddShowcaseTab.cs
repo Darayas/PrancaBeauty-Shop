@@ -5,17 +5,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput
 {
-
-    public class viEditShowcase
+    public class viAddShowcaseTab
     {
-        [Display(Name = "Id")]
+        [Display(Name = "ShowcaseId")]
         [RequiredString]
         [GUID]
-        public string Id { get; set; }
-
-        [Display(Name = "CountryId")]
-        [GUID]
-        public string CountryId { get; set; }
+        public string ShowcaseId { get; set; }
 
         [Display(Name = "Name")]
         [RequiredString]
@@ -25,17 +20,6 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput
         [Display(Name = "BackgroundColorCode")]
         [MaxLengthString(100)]
         public string BackgroundColorCode { get; set; }
-
-        [Display(Name = "CssStyle")]
-        [MaxLengthString(500)]
-        public string CssStyle { get; set; }
-
-        [Display(Name = "CssClass")]
-        [MaxLengthString(100)]
-        public string CssClass { get; set; }
-
-        [Display(Name = "IsFullWidth")]
-        public bool IsFullWidth { get; set; }
 
         [Display(Name = "IsEnable")]
         public bool IsEnable { get; set; }
@@ -49,10 +33,11 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput
         // TODO DA: DateTime
         public string EndDate { get; set; }
 
-        public List<viEditShowcase_Translate> LstTranslate { get; set; }
+        public List<viAddShowcaseTab_Translate> LstTranslate { get; set; }
+
     }
 
-    public class viEditShowcase_Translate
+    public class viAddShowcaseTab_Translate
     {
         [Display(Name = "LangId")]
         [RequiredString]
@@ -60,11 +45,8 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput
         public string LangId { get; set; }
 
         [Display(Name = "Title")]
+        [RequiredString]
         [MaxLengthString(100)]
         public string Title { get; set; }
-
-        [Display(Name = "Description")]
-        [MaxLengthString(100)]
-        public string Description { get; set; }
     }
 }

@@ -35,9 +35,11 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput
 
         [Display(Name = "StartDate")]
         [RequiredString]
+        // TODO DA: DateTime
         public string StartDate { get; set; }
 
         [Display(Name = "EndDate")]
+        // TODO DA: DateTime
         public string EndDate { get; set; }
 
         public List<viAddShowcase_Translate> LstTranslate { get; set; }

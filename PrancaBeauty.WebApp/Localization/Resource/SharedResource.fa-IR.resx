@@ -486,6 +486,9 @@
   <data name="EditShowcase" xml:space="preserve">
     <value>ویرایش ویترین</value>
   </data>
+  <data name="EditShowcaseTab" xml:space="preserve">
+    <value>ویرایش Tab</value>
+  </data>
   <data name="EditSlide" xml:space="preserve">
     <value>ویرایش اسلاید</value>
   </data>
@@ -1397,6 +1400,9 @@
   </data>
   <data name="ShowCaseHasTab.PleaseRemove" xml:space="preserve">
     <value>ویترین انتخاب شده قابل حذف نمیباشد. لطفا ابتدا تب های آن را حذف نمایید.</value>
+  </data>
+  <data name="ShowCaseHasTabSection.PleaseRemove" xml:space="preserve">
+    <value>تب انتخاب دارای Section های میباشد که ابتدا باید آن ها را حذف نمایید.</value>
   </data>
   <data name="SmsCodeIsSent" xml:space="preserve">
     <value>کد پیامک شد.</value>

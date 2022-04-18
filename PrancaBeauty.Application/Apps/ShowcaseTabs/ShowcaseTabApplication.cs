@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.Results;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.Showcase;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.ShowcaseTab;
+using PrancaBeauty.Domin.Showcases.ShowcaseAgg.Contracts;
 using PrancaBeauty.Domin.Showcases.ShowcaseAgg.Entities;
 using PrancaBeauty.Domin.Showcases.ShowcaseTabAgg.Contracts;
 using PrancaBeauty.Domin.Showcases.ShowcaseTabAgg.Entities;
@@ -142,6 +143,254 @@ namespace PrancaBeauty.Application.Apps.ShowcaseTabs
             catch (ArgumentInvalidException ex)
             {
                 _Logger.Debug(ex);
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
+
+        public async Task<OperationResult> SortingShowcaseTabAsync(InpSortingShowcaseTab Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+
+                #endregion
+
+                var qListShowcaseTab = await _ShowcaseTabsRepository.Get.Where(a => a.ShowcaseId==Input.ShowcaseId.ToGuid()).OrderBy(a => a.Sort).ToListAsync();
+                var qCurrentItem = qListShowcaseTab.Where(a => a.Id==Input.Id.ToGuid()).SingleOrDefault();
+                if (qCurrentItem==null)
+                    return new OperationResult().Failed("IdNotFound");
+
+                int IndexOfCurrentItem = qListShowcaseTab.IndexOf(qCurrentItem);
+
+                if (Input.Act==InpSortingShowcaseTabItem.Up)
+                {
+                    if (IndexOfCurrentItem!=0)
+                    {
+                        var PriveItem = qListShowcaseTab[IndexOfCurrentItem-1];
+
+                        int OldPriveIndex = PriveItem.Sort;
+                        PriveItem.Sort=IndexOfCurrentItem;
+                        qCurrentItem.Sort=OldPriveIndex;
+
+                        await _ShowcaseTabsRepository.UpdateAsync(PriveItem, default, false);
+                        await _ShowcaseTabsRepository.UpdateAsync(qCurrentItem, default, false);
+
+                        await _ShowcaseTabsRepository.SaveChangeAsync();
+                    }
+                }
+                else if (Input.Act==InpSortingShowcaseTabItem.Down)
+                {
+                    if (IndexOfCurrentItem<(qListShowcaseTab.Count()-1))
+                    {
+                        var NextItem = qListShowcaseTab[IndexOfCurrentItem+1];
+
+                        int OldPriveIndex = NextItem.Sort;
+                        NextItem.Sort=IndexOfCurrentItem;
+                        qCurrentItem.Sort=OldPriveIndex;
+
+                        await _ShowcaseTabsRepository.UpdateAsync(NextItem, default, false);
+                        await _ShowcaseTabsRepository.UpdateAsync(qCurrentItem, default, false);
+
+                        await _ShowcaseTabsRepository.SaveChangeAsync();
+                    }
+                }
+
+                return new OperationResult().Succeeded();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
+
+        public async Task<OperationResult> RemoveShowcaseTabAsync(InpRemoveShowcaseTab Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var qData = await _ShowcaseTabsRepository.Get
+                                                     .Where(a => a.Id==Input.Id.ToGuid())
+                                                     .Select(a => new
+                                                     {
+                                                         HasTabSection = a.tblShowcaseTabSections.Any(),
+                                                         ShowcaseTab = a
+                                                     })
+                                                     .SingleOrDefaultAsync();
+
+                if (qData==null)
+                    return new OperationResult().Failed("IdNotFound");
+
+                if (qData.HasTabSection)
+                    return new OperationResult().Failed("ShowCaseHasTabSection.PleaseRemove");
+
+                await _ShowcaseTabsRepository.DeleteAsync(qData.ShowcaseTab, default, true);
+                return new OperationResult().Succeeded();
+
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
+
+        public async Task<OutGetShowcaseTabForEdit> GetShowcaseTabForEditAsync(InpGetShowcaseTabForEdit Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var qData = await _ShowcaseTabsRepository.Get
+                                                .Where(a => a.Id==Input.Id.ToGuid())
+                                                .Select(a => new OutGetShowcaseTabForEdit
+                                                {
+                                                    Id=a.Id.ToString(),
+                                                    ShowcaseId=a.ShowcaseId.ToString(),
+                                                    Name=a.Name,
+                                                    BackgroundColorCode=a.BackgroundColorCode,
+                                                    IsEnable=a.IsEnable,
+                                                    StartDate=a.StartDate,
+                                                    EndDate=a.EndDate,
+                                                    LstTranslate= a.tblShowcaseTabTranslates.Select(b => new OutGetShowcaseTabForEdit_Translate
+                                                    {
+                                                        LangId=b.LangId.ToString(),
+                                                        Title=b.Title
+                                                    }).ToList()
+                                                })
+                                                .SingleOrDefaultAsync();
+
+                if (qData==null)
+                    return null;
+
+                return qData;
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Error(ex);
+                return default;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return default;
+            }
+        }
+
+        public async Task<OperationResult> SaveEditShowcaseTabAsync(InpSaveEditShowcaseTab Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+
+                if (Input.StartDate==null)
+                    Input.StartDate=DateTime.Now;
+
+                if (Input.EndDate.HasValue)
+                    if (Input.StartDate >= Input.EndDate.Value)
+                        return new OperationResult().Failed("EndDateMustBeGreaterThanStartDate");
+                #endregion
+
+                #region Check name duplicate
+                {
+                    if (await _ShowcaseTabsRepository.Get
+                                        .Where(a => a.Id!=Input.Id.ToGuid())
+                                        .Where(a => a.ShowcaseId==Input.ShowcaseId.ToGuid())
+                                        .AnyAsync(a => a.Name==Input.Name))
+                        return new OperationResult().Failed("NameIsDuplicate");
+                }
+                #endregion
+
+                #region Check title duplicate
+                {
+                    var HasDuplicateTitle = (await _ShowcaseTabsTranslateRepository.Get
+                                                            .Where(a => a.tblShowcaseTabs.Id!=Input.Id.ToGuid())
+                                                            .Where(a => a.tblShowcaseTabs.ShowcaseId==Input.ShowcaseId.ToGuid())
+                                                            .Select(a => a.Title)
+                                                            .ToListAsync())
+                                                                    .Where(Title => Input.LstTranslate.Where(b => b.Title==Title).Any())
+                                                                    .Any();
+                    if (HasDuplicateTitle)
+                        return new OperationResult().Failed("TitleLangIsDuplicate");
+                }
+                #endregion
+
+                #region Edit showcase
+                {
+                    var qData = await _ShowcaseTabsRepository.Get
+                                            .Where(a => a.Id==Input.Id.ToGuid())
+                                            .SingleOrDefaultAsync();
+
+                    if (qData==null)
+                        return new OperationResult().Failed("IdNotFound");
+
+                    qData.Name=Input.Name;
+                    qData.BackgroundColorCode= Input.BackgroundColorCode;
+                    qData.EndDate=Input.EndDate;
+                    qData.StartDate=Input.StartDate.Value;
+                    qData.IsEnable=Input.IsEnable;
+                    qData.IsActive=Input.StartDate<DateTime.Now ? true : false;
+
+                    await _ShowcaseTabsRepository.UpdateAsync(qData, default, true);
+
+                }
+                #endregion
+
+                #region Edit showcase translate
+                {
+                    #region Remove old translates
+                    {
+                        var qOldData = await _ShowcaseTabsTranslateRepository.Get
+                                                        .Where(a => a.ShowcaseTabId==Input.Id.ToGuid())
+                                                        .ToListAsync();
+
+                        await _ShowcaseTabsTranslateRepository.DeleteRangeAsync(qOldData, default, true);
+                    }
+                    #endregion
+
+                    #region Add new translates
+                    {
+                        var qNewData = Input.LstTranslate.Select(b => new tblShowcaseTabTranslates
+                        {
+                            Id= new Guid().SequentialGuid(),
+                            ShowcaseTabId=Input.Id.ToGuid(),
+                            LangId=b.LangId.ToGuid(),
+                            Title=b.Title,
+                        });
+
+                        await _ShowcaseTabsTranslateRepository.AddRangeAsync(qNewData, default, true);
+                    }
+                    #endregion
+                }
+                #endregion
+
+                return new OperationResult().Succeeded();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Error(ex);
                 return new OperationResult().Failed(ex.Message);
             }
             catch (Exception ex)

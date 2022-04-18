@@ -70,11 +70,11 @@
         <div class="dropdown-menu dropdown-menu-left">
     @if (User.IsInRole(Roles.CanEditShowcaseTab))
     {
-                            <a href="/@ViewData["Culture"]/Admin/ShowcaseTabs/Edit/#:Id#" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i>@Localizer["Edit"]</a>
+                                <a href="/@ViewData["Culture"]/Admin/ShowcaseTabs/Edit/#:Id#?ReturnUrl=@(System.Net.WebUtility.UrlEncode(Request.GetCurrentUrl()))" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i>@Localizer["Edit"]</a>
     }
     @if (User.IsInRole(Roles.CanRemoveShowcaseTab))
     {
-                            <a onClick="Remove('#:Id#')" class="dropdown-item"><i class="dropdown-icon fa fa-times"></i>@Localizer["Remove"]</a>
+                                <a onClick="Remove('#:Id#')" class="dropdown-item"><i class="dropdown-icon fa fa-times"></i>@Localizer["Remove"]</a>
     }
         </div>
     </div>
@@ -93,7 +93,7 @@
 {
     <script>
         function Remove(_Id) {
-            RemoveData('/@ViewData["Culture"]/Admin/ShowcaseTabs/List?handler=Remove', {Id:_Id});
+            RemoveData('/@ViewData["Culture"]/Admin/ShowcaseTabs/List/@(ViewData["Id"])?handler=Remove', {Id:_Id});
         }
     </script>
 }
@@ -103,13 +103,13 @@
         RefreshGrid('ListShowcaseTab');
     }
 
-     function Sorting(_Id,_Action)
-     {
-         SendData('/@ViewData["culture"]/Admin/ShowcaseTabs/List/@(ViewData["Id"])?handler=Sorting',{Id:_Id,Act:_Action});
-     }
+    function Sorting(_Id,_Action)
+    {
+        SendData('/@ViewData["culture"]/Admin/ShowcaseTabs/List/@(ViewData["Id"])?handler=Sorting',{Id:_Id,Act:_Action,ShowcaseId: '@ViewData["Id"]'});
+    }
 
-     function GotShowcaseList()
-     {
-         location.href='@ViewData["ReturnUrl"]';
-     }
+    function GotShowcaseList()
+    {
+        location.href='@ViewData["ReturnUrl"]';
+    }
 </script>

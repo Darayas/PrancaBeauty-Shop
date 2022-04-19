@@ -458,7 +458,7 @@ namespace PrancaBeauty.Application.Apps.Users
                     if (Result.IsLockedOut)
                         return new OperationResult().Failed("UserIsLockedOut");
                     else if (Result.IsNotAllowed)
-                        return new OperationResult().Failed("UserIsLockedOut");
+                        return new OperationResult().Failed("UserNameOrPasswordIsInvalid");
                     else
                         return new OperationResult().Failed("UserNameOrPasswordIsInvalid");
                 }

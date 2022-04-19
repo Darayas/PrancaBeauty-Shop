@@ -207,6 +207,9 @@
   <data name="AddShowcaseTab" xml:space="preserve">
     <value>افزودن تب جدید</value>
   </data>
+  <data name="AddShowcaseTabSection" xml:space="preserve">
+    <value>افزودن Tab Section جدید</value>
+  </data>
   <data name="AddSlide" xml:space="preserve">
     <value>افزودن اسلاید جدید</value>
   </data>
@@ -374,6 +377,9 @@
   </data>
   <data name="CountBills" xml:space="preserve">
     <value>تعداد صورت حساب</value>
+  </data>
+  <data name="CountInSection" xml:space="preserve">
+    <value>تعداد Item</value>
   </data>
   <data name="CountInStock" xml:space="preserve">
     <value>تعداد نزد فروشنده</value>
@@ -762,6 +768,9 @@
   <data name="IsSellerConfimed" xml:space="preserve">
     <value>وضعیت تایید فروشنده</value>
   </data>
+  <data name="IsSlider" xml:space="preserve">
+    <value>اسلایدر</value>
+  </data>
   <data name="ItemsPerPage" xml:space="preserve">
     <value>مورد بر صفحه</value>
   </data>
@@ -804,6 +813,9 @@
   <data name="LastName" xml:space="preserve">
     <value>نام خانوادگی</value>
   </data>
+  <data name="LgSize" xml:space="preserve">
+    <value>سایز lg</value>
+  </data>
   <data name="LimitToResendSms2Minute" xml:space="preserve">
     <value>شما کمتر از 2 دقیقه قبل اقدام به لاگین کرده اید. لطفا 2 دقیقه صبر نمایید و مجددا اقدام کنید</value>
   </data>
@@ -827,6 +839,9 @@
   </data>
   <data name="ListShowcaseTabs" xml:space="preserve">
     <value>لیست Tabهای ویترین</value>
+  </data>
+  <data name="ListShowcaseTabSection" xml:space="preserve">
+    <value>لیست TabSection ها</value>
   </data>
   <data name="ListSlider" xml:space="preserve">
     <value>لیست اسلایدر</value>
@@ -881,6 +896,9 @@
   </data>
   <data name="MaxLengthStringMsg" xml:space="preserve">
     <value>تعداد حروف {0} باید کمتر از {1} باشد</value>
+  </data>
+  <data name="MdSize" xml:space="preserve">
+    <value>سایز md</value>
   </data>
   <data name="MetaTagCanonical" xml:space="preserve">
     <value>متاتگ Canonical</value>
@@ -1004,6 +1022,9 @@
   </data>
   <data name="ParentId" xml:space="preserve">
     <value>دسته پدر</value>
+  </data>
+  <data name="ParentName" xml:space="preserve">
+    <value>نام پدر</value>
   </data>
   <data name="ParentTitle" xml:space="preserve">
     <value>عنوان دسته پدر</value>
@@ -1407,6 +1428,9 @@
   <data name="SmsCodeIsSent" xml:space="preserve">
     <value>کد پیامک شد.</value>
   </data>
+  <data name="SmSize" xml:space="preserve">
+    <value>سایز sm</value>
+  </data>
   <data name="SmsSenderNotRespond" xml:space="preserve">
     <value>سرویس دهنده ی پیامک پاسخ گو نیست</value>
   </data>
@@ -1604,6 +1628,12 @@
   </data>
   <data name="WithoutRate" xml:space="preserve">
     <value>بدون امتیاز</value>
+  </data>
+  <data name="XlSize" xml:space="preserve">
+    <value>سایز XL</value>
+  </data>
+  <data name="XsSize" xml:space="preserve">
+    <value>سایز xs</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>بله</value>

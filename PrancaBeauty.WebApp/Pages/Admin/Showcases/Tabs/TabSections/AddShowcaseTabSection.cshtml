@@ -1,0 +1,152 @@
+﻿@page "/{culture}/Admin/ShowcaseTabSection/Add/{ShowcaseId}/{ShowcaseTabId}"
+@model PrancaBeauty.WebApp.Pages.Admin.Showcases.Tabs.TabSections.AddShowcaseTabSectionModel
+@{
+    ViewData["Title"] = Localizer["AddShowcaseTabSection"];
+    Layout = "~/pages/shared/_AdminLayout.cshtml";
+}
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">@ViewData["Title"]</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/@CultureInfo.CurrentCulture.Parent.Name/admin/index">@Localizer["Dashborad"]</a></li>
+                        <li class="breadcrumb-item"><a href="/@CultureInfo.CurrentCulture.Parent.Name/Admin/Showcase/List">@Localizer["ListShowcase"]</a></li>
+                        <li class="breadcrumb-item"><a href="/@CultureInfo.CurrentCulture.Parent.Name/Admin/ShowcaseTab/List/@ViewData["ShowcaseId"]">@Localizer["ListShowcaseTab"]</a></li>
+                        <li class="breadcrumb-item"><a href="/@CultureInfo.CurrentCulture.Parent.Name/Admin/ShowcaseTabSection/List/@ViewData["ShowcaseId"]/@ViewData["ShowcaseTabId"]">@Localizer["ListShowcaseTabSection"]</a></li>
+                        <li class="breadcrumb-item active">@ViewData["Title"]</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <form id="frmAddShowcaseTabSection">
+                                <input asp-for=Input.ShowcaseTabId type="hidden" value="@ViewData["ShowcaseTabId"]" />
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class=col-md-6>
+                                            <label asp-for=Input.ParentId></label>
+                                            <input asp-for=Input.ParentId class=form-control />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class=col-md-6>
+                                            <label asp-for=Input.Name></label>
+                                            <input asp-for=Input.Name class=form-control />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class=col-md-3>
+                                            <label asp-for=Input.IsSlider></label>
+                                            <select asp-for=Input.IsSlider class=form-control>
+                                                <option value="false">@Localizer["Yes"]</option>
+                                                <option value="true">@Localizer["No"]</option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class=col-md-3>
+                                            <label asp-for=Input.CountInSection></label>
+                                            <input asp-for=Input.CountInSection class="form-control text-left" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class=col-md-3>
+                                            <label asp-for=Input.XlSize></label>
+                                            <input asp-for=Input.XlSize autocomplete=off class="form-control text-left" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class=col-md-3>
+                                            <label asp-for=Input.LgSize></label>
+                                            <input asp-for=Input.LgSize autocomplete=off class="form-control text-left" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class=col-md-3>
+                                            <label asp-for=Input.MdSize></label>
+                                            <input asp-for=Input.MdSize autocomplete=off class="form-control text-left" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class=col-md-3>
+                                            <label asp-for=Input.SmSize></label>
+                                            <input asp-for=Input.SmSize autocomplete=off class="form-control text-left" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class=col-md-3>
+                                            <label asp-for=Input.XsSize></label>
+                                            <input asp-for=Input.XsSize autocomplete=off class="form-control text-left" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-12 text-left">
+                                            <hr />
+                                            <button onclick="SendForm('/@ViewData["Culture"]/Admin/ShowcaseTabSection/Add/@ViewData["ShowcaseTabId"]', 'frmAddShowcaseTabSection')" type="button" class="btn btn-success">@Localizer["Save"]</button>
+                                            <button onclick="GotoList()" type="button" class="btn btn-warning">@Localizer["GotoList"]</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
+</div>
+
+@section styles{
+
+}
+
+@section scripts{
+
+<script>
+    function GotoList() {
+        location.href = '@ViewData["ReturnUrl"]';
+    }
+</script>
+}

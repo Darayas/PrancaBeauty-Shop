@@ -98,5 +98,12 @@ namespace PrancaBeauty.WebApp.Authentication
         public const string CanEditShowcaseTab = "CanEditShowcaseTab";
         public const string CanRemoveShowcaseTab = "CanRemoveShowcaseTab";
         #endregion
+
+        #region ShowcaseTabSection
+        public const string CanViewListShowcaseTabSections = "CanViewListShowcaseTabSections";
+        public const string CanAddShowcaseTabSection = "CanAddShowcaseTabSection";
+        public const string CanEditShowcaseTabSection = "CanEditShowcaseTabSection";
+        public const string CanRemoveShowcaseTabSection = "CanRemoveShowcaseTabSection";
+        #endregion
     }
 }

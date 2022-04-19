@@ -1,0 +1,115 @@
+﻿@page "/{culture}/Admin/ShowcaseTabSection/List/{ShowcaseId}/{ShowcaseTabId}"
+@model PrancaBeauty.WebApp.Pages.Admin.Showcases.Tabs.TabSections.ListShowcaseTabSectionModel
+@{
+    ViewData["Title"] = Localizer["ListShowcaseTabSection"];
+    Layout = "~/pages/shared/_AdminLayout.cshtml";
+}
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">@ViewData["Title"]</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/@CultureInfo.CurrentCulture.Parent.Name/Admin/index">@Localizer["Dashborad"]</a></li>
+                        <li class="breadcrumb-item"><a href="/@CultureInfo.CurrentCulture.Parent.Name/Admin/Showcase/List">@Localizer["ListShowcase"]</a></li>
+                        <li class="breadcrumb-item"><a href="/@CultureInfo.CurrentCulture.Parent.Name/Admin/ShowcaseTabs/List/@(ViewData["ShowcaseId"])">@Localizer["ListShowcaseTabs"]</a></li>
+                        <li class="breadcrumb-item active">@ViewData["Title"]</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="k-lang">
+                                @(Html.Kendo()
+                                .Grid<vmListShowcaseTabSection>()
+                                .Name("ListShowcaseTabSection")
+                                .DefaultSettings(Localizer)
+                                .Columns(col=> {
+                                col.Bound(a => a.Id).Hidden().HtmlAttributes(new { @class = "RowId" }).Sortable(false);
+                                col.Bound(a => a.ParentName).Sortable(false);
+                                col.Bound(a => a.Name).Sortable(false);
+                                col.Bound(a => a.IsSlider).Sortable(false).Width(80).ClientTemplate("<img style='width:28px;' src='/Shared/img/#=IsSlider#.png' />");
+                                col.Bound(a => a.CountInSection).Sortable(false).Width(80);
+                                col.Bound(a => a.XlSize).Sortable(false).Width(80);
+                                col.Bound(a => a.LgSize).Sortable(false).Width(80);
+                                col.Bound(a => a.MdSize).Sortable(false).Width(80);
+                                col.Bound(a => a.SmSize).Sortable(false).Width(80);
+                                col.Bound(a => a.XsSize).Sortable(false).Width(80);
+                                
+                                col.Bound(a => a).Width(50).Title(" ")
+                                .HtmlAttributes(new { style= "overflow: visible; text-align: center;" })
+                                .ClientHeaderTemplate(User.IsInRole(Roles.CanAddShowcaseTabSection)? "<button class='btn btn-success btn-sm' onclick='Add()'><i class='fa fa-plus'></i></button>" : "")
+                                .ClientTemplateId("DropDownCmd");
+                                })
+                                .DataSource(ds=>ds.Ajax()
+                                .PageSize(10)
+                                .Read(read=>read.Url($"/{CultureInfo.CurrentCulture.Parent.Name}/Admin/ShowcaseTabSection/List/{ViewData["ShowcaseTabId"].ToString()}?handler=ReadData").Data("forgeryToken"))))
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
+</div>
+
+<script id="DropDownCmd">
+    <div class="item-action dropdown">
+        <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fa fa-bars fs-16 text-dark"></i></a>
+        <div class="dropdown-menu dropdown-menu-left">
+        @if (User.IsInRole(Roles.CanEditShowcaseTabSection))
+        {
+              <a href="/@ViewData["Culture"]/Admin/ShowcaseTabSection/Edit/#:Id#?ReturnUrl=@(System.Net.WebUtility.UrlEncode(Request.GetCurrentUrl()))" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i>@Localizer["Edit"]</a>
+        }
+        @if (User.IsInRole(Roles.CanRemoveShowcaseTabSection))
+        {
+              <a onClick="Remove('#:Id#')" class="dropdown-item"><i class="dropdown-icon fa fa-times"></i>@Localizer["Remove"]</a>
+        }
+        </div>
+    </div>
+</script>
+
+@if (User.IsInRole(Roles.CanAddShowcaseTabSection))
+{
+    <script>
+        function Add() {
+            location.href = '/@ViewData["Culture"]/Admin/ShowcaseTabSection/Add/@ViewData["ShowcaseId"]/@ViewData["ShowcaseTabId"]?ReturnUrl=@(System.Net.WebUtility.UrlEncode(Request.GetCurrentUrl()))';
+        }
+    </script>
+}
+
+@if (User.IsInRole(Roles.CanRemoveShowcaseTabSection))
+{
+    <script>
+        function Remove(_Id) {
+            RemoveData('/@ViewData["Culture"]/Admin/ShowcaseTabSection/List/@(ViewData["ShowcaseTabId"])?handler=Remove', {Id:_Id});
+        }
+    </script>
+}
+
+<script>
+    function RefreshData() {
+        RefreshGrid('ListShowcaseTabSection');
+    }
+
+
+    function GotoShowcaseTabList()
+    {
+        location.href='@ViewData["ReturnUrl"]';
+    }
+</script>

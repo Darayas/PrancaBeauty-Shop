@@ -76,6 +76,10 @@
     {
                                 <a onClick="Remove('#:Id#')" class="dropdown-item"><i class="dropdown-icon fa fa-times"></i>@Localizer["Remove"]</a>
     }
+    @if (User.IsInRole(Roles.CanViewListShowcaseTabSections))
+    {
+                                <a href="/@ViewData["culture"]/Admin/ShowcaseTabSection/List/@ViewData["Id"]/#:Id#" class="dropdown-item"><i class="dropdown-icon fa fa-times"></i>@Localizer["ListShowcaseTabSection"]</a>
+    }
         </div>
     </div>
 </script>

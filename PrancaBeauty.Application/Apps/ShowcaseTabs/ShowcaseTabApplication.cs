@@ -53,6 +53,7 @@ namespace PrancaBeauty.Application.Apps.ShowcaseTabs
                                             StartDate=a.StartDate,
                                             EndDate=a.EndDate
                                         })
+                                        .Where(a => Input.Title!=null ? a.Title.Contains(Input.Title) : true)
                                         .OrderBy(a => a.Sort);
 
                 var _PagingData = PagingData.Calc(await qData.LongCountAsync(), Input.Page, Input.Take);

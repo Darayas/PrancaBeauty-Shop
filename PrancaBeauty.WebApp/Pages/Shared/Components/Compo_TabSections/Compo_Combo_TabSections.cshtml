@@ -30,7 +30,7 @@
           .DataSource(sr => {
               sr.Read(read =>
               {
-                  read.Url($"/{ViewData["culture"]}/Shared/Compo/ComboTabSection?handler=Read");
+                  read.Url($"/{ViewData["culture"]}/Shared/Compo/ComboTabSection?handler=Read&ShowcaseTabId={Model.Input.ShowcaseTabId}&ShowcaseTabSectionId={Model.Input.ShowcaseTabSectionId}");
               });
           }).Template("<div class='d-inline ml-2 mr-2'>#=Name#</div>"))
 </div>

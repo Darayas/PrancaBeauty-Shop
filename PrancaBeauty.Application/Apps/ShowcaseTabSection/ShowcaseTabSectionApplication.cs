@@ -75,7 +75,7 @@ namespace PrancaBeauty.Application.Apps.ShowcaseTabSection
         {
             try
             {
-                #region validatrions
+                #region Validations
                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
@@ -107,7 +107,7 @@ namespace PrancaBeauty.Application.Apps.ShowcaseTabSection
         {
             try
             {
-                #region validatrions
+                #region Validations
                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
@@ -136,6 +136,171 @@ namespace PrancaBeauty.Application.Apps.ShowcaseTabSection
                     };
 
                     await _ShowcaseTabSectionRepository.AddAsync(tAdd, default, true);
+                }
+                #endregion
+
+                return new OperationResult().Succeeded();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
+
+        public async Task<OperationResult> RemoveShowcaseTabSectionAsync(InpRemoveShowcaseTabSection Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                #region Get data
+                var qData = await _ShowcaseTabSectionRepository.Get
+                                                        .Where(a => a.Id==Input.Id.ToGuid())
+                                                        .Select(a => new
+                                                        {
+                                                            HasChild = a.tblShowcaseTabSectionsChild.Any(),
+                                                            HasFreeItem = a.tblSectionFreeItems.Any(),
+                                                            HasSectionProduct = a.tblSectionProducts.Any(),
+                                                            HasSectionProductCategory = a.tblSectionProductCategory.Any(),
+                                                            HasSectionProductKeyword = a.tblSectionProductKeyword.Any(),
+                                                            TabSection = a
+                                                        })
+                                                        .SingleOrDefaultAsync();
+                #endregion
+
+                #region Check relations
+                {
+                    if (qData==null)
+                        return new OperationResult().Failed("IdNotFound");
+
+                    if (qData.HasChild)
+                        return new OperationResult().Failed("TabSectionHasChild.PleaseRemove");
+
+                    if (qData.HasFreeItem)
+                        return new OperationResult().Failed("TabSectionHasFreeItem.PleaseRemove");
+
+                    if (qData.HasSectionProduct)
+                        return new OperationResult().Failed("TabSectionHasSectionProduct.PleaseRemove");
+
+                    if (qData.HasSectionProductCategory)
+                        return new OperationResult().Failed("TabSectionHasSectionProductCategory.PleaseRemove");
+
+                    if (qData.HasSectionProductKeyword)
+                        return new OperationResult().Failed("TabSectionHasSectionProductKeyword.PleaseRemove");
+                }
+                #endregion
+
+                #region Remove Data
+                {
+                    await _ShowcaseTabSectionRepository.DeleteAsync(qData.TabSection, default, true);
+                }
+                #endregion
+
+                return new OperationResult().Succeeded();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
+
+        public async Task<OutGetTabSectionForEdit> GetTabSectionForEditAsync(InpGetTabSectionForEdit Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var qData = await _ShowcaseTabSectionRepository.Get
+                                                .Where(a => a.Id==Input.Id.ToGuid())
+                                                .Select(a => new OutGetTabSectionForEdit
+                                                {
+                                                    Id=a.Id.ToString(),
+                                                    ShowcaseTabId=a.ShowcaseTabId.ToString(),
+                                                    ParentId=a.ParentId.ToString(),
+                                                    Name=a.Name,
+                                                    CountInSection=a.CountInSection,
+                                                    IsSlider=a.IsSlider,
+                                                    LgSize=a.LgSize,
+                                                    MdSize=a.MdSize,
+                                                    SmSize=a.SmSize,
+                                                    XlSize=a.XlSize,
+                                                    XsSize=a.XsSize
+                                                })
+                                                .SingleOrDefaultAsync();
+
+                if (qData==null)
+                    return null;
+
+                return qData;
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return default;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return default;
+            }
+        }
+
+        public async Task<OperationResult> EditShowcaseTabSectionAsync(InpEditShowcaseTabSection Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+
+                if (Input.ParentId==Input.Id)
+                    return new OperationResult().Failed("SelftParentNotAllowed");
+                #endregion
+
+                #region Check Name duplicate
+                {
+                    if (await _ShowcaseTabSectionRepository.Get.Where(a => a.Id!=Input.Id.ToGuid()).Where(a => a.ShowcaseTabId==Input.ShowcaseTabId.ToGuid()).AnyAsync(a => a.Name==Input.Name))
+                        return new OperationResult().Failed("NameIsDuplicate");
+                }
+                #endregion
+
+                #region get showcase tab section
+                tblShowcaseTabSections qData = null;
+                {
+                    qData = await _ShowcaseTabSectionRepository.Get.Where(a => a.Id==Input.Id.ToGuid()).SingleOrDefaultAsync();
+                    if (qData ==null)
+                        return new OperationResult().Failed("IdNotFound");
+                }
+                #endregion
+
+                #region Edit showcase tab section
+                {
+                    qData.ParentId =Input.ParentId!=null ? Input.ParentId.ToGuid() : null;
+                    qData.Name=Input.Name;
+                    qData.CountInSection=Input.CountInSection;
+                    qData.IsSlider=Input.IsSlider;
+                    qData.LgSize=Input.LgSize;
+                    qData.SmSize=Input.SmSize;
+                    qData.XsSize=Input.XsSize;
+                    qData.MdSize=Input.MdSize;
+                    qData.XlSize=Input.XlSize;
+
+                    await _ShowcaseTabSectionRepository.UpdateAsync(qData, default, true);
                 }
                 #endregion
 

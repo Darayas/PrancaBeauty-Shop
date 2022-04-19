@@ -112,6 +112,9 @@ namespace PrancaBeauty.WebApp.Pages.Admin.Showcases.Tabs
         {
             try
             {
+                if (!User.IsInRole(Roles.CanRemoveShowcaseTab))
+                    return _MsgBox.AccessDeniedMsg();
+
                 #region Validations
                 Input.CheckModelState(_ServiceProvider);
                 #endregion

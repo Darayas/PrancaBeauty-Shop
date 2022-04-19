@@ -1,9 +1,10 @@
-﻿@page "/{culture}/Admin/ShowcaseTabSection/Add/{ShowcaseId}/{ShowcaseTabId}"
-@model PrancaBeauty.WebApp.Pages.Admin.Showcases.Tabs.TabSections.AddShowcaseTabSectionModel
+﻿@page "/{culture}/Admin/ShowcaseTabSection/Edit/{ShowcaseId}/{ShowcaseTabId}/{Id}"
+@model PrancaBeauty.WebApp.Pages.Admin.Showcases.Tabs.TabSections.EditShowcaseTabSectionModel
 @{
-    ViewData["Title"] = Localizer["AddShowcaseTabSection"];
+    ViewData["Title"] = Localizer["EditShowcaseTabSection"];
     Layout = "~/pages/shared/_AdminLayout.cshtml";
 }
+
 
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -18,7 +19,7 @@
                         <li class="breadcrumb-item"><a href="/@CultureInfo.CurrentCulture.Parent.Name/admin/index">@Localizer["Dashborad"]</a></li>
                         <li class="breadcrumb-item"><a href="/@CultureInfo.CurrentCulture.Parent.Name/Admin/Showcase/List">@Localizer["ListShowcase"]</a></li>
                         <li class="breadcrumb-item"><a href="/@CultureInfo.CurrentCulture.Parent.Name/Admin/ShowcaseTabs/List/@ViewData["ShowcaseId"]">@Localizer["ListShowcaseTab"]</a></li>
-                        <li class="breadcrumb-item"><a href="/@CultureInfo.CurrentCulture.Parent.Name/Admin/ShowcaseTabSection/List/@ViewData["ShowcaseId"]/@ViewData["ShowcaseTabId"]">@Localizer["ListShowcaseTabSection"]</a></li>
+                        <li class="breadcrumb-item"><a href="/@CultureInfo.CurrentCulture.Parent.Name/Admin/ShowcaseTabSection/List/@ViewData["ShowcaseId"]/@Model.Input.ShowcaseTabId">@Localizer["ListShowcaseTabSection"]</a></li>
                         <li class="breadcrumb-item active">@ViewData["Title"]</li>
                     </ol>
                 </div><!-- /.col -->
@@ -33,8 +34,9 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <form id="frmAddShowcaseTabSection">
-                                <input asp-for=Input.ShowcaseTabId type="hidden" value="@ViewData["ShowcaseTabId"]" />
+                            <form id="frmEditShowcaseTabSection">
+                                <input asp-for=Input.Id type="hidden" />
+                                <input asp-for=Input.ShowcaseTabId type="hidden" />
                                 <div class="form-group">
                                     <div class="row">
                                         <div class=col-md-6>
@@ -42,7 +44,7 @@
                                             <LoadComponent id="ParentId"
                                                            context="HttpContext"
                                                            url="/@ViewData["culture"]/Shared/Compo/ComboTabSection"
-                                                           data='new viCompo_Combo_TabSections{ FieldName="Input.ParentId",ShowcaseTabId=ViewData["ShowcaseTabId"].ToString(),ShowcaseTabSectionId=null}'></LoadComponent>
+                                                           data='new viCompo_Combo_TabSections{ FieldName="Input.ParentId",ShowcaseTabId=Model.Input.ShowcaseTabId,ShowcaseTabSectionId=Model.Input.ParentId}'></LoadComponent>
                                         </div>
                                     </div>
                                 </div>
@@ -125,7 +127,7 @@
                                     <div class="row">
                                         <div class="col-md-12 text-left">
                                             <hr />
-                                            <button onclick="SendForm('/@ViewData["Culture"]/Admin/ShowcaseTabSection/Add/@ViewData["ShowcaseId"]/@ViewData["ShowcaseTabId"]', 'frmAddShowcaseTabSection')" type="button" class="btn btn-success">@Localizer["Save"]</button>
+                                            <button onclick="SendForm('/@ViewData["Culture"]/Admin/ShowcaseTabSection/Edit/@ViewData["ShowcaseId"]/@Model.Input.ShowcaseTabId/@Model.Input.Id', 'frmEditShowcaseTabSection')" type="button" class="btn btn-success">@Localizer["Save"]</button>
                                             <button onclick="GotoList()" type="button" class="btn btn-warning">@Localizer["GotoList"]</button>
                                         </div>
                                     </div>

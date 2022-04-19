@@ -69,6 +69,9 @@ namespace PrancaBeauty.WebApp.Pages.Admin.Showcases
         {
             try
             {
+                if (!User.IsInRole(Roles.CanRemoveShowcase))
+                    return _MsgBox.AccessDeniedMsg();
+
                 #region Validations
                 Input.CheckModelState(_ServiceProvider);
                 #endregion

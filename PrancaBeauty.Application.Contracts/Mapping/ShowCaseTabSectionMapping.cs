@@ -19,6 +19,10 @@ namespace PrancaBeauty.Application.Contracts.Mapping
 
             // Add
             CreateMap<viAddShowcaseTabSection, InpAddShowcaseTabSection>();
+
+            // Edit
+            CreateMap<OutGetTabSectionForEdit, viEditShowcaseTabSection>();
+            CreateMap<viEditShowcaseTabSection, InpEditShowcaseTabSection>();
         }
     }
 }

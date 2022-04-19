@@ -78,6 +78,35 @@ namespace PrancaBeauty.WebApp.Pages.Admin.Showcases.Tabs.TabSections
             return new JsonResult(_DataGrid);
         }
 
+        public async Task<IActionResult> OnPostRemoveAsync(viListShowcaseTabSectionRemove Input)
+        {
+            try
+            {
+                if (!User.IsInRole(Roles.CanRemoveShowcaseTabSection))
+                    return _MsgBox.AccessDeniedMsg();
+
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var _Result = await _ShowcaseTabSectionApplication.RemoveShowcaseTabSectionAsync(new InpRemoveShowcaseTabSection { Id=Input.Id });
+                
+                if (_Result.IsSucceeded)
+                    return _MsgBox.SuccessMsg(_Localizer[_Result.Message], "RefreshData()");
+                else
+                    return _MsgBox.FaildMsg(_Localizer[_Result.Message]);
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                return _MsgBox.FaildMsg(_Localizer[ex.Message]);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return _MsgBox.FaildMsg(_Localizer["Error500"]);
+            }
+        }
+
         [BindProperty]
         public viListShowcaseTabSection Input { get; set; }
     }

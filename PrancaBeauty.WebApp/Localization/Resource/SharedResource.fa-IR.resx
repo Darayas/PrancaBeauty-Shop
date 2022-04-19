@@ -495,6 +495,9 @@
   <data name="EditShowcaseTab" xml:space="preserve">
     <value>ویرایش Tab</value>
   </data>
+  <data name="EditShowcaseTabSection" xml:space="preserve">
+    <value>ویرایش TabSection</value>
+  </data>
   <data name="EditSlide" xml:space="preserve">
     <value>ویرایش اسلاید</value>
   </data>
@@ -1371,6 +1374,9 @@
   <data name="SelectedVariantHasPurchase,CantRemove" xml:space="preserve">
     <value>نوع انتخاب شده به دلیل وجود فاکتورهایی از قبل ثبت شده، قابل حذف نمیباشد. میتوانید آن را غیر فعال نمایید.</value>
   </data>
+  <data name="SelftParentNotAllowed" xml:space="preserve">
+    <value>شما نمیتوانید این TabSection را به عنوان پدر در نظر بگیرید.</value>
+  </data>
   <data name="Seller" xml:space="preserve">
     <value>فروشنده</value>
   </data>
@@ -1466,6 +1472,21 @@
   </data>
   <data name="StringLengthMsg" xml:space="preserve">
     <value>{0} باید بین {2} تا {1} کاراکتر باشد</value>
+  </data>
+  <data name="TabSectionHasChild.PleaseRemove" xml:space="preserve">
+    <value>TabSection انتخاب شده داراری فرزندانی میباشد که ابتدا باید آن ها را حذف نمایید</value>
+  </data>
+  <data name="TabSectionHasFreeItem.PleaseRemove" xml:space="preserve">
+    <value>TabSection انتخاب شده داراری Free Item هایی میباشد که ابتدا باید آن ها را حذف نمایید</value>
+  </data>
+  <data name="TabSectionHasSectionProduct.PleaseRemove" xml:space="preserve">
+    <value>TabSection انتخاب شده داراری محصولاتی میباشد که ابتدا باید آن ها را حذف نمایید</value>
+  </data>
+  <data name="TabSectionHasSectionProductCategory.PleaseRemove" xml:space="preserve">
+    <value>TabSection انتخاب شده داراری دسته هایی میباشد که ابتدا باید آن ها را حذف نمایید</value>
+  </data>
+  <data name="TabSectionHasSectionProductKeyword.PleaseRemove" xml:space="preserve">
+    <value>TabSection انتخاب شده داراری کلمات کلیدی میباشد که ابتدا باید آن ها را حذف نمایید</value>
   </data>
   <data name="Take" xml:space="preserve">
     <value>تعداد در صفحه</value>

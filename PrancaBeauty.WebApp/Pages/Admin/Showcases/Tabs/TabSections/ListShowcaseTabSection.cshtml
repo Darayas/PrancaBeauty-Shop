@@ -56,7 +56,7 @@
                                 })
                                 .DataSource(ds=>ds.Ajax()
                                 .PageSize(10)
-                                .Read(read=>read.Url($"/{CultureInfo.CurrentCulture.Parent.Name}/Admin/ShowcaseTabSection/List/{ViewData["ShowcaseTabId"].ToString()}?handler=ReadData").Data("forgeryToken"))))
+                                .Read(read=>read.Url($"/{CultureInfo.CurrentCulture.Parent.Name}/Admin/ShowcaseTabSection/List/{ViewData["ShowcaseId"].ToString()}/{ViewData["ShowcaseTabId"].ToString()}?handler=ReadData&ShowcaseTabId={ViewData["ShowcaseTabId"].ToString()}").Data("forgeryToken"))))
                             </div>
                         </div>
                     </div>

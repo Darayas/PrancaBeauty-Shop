@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.ShowcaseTabSections;
+using PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput;
+using PrancaBeauty.Application.Contracts.PresentationDTO.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +15,10 @@ namespace PrancaBeauty.Application.Contracts.Mapping
         public ShowCaseTabSectionMapping()
         {
             // List
-            CreateMap<OutGetListShowcaseTabSectionForAdminPage, OutGetListShowcaseTabSectionForAdminPage>();
+            CreateMap<OutGetListShowcaseTabSectionForAdminPage, vmListShowcaseTabSection>();
+
+            // Add
+            CreateMap<viAddShowcaseTabSection, InpAddShowcaseTabSection>();
         }
     }
 }

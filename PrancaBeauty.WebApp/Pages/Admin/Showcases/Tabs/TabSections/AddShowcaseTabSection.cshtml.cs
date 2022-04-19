@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.ShowcaseTabSection;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.ShowcaseTabSections;
 using PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput;
 using PrancaBeauty.WebApp.Authentication;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
@@ -59,11 +60,15 @@ namespace PrancaBeauty.WebApp.Pages.Admin.Showcases.Tabs.TabSections
         {
             try
             {
-                #region validatrions
+                #region Validations
                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
-                return Page();
+                var _Result = await _ShowcaseTabSectionApplication.AddShowcaseTabSectionAsync(_Mapper.Map<InpAddShowcaseTabSection>(Input));
+                if (_Result.IsSucceeded)
+                    return _MsgBox.SuccessMsg(_Localizer[_Result.Message], "GotoList()");
+                else
+                    return _MsgBox.FaildMsg(_Localizer[_Result.Message]);
             }
             catch (ArgumentInvalidException ex)
             {

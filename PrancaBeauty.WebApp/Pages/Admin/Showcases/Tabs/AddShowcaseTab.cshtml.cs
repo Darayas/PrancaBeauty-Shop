@@ -48,7 +48,7 @@ namespace PrancaBeauty.WebApp.Pages.Admin.Showcases.Tabs
                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
-                ViewData["ReturnUrl"]=ReturnUrl??$"/{CultureInfo.CurrentCulture.Parent.Name}/Admin/ShowcaseTab/List/{Input.ShowcaseId}";
+                ViewData["ReturnUrl"]=ReturnUrl??$"/{CultureInfo.CurrentCulture.Parent.Name}/Admin/ShowcaseTabs/List/{Input.ShowcaseId}";
 
                 var qLang = await _LanguageApplication.GetAllLanguageForSiteLangAsync();
                 this.Input = new viAddShowcaseTab()

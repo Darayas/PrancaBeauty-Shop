@@ -10,10 +10,10 @@
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     <h1 class="m-0 text-dark">@ViewData["Title"]</h1>
                 </div><!-- /.col -->
-                <div class="col-sm-6">
+                <div class="col-sm-8">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/@CultureInfo.CurrentCulture.Parent.Name/admin/index">@Localizer["Dashborad"]</a></li>
                         <li class="breadcrumb-item"><a href="/@CultureInfo.CurrentCulture.Parent.Name/Admin/Showcase/List">@Localizer["ListShowcase"]</a></li>
@@ -39,7 +39,10 @@
                                     <div class="row">
                                         <div class=col-md-6>
                                             <label asp-for=Input.ParentId></label>
-                                            <input asp-for=Input.ParentId class=form-control />
+                                            <LoadComponent id="ParentId"
+                                                           context="HttpContext"
+                                                           url="/@ViewData["culture"]/Shared/Compo/ComboTabSection"
+                                                           data='new viCompo_Combo_TabSections{ FieldName="Input.ParentId",ShowcaseTabId=ViewData["ShowcaseTabId"].ToString(),ShowcaseTabSectionId=null}'></LoadComponent>
                                         </div>
                                     </div>
                                 </div>
@@ -122,7 +125,7 @@
                                     <div class="row">
                                         <div class="col-md-12 text-left">
                                             <hr />
-                                            <button onclick="SendForm('/@ViewData["Culture"]/Admin/ShowcaseTabSection/Add/@ViewData["ShowcaseTabId"]', 'frmAddShowcaseTabSection')" type="button" class="btn btn-success">@Localizer["Save"]</button>
+                                            <button onclick="SendForm('/@ViewData["Culture"]/Admin/ShowcaseTabSection/Add/@ViewData["ShowcaseId"]/@ViewData["ShowcaseTabId"]', 'frmAddShowcaseTabSection')" type="button" class="btn btn-success">@Localizer["Save"]</button>
                                             <button onclick="GotoList()" type="button" class="btn btn-warning">@Localizer["GotoList"]</button>
                                         </div>
                                     </div>

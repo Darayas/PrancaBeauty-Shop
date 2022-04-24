@@ -52,7 +52,7 @@ namespace Framework.Common.DataAnnotations.Numbers.All
                 && value is not decimal)
                 throw new Exception("Value only can be Numeric.");
 
-            if (Convert.ToDecimal(value) < _Min && Convert.ToDecimal(value) > _Max)
+            if (Convert.ToDecimal(value) < _Min || Convert.ToDecimal(value) > _Max)
                 return new ValidationResult(GetMessage(validationContext));
             else
                 return ValidationResult.Success;
@@ -76,9 +76,9 @@ namespace Framework.Common.DataAnnotations.Numbers.All
                     ErrorMessage = ErrorMessage.Replace("{0}", _Localizer[validationContext.DisplayName]);
             }
 
-            if (ErrorMessage.Contains("{0}"))
+            if (ErrorMessage.Contains("{1}"))
                 ErrorMessage = ErrorMessage.Replace("{1}", _Min.ToString())
-                            .Replace("{2}", _Max.ToString());
+                                           .Replace("{2}", _Max.ToString());
 
             return ErrorMessage;
         }

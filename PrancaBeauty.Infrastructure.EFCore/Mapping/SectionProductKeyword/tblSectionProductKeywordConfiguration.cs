@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PrancaBeauty.Domin.Showcases.SectionProductKeywordAgg.Entities;
+using PrancaBeauty.Domin.Showcases.SectionItems.Entitiy;
 
 namespace PrancaBeauty.Infrastructure.EFCore.Mapping.SectionProductKeyword
 {
@@ -17,13 +18,13 @@ namespace PrancaBeauty.Infrastructure.EFCore.Mapping.SectionProductKeyword
         {
             builder.HasKey(a => a.Id);
             builder.Property(a => a.Id).IsRequired().HasMaxLength(150);
-            builder.Property(a => a.ShowcaseTabSectionId).IsRequired().HasMaxLength(150);
+            builder.Property(a => a.TabSectionItemId).IsRequired().HasMaxLength(150);
             builder.Property(a => a.KeywordId).IsRequired().HasMaxLength(150);
 
-            builder.HasOne(a => a.tblShowcaseTabSections)
-                   .WithMany(a => a.tblSectionProductKeyword)
-                   .HasPrincipalKey(a => a.Id)
-                   .HasForeignKey(a => a.KeywordId)
+            builder.HasOne(a => a.tblShowcaseTabSectionItems)
+                   .WithOne(a => a.tblSectionProductKeyword)
+                   .HasPrincipalKey<tblShowcaseTabSectionItems>(a => a.Id)
+                   .HasForeignKey<tblSectionProductKeyword>(a => a.TabSectionItemId)
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(a => a.tblKeywords)

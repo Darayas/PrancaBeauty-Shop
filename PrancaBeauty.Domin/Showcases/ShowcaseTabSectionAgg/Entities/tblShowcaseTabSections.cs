@@ -1,5 +1,6 @@
 ﻿using Framework.Domain;
 using PrancaBeauty.Domin.Showcases.SectionFreeItemAgg.Entities;
+using PrancaBeauty.Domin.Showcases.SectionItems.Entitiy;
 using PrancaBeauty.Domin.Showcases.SectionProductAgg.Entities;
 using PrancaBeauty.Domin.Showcases.SectionProductCategoryAgg.Entities;
 using PrancaBeauty.Domin.Showcases.SectionProductKeywordAgg.Entities;
@@ -26,9 +27,6 @@ namespace PrancaBeauty.Domin.Showcases.ShowcaseTabSectionAgg.Entities
         public virtual tblShowcaseTabs tblShowcaseTabs { get; set; }
         public virtual tblShowcaseTabSections tblShowcaseTabSectionsParent { get; set; }
         public virtual ICollection<tblShowcaseTabSections> tblShowcaseTabSectionsChild { get; set; }
-        public virtual ICollection<tblSectionFreeItems> tblSectionFreeItems { get; set; }
-        public virtual ICollection<tblSectionProducts> tblSectionProducts { get; set; }
-        public virtual ICollection<tblSectionProductCategory> tblSectionProductCategory { get; set; }
-        public virtual ICollection<tblSectionProductKeyword> tblSectionProductKeyword { get; set; }
+        public virtual ICollection<tblShowcaseTabSectionItems> tblShowcaseTabSectionItems { get; set; }
     }
 }

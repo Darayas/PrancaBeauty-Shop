@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.Results;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.ShowcaseTab;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.ShowcaseTabSections;
+using PrancaBeauty.Domin.Showcases.SectionItems.Entitiy;
 using PrancaBeauty.Domin.Showcases.ShowcaseTabAgg.Contracts;
 using PrancaBeauty.Domin.Showcases.ShowcaseTabSectionAgg.Contracts;
 using PrancaBeauty.Domin.Showcases.ShowcaseTabSectionAgg.Entities;
@@ -167,10 +168,10 @@ namespace PrancaBeauty.Application.Apps.ShowcaseTabSection
                                                         .Select(a => new
                                                         {
                                                             HasChild = a.tblShowcaseTabSectionsChild.Any(),
-                                                            HasFreeItem = a.tblSectionFreeItems.Any(),
-                                                            HasSectionProduct = a.tblSectionProducts.Any(),
-                                                            HasSectionProductCategory = a.tblSectionProductCategory.Any(),
-                                                            HasSectionProductKeyword = a.tblSectionProductKeyword.Any(),
+                                                            HasFreeItem = a.tblShowcaseTabSectionItems.Where(a=>a.SectionType==tblShowcaseTabSectionItemsEnum.FreeItem).Any(),
+                                                            HasSectionProduct = a.tblShowcaseTabSectionItems.Where(a => a.SectionType==tblShowcaseTabSectionItemsEnum.Product).Any(),
+                                                            HasSectionProductCategory = a.tblShowcaseTabSectionItems.Where(a => a.SectionType==tblShowcaseTabSectionItemsEnum.Category).Any(),
+                                                            HasSectionProductKeyword = a.tblShowcaseTabSectionItems.Where(a => a.SectionType==tblShowcaseTabSectionItemsEnum.Keyword).Any(),
                                                             TabSection = a
                                                         })
                                                         .SingleOrDefaultAsync();

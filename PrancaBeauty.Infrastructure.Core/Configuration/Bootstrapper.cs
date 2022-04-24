@@ -43,6 +43,7 @@ using PrancaBeauty.Application.Apps.ProductVariants;
 using PrancaBeauty.Application.Apps.Province;
 using PrancaBeauty.Application.Apps.Roles;
 using PrancaBeauty.Application.Apps.SectionFreeItem;
+using PrancaBeauty.Application.Apps.SectionItems;
 using PrancaBeauty.Application.Apps.SectionProduct;
 using PrancaBeauty.Application.Apps.SectionProductCategory;
 using PrancaBeauty.Application.Apps.SectionProductKeyword;
@@ -89,6 +90,7 @@ using PrancaBeauty.Domin.Region.LanguagesAgg.Contracts;
 using PrancaBeauty.Domin.Region.ProvinceAgg.Contracts;
 using PrancaBeauty.Domin.Settings.SettingsAgg.Contracts;
 using PrancaBeauty.Domin.Showcases.SectionFreeItemAgg.Contracts;
+using PrancaBeauty.Domin.Showcases.SectionItems.Contracts;
 using PrancaBeauty.Domin.Showcases.SectionProductAgg.Contracts;
 using PrancaBeauty.Domin.Showcases.SectionProductCategoryAgg.Contracts;
 using PrancaBeauty.Domin.Showcases.SectionProductKeywordAgg.Contracts;
@@ -138,6 +140,7 @@ using PrancaBeauty.Infrastructure.EFCore.Repository.Province;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Region;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Roles;
 using PrancaBeauty.Infrastructure.EFCore.Repository.SectionFreeItem;
+using PrancaBeauty.Infrastructure.EFCore.Repository.SectionItems;
 using PrancaBeauty.Infrastructure.EFCore.Repository.SectionProduct;
 using PrancaBeauty.Infrastructure.EFCore.Repository.SectionProductCategory;
 using PrancaBeauty.Infrastructure.EFCore.Repository.SectionProductKeyword;
@@ -228,6 +231,7 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddScoped<ISectionProductRepository, SectionProductRepository>();
             services.AddScoped<ISectionProductCategoryRepository, SectionProductCategoryRepository>();
             services.AddScoped<ISectionProductKeywordRepository, SectionProductKeywordRepository>();
+            services.AddScoped<IShowcaseTabSectionItemRepository, ShowcaseTabSectionItemRepository>();
 
             // Applications
             services.AddScoped<IUserApplication, UserApplication>();
@@ -277,6 +281,7 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddScoped<ISectionProductApplication, SectionProductApplication>();
             services.AddScoped<ISectionProductCategoryApplication, SectionProductCategoryApplication>();
             services.AddScoped<ISectionProductKeywordApplication, SectionProductKeywordApplication>();
+            services.AddScoped<IShowcaseTabSectionItemApplication, ShowcaseTabSectionItemApplication>();
         }
     }
 }

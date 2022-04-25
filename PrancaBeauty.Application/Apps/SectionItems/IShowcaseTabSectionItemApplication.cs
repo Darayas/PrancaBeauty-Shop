@@ -12,6 +12,7 @@ namespace PrancaBeauty.Application.Apps.SectionItems
     public interface IShowcaseTabSectionItemApplication
     {
         Task<OperationResult> AddTabSectionFreeItemAsync(InpAddTabSectionFreeItem Input);
+        Task<OperationResult> AddTabSectionProductItemAsync(InpAddTabSectionProductItem Input);
         Task<(OutPagingData, List<OutGetListShowcaseTabSectionItemForAdminPage>)> GetListShowcaseTabSectionItemForAdminPageAsync(InpGetListShowcaseTabSectionItemForAdminPage Input);
     }
 }

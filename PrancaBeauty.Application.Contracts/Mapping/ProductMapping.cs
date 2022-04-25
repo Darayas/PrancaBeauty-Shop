@@ -13,6 +13,8 @@ namespace PrancaBeauty.Application.Contracts.Mapping
         {
             CreateMap<OutGetProductsForManage, vmProductList>();
 
+            CreateMap<OutGetProductListForCombo, vmCompo_Combo_Products>();
+
             CreateMap<viAddProduct, InpAddProdcut>();
             CreateMap<viAddProduct_Properties, InpAddProduct_Properties>();
             CreateMap<viAddProduct_Keywords, InpAddProduct_Keywords>();

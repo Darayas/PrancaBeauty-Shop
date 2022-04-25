@@ -11,6 +11,7 @@ namespace PrancaBeauty.Application.Apps.Products
         Task<OperationResult> AddProdcutAsync(InpAddProdcut Input);
         Task<OutGetProductForEdit> GetForEditAsync(InpGetForEdit Input);
         Task<(bool IsConfirm, OutGetProductForDetails Product)> GetProductForDetailsAsync(InpGetProductForDetails Input);
+        Task<List<OutGetProductListForCombo>> GetProductListForComboAsync(InpGetProductListForCombo Input);
         Task<OutGetProductPriceByVariantId> GetProductPriceByVariantValueAsync(InpGetProductPriceByVariantValue Input);
         Task<(OutPagingData, List<OutGetProductsForManage>)> GetProductsForManageAsync(InpGetProductsForManage Input);
         Task<OutGetSummaryById> GetSummaryByIdAsync(InpGetSummaryById Input);

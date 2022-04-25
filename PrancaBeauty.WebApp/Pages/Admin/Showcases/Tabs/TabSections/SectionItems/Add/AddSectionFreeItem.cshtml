@@ -1,4 +1,4 @@
-﻿@page "/{culture}/Admin/ShowcaseTabSection/Add/{ShowcaseId}/{ShowcaseTabId}/{ShowcaseTabSectionId}"
+﻿@page "/{culture}/Admin/ShowcaseTabSection/Add/FreeItem/{ShowcaseId}/{ShowcaseTabId}/{ShowcaseTabSectionId}"
 @model PrancaBeauty.WebApp.Pages.Admin.Showcases.Tabs.TabSections.SectionItems.Add.AddSectionFreeItemModel
 @{
     ViewData["Title"] = Localizer["AddShowcaseTabSectionFreeItem"];
@@ -116,7 +116,7 @@
                                     <div class="row">
                                         <div class="col-md-12 text-left">
                                             <hr />
-                                            <button onclick="SendForm('/@ViewData["Culture"]/Admin/ShowcaseTabSection/Add/@ViewData["ShowcaseId"]/@ViewData["ShowcaseTabId"]/@ViewData["ShowcaseTabSectionId"]', 'frmAddShowcaseTabSectionItemId')" type="button" class="btn btn-success">@Localizer["Save"]</button>
+                                            <button onclick="SendForm('/@ViewData["Culture"]/Admin/ShowcaseTabSection/Add/FreeItem/@ViewData["ShowcaseId"]/@ViewData["ShowcaseTabId"]/@ViewData["ShowcaseTabSectionId"]', 'frmAddShowcaseTabSectionItemId')" type="button" class="btn btn-success">@Localizer["Save"]</button>
                                             <button onclick="GotoList()" type="button" class="btn btn-warning">@Localizer["GotoList"]</button>
                                         </div>
                                     </div>

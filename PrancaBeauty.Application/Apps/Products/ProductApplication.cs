@@ -981,5 +981,48 @@ namespace PrancaBeauty.Application.Apps.Products
 
             return new OutGetProductPriceByVariantId { ProductPrice = qData.ProductPrice, ProductOldPrice = qData.ProductOldPrice, CurrencySymbol = qData.CurrencySymbol };
         }
+
+        public async Task<List<OutGetProductListForCombo>> GetProductListForComboAsync(InpGetProductListForCombo Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var qData = await _ProductRepository.Get
+                                            .Where(a => Input.Title!=null ? a.Title.Contains(Input.Title) : true)
+                                            .Where(a => a.IsDelete==false)
+                                            .Where(a => a.IsDraft==false)
+                                            .Where(a => a.IsConfirmed)
+                                            .Select(a => new OutGetProductListForCombo
+                                            {
+                                                Id=a.Id.ToString(),
+                                                Title=a.Title,
+                                                ImgUrl= a.tblProductMedia.Select(b => new
+                                                {
+                                                    ImgUrl = b.tblFiles.tblFilePaths.tblFileServer.HttpDomin
+                                                                + b.tblFiles.tblFilePaths.tblFileServer.HttpPath
+                                                                + b.tblFiles.tblFilePaths.Path
+                                                                + b.tblFiles.FileName
+                                                }).First().ImgUrl
+                                            })
+                                            .OrderBy(a => a.Title)
+                                            .Take(20)
+                                            .ToListAsync();
+
+                return qData;
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return default;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return default;
+            }
+        }
     }
 }

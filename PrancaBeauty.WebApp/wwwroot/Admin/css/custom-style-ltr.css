@@ -172,6 +172,7 @@ ul {
 .main-sidebar {
     left: 0;
     right: auto;
+    z-index:1000;
 }
 
 /* Cards */

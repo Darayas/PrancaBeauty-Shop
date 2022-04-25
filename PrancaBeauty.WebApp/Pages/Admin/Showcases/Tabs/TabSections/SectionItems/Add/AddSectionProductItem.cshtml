@@ -1,0 +1,76 @@
+﻿@page "/{culture}/Admin/ShowcaseTabSection/Add/Product/{ShowcaseId}/{ShowcaseTabId}/{ShowcaseTabSectionId}"
+@model PrancaBeauty.WebApp.Pages.Admin.Showcases.Tabs.TabSections.SectionItems.Add.AddSectionProductItemModel
+@{
+    ViewData["Title"] = Localizer["AddShowcaseTabSectionProductItem"];
+    Layout = "~/pages/shared/_AdminLayout.cshtml";
+}
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-3">
+                    <h1 class="m-0 text-dark">@ViewData["Title"]</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-9">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/@CultureInfo.CurrentCulture.Parent.Name/admin/index">@Localizer["Dashborad"]</a></li>
+                        <li class="breadcrumb-item"><a href="/@CultureInfo.CurrentCulture.Parent.Name/Admin/Showcase/List">@Localizer["ListShowcase"]</a></li>
+                        <li class="breadcrumb-item"><a href="/@CultureInfo.CurrentCulture.Parent.Name/Admin/ShowcaseTabs/List/@ViewData["ShowcaseId"]">@Localizer["ListShowcaseTab"]</a></li>
+                        <li class="breadcrumb-item"><a href="/@CultureInfo.CurrentCulture.Parent.Name/Admin/ShowcaseTabSection/List/@ViewData["ShowcaseId"]/@ViewData["ShowcaseTabId"]">@Localizer["ListShowcaseTabSection"]</a></li>
+                        <li class="breadcrumb-item"><a href="@ViewData["ReturnUrl"]">@Localizer["ListShowcaseTabSectionItem"]</a></li>
+                        <li class="breadcrumb-item active">@ViewData["Title"]</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <form id="frmAddShowcaseTabSectionItemId">
+                                <input asp-for=Input.ShowcaseTabSectionId value="@ViewData["ShowcaseTabSectionId"]" type="hidden" />
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class=col-md-6>
+                                            <LoadComponent id="ProductId"
+                                                           context="HttpContext"
+                                                           data='new viCompo_Combo_Products { FieldName="Input.ProductId",ShowLabale=true}'
+                                                           url="/@ViewData["culture"]/Shared/Compo/ComboProducts"></LoadComponent>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-12 text-left">
+                                            <hr />
+                                            <button onclick="SendForm('/@ViewData["Culture"]/Admin/ShowcaseTabSection/Add/Product/@ViewData["ShowcaseId"]/@ViewData["ShowcaseTabId"]/@ViewData["ShowcaseTabSectionId"]', 'frmAddShowcaseTabSectionItemId')" type="button" class="btn btn-success">@Localizer["Save"]</button>
+                                            <button onclick="GotoList()" type="button" class="btn btn-warning">@Localizer["GotoList"]</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
+</div>
+
+@section scripts
+{
+<script>
+    function GotoList() {
+        location.href = '@ViewData["ReturnUrl"]';
+    }
+</script>
+}

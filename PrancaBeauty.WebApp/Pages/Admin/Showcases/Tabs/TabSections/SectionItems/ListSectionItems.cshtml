@@ -70,11 +70,11 @@
         <div class="dropdown-menu dropdown-menu-left">
     @if (User.IsInRole(Roles.CanEditShowcaseTabSectionItem))
     {
-                      <a href="/@ViewData["Culture"]/Admin/ShowcaseTabSectionItem/Edit/@ViewData["ShowcaseId"]/@ViewData["ShowcaseTabId"]//@ViewData["ShowcaseTabSectionId"]//#:Id#?ReturnUrl=@(System.Net.WebUtility.UrlEncode(Request.GetCurrentUrl()))" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i>@Localizer["Edit"]</a>
+                          <a href="/@ViewData["Culture"]/Admin/ShowcaseTabSectionItem/Edit/@ViewData["ShowcaseId"]/@ViewData["ShowcaseTabId"]//@ViewData["ShowcaseTabSectionId"]//#:Id#?ReturnUrl=@(System.Net.WebUtility.UrlEncode(Request.GetCurrentUrl()))" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i>@Localizer["Edit"]</a>
     }
     @if (User.IsInRole(Roles.CanRemoveShowcaseTabSectionItem))
     {
-                      <a onClick="Remove('#:Id#')" class="dropdown-item"><i class="dropdown-icon fa fa-times"></i>@Localizer["Remove"]</a>
+                          <a onClick="Remove('#:Id#')" class="dropdown-item"><i class="dropdown-icon fa fa-times"></i>@Localizer["Remove"]</a>
     }
         </div>
     </div>
@@ -84,17 +84,17 @@
 {
     <script>
         function AddFreeItem() {
-            location.href='/@ViewData["culture"]/Admin/ShowcaseTabSection/Add/@ViewData["ShowcaseId"]/@ViewData["ShowcaseTabId"]/@ViewData["ShowcaseTabSectionId"]';
+            location.href='/@ViewData["culture"]/Admin/ShowcaseTabSection/Add/FreeItem/@ViewData["ShowcaseId"]/@ViewData["ShowcaseTabId"]/@ViewData["ShowcaseTabSectionId"]';
         }
-        
-        function AddProduct() {
 
+        function AddProduct() {
+            location.href='/@ViewData["culture"]/Admin/ShowcaseTabSection/Add/Product/@ViewData["ShowcaseId"]/@ViewData["ShowcaseTabId"]/@ViewData["ShowcaseTabSectionId"]';
         }
-        
+
         function AddCategory() {
 
         }
-        
+
         function AddKeyword() {
 
         }

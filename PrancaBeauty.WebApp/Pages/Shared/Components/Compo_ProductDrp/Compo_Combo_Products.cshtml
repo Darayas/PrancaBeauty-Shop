@@ -1,0 +1,40 @@
+﻿@page "/{culture}/Shared/Compo/ComboProducts"
+@model PrancaBeauty.WebApp.Pages.Shared.Components.Compo_ProductDrp.Compo_Combo_ProductsModel
+
+@{
+    string FieldName = Model.Input.FieldName;
+    string FieldId = FieldName.Replace(".", "_").Replace("[", "_").Replace("]", "_");
+    string FieldTitle = Localizer[FieldName.Split('.').Last()];
+}
+
+<script>
+    function Filter_@(FieldId)()
+    {
+        var ItemCombo = $('#@(FieldId)').data("kendoComboBox");
+        return { Text: ItemCombo.text() };
+    }
+</script>
+
+@if (Model.Input.ShowLabale)
+{
+    <label for="@FieldId">@FieldTitle</label>
+}
+
+<div class="k-lang">
+    @(Html.Kendo()
+          .ComboBox()
+          .Name(FieldName)
+          .HtmlAttributes(new {style="width:100%;height:35px;" })
+          .Placeholder(Localizer["PleseSelect"])
+          .DataTextField("Title")
+          .DataValueField("Id")
+          .Filter(FilterType.Contains)
+          .MinLength(2)
+          .Value(Model.Input.ProductId)
+          .DataSource(sr => {
+              sr.Read(read =>
+              {
+                  read.Url($"/{ViewData["culture"]}/Shared/Compo/ComboProducts?handler=Read").Data($"Filter_{FieldId}");
+              }).ServerFiltering(true);
+          }).Template("<div class='d-inline'><img class='img-circle' style='width:32px; height:32px;' src='#=ImgUrl#'/></div><div class='d-inline ml-2 mr-2'>#=Title#</div>"))
+</div>

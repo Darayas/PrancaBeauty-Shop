@@ -219,6 +219,9 @@
   <data name="AddShowcaseTabSectionFreeItem" xml:space="preserve">
     <value>افزودن FreeItem</value>
   </data>
+  <data name="AddShowcaseTabSectionProductItem" xml:space="preserve">
+    <value>افزودن Product Item</value>
+  </data>
   <data name="AddSlide" xml:space="preserve">
     <value>افزودن اسلاید جدید</value>
   </data>
@@ -287,6 +290,9 @@
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>انصراف</value>
+  </data>
+  <data name="CantAddSectionItem, SectionTypeCanBe" xml:space="preserve">
+    <value>امکان اضافه کردن این Item وجود ندارد، نوع Section باید '{0}' باشد.</value>
   </data>
   <data name="CantChangeStatusMainVariant" xml:space="preserve">
     <value>امکان تغییر وضعیت این نوع وجود نه دارد</value>
@@ -1203,11 +1209,17 @@
   <data name="ProductDescription" xml:space="preserve">
     <value>توضیحات محصول</value>
   </data>
+  <data name="ProductId" xml:space="preserve">
+    <value>محصول</value>
+  </data>
   <data name="ProductImages" xml:space="preserve">
     <value>تصاویر محصول</value>
   </data>
   <data name="ProductImagesId" xml:space="preserve">
     <value>تصاویر محصول</value>
+  </data>
+  <data name="ProductIsDuplicated" xml:space="preserve">
+    <value>محصول تکراری میباشد</value>
   </data>
   <data name="ProductList" xml:space="preserve">
     <value>لیست محصولات</value>

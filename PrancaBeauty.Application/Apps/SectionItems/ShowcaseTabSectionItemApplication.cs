@@ -9,6 +9,7 @@ using PrancaBeauty.Domin.Showcases.SectionFreeItemAgg.Contracts;
 using PrancaBeauty.Domin.Showcases.SectionFreeItemAgg.Entities;
 using PrancaBeauty.Domin.Showcases.SectionItems.Contracts;
 using PrancaBeauty.Domin.Showcases.SectionItems.Entitiy;
+using PrancaBeauty.Domin.Showcases.SectionProductAgg.Entities;
 using PrancaBeauty.Domin.Showcases.ShowcaseTabAgg.Contracts;
 using System;
 using System.Collections.Generic;
@@ -85,6 +86,14 @@ namespace PrancaBeauty.Application.Apps.SectionItems
                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
+                #region Check SectionType
+                {
+                    var _Result = await CheckTabSectionTypeAsync(Input.ShowcaseTabSectionId, tblShowcaseTabSectionItemsEnum.FreeItem);
+                    if (_Result.IsSucceeded==false)
+                        return new OperationResult().Failed(_Result.Message);
+                }
+                #endregion
+
                 #region Check duplicate name
                 if (await _ShowcaseTabSectionItemRepository.Get.Where(a => a.tblSectionFreeItems.tblShowcaseTabSectionItems.TabSectionId==Input.ShowcaseTabSectionId.ToGuid()).AnyAsync(a => a.tblSectionFreeItems.Name==Input.Name))
                     return new OperationResult().Failed("NameIsDuplicated");
@@ -150,6 +159,82 @@ namespace PrancaBeauty.Application.Apps.SectionItems
                 _Logger.Error(ex);
                 return new OperationResult().Failed("Error500");
             }
+        }
+
+        public async Task<OperationResult> AddTabSectionProductItemAsync(InpAddTabSectionProductItem Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                #region Check SectionType
+                {
+                    var _Result = await CheckTabSectionTypeAsync(Input.ShowcaseTabSectionId, tblShowcaseTabSectionItemsEnum.Product);
+                    if (_Result.IsSucceeded==false)
+                        return new OperationResult().Failed(_Result.Message);
+                }
+                #endregion
+
+                #region Check duplicate productId
+                if (await _ShowcaseTabSectionItemRepository.Get.Where(a => a.tblSectionFreeItems.tblShowcaseTabSectionItems.TabSectionId==Input.ShowcaseTabSectionId.ToGuid()).AnyAsync(a => a.tblSectionProducts.ProductId==Input.ProductId.ToGuid()))
+                    return new OperationResult().Failed("ProductIsDuplicated");
+
+                #endregion
+
+                #region Get sort num
+                int _Sort = 0;
+                {
+                    _Sort= await _ShowcaseTabSectionItemRepository.Get.Where(a => a.TabSectionId==Input.ShowcaseTabSectionId.ToGuid()).CountAsync();
+                }
+                #endregion
+
+                #region Add Item
+                {
+                    var tTabSectionFreeItem = new tblShowcaseTabSectionItems
+                    {
+                        Id=new Guid().SequentialGuid(),
+                        TabSectionId=Input.ShowcaseTabSectionId.ToGuid(),
+                        SectionType=tblShowcaseTabSectionItemsEnum.Product,
+                        Sort=_Sort,
+                        tblSectionProducts= new tblSectionProducts
+                        {
+                            Id=new Guid().SequentialGuid(),
+                            ProductId=Input.ProductId.ToGuid()
+                        }
+                    };
+
+                    await _ShowcaseTabSectionItemRepository.AddAsync(tTabSectionFreeItem, default, true);
+                }
+                #endregion
+
+                return new OperationResult().Succeeded();
+
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
+
+        private async Task<OperationResult> CheckTabSectionTypeAsync(string TabSectionId, tblShowcaseTabSectionItemsEnum SectionType)
+        {
+            var qData = await _ShowcaseTabSectionItemRepository.Get
+                                    .Where(a => a.TabSectionId==TabSectionId.ToGuid())
+                                    .FirstOrDefaultAsync();
+
+            if (qData!=null)
+                if (qData.SectionType!=SectionType)
+                    return new OperationResult().Failed(_Localizer["CantAddSectionItem, SectionTypeCanBe", _Localizer[qData.SectionType.ToString()]]);
+
+            return new OperationResult().Succeeded();
         }
     }
 }

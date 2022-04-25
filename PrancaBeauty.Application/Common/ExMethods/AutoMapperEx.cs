@@ -3,6 +3,8 @@ using Microsoft.Extensions.DependencyInjection;
 using PrancaBeauty.Application.Contracts.Mapping;
 using System;
 using System.Linq;
+using System.Reflection;
+using System.Security.Cryptography;
 
 namespace PrancaBeauty.Application.Common.ExMethods
 {

@@ -51,7 +51,7 @@ namespace PrancaBeauty.WebApp.Pages.Admin.Showcases.Tabs.TabSections
 
                 ViewData["ShowcaseId"]=Input.ShowcaseId;
                 ViewData["ShowcaseTabId"]=Input.ShowcaseTabId;
-                ViewData["ReturnUrl"] = ReturnUrl??$"/{CultureInfo.CurrentCulture.Parent.Name}/Admin/ShowcaseTabs/List/{Input.ShowcaseId}";
+                ViewData["ReturnUrl"] = ReturnUrl??$"/{CultureInfo.CurrentCulture.Parent.Name}/Admin/ShowcaseTabSection/List/{Input.ShowcaseId}/{Input.ShowcaseTabId}";
 
                 return Page();
             }

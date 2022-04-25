@@ -1064,6 +1064,71 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
             }
             #endregion
 
+            #region ManageShowcasaeTabSection
+            {
+                Guid _Id = new Guid().SequentialGuid();
+                if (!_repRoles.Get.Any(a => a.Name == "CanViewListShowcaseTabSectionItems"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = _Id,
+                        ParentId = null,
+                        PageName = "ManageShowcaseTabSectionItemPage",
+                        Sort = 540,
+                        Name = "CanViewListShowcaseTabSectionItems",
+                        NormalizedName = "CanViewListShowcaseTabSectionItems".ToUpper(),
+                        Description = "توانایی مدیریت Item های TabSection"
+                    }, default, false).Wait();
+                }
+                else
+                {
+                    _Id = _repRoles.Get.Where(a => a.Name == "CanViewListShowcaseTabSectionItems").Select(a => a.Id).Single();
+                }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanAddShowcaseTabSectionItem"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageShowcaseTabSectionItemPage",
+                        Sort = 510,
+                        Name = "CanAddShowcaseTabSectionItem",
+                        NormalizedName = "CanAddShowcaseTabSectionItem".ToUpper(),
+                        Description = "توانایی افزودن Item به TabSection"
+                    }, default, false).Wait();
+                }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanEditShowcaseTabSectionItem"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageShowcaseTabSectionItemPage",
+                        Sort = 550,
+                        Name = "CanEditShowcaseTabSectionItem",
+                        NormalizedName = "CanEditShowcaseTabSectionItem".ToUpper(),
+                        Description = "توانایی ویرایش Item از TabSection"
+                    }, default, false).Wait();
+                }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanRemoveShowcaseTabSectionItem"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageShowcaseTabSectionItemPage",
+                        Sort = 560,
+                        Name = "CanRemoveShowcaseTabSectionItem",
+                        NormalizedName = "CanRemoveShowcaseTabSectionItem".ToUpper(),
+                        Description = "توانایی حذف Item از TabSection"
+                    }, default, false).Wait();
+                }
+            }
+            #endregion
+
             _repRoles.SaveChangeAsync().Wait();
 
         }

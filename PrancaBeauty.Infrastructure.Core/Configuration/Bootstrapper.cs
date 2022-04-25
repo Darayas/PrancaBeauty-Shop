@@ -227,7 +227,7 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddScoped<IShowcaseTabsTranslateRepository, ShowcaseTabTranslateRepository>();
             services.AddScoped<IShowcaseTabSectionRepository, ShowcaseTabSectionRepository>();
             services.AddScoped<ISectionFreeItemRepository, SectionFreeItemRepository>();
-            services.AddScoped<ISectionFreeItemTranslateRepository, SectionFreeItemTranslateRepository>();
+            services.AddScoped<IShowcaseTabSectionFreeItemTranslateRepository, SectionFreeItemTranslateRepository>();
             services.AddScoped<ISectionProductRepository, SectionProductRepository>();
             services.AddScoped<ISectionProductCategoryRepository, SectionProductCategoryRepository>();
             services.AddScoped<ISectionProductKeywordRepository, SectionProductKeywordRepository>();

@@ -5,7 +5,7 @@ using PrancaBeauty.Infrastructure.EFCore.Context;
 
 namespace PrancaBeauty.Infrastructure.EFCore.Repository.SectionFreeItem
 {
-    public class SectionFreeItemTranslateRepository : BaseRepository<tblSectionFreeItemTranslate>, ISectionFreeItemTranslateRepository
+    public class SectionFreeItemTranslateRepository : BaseRepository<tblSectionFreeItemTranslate>, IShowcaseTabSectionFreeItemTranslateRepository
     {
         public SectionFreeItemTranslateRepository(MainContext Context) : base(Context)
         {

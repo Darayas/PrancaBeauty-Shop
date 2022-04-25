@@ -40,7 +40,7 @@ namespace PrancaBeauty.WebApp.Pages.Admin.Showcases.Tabs.TabSections
         {
             try
             {
-                #region validatrions
+                #region validations
                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 

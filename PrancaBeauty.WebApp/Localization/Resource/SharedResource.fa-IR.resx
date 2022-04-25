@@ -159,8 +159,14 @@
   <data name="AddCategory" xml:space="preserve">
     <value>افزودن دسته جدید</value>
   </data>
+  <data name="AddFreeItem" xml:space="preserve">
+    <value>افزودن FreeItem</value>
+  </data>
+  <data name="AddItem" xml:space="preserve">
+    <value>افزودن Item</value>
+  </data>
   <data name="AddKeyword" xml:space="preserve">
-    <value>افزودن</value>
+    <value>افزودن کلمه کلیدی</value>
   </data>
   <data name="AddNewAccessLevel" xml:space="preserve">
     <value>افزودن</value>
@@ -209,6 +215,9 @@
   </data>
   <data name="AddShowcaseTabSection" xml:space="preserve">
     <value>افزودن Tab Section جدید</value>
+  </data>
+  <data name="AddShowcaseTabSectionFreeItem" xml:space="preserve">
+    <value>افزودن FreeItem</value>
   </data>
   <data name="AddSlide" xml:space="preserve">
     <value>افزودن اسلاید جدید</value>
@@ -558,6 +567,9 @@
   <data name="File" xml:space="preserve">
     <value>فایل</value>
   </data>
+  <data name="FileId" xml:space="preserve">
+    <value>فایل</value>
+  </data>
   <data name="FileInfoIsDuplicated" xml:space="preserve">
     <value>اطلاعات فایل وارد شده تکراری میباشد.</value>
   </data>
@@ -615,6 +627,9 @@
   <data name="FourWorkingDays" xml:space="preserve">
     <value>چهار روز کاری</value>
   </data>
+  <data name="FreeItem" xml:space="preserve">
+    <value>Free item</value>
+  </data>
   <data name="FullName" xml:space="preserve">
     <value>نام کاربر</value>
   </data>
@@ -662,6 +677,9 @@
   </data>
   <data name="Home" xml:space="preserve">
     <value>خانه</value>
+  </data>
+  <data name="HtmlCode" xml:space="preserve">
+    <value>کد Html</value>
   </data>
   <data name="Id cant be null." xml:space="preserve">
     <value>شناسه نمیتواند خالی باشد</value>
@@ -834,6 +852,9 @@
   <data name="ListCategories" xml:space="preserve">
     <value>لیست دسته بندی ها</value>
   </data>
+  <data name="ListItems" xml:space="preserve">
+    <value>لیست Item ها</value>
+  </data>
   <data name="ListShowcase" xml:space="preserve">
     <value>لیست ویترین ها</value>
   </data>
@@ -845,6 +866,9 @@
   </data>
   <data name="ListShowcaseTabSection" xml:space="preserve">
     <value>لیست TabSection ها</value>
+  </data>
+  <data name="ListShowcaseTabSectionItem" xml:space="preserve">
+    <value>لیست Item های Tab Section</value>
   </data>
   <data name="ListSlider" xml:space="preserve">
     <value>لیست اسلایدر</value>
@@ -950,6 +974,9 @@
   </data>
   <data name="NameIsDuplicate" xml:space="preserve">
     <value>نام تکراری میباشد.</value>
+  </data>
+  <data name="NameIsDuplicated" xml:space="preserve">
+    <value>نام تکراری میباشد</value>
   </data>
   <data name="NationalCode" xml:space="preserve">
     <value>کد ملی</value>
@@ -1361,6 +1388,9 @@
   </data>
   <data name="SearchUsers" xml:space="preserve">
     <value>جستوجوی کاربران</value>
+  </data>
+  <data name="SectionType" xml:space="preserve">
+    <value>نوع Section</value>
   </data>
   <data name="Security" xml:space="preserve">
     <value>امنیت</value>

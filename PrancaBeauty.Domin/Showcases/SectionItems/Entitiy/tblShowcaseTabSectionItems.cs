@@ -15,8 +15,8 @@ namespace PrancaBeauty.Domin.Showcases.SectionItems.Entitiy
         public int Sort { get; set; }
         public tblShowcaseTabSectionItemsEnum SectionType { get; set; }
 
-        public virtual tblShowcaseTabSections tblShowcaseTabSections { get; set; }
 
+        public virtual tblShowcaseTabSections tblShowcaseTabSections { get; set; }
         public virtual tblSectionFreeItems tblSectionFreeItems { get; set; }
         public virtual tblSectionProducts tblSectionProducts { get; set; }
         public virtual tblSectionProductCategory tblSectionProductCategory { get; set; }

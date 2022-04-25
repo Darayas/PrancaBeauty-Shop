@@ -43,7 +43,7 @@ namespace PrancaBeauty.WebApp.Pages.Admin.Showcases.Tabs
         {
             try
             {
-                #region validatrions
+                #region validations
                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
@@ -72,7 +72,7 @@ namespace PrancaBeauty.WebApp.Pages.Admin.Showcases.Tabs
         {
             try
             {
-                #region validatrions
+                #region validations
                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 

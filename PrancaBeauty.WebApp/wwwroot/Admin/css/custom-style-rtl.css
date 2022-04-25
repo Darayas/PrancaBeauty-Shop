@@ -296,6 +296,10 @@ a:not([href]) {
     width: 100% !important;
 }
 
+textarea.form-control {
+    height:auto;
+}
+
 .k-dropdown-wrap {
     height: 44px;
 }
@@ -350,3 +354,12 @@ a:not([href]) {
 .table thead th {
     border-bottom: 2px solid #dee2e6;
 }
+
+.HeaderDrp{
+
+}
+
+    .HeaderDrp ul li {
+        padding: 5px;
+        text-align: right;
+    }

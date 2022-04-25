@@ -15,9 +15,11 @@ namespace PrancaBeauty.Application.Contracts.Mapping
             CreateMap<viAddSectionFreeItem, InpAddTabSectionFreeItem>();
             CreateMap<viAddSectionFreeItemTranslate, InpAddTabSectionFreeItemTranslate>();
 
-            CreateMap<OutGetListShowcaseTabSectionItemForAdminPage, vmListShowcaseTabSectionItem>();
-
             CreateMap<viAddSectionProductItem, InpAddTabSectionProductItem>();
+            CreateMap<viAddSectionCategoryItem, InpAddTabSectionCategoryItem>();
+            CreateMap<viAddSectionKeywordItem, InpAddTabSectionKeywordItem>();
+
+            CreateMap<OutGetListShowcaseTabSectionItemForAdminPage, vmListShowcaseTabSectionItem>();
 
         }
     }

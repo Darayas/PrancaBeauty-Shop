@@ -4,12 +4,16 @@ using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.Results;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Showcase;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.ShowcaseTabSectionItem;
 using PrancaBeauty.Domin.Showcases.SectionFreeItemAgg.Contracts;
 using PrancaBeauty.Domin.Showcases.SectionFreeItemAgg.Entities;
 using PrancaBeauty.Domin.Showcases.SectionItems.Contracts;
 using PrancaBeauty.Domin.Showcases.SectionItems.Entitiy;
 using PrancaBeauty.Domin.Showcases.SectionProductAgg.Entities;
+using PrancaBeauty.Domin.Showcases.SectionProductCategoryAgg.Entities;
+using PrancaBeauty.Domin.Showcases.SectionProductKeywordAgg.Entities;
+using PrancaBeauty.Domin.Showcases.ShowcaseAgg.Contracts;
 using PrancaBeauty.Domin.Showcases.ShowcaseTabAgg.Contracts;
 using System;
 using System.Collections.Generic;
@@ -224,6 +228,136 @@ namespace PrancaBeauty.Application.Apps.SectionItems
             }
         }
 
+        public async Task<OperationResult> AddTabSectionCategoryItemAsync(InpAddTabSectionCategoryItem Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                #region Check SectionType
+                {
+                    var _Result = await CheckTabSectionTypeAsync(Input.ShowcaseTabSectionId, tblShowcaseTabSectionItemsEnum.Category);
+                    if (_Result.IsSucceeded==false)
+                        return new OperationResult().Failed(_Result.Message);
+                }
+                #endregion
+
+                #region Check Has Category
+                if (await _ShowcaseTabSectionItemRepository.Get.Where(a => a.TabSectionId==Input.ShowcaseTabSectionId.ToGuid()).AnyAsync(a => a.SectionType==tblShowcaseTabSectionItemsEnum.Category))
+                    return new OperationResult().Failed("InCategorySectionType,YouAreAllowedAddOneItem");
+
+                #endregion
+
+                #region Get sort num
+                int _Sort = 0;
+                {
+                    _Sort= await _ShowcaseTabSectionItemRepository.Get.Where(a => a.TabSectionId==Input.ShowcaseTabSectionId.ToGuid()).CountAsync();
+                }
+                #endregion
+
+                #region Add Item
+                {
+                    var tTabSectionItem = new tblShowcaseTabSectionItems
+                    {
+                        Id=new Guid().SequentialGuid(),
+                        TabSectionId=Input.ShowcaseTabSectionId.ToGuid(),
+                        SectionType=tblShowcaseTabSectionItemsEnum.Category,
+                        Sort=_Sort,
+                        tblSectionProductCategory= new tblSectionProductCategory
+                        {
+                            Id=new Guid().SequentialGuid(),
+                            CategoryId=Input.CategoryId.ToGuid(),
+                            CountFetch=Input.CountFetch,
+                            OrderBy=(tblSectionProductCategoryOrderByEnum)Input.OrderBy
+                        }
+                    };
+
+                    await _ShowcaseTabSectionItemRepository.AddAsync(tTabSectionItem, default, true);
+                }
+                #endregion
+
+                return new OperationResult().Succeeded();
+
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
+
+        public async Task<OperationResult> AddTabSectionKeywordItemAsync(InpAddTabSectionKeywordItem Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                #region Check SectionType
+                {
+                    var _Result = await CheckTabSectionTypeAsync(Input.ShowcaseTabSectionId, tblShowcaseTabSectionItemsEnum.Keyword);
+                    if (_Result.IsSucceeded==false)
+                        return new OperationResult().Failed(_Result.Message);
+                }
+                #endregion
+
+                #region Check Has Keyword
+                if (await _ShowcaseTabSectionItemRepository.Get.Where(a => a.TabSectionId==Input.ShowcaseTabSectionId.ToGuid()).AnyAsync(a => a.SectionType==tblShowcaseTabSectionItemsEnum.Keyword))
+                    return new OperationResult().Failed("InKeywordSectionType,YouAreAllowedAddOneItem");
+
+                #endregion
+
+                #region Get sort num
+                int _Sort = 0;
+                {
+                    _Sort= await _ShowcaseTabSectionItemRepository.Get.Where(a => a.TabSectionId==Input.ShowcaseTabSectionId.ToGuid()).CountAsync();
+                }
+                #endregion
+
+                #region Add Item
+                {
+                    var tTabSectionItem = new tblShowcaseTabSectionItems
+                    {
+                        Id=new Guid().SequentialGuid(),
+                        TabSectionId=Input.ShowcaseTabSectionId.ToGuid(),
+                        SectionType=tblShowcaseTabSectionItemsEnum.Keyword,
+                        Sort=_Sort,
+                        tblSectionProductKeyword= new tblSectionProductKeyword
+                        {
+                            Id=new Guid().SequentialGuid(),
+                            KeywordId=Input.KeywordId.ToGuid(),
+                            CountFetch=Input.CountFetch,
+                            OrderBy=(tblSectionProductKeywordOrderByEnum)Input.OrderBy
+                        }
+                    };
+
+                    await _ShowcaseTabSectionItemRepository.AddAsync(tTabSectionItem, default, true);
+                }
+                #endregion
+
+                return new OperationResult().Succeeded();
+
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
+
         private async Task<OperationResult> CheckTabSectionTypeAsync(string TabSectionId, tblShowcaseTabSectionItemsEnum SectionType)
         {
             var qData = await _ShowcaseTabSectionItemRepository.Get
@@ -235,6 +369,101 @@ namespace PrancaBeauty.Application.Apps.SectionItems
                     return new OperationResult().Failed(_Localizer["CantAddSectionItem, SectionTypeCanBe", _Localizer[qData.SectionType.ToString()]]);
 
             return new OperationResult().Succeeded();
+        }
+
+        public async Task<OperationResult> SortingSectionItemAsync(InpSortingSectionItem Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+
+                #endregion
+
+                var qListSlide = await _ShowcaseTabSectionItemRepository.Get.Where(a=>a.TabSectionId==Input.TabSectionId.ToGuid()).OrderBy(a => a.Sort).ToListAsync();
+                var qCurrentItem = qListSlide.Where(a => a.Id==Input.Id.ToGuid()).SingleOrDefault();
+                if (qCurrentItem==null)
+                    return new OperationResult().Failed("IdNotFound");
+
+                int IndexOfCurrentItem = qListSlide.IndexOf(qCurrentItem);
+
+                if (Input.Act==InpSortingSectionItemItem.Up)
+                {
+                    if (IndexOfCurrentItem!=0)
+                    {
+                        var PriveItem = qListSlide[IndexOfCurrentItem-1];
+
+                        int OldPriveIndex = PriveItem.Sort;
+                        PriveItem.Sort=IndexOfCurrentItem;
+                        qCurrentItem.Sort=OldPriveIndex;
+
+                        await _ShowcaseTabSectionItemRepository.UpdateAsync(PriveItem, default, false);
+                        await _ShowcaseTabSectionItemRepository.UpdateAsync(qCurrentItem, default, false);
+
+                        await _ShowcaseTabSectionItemRepository.SaveChangeAsync();
+                    }
+                }
+                else if (Input.Act==InpSortingSectionItemItem.Down)
+                {
+                    if (IndexOfCurrentItem<(qListSlide.Count()-1))
+                    {
+                        var NextItem = qListSlide[IndexOfCurrentItem+1];
+
+                        int OldPriveIndex = NextItem.Sort;
+                        NextItem.Sort=IndexOfCurrentItem;
+                        qCurrentItem.Sort=OldPriveIndex;
+
+                        await _ShowcaseTabSectionItemRepository.UpdateAsync(NextItem, default, false);
+                        await _ShowcaseTabSectionItemRepository.UpdateAsync(qCurrentItem, default, false);
+
+                        await _ShowcaseTabSectionItemRepository.SaveChangeAsync();
+                    }
+                }
+
+
+                return new OperationResult().Succeeded();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
+
+        public async Task<OperationResult> RemoveSectionItemAsync(InpRemoveSectionItem Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var qData = await _ShowcaseTabSectionItemRepository.Get
+                                                     .Where(a => a.Id==Input.Id.ToGuid())
+                                                     .SingleOrDefaultAsync();
+
+                if (qData==null)
+                    return new OperationResult().Failed("IdNotFound");
+
+                await _ShowcaseTabSectionItemRepository.DeleteAsync(qData, default, true);
+                return new OperationResult().Succeeded();
+
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
         }
     }
 }

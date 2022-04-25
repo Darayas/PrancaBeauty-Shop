@@ -25,7 +25,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Mapping.SectionProductKeyword
                    .WithOne(a => a.tblSectionProductKeyword)
                    .HasPrincipalKey<tblShowcaseTabSectionItems>(a => a.Id)
                    .HasForeignKey<tblSectionProductKeyword>(a => a.TabSectionItemId)
-                   .OnDelete(DeleteBehavior.Restrict);
+                   .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasOne(a => a.tblKeywords)
                    .WithMany(a => a.tblSectionProductKeyword)

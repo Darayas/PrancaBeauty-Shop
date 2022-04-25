@@ -70,11 +70,11 @@
         <div class="dropdown-menu dropdown-menu-left">
     @if (User.IsInRole(Roles.CanEditShowcaseTabSectionItem))
     {
-                          <a href="/@ViewData["Culture"]/Admin/ShowcaseTabSectionItem/Edit/@ViewData["ShowcaseId"]/@ViewData["ShowcaseTabId"]//@ViewData["ShowcaseTabSectionId"]//#:Id#?ReturnUrl=@(System.Net.WebUtility.UrlEncode(Request.GetCurrentUrl()))" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i>@Localizer["Edit"]</a>
+                              <a href="/@ViewData["Culture"]/Admin/ShowcaseTabSectionItem/Edit/@ViewData["ShowcaseId"]/@ViewData["ShowcaseTabId"]//@ViewData["ShowcaseTabSectionId"]//#:Id#?ReturnUrl=@(System.Net.WebUtility.UrlEncode(Request.GetCurrentUrl()))" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i>@Localizer["Edit"]</a>
     }
     @if (User.IsInRole(Roles.CanRemoveShowcaseTabSectionItem))
     {
-                          <a onClick="Remove('#:Id#')" class="dropdown-item"><i class="dropdown-icon fa fa-times"></i>@Localizer["Remove"]</a>
+                              <a onClick="Remove('#:Id#')" class="dropdown-item"><i class="dropdown-icon fa fa-times"></i>@Localizer["Remove"]</a>
     }
         </div>
     </div>
@@ -92,10 +92,11 @@
         }
 
         function AddCategory() {
-
+            location.href='/@ViewData["culture"]/Admin/ShowcaseTabSection/Add/Category/@ViewData["ShowcaseId"]/@ViewData["ShowcaseTabId"]/@ViewData["ShowcaseTabSectionId"]';
         }
 
         function AddKeyword() {
+            location.href='/@ViewData["culture"]/Admin/ShowcaseTabSection/Add/Keyword/@ViewData["ShowcaseId"]/@ViewData["ShowcaseTabId"]/@ViewData["ShowcaseTabSectionId"]';
 
         }
     </script>
@@ -105,7 +106,7 @@
 {
     <script>
         function Remove(_Id) {
-            RemoveData('/@ViewData["Culture"]/Admin/ShowcaseTabSectionItem/List/@(ViewData["ShowcaseId"])/@(ViewData["ShowcaseTabId"])/@(ViewData["ShowcaseTabSectionId"])?handler=Remove', {Id:_Id});
+            RemoveData('/@ViewData["culture"]/Admin/ShowcaseTabSectionItems/List/@(ViewData["ShowcaseId"].ToString())/@(ViewData["ShowcaseTabId"].ToString())/@(ViewData["ShowcaseTabSectionId"].ToString())?handler=Remove', {Id:_Id});
         }
     </script>
 }
@@ -121,5 +122,9 @@
         location.href='@ViewData["ReturnUrl"]';
     }
 
+    function Sorting(_Id,_Action)
+    {
+        SendData('/@ViewData["culture"]/Admin/ShowcaseTabSectionItems/List/@(ViewData["ShowcaseId"].ToString())/@(ViewData["ShowcaseTabId"].ToString())/@(ViewData["ShowcaseTabSectionId"].ToString())?handler=Sorting',{Id:_Id,Act:_Action,TabSectionId:'@(ViewData["ShowcaseTabSectionId"])'});
+    }
 </script>
 

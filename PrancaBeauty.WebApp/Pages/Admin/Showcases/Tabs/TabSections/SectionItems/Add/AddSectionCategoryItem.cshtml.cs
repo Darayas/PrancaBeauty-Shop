@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 namespace PrancaBeauty.WebApp.Pages.Admin.Showcases.Tabs.TabSections.SectionItems.Add
 {
     [Authorize(Roles = Roles.CanAddShowcaseTabSectionItem)]
-    public class AddSectionProductItemModel : PageModel
+    public class AddSectionCategoryItemModel : PageModel
     {
         private readonly ILogger _Logger;
         private readonly IMsgBox _MsgBox;
@@ -26,7 +26,7 @@ namespace PrancaBeauty.WebApp.Pages.Admin.Showcases.Tabs.TabSections.SectionItem
         private readonly IServiceProvider _ServiceProvider;
         private readonly IShowcaseTabSectionItemApplication _ShowcaseTabSectionItemApplication;
 
-        public AddSectionProductItemModel(ILogger logger, IMsgBox msgBox, IMapper mapper, ILocalizer localizer, IServiceProvider serviceProvider, IShowcaseTabSectionItemApplication showcaseTabSectionItemApplication)
+        public AddSectionCategoryItemModel(ILogger logger, IMsgBox msgBox, IMapper mapper, ILocalizer localizer, IServiceProvider serviceProvider, IShowcaseTabSectionItemApplication showcaseTabSectionItemApplication)
         {
             _Logger=logger;
             _MsgBox=msgBox;
@@ -36,7 +36,7 @@ namespace PrancaBeauty.WebApp.Pages.Admin.Showcases.Tabs.TabSections.SectionItem
             _ShowcaseTabSectionItemApplication=showcaseTabSectionItemApplication;
         }
 
-        public IActionResult OnGet(viGetAddSectionProductItem Input, string ReturnUrl = null)
+        public IActionResult OnGet(viGetAddSectionCategoryItem Input, string ReturnUrl = null)
         {
             try
             {
@@ -65,9 +65,9 @@ namespace PrancaBeauty.WebApp.Pages.Admin.Showcases.Tabs.TabSections.SectionItem
                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
-                var _MappedData = _Mapper.Map<InpAddTabSectionProductItem>(Input);
+                var _MappedData = _Mapper.Map<InpAddTabSectionCategoryItem>(Input);
 
-                var _Result = await _ShowcaseTabSectionItemApplication.AddTabSectionProductItemAsync(_MappedData);
+                var _Result = await _ShowcaseTabSectionItemApplication.AddTabSectionCategoryItemAsync(_MappedData);
                 if (_Result.IsSucceeded)
                     return _MsgBox.SuccessMsg(_Localizer[_Result.Message], "GotoList()");
                 else
@@ -86,6 +86,6 @@ namespace PrancaBeauty.WebApp.Pages.Admin.Showcases.Tabs.TabSections.SectionItem
         }
 
         [BindProperty]
-        public viAddSectionProductItem Input { get; set; }
+        public viAddSectionCategoryItem Input { get; set; }
     }
 }

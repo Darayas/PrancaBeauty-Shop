@@ -8,11 +8,14 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.SectionItems;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Showcase;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.ShowcaseTab;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.ShowcaseTabSectionItem;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.ShowcaseTabSections;
 using PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput;
 using PrancaBeauty.Application.Contracts.PresentationDTO.ViewModel;
 using PrancaBeauty.WebApp.Authentication;
+using PrancaBeauty.WebApp.Common.Types;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
 using System;
 using System.Collections.Generic;
@@ -62,7 +65,7 @@ namespace PrancaBeauty.WebApp.Pages.Admin.Showcases.Tabs.TabSections.SectionItem
             }
         }
 
-        public async Task<IActionResult> OnPostReadDataAsync([DataSourceRequest] DataSourceRequest request,string LangId)
+        public async Task<IActionResult> OnPostReadDataAsync([DataSourceRequest] DataSourceRequest request, string LangId)
         {
             var qData = await _ShowcaseTabSectionItemApplication.GetListShowcaseTabSectionItemForAdminPageAsync(new InpGetListShowcaseTabSectionItemForAdminPage
             {
@@ -78,6 +81,67 @@ namespace PrancaBeauty.WebApp.Pages.Admin.Showcases.Tabs.TabSections.SectionItem
             _DataGrid.Data =_Mapper.Map<List<vmListShowcaseTabSectionItem>>(qData.Item2);
 
             return new JsonResult(_DataGrid);
+        }
+
+        public async Task<IActionResult> OnPostSortingAsync(viListSectionItemSorting Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var _Result = await _ShowcaseTabSectionItemApplication.SortingSectionItemAsync(new InpSortingSectionItem { Id=Input.Id, TabSectionId=Input.TabSectionId, Act= (InpSortingSectionItemItem)Input.Act });
+                if (_Result.IsSucceeded)
+                {
+                    return new JsResult("RefreshData()");
+                }
+                else
+                {
+                    return _MsgBox.FaildMsg(_Localizer[_Result.Message]);
+                }
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                return _MsgBox.ModelStateMsg(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return StatusCode(500);
+            }
+        }
+
+        public async Task<IActionResult> OnPostRemoveAsync(viListSectionItemRemove Input)
+        {
+            try
+            {
+                if (!User.IsInRole(Roles.CanRemoveShowcaseTabSectionItem))
+                    return _MsgBox.AccessDeniedMsg();
+
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var _Result = await _ShowcaseTabSectionItemApplication.RemoveSectionItemAsync(new InpRemoveSectionItem { Id=Input.Id });
+                if (_Result.IsSucceeded)
+                {
+                    return _MsgBox.SuccessMsg(_Localizer[_Result.Message], "RefreshData()");
+                }
+                else
+                {
+                    return _MsgBox.FaildMsg(_Localizer[_Result.Message]);
+                }
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                return _MsgBox.ModelStateMsg(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return StatusCode(500);
+            }
         }
 
         [BindProperty]

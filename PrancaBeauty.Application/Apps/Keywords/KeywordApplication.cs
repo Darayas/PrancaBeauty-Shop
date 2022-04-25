@@ -7,6 +7,7 @@ using PrancaBeauty.Application.Contracts.ApplicationDTO.Results;
 using PrancaBeauty.Domin.Keywords.KeywordAgg.Contracts;
 using PrancaBeauty.Domin.Keywords.KeywordAgg.Entities;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -68,6 +69,37 @@ namespace PrancaBeauty.Application.Apps.Keywords
             }
         }
 
-        
+        public async Task<List<OutGetKeywordListForCombo>> GetKeywordListForComboAsync(InpGetKeywordListForCombo Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var qData = await _KeywordRepository.Get
+                                                .Where(a => Input.Title!=null ? a.Title.Contains(Input.Title) : true)
+                                                .Select(a => new OutGetKeywordListForCombo
+                                                {
+                                                    Id=a.Id.ToString(),
+                                                    Title=a.Title.ToString()
+                                                })
+                                                .OrderBy(a=>a.Title)
+                                                .Take(20)
+                                                .ToListAsync();
+
+                return qData;
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return default;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return default;
+            }
+        }
     }
 }

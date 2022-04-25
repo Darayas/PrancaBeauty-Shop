@@ -216,8 +216,14 @@
   <data name="AddShowcaseTabSection" xml:space="preserve">
     <value>افزودن Tab Section جدید</value>
   </data>
+  <data name="AddShowcaseTabSectionCategoryItem" xml:space="preserve">
+    <value>افزودن Category Item</value>
+  </data>
   <data name="AddShowcaseTabSectionFreeItem" xml:space="preserve">
     <value>افزودن FreeItem</value>
+  </data>
+  <data name="AddShowcaseTabSectionKeywordItem" xml:space="preserve">
+    <value>افزودن Keyword Item</value>
   </data>
   <data name="AddShowcaseTabSectionProductItem" xml:space="preserve">
     <value>افزودن Product Item</value>
@@ -392,6 +398,9 @@
   </data>
   <data name="CountBills" xml:space="preserve">
     <value>تعداد صورت حساب</value>
+  </data>
+  <data name="CountFetch" xml:space="preserve">
+    <value>تعداد</value>
   </data>
   <data name="CountInSection" xml:space="preserve">
     <value>تعداد Item</value>
@@ -702,6 +711,9 @@
   <data name="ImgUrl" xml:space="preserve">
     <value>تصویر شاخص</value>
   </data>
+  <data name="InCategorySectionType,YouAreAllowedAddOneItem" xml:space="preserve">
+    <value>در نوع Category، شما مجاز به انتخاب یک دسته برای هر Section میباشید.</value>
+  </data>
   <data name="InComplete" xml:space="preserve">
     <value>ناقص</value>
   </data>
@@ -710,6 +722,9 @@
   </data>
   <data name="indisponible" xml:space="preserve">
     <value>ناموجود</value>
+  </data>
+  <data name="InKeywordSectionType,YouAreAllowedAddOneItem" xml:space="preserve">
+    <value>در نوع Keyword، شما مجاز به انتخاب یک کلمه کلیدی برای هر Section میباشید.</value>
   </data>
   <data name="Input cant be null." xml:space="preserve">
     <value>اطلاعات لازم را وارد کنید</value>
@@ -815,6 +830,9 @@
   </data>
   <data name="keyword count must be greater than zero." xml:space="preserve">
     <value>حداقل یک کلمه کلیدی را وارد نمایید.</value>
+  </data>
+  <data name="KeywordId" xml:space="preserve">
+    <value>کلمه کلیدی</value>
   </data>
   <data name="Keywords" xml:space="preserve">
     <value>کلمات کلیدی</value>
@@ -990,6 +1008,9 @@
   <data name="NationalCodePattern" xml:space="preserve">
     <value>[0-9]{10}</value>
   </data>
+  <data name="Newest" xml:space="preserve">
+    <value>جدیدترین ها</value>
+  </data>
   <data name="NewPassword" xml:space="preserve">
     <value>کلمه عبور جدید</value>
   </data>
@@ -1023,6 +1044,9 @@
   <data name="OK" xml:space="preserve">
     <value>باشه</value>
   </data>
+  <data name="Oldest" xml:space="preserve">
+    <value>قدیمی ترین ها</value>
+  </data>
   <data name="OneDay" xml:space="preserve">
     <value>یک روز</value>
   </data>
@@ -1040,6 +1064,9 @@
   </data>
   <data name="Operation was successded,ChangePhoneNumber" xml:space="preserve">
     <value>عملیات با موفقیت انجام شد&lt;br/&gt; تغییر شماره موبایل با موفقیت انجام شد. لطفا مجددا اقدام به تایید نمایید.</value>
+  </data>
+  <data name="OrderBy" xml:space="preserve">
+    <value>مرتب سازی بر اساس</value>
   </data>
   <data name="Orders" xml:space="preserve">
     <value>سفارشات</value>
@@ -1166,6 +1193,9 @@
   </data>
   <data name="PleseSelectProvince" xml:space="preserve">
     <value>انتخاب استان</value>
+  </data>
+  <data name="Popular" xml:space="preserve">
+    <value>محبوب ترین ها</value>
   </data>
   <data name="PostalCode" xml:space="preserve">
     <value>کد پستی</value>

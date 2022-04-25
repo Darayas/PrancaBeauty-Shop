@@ -19,7 +19,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Mapping.SectionFreeItem
                    .WithOne(a => a.tblSectionFreeItems)
                    .HasPrincipalKey<tblShowcaseTabSectionItems>(a => a.Id)
                    .HasForeignKey<tblSectionFreeItems>(a => a.TabSectionItemId)
-                   .OnDelete(DeleteBehavior.Restrict);
+                   .OnDelete(DeleteBehavior.Cascade);
 
         }
     }

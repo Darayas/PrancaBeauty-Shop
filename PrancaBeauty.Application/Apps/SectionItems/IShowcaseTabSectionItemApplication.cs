@@ -15,8 +15,10 @@ namespace PrancaBeauty.Application.Apps.SectionItems
         Task<OperationResult> AddTabSectionFreeItemAsync(InpAddTabSectionFreeItem Input);
         Task<OperationResult> AddTabSectionKeywordItemAsync(InpAddTabSectionKeywordItem Input);
         Task<OperationResult> AddTabSectionProductItemAsync(InpAddTabSectionProductItem Input);
+        Task<OutGetFreeItemForEdit> GetFreeItemForEditAsync(InpGetFreeItemForEdit Input);
         Task<(OutPagingData, List<OutGetListShowcaseTabSectionItemForAdminPage>)> GetListShowcaseTabSectionItemForAdminPageAsync(InpGetListShowcaseTabSectionItemForAdminPage Input);
         Task<OperationResult> RemoveSectionItemAsync(InpRemoveSectionItem Input);
+        Task<OperationResult> SaveEditFreeItemAsync(InpSaveEditFreeItem Input);
         Task<OperationResult> SortingSectionItemAsync(InpSortingSectionItem Input);
     }
 }

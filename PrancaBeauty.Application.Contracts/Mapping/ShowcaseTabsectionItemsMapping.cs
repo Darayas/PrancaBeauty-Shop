@@ -21,6 +21,11 @@ namespace PrancaBeauty.Application.Contracts.Mapping
 
             CreateMap<OutGetListShowcaseTabSectionItemForAdminPage, vmListShowcaseTabSectionItem>();
 
+            // Edit FreeItem
+            CreateMap<OutGetFreeItemForEdit, viEditSectionFreeItem>();
+            CreateMap<OutGetFreeItemForEditTranslate, viEditSectionFreeItemTranslate>();
+            CreateMap<viEditSectionFreeItem, InpSaveEditFreeItem>();
+            CreateMap<viEditSectionFreeItemTranslate, InpSaveEditFreeItemTranslate>();
         }
     }
 }

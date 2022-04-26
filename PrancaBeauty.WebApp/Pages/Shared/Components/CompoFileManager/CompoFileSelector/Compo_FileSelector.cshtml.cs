@@ -32,6 +32,9 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.CompoFileManager.CompoFile
             if (Input.SelectedFilesId == null)
                 Input.SelectedFilesId = string.Empty;
 
+            // تبدیل GUID به حروف کوچک برای جلوگیری از تداخل حروف کوچک و بزرگ
+            Input.SelectedFilesId=Input.SelectedFilesId.ToLower();
+
             var qData = await _FileApplication.GetFileDetailsForFileSelectorAsync(Input.SelectedFilesId.Split(',').Select(a => new InpGetFileDetailsForFileSelector { FileId = a }).ToList());
 
             Data = _Mapper.Map<List<vmCompo_FileSelector>>(qData);

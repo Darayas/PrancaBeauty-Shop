@@ -522,6 +522,9 @@
   <data name="EditShowcaseTabSection" xml:space="preserve">
     <value>ویرایش TabSection</value>
   </data>
+  <data name="EditShowcaseTabSectionFreeItem" xml:space="preserve">
+    <value>ویرایش Free Item</value>
+  </data>
   <data name="EditSlide" xml:space="preserve">
     <value>ویرایش اسلاید</value>
   </data>

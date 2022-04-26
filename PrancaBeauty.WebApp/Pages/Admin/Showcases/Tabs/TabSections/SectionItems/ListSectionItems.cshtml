@@ -70,7 +70,7 @@
         <div class="dropdown-menu dropdown-menu-left">
     @if (User.IsInRole(Roles.CanEditShowcaseTabSectionItem))
     {
-                              <a href="/@ViewData["Culture"]/Admin/ShowcaseTabSectionItem/Edit/@ViewData["ShowcaseId"]/@ViewData["ShowcaseTabId"]//@ViewData["ShowcaseTabSectionId"]//#:Id#?ReturnUrl=@(System.Net.WebUtility.UrlEncode(Request.GetCurrentUrl()))" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i>@Localizer["Edit"]</a>
+                              <a href="/@ViewData["Culture"]/Admin/ShowcaseTabSection/Edit/#:SectionType#/@(ViewData["ShowcaseId"])/@(ViewData["ShowcaseTabId"])/@(ViewData["ShowcaseTabSectionId"])/#:Id#?ReturnUrl=@(System.Net.WebUtility.UrlEncode(Request.GetCurrentUrl()))" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i>@Localizer["Edit"]</a>
     }
     @if (User.IsInRole(Roles.CanRemoveShowcaseTabSectionItem))
     {

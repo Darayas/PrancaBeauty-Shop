@@ -54,7 +54,7 @@ namespace PrancaBeauty.Application.Apps.SectionItems
                                                 {
                                                     Id=a.Id.ToString(),
                                                     Sort=a.Sort,
-                                                    SectionType=_Localizer[a.SectionType.ToString()],
+                                                    SectionType=a.SectionType.ToString(),
                                                     Title= a.SectionType==tblShowcaseTabSectionItemsEnum.FreeItem ?
                                                                                         a.tblSectionFreeItems.tblSectionFreeItemTranslate.Where(b => b.LangId==Input.LangId.ToGuid()).Select(b => b.Title).Single()
                                                                 : (a.SectionType==tblShowcaseTabSectionItemsEnum.Product ?
@@ -380,7 +380,7 @@ namespace PrancaBeauty.Application.Apps.SectionItems
 
                 #endregion
 
-                var qListSlide = await _ShowcaseTabSectionItemRepository.Get.Where(a=>a.TabSectionId==Input.TabSectionId.ToGuid()).OrderBy(a => a.Sort).ToListAsync();
+                var qListSlide = await _ShowcaseTabSectionItemRepository.Get.Where(a => a.TabSectionId==Input.TabSectionId.ToGuid()).OrderBy(a => a.Sort).ToListAsync();
                 var qCurrentItem = qListSlide.Where(a => a.Id==Input.Id.ToGuid()).SingleOrDefault();
                 if (qCurrentItem==null)
                     return new OperationResult().Failed("IdNotFound");
@@ -463,6 +463,131 @@ namespace PrancaBeauty.Application.Apps.SectionItems
             {
                 _Logger.Error(ex);
                 return new OperationResult().Failed("Error500");
+            }
+        }
+
+        public async Task<OutGetFreeItemForEdit> GetFreeItemForEditAsync(InpGetFreeItemForEdit Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var qData = await _ShowcaseTabSectionItemRepository.Get
+                                                .Where(a => a.Id==Input.SectionItemId.ToGuid())
+                                                .Select(a => new OutGetFreeItemForEdit
+                                                {
+                                                    SectionItemId=a.Id.ToString(),
+                                                    Name=a.tblSectionFreeItems.Name,
+                                                    LstTranslate= a.tblSectionFreeItems.tblSectionFreeItemTranslate.Select(b => new OutGetFreeItemForEditTranslate
+                                                    {
+                                                        LangId=b.LangId.ToString(),
+                                                        Title=b.Title,
+                                                        Url=b.Url,
+                                                        HtmlText=b.HtmlText,
+                                                        FileId=b.FileId.ToString()
+                                                    }).ToList()
+                                                })
+                                                .SingleOrDefaultAsync();
+
+                if (qData==null)
+                    return null;
+
+                return qData;
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Error(ex);
+                return default;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return default;
+            }
+        }
+
+        public async Task<OperationResult> SaveEditFreeItemAsync(InpSaveEditFreeItem Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                #region Get Section FreeItem
+                var qTabSectionItem = await _ShowcaseTabSectionItemRepository.Get
+                                        .Where(a => a.Id==Input.SectionItemId.ToGuid())
+                                        .SingleOrDefaultAsync();
+
+                if (qTabSectionItem==null)
+                    return new OperationResult().Failed("IdNotFound");
+                #endregion
+
+                #region Check duplicate name
+                if (await _ShowcaseTabSectionItemRepository.Get.Where(a => a.tblSectionFreeItems.tblShowcaseTabSectionItems.TabSectionId==qTabSectionItem.TabSectionId).Where(a => a.Id!=Input.SectionItemId.ToGuid()).AnyAsync(a => a.tblSectionFreeItems.Name==Input.Name))
+                    return new OperationResult().Failed("NameIsDuplicated");
+
+                #endregion
+
+                #region Check duplicate title
+                var HasDuplicateTitle = (await _ShowcaseTabSectionFreeItemTranslateRepository.Get
+                                                            .Where(a => a.tblSectionFreeItems.tblShowcaseTabSectionItems.TabSectionId==qTabSectionItem.TabSectionId)
+                                                            .Where(a => a.tblSectionFreeItems.tblShowcaseTabSectionItems.Id!= Input.SectionItemId.ToGuid())
+                                                            .Select(a => a.Title)
+                                                            .ToListAsync())
+                                                                    .Where(Title => Input.LstTranslate.Where(b => b.Title==Title).Any())
+                                                                    .Any();
+                if (HasDuplicateTitle)
+                    return new OperationResult().Failed("TitleLangIsDuplicate");
+                #endregion
+
+                #region Remove Section Item
+                {
+                    await _ShowcaseTabSectionItemRepository.DeleteAsync(qTabSectionItem, default, true);
+                }
+                #endregion
+
+                #region Add Section Item
+                {
+                    var tTabSectionFreeItem = new tblShowcaseTabSectionItems
+                    {
+                        Id=Input.SectionItemId.ToGuid(),
+                        TabSectionId=qTabSectionItem.TabSectionId,
+                        SectionType=tblShowcaseTabSectionItemsEnum.FreeItem,
+                        Sort=qTabSectionItem.Sort,
+                        tblSectionFreeItems= new tblSectionFreeItems
+                        {
+                            Id=new Guid().SequentialGuid(),
+                            Name=Input.Name,
+                            tblSectionFreeItemTranslate= Input.LstTranslate.Select(a => new tblSectionFreeItemTranslate
+                            {
+                                Id=new Guid().SequentialGuid(),
+                                LangId=a.LangId.ToGuid(),
+                                FileId=a.FileId.ToGuid(),
+                                Title=a.Title,
+                                Url=a.Url,
+                                HtmlText=a.HtmlText.GetSanitizeHtml(),
+                            }).ToList()
+                        }
+                    };
+
+                    await _ShowcaseTabSectionItemRepository.AddAsync(tTabSectionFreeItem, default, true);
+                }
+                #endregion
+
+                return new OperationResult().Succeeded();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Error(ex);
+                return default;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return default;
             }
         }
     }

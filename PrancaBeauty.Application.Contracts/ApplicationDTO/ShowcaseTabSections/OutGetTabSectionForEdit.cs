@@ -1,4 +1,6 @@
-﻿namespace PrancaBeauty.Application.Contracts.ApplicationDTO.ShowcaseTabSections
+﻿using PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput;
+
+namespace PrancaBeauty.Application.Contracts.ApplicationDTO.ShowcaseTabSections
 {
     public class OutGetTabSectionForEdit
     {
@@ -23,5 +25,20 @@
         public bool IsSlider { get; set; }
 
         public int CountInSection { get; set; }
+
+        public OutGetTabSectionForEditHowToDisplayEnum HowToDisplay { get; set; }
+    }
+
+    public enum OutGetTabSectionForEditHowToDisplayEnum
+    {
+        FreeItem1, // تصویر بصورت FullWidth صفحه نمایش داده میشود و عنوان و کد در صورت وجود روی عکس به نمایش در خواهند آمد
+        FreeItem2, // تصویر بزرگ میباشد و عنوان و کد، در صورت وجود زیر عکس نمایش داده میشود
+        FreeItem3, // تصویر بزرگ میباشد و عنوان و کد، در صورت وجود بالای عکس نمایش داده میشود
+        FreeItem4, // تصویر در یک باکس 1/4 در سمت راست و عنوان و کد در یک باکس 3/4 در سمت چپ
+        FreeItem5, // تصویر در یک باکس 1/4 در سمت چپ و عنوان و کد در یک باکس 3/4 در سمت راست
+        FreeItem6, // تصویر در یک باکس 7/12 در سمت راست و عنوان و کد در یک باکس 5/12 در سمت چپ
+        FreeItem7, // تصویر در یک باکس 7/12 در سمت چپ و عنوان و کد در یک باکس 5/12 در سمت راست
+        FreeItem8, // تصویر در یک باکس 6/12 در سمت راست و عنوان و کد در یک باکس 6/12 در سمت چپ
+        FreeItem9, // تصویر در یک باکس 6/12 در سمت چپ و عنوان و کد در یک باکس 6/12 در سمت راست
     }
 }

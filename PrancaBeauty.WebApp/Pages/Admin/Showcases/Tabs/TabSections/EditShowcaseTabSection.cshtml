@@ -81,6 +81,25 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class=col-md-3>
+                                            <label asp-for=Input.HowToDisplay></label>
+                                            <select asp-for=Input.HowToDisplay class="form-control">
+                                                <option value="FreeItem1">@Localizer["FreeItemHowToDisply1"]</option>
+                                                <option value="FreeItem2">@Localizer["FreeItemHowToDisply2"]</option>
+                                                <option value="FreeItem3">@Localizer["FreeItemHowToDisply3"]</option>
+                                                <option value="FreeItem4">@Localizer["FreeItemHowToDisply4"]</option>
+                                                <option value="FreeItem5">@Localizer["FreeItemHowToDisply5"]</option>
+                                                <option value="FreeItem6">@Localizer["FreeItemHowToDisply6"]</option>
+                                                <option value="FreeItem7">@Localizer["FreeItemHowToDisply7"]</option>
+                                                <option value="FreeItem8">@Localizer["FreeItemHowToDisply8"]</option>
+                                                <option value="FreeItem9">@Localizer["FreeItemHowToDisply9"]</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class=col-md-3>
                                             <label asp-for=Input.XlSize></label>
                                             <input asp-for=Input.XlSize autocomplete=off class="form-control text-left" />
                                         </div>

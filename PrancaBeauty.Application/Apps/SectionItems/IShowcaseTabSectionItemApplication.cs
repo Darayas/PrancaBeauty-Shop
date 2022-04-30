@@ -15,10 +15,16 @@ namespace PrancaBeauty.Application.Apps.SectionItems
         Task<OperationResult> AddTabSectionFreeItemAsync(InpAddTabSectionFreeItem Input);
         Task<OperationResult> AddTabSectionKeywordItemAsync(InpAddTabSectionKeywordItem Input);
         Task<OperationResult> AddTabSectionProductItemAsync(InpAddTabSectionProductItem Input);
+        Task<OutGetCategoryItemForEdit> GetCategoryItemForEditAsync(InpGetCategoryItemForEdit Input);
         Task<OutGetFreeItemForEdit> GetFreeItemForEditAsync(InpGetFreeItemForEdit Input);
+        Task<OutGetKeywordItemForEdit> GetKeywordItemForEditAsync(InpGetKeywordItemForEdit Input);
         Task<(OutPagingData, List<OutGetListShowcaseTabSectionItemForAdminPage>)> GetListShowcaseTabSectionItemForAdminPageAsync(InpGetListShowcaseTabSectionItemForAdminPage Input);
+        Task<OutGetProductItemForEdit> GetProductItemForEditAsync(InpGetProductItemForEdit Input);
         Task<OperationResult> RemoveSectionItemAsync(InpRemoveSectionItem Input);
+        Task<OperationResult> SaveEditCategoryItemAsync(InpSaveEditCategoryItem Input);
         Task<OperationResult> SaveEditFreeItemAsync(InpSaveEditFreeItem Input);
+        Task<OperationResult> SaveEditKeywordItemAsync(InpSaveEditKeywordItem Input);
+        Task<OperationResult> SaveEditProductItemAsync(InpSaveEditProductItem Input);
         Task<OperationResult> SortingSectionItemAsync(InpSortingSectionItem Input);
     }
 }

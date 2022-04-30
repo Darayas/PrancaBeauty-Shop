@@ -133,7 +133,8 @@ namespace PrancaBeauty.Application.Apps.ShowcaseTabSection
                         MdSize=Input.MdSize,
                         SmSize=Input.SmSize,
                         XlSize=Input.XlSize,
-                        XsSize=Input.XsSize
+                        XsSize=Input.XsSize,
+                        HowToDisplayItems=(tblShowcaseTabSectionsHowToDisplayEnum)Input.HowToDisplay
                     };
 
                     await _ShowcaseTabSectionRepository.AddAsync(tAdd, default, true);
@@ -241,7 +242,8 @@ namespace PrancaBeauty.Application.Apps.ShowcaseTabSection
                                                     MdSize=a.MdSize,
                                                     SmSize=a.SmSize,
                                                     XlSize=a.XlSize,
-                                                    XsSize=a.XsSize
+                                                    XsSize=a.XsSize,
+                                                    HowToDisplay=(OutGetTabSectionForEditHowToDisplayEnum)a.HowToDisplayItems
                                                 })
                                                 .SingleOrDefaultAsync();
 
@@ -300,6 +302,7 @@ namespace PrancaBeauty.Application.Apps.ShowcaseTabSection
                     qData.XsSize=Input.XsSize;
                     qData.MdSize=Input.MdSize;
                     qData.XlSize=Input.XlSize;
+                    qData.HowToDisplayItems=(tblShowcaseTabSectionsHowToDisplayEnum)Input.HowToDisplay;
 
                     await _ShowcaseTabSectionRepository.UpdateAsync(qData, default, true);
                 }

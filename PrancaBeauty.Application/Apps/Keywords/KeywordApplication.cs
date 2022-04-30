@@ -82,7 +82,7 @@ namespace PrancaBeauty.Application.Apps.Keywords
                                                 .Select(a => new OutGetKeywordListForCombo
                                                 {
                                                     Id=a.Id.ToString(),
-                                                    Title=a.Title.ToString()
+                                                    Title=a.Title
                                                 })
                                                 .OrderBy(a=>a.Title)
                                                 .Take(20)

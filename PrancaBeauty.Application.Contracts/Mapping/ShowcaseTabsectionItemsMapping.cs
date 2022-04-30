@@ -26,6 +26,15 @@ namespace PrancaBeauty.Application.Contracts.Mapping
             CreateMap<OutGetFreeItemForEditTranslate, viEditSectionFreeItemTranslate>();
             CreateMap<viEditSectionFreeItem, InpSaveEditFreeItem>();
             CreateMap<viEditSectionFreeItemTranslate, InpSaveEditFreeItemTranslate>();
+
+            CreateMap<OutGetProductItemForEdit, viEditSectionProductItem>();
+            CreateMap<viEditSectionProductItem, InpSaveEditProductItem>();
+
+            CreateMap<OutGetCategoryItemForEdit, viEditSectionCategoryItem>();
+            CreateMap<viEditSectionCategoryItem, InpSaveEditCategoryItem>();
+            
+            CreateMap<OutGetKeywordItemForEdit, viEditSectionKeywordItem>();
+            CreateMap<viEditSectionKeywordItem, InpSaveEditKeywordItem>();
         }
     }
 }

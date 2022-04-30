@@ -4,7 +4,6 @@ using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.Results;
-using PrancaBeauty.Application.Contracts.ApplicationDTO.Showcase;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.ShowcaseTabSectionItem;
 using PrancaBeauty.Domin.Showcases.SectionFreeItemAgg.Contracts;
 using PrancaBeauty.Domin.Showcases.SectionFreeItemAgg.Entities;
@@ -13,12 +12,9 @@ using PrancaBeauty.Domin.Showcases.SectionItems.Entitiy;
 using PrancaBeauty.Domin.Showcases.SectionProductAgg.Entities;
 using PrancaBeauty.Domin.Showcases.SectionProductCategoryAgg.Entities;
 using PrancaBeauty.Domin.Showcases.SectionProductKeywordAgg.Entities;
-using PrancaBeauty.Domin.Showcases.ShowcaseAgg.Contracts;
-using PrancaBeauty.Domin.Showcases.ShowcaseTabAgg.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Apps.SectionItems
@@ -588,6 +584,302 @@ namespace PrancaBeauty.Application.Apps.SectionItems
             {
                 _Logger.Error(ex);
                 return default;
+            }
+        }
+
+        public async Task<OutGetProductItemForEdit> GetProductItemForEditAsync(InpGetProductItemForEdit Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var qData = await _ShowcaseTabSectionItemRepository.Get
+                                                .Where(a => a.Id==Input.SectionItemId.ToGuid())
+                                                .Select(a => new OutGetProductItemForEdit
+                                                {
+                                                    SectionItemId=a.Id.ToString(),
+                                                    ProductId=a.tblSectionProducts.ProductId.ToString()
+                                                })
+                                                .SingleOrDefaultAsync();
+
+                if (qData==null)
+                    return null;
+
+                return qData;
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Error(ex);
+                return default;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return default;
+            }
+        }
+
+        public async Task<OperationResult> SaveEditProductItemAsync(InpSaveEditProductItem Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                #region Get Section Item
+                var qTabSectionItem = await _ShowcaseTabSectionItemRepository.Get
+                                                    .Where(a => a.Id==Input.SectionItemId.ToGuid())
+                                                    .SingleOrDefaultAsync();
+
+                if (qTabSectionItem==null)
+                    return new OperationResult().Failed("IdNotFound");
+                #endregion
+
+                #region Check duplicate name
+                if (await _ShowcaseTabSectionItemRepository.Get.Where(a => a.tblSectionFreeItems.tblShowcaseTabSectionItems.TabSectionId==qTabSectionItem.TabSectionId).Where(a => a.Id!=Input.SectionItemId.ToGuid()).AnyAsync(a => a.tblSectionProducts.ProductId==Input.ProductId.ToGuid()))
+                    return new OperationResult().Failed("NameIsDuplicated");
+
+                #endregion
+
+                #region Remove Section Item
+                {
+                    await _ShowcaseTabSectionItemRepository.DeleteAsync(qTabSectionItem, default, true);
+                }
+                #endregion
+
+                #region Add Section Item
+                {
+                    var tTabSectionFreeItem = new tblShowcaseTabSectionItems
+                    {
+                        Id=Input.SectionItemId.ToGuid(),
+                        TabSectionId=qTabSectionItem.TabSectionId,
+                        SectionType=tblShowcaseTabSectionItemsEnum.Product,
+                        Sort=qTabSectionItem.Sort,
+                        tblSectionProducts= new tblSectionProducts
+                        {
+                            Id=new Guid().SequentialGuid(),
+                            ProductId=Input.ProductId.ToGuid()
+                        }
+                    };
+
+                    await _ShowcaseTabSectionItemRepository.AddAsync(tTabSectionFreeItem, default, true);
+                }
+                #endregion
+
+                return new OperationResult().Succeeded();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed(_Localizer["Error500"]);
+            }
+        }
+
+        public async Task<OutGetCategoryItemForEdit> GetCategoryItemForEditAsync(InpGetCategoryItemForEdit Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var qData = await _ShowcaseTabSectionItemRepository.Get
+                                               .Where(a => a.Id==Input.SectionItemId.ToGuid())
+                                               .Select(a => new OutGetCategoryItemForEdit
+                                               {
+                                                   SectionItemId=a.Id.ToString(),
+                                                   CategoryId=a.tblSectionProductCategory.CategoryId.ToString(),
+                                                   CountFetch=a.tblSectionProductCategory.CountFetch,
+                                                   OrderBy=(OutGetCategoryItemForEditOrderByEnum)a.tblSectionProductCategory.OrderBy
+                                               })
+                                               .SingleOrDefaultAsync();
+
+                if (qData==null)
+                    return null;
+
+                return qData;
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Error(ex);
+                return default;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return default;
+            }
+        }
+
+        public async Task<OperationResult> SaveEditCategoryItemAsync(InpSaveEditCategoryItem Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                #region Get Section Item
+                var qTabSectionItem = await _ShowcaseTabSectionItemRepository.Get
+                                                    .Where(a => a.Id==Input.SectionItemId.ToGuid())
+                                                    .SingleOrDefaultAsync();
+
+                if (qTabSectionItem==null)
+                    return new OperationResult().Failed("IdNotFound");
+                #endregion
+
+                #region Check duplicate name
+                if (await _ShowcaseTabSectionItemRepository.Get.Where(a => a.tblSectionFreeItems.tblShowcaseTabSectionItems.TabSectionId==qTabSectionItem.TabSectionId).Where(a => a.Id!=Input.SectionItemId.ToGuid()).AnyAsync(a => a.tblSectionProductCategory.CategoryId==Input.CategoryId.ToGuid()))
+                    return new OperationResult().Failed("NameIsDuplicated");
+
+                #endregion
+
+                #region Remove Section Item
+                {
+                    await _ShowcaseTabSectionItemRepository.DeleteAsync(qTabSectionItem, default, true);
+                }
+                #endregion
+
+                #region Add Section Item
+                {
+                    var tTabSectionFreeItem = new tblShowcaseTabSectionItems
+                    {
+                        Id=Input.SectionItemId.ToGuid(),
+                        TabSectionId=qTabSectionItem.TabSectionId,
+                        SectionType=tblShowcaseTabSectionItemsEnum.Category,
+                        Sort=qTabSectionItem.Sort,
+                        tblSectionProductCategory= new tblSectionProductCategory
+                        {
+                            Id=new Guid().SequentialGuid(),
+                            CategoryId=Input.CategoryId.ToGuid(),
+                            CountFetch=Input.CountFetch,
+                            OrderBy=(tblSectionProductCategoryOrderByEnum)Input.OrderBy
+                        }
+                    };
+
+                    await _ShowcaseTabSectionItemRepository.AddAsync(tTabSectionFreeItem, default, true);
+                }
+                #endregion
+
+                return new OperationResult().Succeeded();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed(_Localizer["Error500"]);
+            }
+        }
+
+        public async Task<OutGetKeywordItemForEdit> GetKeywordItemForEditAsync(InpGetKeywordItemForEdit Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var qData = await _ShowcaseTabSectionItemRepository.Get
+                                               .Where(a => a.Id==Input.SectionItemId.ToGuid())
+                                               .Select(a => new OutGetKeywordItemForEdit
+                                               {
+                                                   SectionItemId=a.Id.ToString(),
+                                                   KeywordId=a.tblSectionProductKeyword.KeywordId.ToString(),
+                                                   CountFetch=a.tblSectionProductKeyword.CountFetch,
+                                                   OrderBy=(OutGetKeywordItemForEditOrderByEnum)a.tblSectionProductKeyword.OrderBy
+                                               })
+                                               .SingleOrDefaultAsync();
+
+                if (qData==null)
+                    return null;
+
+                return qData;
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Error(ex);
+                return default;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return default;
+            }
+        }
+
+        public async Task<OperationResult> SaveEditKeywordItemAsync(InpSaveEditKeywordItem Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                #region Get Section Item
+                var qTabSectionItem = await _ShowcaseTabSectionItemRepository.Get
+                                                    .Where(a => a.Id==Input.SectionItemId.ToGuid())
+                                                    .SingleOrDefaultAsync();
+
+                if (qTabSectionItem==null)
+                    return new OperationResult().Failed("IdNotFound");
+                #endregion
+
+                #region Check duplicate name
+                if (await _ShowcaseTabSectionItemRepository.Get.Where(a => a.tblSectionFreeItems.tblShowcaseTabSectionItems.TabSectionId==qTabSectionItem.TabSectionId).Where(a => a.Id!=Input.SectionItemId.ToGuid()).AnyAsync(a => a.tblSectionProductKeyword.KeywordId==Input.KeywordId.ToGuid()))
+                    return new OperationResult().Failed("NameIsDuplicated");
+
+                #endregion
+
+                #region Remove Section Item
+                {
+                    await _ShowcaseTabSectionItemRepository.DeleteAsync(qTabSectionItem, default, true);
+                }
+                #endregion
+
+                #region Add Section Item
+                {
+                    var tTabSectionFreeItem = new tblShowcaseTabSectionItems
+                    {
+                        Id=Input.SectionItemId.ToGuid(),
+                        TabSectionId=qTabSectionItem.TabSectionId,
+                        SectionType=tblShowcaseTabSectionItemsEnum.Keyword,
+                        Sort=qTabSectionItem.Sort,
+                        tblSectionProductKeyword= new  tblSectionProductKeyword
+                        {
+                            Id=new Guid().SequentialGuid(),
+                            KeywordId=Input.KeywordId.ToGuid(),
+                            CountFetch=Input.CountFetch,
+                            OrderBy=(tblSectionProductKeywordOrderByEnum)Input.OrderBy
+                        }
+                    };
+
+                    await _ShowcaseTabSectionItemRepository.AddAsync(tTabSectionFreeItem, default, true);
+                }
+                #endregion
+
+                return new OperationResult().Succeeded();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed(_Localizer["Error500"]);
             }
         }
     }

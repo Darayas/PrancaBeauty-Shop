@@ -522,8 +522,17 @@
   <data name="EditShowcaseTabSection" xml:space="preserve">
     <value>ویرایش TabSection</value>
   </data>
+  <data name="EditShowcaseTabSectionCategory" xml:space="preserve">
+    <value>ویرایش Category Item</value>
+  </data>
   <data name="EditShowcaseTabSectionFreeItem" xml:space="preserve">
     <value>ویرایش Free Item</value>
+  </data>
+  <data name="EditShowcaseTabSectionKeyword" xml:space="preserve">
+    <value>ویرایش Keyword Item</value>
+  </data>
+  <data name="EditShowcaseTabSectionProduct" xml:space="preserve">
+    <value>ویرایش Section محصول</value>
   </data>
   <data name="EditSlide" xml:space="preserve">
     <value>ویرایش اسلاید</value>
@@ -648,6 +657,33 @@
   <data name="FreeItem" xml:space="preserve">
     <value>Free item</value>
   </data>
+  <data name="FreeItemHowToDisply1" xml:space="preserve">
+    <value>تصویر FullWidth و نمایش متن روی عکس</value>
+  </data>
+  <data name="FreeItemHowToDisply2" xml:space="preserve">
+    <value>تصویر بالا و متن زیر تصویر</value>
+  </data>
+  <data name="FreeItemHowToDisply3" xml:space="preserve">
+    <value>تصویر پایین و متن بالای تصویر</value>
+  </data>
+  <data name="FreeItemHowToDisply4" xml:space="preserve">
+    <value>تصویر 1/4 سمت راست و متن 3/4 سمت چپ</value>
+  </data>
+  <data name="FreeItemHowToDisply5" xml:space="preserve">
+    <value>تصویر 1/4 سمت چپ و متن 3/4 سمت راست</value>
+  </data>
+  <data name="FreeItemHowToDisply6" xml:space="preserve">
+    <value>تصویر 7/12 سمت راست و متن 5/12 سمت چپ</value>
+  </data>
+  <data name="FreeItemHowToDisply7" xml:space="preserve">
+    <value>تصویر 7/12 سمت چپ و متن 7/12 سمت راست</value>
+  </data>
+  <data name="FreeItemHowToDisply8" xml:space="preserve">
+    <value>تصویر 6/12 سمت راست و متن 6/12 سمت چپ</value>
+  </data>
+  <data name="FreeItemHowToDisply9" xml:space="preserve">
+    <value>تصویر 6/12 سمت چپ و متن 6/12 سمت راست</value>
+  </data>
   <data name="FullName" xml:space="preserve">
     <value>نام کاربر</value>
   </data>
@@ -695,6 +731,9 @@
   </data>
   <data name="Home" xml:space="preserve">
     <value>خانه</value>
+  </data>
+  <data name="HowToDisplayItems" xml:space="preserve">
+    <value>نحوه نمایش Item ها</value>
   </data>
   <data name="HtmlCode" xml:space="preserve">
     <value>کد Html</value>

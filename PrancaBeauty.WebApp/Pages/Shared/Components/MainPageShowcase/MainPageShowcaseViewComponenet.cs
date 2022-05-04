@@ -4,6 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using System;
 using PrancaBeauty.Application.Apps.Showcases;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Showcase;
+using PrancaBeauty.Application.Contracts.PresentationDTO.ViewModel;
+using System.Collections.Generic;
+using PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput;
 
 namespace PrancaBeauty.WebApp.Pages.Shared.Components.MainPageShowcase
 {
@@ -19,12 +23,23 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.MainPageShowcase
             _ShowcaseApplication=ShowcaseApplication;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync()
+        public async Task<IViewComponentResult> InvokeAsync(viMainPageShowcase Input)
         {
             try
             {
-                
-                return View("MainPageShowcaseViewComponent");
+                var qData = await _ShowcaseApplication.GetItemsForMainPageShowcaseAsync(new InpGetItemsForMainPageShowcase
+                {
+                    CountryId = Input.CountryId,
+                    CurrencyId = Input.CurrencyId,
+                    LangId=Input.LangId
+                });
+
+                if (qData== null)
+                    return default;
+
+                var _MappedData = _Mapper.Map<List<vmMainPageShowcase>>(qData);
+
+                return View("MainPageShowcaseViewComponent", _MappedData);
             }
             catch (Exception ex)
             {

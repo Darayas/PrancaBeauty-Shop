@@ -5,15 +5,15 @@ namespace Framework.Common.ExMethods
 {
     public static class IEnumerableEx
     {
-        public static IEnumerable<T> OrderByCondition<T>(
+        public static IEnumerable<T> IfThenElse<T>(
             this IEnumerable<T> elements,
-            Func<bool> Condition,
+            bool Condition,
             Func<IEnumerable<T>, IEnumerable<T>> ThenPath,
-            Func<IEnumerable<T>, IEnumerable<T>> ElsePath)
+            Func<IEnumerable<T>, IEnumerable<T>> ElsePath = null)
         {
-            return Condition()
+            return Condition
                         ? ThenPath(elements)
-                        : ElsePath(elements);
+                        : (ElsePath!=null ? ElsePath(elements) : elements);
         }
     }
 }

@@ -1,1 +1,20 @@
-﻿
+﻿@model List<vmMainPageShowcase>
+
+@foreach (var itemShowcase in Model)
+{
+    <div class="@itemShowcase.CssClass" style="background-color:@itemShowcase.BackgroundColorCode;@itemShowcase.CssStyle">
+        <div class="@(itemShowcase.IsFullWidth?"container-fluid":"container")">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section_title">
+                        <h3>@itemShowcase.Title</h3>
+                        <p>@itemShowcase.Description</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+            </div>
+        </div>
+    </div>
+}

@@ -14,5 +14,10 @@ namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Showcase
         [RequiredString]
         [GUID]
         public string CountryId { get; set; }
+
+        [Display(Name = "CurrencyId")]
+        [RequiredString]
+        [GUID]
+        public string CurrencyId { get; set; }
     }
 }

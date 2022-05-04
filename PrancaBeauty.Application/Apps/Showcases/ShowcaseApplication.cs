@@ -6,12 +6,14 @@ using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.Results;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.Showcase;
+using PrancaBeauty.Domin.Showcases.SectionProductCategoryAgg.Entities;
 using PrancaBeauty.Domin.Showcases.ShowcaseAgg.Contracts;
 using PrancaBeauty.Domin.Showcases.ShowcaseAgg.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Framework.Common.ExMethods;
 
 namespace PrancaBeauty.Application.Apps.Showcases
 {
@@ -473,8 +475,8 @@ namespace PrancaBeauty.Application.Apps.Showcases
                                                                                                                 Id=d.tblSectionProducts.ProductId.ToString(),
                                                                                                                 Title =d.tblSectionProducts.tblProducts.Title,
                                                                                                                 Name=d.tblSectionProducts.tblProducts.Name,
-                                                                                                                //OldPrice=0,
-                                                                                                                //Price=0,
+                                                                                                                MainPrice= d.tblSectionProducts.tblProducts.tblProductPrices.Where(e => e.CurrencyId==Input.CurrencyId.ToGuid()).Where(e => e.IsActive).Select(e => e.Price).First(),
+                                                                                                                SellerPercent= d.tblSectionProducts.tblProducts.tblProductVariantItems.Select(e => new { SellerPercent = e.Percent - e.tblProductDiscounts.Percent, Percent = e.Percent }).OrderBy(e => e.SellerPercent).FirstOrDefault().Percent,
                                                                                                                 PercentSavePrice= d.tblSectionProducts.tblProducts.tblProductVariantItems.Select(e => new { SellerPercent = e.Percent - e.tblProductDiscounts.Percent, SavePercent = e.tblProductDiscounts.Percent }).OrderBy(e => e.SellerPercent).FirstOrDefault().SavePercent,
                                                                                                                 IsInBookmark=false,// TODO: Create Bookmark Table
                                                                                                                 ImgUrl=d.tblSectionProducts.tblProducts.tblProductMedia.Select(e => new
@@ -484,12 +486,50 @@ namespace PrancaBeauty.Application.Apps.Showcases
                                                                                                                               + e.tblFiles.tblFilePaths.Path
                                                                                                                               + e.tblFiles.FileName
                                                                                                                 }).First().ImgUrl,
-                                                                                                            } : null
+                                                                                                            } : null,
+                                                                                                            CategoryItems= d.SectionType==TabSectionItemsEnum.Category ? d.tblSectionProductCategory.tblCategory.tblProducts.Where(e => e.IsConfirmed)
+                                                                                                                            .IfThenElse(d.tblSectionProductCategory.OrderBy==tblSectionProductCategoryOrderByEnum.Newest,e=>e.OrderByDescending(e=>e.Date),)
+                                                                                                                            .Select(e => new OutGetItemsForMainPageShowcase_SectionProductItem
+                                                                                                                            {
+                                                                                                                                Id=e.Id.ToString(),
+                                                                                                                                Title =e.Title,
+                                                                                                                                Name=e.Name,
+                                                                                                                                MainPrice= e.tblProductPrices.Where(f => f.CurrencyId==Input.CurrencyId.ToGuid()).Where(f => f.IsActive).Select(f => f.Price).First(),
+                                                                                                                                SellerPercent= e.tblProductVariantItems.Select(f => new { SellerPercent = f.Percent - f.tblProductDiscounts.Percent, Percent = f.Percent }).OrderBy(f => f.SellerPercent).FirstOrDefault().Percent,
+                                                                                                                                PercentSavePrice= e.tblProductVariantItems.Select(f => new { SellerPercent = f.Percent - f.tblProductDiscounts.Percent, SavePercent = f.tblProductDiscounts.Percent }).OrderBy(f => f.SellerPercent).FirstOrDefault().SavePercent,
+                                                                                                                                IsInBookmark=false,// TODO: Create Bookmark Table
+                                                                                                                                ImgUrl=e.tblProductMedia.Select(f => new
+                                                                                                                                {
+                                                                                                                                    ImgUrl = f.tblFiles.tblFilePaths.tblFileServer.HttpDomin
+                                                                                                                                              + f.tblFiles.tblFilePaths.tblFileServer.HttpPath
+                                                                                                                                              + f.tblFiles.tblFilePaths.Path
+                                                                                                                                              + f.tblFiles.FileName
+                                                                                                                                }).First().ImgUrl,
+                                                                                                                            }).ToList() : null,
+                                                                                                                            KeywordItems= d.SectionType==TabSectionItemsEnum.Keyword ? d.tblSectionProductKeyword.tblKeywords.tblKeywords_Products.Select(e => new OutGetItemsForMainPageShowcase_SectionProductItem
+                                                                                                            {
+                                                                                                                Id=e.tblProducts.Id.ToString(),
+                                                                                                                Title =e.tblProducts.Title,
+                                                                                                                Name=e.tblProducts.Name,
+                                                                                                                MainPrice= e.tblProducts.tblProductPrices.Where(f => f.CurrencyId==Input.CurrencyId.ToGuid()).Where(f => f.IsActive).Select(f => f.Price).First(),
+                                                                                                                SellerPercent= e.tblProducts.tblProductVariantItems.Select(f => new { SellerPercent = f.Percent - f.tblProductDiscounts.Percent, Percent = f.Percent }).OrderBy(f => f.SellerPercent).FirstOrDefault().Percent,
+                                                                                                                PercentSavePrice= e.tblProducts.tblProductVariantItems.Select(f => new { SellerPercent = f.Percent - f.tblProductDiscounts.Percent, SavePercent = f.tblProductDiscounts.Percent }).OrderBy(f => f.SellerPercent).FirstOrDefault().SavePercent,
+                                                                                                                IsInBookmark=false,// TODO: Create Bookmark Table
+                                                                                                                ImgUrl=e.tblProducts.tblProductMedia.Select(f => new
+                                                                                                                {
+                                                                                                                    ImgUrl = f.tblFiles.tblFilePaths.tblFileServer.HttpDomin
+                                                                                                                              + f.tblFiles.tblFilePaths.tblFileServer.HttpPath
+                                                                                                                              + f.tblFiles.tblFilePaths.Path
+                                                                                                                              + f.tblFiles.FileName
+                                                                                                                }).First().ImgUrl,
+                                                                                                            }).ToList() : null
                                                                                                         }).ToList()
                                                                                 }).ToList()
                                                         }).ToList()
                                         })
                                         .ToListAsync();
+
+                return qData;
             }
             catch (ArgumentInvalidException ex)
             {

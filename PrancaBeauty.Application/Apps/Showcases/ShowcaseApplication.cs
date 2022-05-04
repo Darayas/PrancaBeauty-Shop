@@ -1,5 +1,6 @@
 ﻿using Framework.Common.ExMethods;
 using Framework.Common.Utilities.Paging;
+using Framework.Domain.Enums;
 using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
@@ -453,7 +454,37 @@ namespace PrancaBeauty.Application.Apps.Showcases
                                                                                     LstSectionItem= c.tblShowcaseTabSectionItems
                                                                                                         .Select(d => new OutGetItemsForMainPageShowcase_SectionItem
                                                                                                         {
-
+                                                                                                            SectionType=d.SectionType,
+                                                                                                            FreeItem= d.SectionType==TabSectionItemsEnum.FreeItem ? new OutGetItemsForMainPageShowcase_SectionFreeItem
+                                                                                                            {
+                                                                                                                Title=d.tblSectionFreeItems.tblSectionFreeItemTranslate.Where(e => e.LangId==Input.LangId.ToGuid()).Select(e => e.Title).Single(),
+                                                                                                                Url=d.tblSectionFreeItems.tblSectionFreeItemTranslate.Where(e => e.LangId==Input.LangId.ToGuid()).Select(e => e.Url).Single(),
+                                                                                                                HtmlText=d.tblSectionFreeItems.tblSectionFreeItemTranslate.Where(e => e.LangId==Input.LangId.ToGuid()).Select(e => e.HtmlText).Single(),
+                                                                                                                ImgUrl=d.tblSectionFreeItems.tblSectionFreeItemTranslate.Where(e => e.LangId==Input.LangId.ToGuid()).Select(e => new
+                                                                                                                {
+                                                                                                                    ImgUrl = e.tblFiles.tblFilePaths.tblFileServer.HttpDomin
+                                                                                                                              + e.tblFiles.tblFilePaths.tblFileServer.HttpPath
+                                                                                                                              + e.tblFiles.tblFilePaths.Path
+                                                                                                                              + e.tblFiles.FileName
+                                                                                                                }).Single().ImgUrl,
+                                                                                                            } : null,
+                                                                                                            ProductItem= d.SectionType==TabSectionItemsEnum.Product ? new OutGetItemsForMainPageShowcase_SectionProductItem
+                                                                                                            {
+                                                                                                                Id=d.tblSectionProducts.ProductId.ToString(),
+                                                                                                                Title =d.tblSectionProducts.tblProducts.Title,
+                                                                                                                Name=d.tblSectionProducts.tblProducts.Name,
+                                                                                                                //OldPrice=0,
+                                                                                                                //Price=0,
+                                                                                                                PercentSavePrice= d.tblSectionProducts.tblProducts.tblProductVariantItems.Select(e => new { SellerPercent = e.Percent - e.tblProductDiscounts.Percent, SavePercent = e.tblProductDiscounts.Percent }).OrderBy(e => e.SellerPercent).FirstOrDefault().SavePercent,
+                                                                                                                IsInBookmark=false,// TODO: Create Bookmark Table
+                                                                                                                ImgUrl=d.tblSectionProducts.tblProducts.tblProductMedia.Select(e => new
+                                                                                                                {
+                                                                                                                    ImgUrl = e.tblFiles.tblFilePaths.tblFileServer.HttpDomin
+                                                                                                                              + e.tblFiles.tblFilePaths.tblFileServer.HttpPath
+                                                                                                                              + e.tblFiles.tblFilePaths.Path
+                                                                                                                              + e.tblFiles.FileName
+                                                                                                                }).First().ImgUrl,
+                                                                                                            } : null
                                                                                                         }).ToList()
                                                                                 }).ToList()
                                                         }).ToList()

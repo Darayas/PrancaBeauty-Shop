@@ -856,7 +856,7 @@ namespace PrancaBeauty.Application.Apps.SectionItems
                         TabSectionId=qTabSectionItem.TabSectionId,
                         SectionType=tblShowcaseTabSectionItemsEnum.Keyword,
                         Sort=qTabSectionItem.Sort,
-                        tblSectionProductKeyword= new  tblSectionProductKeyword
+                        tblSectionProductKeyword= new tblSectionProductKeyword
                         {
                             Id=new Guid().SequentialGuid(),
                             KeywordId=Input.KeywordId.ToGuid(),
@@ -882,5 +882,6 @@ namespace PrancaBeauty.Application.Apps.SectionItems
                 return new OperationResult().Failed(_Localizer["Error500"]);
             }
         }
+
     }
 }

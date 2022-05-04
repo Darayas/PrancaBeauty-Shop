@@ -1,56 +1,48 @@
-﻿using Framework.Common.DataAnnotations.Numbers.All;
-using Framework.Common.DataAnnotations.String;
-using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
 
-namespace PrancaBeauty.Application.Contracts.ApplicationDTO.ShowcaseTabSections
+namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Showcase
 {
-    public class InpAddShowcaseTabSection
+    public class OutGetItemsForMainPageShowcase
     {
-        [Display(Name = "ParentId")]
-        [GUID]
-        public string ParentId { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public string BackgroundColorCode { get; set; }
+        public string CssStyle { get; set; }
+        public string CssClass { get; set; }
+        public int Sort { get; set; }
+        public bool IsFullWidth { get; set; }
 
-        [Display(Name = "ShowcaseTabId")]
-        [RequiredString]
-        [GUID]
-        public string ShowcaseTabId { get; set; }
 
-        [Display(Name = "Name")]
-        [RequiredString]
-        [MaxLengthString(100)]
-        public string Name { get; set; }
-
-        [Display(Name = "XlSize")]
-        [NumRange(1, 12)]
-        public int XlSize { get; set; } // Extra Larg
-
-        [Display(Name = "LgSize")]
-        [NumRange(1, 12)]
-        public int LgSize { get; set; } // Larg 
-
-        [Display(Name = "MdSize")]
-        [NumRange(1, 12)]
-        public int MdSize { get; set; } // Medium
-
-        [Display(Name = "SmSize")]
-        [NumRange(1, 12)]
-        public int SmSize { get; set; } // Smal
-
-        [Display(Name = "XsSize")]
-        [NumRange(1, 12)]
-        public int XsSize { get; set; } // Extra Small
-
-        [Display(Name = "IsSlider")]
-        public bool IsSlider { get; set; }
-
-        [Display(Name = "CountInSection")]
-        public int CountInSection { get; set; }
-
-        [Display(Name = "HowToDisplayItems")]
-        public InpAddShowcaseTabSectionHowToDisplayEnum HowToDisplay { get; set; }
+        public List<OutGetItemsForMainPageShowcase_Tab> LstTabs { get; set; }
     }
 
-    public enum InpAddShowcaseTabSectionHowToDisplayEnum
+    public class OutGetItemsForMainPageShowcase_Tab
+    {
+        public string Title { get; set; }
+        public string BackgroundColorCode { get; set; }
+        public int Sort { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
+
+        public List<OutGetItemsForMainPageShowcase_TabSection> LstTabSection { get; set; }
+    }
+
+    public class OutGetItemsForMainPageShowcase_TabSection
+    {
+        public int XlSize { get; set; } // Extra Larg
+        public int LgSize { get; set; } // Larg 
+        public int MdSize { get; set; } // Medium
+        public int SmSize { get; set; } // Smal
+        public int XsSize { get; set; } // Extra Small
+        public bool IsSlider { get; set; }
+        public int CountInSection { get; set; }
+        public OutGetItemsForMainPageShowcase_TabSectionHowToDisplayEnum HowToDisplayItems { get; set; }
+
+        public List<OutGetItemsForMainPageShowcase_TabSection> LstChilds { get; set; }
+    }
+
+    public enum OutGetItemsForMainPageShowcase_TabSectionHowToDisplayEnum
     {
         NoItem = 0, // ایتمی در سکشن قرار نمیگیرد
         FreeItem1 = 1, // تصویر بصورت FullWidth صفحه نمایش داده میشود و عنوان و کد در صورت وجود روی عکس به نمایش در خواهند آمد

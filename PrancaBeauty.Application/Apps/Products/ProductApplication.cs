@@ -360,6 +360,8 @@ namespace PrancaBeauty.Application.Apps.Products
                     if (_Result.IsSucceeded == false)
                     {
                         await RemoveProductForAlwaysAsync(new InpRemoveProductForAlways { ProductId = ProductId });
+
+                        return new OperationResult().Failed("Error500");
                     }
 
                 }

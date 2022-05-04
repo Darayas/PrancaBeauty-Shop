@@ -8,6 +8,7 @@ using PrancaBeauty.Domin.FileServer.FilePathAgg.Contracts;
 using PrancaBeauty.Domin.FileServer.FilePathAgg.Entities;
 using System;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Apps.FilePath
@@ -62,6 +63,8 @@ namespace PrancaBeauty.Application.Apps.FilePath
             #region Vlidation
             Input.CheckModelState(_ServiceProvider);
             #endregion
+
+           
 
             return await _FilePathRepository.Get.Where(a => a.FileServerId == Guid.Parse(Input.FileServerId))
                                                 .Where(a => a.Path == Input.Path)

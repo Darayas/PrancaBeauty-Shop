@@ -99,7 +99,6 @@ WebApplication app = null;
 
     app.UseIpRateLimiting();
 
-
     app.UseEndpoints(endpoints =>
     {
         endpoints.MapRazorPages();

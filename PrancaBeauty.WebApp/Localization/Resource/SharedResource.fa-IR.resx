@@ -462,6 +462,9 @@
   <data name="DefaultLangId" xml:space="preserve">
     <value>زبان پیشفرض</value>
   </data>
+  <data name="DefaultProductToDisply" xml:space="preserve">
+    <value>حالت معمولی محصول</value>
+  </data>
   <data name="Description" xml:space="preserve">
     <value>توضیحات</value>
   </data>
@@ -1073,6 +1076,9 @@
   </data>
   <data name="NoItemFound" xml:space="preserve">
     <value>موردی یافت نشد.</value>
+  </data>
+  <data name="NoItemHowToDisply" xml:space="preserve">
+    <value>این Section بدون Item میباشد</value>
   </data>
   <data name="NoReviewsFound" xml:space="preserve">
     <value>هیچ دیدگاهی یافت نشد.</value>

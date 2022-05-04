@@ -27,9 +27,9 @@ namespace PrancaBeauty.Infrastructure.EFCore.Mapping.ProductMedia
                    .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasOne(a => a.tblFiles)
-                   .WithOne(a => a.tblProductMedia)
-                   .HasPrincipalKey<tblFiles>(a => a.Id)
-                   .HasForeignKey<tblProductMedia>(a => a.FileId)
+                   .WithMany(a => a.tblProductMedia)
+                   .HasPrincipalKey(a => a.Id)
+                   .HasForeignKey(a => a.FileId)
                    .OnDelete(DeleteBehavior.Cascade);
         }
     }

@@ -34,7 +34,6 @@ namespace PrancaBeauty.Domin.FileServer.FileAgg.Entities
 
 
         public virtual tblUsers tblUser { get; set; }
-        public virtual tblProductMedia tblProductMedia { get; set; }
         public virtual tblFileTypes tblFileTypes { get; set; }
         public virtual tblFilePaths tblFilePaths { get; set; }
         public virtual ICollection<tblProductReviewsMedia> tblProductReviewsMedia { get; set; }
@@ -45,6 +44,7 @@ namespace PrancaBeauty.Domin.FileServer.FileAgg.Entities
         public virtual ICollection<tblUsers> tblUserProfile { get; set; }
         public virtual ICollection<tblSlider> tblSlider { get; set; }
         public virtual ICollection<tblSectionFreeItemTranslate> tblSectionFreeItemTranslate { get; set; }
+        public virtual ICollection<tblProductMedia> tblProductMedia { get; set; }
 
     }
 }

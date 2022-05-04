@@ -41,8 +41,8 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.Compo_ProductVariantItems
 
                 var qData = await _ProductVariantItemsApplication.GetAllProductVariantsForProductDetailsAsync(new InpGetAllProductVariantsForProductDetails
                 {
-                    LangId=LangId,
-                    ProductId=Input.ProductId
+                    LangId = LangId,
+                    ProductId = Input.ProductId
                 });
 
                 Data= _Mapper.Map<vmCompo_ProductVariantItem>(qData);

@@ -589,6 +589,9 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
                                                                     Title=a.tblProductVariants.tblProductVariants_Translates.Where(b => b.LangId==Input.LangId.ToGuid()).Select(b => b.Title).Single(),
                                                                     VariantType=a.tblProductVariants.VariantType,
                                                                     LstItems= a.tblProductVariants.tblProductVariantItems
+                                                                                                  .Where(b => b.ProductId==Input.ProductId.ToGuid())
+                                                                                                  .Where(b=>b.IsEnable)
+                                                                                                  .Where(b=>b.IsConfirm)
                                                                                                   .GroupBy(b => b.Value)
                                                                                                   .Select(b => new OutGetAllProductVariantsForProductDetailsItem
                                                                                                   {

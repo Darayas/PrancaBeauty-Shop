@@ -77,16 +77,24 @@ namespace PrancaBeauty.Application.Apps.Showcases
                 Input.CheckModelState(_ServiceProvider);
 
                 if (Input.StartDate==null)
+                {
                     Input.StartDate=DateTime.Now;
+                }
 
                 if (Input.EndDate.HasValue)
+                {
                     if (Input.StartDate >= Input.EndDate.Value)
+                    {
                         return new OperationResult().Failed("EndDateMustBeGreaterThanStartDate");
+                    }
+                }
                 #endregion
 
                 #region Check Name duplicate
                 if (await _ShowcaseRepository.Get.AnyAsync(a => a.Name==Input.Name))
+                {
                     return new OperationResult().Failed("NameIsDuplicate");
+                }
 
                 #endregion
 
@@ -159,10 +167,14 @@ namespace PrancaBeauty.Application.Apps.Showcases
                                                      .SingleOrDefaultAsync();
 
                 if (qData==null)
+                {
                     return new OperationResult().Failed("IdNotFound");
+                }
 
                 if (qData.HasTab)
+                {
                     return new OperationResult().Failed("ShowCaseHasTab.PleaseRemove");
+                }
 
                 await _ShowcaseRepository.DeleteAsync(qData.Showcase, default, true);
                 return new OperationResult().Succeeded();
@@ -191,7 +203,9 @@ namespace PrancaBeauty.Application.Apps.Showcases
                 var qListSlide = await _ShowcaseRepository.Get.OrderBy(a => a.Sort).ToListAsync();
                 var qCurrentItem = qListSlide.Where(a => a.Id==Input.Id.ToGuid()).SingleOrDefault();
                 if (qCurrentItem==null)
+                {
                     return new OperationResult().Failed("IdNotFound");
+                }
 
                 int IndexOfCurrentItem = qListSlide.IndexOf(qCurrentItem);
 
@@ -275,7 +289,9 @@ namespace PrancaBeauty.Application.Apps.Showcases
                                             .SingleOrDefaultAsync();
 
                 if (qData==null)
+                {
                     return null;
+                }
 
                 return qData;
             }
@@ -299,16 +315,24 @@ namespace PrancaBeauty.Application.Apps.Showcases
                 Input.CheckModelState(_ServiceProvider);
 
                 if (Input.StartDate==null)
+                {
                     Input.StartDate=DateTime.Now;
+                }
 
                 if (Input.EndDate.HasValue)
+                {
                     if (Input.StartDate >= Input.EndDate.Value)
+                    {
                         return new OperationResult().Failed("EndDateMustBeGreaterThanStartDate");
+                    }
+                }
                 #endregion
 
                 #region Check Name duplicate
                 if (await _ShowcaseRepository.Get.Where(a => a.Id!=Input.Id.ToGuid()).AnyAsync(a => a.Name==Input.Name))
+                {
                     return new OperationResult().Failed("NameIsDuplicate");
+                }
 
                 #endregion
 
@@ -319,9 +343,11 @@ namespace PrancaBeauty.Application.Apps.Showcases
                                             .SingleOrDefaultAsync();
 
                     if (qData==null)
+                    {
                         return new OperationResult().Failed("IdNotFound");
+                    }
 
-                    qData.CountryId=Input.CountryId.ToGuid();
+                    qData.CountryId=Input.CountryId!=null ? Input.CountryId.ToGuid() : null;
                     qData.UserId=Input.UserId.ToGuid();
                     qData.Name=Input.Name;
                     qData.IsFullWidth=Input.IsFullWidth;
@@ -372,6 +398,35 @@ namespace PrancaBeauty.Application.Apps.Showcases
             catch (ArgumentInvalidException ex)
             {
                 _Logger.Error(ex);
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
+
+        public async Task<List<OutGetItemsForMainPageShowcase>> GetItemsForMainPageShowcaseAsync(InpGetItemsForMainPageShowcase Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var qData = await _ShowcaseRepository.Get
+                                                .Where(a => a.IsActive)
+                                                .Where(a => a.IsEnable)
+                                                .Select(a => new OutGetItemsForMainPageShowcase
+                                                {
+
+                                                })
+                                                .ToListAsync();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
                 return default;
             }
             catch (Exception ex)

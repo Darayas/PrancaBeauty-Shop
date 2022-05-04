@@ -15,6 +15,7 @@ using PrancaBeauty.Application.Contracts.ApplicationDTO.FileServer;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.Results;
 using System;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Common.FtpWapper
@@ -284,6 +285,7 @@ namespace PrancaBeauty.Application.Common.FtpWapper
                 if (!await _FtpClient.CheckDirectoryExistAsync(qServer.FtpHost, qServer.FtpPort, qServer.FtpPath, _Path, qServer.FtpUserName, qServer.FtpPassword))
                     await MakeDirAsync(qServer.Name, _Path);
 
+                Thread.Sleep(500);
                 // برسی وجود دایرکتوری در دیتابیس
                 if (!await _FilePathApplication.CheckDirectoryExistAsync(new InpCheckDirectoryExist { FileServerId = qServer.Id, Path = _Path }))
                     await _FilePathApplication.MakePathAsync(new InpMakePath { FileServerId = qServer.Id, Path = _Path });

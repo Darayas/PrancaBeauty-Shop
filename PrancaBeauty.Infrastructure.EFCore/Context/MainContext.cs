@@ -1,4 +1,4 @@
-﻿using Framework.Domain;
+﻿using Framework.Domain.Contracts;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Domin.Users.RoleAgg.Entities;

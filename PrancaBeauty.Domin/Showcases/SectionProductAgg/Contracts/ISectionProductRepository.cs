@@ -1,4 +1,4 @@
-﻿using Framework.Domain;
+﻿using Framework.Domain.Contracts;
 using PrancaBeauty.Domin.Showcases.SectionProductAgg.Entities;
 
 namespace PrancaBeauty.Domin.Showcases.SectionProductAgg.Contracts

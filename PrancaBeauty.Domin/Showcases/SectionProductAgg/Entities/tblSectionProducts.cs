@@ -1,4 +1,4 @@
-﻿using Framework.Domain;
+﻿using Framework.Domain.Contracts;
 using PrancaBeauty.Domin.Product.ProductAgg.Entities;
 using PrancaBeauty.Domin.Showcases.SectionItems.Entitiy;
 using PrancaBeauty.Domin.Showcases.ShowcaseTabSectionAgg.Entities;

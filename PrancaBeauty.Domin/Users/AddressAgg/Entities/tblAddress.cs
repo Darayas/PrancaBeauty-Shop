@@ -1,4 +1,4 @@
-﻿using Framework.Domain;
+﻿using Framework.Domain.Contracts;
 using PrancaBeauty.Domin.Region.CityAgg.Entities;
 using PrancaBeauty.Domin.Region.CountryAgg.Entities;
 using PrancaBeauty.Domin.Region.ProvinceAgg.Entities;

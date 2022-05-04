@@ -51,13 +51,13 @@ namespace PrancaBeauty.Application.Apps.SectionItems
                                                     Id=a.Id.ToString(),
                                                     Sort=a.Sort,
                                                     SectionType=a.SectionType.ToString(),
-                                                    Title= a.SectionType==tblShowcaseTabSectionItemsEnum.FreeItem ?
+                                                    Title= a.SectionType==TabSectionItemsEnum.FreeItem ?
                                                                                         a.tblSectionFreeItems.tblSectionFreeItemTranslate.Where(b => b.LangId==Input.LangId.ToGuid()).Select(b => b.Title).Single()
-                                                                : (a.SectionType==tblShowcaseTabSectionItemsEnum.Product ?
+                                                                : (a.SectionType==TabSectionItemsEnum.Product ?
                                                                                         a.tblSectionProducts.tblProducts.Title
-                                                                       : (a.SectionType==tblShowcaseTabSectionItemsEnum.Category ?
+                                                                       : (a.SectionType==TabSectionItemsEnum.Category ?
                                                                                         a.tblSectionProductCategory.tblCategory.tblCategory_Translates.Where(b => b.LangId==Input.LangId.ToGuid()).Select(b => b.Title).Single()
-                                                                                : (a.SectionType== tblShowcaseTabSectionItemsEnum.Keyword ?
+                                                                                : (a.SectionType== TabSectionItemsEnum.Keyword ?
                                                                                         a.tblSectionProductKeyword.tblKeywords.Title : "")))
 
                                                 }).OrderBy(a => a.Sort);
@@ -88,7 +88,7 @@ namespace PrancaBeauty.Application.Apps.SectionItems
 
                 #region Check SectionType
                 {
-                    var _Result = await CheckTabSectionTypeAsync(Input.ShowcaseTabSectionId, tblShowcaseTabSectionItemsEnum.FreeItem);
+                    var _Result = await CheckTabSectionTypeAsync(Input.ShowcaseTabSectionId, TabSectionItemsEnum.FreeItem);
                     if (_Result.IsSucceeded==false)
                         return new OperationResult().Failed(_Result.Message);
                 }
@@ -124,7 +124,7 @@ namespace PrancaBeauty.Application.Apps.SectionItems
                     {
                         Id=new Guid().SequentialGuid(),
                         TabSectionId=Input.ShowcaseTabSectionId.ToGuid(),
-                        SectionType=tblShowcaseTabSectionItemsEnum.FreeItem,
+                        SectionType=TabSectionItemsEnum.FreeItem,
                         Sort=_Sort,
                         tblSectionFreeItems= new tblSectionFreeItems
                         {
@@ -171,7 +171,7 @@ namespace PrancaBeauty.Application.Apps.SectionItems
 
                 #region Check SectionType
                 {
-                    var _Result = await CheckTabSectionTypeAsync(Input.ShowcaseTabSectionId, tblShowcaseTabSectionItemsEnum.Product);
+                    var _Result = await CheckTabSectionTypeAsync(Input.ShowcaseTabSectionId, TabSectionItemsEnum.Product);
                     if (_Result.IsSucceeded==false)
                         return new OperationResult().Failed(_Result.Message);
                 }
@@ -196,7 +196,7 @@ namespace PrancaBeauty.Application.Apps.SectionItems
                     {
                         Id=new Guid().SequentialGuid(),
                         TabSectionId=Input.ShowcaseTabSectionId.ToGuid(),
-                        SectionType=tblShowcaseTabSectionItemsEnum.Product,
+                        SectionType=TabSectionItemsEnum.Product,
                         Sort=_Sort,
                         tblSectionProducts= new tblSectionProducts
                         {
@@ -234,14 +234,14 @@ namespace PrancaBeauty.Application.Apps.SectionItems
 
                 #region Check SectionType
                 {
-                    var _Result = await CheckTabSectionTypeAsync(Input.ShowcaseTabSectionId, tblShowcaseTabSectionItemsEnum.Category);
+                    var _Result = await CheckTabSectionTypeAsync(Input.ShowcaseTabSectionId, TabSectionItemsEnum.Category);
                     if (_Result.IsSucceeded==false)
                         return new OperationResult().Failed(_Result.Message);
                 }
                 #endregion
 
                 #region Check Has Category
-                if (await _ShowcaseTabSectionItemRepository.Get.Where(a => a.TabSectionId==Input.ShowcaseTabSectionId.ToGuid()).AnyAsync(a => a.SectionType==tblShowcaseTabSectionItemsEnum.Category))
+                if (await _ShowcaseTabSectionItemRepository.Get.Where(a => a.TabSectionId==Input.ShowcaseTabSectionId.ToGuid()).AnyAsync(a => a.SectionType==TabSectionItemsEnum.Category))
                     return new OperationResult().Failed("InCategorySectionType,YouAreAllowedAddOneItem");
 
                 #endregion
@@ -259,7 +259,7 @@ namespace PrancaBeauty.Application.Apps.SectionItems
                     {
                         Id=new Guid().SequentialGuid(),
                         TabSectionId=Input.ShowcaseTabSectionId.ToGuid(),
-                        SectionType=tblShowcaseTabSectionItemsEnum.Category,
+                        SectionType=TabSectionItemsEnum.Category,
                         Sort=_Sort,
                         tblSectionProductCategory= new tblSectionProductCategory
                         {
@@ -299,14 +299,14 @@ namespace PrancaBeauty.Application.Apps.SectionItems
 
                 #region Check SectionType
                 {
-                    var _Result = await CheckTabSectionTypeAsync(Input.ShowcaseTabSectionId, tblShowcaseTabSectionItemsEnum.Keyword);
+                    var _Result = await CheckTabSectionTypeAsync(Input.ShowcaseTabSectionId, TabSectionItemsEnum.Keyword);
                     if (_Result.IsSucceeded==false)
                         return new OperationResult().Failed(_Result.Message);
                 }
                 #endregion
 
                 #region Check Has Keyword
-                if (await _ShowcaseTabSectionItemRepository.Get.Where(a => a.TabSectionId==Input.ShowcaseTabSectionId.ToGuid()).AnyAsync(a => a.SectionType==tblShowcaseTabSectionItemsEnum.Keyword))
+                if (await _ShowcaseTabSectionItemRepository.Get.Where(a => a.TabSectionId==Input.ShowcaseTabSectionId.ToGuid()).AnyAsync(a => a.SectionType==TabSectionItemsEnum.Keyword))
                     return new OperationResult().Failed("InKeywordSectionType,YouAreAllowedAddOneItem");
 
                 #endregion
@@ -324,7 +324,7 @@ namespace PrancaBeauty.Application.Apps.SectionItems
                     {
                         Id=new Guid().SequentialGuid(),
                         TabSectionId=Input.ShowcaseTabSectionId.ToGuid(),
-                        SectionType=tblShowcaseTabSectionItemsEnum.Keyword,
+                        SectionType=TabSectionItemsEnum.Keyword,
                         Sort=_Sort,
                         tblSectionProductKeyword= new tblSectionProductKeyword
                         {
@@ -354,7 +354,7 @@ namespace PrancaBeauty.Application.Apps.SectionItems
             }
         }
 
-        private async Task<OperationResult> CheckTabSectionTypeAsync(string TabSectionId, tblShowcaseTabSectionItemsEnum SectionType)
+        private async Task<OperationResult> CheckTabSectionTypeAsync(string TabSectionId, TabSectionItemsEnum SectionType)
         {
             var qData = await _ShowcaseTabSectionItemRepository.Get
                                     .Where(a => a.TabSectionId==TabSectionId.ToGuid())
@@ -551,7 +551,7 @@ namespace PrancaBeauty.Application.Apps.SectionItems
                     {
                         Id=Input.SectionItemId.ToGuid(),
                         TabSectionId=qTabSectionItem.TabSectionId,
-                        SectionType=tblShowcaseTabSectionItemsEnum.FreeItem,
+                        SectionType=TabSectionItemsEnum.FreeItem,
                         Sort=qTabSectionItem.Sort,
                         tblSectionFreeItems= new tblSectionFreeItems
                         {
@@ -656,7 +656,7 @@ namespace PrancaBeauty.Application.Apps.SectionItems
                     {
                         Id=Input.SectionItemId.ToGuid(),
                         TabSectionId=qTabSectionItem.TabSectionId,
-                        SectionType=tblShowcaseTabSectionItemsEnum.Product,
+                        SectionType=TabSectionItemsEnum.Product,
                         Sort=qTabSectionItem.Sort,
                         tblSectionProducts= new tblSectionProducts
                         {
@@ -754,7 +754,7 @@ namespace PrancaBeauty.Application.Apps.SectionItems
                     {
                         Id=Input.SectionItemId.ToGuid(),
                         TabSectionId=qTabSectionItem.TabSectionId,
-                        SectionType=tblShowcaseTabSectionItemsEnum.Category,
+                        SectionType=TabSectionItemsEnum.Category,
                         Sort=qTabSectionItem.Sort,
                         tblSectionProductCategory= new tblSectionProductCategory
                         {
@@ -854,7 +854,7 @@ namespace PrancaBeauty.Application.Apps.SectionItems
                     {
                         Id=Input.SectionItemId.ToGuid(),
                         TabSectionId=qTabSectionItem.TabSectionId,
-                        SectionType=tblShowcaseTabSectionItemsEnum.Keyword,
+                        SectionType=TabSectionItemsEnum.Keyword,
                         Sort=qTabSectionItem.Sort,
                         tblSectionProductKeyword= new tblSectionProductKeyword
                         {

@@ -1,4 +1,4 @@
-﻿using Framework.Domain;
+﻿using Framework.Domain.Contracts;
 using PrancaBeauty.Domin.Categories.CategoriesAgg.Entities;
 using PrancaBeauty.Domin.FileServer.FileAgg.Entities;
 using PrancaBeauty.Domin.Product.GuaranteeAgg.Entities;

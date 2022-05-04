@@ -1,4 +1,4 @@
-﻿using Framework.Domain;
+﻿using Framework.Domain.Contracts;
 using PrancaBeauty.Domin.Product.ProductPropertiesValuesAgg.Entities;
 using System;
 using System.Collections.Generic;

@@ -416,13 +416,49 @@ namespace PrancaBeauty.Application.Apps.Showcases
                 #endregion
 
                 var qData = await _ShowcaseRepository.Get
-                                                .Where(a => a.IsActive)
-                                                .Where(a => a.IsEnable)
-                                                .Select(a => new OutGetItemsForMainPageShowcase
-                                                {
+                                        .Where(a => a.IsActive)
+                                        .Where(a => a.IsEnable)
+                                        .OrderBy(a => a.Sort)
+                                        .Where(a => a.CountryId != null ? a.CountryId == Input.CountryId.ToGuid() : true)
+                                        .Select(a => new OutGetItemsForMainPageShowcase
+                                        {
+                                            Title=a.tblShowcasesTranslates.Where(b => b.LangId==Input.LangId.ToGuid()).Select(b => b.Title).Single(),
+                                            Description=a.tblShowcasesTranslates.Where(b => b.LangId==Input.LangId.ToGuid()).Select(b => b.Description).Single(),
+                                            BackgroundColorCode=a.BackgroundColorCode,
+                                            CssClass=a.CssClass,
+                                            CssStyle=a.CssStyle,
+                                            IsFullWidth=a.IsFullWidth,
+                                            LstTabs= a.tblShowcaseTabs
+                                                        .Where(b => b.IsEnable)
+                                                        .Where(b => b.IsActive)
+                                                        .OrderBy(b => b.Sort)
+                                                        .Select(b => new OutGetItemsForMainPageShowcase_Tab
+                                                        {
+                                                            Title=b.tblShowcaseTabTranslates.Where(c => c.LangId==Input.LangId.ToGuid()).Select(c => c.Title).Single(),
+                                                            BackgroundColorCode=b.BackgroundColorCode,
+                                                            StartDate=b.StartDate,
+                                                            EndDate=b.EndDate,
+                                                            LstTabSection = b.tblShowcaseTabSections
+                                                                                .Select(c => new OutGetItemsForMainPageShowcase_TabSection
+                                                                                {
+                                                                                    ParentId=c.ParentId!=null ? c.ParentId.ToString() : null,
+                                                                                    HowToDisplayItems=c.HowToDisplayItems,
+                                                                                    CountInSection=c.CountInSection,
+                                                                                    IsSlider=c.IsSlider,
+                                                                                    XlSize=c.XlSize,
+                                                                                    LgSize=c.LgSize,
+                                                                                    MdSize=c.MdSize,
+                                                                                    SmSize=c.SmSize,
+                                                                                    XsSize=c.XsSize,
+                                                                                    LstSectionItem= c.tblShowcaseTabSectionItems
+                                                                                                        .Select(d => new OutGetItemsForMainPageShowcase_SectionItem
+                                                                                                        {
 
-                                                })
-                                                .ToListAsync();
+                                                                                                        }).ToList()
+                                                                                }).ToList()
+                                                        }).ToList()
+                                        })
+                                        .ToListAsync();
             }
             catch (ArgumentInvalidException ex)
             {

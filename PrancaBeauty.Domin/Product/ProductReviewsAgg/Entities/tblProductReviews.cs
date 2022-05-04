@@ -1,4 +1,4 @@
-﻿using Framework.Domain;
+﻿using Framework.Domain.Contracts;
 using PrancaBeauty.Domin.Product.ProductAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductReviewsAttributeValuesAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductReviewsLikesAgg.Entities;

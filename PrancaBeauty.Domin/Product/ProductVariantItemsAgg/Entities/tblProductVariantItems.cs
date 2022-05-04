@@ -1,5 +1,5 @@
 ﻿using Framework.Application.Enums;
-using Framework.Domain;
+using Framework.Domain.Contracts;
 using PrancaBeauty.Domin.Product.GuaranteeAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductDiscountAgg.Entities;

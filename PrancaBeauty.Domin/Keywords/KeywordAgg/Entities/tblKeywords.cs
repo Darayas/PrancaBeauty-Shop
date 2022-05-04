@@ -1,4 +1,4 @@
-﻿using Framework.Domain;
+﻿using Framework.Domain.Contracts;
 using PrancaBeauty.Domin.Keywords.Keywords_Products.Entities;
 using PrancaBeauty.Domin.Showcases.SectionProductKeywordAgg.Entities;
 using System;

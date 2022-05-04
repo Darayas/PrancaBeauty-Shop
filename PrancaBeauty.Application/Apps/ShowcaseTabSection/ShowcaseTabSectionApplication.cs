@@ -169,10 +169,10 @@ namespace PrancaBeauty.Application.Apps.ShowcaseTabSection
                                                         .Select(a => new
                                                         {
                                                             HasChild = a.tblShowcaseTabSectionsChild.Any(),
-                                                            HasFreeItem = a.tblShowcaseTabSectionItems.Where(a=>a.SectionType==tblShowcaseTabSectionItemsEnum.FreeItem).Any(),
-                                                            HasSectionProduct = a.tblShowcaseTabSectionItems.Where(a => a.SectionType==tblShowcaseTabSectionItemsEnum.Product).Any(),
-                                                            HasSectionProductCategory = a.tblShowcaseTabSectionItems.Where(a => a.SectionType==tblShowcaseTabSectionItemsEnum.Category).Any(),
-                                                            HasSectionProductKeyword = a.tblShowcaseTabSectionItems.Where(a => a.SectionType==tblShowcaseTabSectionItemsEnum.Keyword).Any(),
+                                                            HasFreeItem = a.tblShowcaseTabSectionItems.Where(a=>a.SectionType==TabSectionItemsEnum.FreeItem).Any(),
+                                                            HasSectionProduct = a.tblShowcaseTabSectionItems.Where(a => a.SectionType==TabSectionItemsEnum.Product).Any(),
+                                                            HasSectionProductCategory = a.tblShowcaseTabSectionItems.Where(a => a.SectionType==TabSectionItemsEnum.Category).Any(),
+                                                            HasSectionProductKeyword = a.tblShowcaseTabSectionItems.Where(a => a.SectionType==TabSectionItemsEnum.Keyword).Any(),
                                                             TabSection = a
                                                         })
                                                         .SingleOrDefaultAsync();

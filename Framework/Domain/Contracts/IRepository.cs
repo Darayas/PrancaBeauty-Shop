@@ -1,12 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Framework.Domain
+namespace Framework.Domain.Contracts
 {
     public interface IRepository<TEntity>
         where TEntity : class, IEntity
@@ -28,6 +26,6 @@ namespace Framework.Domain
         Task<TEntity> GetById(CancellationToken cancellationToken, params object[] Ids);
 
         Task<int> SaveChangeAsync();
-        
+
     }
 }

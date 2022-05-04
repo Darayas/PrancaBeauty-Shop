@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Framework.Domain.Enums;
+using System;
 using System.Collections.Generic;
 
 namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Showcase
@@ -10,7 +11,6 @@ namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Showcase
         public string BackgroundColorCode { get; set; }
         public string CssStyle { get; set; }
         public string CssClass { get; set; }
-        public int Sort { get; set; }
         public bool IsFullWidth { get; set; }
 
 
@@ -21,7 +21,6 @@ namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Showcase
     {
         public string Title { get; set; }
         public string BackgroundColorCode { get; set; }
-        public int Sort { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime? EndDate { get; set; }
 
@@ -30,6 +29,7 @@ namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Showcase
 
     public class OutGetItemsForMainPageShowcase_TabSection
     {
+        public string ParentId { get; set; }
         public int XlSize { get; set; } // Extra Larg
         public int LgSize { get; set; } // Larg 
         public int MdSize { get; set; } // Medium
@@ -37,23 +37,38 @@ namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Showcase
         public int XsSize { get; set; } // Extra Small
         public bool IsSlider { get; set; }
         public int CountInSection { get; set; }
-        public OutGetItemsForMainPageShowcase_TabSectionHowToDisplayEnum HowToDisplayItems { get; set; }
+        public TabSectionHowToDisplayEnum HowToDisplayItems { get; set; }
 
-        public List<OutGetItemsForMainPageShowcase_TabSection> LstChilds { get; set; }
+        public List<OutGetItemsForMainPageShowcase_SectionItem> LstSectionItem { get; set; }
     }
 
-    public enum OutGetItemsForMainPageShowcase_TabSectionHowToDisplayEnum
+    public class OutGetItemsForMainPageShowcase_SectionItem
     {
-        NoItem = 0, // ایتمی در سکشن قرار نمیگیرد
-        FreeItem1 = 1, // تصویر بصورت FullWidth صفحه نمایش داده میشود و عنوان و کد در صورت وجود روی عکس به نمایش در خواهند آمد
-        FreeItem2 = 2, // تصویر بزرگ میباشد و عنوان و کد، در صورت وجود زیر عکس نمایش داده میشود
-        FreeItem3 = 3, // تصویر بزرگ میباشد و عنوان و کد، در صورت وجود بالای عکس نمایش داده میشود
-        FreeItem4 = 4, // تصویر در یک باکس 1/4 در سمت راست و عنوان و کد در یک باکس 3/4 در سمت چپ
-        FreeItem5 = 5, // تصویر در یک باکس 1/4 در سمت چپ و عنوان و کد در یک باکس 3/4 در سمت راست
-        FreeItem6 = 6, // تصویر در یک باکس 7/12 در سمت راست و عنوان و کد در یک باکس 5/12 در سمت چپ
-        FreeItem7 = 7, // تصویر در یک باکس 7/12 در سمت چپ و عنوان و کد در یک باکس 5/12 در سمت راست
-        FreeItem8 = 8, // تصویر در یک باکس 6/12 در سمت راست و عنوان و کد در یک باکس 6/12 در سمت چپ
-        FreeItem9 = 9, // تصویر در یک باکس 6/12 در سمت چپ و عنوان و کد در یک باکس 6/12 در سمت راست
-        DefaultProduct = 10, // حالت معمولی محصول
+        public TabSectionItemsEnum SectionType { get; set; }
+
+        public OutGetItemsForMainPageShowcase_SectionFreeItem FreeItem { get; set; }
+        public OutGetItemsForMainPageShowcase_SectionProductItem ProductItem { get; set; }
+        public List<OutGetItemsForMainPageShowcase_SectionProductItem> CategoryItems { get; set; }
+        public List<OutGetItemsForMainPageShowcase_SectionProductItem> KeywordItems { get; set; }
+    }
+
+    public class OutGetItemsForMainPageShowcase_SectionFreeItem
+    {
+        public string ImgUrl { get; set; }
+        public string Title { get; set; }
+        public string Url { get; set; }
+        public string HtmlText { get; set; }
+    }
+
+    public class OutGetItemsForMainPageShowcase_SectionProductItem
+    {
+        public string Id { get; set; }
+        public string ImgUrl { get; set; }
+        public string Name { get; set; }
+        public string Title { get; set; }
+        public double Price { get; set; }
+        public double OldPrice { get; set; }
+        public int PercentSavePrice { get; set; }
+        public bool IsInBookmark { get; set; }
     }
 }

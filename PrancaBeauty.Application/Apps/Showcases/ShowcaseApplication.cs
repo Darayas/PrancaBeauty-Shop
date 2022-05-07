@@ -422,6 +422,7 @@ namespace PrancaBeauty.Application.Apps.Showcases
                 var qData = await _ShowcaseRepository.Get
                                         .Where(a => a.IsActive)
                                         .Where(a => a.IsEnable)
+                                        .Where(a => a.tblShowcaseTabs.Count()>0)
                                         .OrderBy(a => a.Sort)
                                         .Where(a => a.CountryId != null ? a.CountryId == Input.CountryId.ToGuid() : true)
                                         .Select(a => new OutGetItemsForMainPageShowcase
@@ -435,6 +436,7 @@ namespace PrancaBeauty.Application.Apps.Showcases
                                             LstTabs= a.tblShowcaseTabs
                                                         .Where(b => b.IsEnable)
                                                         .Where(b => b.IsActive)
+                                                        .Where(b => b.tblShowcaseTabSections.Count()>0)
                                                         .OrderBy(b => b.Sort)
                                                         .Select(b => new OutGetItemsForMainPageShowcase_Tab
                                                         {
@@ -443,6 +445,7 @@ namespace PrancaBeauty.Application.Apps.Showcases
                                                             StartDate=b.StartDate,
                                                             EndDate=b.EndDate,
                                                             LstTabSection = b.tblShowcaseTabSections
+                                                                                .Where(c => c.tblShowcaseTabSectionItems.Count()>0)
                                                                                 .Select(c => new OutGetItemsForMainPageShowcase_TabSection
                                                                                 {
                                                                                     ParentId=c.ParentId!=null ? c.ParentId.ToString() : null,
@@ -520,7 +523,7 @@ namespace PrancaBeauty.Application.Apps.Showcases
                                                                                                                                 Name=e.tblProducts.Name,
                                                                                                                                 MainPrice= e.tblProducts.tblProductPrices.Where(f => f.CurrencyId==Input.CurrencyId.ToGuid()).Where(f => f.IsActive).Select(f => f.Price).First(),
                                                                                                                                 SellerPercent= e.tblProducts.tblProductVariantItems.Where(d => d.IsEnable && d.IsConfirm && d.CountInStock>0).Select(f => new { SellerPercent = f.Percent - f.tblProductDiscounts.Percent, Percent = f.Percent }).OrderBy(f => f.SellerPercent).FirstOrDefault().Percent,
-                                                                                                                                PercentSavePrice= e.tblProducts.tblProductVariantItems.Where(d=>d.IsEnable && d.IsConfirm && d.CountInStock>0).Select(f => new { SellerPercent = f.Percent - f.tblProductDiscounts.Percent, SavePercent = f.tblProductDiscounts.Percent }).OrderBy(f => f.SellerPercent).FirstOrDefault().SavePercent,
+                                                                                                                                PercentSavePrice= e.tblProducts.tblProductVariantItems.Where(d => d.IsEnable && d.IsConfirm && d.CountInStock>0).Select(f => new { SellerPercent = f.Percent - f.tblProductDiscounts.Percent, SavePercent = f.tblProductDiscounts.Percent }).OrderBy(f => f.SellerPercent).FirstOrDefault().SavePercent,
                                                                                                                                 IsInBookmark=false,// TODO: Create Bookmark Table
                                                                                                                                 ImgUrl=e.tblProducts.tblProductMedia.Select(f => new
                                                                                                                                 {

@@ -1,20 +1,58 @@
 ﻿@model List<vmMainPageShowcase>
 
-@foreach (var itemShowcase in Model)
-{
-    <div class="@itemShowcase.CssClass" style="background-color:@itemShowcase.BackgroundColorCode;@itemShowcase.CssStyle">
-        <div class="@(itemShowcase.IsFullWidth?"container-fluid":"container")">
-            <div class="row">
-                <div class="col-12">
-                    <div class="section_title">
-                        <h3>@itemShowcase.Title</h3>
-                        <p>@itemShowcase.Description</p>
+@{
+    int ShowcaseCount = 0;
+    foreach (var itemShowcase in Model.Where(a => a.LstTabs.Any()))
+    {
+        <div class="@itemShowcase.CssClass" style="background-color:@itemShowcase.BackgroundColorCode;@itemShowcase.CssStyle">
+            <div class="@(itemShowcase.IsFullWidth?"container-fluid":"container")">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section_title">
+                            <h3>@itemShowcase.Title</h3>
+                            <p>@itemShowcase.Description</p>
+                        </div>
+
+                        <div class="product_tab_btn @(itemShowcase.LstTabs.Where(a => a.LstTabSection.Any()).Count()<=1?"hidden":"")">
+                            <ul class="nav" role="tablist">
+                                @{
+                                    int CounterTabItem = 0;
+                                    foreach (var itemTab in itemShowcase.LstTabs.Where(a => a.LstTabSection.Any()))
+                                    {
+                                        <li>
+                                            <a class="@(itemShowcase.LstTabs.IndexOf(itemTab)==0?"active":"")" data-bs-toggle="tab" href="#TabItem@(ShowcaseCount)@(CounterTabItem)" role="tab" aria-selected="true">
+                                                @itemTab.Title
+                                            </a>
+                                        </li>
+                                        CounterTabItem++;
+                                    }
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class=col-12>
+                        <div class=tab-content>
+                            @{
+                                CounterTabItem = 0;
+                                foreach (var itemTab in itemShowcase.LstTabs.Where(a => a.LstTabSection.Any()))
+                                {
+                                    <div class="tab-pane fade @(itemShowcase.LstTabs.IndexOf(itemTab)==0?"show active":"")" id="TabItem@(ShowcaseCount)@(CounterTabItem)" role="tabpanel">
+                                        @foreach (var itemTabSection in itemTab.LstTabSection.Where(a => a.LstSectionItem.Any()))
+                                        {
+
+                                        }
+                                    </div>
+
+                                    CounterTabItem++;
+                                }
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-
-            </div>
         </div>
-    </div>
+        ShowcaseCount++;
+    }
 }

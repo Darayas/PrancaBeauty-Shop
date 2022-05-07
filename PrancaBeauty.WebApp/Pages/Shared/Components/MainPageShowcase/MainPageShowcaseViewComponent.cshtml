@@ -1,4 +1,5 @@
 ﻿@model List<vmMainPageShowcase>
+@using Framework.Domain.Enums
 
 @{
     int ShowcaseCount = 0;
@@ -65,13 +66,25 @@
             @foreach (var itemTabSection in LstTabSection.Where(a => Id!=null ? a.ParentId==Id : true))
             {
                 <div class="col-xl-@itemTabSection.XlSize col-lg-@itemTabSection.LgSize col-md-@itemTabSection.MdSize col-sm-@itemTabSection.SmSize col-xs-@itemTabSection.XsSize">
+
                     @{
                         if (LstTabSection.Any(a => a.ParentId==itemTabSection.Id))
                             AddTabSection(LstTabSection, itemTabSection.Id);
                         else
                         {
                             if (itemTabSection.LstSectionItem.Any())
-                                AddSectionItems();
+                            {
+                                @if (itemTabSection.IsSlider)
+                                {
+                                    <div class='product_carousel owl-carousel'>
+                                        AddSectionItems(itemTabSection.LstSectionItem, true, itemTabSection.CountInSection, itemTabSection.HowToDisplayItems);
+                                    </div>
+                                }
+                                else
+                                    AddSectionItems(itemTabSection.LstSectionItem, false, itemTabSection.CountInSection, itemTabSection.HowToDisplayItems);
+
+                            }
+
                         }
                     }
 
@@ -80,8 +93,24 @@
         </div>
     }
 
-    private void AddSectionItems()
+    private void AddSectionItems(IEnumerable<vmMainPageShowcase_SectionItem> SectionItems, bool IsSlider, int CountInSection, TabSectionHowToDisplayEnum HowToDisplayItems)
     {
+
+        @foreach (var item in SectionItems.IfThenElse(!IsSlider, a => a.Take(CountInSection)))
+        {
+            <div class=@(item.SectionType!=TabSectionItemsEnum.FreeItem?"single_product":"")>
+                @if (item.SectionType==TabSectionItemsEnum.FreeItem)
+                {
+
+                }
+
+                @if (item.SectionType==TabSectionItemsEnum.Product)
+                {
+
+                }
+
+            </div>
+        }
 
     }
 }

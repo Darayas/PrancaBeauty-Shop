@@ -98,19 +98,61 @@
 
         @foreach (var item in SectionItems.IfThenElse(!IsSlider, a => a.Take(CountInSection)))
         {
-            <div class=@(item.SectionType!=TabSectionItemsEnum.FreeItem?"single_product":"")>
-                @if (item.SectionType==TabSectionItemsEnum.FreeItem)
-                {
 
-                }
+            @if (item.SectionType==TabSectionItemsEnum.FreeItem)
+            {
+                AddSectionFreeItems(item, HowToDisplayItems);
+            }
 
-                @if (item.SectionType==TabSectionItemsEnum.Product)
-                {
 
-                }
+        }
+    }
 
+    private void AddSectionFreeItems(vmMainPageShowcase_SectionItem SectionItem, TabSectionHowToDisplayEnum HowToDisplayItems)
+    {
+        @if (HowToDisplayItems==TabSectionHowToDisplayEnum.FreeItem1)
+        {
+            <div class="single_slider" data-bgimg="@SectionItem.FreeItem.ImgUrl">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="slider_content">
+                                @Html.Raw(@SectionItem.FreeItem.HtmlText)
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         }
 
+        @if (HowToDisplayItems==TabSectionHowToDisplayEnum.FreeItem2)
+        {
+            <div class="single_banner">
+                <div class="banner_thumb">
+                    <a href="@SectionItem.FreeItem.Url"><img src="@SectionItem.FreeItem.ImgUrl" alt="@SectionItem.FreeItem.Title"></a>
+                </div>
+                <div class="banner_text">
+                    <h3>@SectionItem.FreeItem.Title</h3>
+                    <p>@Html.Raw(SectionItem.FreeItem.HtmlText)</p>
+                </div>
+            </div>
+        }
+
+        @if (HowToDisplayItems==TabSectionHowToDisplayEnum.FreeItem3)
+        {
+            <div class="banner_static_right2">
+                <div class="banner_static_content">
+                    <h3>Bonique deals</h3>
+                    <h2>Model Skin Care <br> Essentials</h2>
+                    <a href="shop.html">+ Shop Now</a>
+                </div>
+                <div class="banner_static_thumb2">
+                    <a href="shop.html"><img src="assets/img/bg/banner12.jpg" alt=""></a>
+                </div>
+            </div>
+        }
     }
+
 }
+
+        @*<div class=@(SectionItem.SectionType!=TabSectionItemsEnum.FreeItem?"single_product":"")>*@

@@ -38,11 +38,12 @@
                                 CounterTabItem = 0;
                                 foreach (var itemTab in itemShowcase.LstTabs.Where(a => a.LstTabSection.Any()))
                                 {
-                                    <div class="tab-pane fade @(itemShowcase.LstTabs.IndexOf(itemTab)==0?"show active":"")" id="TabItem@(ShowcaseCount)@(CounterTabItem)" role="tabpanel">
-                                        @foreach (var itemTabSection in itemTab.LstTabSection.Where(a => a.LstSectionItem.Any()))
-                                        {
-
-                                        }
+                                    <div class="tab-pane fade @(itemShowcase.LstTabs.IndexOf(itemTab)==0?"show active":"")" style="background-color:@itemTab.BackgroundColorCode" id="TabItem@(ShowcaseCount)@(CounterTabItem)" role="tabpanel">
+                                        <div class=row>
+                                            @{
+                                                AddTabSection(itemTab.LstTabSection);
+                                            }
+                                        </div>
                                     </div>
 
                                     CounterTabItem++;
@@ -54,5 +55,33 @@
             </div>
         </div>
         ShowcaseCount++;
+    }
+}
+
+@functions {
+    private void AddTabSection(IEnumerable<vmMainPageShowcase_TabSection> LstTabSection, string Id = null)
+    {
+        <div class=row>
+            @foreach (var itemTabSection in LstTabSection.Where(a => Id!=null ? a.ParentId==Id : true))
+            {
+                <div class="col-xl-@itemTabSection.XlSize col-lg-@itemTabSection.LgSize col-md-@itemTabSection.MdSize col-sm-@itemTabSection.SmSize col-xs-@itemTabSection.XsSize">
+                    @{
+                        if (LstTabSection.Any(a => a.ParentId==itemTabSection.Id))
+                            AddTabSection(LstTabSection, itemTabSection.Id);
+                        else
+                        {
+                            if (itemTabSection.LstSectionItem.Any())
+                                AddSectionItems();
+                        }
+                    }
+
+                </div>
+            }
+        </div>
+    }
+
+    private void AddSectionItems()
+    {
+
     }
 }

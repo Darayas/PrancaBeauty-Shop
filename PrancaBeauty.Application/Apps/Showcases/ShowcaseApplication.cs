@@ -448,6 +448,7 @@ namespace PrancaBeauty.Application.Apps.Showcases
                                                                                 .Where(c => c.tblShowcaseTabSectionItems.Count()>0)
                                                                                 .Select(c => new OutGetItemsForMainPageShowcase_TabSection
                                                                                 {
+                                                                                    Id=c.Id.ToString(),
                                                                                     ParentId=c.ParentId!=null ? c.ParentId.ToString() : null,
                                                                                     HowToDisplayItems=c.HowToDisplayItems,
                                                                                     CountInSection=c.CountInSection,

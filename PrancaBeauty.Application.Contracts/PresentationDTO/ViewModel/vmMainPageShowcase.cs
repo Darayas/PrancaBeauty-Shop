@@ -29,6 +29,7 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewModel
 
     public class vmMainPageShowcase_TabSection
     {
+        public string Id { get; set; }
         public string ParentId { get; set; }
         public int XlSize { get; set; } // Extra Larg
         public int LgSize { get; set; } // Larg 

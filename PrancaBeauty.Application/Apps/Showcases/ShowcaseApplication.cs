@@ -490,7 +490,7 @@ namespace PrancaBeauty.Application.Apps.Showcases
                                                                                                                               + e.tblFiles.tblFilePaths.tblFileServer.HttpPath
                                                                                                                               + e.tblFiles.tblFilePaths.Path
                                                                                                                               + e.tblFiles.FileName
-                                                                                                                }).First().ImgUrl,
+                                                                                                                }).Select(d=>d.ImgUrl).Take(2).ToArray(),
                                                                                                             } : null,
                                                                                                             CategoryItems= d.SectionType==TabSectionItemsEnum.Category ? d.tblSectionProductCategory.tblCategory.tblProducts.Where(e => e.IsConfirmed)
                                                                                                                             .IfThenElse(d.tblSectionProductCategory.OrderBy==tblSectionProductCategoryOrderByEnum.Newest, e => e.OrderByDescending(e => e.Date), null)
@@ -511,7 +511,7 @@ namespace PrancaBeauty.Application.Apps.Showcases
                                                                                                                                               + f.tblFiles.tblFilePaths.tblFileServer.HttpPath
                                                                                                                                               + f.tblFiles.tblFilePaths.Path
                                                                                                                                               + f.tblFiles.FileName
-                                                                                                                                }).First().ImgUrl,
+                                                                                                                                }).Select(f=>f.ImgUrl).Take(2).ToArray(),
                                                                                                                             }).ToList() : null,
                                                                                                             KeywordItems= d.SectionType==TabSectionItemsEnum.Keyword ? d.tblSectionProductKeyword.tblKeywords.tblKeywords_Products.Where(e => e.tblProducts.IsConfirmed)
                                                                                                                             .IfThenElse(d.tblSectionProductKeyword.OrderBy==tblSectionProductKeywordOrderByEnum.Newest, e => e.OrderByDescending(e => e.tblProducts.Date), null)
@@ -532,7 +532,7 @@ namespace PrancaBeauty.Application.Apps.Showcases
                                                                                                                                               + f.tblFiles.tblFilePaths.tblFileServer.HttpPath
                                                                                                                                               + f.tblFiles.tblFilePaths.Path
                                                                                                                                               + f.tblFiles.FileName
-                                                                                                                                }).First().ImgUrl,
+                                                                                                                                }).Select(e => e.ImgUrl).Take(2).ToArray()
                                                                                                                             }).ToList() : null
                                                                                                         }).ToList()
                                                                                 }).ToList()

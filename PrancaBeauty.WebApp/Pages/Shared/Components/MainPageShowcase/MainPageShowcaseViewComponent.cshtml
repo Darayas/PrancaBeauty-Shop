@@ -104,20 +104,24 @@
                 AddSectionFreeItems(item, HowToDisplayItems);
             }
 
-
+            @if (item.SectionType==TabSectionItemsEnum.Product)
+            {
+                AddSectionProductItems(item, HowToDisplayItems);
+            }
         }
     }
 
     private void AddSectionFreeItems(vmMainPageShowcase_SectionItem SectionItem, TabSectionHowToDisplayEnum HowToDisplayItems)
     {
-        @if (HowToDisplayItems==TabSectionHowToDisplayEnum.FreeItem1)
+        var FreeItem = SectionItem.FreeItem;
+        if (HowToDisplayItems==TabSectionHowToDisplayEnum.FreeItem1)
         {
-            <div class="single_slider" data-bgimg="@SectionItem.FreeItem.ImgUrl">
+            <div class="single_slider" data-bgimg="@FreeItem.ImgUrl">
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
                             <div class="slider_content">
-                                @Html.Raw(@SectionItem.FreeItem.HtmlText)
+                                @Html.Raw(@FreeItem.HtmlText)
                             </div>
                         </div>
                     </div>
@@ -125,34 +129,166 @@
             </div>
         }
 
-        @if (HowToDisplayItems==TabSectionHowToDisplayEnum.FreeItem2)
+        if (HowToDisplayItems==TabSectionHowToDisplayEnum.FreeItem2)
         {
             <div class="single_banner">
                 <div class="banner_thumb">
-                    <a href="@SectionItem.FreeItem.Url"><img src="@SectionItem.FreeItem.ImgUrl" alt="@SectionItem.FreeItem.Title"></a>
+                    <a href="@FreeItem.Url"><img src="@FreeItem.ImgUrl" alt="@FreeItem.Title"></a>
                 </div>
                 <div class="banner_text">
-                    <h3>@SectionItem.FreeItem.Title</h3>
-                    <p>@Html.Raw(SectionItem.FreeItem.HtmlText)</p>
+                    <h3>@FreeItem.Title</h3>
+                    <p>@Html.Raw(FreeItem.HtmlText)</p>
                 </div>
             </div>
         }
 
-        @if (HowToDisplayItems==TabSectionHowToDisplayEnum.FreeItem3)
+        if (HowToDisplayItems==TabSectionHowToDisplayEnum.FreeItem3)
         {
-            <div class="banner_static_right2">
-                <div class="banner_static_content">
-                    <h3>Bonique deals</h3>
-                    <h2>Model Skin Care <br> Essentials</h2>
-                    <a href="shop.html">+ Shop Now</a>
+            <div class="single_banner">
+                <div class="banner_text">
+                    <h3>@FreeItem.Title</h3>
+                    <p>@Html.Raw(FreeItem.HtmlText)</p>
                 </div>
-                <div class="banner_static_thumb2">
-                    <a href="shop.html"><img src="assets/img/bg/banner12.jpg" alt=""></a>
+                <div class="banner_thumb">
+                    <a href="@FreeItem.Url"><img src="@FreeItem.ImgUrl" alt="@FreeItem.Title"></a>
+                </div>
+            </div>
+        }
+
+        if (HowToDisplayItems==TabSectionHowToDisplayEnum.FreeItem4)
+        {
+            <div class="FreeItem4 single_testimonial">
+                <div class="testimonial_thumb">
+                    <img src="@FreeItem.ImgUrl" alt="@FreeItem.Title">
+                </div>
+                <div class="testimonial_content">
+                    <h3>@FreeItem.Title</h3>
+                    <p>@Html.Raw(FreeItem.HtmlText)</p>
+                </div>
+            </div>
+        }
+
+        if (HowToDisplayItems==TabSectionHowToDisplayEnum.FreeItem5)
+        {
+            <div class="FreeItem5 single_testimonial">
+                <div class="testimonial_content">
+                    <h3>@FreeItem.Title</h3>
+                    <p>@Html.Raw(FreeItem.HtmlText)</p>
+                </div>
+                <div class="testimonial_thumb">
+                    <img src="@FreeItem.ImgUrl" alt="@FreeItem.Title">
+                </div>
+            </div>
+        }
+
+        if (HowToDisplayItems==TabSectionHowToDisplayEnum.FreeItem6)
+        {
+            <div class="FreeItem6 align-items-center">
+                <div class="banner_thumb static_b_thumb">
+                    <a href="@FreeItem.Url"><img src="@FreeItem.ImgUrl" alt="@FreeItem.Title"></a>
+                </div>
+                <div class="banner_static_content">
+                    <h3>@FreeItem.Title</h3>
+                    <p>@Html.Raw(FreeItem.HtmlText)</p>
+                </div>
+            </div>
+        }
+
+        if (HowToDisplayItems==TabSectionHowToDisplayEnum.FreeItem7)
+        {
+            <div class="FreeItem7 align-items-center">
+                <div class="banner_static_content">
+                    <h3>@FreeItem.Title</h3>
+                    <p>@Html.Raw(FreeItem.HtmlText)</p>
+                </div>
+                <div class="banner_thumb static_b_thumb">
+                    <a href="@FreeItem.Url"><img src="@FreeItem.ImgUrl" alt="@FreeItem.Title"></a>
+                </div>
+            </div>
+        }
+
+        if (HowToDisplayItems==TabSectionHowToDisplayEnum.FreeItem8)
+        {
+            <div class="FreeItem8 align-items-center">
+                <div class="banner_thumb static_b_thumb">
+                    <a href="@FreeItem.Url"><img src="@FreeItem.ImgUrl" alt="@FreeItem.Title"></a>
+                </div>
+                <div class="banner_static_content">
+                    <h3>@FreeItem.Title</h3>
+                    <p>@Html.Raw(FreeItem.HtmlText)</p>
+                </div>
+            </div>
+        }
+
+        if (HowToDisplayItems==TabSectionHowToDisplayEnum.FreeItem9)
+        {
+            <div class="FreeItem9 align-items-center">
+                <div class="banner_static_content">
+                    <h3>@FreeItem.Title</h3>
+                    <p>@Html.Raw(FreeItem.HtmlText)</p>
+                </div>
+                <div class="banner_thumb static_b_thumb">
+                    <a href="@FreeItem.Url"><img src="@FreeItem.ImgUrl" alt="@FreeItem.Title"></a>
                 </div>
             </div>
         }
     }
 
+    private void AddSectionProductItems(vmMainPageShowcase_SectionItem SectionItem, TabSectionHowToDisplayEnum HowToDisplayItems)
+    {
+        var ProductItem = SectionItem.ProductItem;
+        if (HowToDisplayItems==TabSectionHowToDisplayEnum.DefaultProduct)
+        {
+            <div class="single_product">
+                <div class="product_thumb">
+                    <a class="primary_img" href="/@ViewData["culture"]/Product/@ProductItem.Name">
+                        <img src="@ProductItem.ImgUrl[0]" alt="@ProductItem.Title">
+                    </a>
+                    @if (ProductItem.ImgUrl.Count()>1)
+                    {
+                        <a class="secondary_img" href="/@ViewData["culture"]/Product/@ProductItem.Name">
+                            <img src="@ProductItem.ImgUrl[1]" alt="">
+                        </a>
+                    }
+                    <div class="label_product">
+                        <span class="label_sale">-15%</span>
+                    </div>
+                    <div class="action_links">
+                        <ul>
+                            <li class="wishlist">
+                                <a href="wishlist.html" title="Add to Wishlist"><i class="icon-heart icons"></i></a>
+                            </li>
+                            <li class="compare">
+                                <a href="#" title="Add to Compare">
+                                    <i class="icon-refresh icons"></i>
+                                </a>
+                            </li>
+                            <li class="quick_button">
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#modal_box" title="quick view">
+                                    <i class="icon-magnifier-add icons"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="product_content">
+                    <h4 class="product_name">
+                        <a href="product-details.html">
+                            Juicy Couture Juicy
+                            Quilted Terry Track
+                        </a>
+                    </h4>
+                    <div class="price_box">
+                        <span class="old_price">$235.00</span>
+                        <span class="current_price">$30.00</span>
+                    </div>
+                    <div class="add_to_cart">
+                        <a href="cart.html">+ Add to cart</a>
+                    </div>
+                </div>
+            </div>
+        }
+    }
 }
 
         @*<div class=@(SectionItem.SectionType!=TabSectionItemsEnum.FreeItem?"single_product":"")>*@

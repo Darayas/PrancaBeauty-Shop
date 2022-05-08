@@ -64,7 +64,7 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewModel
     public class vmMainPageShowcase_SectionProductItem
     {
         public string Id { get; set; }
-        public string ImgUrl { get; set; }
+        public string[] ImgUrl { get; set; }
         public string Name { get; set; }
         public string Title { get; set; }
         public double MainPrice { get; set; } // قیمت اصلی که از طرف نویسنده تعیین شده است

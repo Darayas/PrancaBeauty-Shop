@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Framework.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using PrancaBeauty.WebApp.Common.ExMethod;
 using PrancaBeauty.WebApp.Localization;
 
 namespace PrancaBeauty.WebApp.Pages.Home
@@ -16,9 +17,11 @@ namespace PrancaBeauty.WebApp.Pages.Home
         {
             _Logger = logger;
         }
-        public void OnGet()
+        public async Task<IActionResult> OnGetAsync(string LangId)
         {
-            
+            ViewData["LangId"]= LangId;
+            ViewData["CountryId"]= User.GetUserDetails
+            return Page();
         }
     }
 }

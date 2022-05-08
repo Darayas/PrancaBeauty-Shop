@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace PrancaBeauty.WebApp.Fillters
 {
-    public class FillLangIdParametrFilter : IAsyncPageFilter
+    public class FillRegoinParametrsFilter : IAsyncPageFilter
     {
         public async Task OnPageHandlerExecutionAsync(PageHandlerExecutingContext context, PageHandlerExecutionDelegate next)
         {
@@ -18,6 +18,7 @@ namespace PrancaBeauty.WebApp.Fillters
             string LangCode = CultureInfo.CurrentCulture.Name;
 
             var LangId = await _LanguageApplication.GetLangIdByLangCodeAsync(new InpGetLangIdByLangCode { Code= LangCode });
+            var CountryId = await _LanguageApplication.GetLangIdByLangCodeAsync(new InpGetLangIdByLangCode { Code= LangCode });
 
             context.HandlerArguments.Add("LangId", LangId);
 

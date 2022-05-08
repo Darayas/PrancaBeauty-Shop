@@ -109,6 +109,7 @@ namespace PrancaBeauty.Application.Apps.Languages
                                                          {
                                                              Id = a.Id.ToString(),
                                                              CountryId = a.CountryId.ToString(),
+                                                             CurrencyId= a.tblCountries.tblCurrencies.Where(b => b.IsDefault).Select(b => b.Id.ToString()).Single(),
                                                              Abbr = a.Abbr,
                                                              Code = a.Code,
                                                              IsRtl = a.IsRtl,
@@ -159,6 +160,34 @@ namespace PrancaBeauty.Application.Apps.Languages
             return SiteLangCache
                          .Where(a => a.Code == Input.Code)
                          .Select(a => a.Id)
+                         .SingleOrDefault();
+        }
+
+        public async Task<string> GetCountryIdIdByLangCodeAsync(InpGetLangIdByLangCode Input)
+        {
+            #region Validations
+            Input.CheckModelState(_ServiceProvider);
+            #endregion
+
+            await LoadCacheAsync();
+
+            return SiteLangCache
+                         .Where(a => a.Code == Input.Code)
+                         .Select(a => a.CountryId)
+                         .SingleOrDefault();
+        }
+
+        public async Task<string> GetCurrencyIdByLangCodeAsync(InpGetLangIdByLangCode Input)
+        {
+            #region Validations
+            Input.CheckModelState(_ServiceProvider);
+            #endregion
+
+            await LoadCacheAsync();
+
+            return SiteLangCache
+                         .Where(a => a.Code == Input.Code)
+                         .Select(a => a.CurrencyId)
                          .SingleOrDefault();
         }
 

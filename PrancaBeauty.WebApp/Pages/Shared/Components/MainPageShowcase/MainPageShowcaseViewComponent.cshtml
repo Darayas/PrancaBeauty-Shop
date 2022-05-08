@@ -82,12 +82,9 @@
                                 }
                                 else
                                     AddSectionItems(itemTabSection.LstSectionItem, false, itemTabSection.CountInSection, itemTabSection.HowToDisplayItems);
-
                             }
-
                         }
                     }
-
                 </div>
             }
         </div>
@@ -247,48 +244,58 @@
                     @if (ProductItem.ImgUrl.Count()>1)
                     {
                         <a class="secondary_img" href="/@ViewData["culture"]/Product/@ProductItem.Name">
-                            <img src="@ProductItem.ImgUrl[1]" alt="">
+                            <img src="@ProductItem.ImgUrl[1]" alt="@ProductItem.Title">
                         </a>
                     }
-                    <div class="label_product">
-                        <span class="label_sale">-15%</span>
-                    </div>
+                    @if (ProductItem.PercentSavePrice>0)
+                    {
+                        <div class="label_product">
+                            <span class="label_sale">-@(ProductItem.PercentSavePrice)%</span>
+                        </div>
+                    }
                     <div class="action_links">
                         <ul>
                             <li class="wishlist">
-                                <a href="wishlist.html" title="Add to Wishlist"><i class="icon-heart icons"></i></a>
+                                <a onclick="AddToWishlist('@ProductItem.Id')" title="@Localizer["AddToWishlist"]"><i class="icon-heart icons"></i></a>
                             </li>
                             <li class="compare">
-                                <a href="#" title="Add to Compare">
+                                <a onclick="AddToCompare('@ProductItem.Id')" title="AddToCompare">
                                     <i class="icon-refresh icons"></i>
                                 </a>
                             </li>
-                            <li class="quick_button">
+                            @*<li class="quick_button">
                                 <a href="#" data-bs-toggle="modal" data-bs-target="#modal_box" title="quick view">
-                                    <i class="icon-magnifier-add icons"></i>
+                                <i class="icon-magnifier-add icons"></i>
                                 </a>
-                            </li>
+                                </li>*@
                         </ul>
                     </div>
                 </div>
                 <div class="product_content">
                     <h4 class="product_name">
-                        <a href="product-details.html">
-                            Juicy Couture Juicy
-                            Quilted Terry Track
+                        <a href="/@ViewData["culture"]/Product/@ProductItem.Name">
+                            @ProductItem.Title
                         </a>
                     </h4>
                     <div class="price_box">
-                        <span class="old_price">$235.00</span>
-                        <span class="current_price">$30.00</span>
+                        @{
+                            double Price = ProductItem.MainPrice + ((ProductItem.MainPrice/100) * ProductItem.PercentSavePrice);
+                            if (ProductItem.PercentSavePrice>0)
+                            {
+                                <span class="old_price">
+                                    @Price
+                                </span>
+                            }
+                            <span class="current_price">
+                                @(Price - ((Price / 100) * ProductItem.PercentSavePrice))
+                            </span>
+                        }
                     </div>
                     <div class="add_to_cart">
-                        <a href="cart.html">+ Add to cart</a>
+                        <a onclick="AddToCart('@ProductItem.Id')">@Localizer["AddToCart"]</a>
                     </div>
                 </div>
             </div>
         }
     }
 }
-
-        @*<div class=@(SectionItem.SectionType!=TabSectionItemsEnum.FreeItem?"single_product":"")>*@

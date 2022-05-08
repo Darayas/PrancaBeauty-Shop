@@ -234,6 +234,9 @@
   <data name="AddToCart" xml:space="preserve">
     <value>افزودن به سبد خرید</value>
   </data>
+  <data name="AddToCompare" xml:space="preserve">
+    <value>مقایسه</value>
+  </data>
   <data name="AddToWishlist" xml:space="preserve">
     <value>افزودن به علاقه مندی</value>
   </data>

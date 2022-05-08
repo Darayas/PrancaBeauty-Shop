@@ -57,7 +57,7 @@ namespace PrancaBeauty.WebApp.Config
         {
             return mvcBuilder.AddMvcOptions(opt =>
             {
-                opt.Filters.Add(new FillLangIdParametrFilter());
+                opt.Filters.Add(new FillRegoinParametrsFilter());
             });
         }
 

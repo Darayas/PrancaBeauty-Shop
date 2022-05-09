@@ -17,10 +17,11 @@ namespace PrancaBeauty.WebApp.Pages.Home
         {
             _Logger = logger;
         }
-        public async Task<IActionResult> OnGetAsync(string LangId)
+        public async Task<IActionResult> OnGetAsync(string LangId, string CountryId, string CurrencyId)
         {
             ViewData["LangId"]= LangId;
-            ViewData["CountryId"]= User.GetUserDetails
+            ViewData["CountryId"]= CountryId;
+            ViewData["CurrencyId"]= CurrencyId;
             return Page();
         }
     }

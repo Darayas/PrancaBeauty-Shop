@@ -163,7 +163,7 @@ namespace PrancaBeauty.Application.Apps.Languages
                          .SingleOrDefault();
         }
 
-        public async Task<string> GetCountryIdIdByLangCodeAsync(InpGetLangIdByLangCode Input)
+        public async Task<string> GetCountryIdByLangCodeAsync(InpGetCountryIdByLangCode Input)
         {
             #region Validations
             Input.CheckModelState(_ServiceProvider);
@@ -177,7 +177,7 @@ namespace PrancaBeauty.Application.Apps.Languages
                          .SingleOrDefault();
         }
 
-        public async Task<string> GetCurrencyIdByLangCodeAsync(InpGetLangIdByLangCode Input)
+        public async Task<string> GetCurrencyIdByLangCodeAsync(InpGetCurrencyIdByLangCode Input)
         {
             #region Validations
             Input.CheckModelState(_ServiceProvider);

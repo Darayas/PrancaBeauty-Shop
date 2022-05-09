@@ -1,5 +1,6 @@
 ﻿using Framework.Common.ExMethods;
 using Framework.Common.Utilities.Paging;
+using Framework.Domain.Enums;
 using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
@@ -90,13 +91,17 @@ namespace PrancaBeauty.Application.Apps.SectionItems
                 {
                     var _Result = await CheckTabSectionTypeAsync(Input.ShowcaseTabSectionId, TabSectionItemsEnum.FreeItem);
                     if (_Result.IsSucceeded==false)
+                    {
                         return new OperationResult().Failed(_Result.Message);
+                    }
                 }
                 #endregion
 
                 #region Check duplicate name
                 if (await _ShowcaseTabSectionItemRepository.Get.Where(a => a.tblSectionFreeItems.tblShowcaseTabSectionItems.TabSectionId==Input.ShowcaseTabSectionId.ToGuid()).AnyAsync(a => a.tblSectionFreeItems.Name==Input.Name))
+                {
                     return new OperationResult().Failed("NameIsDuplicated");
+                }
 
                 #endregion
 
@@ -108,7 +113,9 @@ namespace PrancaBeauty.Application.Apps.SectionItems
                                                                     .Where(Title => Input.LstTranslate.Where(b => b.Title==Title).Any())
                                                                     .Any();
                 if (HasDuplicateTitle)
+                {
                     return new OperationResult().Failed("TitleLangIsDuplicate");
+                }
                 #endregion
 
                 #region Get sort num
@@ -173,13 +180,17 @@ namespace PrancaBeauty.Application.Apps.SectionItems
                 {
                     var _Result = await CheckTabSectionTypeAsync(Input.ShowcaseTabSectionId, TabSectionItemsEnum.Product);
                     if (_Result.IsSucceeded==false)
+                    {
                         return new OperationResult().Failed(_Result.Message);
+                    }
                 }
                 #endregion
 
                 #region Check duplicate productId
                 if (await _ShowcaseTabSectionItemRepository.Get.Where(a => a.tblSectionFreeItems.tblShowcaseTabSectionItems.TabSectionId==Input.ShowcaseTabSectionId.ToGuid()).AnyAsync(a => a.tblSectionProducts.ProductId==Input.ProductId.ToGuid()))
+                {
                     return new OperationResult().Failed("ProductIsDuplicated");
+                }
 
                 #endregion
 
@@ -236,13 +247,17 @@ namespace PrancaBeauty.Application.Apps.SectionItems
                 {
                     var _Result = await CheckTabSectionTypeAsync(Input.ShowcaseTabSectionId, TabSectionItemsEnum.Category);
                     if (_Result.IsSucceeded==false)
+                    {
                         return new OperationResult().Failed(_Result.Message);
+                    }
                 }
                 #endregion
 
                 #region Check Has Category
                 if (await _ShowcaseTabSectionItemRepository.Get.Where(a => a.TabSectionId==Input.ShowcaseTabSectionId.ToGuid()).AnyAsync(a => a.SectionType==TabSectionItemsEnum.Category))
+                {
                     return new OperationResult().Failed("InCategorySectionType,YouAreAllowedAddOneItem");
+                }
 
                 #endregion
 
@@ -301,13 +316,17 @@ namespace PrancaBeauty.Application.Apps.SectionItems
                 {
                     var _Result = await CheckTabSectionTypeAsync(Input.ShowcaseTabSectionId, TabSectionItemsEnum.Keyword);
                     if (_Result.IsSucceeded==false)
+                    {
                         return new OperationResult().Failed(_Result.Message);
+                    }
                 }
                 #endregion
 
                 #region Check Has Keyword
                 if (await _ShowcaseTabSectionItemRepository.Get.Where(a => a.TabSectionId==Input.ShowcaseTabSectionId.ToGuid()).AnyAsync(a => a.SectionType==TabSectionItemsEnum.Keyword))
+                {
                     return new OperationResult().Failed("InKeywordSectionType,YouAreAllowedAddOneItem");
+                }
 
                 #endregion
 
@@ -361,8 +380,12 @@ namespace PrancaBeauty.Application.Apps.SectionItems
                                     .FirstOrDefaultAsync();
 
             if (qData!=null)
+            {
                 if (qData.SectionType!=SectionType)
+                {
                     return new OperationResult().Failed(_Localizer["CantAddSectionItem, SectionTypeCanBe", _Localizer[qData.SectionType.ToString()]]);
+                }
+            }
 
             return new OperationResult().Succeeded();
         }
@@ -379,7 +402,9 @@ namespace PrancaBeauty.Application.Apps.SectionItems
                 var qListSlide = await _ShowcaseTabSectionItemRepository.Get.Where(a => a.TabSectionId==Input.TabSectionId.ToGuid()).OrderBy(a => a.Sort).ToListAsync();
                 var qCurrentItem = qListSlide.Where(a => a.Id==Input.Id.ToGuid()).SingleOrDefault();
                 if (qCurrentItem==null)
+                {
                     return new OperationResult().Failed("IdNotFound");
+                }
 
                 int IndexOfCurrentItem = qListSlide.IndexOf(qCurrentItem);
 
@@ -444,7 +469,9 @@ namespace PrancaBeauty.Application.Apps.SectionItems
                                                      .SingleOrDefaultAsync();
 
                 if (qData==null)
+                {
                     return new OperationResult().Failed("IdNotFound");
+                }
 
                 await _ShowcaseTabSectionItemRepository.DeleteAsync(qData, default, true);
                 return new OperationResult().Succeeded();
@@ -488,7 +515,9 @@ namespace PrancaBeauty.Application.Apps.SectionItems
                                                 .SingleOrDefaultAsync();
 
                 if (qData==null)
+                {
                     return null;
+                }
 
                 return qData;
             }
@@ -518,12 +547,16 @@ namespace PrancaBeauty.Application.Apps.SectionItems
                                         .SingleOrDefaultAsync();
 
                 if (qTabSectionItem==null)
+                {
                     return new OperationResult().Failed("IdNotFound");
+                }
                 #endregion
 
                 #region Check duplicate name
                 if (await _ShowcaseTabSectionItemRepository.Get.Where(a => a.tblSectionFreeItems.tblShowcaseTabSectionItems.TabSectionId==qTabSectionItem.TabSectionId).Where(a => a.Id!=Input.SectionItemId.ToGuid()).AnyAsync(a => a.tblSectionFreeItems.Name==Input.Name))
+                {
                     return new OperationResult().Failed("NameIsDuplicated");
+                }
 
                 #endregion
 
@@ -536,7 +569,9 @@ namespace PrancaBeauty.Application.Apps.SectionItems
                                                                     .Where(Title => Input.LstTranslate.Where(b => b.Title==Title).Any())
                                                                     .Any();
                 if (HasDuplicateTitle)
+                {
                     return new OperationResult().Failed("TitleLangIsDuplicate");
+                }
                 #endregion
 
                 #region Remove Section Item
@@ -605,7 +640,9 @@ namespace PrancaBeauty.Application.Apps.SectionItems
                                                 .SingleOrDefaultAsync();
 
                 if (qData==null)
+                {
                     return null;
+                }
 
                 return qData;
             }
@@ -635,12 +672,16 @@ namespace PrancaBeauty.Application.Apps.SectionItems
                                                     .SingleOrDefaultAsync();
 
                 if (qTabSectionItem==null)
+                {
                     return new OperationResult().Failed("IdNotFound");
+                }
                 #endregion
 
                 #region Check duplicate name
                 if (await _ShowcaseTabSectionItemRepository.Get.Where(a => a.tblSectionFreeItems.tblShowcaseTabSectionItems.TabSectionId==qTabSectionItem.TabSectionId).Where(a => a.Id!=Input.SectionItemId.ToGuid()).AnyAsync(a => a.tblSectionProducts.ProductId==Input.ProductId.ToGuid()))
+                {
                     return new OperationResult().Failed("NameIsDuplicated");
+                }
 
                 #endregion
 
@@ -703,7 +744,9 @@ namespace PrancaBeauty.Application.Apps.SectionItems
                                                .SingleOrDefaultAsync();
 
                 if (qData==null)
+                {
                     return null;
+                }
 
                 return qData;
             }
@@ -733,12 +776,16 @@ namespace PrancaBeauty.Application.Apps.SectionItems
                                                     .SingleOrDefaultAsync();
 
                 if (qTabSectionItem==null)
+                {
                     return new OperationResult().Failed("IdNotFound");
+                }
                 #endregion
 
                 #region Check duplicate name
                 if (await _ShowcaseTabSectionItemRepository.Get.Where(a => a.tblSectionFreeItems.tblShowcaseTabSectionItems.TabSectionId==qTabSectionItem.TabSectionId).Where(a => a.Id!=Input.SectionItemId.ToGuid()).AnyAsync(a => a.tblSectionProductCategory.CategoryId==Input.CategoryId.ToGuid()))
+                {
                     return new OperationResult().Failed("NameIsDuplicated");
+                }
 
                 #endregion
 
@@ -803,7 +850,9 @@ namespace PrancaBeauty.Application.Apps.SectionItems
                                                .SingleOrDefaultAsync();
 
                 if (qData==null)
+                {
                     return null;
+                }
 
                 return qData;
             }
@@ -833,12 +882,16 @@ namespace PrancaBeauty.Application.Apps.SectionItems
                                                     .SingleOrDefaultAsync();
 
                 if (qTabSectionItem==null)
+                {
                     return new OperationResult().Failed("IdNotFound");
+                }
                 #endregion
 
                 #region Check duplicate name
                 if (await _ShowcaseTabSectionItemRepository.Get.Where(a => a.tblSectionFreeItems.tblShowcaseTabSectionItems.TabSectionId==qTabSectionItem.TabSectionId).Where(a => a.Id!=Input.SectionItemId.ToGuid()).AnyAsync(a => a.tblSectionProductKeyword.KeywordId==Input.KeywordId.ToGuid()))
+                {
                     return new OperationResult().Failed("NameIsDuplicated");
+                }
 
                 #endregion
 

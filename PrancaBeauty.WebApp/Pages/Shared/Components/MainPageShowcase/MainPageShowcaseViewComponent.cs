@@ -1,22 +1,22 @@
 ﻿using AutoMapper;
 using Framework.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
-using System;
 using PrancaBeauty.Application.Apps.Showcases;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.Showcase;
-using PrancaBeauty.Application.Contracts.PresentationDTO.ViewModel;
-using System.Collections.Generic;
 using PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput;
+using PrancaBeauty.Application.Contracts.PresentationDTO.ViewModel;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace PrancaBeauty.WebApp.Pages.Shared.Components.MainPageShowcase
 {
-    public class MainPageShowcaseViewComponenet : ViewComponent
+    public class MainPageShowcaseViewComponent : ViewComponent
     {
         private readonly ILogger _Logger;
         private readonly IMapper _Mapper;
         private readonly IShowcaseApplication _ShowcaseApplication;
-        public MainPageShowcaseViewComponenet(ILogger logger, IMapper mapper, IShowcaseApplication ShowcaseApplication)
+        public MainPageShowcaseViewComponent(ILogger logger, IMapper mapper, IShowcaseApplication ShowcaseApplication)
         {
             _Logger=logger;
             _Mapper=mapper;
@@ -35,7 +35,9 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.MainPageShowcase
                 });
 
                 if (qData== null)
+                {
                     return default;
+                }
 
                 var _MappedData = _Mapper.Map<List<vmMainPageShowcase>>(qData);
 

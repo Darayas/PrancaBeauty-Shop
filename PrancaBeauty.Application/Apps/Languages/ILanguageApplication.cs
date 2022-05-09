@@ -12,7 +12,9 @@ namespace PrancaBeauty.Application.Apps.Languages
         Task<string> GetAbbrByCodeAsync(InpGetAbbrByCode Input);
         Task<List<OutSiteLangCache>> GetAllLanguageForSiteLangAsync();
         Task<string> GetCodeByAbbrAsync(InpGetCodeByAbbr Input);
+        Task<string> GetCountryIdByLangCodeAsync(InpGetCountryIdByLangCode Input);
         Task<string> GetCountryIdByLangIdAsync(InpGetCountryIdByLangId Input);
+        Task<string> GetCurrencyIdByLangCodeAsync(InpGetCurrencyIdByLangCode Input);
         Task<string> GetDirectionByCodeAsync(InpGetDirectionByCode Input);
         Task<string> GetFlagUrlByCodeAsync(InpGetFlagUrlByCode Input);
         Task<OutSiteLangCache> GetLangDetailsByIdAsync(InpGetLangDetailsById Input);

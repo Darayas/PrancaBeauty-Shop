@@ -445,7 +445,6 @@ namespace PrancaBeauty.Application.Apps.Showcases
                                                             StartDate=b.StartDate,
                                                             EndDate=b.EndDate,
                                                             LstTabSection = b.tblShowcaseTabSections
-                                                                                .Where(c => c.tblShowcaseTabSectionItems.Count()>0)
                                                                                 .Select(c => new OutGetItemsForMainPageShowcase_TabSection
                                                                                 {
                                                                                     Id=c.Id.ToString(),

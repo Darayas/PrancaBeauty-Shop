@@ -31133,3 +31133,13 @@ pre {
   border-radius: 5px;
   width: 100%;
 }
+
+.Showcase {
+  padding: 100px 0;
+}
+.Showcase .freeItem {
+  margin-bottom: 30px;
+}
+.Showcase .freeItem .banner_thumb a img {
+  width: 100%;
+}

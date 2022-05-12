@@ -328,3 +328,20 @@ pre {
     border-radius: 5px;
     width: 100%;
 }
+
+
+.Showcase {
+    padding: 100px 0;
+
+    .freeItem {
+        margin-bottom: 30px;
+
+        .banner_thumb {
+            a {
+                img {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}

@@ -5,7 +5,7 @@
     int ShowcaseCount = 0;
     foreach (var itemShowcase in Model.Where(a => a.LstTabs.Any()))
     {
-        <div class="@itemShowcase.CssClass" style="background-color:@itemShowcase.BackgroundColorCode;@itemShowcase.CssStyle">
+        <div class="Showcase @itemShowcase.CssClass" style="background-color:@itemShowcase.BackgroundColorCode;@itemShowcase.CssStyle">
             <div class="@(itemShowcase.IsFullWidth?"container-fluid":"container")">
                 <div class="row">
                     <div class="col-12">
@@ -40,11 +40,9 @@
                                 foreach (var itemTab in itemShowcase.LstTabs.Where(a => a.LstTabSection.Any()))
                                 {
                                     <div class="tab-pane fade @(itemShowcase.LstTabs.IndexOf(itemTab)==0?"show active":"")" style="background-color:@itemTab.BackgroundColorCode" id="TabItem@(ShowcaseCount)@(CounterTabItem)" role="tabpanel">
-                                        <div class=row>
-                                            @{
-                                                AddTabSection(itemTab.LstTabSection);
-                                            }
-                                        </div>
+                                        @{
+                                            AddTabSection(itemTab.LstTabSection);
+                                        }
                                     </div>
 
                                     CounterTabItem++;
@@ -115,7 +113,7 @@
         var FreeItem = SectionItem.FreeItem;
         if (HowToDisplayItems==TabSectionHowToDisplayEnum.FreeItem1)
         {
-            <div class="single_slider" data-bgimg="@FreeItem.ImgUrl">
+            <div class="freeItem FreeItem1" data-bgimg="@FreeItem.ImgUrl">
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
@@ -130,7 +128,7 @@
 
         if (HowToDisplayItems==TabSectionHowToDisplayEnum.FreeItem2)
         {
-            <div class="single_banner">
+            <div class="freeItem FreeItem2">
                 <div class="banner_thumb">
                     <a href="@FreeItem.Url"><img src="@FreeItem.ImgUrl" alt="@FreeItem.Title"></a>
                 </div>
@@ -143,7 +141,7 @@
 
         if (HowToDisplayItems==TabSectionHowToDisplayEnum.FreeItem3)
         {
-            <div class="single_banner">
+            <div class="freeItem FreeItem3">
                 <div class="banner_text">
                     <h3>@FreeItem.Title</h3>
                     <p>@Html.Raw(FreeItem.HtmlText)</p>
@@ -156,7 +154,7 @@
 
         if (HowToDisplayItems==TabSectionHowToDisplayEnum.FreeItem4)
         {
-            <div class="FreeItem4 single_testimonial">
+            <div class="freeItem FreeItem4">
                 <div class="testimonial_thumb">
                     <img src="@FreeItem.ImgUrl" alt="@FreeItem.Title">
                 </div>
@@ -169,7 +167,7 @@
 
         if (HowToDisplayItems==TabSectionHowToDisplayEnum.FreeItem5)
         {
-            <div class="FreeItem5 single_testimonial">
+            <div class="freeItem FreeItem5">
                 <div class="testimonial_content">
                     <h3>@FreeItem.Title</h3>
                     <p>@Html.Raw(FreeItem.HtmlText)</p>
@@ -182,7 +180,7 @@
 
         if (HowToDisplayItems==TabSectionHowToDisplayEnum.FreeItem6)
         {
-            <div class="FreeItem6 align-items-center">
+            <div class="freeItem FreeItem6">
                 <div class="banner_thumb static_b_thumb">
                     <a href="@FreeItem.Url"><img src="@FreeItem.ImgUrl" alt="@FreeItem.Title"></a>
                 </div>
@@ -195,7 +193,7 @@
 
         if (HowToDisplayItems==TabSectionHowToDisplayEnum.FreeItem7)
         {
-            <div class="FreeItem7 align-items-center">
+            <div class="freeItem FreeItem7">
                 <div class="banner_static_content">
                     <h3>@FreeItem.Title</h3>
                     <p>@Html.Raw(FreeItem.HtmlText)</p>
@@ -208,7 +206,7 @@
 
         if (HowToDisplayItems==TabSectionHowToDisplayEnum.FreeItem8)
         {
-            <div class="FreeItem8 align-items-center">
+            <div class="freeItem FreeItem8">
                 <div class="banner_thumb static_b_thumb">
                     <a href="@FreeItem.Url"><img src="@FreeItem.ImgUrl" alt="@FreeItem.Title"></a>
                 </div>
@@ -221,7 +219,7 @@
 
         if (HowToDisplayItems==TabSectionHowToDisplayEnum.FreeItem9)
         {
-            <div class="FreeItem9 align-items-center">
+            <div class="freeItem FreeItem9">
                 <div class="banner_static_content">
                     <h3>@FreeItem.Title</h3>
                     <p>@Html.Raw(FreeItem.HtmlText)</p>

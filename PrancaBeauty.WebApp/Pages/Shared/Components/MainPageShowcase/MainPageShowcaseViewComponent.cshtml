@@ -92,19 +92,42 @@
 
     private void AddSectionItems(IEnumerable<vmMainPageShowcase_SectionItem> SectionItems, bool IsSlider, int CountInSection, TabSectionHowToDisplayEnum HowToDisplayItems)
     {
-
-        @foreach (var item in SectionItems.IfThenElse(!IsSlider, a => a.Take(CountInSection)))
+        if (!IsSlider)
         {
-
-            @if (item.SectionType==TabSectionItemsEnum.FreeItem)
+            @Html.Raw("<div class=row>")
+        }
+        @foreach (var item in SectionItems)
+        {
+            if (!IsSlider)
             {
-                AddSectionFreeItems(item, HowToDisplayItems);
-            }
+                <div class="col-md-@(12 % CountInSection == 0? (12 / CountInSection): Math.Ceiling(12 / (double)CountInSection)) col-sm-12 col-xs-12">
+                    @if (item.SectionType==TabSectionItemsEnum.FreeItem)
+                    {
+                        AddSectionFreeItems(item, HowToDisplayItems);
+                    }
 
-            @if (item.SectionType==TabSectionItemsEnum.Product)
-            {
-                AddSectionProductItems(item, HowToDisplayItems);
+                    @if (item.SectionType==TabSectionItemsEnum.Product)
+                    {
+                        AddSectionProductItems(item, HowToDisplayItems);
+                    }
+                </div>
             }
+            else
+            {
+                @if (item.SectionType==TabSectionItemsEnum.FreeItem)
+                {
+                    AddSectionFreeItems(item, HowToDisplayItems);
+                }
+
+                @if (item.SectionType==TabSectionItemsEnum.Product)
+                {
+                    AddSectionProductItems(item, HowToDisplayItems);
+                }
+            }
+        }
+        if (!IsSlider)
+        {
+            @Html.Raw("</div>")
         }
     }
 
@@ -236,7 +259,7 @@
         var ProductItem = SectionItem.ProductItem;
         if (HowToDisplayItems==TabSectionHowToDisplayEnum.DefaultProduct)
         {
-            <div class="single_product">
+            <div class="ProductItem ProductItem1 single_product">
                 <div class="product_thumb">
                     <a class="primary_img" href="/@ViewData["culture"]/Product/@ProductItem.Name">
                         <img src="@ProductItem.ImgUrl[0]" alt="@ProductItem.Title">

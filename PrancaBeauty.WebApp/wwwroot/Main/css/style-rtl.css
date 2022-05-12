@@ -31140,6 +31140,20 @@ pre {
 .Showcase .freeItem {
   margin-bottom: 30px;
 }
+.Showcase .freeItem.FreeItem3 .banner_text {
+  margin-top: 0px !important;
+  margin-bottom: 15px !important;
+}
+.Showcase .freeItem .banner_text {
+  margin-top: 15px !important;
+}
+.Showcase .freeItem .banner_text h3 {
+  font-size: 20px;
+  font-weight: 500;
+}
 .Showcase .freeItem .banner_thumb a img {
   width: 100%;
+}
+.Showcase .ProductItem.ProductItem {
+  margin-bottom: 25px;
 }

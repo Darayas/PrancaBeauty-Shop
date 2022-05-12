@@ -63,7 +63,7 @@
     private void AddTabSection(IEnumerable<vmMainPageShowcase_TabSection> LstTabSection, string Id = null)
     {
         <div class=row>
-            @foreach (var itemTabSection in LstTabSection.Where(a => Id!=null ? a.ParentId==Id : true))
+            @foreach (var itemTabSection in LstTabSection.Where(a => a.ParentId == Id))
             {
                 <div class="col-xl-@itemTabSection.XlSize col-lg-@itemTabSection.LgSize col-md-@itemTabSection.MdSize col-sm-@itemTabSection.SmSize col-xs-@itemTabSection.XsSize">
 
@@ -77,7 +77,9 @@
                                 @if (itemTabSection.IsSlider)
                                 {
                                     <div class='product_carousel owl-carousel'>
-                                        AddSectionItems(itemTabSection.LstSectionItem, true, itemTabSection.CountInSection, itemTabSection.HowToDisplayItems);
+                                        @{
+                                            AddSectionItems(itemTabSection.LstSectionItem, true, itemTabSection.CountInSection, itemTabSection.HowToDisplayItems);
+                                        }
                                     </div>
                                 }
                                 else

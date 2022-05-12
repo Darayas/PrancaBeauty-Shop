@@ -26,6 +26,15 @@ namespace PrancaBeauty.Application.Contracts.Mapping
             CreateMap<OutGetListShowcaseForAdminPage, vmListShowcases>()
                                         .ForMember(a => a.StartDate, a => a.MapFrom(b =>  b.StartDate.ToString("yyyy/MM/dd HH:mm:ss")))
                                         .ForMember(a => a.EndDate, a => a.MapFrom(b => b.EndDate.HasValue ? b.EndDate.Value.ToString("yyyy/MM/dd HH:mm:ss") : ""));
+
+
+            // Get for mainPage
+            CreateMap<OutGetItemsForMainPageShowcase, vmMainPageShowcase>();
+            CreateMap<OutGetItemsForMainPageShowcase_Tab, vmMainPageShowcase_Tab>();
+            CreateMap<OutGetItemsForMainPageShowcase_TabSection, vmMainPageShowcase_TabSection>();
+            CreateMap<OutGetItemsForMainPageShowcase_SectionItem, vmMainPageShowcase_SectionItem>();
+            CreateMap<OutGetItemsForMainPageShowcase_SectionFreeItem, vmMainPageShowcasee_SectionFreeItem>();
+            CreateMap<OutGetItemsForMainPageShowcase_SectionProductItem, vmMainPageShowcase_SectionProductItem>();
         }
     }
 }

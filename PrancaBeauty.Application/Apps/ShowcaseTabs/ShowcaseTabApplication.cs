@@ -4,10 +4,7 @@ using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.Results;
-using PrancaBeauty.Application.Contracts.ApplicationDTO.Showcase;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.ShowcaseTab;
-using PrancaBeauty.Domin.Showcases.ShowcaseAgg.Contracts;
-using PrancaBeauty.Domin.Showcases.ShowcaseAgg.Entities;
 using PrancaBeauty.Domin.Showcases.ShowcaseTabAgg.Contracts;
 using PrancaBeauty.Domin.Showcases.ShowcaseTabAgg.Entities;
 using System;
@@ -79,17 +76,25 @@ namespace PrancaBeauty.Application.Apps.ShowcaseTabs
                 Input.CheckModelState(_ServiceProvider);
 
                 if (Input.StartDate==null)
+                {
                     Input.StartDate=DateTime.Now;
+                }
 
                 if (Input.EndDate.HasValue)
+                {
                     if (Input.StartDate >= Input.EndDate.Value)
+                    {
                         return new OperationResult().Failed("EndDateMustBeGreaterThanStartDate");
+                    }
+                }
                 #endregion
 
                 #region Check name duplicate
                 {
                     if (await _ShowcaseTabsRepository.Get.Where(a => a.ShowcaseId==Input.ShowcaseId.ToGuid()).AnyAsync(a => a.Name==Input.Name))
+                    {
                         return new OperationResult().Failed("NameIsDuplicate");
+                    }
                 }
                 #endregion
 
@@ -102,7 +107,9 @@ namespace PrancaBeauty.Application.Apps.ShowcaseTabs
                                                                     .Where(Title => Input.LstTranslate.Where(b => b.Title==Title).Any())
                                                                     .Any();
                     if (HasDuplicateTitle)
+                    {
                         return new OperationResult().Failed("TitleLangIsDuplicate");
+                    }
                 }
                 #endregion
 
@@ -165,7 +172,9 @@ namespace PrancaBeauty.Application.Apps.ShowcaseTabs
                 var qListShowcaseTab = await _ShowcaseTabsRepository.Get.Where(a => a.ShowcaseId==Input.ShowcaseId.ToGuid()).OrderBy(a => a.Sort).ToListAsync();
                 var qCurrentItem = qListShowcaseTab.Where(a => a.Id==Input.Id.ToGuid()).SingleOrDefault();
                 if (qCurrentItem==null)
+                {
                     return new OperationResult().Failed("IdNotFound");
+                }
 
                 int IndexOfCurrentItem = qListShowcaseTab.IndexOf(qCurrentItem);
 
@@ -234,10 +243,14 @@ namespace PrancaBeauty.Application.Apps.ShowcaseTabs
                                                      .SingleOrDefaultAsync();
 
                 if (qData==null)
+                {
                     return new OperationResult().Failed("IdNotFound");
+                }
 
                 if (qData.HasTabSection)
+                {
                     return new OperationResult().Failed("ShowCaseHasTabSection.PleaseRemove");
+                }
 
                 await _ShowcaseTabsRepository.DeleteAsync(qData.ShowcaseTab, default, true);
                 return new OperationResult().Succeeded();
@@ -283,7 +296,9 @@ namespace PrancaBeauty.Application.Apps.ShowcaseTabs
                                                 .SingleOrDefaultAsync();
 
                 if (qData==null)
+                {
                     return null;
+                }
 
                 return qData;
             }
@@ -307,11 +322,17 @@ namespace PrancaBeauty.Application.Apps.ShowcaseTabs
                 Input.CheckModelState(_ServiceProvider);
 
                 if (Input.StartDate==null)
+                {
                     Input.StartDate=DateTime.Now;
+                }
 
                 if (Input.EndDate.HasValue)
+                {
                     if (Input.StartDate >= Input.EndDate.Value)
+                    {
                         return new OperationResult().Failed("EndDateMustBeGreaterThanStartDate");
+                    }
+                }
                 #endregion
 
                 #region Check name duplicate
@@ -320,7 +341,9 @@ namespace PrancaBeauty.Application.Apps.ShowcaseTabs
                                         .Where(a => a.Id!=Input.Id.ToGuid())
                                         .Where(a => a.ShowcaseId==Input.ShowcaseId.ToGuid())
                                         .AnyAsync(a => a.Name==Input.Name))
+                    {
                         return new OperationResult().Failed("NameIsDuplicate");
+                    }
                 }
                 #endregion
 
@@ -334,7 +357,9 @@ namespace PrancaBeauty.Application.Apps.ShowcaseTabs
                                                                     .Where(Title => Input.LstTranslate.Where(b => b.Title==Title).Any())
                                                                     .Any();
                     if (HasDuplicateTitle)
+                    {
                         return new OperationResult().Failed("TitleLangIsDuplicate");
+                    }
                 }
                 #endregion
 
@@ -345,7 +370,9 @@ namespace PrancaBeauty.Application.Apps.ShowcaseTabs
                                             .SingleOrDefaultAsync();
 
                     if (qData==null)
+                    {
                         return new OperationResult().Failed("IdNotFound");
+                    }
 
                     qData.Name=Input.Name;
                     qData.BackgroundColorCode= Input.BackgroundColorCode;

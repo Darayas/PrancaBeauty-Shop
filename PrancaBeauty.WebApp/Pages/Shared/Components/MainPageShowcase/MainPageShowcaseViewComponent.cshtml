@@ -61,31 +61,37 @@
     private void AddTabSection(IEnumerable<vmMainPageShowcase_TabSection> LstTabSection, string Id = null)
     {
         <div class=row>
-            @foreach (var itemTabSection in LstTabSection.Where(a => a.ParentId == Id))
-            {
-                <div class="col-xl-@itemTabSection.XlSize col-lg-@itemTabSection.LgSize col-md-@itemTabSection.MdSize col-sm-@itemTabSection.SmSize col-xs-@itemTabSection.XsSize">
+            @{
+                int _Counter = 0;
+                foreach (var itemTabSection in LstTabSection.Where(a => a.ParentId == Id))
+                {
+                    <div class="col-xl-@itemTabSection.XlSize col-lg-@itemTabSection.LgSize col-md-@itemTabSection.MdSize col-sm-@itemTabSection.SmSize col-xs-@itemTabSection.XsSize">
 
-                    @{
-                        if (LstTabSection.Any(a => a.ParentId==itemTabSection.Id))
-                            AddTabSection(LstTabSection, itemTabSection.Id);
-                        else
-                        {
-                            if (itemTabSection.LstSectionItem.Any())
+                        @{
+                            if (LstTabSection.Any(a => a.ParentId==itemTabSection.Id))
+                                AddTabSection(LstTabSection, itemTabSection.Id);
+                            else
                             {
-                                @if (itemTabSection.IsSlider)
+                                if (itemTabSection.LstSectionItem.Any())
                                 {
-                                    <div class='product_carousel owl-carousel'>
-                                        @{
-                                            AddSectionItems(itemTabSection.LstSectionItem, true, itemTabSection.CountInSection, itemTabSection.HowToDisplayItems);
-                                        }
-                                    </div>
+                                    @if (itemTabSection.IsSlider)
+                                    {
+                                        <div id="product_carousel@(_Counter)" class='owl-carousel'>
+                                            @{
+                                                AddSectionItems(itemTabSection.LstSectionItem, true, itemTabSection.CountInSection, itemTabSection.HowToDisplayItems);
+                                            }
+                                        </div>
+                                        <script>
+                                            LoadSlider('product_carousel@(_Counter)',4);
+                                        </script>
+                                    }
+                                    else
+                                        AddSectionItems(itemTabSection.LstSectionItem, false, itemTabSection.CountInSection, itemTabSection.HowToDisplayItems);
                                 }
-                                else
-                                    AddSectionItems(itemTabSection.LstSectionItem, false, itemTabSection.CountInSection, itemTabSection.HowToDisplayItems);
                             }
                         }
-                    }
-                </div>
+                    </div>
+                }
             }
         </div>
     }
@@ -302,15 +308,15 @@
                     </h4>
                     <div class="price_box">
                         @{
-                            double Price = ProductItem.MainPrice + ((ProductItem.MainPrice/100) * ProductItem.PercentSavePrice);
+                            double Price = ProductItem.MainPrice + ((ProductItem.MainPrice/100) * ProductItem.SellerPercent);
                             if (ProductItem.PercentSavePrice>0)
                             {
                                 <span class="old_price">
-                                    @Price
+                                    @Price.ToN3() @ProductItem.CurrencySymbol
                                 </span>
                             }
                             <span class="current_price">
-                                @(Price - ((Price / 100) * ProductItem.PercentSavePrice))
+                                @((Price - ((Price / 100) * ProductItem.PercentSavePrice)).ToN3()) @ProductItem.CurrencySymbol
                             </span>
                         }
                     </div>

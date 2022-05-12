@@ -1,5 +1,36 @@
+function LoadSlider(_Id, _CountItem) {
+    $('#' + _Id).owlCarousel({
+        loop: true,
+        nav: true,
+        center: true,
+        autoplay: false,
+        autoplayTimeout: 8000,
+        items: _CountItem,
+        dots: false,
+        margin: 30,
+        navText: ['<i class="ion-ios-arrow-left"></i>', '<i class="ion-ios-arrow-right"></i>'],
+        responsiveClass: true,
+        responsive: {
+            0: {
+                items: 1,
+            },
+            768: {
+                items: 3,
+            },
+            992: {
+                items: 3,
+            },
+            1300: {
+                items: 4,
+            }
+        }
+    });
+}
+
 (function ($) {
     "use strict";
+
+
 
     $(document).ready(function () {
         $('.loading').hide();
@@ -777,3 +808,4 @@ $(document).ready(function () {
         centerMode: false
     });
 });
+

@@ -82,7 +82,9 @@
                                             }
                                         </div>
                                         <script>
-                                            LoadSlider('product_carousel@(_Counter)',4);
+                                            $(document).ready(function() {
+                                                LoadSlider('product_carousel@(_Counter)',4);
+                                            });
                                         </script>
                                     }
                                     else
@@ -285,11 +287,11 @@
                     <div class="action_links">
                         <ul>
                             <li class="wishlist">
-                                <a onclick="AddToWishlist('@ProductItem.Id')" title="@Localizer["AddToWishlist"]"><i class="icon-heart icons"></i></a>
+                                <a onclick="AddToWishlist('@ProductItem.Id')" title="@Localizer["AddToWishlist"]"><i class="fa fa-heart-o"></i></a>
                             </li>
                             <li class="compare">
-                                <a onclick="AddToCompare('@ProductItem.Id')" title="AddToCompare">
-                                    <i class="icon-refresh icons"></i>
+                                <a onclick="AddToCompare('@ProductItem.Id')" title="@Localizer["AddToCompare"]">
+                                    <i class="fa fa-refresh"></i>
                                 </a>
                             </li>
                             @*<li class="quick_button">
@@ -301,11 +303,11 @@
                     </div>
                 </div>
                 <div class="product_content">
-                    <h4 class="product_name">
+                    <h2 class="product_name">
                         <a href="/@ViewData["culture"]/Product/@ProductItem.Name">
                             @ProductItem.Title
                         </a>
-                    </h4>
+                    </h2>
                     <div class="price_box">
                         @{
                             double Price = ProductItem.MainPrice + ((ProductItem.MainPrice/100) * ProductItem.SellerPercent);
@@ -321,7 +323,7 @@
                         }
                     </div>
                     <div class="add_to_cart">
-                        <a onclick="AddToCart('@ProductItem.Id')">@Localizer["AddToCart"]</a>
+                        <a onclick="AddToCart('@ProductItem.Id')"> <i class="fa fa-plus"></i> <span>@Localizer["AddToCart"]</span></a>
                     </div>
                 </div>
             </div>

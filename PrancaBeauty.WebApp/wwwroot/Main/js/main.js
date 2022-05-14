@@ -1,14 +1,14 @@
 function LoadSlider(_Id, _CountItem) {
     $('#' + _Id).owlCarousel({
-        loop: true,
+        loop: false,
         nav: true,
-        center: true,
+        center: false,
         autoplay: false,
         autoplayTimeout: 8000,
         items: _CountItem,
         dots: false,
         margin: 30,
-        navText: ['<i class="ion-ios-arrow-left"></i>', '<i class="ion-ios-arrow-right"></i>'],
+        navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
         responsiveClass: true,
         responsive: {
             0: {

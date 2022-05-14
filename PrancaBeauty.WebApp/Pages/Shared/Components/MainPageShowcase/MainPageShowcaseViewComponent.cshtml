@@ -164,8 +164,11 @@
                     <a href="@FreeItem.Url"><img src="@FreeItem.ImgUrl" alt="@FreeItem.Title"></a>
                 </div>
                 <div class="banner_text">
-                    <a href="@FreeItem.Url"><h3>@FreeItem.Title</h3></a>
-                    <p>@Html.Raw(FreeItem.HtmlText)</p>
+                    @if (!string.IsNullOrEmpty(FreeItem.Title))
+                    {
+                        <a href="@FreeItem.Url"><h3>@FreeItem.Title</h3></a>
+                    }
+                    @Html.Raw(FreeItem.HtmlText)
                 </div>
             </div>
         }
@@ -174,8 +177,11 @@
         {
             <div class="freeItem FreeItem3">
                 <div class="banner_text">
-                    <a href="@FreeItem.Url"><h3>@FreeItem.Title</h3></a>
-                    <p>@Html.Raw(FreeItem.HtmlText)</p>
+                    @if (!string.IsNullOrEmpty(FreeItem.Title))
+                    {
+                        <a href="@FreeItem.Url"><h3>@FreeItem.Title</h3></a>
+                    }
+                    @Html.Raw(FreeItem.HtmlText)
                 </div>
                 <div class="banner_thumb">
                     <a href="@FreeItem.Url"><img src="@FreeItem.ImgUrl" alt="@FreeItem.Title"></a>
@@ -190,8 +196,11 @@
                     <a href="@FreeItem.Url"> <img src="@FreeItem.ImgUrl" alt="@FreeItem.Title"></a>
                 </div>
                 <div class="testimonial_content">
-                    <a href="@FreeItem.Url"><h3>@FreeItem.Title</h3></a>
-                    <p>@Html.Raw(FreeItem.HtmlText)</p>
+                    @if (!string.IsNullOrEmpty(FreeItem.Title))
+                    {
+                        <a href="@FreeItem.Url"><h3>@FreeItem.Title</h3></a>
+                    }
+                    @Html.Raw(FreeItem.HtmlText)
                 </div>
             </div>
         }
@@ -200,8 +209,11 @@
         {
             <div class="freeItem FreeItem5">
                 <div class="testimonial_content">
-                    <a href="@FreeItem.Url"><h3>@FreeItem.Title</h3></a>
-                    <p>@Html.Raw(FreeItem.HtmlText)</p>
+                    @if (!string.IsNullOrEmpty(FreeItem.Title))
+                    {
+                        <a href="@FreeItem.Url"><h3>@FreeItem.Title</h3></a>
+                    }
+                    @Html.Raw(FreeItem.HtmlText)
                 </div>
                 <div class="testimonial_thumb">
                     <a href="@FreeItem.Url"> <img src="@FreeItem.ImgUrl" alt="@FreeItem.Title"></a>
@@ -212,25 +224,32 @@
         if (HowToDisplayItems==TabSectionHowToDisplayEnum.FreeItem6)
         {
             <div class="freeItem FreeItem6">
-                <div class="banner_thumb static_b_thumb">
-                    <a href="@FreeItem.Url"><img src="@FreeItem.ImgUrl" alt="@FreeItem.Title"></a>
+                <div class="testimonial_thumb">
+                    <a href="@FreeItem.Url"> <img src="@FreeItem.ImgUrl" alt="@FreeItem.Title"></a>
                 </div>
-                <div class="banner_static_content">
-                    <a href="@FreeItem.Url"><h3>@FreeItem.Title</h3></a>
-                    <p>@Html.Raw(FreeItem.HtmlText)</p>
+                <div class="testimonial_content">
+                    @if (!string.IsNullOrEmpty(FreeItem.Title))
+                    {
+                        <a href="@FreeItem.Url"><h3>@FreeItem.Title</h3></a>
+                    }
+                    @Html.Raw(FreeItem.HtmlText)
                 </div>
+
             </div>
         }
 
         if (HowToDisplayItems==TabSectionHowToDisplayEnum.FreeItem7)
         {
             <div class="freeItem FreeItem7">
-                <div class="banner_static_content">
-                    <a href="@FreeItem.Url"><h3>@FreeItem.Title</h3></a>
-                    <p>@Html.Raw(FreeItem.HtmlText)</p>
+                <div class="testimonial_content">
+                    @if (!string.IsNullOrEmpty(FreeItem.Title))
+                    {
+                        <a href="@FreeItem.Url"><h3>@FreeItem.Title</h3></a>
+                    }
+                    @Html.Raw(FreeItem.HtmlText)
                 </div>
-                <div class="banner_thumb static_b_thumb">
-                    <a href="@FreeItem.Url"><img src="@FreeItem.ImgUrl" alt="@FreeItem.Title"></a>
+                <div class="testimonial_thumb">
+                    <a href="@FreeItem.Url"> <img src="@FreeItem.ImgUrl" alt="@FreeItem.Title"></a>
                 </div>
             </div>
         }
@@ -238,25 +257,32 @@
         if (HowToDisplayItems==TabSectionHowToDisplayEnum.FreeItem8)
         {
             <div class="freeItem FreeItem8">
-                <div class="banner_thumb static_b_thumb">
-                    <a href="@FreeItem.Url"><img src="@FreeItem.ImgUrl" alt="@FreeItem.Title"></a>
+                <div class="testimonial_thumb">
+                    <a href="@FreeItem.Url"> <img src="@FreeItem.ImgUrl" alt="@FreeItem.Title"></a>
                 </div>
-                <div class="banner_static_content">
-                    <a href="@FreeItem.Url"><h3>@FreeItem.Title</h3></a>
-                    <p>@Html.Raw(FreeItem.HtmlText)</p>
+                <div class="testimonial_content">
+                    @if (!string.IsNullOrEmpty(FreeItem.Title))
+                    {
+                        <a href="@FreeItem.Url"><h3>@FreeItem.Title</h3></a>
+                    }
+                    @Html.Raw(FreeItem.HtmlText)
                 </div>
+
             </div>
         }
 
         if (HowToDisplayItems==TabSectionHowToDisplayEnum.FreeItem9)
         {
             <div class="freeItem FreeItem9">
-                <div class="banner_static_content">
-                    <a href="@FreeItem.Url"><h3>@FreeItem.Title</h3></a>
-                    <p>@Html.Raw(FreeItem.HtmlText)</p>
+                <div class="testimonial_content">
+                    @if (!string.IsNullOrEmpty(FreeItem.Title))
+                    {
+                        <a href="@FreeItem.Url"><h3>@FreeItem.Title</h3></a>
+                    }
+                    @Html.Raw(FreeItem.HtmlText)
                 </div>
-                <div class="banner_thumb static_b_thumb">
-                    <a href="@FreeItem.Url"><img src="@FreeItem.ImgUrl" alt="@FreeItem.Title"></a>
+                <div class="testimonial_thumb">
+                    <a href="@FreeItem.Url"> <img src="@FreeItem.ImgUrl" alt="@FreeItem.Title"></a>
                 </div>
             </div>
         }

@@ -31169,6 +31169,48 @@ pre {
   text-transform: capitalize;
   margin-bottom: 5px;
 }
+.Showcase .freeItem.FreeItem6, .Showcase .freeItem.FreeItem7 {
+  display: flex;
+}
+.Showcase .freeItem.FreeItem6 .testimonial_thumb, .Showcase .freeItem.FreeItem7 .testimonial_thumb {
+  width: 60%;
+}
+.Showcase .freeItem.FreeItem6 .testimonial_thumb img, .Showcase .freeItem.FreeItem7 .testimonial_thumb img {
+  width: inherit;
+  display: block;
+}
+.Showcase .freeItem.FreeItem6 .testimonial_content, .Showcase .freeItem.FreeItem7 .testimonial_content {
+  width: 40%;
+  overflow-x: hidden;
+}
+.Showcase .freeItem.FreeItem6 .testimonial_content h3, .Showcase .freeItem.FreeItem7 .testimonial_content h3 {
+  font-size: 18px;
+  line-height: 18px;
+  font-weight: 600;
+  text-transform: capitalize;
+  margin-bottom: 5px;
+}
+.Showcase .freeItem.FreeItem8, .Showcase .freeItem.FreeItem9 {
+  display: flex;
+}
+.Showcase .freeItem.FreeItem8 .testimonial_thumb, .Showcase .freeItem.FreeItem9 .testimonial_thumb {
+  width: 50%;
+}
+.Showcase .freeItem.FreeItem8 .testimonial_thumb img, .Showcase .freeItem.FreeItem9 .testimonial_thumb img {
+  width: inherit;
+  display: block;
+}
+.Showcase .freeItem.FreeItem8 .testimonial_content, .Showcase .freeItem.FreeItem9 .testimonial_content {
+  width: 50%;
+  overflow-x: hidden;
+}
+.Showcase .freeItem.FreeItem8 .testimonial_content h3, .Showcase .freeItem.FreeItem9 .testimonial_content h3 {
+  font-size: 18px;
+  line-height: 18px;
+  font-weight: 600;
+  text-transform: capitalize;
+  margin-bottom: 5px;
+}
 .Showcase .freeItem .banner_text {
   margin-top: 15px !important;
 }
@@ -31184,17 +31226,17 @@ pre {
 }
 
 @media only screen and (max-width: 767px) {
-  .FreeItem4, .FreeItem5 {
+  .FreeItem4, .FreeItem5, .FreeItem6, .FreeItem7, .FreeItem8, .FreeItem9 {
     flex-direction: column;
     text-align: center;
   }
-  .FreeItem4 .testimonial_thumb, .FreeItem5 .testimonial_thumb {
+  .FreeItem4 .testimonial_thumb, .FreeItem5 .testimonial_thumb, .FreeItem6 .testimonial_thumb, .FreeItem7 .testimonial_thumb, .FreeItem8 .testimonial_thumb, .FreeItem9 .testimonial_thumb {
     width: 100% !important;
   }
-  .FreeItem4 .testimonial_thumb img, .FreeItem5 .testimonial_thumb img {
+  .FreeItem4 .testimonial_thumb img, .FreeItem5 .testimonial_thumb img, .FreeItem6 .testimonial_thumb img, .FreeItem7 .testimonial_thumb img, .FreeItem8 .testimonial_thumb img, .FreeItem9 .testimonial_thumb img {
     width: 100% !important;
   }
-  .FreeItem4 .testimonial_content, .FreeItem5 .testimonial_content {
+  .FreeItem4 .testimonial_content, .FreeItem5 .testimonial_content, .FreeItem6 .testimonial_content, .FreeItem7 .testimonial_content, .FreeItem8 .testimonial_content, .FreeItem9 .testimonial_content {
     width: 100% !important;
   }
 }

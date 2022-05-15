@@ -2,10 +2,9 @@
 @using Framework.Domain.Enums
 
 @{
-    int ShowcaseCount = 0;
     foreach (var itemShowcase in Model.Where(a => a.LstTabs.Any()))
     {
-        <div class="Showcase @itemShowcase.CssClass" style="background-color:@itemShowcase.BackgroundColorCode;@itemShowcase.CssStyle">
+        <div id="Showcase@(ShowcaseCount)" class="Showcase @itemShowcase.CssClass" style="background-color:@itemShowcase.BackgroundColorCode;@itemShowcase.CssStyle">
             <div class="@(itemShowcase.IsFullWidth?"container-fluid":"container")">
                 <div class="row">
                     <div class="col-12">
@@ -17,7 +16,7 @@
                         <div class="product_tab_btn @(itemShowcase.LstTabs.Where(a => a.LstTabSection.Any()).Count()<=1?"hidden":"")">
                             <ul class="nav" role="tablist">
                                 @{
-                                    int CounterTabItem = 0;
+                                    CounterTabItem = 0;
                                     foreach (var itemTab in itemShowcase.LstTabs.Where(a => a.LstTabSection.Any()))
                                     {
                                         <li>
@@ -29,6 +28,16 @@
                                     }
                                 }
                             </ul>
+
+                            @if (itemShowcase.LstTabs.Where(a => a.LstTabSection.Any()).Count()>1)
+                            {
+                                <script>
+                                    $(document).ready(function(){
+                                        LoadTabs('Showcase@(ShowcaseCount)');
+                                    });
+                                </script>
+                            }
+
                         </div>
                     </div>
                 </div>
@@ -58,6 +67,8 @@
 }
 
 @functions {
+    int ShowcaseCount = 0;
+    int CounterTabItem = 0;
     private void AddTabSection(IEnumerable<vmMainPageShowcase_TabSection> LstTabSection, string Id = null)
     {
         <div class=row>
@@ -76,14 +87,14 @@
                                 {
                                     @if (itemTabSection.IsSlider)
                                     {
-                                        <div id="product_carousel@(_Counter)" class='owl-carousel'>
+                                        <div id="product_carousel@(ShowcaseCount)@(CounterTabItem)@(_Counter)" class='owl-carousel'>
                                             @{
                                                 AddSectionItems(itemTabSection.LstSectionItem, true, itemTabSection.CountInSection, itemTabSection.HowToDisplayItems);
                                             }
                                         </div>
                                         <script>
                                             $(document).ready(function() {
-                                                LoadSlider('product_carousel@(_Counter)',4);
+                                                LoadSlider('product_carousel@(ShowcaseCount)@(CounterTabItem)@(_Counter)',@itemTabSection.CountInSection);
                                             });
                                         </script>
                                     }
@@ -93,6 +104,7 @@
                             }
                         }
                     </div>
+                    _Counter++;
                 }
             }
         </div>
@@ -267,7 +279,6 @@
                     }
                     @Html.Raw(FreeItem.HtmlText)
                 </div>
-
             </div>
         }
 

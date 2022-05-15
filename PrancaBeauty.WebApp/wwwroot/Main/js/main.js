@@ -27,6 +27,20 @@ function LoadSlider(_Id, _CountItem) {
     });
 }
 
+function LoadTabs(_ShowcaseId) {
+    $('#' + _ShowcaseId + ' .product_tab_btn a').on('click', function (e) {
+        e.preventDefault();
+
+        var $href = $(this).attr('href');
+
+        $('#' + _ShowcaseId + ' .product_tab_btn a').removeClass('active');
+        $(this).addClass('active');
+
+        $('#' + _ShowcaseId + ' .tab-pane').removeClass('active show');
+        $('#' + _ShowcaseId + ' ' + $href).addClass('active show');
+    });
+}
+
 (function ($) {
     "use strict";
 
@@ -512,19 +526,6 @@ function LoadSlider(_Id, _CountItem) {
 
     $('.modal').on('shown.bs.modal', function (e) {
         $('.product_navactive').resize();
-    })
-
-    $('.product_navactive a').on('click', function (e) {
-        e.preventDefault();
-
-        var $href = $(this).attr('href');
-
-        $('.product_navactive a').removeClass('active');
-        $(this).addClass('active');
-
-        $('.product-details-large .tab-pane').removeClass('active show');
-        $('.product-details-large ' + $href).addClass('active show');
-
     })
 
     /*--- video Popup---*/

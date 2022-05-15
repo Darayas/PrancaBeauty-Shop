@@ -31141,6 +31141,9 @@ pre {
 .Showcase {
   padding: 100px 0;
 }
+.Showcase .product_tab_btn {
+  margin-bottom: 15px;
+}
 .Showcase .freeItem {
   margin-bottom: 30px;
 }

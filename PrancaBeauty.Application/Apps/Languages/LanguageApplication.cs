@@ -102,7 +102,6 @@ namespace PrancaBeauty.Application.Apps.Languages
             {
                 if (SiteLangCache == null)
                 {
-                    int bb = 1;
                     SiteLangCache = await _LanguageRepository.Get
                                                          .Where(a => a.IsActive)
                                                          .Where(a => a.UseForSiteLanguage)
@@ -116,10 +115,10 @@ namespace PrancaBeauty.Application.Apps.Languages
                                                              IsRtl = a.IsRtl,
                                                              Name = a.Name,
                                                              NativeName = a.NativeName,
-                                                             //FlagUrl = a.tblCountries.tblFiles.tblFilePaths.tblFileServer.HttpDomin +
-                                                             //           a.tblCountries.tblFiles.tblFilePaths.tblFileServer.HttpPath +
-                                                             //           a.tblCountries.tblFiles.tblFilePaths.Path +
-                                                             //           a.tblCountries.tblFiles.FileName
+                                                             FlagUrl = a.tblCountries.tblFiles.tblFilePaths.tblFileServer.HttpDomin +
+                                                                        a.tblCountries.tblFiles.tblFilePaths.tblFileServer.HttpPath +
+                                                                        a.tblCountries.tblFiles.tblFilePaths.Path +
+                                                                        a.tblCountries.tblFiles.FileName
                                                          })
                                                          .ToListAsync();
                 }

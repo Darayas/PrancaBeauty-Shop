@@ -120,28 +120,72 @@
         {
             if (!IsSlider)
             {
-                <div class="col-md-@(12 % CountInSection == 0? (12 / CountInSection): Math.Ceiling(12 / (double)CountInSection)) col-sm-12 col-xs-12">
-                    @if (item.SectionType==TabSectionItemsEnum.FreeItem)
-                    {
-                        AddSectionFreeItems(item, HowToDisplayItems);
-                    }
+                @if (item.SectionType==TabSectionItemsEnum.FreeItem || item.SectionType==TabSectionItemsEnum.Product)
+                {
+                    <div class="col-md-@(12 % CountInSection == 0? (12 / CountInSection): Math.Ceiling(12 / (double)CountInSection)) col-sm-12 col-xs-12">
+                        @if (item.SectionType==TabSectionItemsEnum.FreeItem)
+                        {
+                            AddSectionFreeItems(item.FreeItem, HowToDisplayItems);
+                        }
 
-                    @if (item.SectionType==TabSectionItemsEnum.Product)
+                        @if (item.SectionType==TabSectionItemsEnum.Product)
+                        {
+                            AddSectionProductItems(item.ProductItem, HowToDisplayItems);
+                        }
+                    </div>
+                }
+
+                @if (item.SectionType==TabSectionItemsEnum.Category)
+                {
+                    foreach (var itemProduct in item.CategoryItems)
                     {
-                        AddSectionProductItems(item, HowToDisplayItems);
+                        <div class="col-md-@(12 % CountInSection == 0? (12 / CountInSection): Math.Ceiling(12 / (double)CountInSection)) col-sm-12 col-xs-12">
+                            @{
+                                AddSectionProductItems(itemProduct, HowToDisplayItems);
+                            }
+                        </div>
                     }
-                </div>
+                }
+
+                @if (item.SectionType==TabSectionItemsEnum.Keyword)
+                {
+                    foreach (var itemProduct in item.KeywordItems)
+                    {
+                        <div class="col-md-@(12 % CountInSection == 0? (12 / CountInSection): Math.Ceiling(12 / (double)CountInSection)) col-sm-12 col-xs-12">
+                            @{
+                                AddSectionProductItems(itemProduct, HowToDisplayItems);
+                            }
+                        </div>
+                    }
+                }
+
             }
             else
             {
                 @if (item.SectionType==TabSectionItemsEnum.FreeItem)
                 {
-                    AddSectionFreeItems(item, HowToDisplayItems);
+                    AddSectionFreeItems(item.FreeItem, HowToDisplayItems);
                 }
 
                 @if (item.SectionType==TabSectionItemsEnum.Product)
                 {
-                    AddSectionProductItems(item, HowToDisplayItems);
+                    AddSectionProductItems(item.ProductItem, HowToDisplayItems);
+                }
+
+                @if (item.SectionType==TabSectionItemsEnum.Category)
+                {
+                    foreach (var itemProduct in item.CategoryItems)
+                    {
+                        AddSectionProductItems(itemProduct, HowToDisplayItems);
+                    }
+                }
+
+                @if (item.SectionType==TabSectionItemsEnum.Keyword)
+                {
+                    foreach (var itemProduct in item.KeywordItems)
+                    {
+                        AddSectionProductItems(itemProduct, HowToDisplayItems);
+                    }
                 }
             }
         }
@@ -151,17 +195,16 @@
         }
     }
 
-    private void AddSectionFreeItems(vmMainPageShowcase_SectionItem SectionItem, TabSectionHowToDisplayEnum HowToDisplayItems)
+    private void AddSectionFreeItems(vmMainPageShowcasee_SectionFreeItem SectionItem, TabSectionHowToDisplayEnum HowToDisplayItems)
     {
-        var FreeItem = SectionItem.FreeItem;
         if (HowToDisplayItems==TabSectionHowToDisplayEnum.FreeItem1)
         {
-            <div class="freeItem FreeItem1" data-bgimg="@FreeItem.ImgUrl">
+            <div class="freeItem FreeItem1" data-bgimg="@SectionItem.ImgUrl">
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
                             <div class="slider_content">
-                                @Html.Raw(@FreeItem.HtmlText)
+                                @Html.Raw(SectionItem.HtmlText)
                             </div>
                         </div>
                     </div>
@@ -173,14 +216,14 @@
         {
             <div class="freeItem FreeItem2">
                 <div class="banner_thumb">
-                    <a href="@FreeItem.Url"><img src="@FreeItem.ImgUrl" alt="@FreeItem.Title"></a>
+                    <a href="@SectionItem.Url"><img src="@SectionItem.ImgUrl" alt="@SectionItem.Title"></a>
                 </div>
                 <div class="banner_text">
-                    @if (!string.IsNullOrEmpty(FreeItem.Title))
+                    @if (!string.IsNullOrEmpty(SectionItem.Title))
                     {
-                        <a href="@FreeItem.Url"><h3>@FreeItem.Title</h3></a>
+                        <a href="@SectionItem.Url"><h3>@SectionItem.Title</h3></a>
                     }
-                    @Html.Raw(FreeItem.HtmlText)
+                    @Html.Raw(SectionItem.HtmlText)
                 </div>
             </div>
         }
@@ -189,14 +232,14 @@
         {
             <div class="freeItem FreeItem3">
                 <div class="banner_text">
-                    @if (!string.IsNullOrEmpty(FreeItem.Title))
+                    @if (!string.IsNullOrEmpty(SectionItem.Title))
                     {
-                        <a href="@FreeItem.Url"><h3>@FreeItem.Title</h3></a>
+                        <a href="@SectionItem.Url"><h3>@SectionItem.Title</h3></a>
                     }
-                    @Html.Raw(FreeItem.HtmlText)
+                    @Html.Raw(SectionItem.HtmlText)
                 </div>
                 <div class="banner_thumb">
-                    <a href="@FreeItem.Url"><img src="@FreeItem.ImgUrl" alt="@FreeItem.Title"></a>
+                    <a href="@SectionItem.Url"><img src="@SectionItem.ImgUrl" alt="@SectionItem.Title"></a>
                 </div>
             </div>
         }
@@ -205,14 +248,14 @@
         {
             <div class="freeItem FreeItem4">
                 <div class="testimonial_thumb">
-                    <a href="@FreeItem.Url"> <img src="@FreeItem.ImgUrl" alt="@FreeItem.Title"></a>
+                    <a href="@SectionItem.Url"> <img src="@SectionItem.ImgUrl" alt="@SectionItem.Title"></a>
                 </div>
                 <div class="testimonial_content">
-                    @if (!string.IsNullOrEmpty(FreeItem.Title))
+                    @if (!string.IsNullOrEmpty(SectionItem.Title))
                     {
-                        <a href="@FreeItem.Url"><h3>@FreeItem.Title</h3></a>
+                        <a href="@SectionItem.Url"><h3>@SectionItem.Title</h3></a>
                     }
-                    @Html.Raw(FreeItem.HtmlText)
+                    @Html.Raw(SectionItem.HtmlText)
                 </div>
             </div>
         }
@@ -221,14 +264,14 @@
         {
             <div class="freeItem FreeItem5">
                 <div class="testimonial_content">
-                    @if (!string.IsNullOrEmpty(FreeItem.Title))
+                    @if (!string.IsNullOrEmpty(SectionItem.Title))
                     {
-                        <a href="@FreeItem.Url"><h3>@FreeItem.Title</h3></a>
+                        <a href="@SectionItem.Url"><h3>@SectionItem.Title</h3></a>
                     }
-                    @Html.Raw(FreeItem.HtmlText)
+                    @Html.Raw(SectionItem.HtmlText)
                 </div>
                 <div class="testimonial_thumb">
-                    <a href="@FreeItem.Url"> <img src="@FreeItem.ImgUrl" alt="@FreeItem.Title"></a>
+                    <a href="@SectionItem.Url"> <img src="@SectionItem.ImgUrl" alt="@SectionItem.Title"></a>
                 </div>
             </div>
         }
@@ -237,14 +280,14 @@
         {
             <div class="freeItem FreeItem6">
                 <div class="testimonial_thumb">
-                    <a href="@FreeItem.Url"> <img src="@FreeItem.ImgUrl" alt="@FreeItem.Title"></a>
+                    <a href="@SectionItem.Url"> <img src="@SectionItem.ImgUrl" alt="@SectionItem.Title"></a>
                 </div>
                 <div class="testimonial_content">
-                    @if (!string.IsNullOrEmpty(FreeItem.Title))
+                    @if (!string.IsNullOrEmpty(SectionItem.Title))
                     {
-                        <a href="@FreeItem.Url"><h3>@FreeItem.Title</h3></a>
+                        <a href="@SectionItem.Url"><h3>@SectionItem.Title</h3></a>
                     }
-                    @Html.Raw(FreeItem.HtmlText)
+                    @Html.Raw(SectionItem.HtmlText)
                 </div>
 
             </div>
@@ -254,14 +297,14 @@
         {
             <div class="freeItem FreeItem7">
                 <div class="testimonial_content">
-                    @if (!string.IsNullOrEmpty(FreeItem.Title))
+                    @if (!string.IsNullOrEmpty(SectionItem.Title))
                     {
-                        <a href="@FreeItem.Url"><h3>@FreeItem.Title</h3></a>
+                        <a href="@SectionItem.Url"><h3>@SectionItem.Title</h3></a>
                     }
-                    @Html.Raw(FreeItem.HtmlText)
+                    @Html.Raw(SectionItem.HtmlText)
                 </div>
                 <div class="testimonial_thumb">
-                    <a href="@FreeItem.Url"> <img src="@FreeItem.ImgUrl" alt="@FreeItem.Title"></a>
+                    <a href="@SectionItem.Url"> <img src="@SectionItem.ImgUrl" alt="@SectionItem.Title"></a>
                 </div>
             </div>
         }
@@ -270,14 +313,14 @@
         {
             <div class="freeItem FreeItem8">
                 <div class="testimonial_thumb">
-                    <a href="@FreeItem.Url"> <img src="@FreeItem.ImgUrl" alt="@FreeItem.Title"></a>
+                    <a href="@SectionItem.Url"> <img src="@SectionItem.ImgUrl" alt="@SectionItem.Title"></a>
                 </div>
                 <div class="testimonial_content">
-                    @if (!string.IsNullOrEmpty(FreeItem.Title))
+                    @if (!string.IsNullOrEmpty(SectionItem.Title))
                     {
-                        <a href="@FreeItem.Url"><h3>@FreeItem.Title</h3></a>
+                        <a href="@SectionItem.Url"><h3>@SectionItem.Title</h3></a>
                     }
-                    @Html.Raw(FreeItem.HtmlText)
+                    @Html.Raw(SectionItem.HtmlText)
                 </div>
             </div>
         }
@@ -286,48 +329,47 @@
         {
             <div class="freeItem FreeItem9">
                 <div class="testimonial_content">
-                    @if (!string.IsNullOrEmpty(FreeItem.Title))
+                    @if (!string.IsNullOrEmpty(SectionItem.Title))
                     {
-                        <a href="@FreeItem.Url"><h3>@FreeItem.Title</h3></a>
+                        <a href="@SectionItem.Url"><h3>@SectionItem.Title</h3></a>
                     }
-                    @Html.Raw(FreeItem.HtmlText)
+                    @Html.Raw(SectionItem.HtmlText)
                 </div>
                 <div class="testimonial_thumb">
-                    <a href="@FreeItem.Url"> <img src="@FreeItem.ImgUrl" alt="@FreeItem.Title"></a>
+                    <a href="@SectionItem.Url"> <img src="@SectionItem.ImgUrl" alt="@SectionItem.Title"></a>
                 </div>
             </div>
         }
     }
 
-    private void AddSectionProductItems(vmMainPageShowcase_SectionItem SectionItem, TabSectionHowToDisplayEnum HowToDisplayItems)
+    private void AddSectionProductItems(vmMainPageShowcase_SectionProductItem SectionItem, TabSectionHowToDisplayEnum HowToDisplayItems)
     {
-        var ProductItem = SectionItem.ProductItem;
         if (HowToDisplayItems==TabSectionHowToDisplayEnum.DefaultProduct)
         {
             <div class="ProductItem ProductItem1 single_product">
                 <div class="product_thumb">
-                    <a class="primary_img" href="/@ViewData["culture"]/Product/@ProductItem.Name">
-                        <img src="@ProductItem.ImgUrl[0]" alt="@ProductItem.Title">
+                    <a class="primary_img" href="/@ViewData["culture"]/Product/@SectionItem.Name">
+                        <img src="@SectionItem.ImgUrl[0]" alt="@SectionItem.Title">
                     </a>
-                    @if (ProductItem.ImgUrl.Count()>1)
+                    @if (SectionItem.ImgUrl.Count()>1)
                     {
-                        <a class="secondary_img" href="/@ViewData["culture"]/Product/@ProductItem.Name">
-                            <img src="@ProductItem.ImgUrl[1]" alt="@ProductItem.Title">
+                        <a class="secondary_img" href="/@ViewData["culture"]/Product/@SectionItem.Name">
+                            <img src="@SectionItem.ImgUrl[1]" alt="@SectionItem.Title">
                         </a>
                     }
-                    @if (ProductItem.PercentSavePrice>0)
+                    @if (SectionItem.PercentSavePrice>0)
                     {
                         <div class="label_product">
-                            <span class="label_sale">-@(ProductItem.PercentSavePrice)%</span>
+                            <span class="label_sale">-@(SectionItem.PercentSavePrice)%</span>
                         </div>
                     }
                     <div class="action_links">
                         <ul>
                             <li class="wishlist">
-                                <a onclick="AddToWishlist('@ProductItem.Id')" title="@Localizer["AddToWishlist"]"><i class="fa fa-heart-o"></i></a>
+                                <a onclick="AddToWishlist('@SectionItem.Id')" title="@Localizer["AddToWishlist"]"><i class="fa fa-heart-o"></i></a>
                             </li>
                             <li class="compare">
-                                <a onclick="AddToCompare('@ProductItem.Id')" title="@Localizer["AddToCompare"]">
+                                <a onclick="AddToCompare('@SectionItem.Id')" title="@Localizer["AddToCompare"]">
                                     <i class="fa fa-refresh"></i>
                                 </a>
                             </li>
@@ -341,29 +383,29 @@
                 </div>
                 <div class="product_content">
                     <h2 class="product_name">
-                        <a href="/@ViewData["culture"]/Product/@ProductItem.Name">
-                            @ProductItem.Title
+                        <a href="/@ViewData["culture"]/Product/@SectionItem.Name">
+                            @SectionItem.Title
                         </a>
                     </h2>
                     <div class="price_box">
                         @{
-                            double Price = ProductItem.MainPrice + ((ProductItem.MainPrice/100) * ProductItem.SellerPercent);
-                            if (ProductItem.PercentSavePrice>0)
+                            double Price = SectionItem.MainPrice + ((SectionItem.MainPrice/100) * SectionItem.SellerPercent);
+                            if (SectionItem.PercentSavePrice>0)
                             {
                                 <span class="old_price">
-                                    @Price.ToN3() @ProductItem.CurrencySymbol
+                                    @Price.ToN3() @SectionItem.CurrencySymbol
                                 </span>
                             }
                             <span class="current_price">
-                                @((Price - ((Price / 100) * ProductItem.PercentSavePrice)).ToN3()) @ProductItem.CurrencySymbol
+                                @((Price - ((Price / 100) * SectionItem.PercentSavePrice)).ToN3()) @SectionItem.CurrencySymbol
                             </span>
                         }
                     </div>
                     <div class="add_to_cart">
-                        <a onclick="AddToCart('@ProductItem.Id')"> <i class="fa fa-plus"></i> <span>@Localizer["AddToCart"]</span></a>
+                        <a onclick="AddToCart('@SectionItem.Id')"> <i class="fa fa-plus"></i> <span>@Localizer["AddToCart"]</span></a>
                     </div>
                 </div>
             </div>
         }
     }
-}
+        }

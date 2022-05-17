@@ -41,7 +41,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     Name = "AllProducts",
                     ParentId = default,
                     Sort = 0,
-                    tblCategory_Translates = new List<tblCategory_Translates>
+                    tblCategory_Translates = (new List<tblCategory_Translates>
                     {
                         new tblCategory_Translates{
                              Id = new Guid().SequentialGuid(),
@@ -55,7 +55,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                              Title="All Products",
                              Description=""
                         }
-                    },
+                    }).ToList(),
                     tblFiles = new tblFiles()
                     {
                         Id = new Guid().SequentialGuid(),

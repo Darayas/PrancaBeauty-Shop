@@ -47,7 +47,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                         FileTypeId = _repFileType.Get.Where(a => a.MimeType == "image/png").Select(a => a.Id).Single(),
                         FilePathId = _repFilePath.Get.Where(a => a.Path == "/image/png/2022/1/1/").Select(a => a.Id).Single()
                     },
-                    tblProductTopic_Translates = new List<tblProductTopic_Translates>() {
+                    tblProductTopic_Translates = (new List<tblProductTopic_Translates>() {
                         new tblProductTopic_Translates(){
                              Id = new Guid().SequentialGuid(),
                              LangId=_repLang.Get.Where(a=>a.Code=="en-US").Select(a=>a.Id).Single(),
@@ -58,7 +58,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                              LangId=_repLang.Get.Where(a=>a.Code=="fa-IR").Select(a=>a.Id).Single(),
                              Title="گوشی موبایل هوشمند"
                         }
-                    }
+                    }).ToList()
                 }, default, false).Wait();
             }
 
@@ -79,7 +79,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                         FileTypeId = _repFileType.Get.Where(a => a.MimeType == "image/png").Select(a => a.Id).Single(),
                         FilePathId = _repFilePath.Get.Where(a => a.Path == "/image/png/2022/1/1/").Select(a => a.Id).Single()
                     },
-                    tblProductTopic_Translates = new List<tblProductTopic_Translates>() {
+                    tblProductTopic_Translates = (new List<tblProductTopic_Translates>() {
                         new tblProductTopic_Translates(){
                              Id = new Guid().SequentialGuid(),
                              LangId=_repLang.Get.Where(a=>a.Code=="en-US").Select(a=>a.Id).Single(),
@@ -90,7 +90,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                              LangId=_repLang.Get.Where(a=>a.Code=="fa-IR").Select(a=>a.Id).Single(),
                              Title="لپتاپ"
                         }
-                    }
+                    }).ToList()
                 }, default, false).Wait();
             }
 

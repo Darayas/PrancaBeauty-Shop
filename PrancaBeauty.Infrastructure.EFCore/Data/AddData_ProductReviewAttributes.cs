@@ -37,7 +37,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     Id = new Guid().SequentialGuid(),
                     TopicId = _repProductTopic.Get.Where(a => a.Name == "SmartPhone").Select(a => a.Id).Single(),
                     Name = "ConstructionQuality",
-                    tblProductReviewsAttribute_Translate = new List<tblProductReviewsAttribute_Translate>
+                    tblProductReviewsAttribute_Translate = (new List<tblProductReviewsAttribute_Translate>
                     {
                         new tblProductReviewsAttribute_Translate{
                             Id=new Guid().SequentialGuid(),
@@ -49,7 +49,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                             LangId=await _repLanguages.Get.Where(a=>a.Code=="en-US").Select(a=>a.Id).SingleAsync(),
                             Title="Construction quality"
                         }
-                    }
+                    }).ToList()
                 }, default, false);
             }
 
@@ -60,7 +60,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     Id = new Guid().SequentialGuid(),
                     TopicId = _repProductTopic.Get.Where(a => a.Name == "SmartPhone").Select(a => a.Id).Single(),
                     Name = "PurchaseValueRelativeToPrice",
-                    tblProductReviewsAttribute_Translate = new List<tblProductReviewsAttribute_Translate>
+                    tblProductReviewsAttribute_Translate = (new List<tblProductReviewsAttribute_Translate>
                     {
                         new tblProductReviewsAttribute_Translate{
                             Id=new Guid().SequentialGuid(),
@@ -72,7 +72,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                             LangId=await _repLanguages.Get.Where(a=>a.Code=="en-US").Select(a=>a.Id).SingleAsync(),
                             Title="Purchase value relative to price"
                         }
-                    }
+                    }).ToList()
                 }, default, false);
             }
 
@@ -83,7 +83,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     Id = new Guid().SequentialGuid(),
                     TopicId = _repProductTopic.Get.Where(a => a.Name == "SmartPhone").Select(a => a.Id).Single(),
                     Name = "Innovation",
-                    tblProductReviewsAttribute_Translate = new List<tblProductReviewsAttribute_Translate>
+                    tblProductReviewsAttribute_Translate = (new List<tblProductReviewsAttribute_Translate>
                     {
                         new tblProductReviewsAttribute_Translate{
                             Id=new Guid().SequentialGuid(),
@@ -95,7 +95,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                             LangId=await _repLanguages.Get.Where(a=>a.Code=="en-US").Select(a=>a.Id).SingleAsync(),
                             Title="Innovation"
                         }
-                    }
+                    }).ToList()
                 }, default, false);
             }
 
@@ -106,7 +106,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     Id = new Guid().SequentialGuid(),
                     TopicId = _repProductTopic.Get.Where(a => a.Name == "SmartPhone").Select(a => a.Id).Single(),
                     Name = "FeaturesAndCapabilities",
-                    tblProductReviewsAttribute_Translate = new List<tblProductReviewsAttribute_Translate>
+                    tblProductReviewsAttribute_Translate = (new List<tblProductReviewsAttribute_Translate>
                     {
                         new tblProductReviewsAttribute_Translate{
                             Id=new Guid().SequentialGuid(),
@@ -118,7 +118,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                             LangId=await _repLanguages.Get.Where(a=>a.Code=="en-US").Select(a=>a.Id).SingleAsync(),
                             Title="Features and capabilities"
                         }
-                    }
+                    }).ToList()
                 }, default, false);
             }
 
@@ -129,7 +129,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     Id = new Guid().SequentialGuid(),
                     TopicId = _repProductTopic.Get.Where(a => a.Name == "SmartPhone").Select(a => a.Id).Single(),
                     Name = "EaseOfUse",
-                    tblProductReviewsAttribute_Translate = new List<tblProductReviewsAttribute_Translate>
+                    tblProductReviewsAttribute_Translate = (new List<tblProductReviewsAttribute_Translate>
                     {
                         new tblProductReviewsAttribute_Translate{
                             Id=new Guid().SequentialGuid(),
@@ -141,7 +141,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                             LangId=await _repLanguages.Get.Where(a=>a.Code=="en-US").Select(a=>a.Id).SingleAsync(),
                             Title="ease of use"
                         }
-                    }
+                    }).ToList()
                 }, default, false);
             }
 
@@ -152,7 +152,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     Id = new Guid().SequentialGuid(),
                     TopicId = _repProductTopic.Get.Where(a => a.Name == "SmartPhone").Select(a => a.Id).Single(),
                     Name = "DesignAndAppearance",
-                    tblProductReviewsAttribute_Translate = new List<tblProductReviewsAttribute_Translate>
+                    tblProductReviewsAttribute_Translate = (new List<tblProductReviewsAttribute_Translate>
                     {
                         new tblProductReviewsAttribute_Translate{
                             Id=new Guid().SequentialGuid(),
@@ -164,7 +164,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                             LangId=await _repLanguages.Get.Where(a=>a.Code=="en-US").Select(a=>a.Id).SingleAsync(),
                             Title="Design and appearance"
                         }
-                    }
+                    }).ToList()
                 }, default, false);
             }
             #endregion
@@ -177,7 +177,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     Id = new Guid().SequentialGuid(),
                     TopicId = _repProductTopic.Get.Where(a => a.Name == "Laptop").Select(a => a.Id).Single(),
                     Name = "WorthBuyingAgainstPrice",
-                    tblProductReviewsAttribute_Translate = new List<tblProductReviewsAttribute_Translate>
+                    tblProductReviewsAttribute_Translate = (new List<tblProductReviewsAttribute_Translate>
                     {
                         new tblProductReviewsAttribute_Translate{
                             Id=new Guid().SequentialGuid(),
@@ -189,7 +189,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                             LangId=await _repLanguages.Get.Where(a=>a.Code=="en-US").Select(a=>a.Id).SingleAsync(),
                             Title="Worth buying against price"
                         }
-                    }
+                    }).ToList()
                 }, default, false);
             }
 
@@ -200,7 +200,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     Id = new Guid().SequentialGuid(),
                     TopicId = _repProductTopic.Get.Where(a => a.Name == "Laptop").Select(a => a.Id).Single(),
                     Name = "InternalHardwareAndBatteryPerformance",
-                    tblProductReviewsAttribute_Translate = new List<tblProductReviewsAttribute_Translate>
+                    tblProductReviewsAttribute_Translate = (new List<tblProductReviewsAttribute_Translate>
                     {
                         new tblProductReviewsAttribute_Translate{
                             Id=new Guid().SequentialGuid(),
@@ -212,7 +212,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                             LangId=await _repLanguages.Get.Where(a=>a.Code=="en-US").Select(a=>a.Id).SingleAsync(),
                             Title="Internal hardware and battery performance"
                         }
-                    }
+                    }).ToList()
                 }, default, false);
             }
 
@@ -223,7 +223,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     Id = new Guid().SequentialGuid(),
                     TopicId = _repProductTopic.Get.Where(a => a.Name == "Laptop").Select(a => a.Id).Single(),
                     Name = "KeyboardAndTouchpad",
-                    tblProductReviewsAttribute_Translate = new List<tblProductReviewsAttribute_Translate>
+                    tblProductReviewsAttribute_Translate = (new List<tblProductReviewsAttribute_Translate>
                     {
                         new tblProductReviewsAttribute_Translate{
                             Id=new Guid().SequentialGuid(),
@@ -235,7 +235,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                             LangId=await _repLanguages.Get.Where(a=>a.Code=="en-US").Select(a=>a.Id).SingleAsync(),
                             Title="Keyboard and touchpad"
                         }
-                    }
+                    }).ToList()
                 }, default, false);
             }
 
@@ -246,7 +246,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     Id = new Guid().SequentialGuid(),
                     TopicId = _repProductTopic.Get.Where(a => a.Name == "Laptop").Select(a => a.Id).Single(),
                     Name = "ScreenQualityAndSpeakers",
-                    tblProductReviewsAttribute_Translate = new List<tblProductReviewsAttribute_Translate>
+                    tblProductReviewsAttribute_Translate = (new List<tblProductReviewsAttribute_Translate>
                     {
                         new tblProductReviewsAttribute_Translate{
                             Id=new Guid().SequentialGuid(),
@@ -258,7 +258,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                             LangId=await _repLanguages.Get.Where(a=>a.Code=="en-US").Select(a=>a.Id).SingleAsync(),
                             Title="Screen quality and speakers"
                         }
-                    }
+                    }).ToList()
                 }, default, false);
             }
 
@@ -269,7 +269,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     Id = new Guid().SequentialGuid(),
                     TopicId = _repProductTopic.Get.Where(a => a.Name == "Laptop").Select(a => a.Id).Single(),
                     Name = "FeaturesAndCapabilities",
-                    tblProductReviewsAttribute_Translate = new List<tblProductReviewsAttribute_Translate>
+                    tblProductReviewsAttribute_Translate = (new List<tblProductReviewsAttribute_Translate>
                     {
                         new tblProductReviewsAttribute_Translate{
                             Id=new Guid().SequentialGuid(),
@@ -281,7 +281,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                             LangId=await _repLanguages.Get.Where(a=>a.Code=="en-US").Select(a=>a.Id).SingleAsync(),
                             Title="Features and capabilities"
                         }
-                    }
+                    }).ToList()
                 }, default, false);
             }
 
@@ -292,7 +292,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     Id = new Guid().SequentialGuid(),
                     TopicId = _repProductTopic.Get.Where(a => a.Name == "Laptop").Select(a => a.Id).Single(),
                     Name = "DesignAndBuildQuality",
-                    tblProductReviewsAttribute_Translate = new List<tblProductReviewsAttribute_Translate>
+                    tblProductReviewsAttribute_Translate = (new List<tblProductReviewsAttribute_Translate>
                     {
                         new tblProductReviewsAttribute_Translate{
                             Id=new Guid().SequentialGuid(),
@@ -304,7 +304,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                             LangId=await _repLanguages.Get.Where(a=>a.Code=="en-US").Select(a=>a.Id).SingleAsync(),
                             Title="Design and build quality"
                         }
-                    }
+                    }).ToList()
                 }, default, false);
             }
 

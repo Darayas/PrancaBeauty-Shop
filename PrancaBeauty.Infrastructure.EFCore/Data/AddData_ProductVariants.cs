@@ -32,7 +32,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     Id = new Guid().SequentialGuid(),
                     Name = "Color",
                     VariantType = "RadioButton",
-                    tblProductVariants_Translates = new List<tblProductVariants_Translates> {
+                    tblProductVariants_Translates = (new List<tblProductVariants_Translates> {
                         new tblProductVariants_Translates(){
                             Id= new Guid().SequentialGuid(),
                             LangId=_repLanguages.Get.Where(a=>a.Code=="fa-IR").Select(a=>a.Id).Single(),
@@ -43,7 +43,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                             LangId=_repLanguages.Get.Where(a=>a.Code=="en-US").Select(a=>a.Id).Single(),
                             Title="Color"
                         }
-                    }
+                    }).ToList()
                 }, default, false).Wait();
             }
 
@@ -54,7 +54,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     Id = new Guid().SequentialGuid(),
                     Name = "Size",
                     VariantType = "ComboBox",
-                    tblProductVariants_Translates = new List<tblProductVariants_Translates> {
+                    tblProductVariants_Translates = (new List<tblProductVariants_Translates> {
                         new tblProductVariants_Translates(){
                             Id= new Guid().SequentialGuid(),
                             LangId=_repLanguages.Get.Where(a=>a.Code=="fa-IR").Select(a=>a.Id).Single(),
@@ -65,7 +65,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                             LangId=_repLanguages.Get.Where(a=>a.Code=="en-US").Select(a=>a.Id).Single(),
                             Title="Size"
                         }
-                    }
+                    }).ToList()
                 }, default, false).Wait();
             }
 

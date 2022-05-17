@@ -139,19 +139,13 @@ namespace PrancaBeauty.Application.Apps.Categories
                     ParentId = Input.ParentId != null ? Guid.Parse(Input.ParentId) : null,
                     Name = Input.Name,
                     Sort = Input.Sort,
-                    tblCategory_Translates = new List<tblCategory_Translates>()
-                };
-
-                foreach (var item in Input.LstTranslate)
-                {
-                    tCategory.tblCategory_Translates.Add(new tblCategory_Translates()
-                    {
+                    tblCategory_Translates=Input.LstTranslate.Select(x=> new tblCategory_Translates {
                         Id = new Guid().SequentialGuid(),
-                        LangId = Guid.Parse(item.LangId),
-                        Title = item.Title,
-                        Description = item.Description
-                    });
-                }
+                        LangId = Guid.Parse(x.LangId),
+                        Title = x.Title,
+                        Description = x.Description
+                    }).ToList()
+                };
 
                 if (Input.Image != null)
                 {

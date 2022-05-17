@@ -30,7 +30,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     Id = new Guid().SequentialGuid(),
                     Name = "BrancabeautyGuarantee6Month",
                     IsEnable = true,
-                    tblGuarantee_Translates = new List<tblGuarantee_Translates>()
+                    tblGuarantee_Translates = (new List<tblGuarantee_Translates>()
                     {
                         new tblGuarantee_Translates()
                         {
@@ -44,7 +44,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                             LangId=repLang.Get.Where(a=>a.Code=="en-US").Select(a=>a.Id).Single(),
                             Title="Pranca Beauty six-month Guarantee"
                         }
-                    }
+                    }).ToList()
                 }, default, false).Wait();
 
                 if (!repGuarantee.Get.Any(a => a.Name == "2CellGuarantee6Month"))
@@ -54,7 +54,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                         Id = new Guid().SequentialGuid(),
                         Name = "BrancabeautyGuarantee6Month",
                         IsEnable = true,
-                        tblGuarantee_Translates = new List<tblGuarantee_Translates>()
+                        tblGuarantee_Translates = (new List<tblGuarantee_Translates>()
                         {
                             new tblGuarantee_Translates()
                             {
@@ -68,7 +68,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                                 LangId=repLang.Get.Where(a=>a.Code=="en-US").Select(a=>a.Id).Single(),
                                 Title="Two Cell Guarantee"
                             }
-                        }
+                        }).ToList()
                     }, default, false).Wait();
                 }
 

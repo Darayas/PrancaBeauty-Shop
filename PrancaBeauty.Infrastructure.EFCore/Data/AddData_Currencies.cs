@@ -39,7 +39,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     mDec = "0",
                     Symbol = "ريال",
                     vMax = "99999999",
-                    tblCurrency_Translates = new List<tblCurrency_Translates>() {
+                    tblCurrency_Translates =(new List<tblCurrency_Translates>() {
                         new tblCurrency_Translates(){
                             Id=new Guid().SequentialGuid(),
                             LangId= _Languages.Get.Where(a=>a.Code=="fa-IR").Select(a=>a.Id).Single(),
@@ -50,7 +50,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                             LangId= _Languages.Get.Where(a=>a.Code=="en-US").Select(a=>a.Id).Single(),
                             Title="Rial"
                         }
-                    }
+                    }).ToList()
                 }, default, false).Wait();
             }
 
@@ -67,7 +67,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     mDec = "2",
                     Symbol = "$",
                     vMax = "999999",
-                    tblCurrency_Translates = new List<tblCurrency_Translates>() {
+                    tblCurrency_Translates = (new List<tblCurrency_Translates>() {
                         new tblCurrency_Translates(){
                             Id=new Guid().SequentialGuid(),
                             LangId= _Languages.Get.Where(a=>a.Code=="fa-IR").Select(a=>a.Id).Single(),
@@ -78,7 +78,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                             LangId= _Languages.Get.Where(a=>a.Code=="en-US").Select(a=>a.Id).Single(),
                             Title="Dollars"
                         }
-                    }
+                    }).ToList()
                 }, default, false).Wait();
             }
 

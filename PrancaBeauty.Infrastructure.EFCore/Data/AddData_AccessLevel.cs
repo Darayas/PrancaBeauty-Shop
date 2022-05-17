@@ -29,18 +29,11 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                 {
                     Id = new Guid().SequentialGuid(),
                     Name = "GeneralManager",
-                    tblAccessLevel_Roles = new List<tblAccessLevel_Roles>()
-                };
-
-                foreach (var item in _repRoles.Get.ToList())
-                {
-                    qAccRole.tblAccessLevel_Roles.Add(new tblAccessLevel_Roles
-                    {
+                    tblAccessLevel_Roles = _repRoles.Get.Select(x=> new tblAccessLevel_Roles {
                         Id = new Guid().SequentialGuid(),
-                        AccessLevelId = qAccRole.Id,
-                        RoleId = item.Id
-                    });
-                }
+                        RoleId = x.Id
+                    }).ToList()
+                };
 
                 _repAccessLevel.AddAsync(qAccRole, default, false).Wait();
             }

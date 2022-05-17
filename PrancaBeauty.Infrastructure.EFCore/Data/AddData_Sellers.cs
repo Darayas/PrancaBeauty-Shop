@@ -45,7 +45,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     UserId = _UserRepository.Get.Where(a => a.UserName == "reza9025@gmail.com").Select(a => a.Id).Single(),
                     Name = "Darayas",
                     Date = DateTime.Now,
-                    tblSeller_Translates = new List<tblSeller_Translates> {
+                    tblSeller_Translates = (new List<tblSeller_Translates> {
                         new tblSeller_Translates{
                             Id= new Guid().SequentialGuid(),
                             LangId= _LanguageRepository.Get.Where(a=>a.Code=="fa-IR").Select(a=>a.Id).Single(),
@@ -76,7 +76,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                                 SizeOnDisk = 0
                             }
                         }
-                    }
+                    }).ToList()
                 }, default, false).Wait();
             }
 
@@ -88,7 +88,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     UserId = _UserRepository.Get.Where(a => a.UserName == "test9025@gmail.com").Select(a => a.Id).Single(),
                     Name = "DotnetLearn",
                     Date = DateTime.Now,
-                    tblSeller_Translates = new List<tblSeller_Translates> {
+                    tblSeller_Translates = (new List<tblSeller_Translates> {
                         new tblSeller_Translates{
                             Id= new Guid().SequentialGuid(),
                             LangId= _LanguageRepository.Get.Where(a=>a.Code=="fa-IR").Select(a=>a.Id).Single(),
@@ -119,7 +119,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                                 SizeOnDisk = 0
                             }
                         }
-                    }
+                    }).ToList()
                 }, default, false).Wait();
             }
 

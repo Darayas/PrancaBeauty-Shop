@@ -17,15 +17,5 @@ namespace Framework.Common.ExMethods
                         : (ElsePath!=null ? ElsePath(elements) : elements);
         }
 
-        public static IQueryable<T> IfThenElse<T>(
-            this IQueryable<T> elements,
-            bool Condition,
-            Func<IQueryable<T>, IQueryable<T>> ThenPath,
-            Func<IQueryable<T>, IQueryable<T>> ElsePath = null)
-        {
-            return Condition
-                        ? ThenPath(elements)
-                        : (ElsePath!=null ? ElsePath(elements) : elements);
-        }
     }
 }

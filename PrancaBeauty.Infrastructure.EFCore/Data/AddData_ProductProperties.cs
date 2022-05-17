@@ -36,7 +36,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     TopicId = _repProductTopics.Get.Where(a => a.Name == "SmartPhone").Select(a => a.Id).Single(),
                     Name = "CPU",
                     Sort = 0,
-                    tblProductPropertis_Translates = new List<tblProductPropertis_Translates>() {
+                    tblProductPropertis_Translates = (new List<tblProductPropertis_Translates>() {
                         new tblProductPropertis_Translates(){
                             Id = new Guid().SequentialGuid(),
                             LangId=_repLanguage.Get.Where(a=>a.Code=="en-US").Select(a=>a.Id).Single(),
@@ -47,7 +47,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                             LangId=_repLanguage.Get.Where(a=>a.Code=="fa-IR").Select(a=>a.Id).Single(),
                             Title="پردازنده"
                         }
-                    }
+                    }).ToList()
                 }, default, false).Wait();
             }
 
@@ -59,7 +59,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     TopicId = _repProductTopics.Get.Where(a => a.Name == "SmartPhone").Select(a => a.Id).Single(),
                     Name = "RAM",
                     Sort = 1,
-                    tblProductPropertis_Translates = new List<tblProductPropertis_Translates>() {
+                    tblProductPropertis_Translates = (new List<tblProductPropertis_Translates>() {
                         new tblProductPropertis_Translates(){
                             Id = new Guid().SequentialGuid(),
                             LangId=_repLanguage.Get.Where(a=>a.Code=="en-US").Select(a=>a.Id).Single(),
@@ -70,7 +70,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                             LangId=_repLanguage.Get.Where(a=>a.Code=="fa-IR").Select(a=>a.Id).Single(),
                             Title="حافظه اجرایی"
                         }
-                    }
+                    }).ToList()
                 }, default, false).Wait();
             }
 
@@ -82,7 +82,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     TopicId = _repProductTopics.Get.Where(a => a.Name == "SmartPhone").Select(a => a.Id).Single(),
                     Name = "OS",
                     Sort = 2,
-                    tblProductPropertis_Translates = new List<tblProductPropertis_Translates>() {
+                    tblProductPropertis_Translates = (new List<tblProductPropertis_Translates>() {
                         new tblProductPropertis_Translates(){
                             Id = new Guid().SequentialGuid(),
                             LangId=_repLanguage.Get.Where(a=>a.Code=="en-US").Select(a=>a.Id).Single(),
@@ -93,7 +93,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                             LangId=_repLanguage.Get.Where(a=>a.Code=="fa-IR").Select(a=>a.Id).Single(),
                             Title="سیستم عامل"
                         }
-                    }
+                    }).ToList()
                 }, default, false).Wait();
             }
 
@@ -105,7 +105,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     TopicId = _repProductTopics.Get.Where(a => a.Name == "SmartPhone").Select(a => a.Id).Single(),
                     Name = "Camera",
                     Sort = 3,
-                    tblProductPropertis_Translates = new List<tblProductPropertis_Translates>() {
+                    tblProductPropertis_Translates = (new List<tblProductPropertis_Translates>() {
                         new tblProductPropertis_Translates(){
                             Id = new Guid().SequentialGuid(),
                             LangId=_repLanguage.Get.Where(a=>a.Code=="en-US").Select(a=>a.Id).Single(),
@@ -116,7 +116,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                             LangId=_repLanguage.Get.Where(a=>a.Code=="fa-IR").Select(a=>a.Id).Single(),
                             Title="دوربین"
                         }
-                    }
+                    }).ToList()
                 }, default, false).Wait();
             }
             #endregion
@@ -130,7 +130,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     TopicId = _repProductTopics.Get.Where(a => a.Name == "Laptop").Select(a => a.Id).Single(),
                     Name = "CPU",
                     Sort = 0,
-                    tblProductPropertis_Translates = new List<tblProductPropertis_Translates>() {
+                    tblProductPropertis_Translates = (new List<tblProductPropertis_Translates>() {
                         new tblProductPropertis_Translates(){
                             Id = new Guid().SequentialGuid(),
                             LangId=_repLanguage.Get.Where(a=>a.Code=="en-US").Select(a=>a.Id).Single(),
@@ -141,7 +141,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                             LangId=_repLanguage.Get.Where(a=>a.Code=="fa-IR").Select(a=>a.Id).Single(),
                             Title="پردازنده"
                         }
-                    }
+                    }).ToList()
                 }, default, false).Wait();
             }
 
@@ -153,7 +153,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     TopicId = _repProductTopics.Get.Where(a => a.Name == "Laptop").Select(a => a.Id).Single(),
                     Name = "RAM",
                     Sort = 1,
-                    tblProductPropertis_Translates = new List<tblProductPropertis_Translates>() {
+                    tblProductPropertis_Translates = (new List<tblProductPropertis_Translates>() {
                         new tblProductPropertis_Translates(){
                             Id = new Guid().SequentialGuid(),
                             LangId=_repLanguage.Get.Where(a=>a.Code=="en-US").Select(a=>a.Id).Single(),
@@ -164,7 +164,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                             LangId=_repLanguage.Get.Where(a=>a.Code=="fa-IR").Select(a=>a.Id).Single(),
                             Title="حافظه اجرایی"
                         }
-                    }
+                    }).ToList()
                 }, default, false).Wait();
             }
 
@@ -176,7 +176,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     TopicId = _repProductTopics.Get.Where(a => a.Name == "Laptop").Select(a => a.Id).Single(),
                     Name = "OS",
                     Sort = 2,
-                    tblProductPropertis_Translates = new List<tblProductPropertis_Translates>() {
+                    tblProductPropertis_Translates = (new List<tblProductPropertis_Translates>() {
                         new tblProductPropertis_Translates(){
                             Id = new Guid().SequentialGuid(),
                             LangId=_repLanguage.Get.Where(a=>a.Code=="en-US").Select(a=>a.Id).Single(),
@@ -187,7 +187,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                             LangId=_repLanguage.Get.Where(a=>a.Code=="fa-IR").Select(a=>a.Id).Single(),
                             Title="سیستم عامل"
                         }
-                    }
+                    }).ToList()
                 }, default, false).Wait();
             }
 
@@ -199,7 +199,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     TopicId = _repProductTopics.Get.Where(a => a.Name == "Laptop").Select(a => a.Id).Single(),
                     Name = "Camera",
                     Sort = 3,
-                    tblProductPropertis_Translates = new List<tblProductPropertis_Translates>() {
+                    tblProductPropertis_Translates = (new List<tblProductPropertis_Translates>() {
                         new tblProductPropertis_Translates(){
                             Id = new Guid().SequentialGuid(),
                             LangId=_repLanguage.Get.Where(a=>a.Code=="en-US").Select(a=>a.Id).Single(),
@@ -210,7 +210,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                             LangId=_repLanguage.Get.Where(a=>a.Code=="fa-IR").Select(a=>a.Id).Single(),
                             Title="دوربین"
                         }
-                    }
+                    }).ToList()
                 }, default, false).Wait();
             }
 
@@ -222,7 +222,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     TopicId = _repProductTopics.Get.Where(a => a.Name == "Laptop").Select(a => a.Id).Single(),
                     Name = "Diplay",
                     Sort = 4,
-                    tblProductPropertis_Translates = new List<tblProductPropertis_Translates>() {
+                    tblProductPropertis_Translates = (new List<tblProductPropertis_Translates>() {
                         new tblProductPropertis_Translates(){
                             Id = new Guid().SequentialGuid(),
                             LangId=_repLanguage.Get.Where(a=>a.Code=="en-US").Select(a=>a.Id).Single(),
@@ -233,7 +233,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                             LangId=_repLanguage.Get.Where(a=>a.Code=="fa-IR").Select(a=>a.Id).Single(),
                             Title="صفحه نمایش"
                         }
-                    }
+                    }).ToList()
                 }, default, false).Wait();
             }
 
@@ -245,7 +245,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     TopicId = _repProductTopics.Get.Where(a => a.Name == "Laptop").Select(a => a.Id).Single(),
                     Name = "HDD",
                     Sort = 5,
-                    tblProductPropertis_Translates = new List<tblProductPropertis_Translates>() {
+                    tblProductPropertis_Translates = (new List<tblProductPropertis_Translates>() {
                         new tblProductPropertis_Translates(){
                             Id = new Guid().SequentialGuid(),
                             LangId=_repLanguage.Get.Where(a=>a.Code=="en-US").Select(a=>a.Id).Single(),
@@ -256,7 +256,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                             LangId=_repLanguage.Get.Where(a=>a.Code=="fa-IR").Select(a=>a.Id).Single(),
                             Title="هارد دیسک"
                         }
-                    }
+                    }).ToList()
                 }, default, false).Wait();
             }
 
@@ -268,7 +268,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     TopicId = _repProductTopics.Get.Where(a => a.Name == "Laptop").Select(a => a.Id).Single(),
                     Name = "SSD",
                     Sort = 6,
-                    tblProductPropertis_Translates = new List<tblProductPropertis_Translates>() {
+                    tblProductPropertis_Translates =(new List<tblProductPropertis_Translates>() {
                         new tblProductPropertis_Translates(){
                             Id = new Guid().SequentialGuid(),
                             LangId=_repLanguage.Get.Where(a=>a.Code=="en-US").Select(a=>a.Id).Single(),
@@ -279,7 +279,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                             LangId=_repLanguage.Get.Where(a=>a.Code=="fa-IR").Select(a=>a.Id).Single(),
                             Title="حافظه ی SSD"
                         }
-                    }
+                    }).ToList()
                 }, default, false).Wait();
             }
             #endregion

@@ -37,7 +37,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     CountryId = _Countries.Get.Where(a => a.Name == "Iran").Select(a => a.Id).Single(),
                     Name = "Tehran",
                     IsActive = true,
-                    tblProvinces_Translate = new List<tblProvinces_Translate> {
+                    tblProvinces_Translate = (new List<tblProvinces_Translate> {
                         new tblProvinces_Translate{
                             Id= new Guid().SequentialGuid(),
                             LangId= _Language.Get.Where(a=>a.Code=="fa-IR").Select(a=>a.Id).Single(),
@@ -48,7 +48,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                             LangId= _Language.Get.Where(a=>a.Code=="en-US").Select(a=>a.Id).Single(),
                             Title="Tehran"
                         }
-                    }
+                    }).ToList()
                 }, default).Wait();
             }
 
@@ -60,7 +60,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     CountryId = _Countries.Get.Where(a => a.Name == "Iran").Select(a => a.Id).Single(),
                     Name = "Esfahan",
                     IsActive = true,
-                    tblProvinces_Translate = new List<tblProvinces_Translate> {
+                    tblProvinces_Translate = (new List<tblProvinces_Translate> {
                         new tblProvinces_Translate{
                             Id= new Guid().SequentialGuid(),
                             LangId= _Language.Get.Where(a=>a.Code=="fa-IR").Select(a=>a.Id).Single(),
@@ -71,7 +71,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                             LangId= _Language.Get.Where(a=>a.Code=="en-US").Select(a=>a.Id).Single(),
                             Title="Esfahan"
                         }
-                    }
+                    }).ToList()
                 }, default).Wait();
             }
 
@@ -83,7 +83,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     CountryId = _Countries.Get.Where(a => a.Name == "Iran").Select(a => a.Id).Single(),
                     Name = "Fars",
                     IsActive = true,
-                    tblProvinces_Translate = new List<tblProvinces_Translate> {
+                    tblProvinces_Translate = (new List<tblProvinces_Translate> {
                         new tblProvinces_Translate{
                             Id= new Guid().SequentialGuid(),
                             LangId= _Language.Get.Where(a=>a.Code=="fa-IR").Select(a=>a.Id).Single(),
@@ -94,7 +94,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                             LangId= _Language.Get.Where(a=>a.Code=="en-US").Select(a=>a.Id).Single(),
                             Title="Fars"
                         }
-                    }
+                    }).ToList()
                 }, default).Wait();
             }
         }

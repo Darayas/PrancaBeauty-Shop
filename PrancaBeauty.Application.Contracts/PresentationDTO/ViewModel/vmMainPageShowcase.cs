@@ -1,4 +1,5 @@
 ﻿using Framework.Domain.Enums;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Showcase;
 using System;
 using System.Collections.Generic;
 
@@ -49,8 +50,8 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewModel
 
         public vmMainPageShowcasee_SectionFreeItem FreeItem { get; set; }
         public vmMainPageShowcase_SectionProductItem ProductItem { get; set; }
-        public List<vmMainPageShowcase_SectionProductItem> CategoryItems { get; set; }
-        public List<vmMainPageShowcase_SectionProductItem> KeywordItems { get; set; }
+        public vmMainPageShowcase_SectionCategory CategoryItems { get; set; }
+        public vmMainPageShowcase_SectionKeyword KeywordItems { get; set; }
     }
 
     public class vmMainPageShowcasee_SectionFreeItem
@@ -72,5 +73,17 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewModel
         public double PercentSavePrice { get; set; } // درصد تخفیفی که فروشنده تعیین کرده است
         public string CurrencySymbol { get; set; }
         public bool IsInBookmark { get; set; }
+    }
+
+    public class vmMainPageShowcase_SectionCategory
+    {
+        public int CountFetch { get; set; }
+        public List<vmMainPageShowcase_SectionProductItem> LstProducts { get; set; }
+    }
+
+    public class vmMainPageShowcase_SectionKeyword
+    {
+        public int CountFetch { get; set; }
+        public List<vmMainPageShowcase_SectionProductItem> LstProducts { get; set; }
     }
 }

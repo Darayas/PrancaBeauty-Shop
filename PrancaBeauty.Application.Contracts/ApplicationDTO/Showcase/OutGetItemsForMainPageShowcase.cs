@@ -49,8 +49,8 @@ namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Showcase
 
         public OutGetItemsForMainPageShowcase_SectionFreeItem FreeItem { get; set; }
         public OutGetItemsForMainPageShowcase_SectionProductItem ProductItem { get; set; }
-        public List<OutGetItemsForMainPageShowcase_SectionProductItem> CategoryItems { get; set; }
-        public List<OutGetItemsForMainPageShowcase_SectionProductItem> KeywordItems { get; set; }
+        public OutGetItemsForMainPageShowcase_SectionCategory CategoryItems { get; set; }
+        public OutGetItemsForMainPageShowcase_SectionKeyword KeywordItems { get; set; }
     }
 
     public class OutGetItemsForMainPageShowcase_SectionFreeItem
@@ -72,5 +72,17 @@ namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Showcase
         public double PercentSavePrice { get; set; } // درصد تخفیفی که فروشنده تعیین کرده است
         public string CurrencySymbol { get; set; }
         public bool IsInBookmark { get; set; }
+    }
+
+    public class OutGetItemsForMainPageShowcase_SectionCategory
+    {
+        public int CountFetch { get; set; }
+        public List<OutGetItemsForMainPageShowcase_SectionProductItem> LstProducts { get; set; }
+    }
+
+    public class OutGetItemsForMainPageShowcase_SectionKeyword
+    {
+        public int CountFetch { get; set; }
+        public List<OutGetItemsForMainPageShowcase_SectionProductItem> LstProducts { get; set; }
     }
 }

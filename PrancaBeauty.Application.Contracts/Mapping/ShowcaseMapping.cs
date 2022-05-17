@@ -35,6 +35,8 @@ namespace PrancaBeauty.Application.Contracts.Mapping
             CreateMap<OutGetItemsForMainPageShowcase_SectionItem, vmMainPageShowcase_SectionItem>();
             CreateMap<OutGetItemsForMainPageShowcase_SectionFreeItem, vmMainPageShowcasee_SectionFreeItem>();
             CreateMap<OutGetItemsForMainPageShowcase_SectionProductItem, vmMainPageShowcase_SectionProductItem>();
+            CreateMap<OutGetItemsForMainPageShowcase_SectionCategory, vmMainPageShowcase_SectionCategory>();
+            CreateMap<OutGetItemsForMainPageShowcase_SectionKeyword, vmMainPageShowcase_SectionKeyword>();
         }
     }
 }

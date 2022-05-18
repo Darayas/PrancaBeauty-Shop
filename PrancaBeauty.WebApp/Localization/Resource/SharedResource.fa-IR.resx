@@ -459,6 +459,9 @@
   <data name="DatePattern" xml:space="preserve">
     <value>[1][3-4][0-9][0-9][\/\-]([0][1-9])|([1][0-2])[\/\-]([0][1-9])|([1-2][0-9])|([3][0-1])</value>
   </data>
+  <data name="Days" xml:space="preserve">
+    <value>روز</value>
+  </data>
   <data name="DefaultError" xml:space="preserve">
     <value>خطایی ناشناخته رخ داد. لطفا بعدا مجدد امتحان کنید</value>
   </data>
@@ -738,6 +741,9 @@
   <data name="Home" xml:space="preserve">
     <value>خانه</value>
   </data>
+  <data name="Hours" xml:space="preserve">
+    <value>ساعت</value>
+  </data>
   <data name="HowToDisplayItems" xml:space="preserve">
     <value>نحوه نمایش Item ها</value>
   </data>
@@ -1013,6 +1019,9 @@
   </data>
   <data name="MimeTypeIsInvalid" xml:space="preserve">
     <value>نوع فایل ارسال شده معتبر نمیباشد.</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>دقیقه</value>
   </data>
   <data name="MobilePattern" xml:space="preserve">
     <value>^[0][9][0-9]{9}$</value>
@@ -1481,6 +1490,9 @@
   </data>
   <data name="SearchUsers" xml:space="preserve">
     <value>جستوجوی کاربران</value>
+  </data>
+  <data name="Seconds" xml:space="preserve">
+    <value>ثانیه</value>
   </data>
   <data name="SectionType" xml:space="preserve">
     <value>نوع Section</value>

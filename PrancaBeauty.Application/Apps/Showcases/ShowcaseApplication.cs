@@ -442,8 +442,7 @@ namespace PrancaBeauty.Application.Apps.Showcases
                                                         {
                                                             Title=b.tblShowcaseTabTranslates.Where(c => c.LangId==Input.LangId.ToGuid()).Select(c => c.Title).Single(),
                                                             BackgroundColorCode=b.BackgroundColorCode,
-                                                            StartDate=b.StartDate,
-                                                            EndDate=b.EndDate,
+                                                            ExpireDateInSecound=b.EndDate != null ? (b.EndDate.Value - b.StartDate).TotalSeconds : 0,
                                                             LstTabSection = b.tblShowcaseTabSections
                                                                                 .Select(c => new OutGetItemsForMainPageShowcase_TabSection
                                                                                 {

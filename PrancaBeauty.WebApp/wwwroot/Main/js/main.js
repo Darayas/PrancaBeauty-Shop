@@ -41,6 +41,34 @@ function LoadTabs(_ShowcaseId) {
     });
 }
 
+function CalcDuDate(_Id, _Seconds, _Callback = function () { }) {
+    var ss = parseFloat(_Seconds);
+    var Calc = setInterval(function () {
+        var Days = Math.floor(ss / 60 / 60 / 24);
+        var Hours = Math.floor(ss / 60 / 60) % 24;
+        var Minutes = Math.floor(ss / 60) % 60;
+        var Seconds = Math.floor(ss % 60);
+
+        if (Days == 0)
+            $('#' + _Id + ' .Days').hide();
+
+        $('#' + _Id + ' .Days .val').text(Days);
+        $('#' + _Id + ' .Hours .val').text(Hours);
+        $('#' + _Id + ' .Minutes .val').text(Minutes);
+        $('#' + _Id + ' .Seconds .val').text(Seconds);
+
+        ss--;
+
+        if (Days == 0 && Hours == 0 && Minutes == 0 && Seconds == 0) {
+            if (_Callback != null)
+                _Callback();
+
+            clearInterval(Calc);
+        }
+
+    }, 1000);
+}
+
 (function ($) {
     "use strict";
 

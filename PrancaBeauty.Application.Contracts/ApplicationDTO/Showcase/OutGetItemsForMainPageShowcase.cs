@@ -21,8 +21,7 @@ namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Showcase
     {
         public string Title { get; set; }
         public string BackgroundColorCode { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime? EndDate { get; set; }
+        public double ExpireDateInSecound { get; set; }
 
         public List<OutGetItemsForMainPageShowcase_TabSection> LstTabSection { get; set; }
     }

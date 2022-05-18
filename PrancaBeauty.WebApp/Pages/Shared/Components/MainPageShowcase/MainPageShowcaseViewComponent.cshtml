@@ -52,6 +52,21 @@
                                         @{
                                             AddTabSection(itemTab.LstTabSection);
                                         }
+
+                                        @if (itemTab.ExpireDateInSecound>0)
+                                        {
+                                            <div id="CounterDown@(ShowcaseCount)@(CounterTabItem)" class="CounterDown">
+                                               <div class="Days"><span class=val></span><span class=title>@Localizer["Days"]</span></div>
+                                               <div class="Hours"><span class=val></span><span class=title>@Localizer["Hours"]</span></div>
+                                               <div class="Minutes"><span class=val></span><span class=title>@Localizer["Minutes"]</span></div>
+                                               <div class="Seconds"><span class=val></span><span class=title>@Localizer["Seconds"]</span></div>
+                                            </div>
+                                            <script>
+                                                $(document).ready(function(){
+                                                    CalcDuDate('CounterDown@(ShowcaseCount)@(CounterTabItem)',@itemTab.ExpireDateInSecound);
+                                                });
+                                            </script>
+                                        }
                                     </div>
 
                                     CounterTabItem++;
@@ -158,7 +173,6 @@
                         </div>
                     }
                 }
-
             }
             else
             {

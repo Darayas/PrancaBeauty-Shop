@@ -172,3 +172,12 @@ function ShowModal(_ModalHtmlCode, _ModalId) {
     $('body').append("<div class='" + _ModalId + "'>" + _ModalHtmlCode + "<div class='modal-backdrop show'></div></div>");
     $('#' + _ModalId).modal({ keyboard: false, backdrop: false });
 }
+
+$(document).ready(function () {
+    $('.color-code').each(function () {
+        $(this).minicolors({
+            format: 'rgb',
+            opacity: 1
+        });
+    });
+});

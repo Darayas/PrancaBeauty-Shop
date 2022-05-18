@@ -49,9 +49,6 @@ function CalcDuDate(_Id, _Seconds, _Callback = function () { }) {
         var Minutes = Math.floor(ss / 60) % 60;
         var Seconds = Math.floor(ss % 60);
 
-        if (Days == 0)
-            $('#' + _Id + ' .Days').hide();
-
         $('#' + _Id + ' .Days .val').text(Days);
         $('#' + _Id + ' .Hours .val').text(Hours);
         $('#' + _Id + ' .Minutes .val').text(Minutes);
@@ -71,8 +68,6 @@ function CalcDuDate(_Id, _Seconds, _Callback = function () { }) {
 
 (function ($) {
     "use strict";
-
-
 
     $(document).ready(function () {
         $('.loading').hide();

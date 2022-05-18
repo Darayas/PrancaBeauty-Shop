@@ -171,7 +171,7 @@ ul {
 .main-sidebar {
     left: auto;
     right: 0;
-    z-index:1000;
+    z-index: 1000;
 }
 
 /* Cards */
@@ -298,7 +298,7 @@ a:not([href]) {
 }
 
 textarea.form-control {
-    height:auto;
+    height: auto;
 }
 
 .k-dropdown-wrap {
@@ -330,10 +330,10 @@ textarea.form-control {
     padding: 5px;
     font-size: 14px;
     font-weight: 700;
-    cursor:pointer;
-    background-color:#00b214;
-    color:white;
-    border-radius:5px;
+    cursor: pointer;
+    background-color: #00b214;
+    color: white;
+    border-radius: 5px;
 }
 
 .DataGridSorting span:nth-child(2) {
@@ -356,11 +356,146 @@ textarea.form-control {
     border-bottom: 2px solid #dee2e6;
 }
 
-.HeaderDrp{
-
+.HeaderDrp {
 }
 
     .HeaderDrp ul li {
         padding: 5px;
         text-align: right;
     }
+
+.minicolors .minicolors-grid {
+    right: 1px !important;
+}
+
+.minicolors-slider,
+.minicolors-opacity-slider {
+    right: 152px !important;
+}
+
+.minicolors-opacity-slider {
+    right: 173px !important;
+}
+
+.minicolors-swatches,
+.minicolors-swatches li {
+    margin: 5px 5px 3px 0 !important;
+}
+
+    .minicolors-swatches .minicolors-swatch {
+        float: right !important;
+        margin: 0 0 0 4px !important;
+    }
+
+.minicolors-with-opacity .minicolors-swatches .minicolors-swatch {
+    margin-right: 0 !important;
+    margin-left: 7px !important;
+}
+
+.minicolors-theme-bootstrap .minicolors-swatch {
+    right: 3px !important;
+}
+
+.minicolors-theme-default.minicolors-position-left .minicolors-input {
+    padding-right: inherit !important;
+    padding-left: 26px !important;
+}
+
+.minicolors-theme-default .minicolors-input {
+    text-align: right !important;
+    unicode-bidi: plaintext !important;
+    padding-left: 1px !important;
+    padding-right: 35px !important;
+}
+
+.minicolors-theme-default.minicolors-position-left .minicolors-swatch {
+    right: auto !important;
+    left: 5px !important;
+}
+
+.minicolors-theme-default .minicolors-swatches .minicolors-swatch {
+    right: 0 !important;
+}
+
+.minicolors-theme-default .minicolors-swatch {
+    right: 5px !important;
+}
+
+.minicolors-inline .minicolors-panel {
+    right: auto !important;
+}
+
+.minicolors-theme-bootstrap .minicolors-input.input-lg + .minicolors-swatch {
+    right: 4px !important;
+}
+
+.minicolors-theme-bootstrap.minicolors-position-left .minicolors-input {
+    padding-right: 12px !important;
+    padding-left: 44px !important;
+}
+
+.minicolors-theme-bootstrap .minicolors-input {
+    text-align: right !important;
+    unicode-bidi: plaintext !important;
+    padding-left: 12px !important;
+    padding-right: 44px !important;
+}
+
+.minicolors-theme-bootstrap.minicolors-position-left > .minicolors-swatch {
+    right: auto !important;
+    left: 3px !important;
+}
+
+.minicolors-theme-bootstrap .minicolors-swatches .minicolors-swatch {
+    right: 0 !important;
+}
+
+.minicolors-theme-semanticui .minicolors-swatch {
+    right: 0 !important;
+}
+
+.input-group .minicolors-theme-bootstrap .minicolors-input {
+    border-radius: 4px !important;
+}
+
+.input-group .minicolors-theme-bootstrap:not(:first-child) .minicolors-input {
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}
+
+.input-group .minicolors-theme-bootstrap:not(:last-child) .minicolors-input {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+}
+/* bootstrap input-group rtl override */
+.input-group .form-control,
+.input-group-addon,
+.input-group-btn > .btn,
+.input-group-btn > .btn-group > .btn,
+.input-group-btn > .dropdown-toggle {
+    border: 1px solid #ccc !important;
+    border-radius: 4px !important;
+}
+
+    .input-group .form-control:first-child,
+    .input-group-addon:first-child,
+    .input-group-btn:first-child > .btn,
+    .input-group-btn:first-child > .btn-group > .btn,
+    .input-group-btn:first-child > .dropdown-toggle,
+    .input-group-btn:last-child > .btn:not(:last-child):not(.dropdown-toggle),
+    .input-group-btn:last-child > .btn-group:not(:last-child) > .btn {
+        border-top-left-radius: 0 !important;
+        border-bottom-left-radius: 0 !important;
+        border-left: 0 !important;
+    }
+
+        .input-group .form-control:last-child,
+        .input-group-addon:last-child,
+        .input-group-btn:last-child > .btn,
+        .input-group-btn:last-child > .btn-group > .btn,
+        .input-group-btn:last-child > .dropdown-toggle,
+        .input-group-btn:first-child > .btn:not(:first-child),
+        .input-group-btn:first-child > .btn-group:not(:first-child) > .btn {
+            border-top-right-radius: 0 !important;
+            border-bottom-right-radius: 0 !important;
+        }

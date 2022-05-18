@@ -31288,6 +31288,19 @@ pre {
 .tab-content .CounterDown {
   text-align: center;
   margin-top: 40px;
+  font-weight: 300;
+  font-size: 150%;
+}
+.tab-content .CounterDown div {
+  display: inline-block;
+  padding: 0 5px;
+}
+.tab-content .CounterDown div.Spreator {
+  position: relative;
+  top: -15px;
   font-weight: 700;
-  font-size: 40px;
+}
+.tab-content .CounterDown div span {
+  display: block;
+  padding: 10px 0;
 }

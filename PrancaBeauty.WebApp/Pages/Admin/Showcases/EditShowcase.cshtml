@@ -66,7 +66,7 @@
                                     <div class="row">
                                         <div class=col-md-2>
                                             <label asp-for=Input.BackgroundColorCode></label>
-                                            <input asp-for=Input.BackgroundColorCode class=form-control type="color" />
+                                            <input asp-for=Input.BackgroundColorCode class="form-control color-code" type="text" />
                                         </div>
                                         <div class=col-md-6>
                                             <label asp-for=Input.CssClass></label>
@@ -159,12 +159,14 @@
 
 @section styles{
 <link href="~/lib/PersianDatePicker/persian-datepicker.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="~/lib/color-picker/jquery.minicolors.css">
 }
 
 @section scripts{
 <script src="~/lib/input-mask/jquery.inputmask.min.js"></script>
 <script src="~/lib/PersianDatePicker/persian-date.min.js"></script>
 <script src="~/lib/PersianDatePicker/persian-datepicker.min.js"></script>
+<script src="~/lib/color-picker/jquery.minicolors.min.js"></script>
 
 <script>
     $(document).ready(function () {

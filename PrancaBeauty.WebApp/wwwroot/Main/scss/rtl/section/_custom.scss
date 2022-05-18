@@ -535,7 +535,23 @@ pre {
     .CounterDown {
         text-align: center;
         margin-top: 40px;
-        font-weight: 700;
-        font-size: 40px;
+        font-weight: 300;
+        font-size: 150%;
+
+        div {
+            display: inline-block;
+            padding: 0 5px;
+
+            &.Spreator {
+                position: relative;
+                top: -15px;
+                font-weight: 700;
+            }
+
+            span {
+                display: block;
+                padding: 10px 0;
+            }
+        }
     }
 }

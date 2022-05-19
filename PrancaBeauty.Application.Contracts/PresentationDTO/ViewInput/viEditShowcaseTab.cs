@@ -1,5 +1,6 @@
 ﻿using Framework.Common.DataAnnotations.String;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput
@@ -37,6 +38,7 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput
         // TODO DA: DateTime
         public string EndDate { get; set; }
 
+        [Display(Name = "LangsBold:")]
         public List<viEditShowcaseTab_Translate> LstTranslate { get; set; }
     }
 

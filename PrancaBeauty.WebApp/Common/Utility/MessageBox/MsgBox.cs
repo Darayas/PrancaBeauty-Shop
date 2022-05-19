@@ -34,7 +34,7 @@ namespace PrancaBeauty.WebApp.Common.Utility.MessageBox
 
         public JsResult ModelStateMsg(string ModelErrors, string CallBackFuncs = null)
         {
-            return new JsResult(Show("", ModelErrors, MsgBoxType.error, _Localizer["OK"], CallBackFuncs));
+            return new JsResult(Show("", ModelErrors.Replace(",", "<br/>"), MsgBoxType.error, _Localizer["OK"], CallBackFuncs));
         }
 
         public JsResult FaildMsg(string Message, string CallBackFuncs = null)

@@ -906,6 +906,9 @@
   <data name="LangId" xml:space="preserve">
     <value>زبان</value>
   </data>
+  <data name="LangsBold:" xml:space="preserve">
+    <value>&lt;b&gt;زبان ها&lt;/b&gt;: </value>
+  </data>
   <data name="Last" xml:space="preserve">
     <value>آخرین</value>
   </data>

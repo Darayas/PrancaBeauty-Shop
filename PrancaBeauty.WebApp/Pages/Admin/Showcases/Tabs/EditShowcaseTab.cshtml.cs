@@ -15,6 +15,7 @@ using PrancaBeauty.WebApp.Common.ExMethod;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
 using System;
 using System.Globalization;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace PrancaBeauty.WebApp.Pages.Admin.Showcases.Tabs
@@ -47,13 +48,13 @@ namespace PrancaBeauty.WebApp.Pages.Admin.Showcases.Tabs
                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
+                ViewData["ReturnUrl"]=ReturnUrl ?? $"/{CultureInfo.CurrentCulture.Parent.Name}/Admin/ShowcaseTabs/List/{this.Input.ShowcaseId}";
+
                 var qData = await _ShowcaseTabApplication.GetShowcaseTabForEditAsync(new InpGetShowcaseTabForEdit { Id=Input.Id }); ;
                 if (qData==null)
                     return StatusCode(400);
 
                 this.Input =_Mapper.Map<viEditShowcaseTab>(qData);
-
-                ViewData["ReturnUrl"]=ReturnUrl ?? $"/{CultureInfo.CurrentCulture.Parent.Name}/Admin/ShowcaseTabs/List/{this.Input.ShowcaseId}";
 
                 return Page();
             }
@@ -82,11 +83,11 @@ namespace PrancaBeauty.WebApp.Pages.Admin.Showcases.Tabs
                 if (_Result.IsSucceeded)
                     return _MsgBox.SuccessMsg(_Localizer[_Result.Message], "GotoList()");
                 else
-                    return _MsgBox.FaildMsg(_Localizer[_Result.Message]);
+                    return _MsgBox.ModelStateMsg(_Localizer[_Result.Message]);
             }
             catch (ArgumentInvalidException ex)
             {
-                return _MsgBox.FaildMsg(ex.Message);
+                return _MsgBox.ModelStateMsg(ex.Message);
             }
             catch (Exception ex)
             {

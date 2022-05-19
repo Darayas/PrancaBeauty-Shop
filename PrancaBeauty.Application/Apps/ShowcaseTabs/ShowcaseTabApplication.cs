@@ -296,9 +296,7 @@ namespace PrancaBeauty.Application.Apps.ShowcaseTabs
                                                 .SingleOrDefaultAsync();
 
                 if (qData==null)
-                {
                     return null;
-                }
 
                 return qData;
             }

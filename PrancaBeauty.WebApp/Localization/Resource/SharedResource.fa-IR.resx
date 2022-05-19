@@ -1581,6 +1581,9 @@
   <data name="ShowCaseHasTabSection.PleaseRemove" xml:space="preserve">
     <value>تب انتخاب دارای Section های میباشد که ابتدا باید آن ها را حذف نمایید.</value>
   </data>
+  <data name="ShowingResultsCount" xml:space="preserve">
+    <value>نمایش {0} - {1} از {2} نتیجه</value>
+  </data>
   <data name="SmsCodeIsSent" xml:space="preserve">
     <value>کد پیامک شد.</value>
   </data>
@@ -1592,6 +1595,18 @@
   </data>
   <data name="Sort" xml:space="preserve">
     <value>ترتیب</value>
+  </data>
+  <data name="SortByAvg" xml:space="preserve">
+    <value>بالاترین امتیاز</value>
+  </data>
+  <data name="SortByPopularity" xml:space="preserve">
+    <value>محبوب ترین ها</value>
+  </data>
+  <data name="SortByPrice:HighToLow" xml:space="preserve">
+    <value>براسا قیمت: کمترین به بیشترین</value>
+  </data>
+  <data name="SortByPrice:LowToHigh" xml:space="preserve">
+    <value>براسا قیمت: بیشترین به کمترین</value>
   </data>
   <data name="SortEmailAes" xml:space="preserve">
     <value>بر اساس ایمیل(صعودی)</value>

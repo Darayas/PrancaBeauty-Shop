@@ -1,15 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput;
 using PrancaBeauty.Application.Contracts.PresentationDTO.ViewModel;
+using System.Threading.Tasks;
 
-namespace PrancaBeauty.WebApp.Pages.Home
+namespace PrancaBeauty.WebApp.Pages.Home.Search.Components.Compo_ProductList
 {
-    public class SearchModel : PageModel
+    public class CompoSearch_ProductListModel : PageModel
     {
         public async Task<IActionResult> OnGetAsync()
         {
@@ -17,7 +14,7 @@ namespace PrancaBeauty.WebApp.Pages.Home
         }
 
         [BindProperty(SupportsGet = true)]
-        public viSearch Input { get; set; }
-        public vmSearch Data { get; set; }
+        public viCompoSearch_ProductList Input { get; set; }
+        public vmCompoSearch_ProductList Data { get; set; }
     }
 }

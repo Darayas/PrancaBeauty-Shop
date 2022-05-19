@@ -555,3 +555,31 @@ pre {
         }
     }
 }
+
+.widget_list.widget_filter-keyword {
+    overflow: hidden;
+
+    form {
+        input {
+            margin-bottom: 15px;
+        }
+
+        button {
+            height: 30px;
+            line-height: 30px;
+            padding: 0 20px;
+            text-transform: capitalize;
+            color: #fff;
+            background: #333;
+            border: 0;
+            border-radius: 30px;
+            float: right;
+            -webkit-transition: .3s;
+            transition: .3s;
+        }
+
+        button:hover {
+            background: #d52121;
+        }
+    }
+}

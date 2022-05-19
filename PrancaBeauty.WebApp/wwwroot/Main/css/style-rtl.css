@@ -31304,3 +31304,26 @@ pre {
   display: block;
   padding: 10px 0;
 }
+
+.widget_list.widget_filter-keyword {
+  overflow: hidden;
+}
+.widget_list.widget_filter-keyword form input {
+  margin-bottom: 15px;
+}
+.widget_list.widget_filter-keyword form button {
+  height: 30px;
+  line-height: 30px;
+  padding: 0 20px;
+  text-transform: capitalize;
+  color: #fff;
+  background: #333;
+  border: 0;
+  border-radius: 30px;
+  float: right;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+.widget_list.widget_filter-keyword form button:hover {
+  background: #d52121;
+}

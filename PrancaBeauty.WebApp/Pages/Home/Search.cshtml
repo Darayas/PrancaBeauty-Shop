@@ -10,33 +10,16 @@
 
 
 <!--breadcrumbs area start-->
-<div class="breadcrumbs_area">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="breadcrumb_content">
-                    <ul>
-                        <li><a href="index.html">home</a></li>
-                        <li> Beauty & shop</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<partial name="~/Pages/Shared/Partials/P_breadcrumbs.cshtml" model='new List<viBreadcrumbs>{
+        new viBreadcrumbs{ Title=Localizer["Home"], Url=$"/{ViewData["Culture"]}"},
+        new viBreadcrumbs{ Title=Model.Input.CategoryName, Url=$"/{ViewData["Culture"]}/Search/{Model.Input.CategoryName}"},
+        new viBreadcrumbs{ Title=ViewData["Title"].ToString()} }' />
 <!--breadcrumbs area end-->
 <!--shop  area start-->
 <div class="shop_area mb-60">
     <div class="container">
         <div class="row rowLng">
             <div class="col-lg-9 col-md-12 colLng">
-                <!--shop wrapper start-->
-
-                <div class="shop_banner_area">
-                    <img src="/Main/img/bg/banner16.jpg" alt="">
-                </div>
-
-                <!--shop toolbar start-->
                 <div class="shop_toolbar_wrapper">
                     <div class="shop_toolbar_btn">
 
@@ -684,6 +667,25 @@
                 <!--sidebar widget start-->
                 <aside class="sidebar_widget">
                     <div class="widget_inner">
+                        <div class="widget_list widget_filter-keyword">
+                            <h3>@Localizer["Search"]</h3>
+                            <form>
+                                <input class=form-control type="text" placeholder="@Localizer["Keyword"]" />
+                                <button type="submit">@Localizer["Filter"]</button>
+                            </form>
+                        </div>
+
+                        <div class="widget_list tags_widget">
+                            <h3>@Localizer["RelatedKeywords"]</h3>
+                            <div class="tag_cloud">
+                                <a href="#">Men</a>
+                                <a href="#">Women</a>
+                                <a href="#">Watches</a>
+                                <a href="#">Bags</a>
+                                <a href="#">Dress</a>
+                            </div>
+                        </div>
+
                         <div class="widget_list widget_categories">
                             <h3>Women</h3>
                             <ul>
@@ -720,10 +722,10 @@
                             </ul>
                         </div>
                         <div class="widget_list widget_filter">
-                            <h3>Filter by price</h3>
+                            <h3>@Localizer["FilterByPrice"]</h3>
                             <form action="#">
                                 <div id="slider-range"></div>
-                                <button type="submit">Filter</button>
+                                <button type="submit">@Localizer["Filter"]</button>
                                 <input readonly="readonly" type="text" name="text" id="amount" />
                             </form>
                         </div>
@@ -780,109 +782,6 @@
                                 </li>
 
                             </ul>
-                        </div>
-                        <div class="widget_list tags_widget">
-                            <h3>Product tags</h3>
-                            <div class="tag_cloud">
-                                <a href="#">Men</a>
-                                <a href="#">Women</a>
-                                <a href="#">Watches</a>
-                                <a href="#">Bags</a>
-                                <a href="#">Dress</a>
-                            </div>
-                        </div>
-                        <div class="widget_list widget_banner">
-                            <a href="#"><img src="/Main/img/bg/banner17.jpg" alt=""></a>
-                        </div>
-                        <div class="small_product_area widget_sid_product">
-                            <div class="section_title">
-                                <h3>Trending</h3>
-                            </div>
-                            <div class="small_product_container product_column1 owl-carousel">
-                                <div class="product_items">
-                                    <div class="single_product">
-                                        <div class="product_thumb">
-                                            <a class="primary_img" href="product-details.html"><img src="/Main/img/product/product13.jpg" alt=""></a>
-                                            <a class="secondary_img" href="product-details.html"><img src="/Main/img/product/product12.jpg" alt=""></a>
-                                        </div>
-                                        <div class="product_content">
-                                            <h2 class="product_name"><a href="product-details.html">Calvin Klein Jeans Reflective</a></h2>
-                                            <div class="price_box">
-                                                <span class="old_price">$186.00</span>
-                                                <span class="current_price">$56.00</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="single_product">
-                                        <div class="product_thumb">
-                                            <a class="primary_img" href="product-details.html"><img src="/Main/img/product/product14.jpg" alt=""></a>
-                                            <a class="secondary_img" href="product-details.html"><img src="/Main/img/product/product15.jpg" alt=""></a>
-                                        </div>
-                                        <div class="product_content">
-                                            <h2 class="product_name"><a href="product-details.html">New Balance Arishi Sport v1</a></h2>
-                                            <div class="price_box">
-                                                <span class="old_price">$210.00</span>
-                                                <span class="current_price">$68.00</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="single_product">
-                                        <div class="product_thumb">
-                                            <a class="primary_img" href="product-details.html"><img src="/Main/img/product/product16.jpg" alt=""></a>
-                                            <a class="secondary_img" href="product-details.html"><img src="/Main/img/product/product17.jpg" alt=""></a>
-                                        </div>
-                                        <div class="product_content">
-                                            <h2 class="product_name"><a href="product-details.html">Brixton Patrol All Terrain Ano</a></h2>
-                                            <div class="price_box">
-                                                <span class="old_price">$136.00</span>
-                                                <span class="current_price">$76.00</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product_items">
-                                    <div class="single_product">
-                                        <div class="product_thumb">
-                                            <a class="primary_img" href="product-details.html"><img src="/Main/img/product/product6.jpg" alt=""></a>
-                                            <a class="secondary_img" href="product-details.html"><img src="/Main/img/product/product7.jpg" alt=""></a>
-                                        </div>
-                                        <div class="product_content">
-                                            <h2 class="product_name"><a href="product-details.html">Originals Kaval Windbreaker</a></h2>
-                                            <div class="price_box">
-                                                <span class="old_price">$245.00</span>
-                                                <span class="current_price">$76.00</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="single_product">
-                                        <div class="product_thumb">
-                                            <a class="primary_img" href="product-details.html"><img src="/Main/img/product/product8.jpg" alt=""></a>
-                                            <a class="secondary_img" href="product-details.html"><img src="/Main/img/product/product9.jpg" alt=""></a>
-                                        </div>
-                                        <div class="product_content">
-                                            <h2 class="product_name"><a href="product-details.html">Juicy Couture Juicy Quilted</a></h2>
-                                            <div class="price_box">
-                                                <span class="old_price">$180.00</span>
-                                                <span class="current_price">$58.00</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="single_product">
-                                        <div class="product_thumb">
-                                            <a class="primary_img" href="product-details.html"><img src="/Main/img/product/product11.jpg" alt=""></a>
-                                            <a class="secondary_img" href="product-details.html"><img src="/Main/img/product/product10.jpg" alt=""></a>
-                                        </div>
-                                        <div class="product_content">
-                                            <h2 class="product_name"><a href="product-details.html">Water and Wind Resistant</a></h2>
-                                            <div class="price_box">
-                                                <span class="old_price">$176.00</span>
-                                                <span class="current_price">$86.00</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
                         </div>
                     </div>
                 </aside>

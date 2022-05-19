@@ -327,6 +327,9 @@
   <data name="CategoryImage" xml:space="preserve">
     <value>ایکن دسته</value>
   </data>
+  <data name="CategoryName" xml:space="preserve">
+    <value>نام دسته</value>
+  </data>
   <data name="CategoryName Is Duplicate." xml:space="preserve">
     <value>نام در دسته پدر انتخاب شده تکراری میباشد.</value>
   </data>
@@ -645,6 +648,9 @@
   <data name="Filter" xml:space="preserve">
     <value>فیلتر</value>
   </data>
+  <data name="FilterByPrice" xml:space="preserve">
+    <value>جستوجو براساس قیمت</value>
+  </data>
   <data name="First" xml:space="preserve">
     <value>اولین</value>
   </data>
@@ -881,6 +887,9 @@
   </data>
   <data name="KendoOf" xml:space="preserve">
     <value>از {0}</value>
+  </data>
+  <data name="Keyword" xml:space="preserve">
+    <value>کلمه کلیدی</value>
   </data>
   <data name="keyword count must be greater than zero." xml:space="preserve">
     <value>حداقل یک کلمه کلیدی را وارد نمایید.</value>
@@ -1415,6 +1424,9 @@
   </data>
   <data name="Reject" xml:space="preserve">
     <value>رد کردن</value>
+  </data>
+  <data name="RelatedKeywords" xml:space="preserve">
+    <value>کلمات کلیدی مرتبط</value>
   </data>
   <data name="RemmeberMe" xml:space="preserve">
     <value>مرا بخاطر بسپار</value>

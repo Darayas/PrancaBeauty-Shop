@@ -25,7 +25,6 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewModel
         public string ImgUrl { get; set; }
         public string CategoryName { get; set; }
         public string CategoryTitle { get; set; }
-        public string CategoryMap { get; set; }
         public string CategoryId { get; set; }
 
         [Display(Name= "Status")]

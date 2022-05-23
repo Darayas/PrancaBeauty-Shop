@@ -2,11 +2,11 @@
 {
     public enum GetProductListForAdvanceSearchSortingEnum
     {
-        Newest=1,
-        Oldest=2,
-        Popular=3,
-        HightRating=4,
-        PriceMinToMax=5,
-        PriceMaxToMin=6,
+        Newest=0,
+        Oldest=1,
+        Popular=2,
+        HightRating=3,
+        PriceMinToMax=4,
+        PriceMaxToMin=5,
     }
 }

@@ -31,7 +31,7 @@ namespace PrancaBeauty.WebApp.Pages.Home.Search.Components.Compo_ProductList
             Data= new vmCompoSearch_ProductList();
         }
 
-        public async Task<IActionResult> OnGetAsync()
+        public async Task<IActionResult> OnGetAsync(string LangId)
         {
             try
             {
@@ -39,7 +39,9 @@ namespace PrancaBeauty.WebApp.Pages.Home.Search.Components.Compo_ProductList
                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
-                var _Result = await _ProductApplication.GetProductListForAdvanceSearchAsync(_Mapper.Map<InpGetProductListForAdvanceSearch>(Input));
+                var _MappedData = _Mapper.Map<InpGetProductListForAdvanceSearch>(Input);
+                _MappedData.LangId=LangId;
+                var _Result = await _ProductApplication.GetProductListForAdvanceSearchAsync(_MappedData);
 
                 Data.PagingData= _Result.PagingData;
                 Data.LstProducts= _Mapper.Map<List<vmCompoSearch_ProductListItems>>(_Result.LstProduct);

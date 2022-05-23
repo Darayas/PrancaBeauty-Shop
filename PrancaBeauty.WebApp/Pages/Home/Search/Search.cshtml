@@ -22,19 +22,18 @@
                 <LoadComponent id="ProductList"
                                context="HttpContext"
                                url="/@ViewData["culture"]/Search/Compo/ProductList"
-                               data="new viCompoSearch_ProductList { }"></LoadComponent>
+                               data="new viCompoSearch_ProductList { CategoryName=Model.Input.CategoryName,KeywordName=Model.Input.KeywordTitle,CurrentPage=1,MinPrice=0,MaxPrice=10000000,Sort=Framework.Application.Enums.GetProductListForAdvanceSearchSortingEnum.Newest,Take=10 }"></LoadComponent>
+                <form id="frmSearch"></form>
             </div>
             <div class="col-lg-3 col-md-12 colLng">
                 <!--sidebar widget start-->
                 <aside class="sidebar_widget">
                     <div class="widget_inner">
-                        <div class="widget_list widget_filter-keyword">
-                            <h3>@Localizer["Search"]</h3>
-                            <form>
-                                <input class=form-control type="text" placeholder="@Localizer["Keyword"]" />
-                                <button type="submit">@Localizer["Filter"]</button>
-                            </form>
-                        </div>
+                        
+                         <LoadComponent id="KeywordSearch"
+                               context="HttpContext"
+                               url="/@ViewData["culture"]/Search/Compo/KeywordSearch"
+                               data="new viCompo_KeywordSearch{ KeywordTitle=Model.Input.KeywordTitle }"></LoadComponent>
 
                         <div class="widget_list tags_widget">
                             <h3>@Localizer["RelatedKeywords"]</h3>

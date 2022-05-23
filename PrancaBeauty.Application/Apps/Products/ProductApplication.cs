@@ -1045,7 +1045,7 @@ namespace PrancaBeauty.Application.Apps.Products
                                          .Where(a => !a.Incomplete)
                                          .Where(a => a.Date<=DateTime.Now)
                                          .Where(a => a.tblCategory.Name==Input.CategoryName)
-                                         .Where(a => a.tblKeywords_Products.Where(b => b.tblKeywords.Title.Contains(Input.KeywordName)).Any())
+                                         .Where(a => Input.KeywordName!=null ? a.tblKeywords_Products.Where(b => b.tblKeywords.Title.Contains(Input.KeywordName)).Any() : true)
                                          .Select(a => new OutGetProductListForAdvanceSearch
                                          {
                                              Id=a.Id.ToString(),
@@ -1053,8 +1053,9 @@ namespace PrancaBeauty.Application.Apps.Products
                                              Name=a.Name,
                                              Date=a.Date,
                                              CountSell=0, // TODO , Create Bill Table
-                                             Rating= a.tblProductReviews.Where(b => b.IsConfirm).Average(b => b.CountStar),
+                                             Rating=a.tblProductReviews.Count()>0 ? a.tblProductReviews.Where(b => b.IsConfirm).Average(b => b.CountStar) : 0,
                                              IsInBookmark=false, // TODO
+                                             Description=string.Join("", a.Description.RemoveAllHtmlTags().Take(500)),
                                              CurrencySymbol=a.tblProductPrices.Where(a => a.IsActive).Select(b => b.tblCurrency.Symbol).Single(),
                                              MainPrice= a.tblProductPrices.Where(a => a.IsActive).Select(b => b.Price).Single(),
                                              SellerPercent= a.tblProductVariantItems.Where(b => b.IsEnable && b.IsConfirm && b.CountInStock>0).Select(e => new { SellerPercent = e.Percent - (e.tblProductDiscounts!=null ? e.tblProductDiscounts.Percent : 0), Percent = e.Percent }).OrderBy(e => e.SellerPercent).FirstOrDefault().Percent,
@@ -1066,7 +1067,7 @@ namespace PrancaBeauty.Application.Apps.Products
                                                            + b.tblFiles.tblFilePaths.Path
                                                            + b.tblFiles.FileName
                                              }).Select(b => b.ImgUrl).Take(2).ToArray()
-                                         });
+                                         }); ;
 
                 #region شرط ها
                 {

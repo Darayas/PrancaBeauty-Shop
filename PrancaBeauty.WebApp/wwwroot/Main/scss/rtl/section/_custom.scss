@@ -556,30 +556,57 @@ pre {
     }
 }
 
-.widget_list.widget_filter-keyword {
-    overflow: hidden;
+.widget_inner {
+    &:last-child {
+        .widget_list {
+            margin-bottom: 0;
+        }
+    }
 
-    form {
-        input {
-            margin-bottom: 15px;
+    .widget_list {
+
+        &:last-child {
+            margin-bottom: 33px;
         }
 
-        button {
-            height: 30px;
-            line-height: 30px;
-            padding: 0 20px;
-            text-transform: capitalize;
-            color: #fff;
-            background: #333;
-            border: 0;
-            border-radius: 30px;
-            float: right;
-            -webkit-transition: .3s;
-            transition: .3s;
-        }
+        &.widget_filter-keyword {
+            overflow: hidden;
 
-        button:hover {
-            background: #d52121;
+            form {
+                input {
+                    margin-bottom: 15px;
+                }
+
+                button {
+                    height: 30px;
+                    line-height: 30px;
+                    padding: 0 20px;
+                    text-transform: capitalize;
+                    color: #fff;
+                    background: #333;
+                    border: 0;
+                    border-radius: 30px;
+                    float: right;
+                    -webkit-transition: .3s;
+                    transition: .3s;
+                }
+
+                button:hover {
+                    background: #d52121;
+                }
+            }
+        }
+    }
+}
+
+.grid_list {
+    .product_content {
+        &.list_content {
+            .product_desc {
+                p {
+                    max-width: unset !important;
+                }
+            }
         }
     }
 }

@@ -4,117 +4,163 @@
     var PagingData = Model.Data.PagingData;
 }
 
-<div class="shop_toolbar_wrapper">
-    <div class="shop_toolbar_btn">
+<div id="LstProduct">
+    <div class="shop_toolbar_wrapper">
+        <div class="shop_toolbar_btn">
 
-        <button data-role="grid_3" type="button" class="active btn-grid-3" data-toggle="tooltip" title="3"></button>
+            <button data-role="grid_3" type="button" class="active btn-grid-3" data-toggle="tooltip" title="3"></button>
 
-        <button data-role="grid_4" type="button" class=" btn-grid-4" data-toggle="tooltip" title="4"></button>
+            <button data-role="grid_4" type="button" class=" btn-grid-4" data-toggle="tooltip" title="4"></button>
 
-        <button data-role="grid_list" type="button" class="btn-list" data-toggle="tooltip" title="List"></button>
-    </div>
-    <div class=" niceselect_option">
-        <form class="select_option" action="#">
-            <select asp-for=Input.Sort>
-                <option selected value="1">@Localizer["Newest"]</option>
-                <option value="2">@Localizer["Oldest"]</option>
-                <option value="3">@Localizer["SortByPopularity"]</option>
-                <option value="4">@Localizer["SortByAvg"]</option>
-                <option value="5">@Localizer["SortByPrice:LowToHigh"]</option>
-                <option value="6">@Localizer["SortByPrice:HighToLow"]</option>
-            </select>
-        </form>
-    </div>
-    <div class="page_amount">
-        <p>@Localizer["ShowingResultsCount",PagingData.Skip+1,PagingData.Skip+ PagingData.Take ,PagingData.CountAllItem]</p>
-    </div>
-</div>
-<div class="row shop_wrapper">
-    @if (Model.Data.LstProducts.Count()==0)
-    {
-        <div class="alert alert-info">
-            <span>@Localizer["ItemNotFound"]</span>
+            <button data-role="grid_list" type="button" class="btn-list" data-toggle="tooltip" title="List"></button>
         </div>
-    }
-    else
-    {
-        foreach (var item in Model.Data.LstProducts)
+        <div class=" niceselect_option">
+            <form class="select_option" action="#">
+                <select asp-for=Input.Sort>
+                    <option selected value="1">@Localizer["Newest"]</option>
+                    <option value="2">@Localizer["Oldest"]</option>
+                    <option value="3">@Localizer["SortByPopularity"]</option>
+                    <option value="4">@Localizer["SortByAvg"]</option>
+                    <option value="5">@Localizer["SortByPrice:LowToHigh"]</option>
+                    <option value="6">@Localizer["SortByPrice:HighToLow"]</option>
+                </select>
+            </form>
+        </div>
+        <div class="page_amount">
+            <p>@Localizer["ShowingResultsCount",PagingData.Skip+1,PagingData.Skip+ PagingData.Take ,PagingData.CountAllItem]</p>
+        </div>
+    </div>
+    <div class="row shop_wrapper">
+        @if (Model.Data.LstProducts.Count()==0)
         {
-            <div class="col-lg-4 col-md-4 col-sm-6 col-12 ">
-                <div class="single_product">
-                    <div class="product_thumb">
-                        <a class="primary_img" href="/@ViewData["culture"]/Product/@item.Name">
-                            <img src="@item.ImgUrl[0]" alt="@item.Title">
-                        </a>
-                        @if (item.ImgUrl.Count()>1)
-                        {
-                            <a class="secondary_img" href="/@ViewData["culture"]/Product/@item.Name">
-                                <img src="@item.ImgUrl[1]" alt="@item.Title">
+            <div class="alert alert-info">
+                <span>@Localizer["ItemNotFound"]</span>
+            </div>
+        }
+        else
+        {
+            foreach (var item in Model.Data.LstProducts)
+            {
+                double OldPrice = item.MainPrice + ((item.MainPrice/100)*item.SellerPercent);
+                double Price = OldPrice - ((OldPrice / 100) * item.PercentSavePrice);
+
+                <div class="col-lg-4 col-md-4 col-sm-6 col-12 ">
+                    <div class="single_product">
+                        <div class="product_thumb">
+                            <a class="primary_img" href="/@ViewData["culture"]/Product/@item.Name">
+                                <img src="@item.ImgUrl[0]" alt="@item.Title">
                             </a>
-                        }
-                        <div class="label_product">
-                            <span class="label_sale">-@item.PercentSavePrice%</span>
-                        </div>
-                        <div class="action_links">
-                            <ul>
-                                <li class="wishlist"><a href="wishlist.html" title="@Localizer["AddToWishlist"]"><i class="fas fa-heart"></i></a></li>
-                                <li class="compare"><a href="#" title="@Localizer["AddToCompare"]"><i class="fa fa-refresh"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="product_content grid_content">
-                        <h2 class="product_name">
-                            <a href="/@ViewData["culture"]/Product/@item.Name">@item.Title</a>
-                        </h2>
-                        <div class="price_box">
-                            <span class="old_price">$245.00</span>
-                            <span class="current_price">$76.00</span>
-                        </div>
-                        <div class="add_to_cart">
-                            <a href="cart.html">+ @Localizer["AddToCart"]</a>
-                        </div>
-                    </div>
-                    <div class="product_content list_content">
-                        <h2 class="product_name">
-                            <a href="/@ViewData["culture"]/Product/@item.Name">@item.Title</a>
-                        </h2>
-                        <div class="price_box">
-                            <span class="old_price">$245.00</span>
-                            <span class="current_price">$76.00</span>
-                        </div>
-                        <div class="product_desc">
-                            <p>
-                                @item.Description
-                            </p>
-                        </div>
-                        <div class="list_action_wrapper">
-                            <div class="list_cart_btn">
-                                <a href="cart.html" title="Add to cart">+ Add to Cart</a>
-                            </div>
+                            @if (item.ImgUrl.Count()>1)
+                            {
+                                <a class="secondary_img" href="/@ViewData["culture"]/Product/@item.Name">
+                                    <img src="@item.ImgUrl[1]" alt="@item.Title">
+                                </a>
+                            }
+                            @if (item.PercentSavePrice>0)
+                            {
+                                <div class="label_product">
+                                    <span class="label_sale">-@(item.PercentSavePrice)%</span>
+                                </div>
+                            }
                             <div class="action_links">
                                 <ul>
-                                    <li class="wishlist"><a href="wishlist.html" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                                    <li class="compare"><a href="#" title="Add to Compare"><i class="fa fa-refresh"></i></a></li>
-                                    <li class="quick_button"><a href="#" data-toggle="modal" data-target="#modal_box" title="quick view"> <i class="fa fa-search-plus "></i></a></li>
+                                    <li class="wishlist"><a href="wishlist.html" title="@Localizer["AddToWishlist"]"><i class="fas fa-heart"></i></a></li>
+                                    <li class="compare"><a href="#" title="@Localizer["AddToCompare"]"><i class="fa fa-refresh"></i></a></li>
                                 </ul>
+                            </div>
+                        </div>
+                        <div class="product_content grid_content">
+                            <h2 class="product_name">
+                                <a href="/@ViewData["culture"]/Product/@item.Name">@item.Title</a>
+                            </h2>
+                            <div class="price_box">
+                                @{
+                                    if (item.PercentSavePrice>0)
+                                    {
+                                        <span class="old_price">@OldPrice.ToN3() @item.CurrencySymbol</span>
+                                    }
+
+                                    <span class="current_price">@Price.ToN3() @item.CurrencySymbol</span>
+                                }
+
+                            </div>
+                            <div class="add_to_cart">
+                                <a href="cart.html">+ @Localizer["AddToCart"]</a>
+                            </div>
+                        </div>
+                        <div class="product_content list_content">
+                            <h2 class="product_name">
+                                <a href="/@ViewData["culture"]/Product/@item.Name">@item.Title</a>
+                            </h2>
+                            <div class="price_box">
+                                @{
+                                    if (item.PercentSavePrice>0)
+                                    {
+                                        <span class="old_price">@OldPrice.ToN3() @item.CurrencySymbol</span>
+                                    }
+
+                                    <span class="current_price">@Price.ToN3() @item.CurrencySymbol</span>
+                                }
+                            </div>
+                            <div class="product_desc">
+                                <p>
+                                    @(item.Description.Length>250?item.Description.Substring(0,250)+"...":item.Description)
+                                </p>
+                            </div>
+                            <div class="list_action_wrapper">
+                                <div class="list_cart_btn">
+                                    <a href="cart.html" title="Add to cart">+ @Localizer["AddToCart"]</a>
+                                </div>
+                                <div class="action_links">
+                                    <ul>
+                                        <li class="wishlist"><a href="wishlist.html" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
+                                        <li class="compare"><a href="#" title="Add to Compare"><i class="fa fa-refresh"></i></a></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            }
         }
+    </div>
+
+    @if (PagingData.CountAllItem>0)
+    {
+        <div class="shop_toolbar t_bottom">
+            <div class="pagination">
+                <ul>
+                    @if (PagingData.Page>1)
+                    {
+                        <li class="next"><a onclick="Paging('@(PagingData.Page-1)')">@Localizer["Previuos"]</a></li>
+                        <li><a onclick="Paging('1')">..</a></li>
+                    }
+
+                    @for (var i = PagingData.StartPage; i <= PagingData.EndPage; i++)
+                    {
+                        if (i==PagingData.Page)
+                        {
+                            <li class="current">@i</li>
+                        }
+                        else
+                        {
+                            <li><a onclick="Paging('@i')">@i</a></li>
+                        }
+                    }
+
+                    @if (PagingData.Page < PagingData.CountAllPage)
+                    {
+                        <li class="next"><a onclick="Paging('@(PagingData.Page+1)">@Localizer["Nex"]</a></li>
+                        <li><a onclick="Paging('@(PagingData.CountAllPage)')">>></a></li>
+                    }
+                </ul>
+            </div>
+        </div>
     }
 
+    <script>
+        function Paging(_Page){
 
-</div>
-<div class="shop_toolbar t_bottom">
-    <div class="pagination">
-        <ul>
-            <li class="current">1</li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li class="next"><a href="#">next</a></li>
-            <li><a href="#">>></a></li>
-        </ul>
-    </div>
+        }
+    </script>
 </div>

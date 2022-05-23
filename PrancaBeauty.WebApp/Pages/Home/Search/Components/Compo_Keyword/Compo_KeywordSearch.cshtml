@@ -1,0 +1,7 @@
+﻿@page "/{culture}/Search/Compo/KeywordSearch"
+@model PrancaBeauty.WebApp.Pages.Home.Search.Components.Compo_Keyword.Compo_KeywordSearchModel
+
+<div class="widget_list widget_filter-keyword">
+    <h3>@Localizer["Search"]</h3>
+    <input form="frmSearch" asp-for="Input.KeywordTitle" class=form-control placeholder="@Localizer["Keyword"]"  />
+</div>

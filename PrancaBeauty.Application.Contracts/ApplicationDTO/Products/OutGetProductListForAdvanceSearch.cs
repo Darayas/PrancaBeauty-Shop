@@ -16,5 +16,6 @@ namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Products
         public DateTime Date { get; set; }
         public int CountSell { get; set; } // برای مرتب سازی بر اساس محبوب ترین ها
         public double Rating { get; set; }
+        public string Description { get; set; }
     }
 }

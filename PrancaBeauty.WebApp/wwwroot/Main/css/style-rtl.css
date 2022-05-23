@@ -31305,13 +31305,19 @@ pre {
   padding: 10px 0;
 }
 
-.widget_list.widget_filter-keyword {
+.widget_inner:last-child .widget_list {
+  margin-bottom: 0;
+}
+.widget_inner .widget_list:last-child {
+  margin-bottom: 33px;
+}
+.widget_inner .widget_list.widget_filter-keyword {
   overflow: hidden;
 }
-.widget_list.widget_filter-keyword form input {
+.widget_inner .widget_list.widget_filter-keyword form input {
   margin-bottom: 15px;
 }
-.widget_list.widget_filter-keyword form button {
+.widget_inner .widget_list.widget_filter-keyword form button {
   height: 30px;
   line-height: 30px;
   padding: 0 20px;
@@ -31324,6 +31330,10 @@ pre {
   -webkit-transition: 0.3s;
   transition: 0.3s;
 }
-.widget_list.widget_filter-keyword form button:hover {
+.widget_inner .widget_list.widget_filter-keyword form button:hover {
   background: #d52121;
+}
+
+.grid_list .product_content.list_content .product_desc p {
+  max-width: unset !important;
 }

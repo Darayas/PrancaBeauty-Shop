@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Framework.Application.Enums;
 using Framework.Common.ExMethods;
 using Framework.Common.Utilities.Paging;
 using Framework.Exceptions;
@@ -1037,6 +1038,12 @@ namespace PrancaBeauty.Application.Apps.Products
 
                 var _Data = new OutGetProductListForAdvanceSearch();
 
+                #region Get Other Data
+                {
+
+                }
+                #endregion
+
                 #region Get Product List
                 var LstProduct = new List<OutGetProductListForAdvanceSearchItems>();
                 {
@@ -1053,6 +1060,9 @@ namespace PrancaBeauty.Application.Apps.Products
                                                  Id=a.Id.ToString(),
                                                  Title=a.Title,
                                                  Name=a.Name,
+                                                 Date=a.Date,
+                                                 CountSell=0, // TODO , Create Bill Table
+                                                 Rating= a.tblProductReviews.Where(b => b.IsConfirm).Average(b => b.CountStar),
                                                  IsInBookmark=false, // TODO
                                                  CurrencySymbol=a.tblProductPrices.Where(a => a.IsActive).Select(b => b.tblCurrency.Symbol).Single(),
                                                  MainPrice= a.tblProductPrices.Where(a => a.IsActive).Select(b => b.Price).Single(),
@@ -1069,12 +1079,66 @@ namespace PrancaBeauty.Application.Apps.Products
 
                     #region شرط ها
                     {
+                        #region شرط های قیمتی
+                        {
+                            qData= from a in qData
+                                   let Price = a.MainPrice + ((a.MainPrice/100)* a.SellerPercent) - (a.MainPrice + ((a.MainPrice/100)* a.SellerPercent)* a.PercentSavePrice)
+                                   where Price >= Input.MinPrice && Price <=Input.MaxPrice
+                                   select a;
+                        }
+                        #endregion
 
                     }
                     #endregion
 
                     #region مرتب سازی
                     {
+                        switch (Input.Sort)
+                        {
+                            case GetProductListForAdvanceSearchSortingEnum.Newest:
+                                {
+                                    qData= qData.OrderByDescending(a => a.Date);
+                                    break;
+                                }
+                            case GetProductListForAdvanceSearchSortingEnum.Oldest:
+                                {
+                                    qData= qData.OrderBy(a => a.Date);
+                                    break;
+                                }
+                            case GetProductListForAdvanceSearchSortingEnum.Popular:
+                                {
+                                    qData= qData.OrderBy(a => a.CountSell);
+                                    break;
+                                }
+                            case GetProductListForAdvanceSearchSortingEnum.HightRating:
+                                {
+                                    qData= qData.OrderBy(a => a.Rating);
+                                    break;
+                                }
+                            case GetProductListForAdvanceSearchSortingEnum.PriceMinToMax:
+                                {
+                                    qData= from a in qData
+                                           let Price = a.MainPrice + ((a.MainPrice/100)* a.SellerPercent) - (a.MainPrice + ((a.MainPrice/100)* a.SellerPercent)* a.PercentSavePrice)
+                                           orderby Price descending
+                                           select a;
+
+                                    break;
+                                }
+                            case GetProductListForAdvanceSearchSortingEnum.PriceMaxToMin:
+                                {
+                                    qData= from a in qData
+                                           let Price = a.MainPrice + ((a.MainPrice/100)* a.SellerPercent) - (a.MainPrice + ((a.MainPrice/100)* a.SellerPercent)* a.PercentSavePrice)
+                                           orderby Price ascending
+                                           select a;
+
+                                    break;
+                                }
+                            default:
+                                {
+                                    qData= qData.OrderByDescending(a => a.Date);
+                                    break;
+                                }
+                        }
                     }
                     #endregion
 

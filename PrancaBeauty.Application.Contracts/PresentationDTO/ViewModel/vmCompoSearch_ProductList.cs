@@ -22,5 +22,6 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewModel
         public double PercentSavePrice { get; set; } // درصد تخفیفی که فروشنده تعیین کرده است
         public string CurrencySymbol { get; set; }
         public bool IsInBookmark { get; set; }
+        public double Rating { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Framework.Common.Utilities.Paging;
+using System;
 using System.Collections.Generic;
 
 namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Products
@@ -22,5 +23,8 @@ namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Products
         public double PercentSavePrice { get; set; } // درصد تخفیفی که فروشنده تعیین کرده است
         public string CurrencySymbol { get; set; }
         public bool IsInBookmark { get; set; }
+        public DateTime Date { get; set; }
+        public int CountSell { get; set; } // برای مرتب سازی بر اساس محبوب ترین ها
+        public double Rating { get; set; } 
     }
 }

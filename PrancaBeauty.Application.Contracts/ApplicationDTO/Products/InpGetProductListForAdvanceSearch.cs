@@ -1,4 +1,5 @@
-﻿using Framework.Common.DataAnnotations.Numbers.All;
+﻿using Framework.Application.Enums;
+using Framework.Common.DataAnnotations.Numbers.All;
 using Framework.Common.DataAnnotations.String;
 using System.ComponentModel.DataAnnotations;
 
@@ -18,10 +19,11 @@ namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Products
         [Display(Name = "MinPrice")]
         public double MinPrice { get; set; }
 
-        [Display(Name = "MixPrice")]
-        public double MixPrice { get; set; }
+        [Display(Name = "MaxPrice")]
+        public double MaxPrice { get; set; }
 
-
+        [Display(Name = "Sort")]
+        public GetProductListForAdvanceSearchSortingEnum Sort { get; set; }
 
         [Display(Name = "Take")]
         [NumRange(1, int.MaxValue)]

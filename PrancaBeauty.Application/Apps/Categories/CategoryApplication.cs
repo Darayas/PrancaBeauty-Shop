@@ -139,7 +139,8 @@ namespace PrancaBeauty.Application.Apps.Categories
                     ParentId = Input.ParentId != null ? Guid.Parse(Input.ParentId) : null,
                     Name = Input.Name,
                     Sort = Input.Sort,
-                    tblCategory_Translates=Input.LstTranslate.Select(x=> new tblCategory_Translates {
+                    tblCategory_Translates=Input.LstTranslate.Select(x => new tblCategory_Translates
+                    {
                         Id = new Guid().SequentialGuid(),
                         LangId = Guid.Parse(x.LangId),
                         Title = x.Title,
@@ -386,6 +387,42 @@ namespace PrancaBeauty.Application.Apps.Categories
             }
             catch (ArgumentInvalidException)
             {
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
+            }
+        }
+
+        public async Task<OutGetCategoryDetailsByName> GetCategoryDetailsByNameAsync(InpGetCategoryDetailsByName Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var qData = await _CategoryRepository.Get
+                                        .Where(a => a.Name==Input.Name)
+                                        .Select(a => new OutGetCategoryDetailsByName
+                                        {
+                                            Id=a.Id.ToString(),
+                                            Title=a.tblCategory_Translates.Where(b => b.LangId==Input.LangId.ToGuid()).Select(b => b.Title).Single(),
+                                            Descreption=a.tblCategory_Translates.Where(b => b.LangId==Input.LangId.ToGuid()).Select(b => b.Description).Single()
+                                        })
+                                        .SingleOrDefaultAsync();
+
+                if (qData==null)
+                    return null;
+
+                return qData;
+
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
                 return null;
             }
             catch (Exception ex)

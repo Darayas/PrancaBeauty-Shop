@@ -873,6 +873,9 @@
   <data name="IsSlider" xml:space="preserve">
     <value>اسلایدر</value>
   </data>
+  <data name="ItemNotFound" xml:space="preserve">
+    <value>موردی یافت نشد</value>
+  </data>
   <data name="ItemsPerPage" xml:space="preserve">
     <value>مورد بر صفحه</value>
   </data>

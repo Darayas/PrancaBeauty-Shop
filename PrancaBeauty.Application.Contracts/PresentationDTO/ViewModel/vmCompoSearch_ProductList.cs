@@ -6,9 +6,9 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewModel
     public class vmCompoSearch_ProductList
     {
         public string CategoryTitle { get; set; }
-        public OutPagingData Paging { get; set; }
+        public OutPagingData PagingData { get; set; }
 
-        public List<vmCompoSearch_ProductListItems> LstProducts { get; set; }
+        public List<vmCompoSearch_ProductListItems> LstProducts { get; set; } = new List<vmCompoSearch_ProductListItems>();
     }
 
     public class vmCompoSearch_ProductListItems
@@ -23,5 +23,6 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewModel
         public string CurrencySymbol { get; set; }
         public bool IsInBookmark { get; set; }
         public double Rating { get; set; }
+        public string Description { get; set; }
     }
 }

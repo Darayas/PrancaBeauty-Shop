@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Products
 {
-    public class InpGetForEdit
+    public class InpGetProductForEdit
     {
         [Display(Name = "UserId")]
         [GUID]

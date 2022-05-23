@@ -17,6 +17,7 @@ using PrancaBeauty.Application.Apps.ProductPropertiesValues;
 using PrancaBeauty.Application.Apps.ProductSellers;
 using PrancaBeauty.Application.Apps.ProductVariantItems;
 using PrancaBeauty.Application.Apps.Seller;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Categories;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.Currency;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.KeywordProducts;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.Languages;
@@ -35,6 +36,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace PrancaBeauty.Application.Apps.Products
 {
@@ -538,7 +540,7 @@ namespace PrancaBeauty.Application.Apps.Products
             }
         }
 
-        public async Task<OutGetProductForEdit> GetForEditAsync(InpGetForEdit Input)
+        public async Task<OutGetProductForEdit> GetProductForEditAsync(InpGetProductForEdit Input)
         {
             try
             {
@@ -1028,7 +1030,7 @@ namespace PrancaBeauty.Application.Apps.Products
             }
         }
 
-        public async Task<OutGetProductListForAdvanceSearch> GetProductListForAdvanceSearchAsync(InpGetProductListForAdvanceSearch Input)
+        public async Task<(OutPagingData PagingData, List<OutGetProductListForAdvanceSearch> LstProduct)> GetProductListForAdvanceSearchAsync(InpGetProductListForAdvanceSearch Input)
         {
             try
             {
@@ -1036,125 +1038,104 @@ namespace PrancaBeauty.Application.Apps.Products
                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
-                var _Data = new OutGetProductListForAdvanceSearch();
-
-                #region Get Other Data
-                {
-
-                }
-                #endregion
-
-                #region Get Product List
-                var LstProduct = new List<OutGetProductListForAdvanceSearchItems>();
-                {
-                    var qData = _ProductRepository.Get
-                                             .Where(a => a.IsConfirmed)
-                                             .Where(a => !a.IsDelete)
-                                             .Where(a => !a.IsDraft)
-                                             .Where(a => !a.Incomplete)
-                                             .Where(a => a.Date<=DateTime.Now)
-                                             .Where(a => a.tblCategory.Name==Input.CategoryName)
-                                             .Where(a => a.tblKeywords_Products.Where(b => b.tblKeywords.Title.Contains(Input.KeywordName)).Any())
-                                             .Select(a => new OutGetProductListForAdvanceSearchItems
+                var qData = _ProductRepository.Get
+                                         .Where(a => a.IsConfirmed)
+                                         .Where(a => !a.IsDelete)
+                                         .Where(a => !a.IsDraft)
+                                         .Where(a => !a.Incomplete)
+                                         .Where(a => a.Date<=DateTime.Now)
+                                         .Where(a => a.tblCategory.Name==Input.CategoryName)
+                                         .Where(a => a.tblKeywords_Products.Where(b => b.tblKeywords.Title.Contains(Input.KeywordName)).Any())
+                                         .Select(a => new OutGetProductListForAdvanceSearch
+                                         {
+                                             Id=a.Id.ToString(),
+                                             Title=a.Title,
+                                             Name=a.Name,
+                                             Date=a.Date,
+                                             CountSell=0, // TODO , Create Bill Table
+                                             Rating= a.tblProductReviews.Where(b => b.IsConfirm).Average(b => b.CountStar),
+                                             IsInBookmark=false, // TODO
+                                             CurrencySymbol=a.tblProductPrices.Where(a => a.IsActive).Select(b => b.tblCurrency.Symbol).Single(),
+                                             MainPrice= a.tblProductPrices.Where(a => a.IsActive).Select(b => b.Price).Single(),
+                                             SellerPercent= a.tblProductVariantItems.Where(b => b.IsEnable && b.IsConfirm && b.CountInStock>0).Select(e => new { SellerPercent = e.Percent - (e.tblProductDiscounts!=null ? e.tblProductDiscounts.Percent : 0), Percent = e.Percent }).OrderBy(e => e.SellerPercent).FirstOrDefault().Percent,
+                                             PercentSavePrice= a.tblProductVariantItems.Where(b => b.IsEnable && b.IsConfirm && b.CountInStock>0).Select(e => new { SellerPercent = e.Percent - (e.tblProductDiscounts!=null ? e.tblProductDiscounts.Percent : 0), SavePercent = (e.tblProductDiscounts!=null ? e.tblProductDiscounts.Percent : 0) }).OrderBy(e => e.SellerPercent).FirstOrDefault().SavePercent,
+                                             ImgUrl= a.tblProductMedia.Select(b => new
                                              {
-                                                 Id=a.Id.ToString(),
-                                                 Title=a.Title,
-                                                 Name=a.Name,
-                                                 Date=a.Date,
-                                                 CountSell=0, // TODO , Create Bill Table
-                                                 Rating= a.tblProductReviews.Where(b => b.IsConfirm).Average(b => b.CountStar),
-                                                 IsInBookmark=false, // TODO
-                                                 CurrencySymbol=a.tblProductPrices.Where(a => a.IsActive).Select(b => b.tblCurrency.Symbol).Single(),
-                                                 MainPrice= a.tblProductPrices.Where(a => a.IsActive).Select(b => b.Price).Single(),
-                                                 SellerPercent= a.tblProductVariantItems.Where(b => b.IsEnable && b.IsConfirm && b.CountInStock>0).Select(e => new { SellerPercent = e.Percent - (e.tblProductDiscounts!=null ? e.tblProductDiscounts.Percent : 0), Percent = e.Percent }).OrderBy(e => e.SellerPercent).FirstOrDefault().Percent,
-                                                 PercentSavePrice= a.tblProductVariantItems.Where(b => b.IsEnable && b.IsConfirm && b.CountInStock>0).Select(e => new { SellerPercent = e.Percent - (e.tblProductDiscounts!=null ? e.tblProductDiscounts.Percent : 0), SavePercent = (e.tblProductDiscounts!=null ? e.tblProductDiscounts.Percent : 0) }).OrderBy(e => e.SellerPercent).FirstOrDefault().SavePercent,
-                                                 ImgUrl= a.tblProductMedia.Select(b => new
-                                                 {
-                                                     ImgUrl = b.tblFiles.tblFilePaths.tblFileServer.HttpDomin
-                                                               + b.tblFiles.tblFilePaths.tblFileServer.HttpPath
-                                                               + b.tblFiles.tblFilePaths.Path
-                                                               + b.tblFiles.FileName
-                                                 }).Select(b => b.ImgUrl).Take(2).ToArray()
-                                             });
+                                                 ImgUrl = b.tblFiles.tblFilePaths.tblFileServer.HttpDomin
+                                                           + b.tblFiles.tblFilePaths.tblFileServer.HttpPath
+                                                           + b.tblFiles.tblFilePaths.Path
+                                                           + b.tblFiles.FileName
+                                             }).Select(b => b.ImgUrl).Take(2).ToArray()
+                                         });
 
-                    #region شرط ها
+                #region شرط ها
+                {
+                    #region شرط های قیمتی
                     {
-                        #region شرط های قیمتی
-                        {
-                            qData= from a in qData
-                                   let Price = a.MainPrice + ((a.MainPrice/100)* a.SellerPercent) - (a.MainPrice + ((a.MainPrice/100)* a.SellerPercent)* a.PercentSavePrice)
-                                   where Price >= Input.MinPrice && Price <=Input.MaxPrice
-                                   select a;
-                        }
-                        #endregion
-
+                        qData= from a in qData
+                               let Price = a.MainPrice + ((a.MainPrice/100)* a.SellerPercent) - (a.MainPrice + ((a.MainPrice/100)* a.SellerPercent)* a.PercentSavePrice)
+                               where Price >= Input.MinPrice && Price <=Input.MaxPrice
+                               select a;
                     }
                     #endregion
 
-                    #region مرتب سازی
-                    {
-                        switch (Input.Sort)
-                        {
-                            case GetProductListForAdvanceSearchSortingEnum.Newest:
-                                {
-                                    qData= qData.OrderByDescending(a => a.Date);
-                                    break;
-                                }
-                            case GetProductListForAdvanceSearchSortingEnum.Oldest:
-                                {
-                                    qData= qData.OrderBy(a => a.Date);
-                                    break;
-                                }
-                            case GetProductListForAdvanceSearchSortingEnum.Popular:
-                                {
-                                    qData= qData.OrderBy(a => a.CountSell);
-                                    break;
-                                }
-                            case GetProductListForAdvanceSearchSortingEnum.HightRating:
-                                {
-                                    qData= qData.OrderBy(a => a.Rating);
-                                    break;
-                                }
-                            case GetProductListForAdvanceSearchSortingEnum.PriceMinToMax:
-                                {
-                                    qData= from a in qData
-                                           let Price = a.MainPrice + ((a.MainPrice/100)* a.SellerPercent) - (a.MainPrice + ((a.MainPrice/100)* a.SellerPercent)* a.PercentSavePrice)
-                                           orderby Price descending
-                                           select a;
-
-                                    break;
-                                }
-                            case GetProductListForAdvanceSearchSortingEnum.PriceMaxToMin:
-                                {
-                                    qData= from a in qData
-                                           let Price = a.MainPrice + ((a.MainPrice/100)* a.SellerPercent) - (a.MainPrice + ((a.MainPrice/100)* a.SellerPercent)* a.PercentSavePrice)
-                                           orderby Price ascending
-                                           select a;
-
-                                    break;
-                                }
-                            default:
-                                {
-                                    qData= qData.OrderByDescending(a => a.Date);
-                                    break;
-                                }
-                        }
-                    }
-                    #endregion
-
-                    #region صفحه بندی
-                    OutPagingData qPagingData = null;
-                    {
-                        qPagingData = PagingData.Calc(await qData.CountAsync(), Input.CurrentPage, Input.Take);
-                        LstProduct= await qData.Skip((int)qPagingData.Skip).Take(Input.Take).ToListAsync();
-                    }
-                    #endregion
                 }
                 #endregion
 
-                _Data.LstProducts=LstProduct;
+                #region مرتب سازی
+                {
+                    switch (Input.Sort)
+                    {
+                        case GetProductListForAdvanceSearchSortingEnum.Newest:
+                            {
+                                qData= qData.OrderByDescending(a => a.Date);
+                                break;
+                            }
+                        case GetProductListForAdvanceSearchSortingEnum.Oldest:
+                            {
+                                qData= qData.OrderBy(a => a.Date);
+                                break;
+                            }
+                        case GetProductListForAdvanceSearchSortingEnum.Popular:
+                            {
+                                qData= qData.OrderBy(a => a.CountSell);
+                                break;
+                            }
+                        case GetProductListForAdvanceSearchSortingEnum.HightRating:
+                            {
+                                qData= qData.OrderBy(a => a.Rating);
+                                break;
+                            }
+                        case GetProductListForAdvanceSearchSortingEnum.PriceMinToMax:
+                            {
+                                qData= from a in qData
+                                       let Price = a.MainPrice + ((a.MainPrice/100)* a.SellerPercent) - (a.MainPrice + ((a.MainPrice/100)* a.SellerPercent)* a.PercentSavePrice)
+                                       orderby Price descending
+                                       select a;
 
-                return _Data;
+                                break;
+                            }
+                        case GetProductListForAdvanceSearchSortingEnum.PriceMaxToMin:
+                            {
+                                qData= from a in qData
+                                       let Price = a.MainPrice + ((a.MainPrice/100)* a.SellerPercent) - (a.MainPrice + ((a.MainPrice/100)* a.SellerPercent)* a.PercentSavePrice)
+                                       orderby Price ascending
+                                       select a;
+
+                                break;
+                            }
+                        default:
+                            {
+                                qData= qData.OrderByDescending(a => a.Date);
+                                break;
+                            }
+                    }
+                }
+                #endregion
+
+                var qPagingData = PagingData.Calc(await qData.CountAsync(), Input.CurrentPage, Input.Take);
+
+                return (qPagingData, await qData.Skip((int)qPagingData.Skip).Take(Input.Take).ToListAsync());
             }
             catch (ArgumentInvalidException ex)
             {

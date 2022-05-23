@@ -7,6 +7,11 @@ namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Products
 {
     public class InpGetProductListForAdvanceSearch
     {
+        [Display(Name = "LangId")]
+        [RequiredString]
+        [GUID]
+        public string LangId { get; set; }
+
         [Display(Name = "CategoryName")]
         [RequiredString]
         [MaxLengthString(100)]

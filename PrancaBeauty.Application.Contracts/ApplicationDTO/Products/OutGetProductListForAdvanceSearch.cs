@@ -1,18 +1,8 @@
-﻿using Framework.Common.Utilities.Paging;
-using System;
-using System.Collections.Generic;
+﻿using System;
 
 namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Products
 {
     public class OutGetProductListForAdvanceSearch
-    {
-        public string CategoryTitle { get; set; }
-        public OutPagingData Paging { get; set; }
-
-        public List<OutGetProductListForAdvanceSearchItems> LstProducts { get; set; }
-    }
-
-    public class OutGetProductListForAdvanceSearchItems
     {
         public string Id { get; set; }
         public string[] ImgUrl { get; set; }
@@ -25,6 +15,6 @@ namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Products
         public bool IsInBookmark { get; set; }
         public DateTime Date { get; set; }
         public int CountSell { get; set; } // برای مرتب سازی بر اساس محبوب ترین ها
-        public double Rating { get; set; } 
+        public double Rating { get; set; }
     }
 }

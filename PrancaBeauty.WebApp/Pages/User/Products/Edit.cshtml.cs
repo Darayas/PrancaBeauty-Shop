@@ -55,7 +55,7 @@ namespace PrancaBeauty.WebApp.Pages.User.Products
                 if (User.IsInRole(Roles.CanEditProductForAllUser))
                     _UserId = null;
 
-                var qData = await _ProductApplication.GetForEditAsync(new InpGetForEdit
+                var qData = await _ProductApplication.GetProductForEditAsync(new InpGetProductForEdit
                 {
                     UserId = _UserId,
                     ProductId = Id

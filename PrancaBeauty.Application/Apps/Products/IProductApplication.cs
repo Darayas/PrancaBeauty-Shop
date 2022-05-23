@@ -9,7 +9,7 @@ namespace PrancaBeauty.Application.Apps.Products
     public interface IProductApplication
     {
         Task<OperationResult> AddProdcutAsync(InpAddProdcut Input);
-        Task<OutGetProductForEdit> GetForEditAsync(InpGetForEdit Input);
+        Task<OutGetProductForEdit> GetProductForEditAsync(InpGetProductForEdit Input);
         Task<(bool IsConfirm, OutGetProductForDetails Product)> GetProductForDetailsAsync(InpGetProductForDetails Input);
         Task<List<OutGetProductListForCombo>> GetProductListForComboAsync(InpGetProductListForCombo Input);
         Task<OutGetProductPriceByVariantId> GetProductPriceByVariantValueAsync(InpGetProductPriceByVariantValue Input);
@@ -19,5 +19,6 @@ namespace PrancaBeauty.Application.Apps.Products
         Task<OperationResult> RecoveryFromRecycleBinAsync(InpRecoveryFromRecycleBin Input);
         Task<OperationResult> RemoveProductForAlwaysAsync(InpRemoveProductForAlways Input);
         Task<OperationResult> SaveEditProductAsync(InpSaveEditProduct Input);
+        Task<(OutPagingData PagingData, List<OutGetProductListForAdvanceSearch> LstProduct)> GetProductListForAdvanceSearchAsync(InpGetProductListForAdvanceSearch Input);
     }
 }

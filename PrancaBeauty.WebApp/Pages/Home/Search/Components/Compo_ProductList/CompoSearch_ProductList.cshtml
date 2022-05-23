@@ -1,6 +1,8 @@
 ﻿@page "/{culture}/Search/Compo/ProductList"
 @model PrancaBeauty.WebApp.Pages.Home.Search.Components.Compo_ProductList.CompoSearch_ProductListModel
-
+@{
+    var PagingData = Model.Data.PagingData;
+}
 
 <div class="shop_toolbar_wrapper">
     <div class="shop_toolbar_btn">
@@ -13,7 +15,7 @@
     </div>
     <div class=" niceselect_option">
         <form class="select_option" action="#">
-            <select name="orderby">
+            <select asp-for=Input.Sort>
                 <option selected value="1">@Localizer["Newest"]</option>
                 <option value="2">@Localizer["Oldest"]</option>
                 <option value="3">@Localizer["SortByPopularity"]</option>
@@ -24,610 +26,86 @@
         </form>
     </div>
     <div class="page_amount">
-        <p>@Localizer["ShowingResultsCount",1,12,1500]</p>
+        <p>@Localizer["ShowingResultsCount",PagingData.Skip+1,PagingData.Skip+ PagingData.Take ,PagingData.CountAllItem]</p>
     </div>
 </div>
 <div class="row shop_wrapper">
-    <div class="col-lg-4 col-md-4 col-sm-6 col-12 ">
-        <div class="single_product">
-            <div class="product_thumb">
-                <a class="primary_img" href="product-details.html"><img src="/Main/img/product/product6.jpg" alt=""></a>
-                <a class="secondary_img" href="product-details.html"><img src="/Main/img/product/product7.jpg" alt=""></a>
-                <div class="label_product">
-                    <span class="label_sale">-15%</span>
-                </div>
-                <div class="action_links">
-                    <ul>
-                        <li class="wishlist"><a href="wishlist.html" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                        <li class="compare"><a href="#" title="Add to Compare"><i class="fa fa-refresh"></i></a></li>
-                        <li class="quick_button"><a href="#" data-toggle="modal" data-target="#modal_box" title="quick view"> <i class="fa fa-search-plus "></i></a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="product_content grid_content">
-                <h2 class="product_name"><a href="product-details.html">Originals Kaval Windbreaker</a></h2>
-                <div class="price_box">
-                    <span class="old_price">$245.00</span>
-                    <span class="current_price">$76.00</span>
-                </div>
-                <div class="add_to_cart">
-                    <a href="cart.html">+ Add to cart</a>
-                </div>
-            </div>
-            <div class="product_content list_content">
-                <h2 class="product_name"><a href="product-details.html">Originals Kaval Windbreaker</a></h2>
-                <div class="price_box">
-                    <span class="old_price">$245.00</span>
-                    <span class="current_price">$76.00</span>
-                </div>
-                <div class="product_desc">
-                    <p>Nunc facilisis sagittis ullamcorper. Proin lectus ipsum, gravida et mattis vulputate, tristique ut lectus. Sed et lorem nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean eleifend laoreet congue. Viva..</p>
-                </div>
-                <div class="list_action_wrapper">
-                    <div class="list_cart_btn">
-                        <a href="cart.html" title="Add to cart">+ Add to Cart</a>
-                    </div>
-                    <div class="action_links">
-                        <ul>
-                            <li class="wishlist"><a href="wishlist.html" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                            <li class="compare"><a href="#" title="Add to Compare"><i class="fa fa-refresh"></i></a></li>
-                            <li class="quick_button"><a href="#" data-toggle="modal" data-target="#modal_box" title="quick view"> <i class="fa fa-search-plus "></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+    @if (Model.Data.LstProducts.Count()==0)
+    {
+        <div class="alert alert-info">
+            <span>@Localizer["ItemNotFound"]</span>
         </div>
-    </div>
-    <div class="col-lg-4 col-md-4 col-sm-6 col-12 ">
-        <div class="single_product">
-            <div class="product_thumb">
-                <a class="primary_img" href="product-details.html"><img src="/Main/img/product/product8.jpg" alt=""></a>
-                <a class="secondary_img" href="product-details.html"><img src="/Main/img/product/product9.jpg" alt=""></a>
-                <div class="label_product">
-                    <span class="label_sale">-15%</span>
-                </div>
-                <div class="action_links">
-                    <ul>
-                        <li class="wishlist"><a href="wishlist.html" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                        <li class="compare"><a href="#" title="Add to Compare"><i class="fa fa-refresh"></i></a></li>
-                        <li class="quick_button"><a href="#" data-toggle="modal" data-target="#modal_box" title="quick view"> <i class="fa fa-search-plus "></i></a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="product_content grid_content">
-                <h2 class="product_name"><a href="product-details.html">Water and Wind Resistant</a></h2>
-                <div class="price_box">
-                    <span class="old_price">$235.00</span>
-                    <span class="current_price">$86.00</span>
-                </div>
-                <div class="add_to_cart">
-                    <a href="cart.html">+ Add to cart</a>
-                </div>
-            </div>
-            <div class="product_content list_content">
-                <h2 class="product_name"><a href="product-details.html">Water and Wind Resistant</a></h2>
-                <div class="price_box">
-                    <span class="old_price">$235.00</span>
-                    <span class="current_price">$86.00</span>
-                </div>
-                <div class="product_desc">
-                    <p>Nunc facilisis sagittis ullamcorper. Proin lectus ipsum, gravida et mattis vulputate, tristique ut lectus. Sed et lorem nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean eleifend laoreet congue. Viva..</p>
-                </div>
-                <div class="list_action_wrapper">
-                    <div class="list_cart_btn">
-                        <a href="cart.html" title="Add to cart">+ Add to Cart</a>
+    }
+    else
+    {
+        foreach (var item in Model.Data.LstProducts)
+        {
+            <div class="col-lg-4 col-md-4 col-sm-6 col-12 ">
+                <div class="single_product">
+                    <div class="product_thumb">
+                        <a class="primary_img" href="/@ViewData["culture"]/Product/@item.Name">
+                            <img src="@item.ImgUrl[0]" alt="@item.Title">
+                        </a>
+                        @if (item.ImgUrl.Count()>1)
+                        {
+                            <a class="secondary_img" href="/@ViewData["culture"]/Product/@item.Name">
+                                <img src="@item.ImgUrl[1]" alt="@item.Title">
+                            </a>
+                        }
+                        <div class="label_product">
+                            <span class="label_sale">-@item.PercentSavePrice%</span>
+                        </div>
+                        <div class="action_links">
+                            <ul>
+                                <li class="wishlist"><a href="wishlist.html" title="@Localizer["AddToWishlist"]"><i class="fas fa-heart"></i></a></li>
+                                <li class="compare"><a href="#" title="@Localizer["AddToCompare"]"><i class="fa fa-refresh"></i></a></li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="action_links">
-                        <ul>
-                            <li class="wishlist"><a href="wishlist.html" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                            <li class="compare"><a href="#" title="Add to Compare"><i class="fa fa-refresh"></i></a></li>
-                            <li class="quick_button"><a href="#" data-toggle="modal" data-target="#modal_box" title="quick view"> <i class="fa fa-search-plus "></i></a></li>
-                        </ul>
+                    <div class="product_content grid_content">
+                        <h2 class="product_name">
+                            <a href="/@ViewData["culture"]/Product/@item.Name">@item.Title</a>
+                        </h2>
+                        <div class="price_box">
+                            <span class="old_price">$245.00</span>
+                            <span class="current_price">$76.00</span>
+                        </div>
+                        <div class="add_to_cart">
+                            <a href="cart.html">+ @Localizer["AddToCart"]</a>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-4 col-md-4 col-sm-6 col-12 ">
-        <div class="single_product">
-            <div class="product_thumb">
-                <a class="primary_img" href="product-details.html"><img src="/Main/img/product/product10.jpg" alt=""></a>
-                <a class="secondary_img" href="product-details.html"><img src="/Main/img/product/product11.jpg" alt=""></a>
-                <div class="label_product">
-                    <span class="label_sale">-15%</span>
-                </div>
-                <div class="action_links">
-                    <ul>
-                        <li class="wishlist"><a href="wishlist.html" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                        <li class="compare"><a href="#" title="Add to Compare"><i class="fa fa-refresh"></i></a></li>
-                        <li class="quick_button"><a href="#" data-toggle="modal" data-target="#modal_box" title="quick view"> <i class="fa fa-search-plus "></i></a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="product_content grid_content">
-                <h2 class="product_name"><a href="product-details.html">Juicy Couture Juicy Quilted</a></h2>
-                <div class="price_box">
-                    <span class="old_price">$190.00</span>
-                    <span class="current_price">$82.00</span>
-                </div>
-                <div class="add_to_cart">
-                    <a href="cart.html">+ Add to cart</a>
-                </div>
-            </div>
-            <div class="product_content list_content">
-                <h2 class="product_name"><a href="product-details.html">Juicy Couture Juicy Quilted</a></h2>
-                <div class="price_box">
-                    <span class="old_price">$190.00</span>
-                    <span class="current_price">$82.00</span>
-                </div>
-                <div class="product_desc">
-                    <p>Nunc facilisis sagittis ullamcorper. Proin lectus ipsum, gravida et mattis vulputate, tristique ut lectus. Sed et lorem nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean eleifend laoreet congue. Viva..</p>
-                </div>
-                <div class="list_action_wrapper">
-                    <div class="list_cart_btn">
-                        <a href="cart.html" title="Add to cart">+ Add to Cart</a>
-                    </div>
-                    <div class="action_links">
-                        <ul>
-                            <li class="wishlist"><a href="wishlist.html" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                            <li class="compare"><a href="#" title="Add to Compare"><i class="fa fa-refresh"></i></a></li>
-                            <li class="quick_button"><a href="#" data-toggle="modal" data-target="#modal_box" title="quick view"> <i class="fa fa-search-plus "></i></a></li>
-                        </ul>
+                    <div class="product_content list_content">
+                        <h2 class="product_name">
+                            <a href="/@ViewData["culture"]/Product/@item.Name">@item.Title</a>
+                        </h2>
+                        <div class="price_box">
+                            <span class="old_price">$245.00</span>
+                            <span class="current_price">$76.00</span>
+                        </div>
+                        <div class="product_desc">
+                            <p>
+                                @item.Description
+                            </p>
+                        </div>
+                        <div class="list_action_wrapper">
+                            <div class="list_cart_btn">
+                                <a href="cart.html" title="Add to cart">+ Add to Cart</a>
+                            </div>
+                            <div class="action_links">
+                                <ul>
+                                    <li class="wishlist"><a href="wishlist.html" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
+                                    <li class="compare"><a href="#" title="Add to Compare"><i class="fa fa-refresh"></i></a></li>
+                                    <li class="quick_button"><a href="#" data-toggle="modal" data-target="#modal_box" title="quick view"> <i class="fa fa-search-plus "></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="col-lg-4 col-md-4 col-sm-6 col-12 ">
-        <div class="single_product">
-            <div class="product_thumb">
-                <a class="primary_img" href="product-details.html"><img src="/Main/img/product/product12.jpg" alt=""></a>
-                <a class="secondary_img" href="product-details.html"><img src="/Main/img/product/product13.jpg" alt=""></a>
-                <div class="label_product">
-                    <span class="label_sale">-15%</span>
-                </div>
-                <div class="action_links">
-                    <ul>
-                        <li class="wishlist"><a href="wishlist.html" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                        <li class="compare"><a href="#" title="Add to Compare"><i class="fa fa-refresh"></i></a></li>
-                        <li class="quick_button"><a href="#" data-toggle="modal" data-target="#modal_box" title="quick view"> <i class="fa fa-search-plus "></i></a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="product_content grid_content">
-                <h2 class="product_name"><a href="product-details.html">New Balance Fresh Foam</a></h2>
-                <div class="price_box">
-                    <span class="old_price">$196.00</span>
-                    <span class="current_price">$95.00</span>
-                </div>
-                <div class="add_to_cart">
-                    <a href="cart.html">+ Add to cart</a>
-                </div>
-            </div>
-            <div class="product_content list_content">
-                <h2 class="product_name"><a href="product-details.html">New Balance Fresh Foam</a></h2>
-                <div class="price_box">
-                    <span class="old_price">$196.00</span>
-                    <span class="current_price">$95.00</span>
-                </div>
-                <div class="product_desc">
-                    <p>Nunc facilisis sagittis ullamcorper. Proin lectus ipsum, gravida et mattis vulputate, tristique ut lectus. Sed et lorem nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean eleifend laoreet congue. Viva..</p>
-                </div>
-                <div class="list_action_wrapper">
-                    <div class="list_cart_btn">
-                        <a href="cart.html" title="Add to cart">+ Add to Cart</a>
-                    </div>
-                    <div class="action_links">
-                        <ul>
-                            <li class="wishlist"><a href="wishlist.html" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                            <li class="compare"><a href="#" title="Add to Compare"><i class="fa fa-refresh"></i></a></li>
-                            <li class="quick_button"><a href="#" data-toggle="modal" data-target="#modal_box" title="quick view"> <i class="fa fa-search-plus "></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-4 col-md-4 col-sm-6 col-12 ">
-        <div class="single_product">
-            <div class="product_thumb">
-                <a class="primary_img" href="product-details.html"><img src="/Main/img/product/product14.jpg" alt=""></a>
-                <a class="secondary_img" href="product-details.html"><img src="/Main/img/product/product15.jpg" alt=""></a>
-                <div class="label_product">
-                    <span class="label_sale">-15%</span>
-                </div>
-                <div class="action_links">
-                    <ul>
-                        <li class="wishlist"><a href="wishlist.html" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                        <li class="compare"><a href="#" title="Add to Compare"><i class="fa fa-refresh"></i></a></li>
-                        <li class="quick_button"><a href="#" data-toggle="modal" data-target="#modal_box" title="quick view"> <i class="fa fa-search-plus "></i></a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="product_content grid_content">
-                <h2 class="product_name"><a href="product-details.html">Madden by Steve Madden</a></h2>
-                <div class="price_box">
-                    <span class="old_price">$234.00</span>
-                    <span class="current_price">$58.00</span>
-                </div>
-                <div class="add_to_cart">
-                    <a href="cart.html">+ Add to cart</a>
-                </div>
-            </div>
-            <div class="product_content list_content">
-                <h2 class="product_name"><a href="product-details.html">Madden by Steve Madden</a></h2>
-                <div class="price_box">
-                    <span class="old_price">$234.00</span>
-                    <span class="current_price">$58.00</span>
-                </div>
-                <div class="product_desc">
-                    <p>Nunc facilisis sagittis ullamcorper. Proin lectus ipsum, gravida et mattis vulputate, tristique ut lectus. Sed et lorem nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean eleifend laoreet congue. Viva..</p>
-                </div>
-                <div class="list_action_wrapper">
-                    <div class="list_cart_btn">
-                        <a href="cart.html" title="Add to cart">+ Add to Cart</a>
-                    </div>
-                    <div class="action_links">
-                        <ul>
-                            <li class="wishlist"><a href="wishlist.html" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                            <li class="compare"><a href="#" title="Add to Compare"><i class="fa fa-refresh"></i></a></li>
-                            <li class="quick_button"><a href="#" data-toggle="modal" data-target="#modal_box" title="quick view"> <i class="fa fa-search-plus "></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-4 col-md-4 col-sm-6 col-12 ">
-        <div class="single_product">
-            <div class="product_thumb">
-                <a class="primary_img" href="product-details.html"><img src="/Main/img/product/product16.jpg" alt=""></a>
-                <a class="secondary_img" href="product-details.html"><img src="/Main/img/product/product17.jpg" alt=""></a>
-                <div class="label_product">
-                    <span class="label_sale">-15%</span>
-                </div>
-                <div class="action_links">
-                    <ul>
-                        <li class="wishlist"><a href="wishlist.html" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                        <li class="compare"><a href="#" title="Add to Compare"><i class="fa fa-refresh"></i></a></li>
-                        <li class="quick_button"><a href="#" data-toggle="modal" data-target="#modal_box" title="quick view"> <i class="fa fa-search-plus "></i></a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="product_content grid_content">
-                <h2 class="product_name"><a href="product-details.html">Fila Locker Room Varsity</a></h2>
-                <div class="price_box">
-                    <span class="old_price">$178.00</span>
-                    <span class="current_price">$68.00</span>
-                </div>
-                <div class="add_to_cart">
-                    <a href="cart.html">+ Add to cart</a>
-                </div>
-            </div>
-            <div class="product_content list_content">
-                <h2 class="product_name"><a href="product-details.html">Fila Locker Room Varsity</a></h2>
-                <div class="price_box">
-                    <span class="old_price">$178.00</span>
-                    <span class="current_price">$68.00</span>
-                </div>
-                <div class="product_desc">
-                    <p>Nunc facilisis sagittis ullamcorper. Proin lectus ipsum, gravida et mattis vulputate, tristique ut lectus. Sed et lorem nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean eleifend laoreet congue. Viva..</p>
-                </div>
-                <div class="list_action_wrapper">
-                    <div class="list_cart_btn">
-                        <a href="cart.html" title="Add to cart">+ Add to Cart</a>
-                    </div>
-                    <div class="action_links">
-                        <ul>
-                            <li class="wishlist"><a href="wishlist.html" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                            <li class="compare"><a href="#" title="Add to Compare"><i class="fa fa-refresh"></i></a></li>
-                            <li class="quick_button"><a href="#" data-toggle="modal" data-target="#modal_box" title="quick view"> <i class="fa fa-search-plus "></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-4 col-md-4 col-sm-6 col-12 ">
-        <div class="single_product">
-            <div class="product_thumb">
-                <a class="primary_img" href="product-details.html"><img src="/Main/img/product/product18.jpg" alt=""></a>
-                <a class="secondary_img" href="product-details.html"><img src="/Main/img/product/product19.jpg" alt=""></a>
-                <div class="label_product">
-                    <span class="label_sale">-15%</span>
-                </div>
-                <div class="action_links">
-                    <ul>
-                        <li class="wishlist"><a href="wishlist.html" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                        <li class="compare"><a href="#" title="Add to Compare"><i class="fa fa-refresh"></i></a></li>
-                        <li class="quick_button"><a href="#" data-toggle="modal" data-target="#modal_box" title="quick view"> <i class="fa fa-search-plus "></i></a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="product_content grid_content">
-                <h2 class="product_name"><a href="product-details.html">Calvin Klein Jeans Reflect</a></h2>
-                <div class="price_box">
-                    <span class="old_price">$182.00</span>
-                    <span class="current_price">$85.00</span>
-                </div>
-                <div class="add_to_cart">
-                    <a href="cart.html">+ Add to cart</a>
-                </div>
-            </div>
-            <div class="product_content list_content">
-                <h2 class="product_name"><a href="product-details.html">Calvin Klein Jeans Reflect</a></h2>
-                <div class="price_box">
-                    <span class="old_price">$182.00</span>
-                    <span class="current_price">$85.00</span>
-                </div>
-                <div class="product_desc">
-                    <p>Nunc facilisis sagittis ullamcorper. Proin lectus ipsum, gravida et mattis vulputate, tristique ut lectus. Sed et lorem nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean eleifend laoreet congue. Viva..</p>
-                </div>
-                <div class="list_action_wrapper">
-                    <div class="list_cart_btn">
-                        <a href="cart.html" title="Add to cart">+ Add to Cart</a>
-                    </div>
-                    <div class="action_links">
-                        <ul>
-                            <li class="wishlist"><a href="wishlist.html" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                            <li class="compare"><a href="#" title="Add to Compare"><i class="fa fa-refresh"></i></a></li>
-                            <li class="quick_button"><a href="#" data-toggle="modal" data-target="#modal_box" title="quick view"> <i class="fa fa-search-plus "></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-4 col-md-4 col-sm-6 col-12 ">
-        <div class="single_product">
-            <div class="product_thumb">
-                <a class="primary_img" href="product-details.html"><img src="/Main/img/product/product9.jpg" alt=""></a>
-                <a class="secondary_img" href="product-details.html"><img src="/Main/img/product/product8.jpg" alt=""></a>
-                <div class="label_product">
-                    <span class="label_sale">-15%</span>
-                </div>
-                <div class="action_links">
-                    <ul>
-                        <li class="wishlist"><a href="wishlist.html" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                        <li class="compare"><a href="#" title="Add to Compare"><i class="fa fa-refresh"></i></a></li>
-                        <li class="quick_button"><a href="#" data-toggle="modal" data-target="#modal_box" title="quick view"> <i class="fa fa-search-plus "></i></a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="product_content grid_content">
-                <h2 class="product_name"><a href="product-details.html">Juicy Couture Tricot Logo</a></h2>
-                <div class="price_box">
-                    <span class="old_price">$225.00</span>
-                    <span class="current_price">$56.00</span>
-                </div>
-                <div class="add_to_cart">
-                    <a href="cart.html">+ Add to cart</a>
-                </div>
-            </div>
-            <div class="product_content list_content">
-                <h2 class="product_name"><a href="product-details.html">Juicy Couture Tricot Logo</a></h2>
-                <div class="price_box">
-                    <span class="old_price">$225.00</span>
-                    <span class="current_price">$56.00</span>
-                </div>
-                <div class="product_desc">
-                    <p>Nunc facilisis sagittis ullamcorper. Proin lectus ipsum, gravida et mattis vulputate, tristique ut lectus. Sed et lorem nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean eleifend laoreet congue. Viva..</p>
-                </div>
-                <div class="list_action_wrapper">
-                    <div class="list_cart_btn">
-                        <a href="cart.html" title="Add to cart">+ Add to Cart</a>
-                    </div>
-                    <div class="action_links">
-                        <ul>
-                            <li class="wishlist"><a href="wishlist.html" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                            <li class="compare"><a href="#" title="Add to Compare"><i class="fa fa-refresh"></i></a></li>
-                            <li class="quick_button"><a href="#" data-toggle="modal" data-target="#modal_box" title="quick view"> <i class="fa fa-search-plus "></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-4 col-md-4 col-sm-6 col-12 ">
-        <div class="single_product">
-            <div class="product_thumb">
-                <a class="primary_img" href="product-details.html"><img src="/Main/img/product/product11.jpg" alt=""></a>
-                <a class="secondary_img" href="product-details.html"><img src="/Main/img/product/product10.jpg" alt=""></a>
-                <div class="label_product">
-                    <span class="label_sale">-15%</span>
-                </div>
-                <div class="action_links">
-                    <ul>
-                        <li class="wishlist"><a href="wishlist.html" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                        <li class="compare"><a href="#" title="Add to Compare"><i class="fa fa-refresh"></i></a></li>
-                        <li class="quick_button"><a href="#" data-toggle="modal" data-target="#modal_box" title="quick view"> <i class="fa fa-search-plus "></i></a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="product_content grid_content">
-                <h2 class="product_name"><a href="product-details.html">Trans-Weight Hooded Wind</a></h2>
-                <div class="price_box">
-                    <span class="old_price">$238.00</span>
-                    <span class="current_price">$72.00</span>
-                </div>
-                <div class="add_to_cart">
-                    <a href="cart.html">+ Add to cart</a>
-                </div>
-            </div>
-            <div class="product_content list_content">
-                <h2 class="product_name"><a href="product-details.html">Trans-Weight Hooded Wind</a></h2>
-                <div class="price_box">
-                    <span class="old_price">$238.00</span>
-                    <span class="current_price">$72.00</span>
-                </div>
-                <div class="product_desc">
-                    <p>Nunc facilisis sagittis ullamcorper. Proin lectus ipsum, gravida et mattis vulputate, tristique ut lectus. Sed et lorem nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean eleifend laoreet congue. Viva..</p>
-                </div>
-                <div class="list_action_wrapper">
-                    <div class="list_cart_btn">
-                        <a href="cart.html" title="Add to cart">+ Add to Cart</a>
-                    </div>
-                    <div class="action_links">
-                        <ul>
-                            <li class="wishlist"><a href="wishlist.html" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                            <li class="compare"><a href="#" title="Add to Compare"><i class="fa fa-refresh"></i></a></li>
-                            <li class="quick_button"><a href="#" data-toggle="modal" data-target="#modal_box" title="quick view"> <i class="fa fa-search-plus "></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-4 col-md-4 col-sm-6 col-12 ">
-        <div class="single_product">
-            <div class="product_thumb">
-                <a class="primary_img" href="product-details.html"><img src="/Main/img/product/product13.jpg" alt=""></a>
-                <a class="secondary_img" href="product-details.html"><img src="/Main/img/product/product12.jpg" alt=""></a>
-                <div class="label_product">
-                    <span class="label_sale">-15%</span>
-                </div>
-                <div class="action_links">
-                    <ul>
-                        <li class="wishlist"><a href="wishlist.html" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                        <li class="compare"><a href="#" title="Add to Compare"><i class="fa fa-refresh"></i></a></li>
-                        <li class="quick_button"><a href="#" data-toggle="modal" data-target="#modal_box" title="quick view"> <i class="fa fa-search-plus "></i></a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="product_content grid_content">
-                <h2 class="product_name"><a href="product-details.html">Originals Kaval Windbreaker</a></h2>
-                <div class="price_box">
-                    <span class="old_price">$245.00</span>
-                    <span class="current_price">$76.00</span>
-                </div>
-                <div class="add_to_cart">
-                    <a href="cart.html">+ Add to cart</a>
-                </div>
-            </div>
-            <div class="product_content list_content">
-                <h2 class="product_name"><a href="product-details.html">Originals Kaval Windbreaker</a></h2>
-                <div class="price_box">
-                    <span class="old_price">$245.00</span>
-                    <span class="current_price">$76.00</span>
-                </div>
-                <div class="product_desc">
-                    <p>Nunc facilisis sagittis ullamcorper. Proin lectus ipsum, gravida et mattis vulputate, tristique ut lectus. Sed et lorem nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean eleifend laoreet congue. Viva..</p>
-                </div>
-                <div class="list_action_wrapper">
-                    <div class="list_cart_btn">
-                        <a href="cart.html" title="Add to cart">+ Add to Cart</a>
-                    </div>
-                    <div class="action_links">
-                        <ul>
-                            <li class="wishlist"><a href="wishlist.html" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                            <li class="compare"><a href="#" title="Add to Compare"><i class="fa fa-refresh"></i></a></li>
-                            <li class="quick_button"><a href="#" data-toggle="modal" data-target="#modal_box" title="quick view"> <i class="fa fa-search-plus "></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-4 col-md-4 col-sm-6 col-12 ">
-        <div class="single_product">
-            <div class="product_thumb">
-                <a class="primary_img" href="product-details.html"><img src="/Main/img/product/product15.jpg" alt=""></a>
-                <a class="secondary_img" href="product-details.html"><img src="/Main/img/product/product14.jpg" alt=""></a>
-                <div class="label_product">
-                    <span class="label_sale">-15%</span>
-                </div>
-                <div class="action_links">
-                    <ul>
-                        <li class="wishlist"><a href="wishlist.html" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                        <li class="compare"><a href="#" title="Add to Compare"><i class="fa fa-refresh"></i></a></li>
-                        <li class="quick_button"><a href="#" data-toggle="modal" data-target="#modal_box" title="quick view"> <i class="fa fa-search-plus "></i></a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="product_content grid_content">
-                <h2 class="product_name"><a href="product-details.html">Juicy Couture Juicy Quilted</a></h2>
-                <div class="price_box">
-                    <span class="old_price">$205.00</span>
-                    <span class="current_price">$59.00</span>
-                </div>
-                <div class="add_to_cart">
-                    <a href="cart.html">+ Add to cart</a>
-                </div>
-            </div>
-            <div class="product_content list_content">
-                <h2 class="product_name"><a href="product-details.html">Juicy Couture Juicy Quilted</a></h2>
-                <div class="price_box">
-                    <span class="old_price">$205.00</span>
-                    <span class="current_price">$59.00</span>
-                </div>
-                <div class="product_desc">
-                    <p>Nunc facilisis sagittis ullamcorper. Proin lectus ipsum, gravida et mattis vulputate, tristique ut lectus. Sed et lorem nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean eleifend laoreet congue. Viva..</p>
-                </div>
-                <div class="list_action_wrapper">
-                    <div class="list_cart_btn">
-                        <a href="cart.html" title="Add to cart">+ Add to Cart</a>
-                    </div>
-                    <div class="action_links">
-                        <ul>
-                            <li class="wishlist"><a href="wishlist.html" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                            <li class="compare"><a href="#" title="Add to Compare"><i class="fa fa-refresh"></i></a></li>
-                            <li class="quick_button"><a href="#" data-toggle="modal" data-target="#modal_box" title="quick view"> <i class="fa fa-search-plus "></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-4 col-md-4 col-sm-6 col-12 ">
-        <div class="single_product">
-            <div class="product_thumb">
-                <a class="primary_img" href="product-details.html"><img src="/Main/img/product/product17.jpg" alt=""></a>
-                <a class="secondary_img" href="product-details.html"><img src="/Main/img/product/product16.jpg" alt=""></a>
-                <div class="label_product">
-                    <span class="label_sale">-15%</span>
-                </div>
-                <div class="action_links">
-                    <ul>
-                        <li class="wishlist"><a href="wishlist.html" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                        <li class="compare"><a href="#" title="Add to Compare"><i class="fa fa-refresh"></i></a></li>
-                        <li class="quick_button"><a href="#" data-toggle="modal" data-target="#modal_box" title="quick view"> <i class="fa fa-search-plus "></i></a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="product_content grid_content">
-                <h2 class="product_name"><a href="product-details.html">Brixton Patrol All Terrain</a></h2>
-                <div class="price_box">
-                    <span class="old_price">$215.00</span>
-                    <span class="current_price">$49.00</span>
-                </div>
-                <div class="add_to_cart">
-                    <a href="cart.html">+ Add to cart</a>
-                </div>
-            </div>
-            <div class="product_content list_content">
-                <h2 class="product_name"><a href="product-details.html">Brixton Patrol All Terrain</a></h2>
-                <div class="price_box">
-                    <span class="old_price">$215.00</span>
-                    <span class="current_price">$49.00</span>
-                </div>
-                <div class="product_desc">
-                    <p>Nunc facilisis sagittis ullamcorper. Proin lectus ipsum, gravida et mattis vulputate, tristique ut lectus. Sed et lorem nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean eleifend laoreet congue. Viva..</p>
-                </div>
-                <div class="list_action_wrapper">
-                    <div class="list_cart_btn">
-                        <a href="cart.html" title="Add to cart">+ Add to Cart</a>
-                    </div>
-                    <div class="action_links">
-                        <ul>
-                            <li class="wishlist"><a href="wishlist.html" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                            <li class="compare"><a href="#" title="Add to Compare"><i class="fa fa-refresh"></i></a></li>
-                            <li class="quick_button"><a href="#" data-toggle="modal" data-target="#modal_box" title="quick view"> <i class="fa fa-search-plus "></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+        }
+    }
+
+
 </div>
 <div class="shop_toolbar t_bottom">
     <div class="pagination">

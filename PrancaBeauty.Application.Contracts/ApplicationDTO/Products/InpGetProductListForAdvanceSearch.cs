@@ -2,9 +2,9 @@
 using Framework.Common.DataAnnotations.String;
 using System.ComponentModel.DataAnnotations;
 
-namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput
+namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Products
 {
-    public class viCompoSearch_ProductList
+    public class InpGetProductListForAdvanceSearch
     {
         [Display(Name = "CategoryName")]
         [RequiredString]
@@ -22,8 +22,9 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput
         public double MixPrice { get; set; }
 
 
+
         [Display(Name = "Take")]
-        [NumRange(1,int.MaxValue)]
+        [NumRange(1, int.MaxValue)]
         public int Take { get; set; }
 
         [Display(Name = "Page")]

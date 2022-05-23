@@ -1026,5 +1026,82 @@ namespace PrancaBeauty.Application.Apps.Products
                 return default;
             }
         }
+
+        public async Task<OutGetProductListForAdvanceSearch> GetProductListForAdvanceSearchAsync(InpGetProductListForAdvanceSearch Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var _Data = new OutGetProductListForAdvanceSearch();
+
+                #region Get Product List
+                var LstProduct = new List<OutGetProductListForAdvanceSearchItems>();
+                {
+                    var qData = _ProductRepository.Get
+                                             .Where(a => a.IsConfirmed)
+                                             .Where(a => !a.IsDelete)
+                                             .Where(a => !a.IsDraft)
+                                             .Where(a => !a.Incomplete)
+                                             .Where(a => a.Date<=DateTime.Now)
+                                             .Where(a => a.tblCategory.Name==Input.CategoryName)
+                                             .Where(a => a.tblKeywords_Products.Where(b => b.tblKeywords.Title.Contains(Input.KeywordName)).Any())
+                                             .Select(a => new OutGetProductListForAdvanceSearchItems
+                                             {
+                                                 Id=a.Id.ToString(),
+                                                 Title=a.Title,
+                                                 Name=a.Name,
+                                                 IsInBookmark=false, // TODO
+                                                 CurrencySymbol=a.tblProductPrices.Where(a => a.IsActive).Select(b => b.tblCurrency.Symbol).Single(),
+                                                 MainPrice= a.tblProductPrices.Where(a => a.IsActive).Select(b => b.Price).Single(),
+                                                 SellerPercent= a.tblProductVariantItems.Where(b => b.IsEnable && b.IsConfirm && b.CountInStock>0).Select(e => new { SellerPercent = e.Percent - (e.tblProductDiscounts!=null ? e.tblProductDiscounts.Percent : 0), Percent = e.Percent }).OrderBy(e => e.SellerPercent).FirstOrDefault().Percent,
+                                                 PercentSavePrice= a.tblProductVariantItems.Where(b => b.IsEnable && b.IsConfirm && b.CountInStock>0).Select(e => new { SellerPercent = e.Percent - (e.tblProductDiscounts!=null ? e.tblProductDiscounts.Percent : 0), SavePercent = (e.tblProductDiscounts!=null ? e.tblProductDiscounts.Percent : 0) }).OrderBy(e => e.SellerPercent).FirstOrDefault().SavePercent,
+                                                 ImgUrl= a.tblProductMedia.Select(b => new
+                                                 {
+                                                     ImgUrl = b.tblFiles.tblFilePaths.tblFileServer.HttpDomin
+                                                               + b.tblFiles.tblFilePaths.tblFileServer.HttpPath
+                                                               + b.tblFiles.tblFilePaths.Path
+                                                               + b.tblFiles.FileName
+                                                 }).Select(b => b.ImgUrl).Take(2).ToArray()
+                                             });
+
+                    #region شرط ها
+                    {
+
+                    }
+                    #endregion
+
+                    #region مرتب سازی
+                    {
+                    }
+                    #endregion
+
+                    #region صفحه بندی
+                    OutPagingData qPagingData = null;
+                    {
+                        qPagingData = PagingData.Calc(await qData.CountAsync(), Input.CurrentPage, Input.Take);
+                        LstProduct= await qData.Skip((int)qPagingData.Skip).Take(Input.Take).ToListAsync();
+                    }
+                    #endregion
+                }
+                #endregion
+
+                _Data.LstProducts=LstProduct;
+
+                return _Data;
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return default;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return default;
+            }
+        }
     }
 }

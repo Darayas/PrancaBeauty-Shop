@@ -1,17 +1,17 @@
 ﻿using Framework.Common.Utilities.Paging;
 using System.Collections.Generic;
 
-namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewModel
+namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Products
 {
-    public class vmCompoSearch_ProductList
+    public class OutGetProductListForAdvanceSearch
     {
         public string CategoryTitle { get; set; }
         public OutPagingData Paging { get; set; }
 
-        public List<vmCompoSearch_ProductListItems> LstProducts { get; set; }
+        public List<OutGetProductListForAdvanceSearchItems> LstProducts { get; set; }
     }
 
-    public class vmCompoSearch_ProductListItems
+    public class OutGetProductListForAdvanceSearchItems
     {
         public string Id { get; set; }
         public string[] ImgUrl { get; set; }

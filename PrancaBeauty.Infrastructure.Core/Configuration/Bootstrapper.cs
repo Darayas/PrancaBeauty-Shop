@@ -64,6 +64,7 @@ using PrancaBeauty.Domin.FileServer.FileTypeAgg.Contracts;
 using PrancaBeauty.Domin.FileServer.ServerAgg.Contracts;
 using PrancaBeauty.Domin.Keywords.KeywordAgg.Contracts;
 using PrancaBeauty.Domin.Keywords.Keywords_Products.Contracts;
+using PrancaBeauty.Domin.Keywords.SearchHistoryAgg.Contracts;
 using PrancaBeauty.Domin.Product.GuaranteeAgg.Contracts;
 using PrancaBeauty.Domin.Product.PostingRestrictionsAgg.Contracts;
 using PrancaBeauty.Domin.Product.ProductAgg.Contracts;
@@ -139,6 +140,7 @@ using PrancaBeauty.Infrastructure.EFCore.Repository.ProductVariants;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Province;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Region;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Roles;
+using PrancaBeauty.Infrastructure.EFCore.Repository.SearchHistory;
 using PrancaBeauty.Infrastructure.EFCore.Repository.SectionFreeItem;
 using PrancaBeauty.Infrastructure.EFCore.Repository.SectionItems;
 using PrancaBeauty.Infrastructure.EFCore.Repository.SectionProduct;
@@ -232,6 +234,7 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddScoped<ISectionProductCategoryRepository, SectionProductCategoryRepository>();
             services.AddScoped<ISectionProductKeywordRepository, SectionProductKeywordRepository>();
             services.AddScoped<IShowcaseTabSectionItemRepository, ShowcaseTabSectionItemRepository>();
+            services.AddScoped<ISearchHistoryRepository, SearchHistoryRepository>();
 
             // Applications
             services.AddScoped<IUserApplication, UserApplication>();

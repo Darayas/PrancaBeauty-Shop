@@ -1067,14 +1067,14 @@ namespace PrancaBeauty.Application.Apps.Products
                                                            + b.tblFiles.tblFilePaths.Path
                                                            + b.tblFiles.FileName
                                              }).Select(b => b.ImgUrl).Take(2).ToArray()
-                                         }); ;
+                                         });
 
                 #region شرط ها
                 {
                     #region شرط های قیمتی
                     {
                         qData= from a in qData
-                               let Price = a.MainPrice + ((a.MainPrice/100)* a.SellerPercent) - (a.MainPrice + ((a.MainPrice/100)* a.SellerPercent)* a.PercentSavePrice)
+                               let Price = a.MainPrice + ((a.MainPrice/100)* a.SellerPercent) - (((a.MainPrice + ((a.MainPrice/100)* a.SellerPercent))/100)* a.PercentSavePrice)
                                where Price >= Input.MinPrice && Price <=Input.MaxPrice
                                select a;
                     }

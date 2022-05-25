@@ -1,9 +1,11 @@
-﻿using Framework.Common.ExMethods;
+﻿using AutoMapper;
+using Framework.Common.ExMethods;
 using Framework.Exceptions;
 using Framework.Infrastructure;
 using PrancaBeauty.Application.Apps.Categories;
 using PrancaBeauty.Application.Apps.Keywords;
 using PrancaBeauty.Application.Apps.Products;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Products;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.SearchHistory;
 using PrancaBeauty.Domin.Keywords.SearchHistoryAgg.Contracts;
 using System;
@@ -17,13 +19,14 @@ namespace PrancaBeauty.Application.Apps.SearchHistory
     public class SearchHistoryApplication : ISearchHistoryApplication
     {
         private readonly ILogger _Logger;
+        private readonly IMapper _Mapper;
         private readonly IServiceProvider _ServiceProvider;
         private readonly ISearchHistoryRepository _SearchHistoryRepository;
         private readonly IProductApplication _ProductApplication;
         private readonly ICategoryApplication _CategoryApplication;
         private readonly IKeywordApplication _KeywordApplication;
 
-        public SearchHistoryApplication(ILogger logger, IServiceProvider serviceProvider, ISearchHistoryRepository searchHistoryRepository, IProductApplication productApplication, ICategoryApplication categoryApplication, IKeywordApplication keywordApplication)
+        public SearchHistoryApplication(ILogger logger, IServiceProvider serviceProvider, ISearchHistoryRepository searchHistoryRepository, IProductApplication productApplication, ICategoryApplication categoryApplication, IKeywordApplication keywordApplication, IMapper mapper)
         {
             _Logger=logger;
             _ServiceProvider=serviceProvider;
@@ -31,6 +34,7 @@ namespace PrancaBeauty.Application.Apps.SearchHistory
             _ProductApplication=productApplication;
             _CategoryApplication=categoryApplication;
             _KeywordApplication=keywordApplication;
+            _Mapper=mapper;
         }
 
         public async Task<OutGetDataForAutoComplete> GetDataForAutoCompleteAsync(InpGetDataForAutoComplete Input)
@@ -45,7 +49,13 @@ namespace PrancaBeauty.Application.Apps.SearchHistory
 
                 #region Get products
                 {
-                    
+                    var qProducts = await _ProductApplication.GetProductsByTitleForSearchAutoCompleteAsync(new InpGetProductsByTitleForSearchAutoComplete
+                    {
+                        Title=Input.KeywordTitle,
+                        Take=5
+                    });
+
+                    qData.LstProducts= _Mapper.Map<List<OutGetDataForAutoComplete_Products>>(qProducts);
                 }
                 #endregion
 

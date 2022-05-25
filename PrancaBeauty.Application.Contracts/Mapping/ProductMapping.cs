@@ -39,6 +39,7 @@ namespace PrancaBeauty.Application.Contracts.Mapping
             CreateMap<OutGetProductPriceByVariantId, vmCompo_ProductSelectedPrice>()
                                                                 .ForMember(a => a.ProductOldPrice, a => a.MapFrom(b => b.ProductOldPrice.ToN3()))
                                                                 .ForMember(a => a.ProductPrice, a => a.MapFrom(b => b.ProductPrice.ToN3()));
+        
         }
     }
 }

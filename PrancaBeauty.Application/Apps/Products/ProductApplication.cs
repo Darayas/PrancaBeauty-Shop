@@ -1150,7 +1150,7 @@ namespace PrancaBeauty.Application.Apps.Products
             }
         }
 
-        public async Task<(OutPagingData,List<OutGetProductsByTitle>)> GetProductsByTitleAsync(InpGetProductsByTitle Input)
+        public async Task<List<OutGetProductsByTitleForSearchAutoComplete>> GetProductsByTitleForSearchAutoCompleteAsync(InpGetProductsByTitleForSearchAutoComplete Input)
         {
             try
             {
@@ -1158,6 +1158,32 @@ namespace PrancaBeauty.Application.Apps.Products
                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
+                var qData = await _ProductRepository.Get
+                                        .Where(a => a.IsConfirmed)
+                                        .Where(a => !a.IsDelete)
+                                        .Where(a => !a.IsDraft)
+                                        .Where(a => !a.Incomplete)
+                                        .Where(a => a.Date<=DateTime.Now)
+                                        .Where(a => a.Title.Contains(Input.Title))
+                                        .OrderBy(a => a.tblProductReviews.Count()>0 ? a.tblProductReviews.Average(b => b.CountStar) : 0)
+                                        .ThenBy(a => 0)  // TODO: OrderBy Sell
+                                        .Select(a => new OutGetProductsByTitleForSearchAutoComplete
+                                        {
+                                            Id=a.Id.ToString(),
+                                            Name=a.Name,
+                                            Title=a.Title,
+                                            ImgUrl= a.tblProductMedia.Select(b => new
+                                            {
+                                                ImgUrl = b.tblFiles.tblFilePaths.tblFileServer.HttpDomin
+                                                           + b.tblFiles.tblFilePaths.tblFileServer.HttpPath
+                                                           + b.tblFiles.tblFilePaths.Path
+                                                           + b.tblFiles.FileName
+                                            }).Select(a => a.ImgUrl).First()
+                                        })
+                                        .Take(Input.Take)
+                                        .ToListAsync();
+
+                return qData;
             }
             catch (ArgumentInvalidException ex)
             {

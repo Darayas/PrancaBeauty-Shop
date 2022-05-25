@@ -431,5 +431,43 @@ namespace PrancaBeauty.Application.Apps.Categories
                 return null;
             }
         }
+
+        public async Task<List<OutGetCategoriesForSeachAutoComplete>> GetCategoriesForSeachAutoCompleteAsync(InpGetCategoriesForSeachAutoComplete Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var qData = await _CategoryRepository.Get
+                                            .Where(a => a.ParentId != null)
+                                            .Where(a => a.tblCategory_Childs.Any() == false)
+                                            .OrderByDescending(a => a.tblProducts.Where(a=>a.IsConfirmed && !a.IsDelete && !a.IsDraft).Count())
+                                            .Select(a => new OutGetCategoriesForSeachAutoComplete
+                                            {
+                                                Id=a.Id.ToString(),
+                                                Name=a.Name,
+                                                Title=a.tblCategory_Translates.Where(b => b.LangId==default).Select(b => b.Title).Single(),
+                                                ParentTitle=a.tblCategory_Parent.tblCategory_Translates.Where(b => b.LangId==default).Select(b => b.Title).Single(),
+                                            })
+                                            .Where(a => a.Title.Contains(Input.Title))
+                                            .Take(3)
+                                            .ToListAsync();
+
+                return qData;
+
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
+            }
+        }
     }
 }

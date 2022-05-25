@@ -31312,7 +31312,8 @@ pre {
   margin-bottom: 33px;
 }
 .widget_inner .widget_list.widget_filter-keyword {
-  overflow: hidden;
+  position: relative;
+  overflow: visible;
 }
 .widget_inner .widget_list.widget_filter-keyword form input {
   margin-bottom: 15px;
@@ -31336,4 +31337,16 @@ pre {
 
 .grid_list .product_content.list_content .product_desc p {
   max-width: unset !important;
+}
+
+.SearchAutoComplete {
+  display: none;
+  height: 300px;
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid #e9e9e9;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.14), 0 4px 4px rgba(0, 0, 0, 0.1);
+  padding: 5px;
+  position: absolute;
+  z-index: 1000;
 }

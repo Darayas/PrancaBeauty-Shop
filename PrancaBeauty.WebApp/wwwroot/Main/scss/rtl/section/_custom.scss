@@ -570,7 +570,8 @@ pre {
         }
 
         &.widget_filter-keyword {
-            overflow: hidden;
+            position: relative;
+            overflow: visible;
 
             form {
                 input {
@@ -609,4 +610,17 @@ pre {
             }
         }
     }
+}
+
+
+.SearchAutoComplete {
+    display: none;
+    height: 300px;
+    width: 100%;
+    background-color: #fff;
+    border: 1px solid #e9e9e9;
+    box-shadow: 0 1px 1px rgb(0 0 0 / 14%), 0 4px 4px rgb(0 0 0 / 10%);
+    padding: 5px;
+    position: absolute;
+    z-index: 1000;
 }

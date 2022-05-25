@@ -76,15 +76,17 @@ function SendForm(_url, _FormId, _Funcs_Success = function (res) { }) {
     });
 }
 
-function LoadComponent(_Url, _Data, _CallbackFuncs = function (data) { }) {
+function LoadComponent(_Url, _Data, _CallbackFuncs = function (data) { }, _EnableLoading = true) {
     $.ajax({
         url: _Url,
         type: 'get',
         data: _Data,
         beforeSend: function (xhr) {
-            $('.loading').show();
+            if (_EnableLoading)
+                $('.loading').show();
         },
         complete: function (data) {
+            if (_EnableLoading)
             $('.loading').hide(100);
         },
         error: function (data) {

@@ -37,15 +37,18 @@ namespace PrancaBeauty.WebApp.Pages.Home.Search.Components.Compo_Keyword
                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
-                var qData = await _SearchHistoryApplication.GetDataForAutoCompleteAsync(new InpGetDataForAutoComplete
+                if (Input.KeywordTitle!=null)
                 {
-                    LangId=LangId,
-                    KeywordTitle=Input.KeywordTitle
-                });
-                if (qData==null)
-                    return Page();
+                    var qData = await _SearchHistoryApplication.GetDataForAutoCompleteAsync(new InpGetDataForAutoComplete
+                    {
+                        LangId=LangId,
+                        KeywordTitle=Input.KeywordTitle
+                    });
+                    if (qData==null)
+                        return Page();
 
-                Data= _Mapper.Map<vmCompo_KeywordSearchAutoComplete>(qData);
+                    Data= _Mapper.Map<vmCompo_KeywordSearchAutoComplete>(qData);
+                }
 
                 return Page();
             }

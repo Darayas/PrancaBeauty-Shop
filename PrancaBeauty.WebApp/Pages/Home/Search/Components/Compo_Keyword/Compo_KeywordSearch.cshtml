@@ -3,5 +3,20 @@
 
 <div class="widget_list widget_filter-keyword">
     <h3>@Localizer["Search"]</h3>
-    <input form="frmSearch" asp-for="Input.KeywordTitle" class=form-control placeholder="@Localizer["Keyword"]"  />
+    <input id="InpKeywordTitle" onkeyup="AutoComplete()" onfocus="AutoComplete()" onblur="$('.SearchAutoComplete').slideUp(500);" form="frmSearch" asp-for="Input.KeywordTitle" class=form-control placeholder="@Localizer["Keyword"]" />
+    <div class="SearchAutoComplete">
+    </div>
+    <script>
+        function AutoComplete()
+        {
+            var _Text= $('#InpKeywordTitle').val();
+            if(_Text.length>3 || _Text.length==0)
+            {
+                LoadComponent('/@ViewData["culture"]/Search/Compo/KeywordSearchAutoComplete',{KeywordTitle:_Text },function(res){
+                    $('.SearchAutoComplete').html(res);
+                    $('.SearchAutoComplete').slideDown(500);
+                },false);
+            }
+        }
+    </script>
 </div>

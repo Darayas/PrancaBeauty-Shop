@@ -1149,5 +1149,26 @@ namespace PrancaBeauty.Application.Apps.Products
                 return default;
             }
         }
+
+        public async Task<(OutPagingData,List<OutGetProductsByTitle>)> GetProductsByTitleAsync(InpGetProductsByTitle Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return default;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return default;
+            }
+        }
     }
 }

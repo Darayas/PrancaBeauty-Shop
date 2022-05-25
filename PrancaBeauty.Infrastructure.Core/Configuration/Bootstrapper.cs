@@ -42,6 +42,7 @@ using PrancaBeauty.Application.Apps.ProductVariantItems;
 using PrancaBeauty.Application.Apps.ProductVariants;
 using PrancaBeauty.Application.Apps.Province;
 using PrancaBeauty.Application.Apps.Roles;
+using PrancaBeauty.Application.Apps.SearchHistory;
 using PrancaBeauty.Application.Apps.SectionFreeItem;
 using PrancaBeauty.Application.Apps.SectionItems;
 using PrancaBeauty.Application.Apps.SectionProduct;
@@ -285,6 +286,7 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddScoped<ISectionProductCategoryApplication, SectionProductCategoryApplication>();
             services.AddScoped<ISectionProductKeywordApplication, SectionProductKeywordApplication>();
             services.AddScoped<IShowcaseTabSectionItemApplication, ShowcaseTabSectionItemApplication>();
+            services.AddScoped<ISearchHistoryApplication, SearchHistoryApplication>();
         }
     }
 }

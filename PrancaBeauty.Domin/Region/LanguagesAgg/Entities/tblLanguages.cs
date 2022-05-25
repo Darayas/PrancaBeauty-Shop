@@ -1,6 +1,7 @@
 ﻿using Framework.Domain.Contracts;
 using PrancaBeauty.Domin.Categories.CategoriesAgg.Entities;
 using PrancaBeauty.Domin.FileServer.FileAgg.Entities;
+using PrancaBeauty.Domin.Keywords.SearchHistoryAgg.Entities;
 using PrancaBeauty.Domin.Product.GuaranteeAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductPropertisAgg.Entities;
@@ -53,6 +54,7 @@ namespace PrancaBeauty.Domin.Region.LanguagesAgg.Entities
         public virtual ICollection<tblShowcasesTranslates> tblShowCasesTranslate { get; set; }
         public virtual ICollection<tblShowcaseTabTranslates> tblShowcaseTabTranslates { get; set; }
         public virtual ICollection<tblSectionFreeItemTranslate> tblSectionFreeItemTranslate { get; set; }
+        public virtual ICollection<tblSearchHistory> tblSearchHistory { get; set; }
 
 
         public virtual tblCountries tblCountries { get; set; }

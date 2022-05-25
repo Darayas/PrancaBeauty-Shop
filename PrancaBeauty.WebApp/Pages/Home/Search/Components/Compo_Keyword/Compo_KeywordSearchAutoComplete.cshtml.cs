@@ -4,6 +4,7 @@ using Framework.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Keywords;
+using PrancaBeauty.Application.Apps.SearchHistory;
 using PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput;
 using PrancaBeauty.Application.Contracts.PresentationDTO.ViewModel;
 using System;
@@ -15,13 +16,13 @@ namespace PrancaBeauty.WebApp.Pages.Home.Search.Components.Compo_Keyword
     {
         private readonly ILogger _Logger;
         private readonly IServiceProvider _ServiceProvider;
-        private readonly IKeywordApplication _KeywordApplication;
+        private readonly ISearchHistoryApplication _SearchHistoryApplication;
 
-        public Compo_KeywordSearchAutoCompleteModel(ILogger logger, IServiceProvider serviceProvider, IKeywordApplication keywordApplication)
+        public Compo_KeywordSearchAutoCompleteModel(ILogger logger, IServiceProvider serviceProvider, ISearchHistoryApplication searchHistoryApplication)
         {
             _Logger=logger;
             _ServiceProvider=serviceProvider;
-            _KeywordApplication=keywordApplication;
+            _SearchHistoryApplication=searchHistoryApplication;
         }
 
         public async Task<IActionResult> OnGetAsync()

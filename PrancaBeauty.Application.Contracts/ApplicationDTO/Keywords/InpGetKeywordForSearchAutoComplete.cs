@@ -1,18 +1,13 @@
 ﻿using Framework.Common.DataAnnotations.String;
 using System.ComponentModel.DataAnnotations;
 
-namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Categories
+namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Keywords
 {
-    public class InpGetCategoriesForSeachAutoComplete
+    public class InpGetKeywordForSearchAutoComplete
     {
         [Display(Name = "Title")]
         [RequiredString]
         [MaxLengthString(100)]
         public string Title { get; set; }
-
-        [Display(Name = "LangId")]
-        [RequiredString]
-        [GUID]
-        public string LangId { get; set; }
     }
 }

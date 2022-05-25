@@ -443,13 +443,13 @@ namespace PrancaBeauty.Application.Apps.Categories
                 var qData = await _CategoryRepository.Get
                                             .Where(a => a.ParentId != null)
                                             .Where(a => a.tblCategory_Childs.Any() == false)
-                                            .OrderByDescending(a => a.tblProducts.Where(a=>a.IsConfirmed && !a.IsDelete && !a.IsDraft).Count())
+                                            .OrderByDescending(a => a.tblProducts.Where(a => a.IsConfirmed && !a.IsDelete && !a.IsDraft).Count())
                                             .Select(a => new OutGetCategoriesForSeachAutoComplete
                                             {
                                                 Id=a.Id.ToString(),
                                                 Name=a.Name,
-                                                Title=a.tblCategory_Translates.Where(b => b.LangId==default).Select(b => b.Title).Single(),
-                                                ParentTitle=a.tblCategory_Parent.tblCategory_Translates.Where(b => b.LangId==default).Select(b => b.Title).Single(),
+                                                Title=a.tblCategory_Translates.Where(b => b.LangId==Input.LangId.ToGuid()).Select(b => b.Title).Single(),
+                                                ParentTitle=a.tblCategory_Parent.tblCategory_Translates.Where(b => b.LangId==Input.LangId.ToGuid()).Select(b => b.Title).Single(),
                                             })
                                             .Where(a => a.Title.Contains(Input.Title))
                                             .Take(3)

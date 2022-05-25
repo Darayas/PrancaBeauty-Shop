@@ -2,9 +2,12 @@
 using Framework.Common.ExMethods;
 using Framework.Exceptions;
 using Framework.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Apps.Categories;
 using PrancaBeauty.Application.Apps.Keywords;
 using PrancaBeauty.Application.Apps.Products;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Categories;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Keywords;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.Products;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.SearchHistory;
 using PrancaBeauty.Domin.Keywords.SearchHistoryAgg.Contracts;
@@ -54,26 +57,47 @@ namespace PrancaBeauty.Application.Apps.SearchHistory
                         Title=Input.KeywordTitle,
                         Take=5
                     });
-
-                    qData.LstProducts= _Mapper.Map<List<OutGetDataForAutoComplete_Products>>(qProducts);
+                    if (qProducts!=null)
+                        qData.LstProducts= _Mapper.Map<List<OutGetDataForAutoComplete_Products>>(qProducts);
                 }
                 #endregion
 
                 #region Get Categoris
                 {
-
+                    var qCategories = await _CategoryApplication.GetCategoriesForSeachAutoCompleteAsync(new InpGetCategoriesForSeachAutoComplete
+                    {
+                        Title=Input.KeywordTitle,
+                        LangId=Input.LangId
+                    });
+                    if (qCategories!=null)
+                        qData.LstRelatedCategory= _Mapper.Map<List<OutGetDataForAutoComplete_RelatedCategories>>(qCategories);
                 }
                 #endregion
 
                 #region Get Keywords
                 {
-
+                    var qKeywords = await _KeywordApplication.GetKeywordForSearchAutoCompleteAsync(new InpGetKeywordForSearchAutoComplete
+                    {
+                        Title= Input.KeywordTitle
+                    });
+                    if (qKeywords!=null)
+                        qData.LstRelatedKeywords= _Mapper.Map<List<OutGetDataForAutoComplete_RelatedKeywords>>(qKeywords);
                 }
                 #endregion
 
                 #region Get Words
                 {
-
+                    var qWords = await _SearchHistoryRepository.Get
+                                            .Where(a => a.LangId==Input.LangId.ToGuid())
+                                            .Where(a => a.Title.Contains(Input.KeywordTitle))
+                                            .OrderByDescending(a => a.CountSearch)
+                                            .Select(a => new OutGetDataForAutoComplete_RelatedWords
+                                            {
+                                                Id=a.Id.ToString(),
+                                                Title=a.Title
+                                            })
+                                            .Take(5)
+                                            .ToListAsync();
                 }
                 #endregion
 

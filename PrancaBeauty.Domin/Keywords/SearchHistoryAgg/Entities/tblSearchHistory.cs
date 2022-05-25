@@ -7,7 +7,7 @@ namespace PrancaBeauty.Domin.Keywords.SearchHistoryAgg.Entities
     public class tblSearchHistory : IEntity
     {
         public Guid Id { get; set; }
-        public string LangId { get; set; }
+        public Guid LangId { get; set; }
         public string Title { get; set; }
         public int CountSearch { get; set; }
 

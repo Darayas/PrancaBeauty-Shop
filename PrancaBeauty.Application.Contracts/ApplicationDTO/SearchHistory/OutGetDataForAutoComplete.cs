@@ -4,10 +4,10 @@ namespace PrancaBeauty.Application.Contracts.ApplicationDTO.SearchHistory
 {
     public class OutGetDataForAutoComplete
     {
-        public List<OutGetDataForAutoComplete_Products> LstProducts { get; set; }
-        public List<OutGetDataForAutoComplete_RelatedCategories> LstRelatedCategory { get; set; }
-        public List<OutGetDataForAutoComplete_RelatedKeywords> LstRelatedKeywords { get; set; }
-        public List<OutGetDataForAutoComplete_RelatedWords> LstRelatedWords { get; set; }
+        public List<OutGetDataForAutoComplete_Products> LstProducts { get; set; } = new List<OutGetDataForAutoComplete_Products>();
+        public List<OutGetDataForAutoComplete_RelatedCategories> LstRelatedCategory { get; set; } = new List<OutGetDataForAutoComplete_RelatedCategories>();
+        public List<OutGetDataForAutoComplete_RelatedKeywords> LstRelatedKeywords { get; set; } = new List<OutGetDataForAutoComplete_RelatedKeywords>();
+        public List<OutGetDataForAutoComplete_RelatedWords> LstRelatedWords { get; set; } = new List<OutGetDataForAutoComplete_RelatedWords>();
     }
 
     public class OutGetDataForAutoComplete_Products
@@ -34,7 +34,7 @@ namespace PrancaBeauty.Application.Contracts.ApplicationDTO.SearchHistory
 
     public class OutGetDataForAutoComplete_RelatedWords
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string Title { get; set; }
     }
 }

@@ -20,6 +20,7 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewModel
 
     public class vmCompo_KeywordSearchAutoComplete_RelatedCategories
     {
+        public string Id { get; set; }
         public string Name { get; set; }
         public string Title { get; set; }
         public string ParentTitle { get; set; }
@@ -27,14 +28,14 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewModel
 
     public class vmCompo_KeywordSearchAutoComplete_RelatedKeywords
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string Name { get; set; }
         public string Title { get; set; }
     }
 
     public class vmCompo_KeywordSearchAutoComplete_RelatedWords
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string Title { get; set; }
     }
 }

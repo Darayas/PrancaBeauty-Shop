@@ -84,11 +84,46 @@ namespace PrancaBeauty.Application.Apps.Keywords
                                                     Id=a.Id.ToString(),
                                                     Title=a.Title
                                                 })
-                                                .OrderBy(a=>a.Title)
+                                                .OrderBy(a => a.Title)
                                                 .Take(20)
                                                 .ToListAsync();
 
                 return qData;
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return default;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return default;
+            }
+        }
+
+        public async Task<List<OutGetKeywordForSearchAutoComplete>> GetKeywordForSearchAutoCompleteAsync(InpGetKeywordForSearchAutoComplete Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var qData = await _KeywordRepository.Get
+                                            .Where(a => a.Title.Contains(Input.Title))
+                                            .OrderByDescending(a => a.tblKeywords_Products.Where(b => b.tblProducts.IsConfirmed && !b.tblProducts.IsDelete && !b.tblProducts.IsDraft).Count())
+                                            .Select(a => new OutGetKeywordForSearchAutoComplete
+                                            {
+                                                Id=a.Id.ToString(),
+                                                Name=a.Name,
+                                                Title=a.Title
+                                            })
+                                            .Take(10)
+                                            .ToListAsync();
+
+                return qData;
+
             }
             catch (ArgumentInvalidException ex)
             {

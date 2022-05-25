@@ -1,6 +1,68 @@
 ﻿@page "/{culture}/Search/Compo/KeywordSearchAutoComplete"
 @model PrancaBeauty.WebApp.Pages.Home.Search.Components.Compo_Keyword.Compo_KeywordSearchAutoCompleteModel
 
-<div class="">
-    <h3>@Model.Input.KeywordTitle</h3>
-</div>
+@if (Model.Data==null)
+{
+    <div class="alert alert-light text-center">
+        @Localizer["ItemNotFound"]
+    </div>
+}
+else
+{
+    if (Model.Data.LstProducts.Count()>0)
+    {
+        <div class="Products">
+            @foreach (var item in Model.Data.LstProducts)
+            {
+                <div class="Item">
+                    <div class="Image">
+                        <img src="@item.ImgUrl" alt="@item.Title">
+                    </div>
+                    <div class="Title"><a href="#">@item.Title</a></div>
+                </div>
+            }
+        </div>
+    }
+
+    if (Model.Data.LstRelatedWords.Count()>0)
+    {
+        <div class="Words">
+            <h3>@Localizer["TopSearchword"]</h3>
+            @foreach (var item in Model.Data.LstRelatedWords)
+            {
+                <div class="Item">
+                    <div class="Title"><a href="#">@item.Title</a></div>
+                </div>
+            }
+        </div>
+    }
+
+    if (Model.Data.LstRelatedCategory.Count()>0)
+    {
+        <div class="Caregories">
+            @foreach (var item in Model.Data.LstRelatedCategory)
+            {
+                <div class="Item">
+                    <a href="#">
+                        <div class="Title">@item.Title</div>
+                        <div class="ParentTitle"><span>@Localizer["InCategory"] </span><span>@item.ParentTitle</span></div>
+                    </a>
+                </div>
+            }
+        </div>
+    }
+
+    if (Model.Data.LstRelatedKeywords.Count()>0)
+    {
+        <hr />
+        <div class="Keywords">
+            @foreach (var item in Model.Data.LstRelatedKeywords)
+            {
+                <div class="Item">
+                    <i class="fa fa-zoom"></i>
+                    <span><a href="#">@item.Title</a></span>
+                </div>
+            }
+        </div>
+    }
+}

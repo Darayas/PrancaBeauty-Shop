@@ -771,6 +771,9 @@
   <data name="ImgUrl" xml:space="preserve">
     <value>تصویر شاخص</value>
   </data>
+  <data name="InCategory" xml:space="preserve">
+    <value>در دسته</value>
+  </data>
   <data name="InCategorySectionType,YouAreAllowedAddOneItem" xml:space="preserve">
     <value>در نوع Category، شما مجاز به انتخاب یک دسته برای هر Section میباشید.</value>
   </data>
@@ -1691,6 +1694,9 @@
   </data>
   <data name="TopicId" xml:space="preserve">
     <value>موضوع </value>
+  </data>
+  <data name="TopSearchword" xml:space="preserve">
+    <value>پر طرفدار ترین جستوجو ها</value>
   </data>
   <data name="TwoDays" xml:space="preserve">
     <value>دو روز</value>

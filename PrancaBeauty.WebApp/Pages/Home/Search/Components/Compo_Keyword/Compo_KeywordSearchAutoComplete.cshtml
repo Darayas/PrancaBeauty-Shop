@@ -36,7 +36,7 @@ else
             @foreach (var item in Model.Data.LstRelatedWords)
             {
                 <div class="Item">
-                    <div class="Title"><a href="#">@item.Title</a></div>
+                    <div onclick="SetStatistics('Word','@item.Id')" class="Title"><a href="/@ViewData["culture"]/Search/@Model.Input.CategoryTitle?Keyword=@item.Title">@item.Title</a></div>
                 </div>
             }
         </div>
@@ -48,7 +48,7 @@ else
             @foreach (var item in Model.Data.LstRelatedCategory)
             {
                 <div class="Item">
-                    <a href="#">
+                    <a href="/@ViewData["culture"]/Search/@item.Name">
                         <div class="Title">@item.Title</div>
                         <div class="ParentTitle"><span>@Localizer["InCategory"] </span><span>@item.ParentTitle</span></div>
                     </a>
@@ -59,13 +59,12 @@ else
 
     if (Model.Data.LstRelatedKeywords.Count()>0)
     {
-        <hr />
         <div class="Keywords">
             @foreach (var item in Model.Data.LstRelatedKeywords)
             {
                 <div class="Item">
-                    <i class="fa fa-zoom"></i>
-                    <span><a href="#">@item.Title</a></span>
+                    <i class="fa fa-search"></i>
+                    <span><a href="/@ViewData["culture"]/Search/@Model.Input.CategoryTitle?Keyword=@item.Title">@item.Title</a></span>
                 </div>
             }
         </div>

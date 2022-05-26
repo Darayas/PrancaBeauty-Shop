@@ -8,5 +8,10 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput
         [Display(Name = "KeywordTitle")]
         [MaxLengthString(100)]
         public string KeywordTitle { get; set; }
+
+        [Display(Name = "CategoryTitle")]
+        [RequiredString]
+        [MaxLengthString(100)]
+        public string CategoryTitle { get; set; }
     }
 }

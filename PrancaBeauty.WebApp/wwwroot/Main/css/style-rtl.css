@@ -31351,12 +31351,16 @@ pre {
   z-index: 1000;
   overflow-y: auto;
 }
+.SearchAutoComplete .Products {
+  margin-top: 5px;
+}
 .SearchAutoComplete .Products .Item {
   direction: rtl;
   display: flex;
-  border: 1px solid #ddd;
+  border: 1px solid #f1f1f1;
   padding: 3px;
   border-radius: 5px;
+  margin-bottom: 20px;
 }
 .SearchAutoComplete .Products .Item .Image {
   display: inline-block;
@@ -31367,7 +31371,8 @@ pre {
   width: 65%;
 }
 .SearchAutoComplete .Words {
-  margin-top: 20px;
+  margin-top: 5px;
+  margin-bottom: 15px;
 }
 .SearchAutoComplete .Words h3 {
   margin-bottom: 0px;
@@ -31380,8 +31385,41 @@ pre {
   border-radius: 20px;
   margin-bottom: 3px;
 }
+.SearchAutoComplete .Caregories {
+  margin-top: 5px;
+  margin-bottom: 15px;
+}
+.SearchAutoComplete .Caregories .Item {
+  margin-bottom: 7px;
+}
+.SearchAutoComplete .Caregories .Item .Title {
+  font-weight: 700;
+}
+.SearchAutoComplete .Caregories .Item .ParentTitle span:nth-child(2) {
+  color: #d52121;
+  font-weight: 500;
+}
+.SearchAutoComplete .Keywords {
+  margin-top: 5px;
+}
+.SearchAutoComplete .Keywords .Item {
+  padding: 5px;
+}
+.SearchAutoComplete .Keywords .Item i {
+  margin-left: 20px;
+}
+.SearchAutoComplete .Keywords .Item span {
+  font-weight: 600;
+  font-size: 16px;
+}
 .SearchAutoComplete .owl-nav div {
   top: 15px;
+  border: 1px solid #fff;
+  padding: 5px 10px;
+  border-radius: 15px;
+  height: 30px;
+  width: 30px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
 }
 .SearchAutoComplete .owl-nav div i {
   font-size: 20px;

@@ -33,7 +33,7 @@
                          <LoadComponent id="KeywordSearch"
                                context="HttpContext"
                                url="/@ViewData["culture"]/Search/Compo/KeywordSearch"
-                               data="new viCompo_KeywordSearch{ KeywordTitle=Model.Input.KeywordTitle }"></LoadComponent>
+                               data="new viCompo_KeywordSearch{ KeywordTitle=Model.Input.KeywordTitle,CategoryTitle=Model.Input.CategoryName }"></LoadComponent>
 
                         <div class="widget_list tags_widget">
                             <h3>@Localizer["RelatedKeywords"]</h3>

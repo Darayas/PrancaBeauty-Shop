@@ -626,12 +626,15 @@ pre {
     overflow-y: auto;
 
     .Products {
+        margin-top: 5px;
+
         .Item {
             direction: rtl;
             display: flex;
-            border: 1px solid #ddd;
+            border: 1px solid #f1f1f1;
             padding: 3px;
             border-radius: 5px;
+            margin-bottom: 20px;
 
             .Image {
                 display: inline-block;
@@ -646,7 +649,8 @@ pre {
     }
 
     .Words {
-        margin-top: 20px;
+        margin-top: 5px;
+        margin-bottom: 15px;
 
         h3 {
             margin-bottom: 0px;
@@ -662,9 +666,57 @@ pre {
         }
     }
 
+    .Caregories {
+        margin-top: 5px;
+        margin-bottom: 15px;
+
+        .Item {
+            margin-bottom: 7px;
+
+            .Title {
+                font-weight: 700;
+            }
+
+            .ParentTitle {
+                span {
+                    &:nth-child(1) {
+                    }
+
+                    &:nth-child(2) {
+                        color: $secondary_color;
+                        font-weight: 500;
+                    }
+                }
+            }
+        }
+    }
+
+    .Keywords {
+        margin-top: 5px;
+
+        .Item {
+            padding: 5px;
+
+            i {
+                margin-left: 20px;
+            }
+
+            span {
+                font-weight: 600;
+                font-size: 16px;
+            }
+        }
+    }
+
     .owl-nav {
         div {
             top: 15px;
+            border: 1px solid #fff;
+            padding: 5px 10px;
+            border-radius: 15px;
+            height: 30px;
+            width: 30px;
+            box-shadow: 0 1px 5px rgb(0 0 0 / 20%);
 
             i {
                 font-size: 20px;

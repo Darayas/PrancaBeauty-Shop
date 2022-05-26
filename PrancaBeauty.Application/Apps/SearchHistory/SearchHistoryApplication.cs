@@ -98,6 +98,9 @@ namespace PrancaBeauty.Application.Apps.SearchHistory
                                             })
                                             .Take(5)
                                             .ToListAsync();
+
+                    if (qWords!=null)
+                        qData.LstRelatedWords= _Mapper.Map<List<OutGetDataForAutoComplete_RelatedWords>>(qWords);
                 }
                 #endregion
 

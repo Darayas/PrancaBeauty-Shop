@@ -31351,11 +31351,44 @@ pre {
   z-index: 1000;
   overflow-y: auto;
 }
-.SearchAutoComplete .Products .Image {
+.SearchAutoComplete .Products .Item {
+  direction: rtl;
+  display: flex;
+  border: 1px solid #ddd;
+  padding: 3px;
+  border-radius: 5px;
+}
+.SearchAutoComplete .Products .Item .Image {
   display: inline-block;
   width: 30%;
 }
-.SearchAutoComplete .Products .Title {
+.SearchAutoComplete .Products .Item .Title {
   display: inline-block;
-  width: auto;
+  width: 65%;
+}
+.SearchAutoComplete .Words {
+  margin-top: 20px;
+}
+.SearchAutoComplete .Words h3 {
+  margin-bottom: 0px;
+  border: unset;
+}
+.SearchAutoComplete .Words .Item {
+  display: inline-block;
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  margin-bottom: 3px;
+}
+.SearchAutoComplete .owl-nav div {
+  top: 15px;
+}
+.SearchAutoComplete .owl-nav div i {
+  font-size: 20px;
+}
+.SearchAutoComplete .owl-nav .owl-prev {
+  left: 0px;
+}
+.SearchAutoComplete .owl-nav .owl-next {
+  right: 0px;
 }

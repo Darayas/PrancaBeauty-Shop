@@ -626,14 +626,57 @@ pre {
     overflow-y: auto;
 
     .Products {
-        .Image {
-            display: inline-block;
-            width: 30%;
+        .Item {
+            direction: rtl;
+            display: flex;
+            border: 1px solid #ddd;
+            padding: 3px;
+            border-radius: 5px;
+
+            .Image {
+                display: inline-block;
+                width: 30%;
+            }
+
+            .Title {
+                display: inline-block;
+                width: 65%;
+            }
+        }
+    }
+
+    .Words {
+        margin-top: 20px;
+
+        h3 {
+            margin-bottom: 0px;
+            border: unset;
         }
 
-        .Title {
+        .Item {
             display: inline-block;
-            width: auto;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            margin-bottom: 3px;
+        }
+    }
+
+    .owl-nav {
+        div {
+            top: 15px;
+
+            i {
+                font-size: 20px;
+            }
+        }
+
+        .owl-prev {
+            left: 0px;
+        }
+
+        .owl-next {
+            right: 0px;
         }
     }
 }

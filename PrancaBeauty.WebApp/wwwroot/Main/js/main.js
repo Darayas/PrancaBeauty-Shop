@@ -7,7 +7,7 @@ function LoadSlider(_Id, _CountItemXL, _CountItemLG, _CountItemMD, _CountItemSM,
         autoplayTimeout: 8000,
         items: _CountItemLG,
         dots: false,
-        margin: 30,
+        margin: 15,
         navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
         responsiveClass: true,
         responsive: {

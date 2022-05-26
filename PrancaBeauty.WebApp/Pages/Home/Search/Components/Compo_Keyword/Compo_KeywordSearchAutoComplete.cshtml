@@ -14,15 +14,19 @@ else
         <div id=AutoCompleteProduct class="Products owl-carousel">
             @foreach (var item in Model.Data.LstProducts)
             {
-                <div class="Item">
-                    <div class="Image">
-                        <img src="@item.ImgUrl" alt="@item.Title">
+                <a onclick="SetStatistics('Product','@item.Id')" href="/@ViewData["culture"]/Product/@item.Name">
+                    <div class="Item">
+                        <div class="Image">
+                            <img src="@item.ImgUrl" alt="@item.Title">
+                        </div>
+                        <div class="Title">@item.Title</div>
                     </div>
-                    <div class="Title"><a href="#">@item.Title</a></div>
-                </div>
+                </a>
             }
         </div>
-        <script>$(document).ready(function(){LoadSlider('AutoCompleteProduct',2);});</script>
+        <script>
+            $(document).ready(function(){LoadSlider('AutoCompleteProduct',2,2,2,2,1);});
+        </script>
     }
 
     if (Model.Data.LstRelatedWords.Count()>0)
@@ -66,4 +70,10 @@ else
             }
         </div>
     }
+
+    <script>
+        function SetStatistics(_Type,_Id){
+
+        }
+    </script>
 }

@@ -623,4 +623,17 @@ pre {
     padding: 5px;
     position: absolute;
     z-index: 1000;
+    overflow-y: auto;
+
+    .Products {
+        .Image {
+            display: inline-block;
+            width: 30%;
+        }
+
+        .Title {
+            display: inline-block;
+            width: auto;
+        }
+    }
 }

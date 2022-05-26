@@ -31349,4 +31349,13 @@ pre {
   padding: 5px;
   position: absolute;
   z-index: 1000;
+  overflow-y: auto;
+}
+.SearchAutoComplete .Products .Image {
+  display: inline-block;
+  width: 30%;
+}
+.SearchAutoComplete .Products .Title {
+  display: inline-block;
+  width: auto;
 }

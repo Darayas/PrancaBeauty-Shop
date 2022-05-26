@@ -11,7 +11,7 @@ else
 {
     if (Model.Data.LstProducts.Count()>0)
     {
-        <div class="Products">
+        <div id=AutoCompleteProduct class="Products owl-carousel">
             @foreach (var item in Model.Data.LstProducts)
             {
                 <div class="Item">
@@ -22,6 +22,7 @@ else
                 </div>
             }
         </div>
+        <script>$(document).ready(function(){LoadSlider('AutoCompleteProduct',2);});</script>
     }
 
     if (Model.Data.LstRelatedWords.Count()>0)

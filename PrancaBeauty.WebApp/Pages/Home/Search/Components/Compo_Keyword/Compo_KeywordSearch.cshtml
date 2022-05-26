@@ -3,19 +3,34 @@
 
 <div class="widget_list widget_filter-keyword">
     <h3>@Localizer["Search"]</h3>
-    <input id="InpKeywordTitle" onkeyup="AutoComplete()" onfocus="AutoComplete()" onblur="$('.SearchAutoComplete').slideUp(500);" form="frmSearch" asp-for="Input.KeywordTitle" class=form-control placeholder="@Localizer["Keyword"]" />
-    <div class="SearchAutoComplete">
+    <input id="InpKeywordTitle" onkeypress="SubmitAutoComplete(event)" onfocus="AutoComplete()" form="frmSearch" asp-for="Input.KeywordTitle" class=form-control placeholder="@Localizer["Keyword"]" />
+    <div tabindex="1" onblur="$('.SearchAutoComplete').slideUp(500);" class="SearchAutoComplete">
     </div>
     <script>
+        var _Text="";
+        function SubmitAutoComplete(e)
+        {
+            if(e.keyCode == 13 || e.which == '13'){
+                e.preventDefault();
+                AutoComplete();
+            }
+        }
+
         function AutoComplete()
         {
-            var _Text= $('#InpKeywordTitle').val();
-            if(_Text.length>3 || _Text.length==0)
+            if(_Text != $('#InpKeywordTitle').val())
             {
+                _Text= $('#InpKeywordTitle').val();
                 LoadComponent('/@ViewData["culture"]/Search/Compo/KeywordSearchAutoComplete',{KeywordTitle:_Text },function(res){
                     $('.SearchAutoComplete').html(res);
                     $('.SearchAutoComplete').slideDown(500);
                 },false);
+            }else
+            {
+               if($('.SearchAutoComplete').css('display','none'))
+               {
+                    $('.SearchAutoComplete').slideDown(500);
+               }
             }
         }
     </script>

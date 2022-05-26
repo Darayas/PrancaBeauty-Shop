@@ -1,27 +1,30 @@
-function LoadSlider(_Id, _CountItem) {
+function LoadSlider(_Id, _CountItemXL, _CountItemLG, _CountItemMD, _CountItemSM, _CountItemXS) {
     $('#' + _Id).owlCarousel({
         loop: false,
         nav: true,
         center: false,
         autoplay: false,
         autoplayTimeout: 8000,
-        items: _CountItem,
+        items: _CountItemLG,
         dots: false,
         margin: 30,
         navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
         responsiveClass: true,
         responsive: {
             0: {
-                items: 1,
+                items: _CountItemXS,
             },
-            768: {
-                items: 3,
+            573: {
+                items: _CountItemSM,
             },
-            992: {
-                items: 3,
+            767: {
+                items: _CountItemMD,
             },
             1300: {
-                items: 4,
+                items: _CountItemLG,
+            },
+            1560: {
+                items: _CountItemXL,
             }
         }
     });

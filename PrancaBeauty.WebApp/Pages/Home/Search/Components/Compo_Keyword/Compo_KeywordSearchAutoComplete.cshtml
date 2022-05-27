@@ -36,7 +36,7 @@ else
             @foreach (var item in Model.Data.LstRelatedWords)
             {
                 <div class="Item">
-                    <div onclick="SetStatistics('Word','@item.Id')" class="Title"><a href="/@ViewData["culture"]/Search/@Model.Input.CategoryTitle?Keyword=@item.Title">@item.Title</a></div>
+                    <div onclick="SetAutoCompleteInput('@item.Title')" class="Title"><a href="#">@item.Title</a></div>
                 </div>
             }
         </div>
@@ -70,9 +70,4 @@ else
         </div>
     }
 
-    <script>
-        function SetStatistics(_Type,_Id){
-
-        }
-    </script>
 }

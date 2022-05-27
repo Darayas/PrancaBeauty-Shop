@@ -15,7 +15,7 @@ namespace PrancaBeauty.Application.Contracts.Mapping
             CreateMap<OutGetCategoriesForSeachAutoComplete, OutGetDataForAutoComplete_RelatedCategories>();
             CreateMap<OutGetKeywordForSearchAutoComplete, OutGetDataForAutoComplete_RelatedKeywords>();
 
-            CreateMap<OutGetDataForAutoComplete, vmCompo_KeywordSearchAutoComplete>();
+            CreateMap<OutGetWordDataForAutoComplete, vmCompo_KeywordSearchAutoComplete>();
             CreateMap<OutGetDataForAutoComplete_RelatedWords, vmCompo_KeywordSearchAutoComplete_RelatedWords>();
             CreateMap<OutGetDataForAutoComplete_RelatedKeywords, vmCompo_KeywordSearchAutoComplete_RelatedKeywords>();
             CreateMap<OutGetDataForAutoComplete_RelatedCategories, vmCompo_KeywordSearchAutoComplete_RelatedCategories>();

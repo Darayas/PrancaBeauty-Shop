@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PrancaBeauty.Application.Contracts.ApplicationDTO.SearchHistory
 {
-    public class InpGetDataForAutoComplete
+    public class InpGetWordDataForAutoComplete
     {
         [Display(Name = "LangId")]
         [RequiredString]

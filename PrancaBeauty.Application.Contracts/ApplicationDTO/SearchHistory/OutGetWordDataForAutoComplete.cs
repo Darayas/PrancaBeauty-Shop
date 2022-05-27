@@ -2,7 +2,7 @@
 
 namespace PrancaBeauty.Application.Contracts.ApplicationDTO.SearchHistory
 {
-    public class OutGetDataForAutoComplete
+    public class OutGetWordDataForAutoComplete
     {
         public List<OutGetDataForAutoComplete_Products> LstProducts { get; set; } = new List<OutGetDataForAutoComplete_Products>();
         public List<OutGetDataForAutoComplete_RelatedCategories> LstRelatedCategory { get; set; } = new List<OutGetDataForAutoComplete_RelatedCategories>();

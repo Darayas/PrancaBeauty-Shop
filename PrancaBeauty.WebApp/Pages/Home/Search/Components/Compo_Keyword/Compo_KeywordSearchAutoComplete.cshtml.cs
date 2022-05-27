@@ -39,7 +39,7 @@ namespace PrancaBeauty.WebApp.Pages.Home.Search.Components.Compo_Keyword
 
                 if (Input.KeywordTitle!=null)
                 {
-                    var qData = await _SearchHistoryApplication.GetDataForAutoCompleteAsync(new InpGetDataForAutoComplete
+                    var qData = await _SearchHistoryApplication.GetWordDataForAutoCompleteAsync(new InpGetWordDataForAutoComplete
                     {
                         LangId=LangId,
                         KeywordTitle=Input.KeywordTitle

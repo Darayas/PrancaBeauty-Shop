@@ -9,8 +9,10 @@ using PrancaBeauty.Application.Apps.Products;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.Categories;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.Keywords;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.Products;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Results;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.SearchHistory;
 using PrancaBeauty.Domin.Keywords.SearchHistoryAgg.Contracts;
+using PrancaBeauty.Domin.Keywords.SearchHistoryAgg.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,7 +42,7 @@ namespace PrancaBeauty.Application.Apps.SearchHistory
             _Mapper=mapper;
         }
 
-        public async Task<OutGetDataForAutoComplete> GetDataForAutoCompleteAsync(InpGetDataForAutoComplete Input)
+        public async Task<OutGetWordDataForAutoComplete> GetWordDataForAutoCompleteAsync(InpGetWordDataForAutoComplete Input)
         {
             try
             {
@@ -48,7 +50,7 @@ namespace PrancaBeauty.Application.Apps.SearchHistory
                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
-                var qData = new OutGetDataForAutoComplete();
+                var qData = new OutGetWordDataForAutoComplete();
 
                 #region Get products
                 {
@@ -115,6 +117,58 @@ namespace PrancaBeauty.Application.Apps.SearchHistory
             {
                 _Logger.Error(ex);
                 return default;
+            }
+        }
+
+        public async Task<OperationResult> SetWordStatisticsAsync(InpSetWordStatistics Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var qData = await _SearchHistoryRepository.Get
+                                                .Where(a => a.LangId==Input.LangId.ToGuid())
+                                                .Where(a => a.Title==Input.Keyword)
+                                                .SingleOrDefaultAsync();
+
+                #region Add new word
+                {
+                    if (qData==null)
+                    {
+                        await _SearchHistoryRepository.AddAsync(new tblSearchHistory
+                        {
+                            Id = new Guid().SequentialGuid(),
+                            LangId = Input.LangId.ToGuid(),
+                            Title = Input.Keyword,
+                            CountSearch = 1
+                        }, default, true);
+                    }
+                }
+                #endregion
+
+                #region Set word statistics
+                {
+                    if (qData != null)
+                    {
+                        qData.CountSearch ++;
+                        await _SearchHistoryRepository.UpdateAsync(qData, default, true);
+                    }
+                }
+                #endregion
+
+                return new OperationResult().Succeeded();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
             }
         }
     }

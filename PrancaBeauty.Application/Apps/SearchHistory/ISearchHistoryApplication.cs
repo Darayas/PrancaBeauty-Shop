@@ -1,10 +1,12 @@
-﻿using PrancaBeauty.Application.Contracts.ApplicationDTO.SearchHistory;
+﻿using PrancaBeauty.Application.Contracts.ApplicationDTO.Results;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.SearchHistory;
 using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Apps.SearchHistory
 {
     public interface ISearchHistoryApplication
     {
-        Task<OutGetDataForAutoComplete> GetDataForAutoCompleteAsync(InpGetDataForAutoComplete Input);
+        Task<OutGetWordDataForAutoComplete> GetWordDataForAutoCompleteAsync(InpGetWordDataForAutoComplete Input);
+        Task<OperationResult> SetWordStatisticsAsync(InpSetWordStatistics Input);
     }
 }

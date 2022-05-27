@@ -16,6 +16,11 @@
             }
         }
 
+        function SetAutoCompleteInput(_Title){
+            $('#InpKeywordTitle').val(_Title);
+            AutoComplete();
+        }
+
         function AutoComplete()
         {
             if(_Text != $('#InpKeywordTitle').val())

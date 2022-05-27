@@ -76,6 +76,31 @@ function SendForm(_url, _FormId, _Funcs_Success = function (res) { }) {
     });
 }
 
+function SendFormGET(_url, _FormId, _Funcs_Success = function (res) { }) {
+    var form = $('#' + _FormId);
+
+    $.ajax({
+        type: "get",
+        url: _url,
+        data: form.serialize(),
+        timeout: 600000,
+        beforeSend: function (xhr) {
+            $('.loading').show();
+        },
+        success: function (response) {
+            _Funcs_Success(response);
+        },
+        complete: function (data) {
+            $('.loading').hide(100);
+        },
+        error: function (data) {
+            if (data.status == 429) {
+                Alert429();
+            }
+        }
+    });
+}
+
 function LoadComponent(_Url, _Data, _CallbackFuncs = function (data) { }, _EnableLoading = true) {
     $.ajax({
         url: _Url,

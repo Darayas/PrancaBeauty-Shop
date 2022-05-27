@@ -12,9 +12,9 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput
         [MaxLengthString(100)]
         public string CategoryName { get; set; }
 
-        [Display(Name = "KeywordName")]
+        [Display(Name = "KeywordTitle")]
         [MaxLengthString(100)]
-        public string KeywordName { get; set; }
+        public string KeywordTitle { get; set; }
 
         [Display(Name = "MinPrice")]
         public double MinPrice { get; set; }
@@ -26,11 +26,11 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput
         public GetProductListForAdvanceSearchSortingEnum Sort { get; set; }
 
         [Display(Name = "Take")]
-        [NumRange(1,int.MaxValue)]
-        public int Take { get; set; }
+        [NumRange(1, int.MaxValue)]
+        public int Take { get; set; } = 10;
 
         [Display(Name = "Page")]
         [NumRange(1, int.MaxValue)]
-        public int CurrentPage { get; set; }
+        public int CurrentPage { get; set; } = 1;
     }
 }

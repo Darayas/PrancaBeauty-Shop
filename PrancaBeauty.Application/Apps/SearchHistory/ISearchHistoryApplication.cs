@@ -7,6 +7,6 @@ namespace PrancaBeauty.Application.Apps.SearchHistory
     public interface ISearchHistoryApplication
     {
         Task<OutGetWordDataForAutoComplete> GetWordDataForAutoCompleteAsync(InpGetWordDataForAutoComplete Input);
-        Task<OperationResult> SetWordStatisticsAsync(InpSetWordStatistics Input);
+        Task<OperationResult> SetSearchStatisticsAsync(InpSetSearchStatistics Input);
     }
 }

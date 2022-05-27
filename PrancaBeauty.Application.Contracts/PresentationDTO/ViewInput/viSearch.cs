@@ -1,4 +1,6 @@
-﻿using Framework.Common.DataAnnotations.String;
+﻿using Framework.Application.Enums;
+using Framework.Common.DataAnnotations.Numbers.All;
+using Framework.Common.DataAnnotations.String;
 using System.ComponentModel.DataAnnotations;
 
 namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput
@@ -13,5 +15,22 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput
         [Display(Name = "KeywordTitle")]
         [MaxLengthString(100)]
         public string KeywordTitle { get; set; }
+
+        [Display(Name = "MinPrice")]
+        public double MinPrice { get; set; }
+
+        [Display(Name = "MaxPrice")]
+        public double MaxPrice { get; set; }
+
+        [Display(Name = "Sort")]
+        public GetProductListForAdvanceSearchSortingEnum Sort { get; set; }
+
+        [Display(Name = "Take")]
+        [NumRange(1, int.MaxValue)]
+        public int Take { get; set; } = 10;
+
+        [Display(Name = "Page")]
+        [NumRange(1, int.MaxValue)]
+        public int CurrentPage { get; set; } = 1;
     }
 }

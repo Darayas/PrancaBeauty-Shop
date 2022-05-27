@@ -5,7 +5,9 @@ using Framework.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Products;
+using PrancaBeauty.Application.Apps.SearchHistory;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.Products;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.SearchHistory;
 using PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput;
 using PrancaBeauty.Application.Contracts.PresentationDTO.ViewModel;
 using System;
@@ -20,8 +22,9 @@ namespace PrancaBeauty.WebApp.Pages.Home.Search.Components.Compo_ProductList
         private readonly IMapper _Mapper;
         private readonly IServiceProvider _ServiceProvider;
         private readonly IProductApplication _ProductApplication;
+        private readonly ISearchHistoryApplication _SearchHistoryApplication;
 
-        public CompoSearch_ProductListModel(ILogger logger, IServiceProvider serviceProvider, IProductApplication productApplication, IMapper mapper)
+        public CompoSearch_ProductListModel(ILogger logger, IServiceProvider serviceProvider, IProductApplication productApplication, IMapper mapper, ISearchHistoryApplication searchHistoryApplication)
         {
             _Logger=logger;
             _ServiceProvider=serviceProvider;
@@ -29,6 +32,7 @@ namespace PrancaBeauty.WebApp.Pages.Home.Search.Components.Compo_ProductList
             _Mapper=mapper;
 
             Data= new vmCompoSearch_ProductList();
+            _SearchHistoryApplication=searchHistoryApplication;
         }
 
         public async Task<IActionResult> OnGetAsync(string LangId)
@@ -39,16 +43,26 @@ namespace PrancaBeauty.WebApp.Pages.Home.Search.Components.Compo_ProductList
                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
-                var _MappedData = _Mapper.Map<InpGetProductListForAdvanceSearch>(Input);
-                _MappedData.LangId=LangId;
-                var _Result = await _ProductApplication.GetProductListForAdvanceSearchAsync(_MappedData);
+                #region Get Data
+                {
+                    var _MappedData = _Mapper.Map<InpGetProductListForAdvanceSearch>(Input);
+                    _MappedData.LangId=LangId;
+                    var _Result = await _ProductApplication.GetProductListForAdvanceSearchAsync(_MappedData);
 
-                Data.PagingData= _Result.PagingData;
-                Data.LstProducts= _Mapper.Map<List<vmCompoSearch_ProductListItems>>(_Result.LstProduct);
+                    Data.PagingData= _Result.PagingData;
+                    Data.LstProducts= _Mapper.Map<List<vmCompoSearch_ProductListItems>>(_Result.LstProduct);
+                }
+                #endregion
+
+                #region Set statistics
+                {
+                    await _SearchHistoryApplication.SetSearchStatisticsAsync(new InpSetSearchStatistics { LangId=LangId,KeywordTitle=Input.KeywordTitle });
+                }
+                #endregion
 
                 return Page();
             }
-            catch (ArgumentInvalidException ex)
+            catch (ArgumentInvalidException)
             {
                 return StatusCode(400);
             }

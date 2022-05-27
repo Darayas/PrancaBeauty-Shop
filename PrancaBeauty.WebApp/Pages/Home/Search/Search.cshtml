@@ -22,18 +22,30 @@
                 <LoadComponent id="ProductList"
                                context="HttpContext"
                                url="/@ViewData["culture"]/Search/Compo/ProductList"
-                               data="new viCompoSearch_ProductList { CategoryName=Model.Input.CategoryName,KeywordName=Model.Input.KeywordTitle,CurrentPage=1,MinPrice=0,MaxPrice=10000000,Sort=Framework.Application.Enums.GetProductListForAdvanceSearchSortingEnum.Newest,Take=10 }"></LoadComponent>
-                <form id="frmSearch"></form>
+                               data="new viCompoSearch_ProductList { CategoryName=Model.Input.CategoryName,KeywordTitle=Model.Input.KeywordTitle,CurrentPage=1,MinPrice=0,MaxPrice=10000000,Sort=Framework.Application.Enums.GetProductListForAdvanceSearchSortingEnum.Newest,Take=10 }"></LoadComponent>
+                <form id="frmSearch">
+                    <input asp-for="Input.CategoryName" type="hidden" />
+                    <input asp-for="Input.MinPrice" type="hidden" value="0" />
+                    <input asp-for="Input.MaxPrice" type="hidden" value="10000000" />
+                </form>
+                <script>
+                    function SubmitSearch()
+                    {
+                        SendFormGET('/@ViewData["culture"]/Search/Compo/ProductList','frmSearch',function(res){
+                            $('#ProductList').html(res);
+                        });
+                    }
+                </script>
             </div>
             <div class="col-lg-3 col-md-12 colLng">
                 <!--sidebar widget start-->
                 <aside class="sidebar_widget">
                     <div class="widget_inner">
-                        
-                         <LoadComponent id="KeywordSearch"
-                               context="HttpContext"
-                               url="/@ViewData["culture"]/Search/Compo/KeywordSearch"
-                               data="new viCompo_KeywordSearch{ KeywordTitle=Model.Input.KeywordTitle,CategoryTitle=Model.Input.CategoryName }"></LoadComponent>
+
+                        <LoadComponent id="KeywordSearch"
+                                       context="HttpContext"
+                                       url="/@ViewData["culture"]/Search/Compo/KeywordSearch"
+                                       data="new viCompo_KeywordSearch{ Word=Model.Input.KeywordTitle,CategoryTitle=Model.Input.CategoryName }"></LoadComponent>
 
                         <div class="widget_list tags_widget">
                             <h3>@Localizer["RelatedKeywords"]</h3>

@@ -17,9 +17,9 @@ namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Products
         [MaxLengthString(100)]
         public string CategoryName { get; set; }
 
-        [Display(Name = "KeywordName")]
+        [Display(Name = "KeywordTitle")]
         [MaxLengthString(100)]
-        public string KeywordName { get; set; }
+        public string KeywordTitle { get; set; }
 
         [Display(Name = "MinPrice")]
         public double MinPrice { get; set; }

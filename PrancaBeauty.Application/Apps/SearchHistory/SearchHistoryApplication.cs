@@ -120,7 +120,7 @@ namespace PrancaBeauty.Application.Apps.SearchHistory
             }
         }
 
-        public async Task<OperationResult> SetWordStatisticsAsync(InpSetWordStatistics Input)
+        private async Task<OperationResult> SetWordStatisticsAsync(InpSetWordStatistics Input)
         {
             try
             {
@@ -152,8 +152,45 @@ namespace PrancaBeauty.Application.Apps.SearchHistory
                 {
                     if (qData != null)
                     {
-                        qData.CountSearch ++;
+                        qData.CountSearch++;
                         await _SearchHistoryRepository.UpdateAsync(qData, default, true);
+                    }
+                }
+                #endregion
+
+                return new OperationResult().Succeeded();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
+
+        public async Task<OperationResult> SetSearchStatisticsAsync(InpSetSearchStatistics Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                #region کلمات مرتبط جستوجو شده توسط کاربر
+                {
+                    if (Input.Word!=null)
+                    {
+                        var _Result = await SetWordStatisticsAsync(new InpSetWordStatistics
+                        {
+                            LangId=Input.LangId,
+                            Keyword=Input.Word
+                        });
+                        if (!_Result.IsSucceeded)
+                            _Logger.Error("زمان ثبت آمار برای کلمات جستوجو شده خطایی رخ داد.", _Result.Message);
                     }
                 }
                 #endregion

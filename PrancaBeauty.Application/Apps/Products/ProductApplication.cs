@@ -59,9 +59,8 @@ namespace PrancaBeauty.Application.Apps.Products
         private readonly IProductMediaApplication _ProductMediaApplication;
         private readonly IProductSellersApplication _ProductSellersApplication;
         private readonly ISellerApplication _SellersApplication;
-        private readonly ISearchHistoryApplication _SearchHistoryApplication;
 
-        public ProductApplication(ILogger logger, ILocalizer localizer, IServiceProvider serviceProvider, IProductPriceApplication productPriceApplication, IProductRepository productRepository, ICategoryApplication categoryApplication, IProductVariantItemsApplication productVariantItemsApplication, IProductPropertiesValuesApplication productPropertiesValuesApplication, IKeywordProductsApplication keywordProductsApplication, IPostingRestrictionsApplication postingRestrictionsApplication, ICurrencyApplication currencyApplication, ILanguageApplication languageApplication, IProductMediaApplication productMediaApplication, IProductSellersApplication productSellersApplication, ISellerApplication sellersApplication, ISearchHistoryApplication searchHistoryApplication)
+        public ProductApplication(ILogger logger, ILocalizer localizer, IServiceProvider serviceProvider, IProductPriceApplication productPriceApplication, IProductRepository productRepository, ICategoryApplication categoryApplication, IProductVariantItemsApplication productVariantItemsApplication, IProductPropertiesValuesApplication productPropertiesValuesApplication, IKeywordProductsApplication keywordProductsApplication, IPostingRestrictionsApplication postingRestrictionsApplication, ICurrencyApplication currencyApplication, ILanguageApplication languageApplication, IProductMediaApplication productMediaApplication, IProductSellersApplication productSellersApplication, ISellerApplication sellersApplication)
         {
             _Logger = logger;
             _Localizer = localizer;
@@ -78,7 +77,6 @@ namespace PrancaBeauty.Application.Apps.Products
             _ProductMediaApplication = productMediaApplication;
             _ProductSellersApplication = productSellersApplication;
             _SellersApplication = sellersApplication;
-            _SearchHistoryApplication=searchHistoryApplication;
         }
 
         public async Task<(OutPagingData, List<OutGetProductsForManage>)> GetProductsForManageAsync(InpGetProductsForManage Input)
@@ -1049,7 +1047,7 @@ namespace PrancaBeauty.Application.Apps.Products
                                          .Where(a => !a.Incomplete)
                                          .Where(a => a.Date<=DateTime.Now)
                                          .Where(a => a.tblCategory.Name==Input.CategoryName)
-                                         .Where(a => Input.KeywordName!=null ? a.tblKeywords_Products.Where(b => b.tblKeywords.Title.Contains(Input.KeywordName)).Any() : true)
+                                         .Where(a => Input.KeywordTitle!=null ? /*a.Title.Contains(Input.KeywordTitle) ||*/ a.tblKeywords_Products.Where(b => b.tblKeywords.Title.Contains(Input.KeywordTitle)).Any() : true)
                                          .Select(a => new OutGetProductListForAdvanceSearch
                                          {
                                              Id=a.Id.ToString(),
@@ -1135,25 +1133,6 @@ namespace PrancaBeauty.Application.Apps.Products
                                 break;
                             }
                     }
-                }
-                #endregion
-
-                #region ثبت آمار
-                {
-                    #region کلمات مرتبط جستوجو شده توسط کاربر
-                    {
-                        if (Input.KeywordName!=null)
-                        {
-                            var _Result = await _SearchHistoryApplication.SetWordStatisticsAsync(new InpSetWordStatistics
-                            {
-                                LangId=Input.LangId,
-                                Keyword=Input.KeywordName
-                            });
-                            if (!_Result.IsSucceeded)
-                                _Logger.Error("زمان ثبت آمار برای کلمات جستوجو شده خطایی رخ داد.", _Result.Message);
-                        }
-                    }
-                    #endregion
                 }
                 #endregion
 

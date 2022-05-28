@@ -1059,49 +1059,50 @@ namespace PrancaBeauty.Application.Apps.Products
                 }
                 #endregion
 
-                var qData = _ProductRepository.Get
-                                         .Where(a => a.IsConfirmed)
-                                         .Where(a => !a.IsDelete)
-                                         .Where(a => !a.IsDraft)
-                                         .Where(a => !a.Incomplete)
-                                         .Where(a => a.Date<=DateTime.Now)
-                                         .Where(a => a.tblCategory.Name==Input.CategoryName)
-                                         .Where(a => Input.KeywordTitle!=null ? (IsKeyword ? a.tblKeywords_Products.Where(b => b.tblKeywords.Title==Input.KeywordTitle.Trim()).Any() : a.Title.Contains(Input.KeywordTitle)) : true)
-                                         .Select(a => new OutGetProductListForAdvanceSearch
-                                         {
-                                             Id=a.Id.ToString(),
-                                             Title=a.Title,
-                                             Name=a.Name,
-                                             Date=a.Date,
-                                             CountSell=0, // TODO , Create Bill Table
-                                             Rating=a.tblProductReviews.Count()>0 ? a.tblProductReviews.Where(b => b.IsConfirm).Average(b => b.CountStar) : 0,
-                                             IsInBookmark=false, // TODO
-                                             Description=string.Join("", a.Description.RemoveAllHtmlTags().Take(500)),
-                                             CurrencySymbol=a.tblProductPrices.Where(a => a.IsActive).Select(b => b.tblCurrency.Symbol).Single(),
-                                             MainPrice= a.tblProductPrices.Where(a => a.IsActive).Select(b => b.Price).Single(),
-                                             SellerPercent= a.tblProductVariantItems.Where(b => b.IsEnable && b.IsConfirm && b.CountInStock>0).Select(e => new { SellerPercent = e.Percent - (e.tblProductDiscounts!=null ? e.tblProductDiscounts.Percent : 0), Percent = e.Percent }).OrderBy(e => e.SellerPercent).FirstOrDefault().Percent,
-                                             PercentSavePrice= a.tblProductVariantItems.Where(b => b.IsEnable && b.IsConfirm && b.CountInStock>0).Select(e => new { SellerPercent = e.Percent - (e.tblProductDiscounts!=null ? e.tblProductDiscounts.Percent : 0), SavePercent = (e.tblProductDiscounts!=null ? e.tblProductDiscounts.Percent : 0) }).OrderBy(e => e.SellerPercent).FirstOrDefault().SavePercent,
-                                             KeywordSimilarity = Input.KeywordTitle!=null && IsKeyword ? a.tblKeywords_Products.Where(b => b.tblKeywords.Title == Input.KeywordTitle.Trim()).Select(b => b.Similarity).SingleOrDefault() : 0,
-                                             ImgUrl= a.tblProductMedia.Select(b => new
-                                             {
-                                                 ImgUrl = b.tblFiles.tblFilePaths.tblFileServer.HttpDomin
-                                                           + b.tblFiles.tblFilePaths.tblFileServer.HttpPath
-                                                           + b.tblFiles.tblFilePaths.Path
-                                                           + b.tblFiles.FileName
-                                             }).Select(b => b.ImgUrl).Take(2).ToArray()
-                                         });
+                var qData = from a in _ProductRepository.Get
+                            where a.IsConfirmed
+                            where !a.IsDelete
+                            where !a.IsDraft
+                            where !a.Incomplete
+                            where a.Date<=DateTime.Now
+                            where a.tblCategory.Name==Input.CategoryName
+                            where Input.KeywordTitle!=null ? (IsKeyword ? a.tblKeywords_Products.Where(b => b.tblKeywords.Title==Input.KeywordTitle.Trim()).Any() : a.Title.Contains(Input.KeywordTitle)) : true
+                            let Price = a.tblProductPrices.Where(a => a.IsActive).Select(b => b.Price).Single()
+                            let SellerPercent = a.tblProductVariantItems.Where(b => b.IsEnable && b.IsConfirm && b.CountInStock>0).Select(e => new { SellerPercent = e.Percent - (e.tblProductDiscounts!=null ? e.tblProductDiscounts.Percent : 0), Percent = e.Percent }).OrderBy(e => e.SellerPercent).FirstOrDefault().Percent
+                            let PercentSavePrice = a.tblProductVariantItems.Where(b => b.IsEnable && b.IsConfirm && b.CountInStock>0).Select(e => new { SellerPercent = e.Percent - (e.tblProductDiscounts!=null ? e.tblProductDiscounts.Percent : 0), SavePercent = (e.tblProductDiscounts!=null ? e.tblProductDiscounts.Percent : 0) }).OrderBy(e => e.SellerPercent).FirstOrDefault().SavePercent
+                            let OldPrice = Price + ((Price/100)*SellerPercent)
+                            let NewPrice = OldPrice - ((OldPrice/100)*PercentSavePrice)
+                            select new OutGetProductListForAdvanceSearch
+                            {
+                                Id=a.Id.ToString(),
+                                Title=a.Title,
+                                Name=a.Name,
+                                Date=a.Date,
+                                CountSell=0, // TODO , Create Bill Table
+                                Rating=a.tblProductReviews.Count()>0 ? a.tblProductReviews.Where(b => b.IsConfirm).Average(b => b.CountStar) : 0,
+                                IsInBookmark=false, // TODO
+                                Description=string.Join("", a.Description.RemoveAllHtmlTags().Take(500)),
+                                CurrencySymbol=a.tblProductPrices.Where(a => a.IsActive).Select(b => b.tblCurrency.Symbol).Single(),
+                                OldPrice=OldPrice,
+                                MainPrice= NewPrice,
+                                PercentSavePrice= PercentSavePrice,
+                                KeywordSimilarity = Input.KeywordTitle!=null && IsKeyword ? a.tblKeywords_Products.Where(b => b.tblKeywords.Title == Input.KeywordTitle.Trim()).Select(b => b.Similarity).SingleOrDefault() : 0,
+                                ImgUrl= a.tblProductMedia.Select(b => new
+                                {
+                                    ImgUrl = b.tblFiles.tblFilePaths.tblFileServer.HttpDomin
+                                              + b.tblFiles.tblFilePaths.tblFileServer.HttpPath
+                                              + b.tblFiles.tblFilePaths.Path
+                                              + b.tblFiles.FileName
+                                }).Select(b => b.ImgUrl).Take(2).ToArray()
+                            };
 
                 #region شرط ها
                 {
                     #region شرط های قیمتی
                     {
-                        qData= from a in qData
-                               let Price = a.MainPrice + ((a.MainPrice/100)* a.SellerPercent) - (((a.MainPrice + ((a.MainPrice/100)* a.SellerPercent))/100)* a.PercentSavePrice)
-                               where Price >= Input.MinPrice && Price <=Input.MaxPrice
-                               select a;
+                        qData= qData.Where(a => a.MainPrice >= Input.MinPrice && a.MainPrice <=Input.MaxPrice);
                     }
                     #endregion
-
                 }
                 #endregion
 
@@ -1134,19 +1135,13 @@ namespace PrancaBeauty.Application.Apps.Products
                             }
                         case GetProductListForAdvanceSearchSortingEnum.PriceMinToMax:
                             {
-                                qData= from a in qData
-                                       let Price = a.MainPrice + ((a.MainPrice/100)* a.SellerPercent) - (a.MainPrice + ((a.MainPrice/100)* a.SellerPercent)* a.PercentSavePrice)
-                                       orderby Price descending
-                                       select a;
+                                qData= qData.OrderByDescending(a => a.MainPrice);
 
                                 break;
                             }
                         case GetProductListForAdvanceSearchSortingEnum.PriceMaxToMin:
                             {
-                                qData= from a in qData
-                                       let Price = a.MainPrice + ((a.MainPrice/100)* a.SellerPercent) - (a.MainPrice + ((a.MainPrice/100)* a.SellerPercent)* a.PercentSavePrice)
-                                       orderby Price ascending
-                                       select a;
+                                qData= qData.OrderBy(a => a.MainPrice);
 
                                 break;
                             }

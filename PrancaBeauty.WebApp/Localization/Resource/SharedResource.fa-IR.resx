@@ -649,7 +649,7 @@
     <value>فیلتر</value>
   </data>
   <data name="FilterByPrice" xml:space="preserve">
-    <value>جستوجو براساس قیمت</value>
+    <value>براساس قیمت</value>
   </data>
   <data name="First" xml:space="preserve">
     <value>اولین</value>

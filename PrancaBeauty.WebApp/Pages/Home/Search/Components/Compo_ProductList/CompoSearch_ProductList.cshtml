@@ -15,13 +15,13 @@
             <button data-role="grid_list" type="button" class="btn-list" data-toggle="tooltip" title="List"></button>
         </div>
         @*<div class="select_option">*@
-            <select onchange="SubmitSearch()" form="frmSearch" asp-for=Input.Sort class="form-control">
-                <option selected value="1">@Localizer["Newest"]</option>
-                <option value="2">@Localizer["Oldest"]</option>
-                <option value="3">@Localizer["SortByPopularity"]</option>
-                <option value="4">@Localizer["SortByAvg"]</option>
-                <option value="5">@Localizer["SortByPrice:LowToHigh"]</option>
-                <option value="6">@Localizer["SortByPrice:HighToLow"]</option>
+            <select style="width:unset;" onchange="SubmitSearch()" form="frmSearch" asp-for=Input.Sort class="form-control">
+                <option selected value="0">@Localizer["Newest"]</option>
+                <option value="1">@Localizer["Oldest"]</option>
+                <option value="2">@Localizer["SortByPopularity"]</option>
+                <option value="3">@Localizer["SortByAvg"]</option>
+                <option value="4">@Localizer["SortByPrice:LowToHigh"]</option>
+                <option value="5">@Localizer["SortByPrice:HighToLow"]</option>
             </select>
         @*</div>*@
         <div class="page_amount">
@@ -39,9 +39,6 @@
         {
             foreach (var item in Model.Data.LstProducts)
             {
-                double OldPrice = item.MainPrice + ((item.MainPrice/100)*item.SellerPercent);
-                double Price = OldPrice - ((OldPrice / 100) * item.PercentSavePrice);
-
                 <div class="col-lg-4 col-md-4 col-sm-6 col-12 ">
                     <div class="single_product">
                         <div class="product_thumb">
@@ -75,10 +72,10 @@
                                 @{
                                     if (item.PercentSavePrice>0)
                                     {
-                                        <span class="old_price">@OldPrice.ToN3() @item.CurrencySymbol</span>
+                                        <span class="old_price">@item.OldPrice.ToN3() @item.CurrencySymbol</span>
                                     }
 
-                                    <span class="current_price">@Price.ToN3() @item.CurrencySymbol</span>
+                                    <span class="current_price">@item.MainPrice.ToN3() @item.CurrencySymbol</span>
                                 }
 
                             </div>
@@ -94,10 +91,10 @@
                                 @{
                                     if (item.PercentSavePrice>0)
                                     {
-                                        <span class="old_price">@OldPrice.ToN3() @item.CurrencySymbol</span>
+                                        <span class="old_price">@item.OldPrice.ToN3() @item.CurrencySymbol</span>
                                     }
 
-                                    <span class="current_price">@Price.ToN3() @item.CurrencySymbol</span>
+                                    <span class="current_price">@item.MainPrice.ToN3() @item.CurrencySymbol</span>
                                 }
                             </div>
                             <div class="product_desc">

@@ -19,6 +19,12 @@ namespace Framework.Common.DataAnnotations.Numbers.All
             _Max = Max;
         }
 
+        public NumRangeAttribute(double Min, double Max)
+        {
+            _Min = (decimal)Min;
+            _Max = (decimal)Max;
+        }
+
         public NumRangeAttribute(int Min, int Max)
         {
             _Min = Min;

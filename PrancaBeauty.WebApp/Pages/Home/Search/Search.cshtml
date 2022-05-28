@@ -25,8 +25,6 @@
                                data="new viCompoSearch_ProductList { CategoryName=Model.Input.CategoryName,KeywordTitle=Model.Input.KeywordTitle,CurrentPage=1,MinPrice=0,MaxPrice=10000000,Sort=Framework.Application.Enums.GetProductListForAdvanceSearchSortingEnum.Newest,Take=10 }"></LoadComponent>
                 <form id="frmSearch">
                     <input asp-for="Input.CategoryName" type="hidden" />
-                    <input asp-for="Input.MinPrice" type="hidden" value="0" />
-                    <input asp-for="Input.MaxPrice" type="hidden" value="10000000" />
                 </form>
                 <script>
                     function SubmitSearch()
@@ -93,14 +91,12 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="widget_list widget_filter">
-                            <h3>@Localizer["FilterByPrice"]</h3>
-                            <form action="#">
-                                <div id="slider-range"></div>
-                                <button type="submit">@Localizer["Filter"]</button>
-                                <input readonly="readonly" type="text" name="text" id="amount" />
-                            </form>
-                        </div>
+
+                        <LoadComponent id="FilterByPrice"
+                                       context="HttpContext"
+                                       url="/@ViewData["culture"]/Search/Compo/FilterByPrice"
+                                       data="new viCompo_FilterByPrice{ MinPrice=0,MaxPrice=10000000 }"></LoadComponent>
+
                         <div class="widget_list widget_color">
                             <h3>Select By Color</h3>
                             <ul>

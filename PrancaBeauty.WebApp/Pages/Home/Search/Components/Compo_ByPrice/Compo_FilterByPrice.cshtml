@@ -1,2 +1,16 @@
 ﻿@page "/{culture}/Search/Compo/FilterByPrice"
 @model PrancaBeauty.WebApp.Pages.Home.Search.Components.Compo_ByPrice.Compo_FilterByPriceModel
+
+<div class="widget_list widget_filter">
+    <h3>@Localizer["FilterByPrice"]</h3>
+    <div id="slider-range"></div>
+    <input form="frmSearch" id="MinAmount" name="Input.MinPrice" />
+    <input form="frmSearch" id="MaxAmount" name="Input.MaxPrice" />
+</div>
+<script>
+    $(document).ready(function(){
+        LoadPriceSlider('slider-range','MinAmount','MaxAmount',@Model.Input.MinPrice, @Model.Input.MaxPrice,function(_min,_max){
+            SubmitSearch();
+        });
+    });
+</script>

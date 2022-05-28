@@ -14,18 +14,16 @@
 
             <button data-role="grid_list" type="button" class="btn-list" data-toggle="tooltip" title="List"></button>
         </div>
-        <div class=" niceselect_option">
-            <form class="select_option" action="#">
-                <select asp-for=Input.Sort>
-                    <option selected value="1">@Localizer["Newest"]</option>
-                    <option value="2">@Localizer["Oldest"]</option>
-                    <option value="3">@Localizer["SortByPopularity"]</option>
-                    <option value="4">@Localizer["SortByAvg"]</option>
-                    <option value="5">@Localizer["SortByPrice:LowToHigh"]</option>
-                    <option value="6">@Localizer["SortByPrice:HighToLow"]</option>
-                </select>
-            </form>
-        </div>
+        @*<div class="select_option">*@
+            <select onchange="SubmitSearch()" form="frmSearch" asp-for=Input.Sort class="form-control">
+                <option selected value="1">@Localizer["Newest"]</option>
+                <option value="2">@Localizer["Oldest"]</option>
+                <option value="3">@Localizer["SortByPopularity"]</option>
+                <option value="4">@Localizer["SortByAvg"]</option>
+                <option value="5">@Localizer["SortByPrice:LowToHigh"]</option>
+                <option value="6">@Localizer["SortByPrice:HighToLow"]</option>
+            </select>
+        @*</div>*@
         <div class="page_amount">
             <p>@Localizer["ShowingResultsCount",PagingData.Skip+1,PagingData.Skip+ PagingData.Take ,PagingData.CountAllItem]</p>
         </div>
@@ -163,6 +161,6 @@
 
         }
 
-        $('.select_option').niceSelect();
+        //$('.select_option').niceSelect();
     </script>
 </div>

@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 using PrancaBeauty.Application.Apps.Categories;
 using PrancaBeauty.Application.Apps.Currency;
+using PrancaBeauty.Application.Apps.Keywords;
 using PrancaBeauty.Application.Apps.KeywordsProducts;
 using PrancaBeauty.Application.Apps.Languages;
 using PrancaBeauty.Application.Apps.PostingRestrictions;
@@ -21,6 +22,7 @@ using PrancaBeauty.Application.Apps.Seller;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.Categories;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.Currency;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.KeywordProducts;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Keywords;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.Languages;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.PostingRestrictions;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.ProductMedia;
@@ -52,6 +54,7 @@ namespace PrancaBeauty.Application.Apps.Products
         private readonly ICategoryApplication _CategoryApplication;
         private readonly IProductVariantItemsApplication _ProductVariantItemsApplication;
         private readonly IProductPropertiesValuesApplication _ProductPropertiesValuesApplication;
+        private readonly IKeywordApplication _KeywordApplication;
         private readonly IKeywordProductsApplication _KeywordProductsApplication;
         private readonly IPostingRestrictionsApplication _PostingRestrictionsApplication;
         private readonly ICurrencyApplication _CurrencyApplication;
@@ -60,7 +63,7 @@ namespace PrancaBeauty.Application.Apps.Products
         private readonly IProductSellersApplication _ProductSellersApplication;
         private readonly ISellerApplication _SellersApplication;
 
-        public ProductApplication(ILogger logger, ILocalizer localizer, IServiceProvider serviceProvider, IProductPriceApplication productPriceApplication, IProductRepository productRepository, ICategoryApplication categoryApplication, IProductVariantItemsApplication productVariantItemsApplication, IProductPropertiesValuesApplication productPropertiesValuesApplication, IKeywordProductsApplication keywordProductsApplication, IPostingRestrictionsApplication postingRestrictionsApplication, ICurrencyApplication currencyApplication, ILanguageApplication languageApplication, IProductMediaApplication productMediaApplication, IProductSellersApplication productSellersApplication, ISellerApplication sellersApplication)
+        public ProductApplication(ILogger logger, ILocalizer localizer, IServiceProvider serviceProvider, IProductPriceApplication productPriceApplication, IProductRepository productRepository, ICategoryApplication categoryApplication, IProductVariantItemsApplication productVariantItemsApplication, IProductPropertiesValuesApplication productPropertiesValuesApplication, IKeywordProductsApplication keywordProductsApplication, IPostingRestrictionsApplication postingRestrictionsApplication, ICurrencyApplication currencyApplication, ILanguageApplication languageApplication, IProductMediaApplication productMediaApplication, IProductSellersApplication productSellersApplication, ISellerApplication sellersApplication, IKeywordApplication keywordApplication)
         {
             _Logger = logger;
             _Localizer = localizer;
@@ -77,6 +80,7 @@ namespace PrancaBeauty.Application.Apps.Products
             _ProductMediaApplication = productMediaApplication;
             _ProductSellersApplication = productSellersApplication;
             _SellersApplication = sellersApplication;
+            _KeywordApplication=keywordApplication;
         }
 
         public async Task<(OutPagingData, List<OutGetProductsForManage>)> GetProductsForManageAsync(InpGetProductsForManage Input)
@@ -1040,6 +1044,21 @@ namespace PrancaBeauty.Application.Apps.Products
                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
+                #region برسی کلمه وارد شده توسط کاربر
+                bool IsKeyword = false;
+                {
+                    if (Input.KeywordTitle!=null)
+                    {
+                        var CheckIsKeyword = await _KeywordApplication.CheckIsKeywordAndHasProductAsync(new InpCheckIsKeywordAndHasProduct { KeywordTitle=Input.KeywordTitle });
+                        //if (CheckIsKeyword == null)
+                        //    return default;
+
+                        if (CheckIsKeyword!=null)
+                            IsKeyword = CheckIsKeyword.Value;
+                    }
+                }
+                #endregion
+
                 var qData = _ProductRepository.Get
                                          .Where(a => a.IsConfirmed)
                                          .Where(a => !a.IsDelete)
@@ -1047,7 +1066,7 @@ namespace PrancaBeauty.Application.Apps.Products
                                          .Where(a => !a.Incomplete)
                                          .Where(a => a.Date<=DateTime.Now)
                                          .Where(a => a.tblCategory.Name==Input.CategoryName)
-                                         .Where(a => Input.KeywordTitle!=null ? a.Title.Contains(Input.KeywordTitle) || a.tblKeywords_Products.Where(b => b.tblKeywords.Title==Input.KeywordTitle.Trim()).Any() : true)
+                                         .Where(a => Input.KeywordTitle!=null ? (IsKeyword ? a.tblKeywords_Products.Where(b => b.tblKeywords.Title==Input.KeywordTitle.Trim()).Any() : a.Title.Contains(Input.KeywordTitle)) : true)
                                          .Select(a => new OutGetProductListForAdvanceSearch
                                          {
                                              Id=a.Id.ToString(),
@@ -1062,7 +1081,7 @@ namespace PrancaBeauty.Application.Apps.Products
                                              MainPrice= a.tblProductPrices.Where(a => a.IsActive).Select(b => b.Price).Single(),
                                              SellerPercent= a.tblProductVariantItems.Where(b => b.IsEnable && b.IsConfirm && b.CountInStock>0).Select(e => new { SellerPercent = e.Percent - (e.tblProductDiscounts!=null ? e.tblProductDiscounts.Percent : 0), Percent = e.Percent }).OrderBy(e => e.SellerPercent).FirstOrDefault().Percent,
                                              PercentSavePrice= a.tblProductVariantItems.Where(b => b.IsEnable && b.IsConfirm && b.CountInStock>0).Select(e => new { SellerPercent = e.Percent - (e.tblProductDiscounts!=null ? e.tblProductDiscounts.Percent : 0), SavePercent = (e.tblProductDiscounts!=null ? e.tblProductDiscounts.Percent : 0) }).OrderBy(e => e.SellerPercent).FirstOrDefault().SavePercent,
-                                             KeywordSimilarity = Input.KeywordTitle!=null ? a.tblKeywords_Products.Where(b => b.tblKeywords.Title == Input.KeywordTitle.Trim()).Select(b => b.Similarity).Single() : 0,
+                                             KeywordSimilarity = Input.KeywordTitle!=null && IsKeyword ? a.tblKeywords_Products.Where(b => b.tblKeywords.Title == Input.KeywordTitle.Trim()).Select(b => b.Similarity).SingleOrDefault() : 0,
                                              ImgUrl= a.tblProductMedia.Select(b => new
                                              {
                                                  ImgUrl = b.tblFiles.tblFilePaths.tblFileServer.HttpDomin
@@ -1088,7 +1107,7 @@ namespace PrancaBeauty.Application.Apps.Products
 
                 #region مرتب سازی
                 {
-                    if (Input.KeywordTitle!=null)
+                    if (Input.KeywordTitle!=null && IsKeyword)
                         Input.Sort= GetProductListForAdvanceSearchSortingEnum.KewordSimilarity;
 
                     switch (Input.Sort)

@@ -136,5 +136,29 @@ namespace PrancaBeauty.Application.Apps.Keywords
                 return default;
             }
         }
+
+        public async Task<bool?> CheckIsKeywordAndHasProductAsync(InpCheckIsKeywordAndHasProduct Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                return await _KeywordRepository.Get
+                    .Where(a=>a.tblKeywords_Products.Any())
+                    .AnyAsync(a => a.Title==Input.KeywordTitle);
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
+            }
+        }
     }
 }

@@ -9,6 +9,7 @@ namespace PrancaBeauty.Application.Apps.Keywords
     {
         Task<OperationResult> AddKeywordAsync(InpAddKeyword Input);
         Task<bool> CheckExistByTitleAsync(InpCheckExistByTitle Input);
+        Task<bool?> CheckIsKeywordAndHasProductAsync(InpCheckIsKeywordAndHasProduct Input);
         Task<string> GetIdByTitleAsync(InpGetIdByTitle Input);
         Task<List<OutGetKeywordForSearchAutoComplete>> GetKeywordForSearchAutoCompleteAsync(InpGetKeywordForSearchAutoComplete Input);
         Task<List<OutGetKeywordListForCombo>> GetKeywordListForComboAsync(InpGetKeywordListForCombo Input);

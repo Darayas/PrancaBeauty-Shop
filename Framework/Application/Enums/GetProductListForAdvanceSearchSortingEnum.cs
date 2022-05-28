@@ -8,5 +8,6 @@
         HightRating=3,
         PriceMinToMax=4,
         PriceMaxToMin=5,
+        KewordSimilarity=6,
     }
 }

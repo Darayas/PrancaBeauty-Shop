@@ -1047,7 +1047,7 @@ namespace PrancaBeauty.Application.Apps.Products
                                          .Where(a => !a.Incomplete)
                                          .Where(a => a.Date<=DateTime.Now)
                                          .Where(a => a.tblCategory.Name==Input.CategoryName)
-                                         .Where(a => Input.KeywordTitle!=null ? /*a.Title.Contains(Input.KeywordTitle) ||*/ a.tblKeywords_Products.Where(b => b.tblKeywords.Title.Contains(Input.KeywordTitle)).Any() : true)
+                                         .Where(a => Input.KeywordTitle!=null ? a.Title.Contains(Input.KeywordTitle) || a.tblKeywords_Products.Where(b => b.tblKeywords.Title==Input.KeywordTitle.Trim()).Any() : true)
                                          .Select(a => new OutGetProductListForAdvanceSearch
                                          {
                                              Id=a.Id.ToString(),
@@ -1062,6 +1062,7 @@ namespace PrancaBeauty.Application.Apps.Products
                                              MainPrice= a.tblProductPrices.Where(a => a.IsActive).Select(b => b.Price).Single(),
                                              SellerPercent= a.tblProductVariantItems.Where(b => b.IsEnable && b.IsConfirm && b.CountInStock>0).Select(e => new { SellerPercent = e.Percent - (e.tblProductDiscounts!=null ? e.tblProductDiscounts.Percent : 0), Percent = e.Percent }).OrderBy(e => e.SellerPercent).FirstOrDefault().Percent,
                                              PercentSavePrice= a.tblProductVariantItems.Where(b => b.IsEnable && b.IsConfirm && b.CountInStock>0).Select(e => new { SellerPercent = e.Percent - (e.tblProductDiscounts!=null ? e.tblProductDiscounts.Percent : 0), SavePercent = (e.tblProductDiscounts!=null ? e.tblProductDiscounts.Percent : 0) }).OrderBy(e => e.SellerPercent).FirstOrDefault().SavePercent,
+                                             KeywordSimilarity = Input.KeywordTitle!=null ? a.tblKeywords_Products.Where(b => b.tblKeywords.Title == Input.KeywordTitle.Trim()).Select(b => b.Similarity).Single() : 0,
                                              ImgUrl= a.tblProductMedia.Select(b => new
                                              {
                                                  ImgUrl = b.tblFiles.tblFilePaths.tblFileServer.HttpDomin
@@ -1087,6 +1088,9 @@ namespace PrancaBeauty.Application.Apps.Products
 
                 #region مرتب سازی
                 {
+                    if (Input.KeywordTitle!=null)
+                        Input.Sort= GetProductListForAdvanceSearchSortingEnum.KewordSimilarity;
+
                     switch (Input.Sort)
                     {
                         case GetProductListForAdvanceSearchSortingEnum.Newest:
@@ -1125,6 +1129,11 @@ namespace PrancaBeauty.Application.Apps.Products
                                        orderby Price ascending
                                        select a;
 
+                                break;
+                            }
+                        case GetProductListForAdvanceSearchSortingEnum.KewordSimilarity:
+                            {
+                                qData= qData.OrderByDescending(a => a.KeywordSimilarity);
                                 break;
                             }
                         default:

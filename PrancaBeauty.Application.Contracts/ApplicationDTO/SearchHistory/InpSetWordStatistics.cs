@@ -10,9 +10,9 @@ namespace PrancaBeauty.Application.Contracts.ApplicationDTO.SearchHistory
         [GUID]
         public string LangId { get; set; }
 
-        [Display(Name = "Keyword")]
+        [Display(Name = "KeywordTitle")]
         [RequiredString]
         [MaxLengthString(100)]
-        public string Keyword { get; set; }
+        public string KeywordTitle { get; set; }
     }
 }

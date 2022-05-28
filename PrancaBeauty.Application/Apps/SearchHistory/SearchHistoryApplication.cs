@@ -130,7 +130,7 @@ namespace PrancaBeauty.Application.Apps.SearchHistory
 
                 var qData = await _SearchHistoryRepository.Get
                                                 .Where(a => a.LangId==Input.LangId.ToGuid())
-                                                .Where(a => a.Title==Input.Keyword)
+                                                .Where(a => a.Title==Input.KeywordTitle)
                                                 .SingleOrDefaultAsync();
 
                 #region Add new word
@@ -141,7 +141,7 @@ namespace PrancaBeauty.Application.Apps.SearchHistory
                         {
                             Id = new Guid().SequentialGuid(),
                             LangId = Input.LangId.ToGuid(),
-                            Title = Input.Keyword,
+                            Title = Input.KeywordTitle,
                             CountSearch = 1
                         }, default, true);
                     }
@@ -182,12 +182,12 @@ namespace PrancaBeauty.Application.Apps.SearchHistory
 
                 #region کلمات مرتبط جستوجو شده توسط کاربر
                 {
-                    if (Input.Word!=null)
+                    if (Input.KeywordTitle!=null)
                     {
                         var _Result = await SetWordStatisticsAsync(new InpSetWordStatistics
                         {
                             LangId=Input.LangId,
-                            Keyword=Input.Word
+                            KeywordTitle=Input.KeywordTitle.Trim()
                         });
                         if (!_Result.IsSucceeded)
                             _Logger.Error("زمان ثبت آمار برای کلمات جستوجو شده خطایی رخ داد.", _Result.Message);

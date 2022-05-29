@@ -27,10 +27,19 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput
 
         [Display(Name = "Take")]
         [NumRange(1, int.MaxValue)]
-        public int Take { get; set; } = 2;
+        public int Take { get; set; } = 10;
 
         [Display(Name = "Page")]
         [NumRange(1, int.MaxValue)]
         public int CurrentPage { get; set; } = 1;
+
+        [Display(Name = "OnlyExistProducts")]
+        public bool OnlyExistProducts { get; set; }
+
+        [Display(Name = "OnlySendByPrancaBeauty")]
+        public bool OnlySendByPrancaBeauty { get; set; }
+
+        [Display(Name = "OnlySendBySeller")]
+        public bool OnlySendBySeller { get; set; }
     }
 }

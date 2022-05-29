@@ -1134,6 +1134,15 @@
   <data name="OneDay" xml:space="preserve">
     <value>یک روز</value>
   </data>
+  <data name="OnlyExistProducts" xml:space="preserve">
+    <value>فقط موجود ها</value>
+  </data>
+  <data name="OnlySendByPrancaBeauty" xml:space="preserve">
+    <value>فقط ارسال توسط پرنسابیوتی</value>
+  </data>
+  <data name="OnlySendBySeller" xml:space="preserve">
+    <value>فقط ارسال توسط فروشنده</value>
+  </data>
   <data name="openInNewTab" xml:space="preserve">
     <value>باز کردن در صفحه ی جدید</value>
   </data>

@@ -1066,6 +1066,12 @@ namespace PrancaBeauty.Application.Apps.Products
                             where !a.Incomplete
                             where a.Date<=DateTime.Now
                             where a.tblCategory.Name==Input.CategoryName
+                            // شرط: فقط نمایش محصولات موجود
+                            where Input.OnlyExistProducts==true ? (a.tblProductVariantItems.Where(b => b.IsEnable && b.IsConfirm && b.CountInStock>0).Any()) : true
+                            // شرط: فقط ارسال توسط پرنسابیوتی
+                            where Input.OnlySendByPrancaBeauty==true ? (Input.OnlySendBySeller==true ? true : (a.tblProductVariantItems.Where(b => b.SendBy==ProductVariantItems_SendByEnum.Prancabeauty).Any())) : true
+                            // شرط: فقط ارسال توسط فروشنده
+                            where Input.OnlySendBySeller==true ? (Input.OnlySendByPrancaBeauty==true ? true : (a.tblProductVariantItems.Where(b => b.SendBy==ProductVariantItems_SendByEnum.Seller).Any())) : true
                             where Input.KeywordTitle!=null ? (IsKeyword ? a.tblKeywords_Products.Where(b => b.tblKeywords.Title==Input.KeywordTitle.Trim()).Any() : a.Title.Contains(Input.KeywordTitle)) : true
                             let Price = a.tblProductPrices.Where(a => a.IsActive).Select(b => b.Price).Single()
                             let SellerPercent = a.tblProductVariantItems.Where(b => b.IsEnable && b.IsConfirm && b.CountInStock>0).Select(e => new { SellerPercent = e.Percent - (e.tblProductDiscounts!=null ? e.tblProductDiscounts.Percent : 0), Percent = e.Percent }).OrderBy(e => e.SellerPercent).FirstOrDefault().Percent
@@ -1101,6 +1107,24 @@ namespace PrancaBeauty.Application.Apps.Products
 
                 #region شرط ها
                 {
+
+                    #region فقط موجود ها
+                    {
+
+                    }
+                    #endregion
+
+                    #region فقط ارسال توسط پرنسابیوتی
+                    {
+
+                    }
+                    #endregion
+
+                    #region فقط ارسال توسط فروشنده
+                    {
+
+                    }
+                    #endregion
 
                     #region شرط های قیمتی
                     {

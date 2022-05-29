@@ -37,5 +37,14 @@ namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Products
         [Display(Name = "Page")]
         [NumRange(1, int.MaxValue)]
         public int CurrentPage { get; set; }
+
+        [Display(Name = "OnlyExistProducts")]
+        public bool OnlyExistProducts { get; set; }
+
+        [Display(Name = "OnlySendByPrancaBeauty")]
+        public bool OnlySendByPrancaBeauty { get; set; }
+
+        [Display(Name = "OnlySendBySeller")]
+        public bool OnlySendBySeller { get; set; }
     }
 }

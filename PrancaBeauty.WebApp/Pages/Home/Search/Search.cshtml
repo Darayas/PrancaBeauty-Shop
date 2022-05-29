@@ -22,7 +22,7 @@
                 <LoadComponent id="ProductList"
                                context="HttpContext"
                                url="/@ViewData["culture"]/Search/Compo/ProductList"
-                               data="new viCompoSearch_ProductList { CategoryName=Model.Input.CategoryName,KeywordTitle=Model.Input.KeywordTitle,CurrentPage=1,MinPrice=0,MaxPrice=10000000,Sort=Framework.Application.Enums.GetProductListForAdvanceSearchSortingEnum.Newest,Take=2 }"></LoadComponent>
+                               data="new viCompoSearch_ProductList { CategoryName=Model.Input.CategoryName,KeywordTitle=Model.Input.KeywordTitle,CurrentPage=1,MinPrice=0,MaxPrice=10000000,Sort=Framework.Application.Enums.GetProductListForAdvanceSearchSortingEnum.Newest,Take=10 }"></LoadComponent>
 
                 <form id="frmSearch">
                     <input asp-for="Input.CategoryName" type="hidden" />
@@ -54,13 +54,18 @@
                         </script>
                         <div class="widget_list tags_widget">
                             <div>
-                                <span><input class="" type="checkbox" /></span>
-                                <span>فقط کالاهای موجود</span>
+                                <span><input onchange="SubmitSearch()" form="frmSearch" asp-for="Input.OnlyExistProducts" /></span>
+                                <span>@Localizer["OnlyExistProducts"]</span>
                             </div>
 
                             <div>
-                                <span><input class="" type="checkbox" /></span>
-                                <span>فقط کالاهای موجود</span>
+                                <span><input onchange="SubmitSearch()" form="frmSearch" asp-for="Input.OnlySendByPrancaBeauty" /></span>
+                                <span>@Localizer["OnlySendByPrancaBeauty"]</span>
+                            </div>
+
+                             <div>
+                                <span><input onchange="SubmitSearch()" form="frmSearch" asp-for="Input.OnlySendBySeller" /></span>
+                                <span>@Localizer["OnlySendBySeller"]</span>
                             </div>
                         </div>
 

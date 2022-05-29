@@ -1036,7 +1036,7 @@ namespace PrancaBeauty.Application.Apps.Products
             }
         }
 
-        public async Task<(OutPagingData PagingData, List<OutGetProductListForAdvanceSearch> LstProduct)> GetProductListForAdvanceSearchAsync(InpGetProductListForAdvanceSearch Input)
+        public async Task<(OutPagingData PagingData, double MinPrice, double MaxPrice, List<OutGetProductListForAdvanceSearch> LstProduct)> GetProductListForAdvanceSearchAsync(InpGetProductListForAdvanceSearch Input)
         {
             try
             {
@@ -1096,13 +1096,21 @@ namespace PrancaBeauty.Application.Apps.Products
                                 }).Select(b => b.ImgUrl).Take(2).ToArray()
                             };
 
+                double _MinPrice = 0;
+                double _MaxPrice = 0;
+
                 #region شرط ها
                 {
+
                     #region شرط های قیمتی
                     {
-                        qData= qData.Where(a => a.MainPrice >= Input.MinPrice && a.MainPrice <=Input.MaxPrice);
+                        _MinPrice = await qData.OrderBy(a => a.MainPrice).Select(a => a.MainPrice).FirstOrDefaultAsync();
+                        _MaxPrice = await qData.OrderByDescending(a => a.MainPrice).Select(a => a.MainPrice).FirstOrDefaultAsync();
+
+                        qData = qData.Where(a => a.MainPrice >= Input.MinPrice && (Input.MaxPrice>0 ? a.MainPrice <=Input.MaxPrice : true));
                     }
                     #endregion
+                    // تمام شرط های دیگر را در بالای شرط قیمی بنویسید
                 }
                 #endregion
 
@@ -1161,7 +1169,7 @@ namespace PrancaBeauty.Application.Apps.Products
 
                 var qPagingData = PagingData.Calc(await qData.CountAsync(), Input.CurrentPage, Input.Take);
 
-                return (qPagingData, await qData.Skip((int)qPagingData.Skip).Take(Input.Take).ToListAsync());
+                return (qPagingData, _MinPrice, _MaxPrice, await qData.Skip((int)qPagingData.Skip).Take(Input.Take).ToListAsync());
             }
             catch (ArgumentInvalidException ex)
             {

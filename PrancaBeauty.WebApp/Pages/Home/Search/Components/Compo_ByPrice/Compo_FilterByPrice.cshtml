@@ -1,16 +1,21 @@
 ﻿@page "/{culture}/Search/Compo/FilterByPrice"
 @model PrancaBeauty.WebApp.Pages.Home.Search.Components.Compo_ByPrice.Compo_FilterByPriceModel
 
-<div class="widget_list widget_filter">
+<div class="widget_list widget_filter widget_filterByPrice">
     <h3>@Localizer["FilterByPrice"]</h3>
     <div id="slider-range"></div>
-    <input form="frmSearch" id="MinAmount" name="Input.MinPrice" />
-    <input form="frmSearch" id="MaxAmount" name="Input.MaxPrice" />
+    <div class="SectionMinAmount"><span>@Localizer["Minimum"]: </span><span id="MinAmount"></span></div>
+    <div class="SectionMaxAmount"><span>@Localizer["Maximum"]: </span><span id="MaxAmount"></span></div>
+    <input form="frmSearch" type="hidden" id="Input_MinAmount" name="Input.MinPrice" />
+    <input form="frmSearch" type="hidden" id="Input_MaxAmount" name="Input.MaxPrice" />
 </div>
 <script>
-    $(document).ready(function(){
-        LoadPriceSlider('slider-range','MinAmount','MaxAmount',@Model.Input.MinPrice, @Model.Input.MaxPrice,function(_min,_max){
-            SubmitSearch();
-        });
+    LoadPriceSlider('slider-range',@Model.Input.MinPrice, @Model.Input.MaxPrice,@Model.Input.MinValue, @Model.Input.MaxValue,function(_Min,_Max){
+        $('#MinAmount').text(_Min.toLocaleString("en")+" @Model.Input.CurrencySymbol");
+        $('#MaxAmount').text(_Max.toLocaleString("en")+" @Model.Input.CurrencySymbol");
+    },function(_Min,_Max){
+        $('#Input_MinAmount').val(_Min);
+        $('#Input_MaxAmount').val(_Max);
+        SubmitSearch();
     });
 </script>

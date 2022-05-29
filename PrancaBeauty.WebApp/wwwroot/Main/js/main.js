@@ -69,24 +69,26 @@ function CalcDuDate(_Id, _Seconds, _Callback = function () { }) {
     }, 1000);
 }
 
-function LoadPriceSlider(_SliderId, _AmountMinId, _AmountMaxId, _Min, _Max, _callbackFuncs = function (_Min, _Max) { }) {
-    $("#" + _SliderId).slider({
-        animate: "fast",
-        range: true,
-        min: _Min,
-        max: _Max,
-        values: [_Min, _Max],
-        slide: function (event, ui) {
-            $("#" + _AmountMinId).val(ui.values[0]);
-            $("#" + _AmountMaxId).val(ui.values[1]);
-        },
-        change: function (event, ui) {
-            _callbackFuncs(ui.values[0], ui.values[1]);
+function LoadPriceSlider(_SliderId, _MinPrice, _MaxPrice, _MinValue, _MaxValue, _callbackFuncsOnUpdate = function (_Min, _Max) { }, _callbackFuncsOnChange = function (_Min, _Max) { }) {
+    var html5Slider = document.getElementById(_SliderId);
+
+    noUiSlider.create(html5Slider, {
+        start: [_MinValue, _MaxValue],
+        connect: true,
+        direction: "rtl",
+        range: {
+            'min': _MinPrice,
+            'max': _MaxPrice
         }
     });
 
-    $("#" + _AmountMinId).val($("#" + _SliderId).slider("values", 0));
-    $("#" + _AmountMaxId).val($("#" + _SliderId).slider("values", 1));
+    html5Slider.noUiSlider.on('update', function (values, handle) {
+        _callbackFuncsOnUpdate(Math.round(values[0]), Math.round(values[1]));
+    });
+
+    html5Slider.noUiSlider.on('change', function (values, handle) {
+        _callbackFuncsOnChange(Math.round(values[0]), Math.round(values[1]));
+    });
 }
 
 (function ($) {

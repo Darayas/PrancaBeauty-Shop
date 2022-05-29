@@ -15,14 +15,14 @@
             <button data-role="grid_list" type="button" class="btn-list" data-toggle="tooltip" title="List"></button>
         </div>
         @*<div class="select_option">*@
-            <select style="width:unset;" onchange="SubmitSearch()" form="frmSearch" asp-for=Input.Sort class="form-control">
-                <option selected value="0">@Localizer["Newest"]</option>
-                <option value="1">@Localizer["Oldest"]</option>
-                <option value="2">@Localizer["SortByPopularity"]</option>
-                <option value="3">@Localizer["SortByAvg"]</option>
-                <option value="4">@Localizer["SortByPrice:LowToHigh"]</option>
-                <option value="5">@Localizer["SortByPrice:HighToLow"]</option>
-            </select>
+        <select style="width:unset;" onchange="SubmitSearch()" form="frmSearch" asp-for=Input.Sort class="form-control">
+            <option selected value="0">@Localizer["Newest"]</option>
+            <option value="1">@Localizer["Oldest"]</option>
+            <option value="2">@Localizer["SortByPopularity"]</option>
+            <option value="3">@Localizer["SortByAvg"]</option>
+            <option value="4">@Localizer["SortByPrice:LowToHigh"]</option>
+            <option value="5">@Localizer["SortByPrice:HighToLow"]</option>
+        </select>
         @*</div>*@
         <div class="page_amount">
             <p>@Localizer["ShowingResultsCount",PagingData.Skip+1,PagingData.Skip+ PagingData.Take ,PagingData.CountAllItem]</p>
@@ -160,4 +160,19 @@
 
         //$('.select_option').niceSelect();
     </script>
+
+    @if (Model.Data.LstProducts.Count()>0)
+    {
+        <script>
+            LoadComponent('/@ViewData["culture"]/Search/Compo/FilterByPrice',{
+                MinPrice:0,
+                MaxPrice:@Model.Data.MaxPrice,
+                MinValue:@(Model.Input.MinPrice>0?Model.Input.MinPrice:0),
+                MaxValue:@(Model.Input.MaxPrice>0?Model.Input.MaxPrice:Model.Data.MaxPrice),
+                CurrencySymbol:'@Model.Data.LstProducts.First().CurrencySymbol'
+            },function(res){
+                $('#FilterByPrice').html(res);
+            },false);
+        </script>
+    }
 </div>

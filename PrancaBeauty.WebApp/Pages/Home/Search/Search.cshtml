@@ -91,11 +91,10 @@
                                 </li>
                             </ul>
                         </div>
-
                         <LoadComponent id="FilterByPrice"
                                        context="HttpContext"
                                        url="/@ViewData["culture"]/Search/Compo/FilterByPrice"
-                                       data="new viCompo_FilterByPrice{ MinPrice=0,MaxPrice=10000000 }"></LoadComponent>
+                                       data='new viCompo_FilterByPrice{ MinPrice=0,MaxPrice=10000000,MinValue=150000,MaxValue=670000,CurrencySymbol="تومان" }'></LoadComponent>
 
                         <div class="widget_list widget_color">
                             <h3>Select By Color</h3>
@@ -159,3 +158,10 @@
     </div>
 </div>
 <!--shop  area end-->
+
+@section styles{
+}
+
+@section scripts{
+    <script src="~/lib/noUiSlider/dist/nouislider.min.js"></script>
+}

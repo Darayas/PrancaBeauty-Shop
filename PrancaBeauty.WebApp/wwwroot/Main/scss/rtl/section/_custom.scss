@@ -557,17 +557,8 @@ pre {
 }
 
 .widget_inner {
-    &:last-child {
-        .widget_list {
-            margin-bottom: 0;
-        }
-    }
-
     .widget_list {
-
-        &:last-child {
-            margin-bottom: 33px;
-        }
+        margin-bottom: 33px;
 
         &.widget_filter-keyword {
             position: relative;
@@ -595,6 +586,16 @@ pre {
                 button:hover {
                     background: #d52121;
                 }
+            }
+        }
+
+        &.widget_filterByPrice {
+            .SectionMinAmount {
+                margin-top: 15px;
+            }
+
+            .SectionMaxAmount {
+                margin-top: 5px;
             }
         }
     }

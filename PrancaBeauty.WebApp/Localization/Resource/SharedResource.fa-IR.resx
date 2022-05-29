@@ -1017,6 +1017,9 @@
   <data name="ManageUsers" xml:space="preserve">
     <value>مدیریت کاربران</value>
   </data>
+  <data name="Maximum" xml:space="preserve">
+    <value>حداکثر</value>
+  </data>
   <data name="MaxLengthStringMsg" xml:space="preserve">
     <value>تعداد حروف {0} باید کمتر از {1} باشد</value>
   </data>
@@ -1037,6 +1040,9 @@
   </data>
   <data name="MimeTypeIsInvalid" xml:space="preserve">
     <value>نوع فایل ارسال شده معتبر نمیباشد.</value>
+  </data>
+  <data name="Minimum" xml:space="preserve">
+    <value>حداقل</value>
   </data>
   <data name="Minutes" xml:space="preserve">
     <value>دقیقه</value>

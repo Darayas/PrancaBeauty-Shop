@@ -5,7 +5,8 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewModel
 {
     public class vmCompoSearch_ProductList
     {
-        public string CategoryTitle { get; set; }
+        public double MinPrice { get; set; }
+        public double MaxPrice { get; set; }
         public OutPagingData PagingData { get; set; }
 
         public List<vmCompoSearch_ProductListItems> LstProducts { get; set; } = new List<vmCompoSearch_ProductListItems>();

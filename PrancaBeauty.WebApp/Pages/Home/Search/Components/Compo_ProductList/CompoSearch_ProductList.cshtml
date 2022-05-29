@@ -127,8 +127,8 @@
                 <ul>
                     @if (PagingData.Page>1)
                     {
+                        <li><a onclick="Paging('1')">&lt;&lt;</a></li>
                         <li class="next"><a onclick="Paging('@(PagingData.Page-1)')">@Localizer["Previuos"]</a></li>
-                        <li><a onclick="Paging('1')">..</a></li>
                     }
 
                     @for (var i = PagingData.StartPage; i <= PagingData.EndPage; i++)
@@ -145,8 +145,8 @@
 
                     @if (PagingData.Page < PagingData.CountAllPage)
                     {
-                        <li class="next"><a onclick="Paging('@(PagingData.Page+1)">@Localizer["Nex"]</a></li>
-                        <li><a onclick="Paging('@(PagingData.CountAllPage)')">>></a></li>
+                        <li class="next"><a onclick="Paging('@(PagingData.Page+1)')">@Localizer["Next"]</a></li>
+                        <li><a onclick="Paging('@(PagingData.CountAllPage)')">&gt;&gt;</a></li>
                     }
                 </ul>
             </div>
@@ -155,7 +155,8 @@
 
     <script>
         function Paging(_Page){
-
+            $('#Input_CurrentPage').val(_Page);
+            SubmitSearch();
         }
 
         //$('.select_option').niceSelect();
@@ -164,15 +165,17 @@
     @if (Model.Data.LstProducts.Count()>0)
     {
         <script>
-            LoadComponent('/@ViewData["culture"]/Search/Compo/FilterByPrice',{
-                MinPrice:0,
-                MaxPrice:@Model.Data.MaxPrice,
-                MinValue:@(Model.Input.MinPrice>0?Model.Input.MinPrice:0),
-                MaxValue:@(Model.Input.MaxPrice>0?Model.Input.MaxPrice:Model.Data.MaxPrice),
-                CurrencySymbol:'@Model.Data.LstProducts.First().CurrencySymbol'
-            },function(res){
-                $('#FilterByPrice').html(res);
-            },false);
+            $(document).ready(function(){
+                LoadComponent('/@ViewData["culture"]/Search/Compo/FilterByPrice',{
+                    MinPrice:0,
+                    MaxPrice:@Model.Data.MaxPrice,
+                    MinValue:@(Model.Input.MinPrice>0?Model.Input.MinPrice:0),
+                    MaxValue:@(Model.Input.MaxPrice>0?Model.Input.MaxPrice:Model.Data.MaxPrice),
+                    CurrencySymbol:'@Model.Data.LstProducts.First().CurrencySymbol'
+                },function(res){
+                    $('#FilterByPrice').html(res);
+                },false);
+            });
         </script>
     }
 </div>

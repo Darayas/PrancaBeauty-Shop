@@ -6,8 +6,8 @@
     <div id="slider-range"></div>
     <div class="SectionMinAmount"><span>@Localizer["Minimum"]: </span><span id="MinAmount"></span></div>
     <div class="SectionMaxAmount"><span>@Localizer["Maximum"]: </span><span id="MaxAmount"></span></div>
-    <input form="frmSearch" type="hidden" id="Input_MinAmount" name="Input.MinPrice" />
-    <input form="frmSearch" type="hidden" id="Input_MaxAmount" name="Input.MaxPrice" />
+    <input form="frmSearch" type="hidden" id="Input_MinAmount" name="Input.MinPrice" value="@Model.Input.MinValue" />
+    <input form="frmSearch" type="hidden" id="Input_MaxAmount" name="Input.MaxPrice" value="@Model.Input.MaxValue"/>
 </div>
 <script>
     LoadPriceSlider('slider-range',@Model.Input.MinPrice, @Model.Input.MaxPrice,@Model.Input.MinValue, @Model.Input.MaxValue,function(_Min,_Max){

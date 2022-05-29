@@ -22,9 +22,11 @@
                 <LoadComponent id="ProductList"
                                context="HttpContext"
                                url="/@ViewData["culture"]/Search/Compo/ProductList"
-                               data="new viCompoSearch_ProductList { CategoryName=Model.Input.CategoryName,KeywordTitle=Model.Input.KeywordTitle,CurrentPage=1,MinPrice=0,MaxPrice=10000000,Sort=Framework.Application.Enums.GetProductListForAdvanceSearchSortingEnum.Newest,Take=10 }"></LoadComponent>
+                               data="new viCompoSearch_ProductList { CategoryName=Model.Input.CategoryName,KeywordTitle=Model.Input.KeywordTitle,CurrentPage=1,MinPrice=0,MaxPrice=10000000,Sort=Framework.Application.Enums.GetProductListForAdvanceSearchSortingEnum.Newest,Take=2 }"></LoadComponent>
+
                 <form id="frmSearch">
                     <input asp-for="Input.CategoryName" type="hidden" />
+                    <input asp-for="Input.CurrentPage" type="hidden" />
                 </form>
                 <script>
                     function SubmitSearch()
@@ -39,20 +41,26 @@
                 <!--sidebar widget start-->
                 <aside class="sidebar_widget">
                     <div class="widget_inner">
-
-                        <LoadComponent id="KeywordSearch"
-                                       context="HttpContext"
-                                       url="/@ViewData["culture"]/Search/Compo/KeywordSearch"
-                                       data="new viCompo_KeywordSearch{ KeywordTitle=Model.Input.KeywordTitle,CategoryTitle=Model.Input.CategoryName }"></LoadComponent>
-
+                        <div id="KeywordSearch"></div>
+                        <script>
+                            $(document).ready(function(){
+                                LoadComponent('/@ViewData["culture"]/Search/Compo/KeywordSearch',{
+                                       KeywordTitle: '@(Model.Input.KeywordTitle)',
+                                       CategoryTitle: '@(Model.Input.CategoryName)'
+                                    },function(res){
+                                       $('#KeywordSearch').html(res);
+                                 },false);
+                            });
+                        </script>
                         <div class="widget_list tags_widget">
-                            <h3>@Localizer["RelatedKeywords"]</h3>
-                            <div class="tag_cloud">
-                                <a href="#">Men</a>
-                                <a href="#">Women</a>
-                                <a href="#">Watches</a>
-                                <a href="#">Bags</a>
-                                <a href="#">Dress</a>
+                            <div>
+                                <span><input class="" type="checkbox" /></span>
+                                <span>فقط کالاهای موجود</span>
+                            </div>
+
+                            <div>
+                                <span><input class="" type="checkbox" /></span>
+                                <span>فقط کالاهای موجود</span>
                             </div>
                         </div>
 
@@ -91,10 +99,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <LoadComponent id="FilterByPrice"
-                                       context="HttpContext"
-                                       url="/@ViewData["culture"]/Search/Compo/FilterByPrice"
-                                       data='new viCompo_FilterByPrice{ MinPrice=0,MaxPrice=10000000,MinValue=150000,MaxValue=670000,CurrencySymbol="تومان" }'></LoadComponent>
+                        <div id="FilterByPrice"></div>
 
                         <div class="widget_list widget_color">
                             <h3>Select By Color</h3>
@@ -158,10 +163,9 @@
     </div>
 </div>
 <!--shop  area end-->
-
 @section styles{
 }
 
 @section scripts{
-    <script src="~/lib/noUiSlider/dist/nouislider.min.js"></script>
+<script src="~/lib/noUiSlider/dist/nouislider.min.js"></script>
 }

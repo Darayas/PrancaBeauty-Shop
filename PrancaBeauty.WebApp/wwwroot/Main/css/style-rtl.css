@@ -31799,3 +31799,8 @@ pre {
 .SearchAutoComplete .owl-nav .owl-next {
   right: 0px;
 }
+
+.pagination ul li:first-child {
+  margin-right: 0;
+  margin-left: 3px !important;
+}

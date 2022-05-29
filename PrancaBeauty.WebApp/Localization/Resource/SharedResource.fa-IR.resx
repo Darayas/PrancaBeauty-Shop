@@ -1305,6 +1305,9 @@
   <data name="Previous" xml:space="preserve">
     <value>قبلی</value>
   </data>
+  <data name="Previuos" xml:space="preserve">
+    <value>قبلی</value>
+  </data>
   <data name="Price" xml:space="preserve">
     <value>قیمت</value>
   </data>

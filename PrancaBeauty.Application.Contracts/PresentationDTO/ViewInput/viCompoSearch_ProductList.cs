@@ -27,7 +27,7 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput
 
         [Display(Name = "Take")]
         [NumRange(1, int.MaxValue)]
-        public int Take { get; set; } = 10;
+        public int Take { get; set; } = 2;
 
         [Display(Name = "Page")]
         [NumRange(1, int.MaxValue)]

@@ -69,5 +69,46 @@ namespace PrancaBeauty.Application.Apps.ProductPropertis
 
             return await _ProductPropertisRepository.Get.AnyAsync(a => a.Id == Guid.Parse(Input.Id));
         }
+
+        public async Task<List<OutGetPropertiesForSearch>> GetPropertiesForSearchAsync(InpGetPropertiesForSearch Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var qData = await _ProductPropertisRepository.Get
+                                                .Where(a => a.TopicId==Input.TopicId.ToGuid())
+                                                .Select(a => new OutGetPropertiesForSearch
+                                                {
+                                                    Id=a.Id.ToString(),
+                                                    Title=a.tblProductPropertis_Translates.Where(b => b.LangId==Input.LangId.ToGuid()).Select(b => b.Title).Single(),
+                                                    ValueItems= a.tblProductPropertiesValues
+                                                        //.GroupBy(c => c.Value)
+                                                        .Select(b => new OutGetPropertiesForSearchItem
+                                                        {
+                                                            //Title=b.Key
+                                                            Title=b.Value
+                                                        }).Distinct().ToList()
+                                                })
+                                                .ToListAsync();
+
+                if (qData==null)
+                    return null;
+
+                return qData;
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
+            }
+        }
     }
 }

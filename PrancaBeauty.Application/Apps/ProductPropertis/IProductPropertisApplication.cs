@@ -8,5 +8,6 @@ namespace PrancaBeauty.Application.Apps.ProductPropertis
     {
         Task<bool> CheckExistByIdAsync(InpCheckExistById Input);
         Task<List<OutGetForManageProduct>> GetForManageProductAsync(InpGetForManageProduct Input);
+        Task<List<OutGetPropertiesForSearch>> GetPropertiesForSearchAsync(InpGetPropertiesForSearch Input);
     }
 }

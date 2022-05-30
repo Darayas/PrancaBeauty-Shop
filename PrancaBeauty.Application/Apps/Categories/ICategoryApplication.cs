@@ -15,6 +15,7 @@ namespace PrancaBeauty.Application.Apps.Categories
         Task<(OutPagingData, List<OutGetCategoryListForAdminPage>)> GetListForAdminPageAsync(InpGetListForAdminPage Input);
         Task<List<OutGetCategoryListForCombo>> GetListForComboAsync(InpGetListForCombo Input);
         Task<IEnumerable<OutGetParentsByChildId>> GetParentsByChildIdAsync(InpGetParentsByChildId Input);
+        Task<string> GetTopicIdByCateNameAsync(InpGetTopicIdByCateName Input);
         Task<OperationResult> RemoveCategoryAsync(InpRemoveCategory Input);
         Task<OperationResult> SaveEditAsync(InpSaveEdit Input);
     }

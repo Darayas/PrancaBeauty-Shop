@@ -107,10 +107,13 @@
 
                         <div id="FilterByPrice"></div>
 
-                        <LoadComponent id="ProductList"
+                        @if (ViewData["TopicId"]!=null)
+                        {
+                            <LoadComponent id="ProductList"
                                        context="HttpContext"
                                        url="/@ViewData["culture"]/Search/Compo/PropertisSearch"
-                                       data='new viCompo_PropertisSearch {TopicId="aa" ,LangId=ViewData["LangId"].ToString() }'></LoadComponent>
+                                       data='new viCompo_PropertisSearch {TopicId=ViewData["TopicId"].ToString() }'></LoadComponent>
+                        }
                     </div>
                 </aside>
                 <!--sidebar widget end-->

@@ -9,6 +9,9 @@ namespace PrancaBeauty.Application.Contracts.Mapping
         public ProductPropertiesMapping()
         {
             CreateMap<OutGetForManageProduct, vmCompo_Properties>();
+
+            CreateMap<OutGetPropertiesForSearch, vmCompo_PropertisSearch>();
+            CreateMap<OutGetPropertiesForSearchItem, vmCompo_PropertisSearchItem>();
         }
     }
 }

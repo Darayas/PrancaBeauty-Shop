@@ -499,5 +499,29 @@ namespace PrancaBeauty.Application.Apps.Categories
                 return null;
             }
         }
+
+        public async Task<string> GetTopicIdByCateNameAsync(InpGetTopicIdByCateName Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var qData = await _CategoryRepository.Get.Where(a => a.Name==Input.Name).Select(a => a.TopicId.HasValue ? a.TopicId.Value.ToString() : null).SingleOrDefaultAsync();
+
+                return qData;
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
+            }
+        }
     }
 }

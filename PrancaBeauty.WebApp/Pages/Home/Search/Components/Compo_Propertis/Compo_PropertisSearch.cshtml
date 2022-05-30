@@ -1,57 +1,17 @@
 ﻿@page "/{culture}/Search/Compo/PropertisSearch"
 @model PrancaBeauty.WebApp.Pages.Home.Search.Components.Compo_Propertis.Compo_PropertisSearchModel
 
-<div class="widget_list widget_color">
-    <h3>Select By Color</h3>
-    <ul>
-        <li>
-            <a href="#">Black  <span>(6)</span></a>
-        </li>
-        <li>
-            <a href="#"> Blue <span>(8)</span></a>
-        </li>
-        <li>
-            <a href="#">Brown <span>(10)</span></a>
-        </li>
-        <li>
-            <a href="#"> Green <span>(6)</span></a>
-        </li>
-
-    </ul>
-</div>
-<div class="widget_list widget_color">
-    <h3>Select By SIze</h3>
-    <ul>
-        <li>
-            <a href="#">S  <span>(6)</span></a>
-        </li>
-        <li>
-            <a href="#"> M <span>(8)</span></a>
-        </li>
-        <li>
-            <a href="#">L <span>(10)</span></a>
-        </li>
-        <li>
-            <a href="#"> XL <span>(6)</span></a>
-        </li>
-
-    </ul>
-</div>
-<div class="widget_list widget_manu">
-    <h3>Manufacturer</h3>
-    <ul>
-        <li>
-            <a href="#">Brake Parts <span>(6)</span></a>
-        </li>
-        <li>
-            <a href="#">Accessories <span>(10)</span></a>
-        </li>
-        <li>
-            <a href="#">Engine Parts <span>(4)</span></a>
-        </li>
-        <li>
-            <a href="#">hermes <span>(10)</span></a>
-        </li>
-
-    </ul>
-</div>
+@foreach (var item in Model.Data)
+{
+    <div class="widget_list widget_color">
+        <h3>@item.Title</h3>
+        <ul>
+            @foreach (var itemValue in item.ValueItems)
+            {
+                <li>
+                    <input type="checkbox" value="@itemValue.Title" /> <span>@itemValue.Title</span>
+                </li>
+            }
+        </ul>
+    </div>
+}

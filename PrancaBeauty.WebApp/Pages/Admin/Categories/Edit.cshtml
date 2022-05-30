@@ -37,24 +37,31 @@
                                 <input asp-for="Input.Id" type="hidden" />
                                 <div class="form-group">
                                     <div class="row">
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
+                                            <LoadComponent id="TopicCompo"
+                                                           context="HttpContext"
+                                                           data='new viCompo_Combo_Topics { FieldName="Input.TopicId",TopicId=Model.Input.TopicId}'
+                                                           url="/@ViewData["culture"]/Shared/Compo/ComboTopics"></LoadComponent>
+                                        </div>
+                                        <div class="col-md-3">
                                             <LoadComponent id="CategoryParent"
                                                            context="HttpContext"
                                                            url="/@ViewData["culture"]/Shared/Compo/ComboCategories"
                                                            data='new viCompo_Combo_Categories { CategoryId = Model.Input.ParentId, FieldName = "Input.ParentId" }'></LoadComponent>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <label asp-for="Input.Name"></label>
                                             <input asp-for="Input.Name" class="form-control" />
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-2">
                                             <label asp-for="Input.Image"></label>@{
                                                 if (Model.Input.ImgCategoryUrl != null)
                                                 {
                                                     <span>
                                                         (<a onclick="ShowImgInModal('@Model.Input.ImgCategoryUrl')">@Localizer["View"].ToString()</a>)
                                                     </span>
-                                                }}
+                                                }
+                                            }
                                             <input asp-for="Input.Image" class="form-control" />
                                         </div>
                                         <div class="col-md-1">
@@ -66,48 +73,50 @@
 
                                 <div class="k-lang">
                                     @(Html.Kendo().TabStrip()
-                                          .Name("Tab_Lang")
-                                          .TabPosition(TabStripTabPosition.Top)
-                                          .Animation(animation =>
-                                          {
-                                              animation.Open(config =>
-                                              {
-                                                  config.Fade(FadeDirection.In);
-                                              });
-                                          })
-                                          .SelectedIndex(0)
-                                          .Items(async items =>
-                                          {
-                                              int i = 0;
-                                              foreach (var item in Model.Input.LstTranslate)
-                                              {
-                                                  var qLang =await _LanguageApplication.GetLangDetailsByIdAsync(new PrancaBeauty.Application.Contracts.ApplicationDTO.Languages.InpGetLangDetailsById {LangId= item.LangId });
-                                                  items.Add()
-                                                           .ImageUrl(qLang.FlagUrl)
-                                                           .Text(qLang.NativeName)
-                                                           .Content(@<text>
-                                                                          <input type="hidden" asp-for="Input.LstTranslate[i].LangId" />
-                                                                          <div class="form-group">
-                                                                              <div class="row">
-                                                                                  <div class="col-md-6">
-                                                                                      <label asp-for="Input.LstTranslate[i].Title"></label>
-                                                                                      <input asp-for="Input.LstTranslate[i].Title" class="form-control" />
-                                                                                  </div>
-                                                                              </div>
-                                                                          </div>
-                                                                          <div class="form-group">
-                                                                              <div class="row">
-                                                                                  <div class="col-md-12">
-                                                                                      <label asp-for="Input.LstTranslate[i].Description"></label>
-                                                                                      <textarea asp-for="Input.LstTranslate[i].Description" class="form-control" rows="4"></textarea>
-                                                                                  </div>
-                                                                              </div>
-                                                                          </div>
-                                                                      @{ i++;}
-                                                                      </text>);
-                                              }
+                                    .Name("Tab_Lang")
+                                    .TabPosition(TabStripTabPosition.Top)
+                                    .Animation(animation =>
+                                    {
+                                    animation.Open(config =>
+                                    {
+                                    config.Fade(FadeDirection.In);
+                                    });
+                                    })
+                                    .SelectedIndex(0)
+                                    .Items(async items =>
+                                    {
+                                    int i = 0;
+                                    foreach (var item in Model.Input.LstTranslate)
+                                    {
+                                    var qLang =await _LanguageApplication.GetLangDetailsByIdAsync(new PrancaBeauty.Application.Contracts.ApplicationDTO.Languages.InpGetLangDetailsById {LangId= item.LangId });
+                                    items.Add()
+                                    .ImageUrl(qLang.FlagUrl)
+                                    .Text(qLang.NativeName)
+                                    .Content(@<text>
+                                            <input type="hidden" asp-for="Input.LstTranslate[i].LangId" />
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label asp-for="Input.LstTranslate[i].Title"></label>
+                                                        <input asp-for="Input.LstTranslate[i].Title" class="form-control" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <label asp-for="Input.LstTranslate[i].Description"></label>
+                                                        <textarea asp-for="Input.LstTranslate[i].Description" class="form-control" rows="4"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @{
+                                                i++;
+}
+                                        </text>);
+                                    }
 
-                                          }))
+                                    }))
                                 </div>
                                 <div class="form-group">
                                     <div class="row">
@@ -130,24 +139,24 @@
 </div>
 
 @section scripts{
-    <script src="~/lib/input-mask/jquery.inputmask.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $('#Input_Name').inputmask({
-                regex: '[a-zA-Z_]*',
-                placeholder: ''
-            });
+<script src="~/lib/input-mask/jquery.inputmask.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#Input_Name').inputmask({
+            regex: '[a-zA-Z_]*',
+            placeholder: ''
         });
+    });
 
-        function GotoList() {
-            location.href = '@ViewData["ReturnUrl"]';
-        }
+    function GotoList() {
+        location.href = '@ViewData["ReturnUrl"]';
+    }
 
-        function ShowImgInModal(_ImgUrl) {
-            $('#ShowImgModal img').attr('src', _ImgUrl);
-            $('#ShowImgModal').modal();
-        }
-    </script>
+    function ShowImgInModal(_ImgUrl) {
+        $('#ShowImgModal img').attr('src', _ImgUrl);
+        $('#ShowImgModal').modal();
+    }
+</script>
 }
 
 <div id="ShowImgModal" class="modal" tabindex="-1" role="dialog">

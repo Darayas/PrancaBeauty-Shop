@@ -1713,6 +1713,9 @@
   <data name="TopicId" xml:space="preserve">
     <value>موضوع </value>
   </data>
+  <data name="TopicTitle" xml:space="preserve">
+    <value>موضوع</value>
+  </data>
   <data name="TopSearchword" xml:space="preserve">
     <value>پر طرفدار ترین جستوجو ها</value>
   </data>

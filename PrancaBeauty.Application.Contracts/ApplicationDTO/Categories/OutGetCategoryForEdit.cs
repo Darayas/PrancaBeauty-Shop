@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Categories
 {
     public class OutGetCategoryForEdit
-    {
+{
         public string Id { get; set; }
+        public string TopicId { get; set; }
         public string ParentId { get; set; }
         public string ImgCategoryUrl { get; set; }
         public string Name { get; set; }

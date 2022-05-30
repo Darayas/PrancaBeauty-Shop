@@ -18,6 +18,10 @@ namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Categories
         [GUID]
         public string UserId { get; set; }
 
+        [Display(Name = "TopicId")]
+        [GUID]
+        public string TopicId { get; set; }
+
         [Display(Name = "ParentId")]
         [GUID]
         public string ParentId { get; set; }

@@ -16,6 +16,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Mapping.Category
         {
             builder.HasKey(a => a.Id);
             builder.Property(a => a.Id).IsRequired().HasMaxLength(150);
+            builder.Property(a => a.TopicId).IsRequired(false).HasMaxLength(150);
             builder.Property(a => a.ParentId).IsRequired(false).HasMaxLength(150);
             builder.Property(a => a.Name).IsRequired(false).HasMaxLength(100);
             builder.Property(a => a.ImageId).IsRequired(false).HasMaxLength(150);
@@ -30,6 +31,12 @@ namespace PrancaBeauty.Infrastructure.EFCore.Mapping.Category
                    .WithMany(a => a.tblCategoris)
                    .HasPrincipalKey(a => a.Id)
                    .HasForeignKey(a => a.ImageId)
+                   .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(a => a.tblTopic)
+                   .WithMany(a => a.tblCategoris)
+                   .HasPrincipalKey(a => a.Id)
+                   .HasForeignKey(a => a.TopicId)
                    .OnDelete(DeleteBehavior.Restrict);
         }
     }

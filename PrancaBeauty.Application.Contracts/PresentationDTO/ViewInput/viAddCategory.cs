@@ -13,6 +13,10 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput
         [GUID]
         public string UserId { get; set; }
 
+        [Display(Name = "TopicId")]
+        [GUID]
+        public string TopicId { get; set; }
+
         [Display(Name = "ParentId")]
         [GUID]
         public string ParentId { get; set; }

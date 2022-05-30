@@ -38,9 +38,10 @@
                                 .Columns(col=> {
                                 col.Bound(a => a.Id).Hidden().HtmlAttributes(new { @class = "RowId" }).Sortable(false);
                                 col.Bound(a => a.ImgUrl).HtmlAttributes(new { style="text-align:center;" }).Width(60).Title(" ").ClientTemplate("<img style='width:26px;' src='#=ImgUrl#' />").Sortable(false);
+                                col.Bound(a => a.TopicTitle).Sortable(false);
+                                col.Bound(a => a.ParentTitle).Sortable(false);
                                 col.Bound(a => a.Name).Sortable(false);
                                 col.Bound(a => a.Title).Sortable(false);
-                                col.Bound(a => a.ParentTitle).Sortable(false);
                                 col.Bound(a => a).Width(50).Title(" ")
                                 .HtmlAttributes(new { style= "overflow: visible; text-align: center;" })
                                 .ClientHeaderTemplate("<button class='btn btn-primary btn-sm mr-1 ml-1' onclick='SearchModal()'><i class='fa fa-search'></i></button>"+(User.IsInRole(Roles.CanAddCategory)? "<button class='btn btn-success btn-sm' onclick='Add()'><i class='fa fa-plus'></i></button>" : ""))
@@ -99,11 +100,11 @@
         <div class="dropdown-menu dropdown-menu-left">
     @if (User.IsInRole(Roles.CanEditCategory))
     {
-                                    <a href="/@ViewData["Culture"]/Admin/Category/Edit/#:Id#?ReturnUrl=@Request.GetCurrentUrl()" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i>@Localizer["Edit"]</a>
+                                        <a href="/@ViewData["Culture"]/Admin/Category/Edit/#:Id#?ReturnUrl=@Request.GetCurrentUrl()" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i>@Localizer["Edit"]</a>
     }
     @if (User.IsInRole(Roles.CanRemoveCategory))
     {
-                                    <a onClick="Remove('#:Id#')" class="dropdown-item"><i class="dropdown-icon fa fa-times"></i>@Localizer["Remove"]</a>
+                                        <a onClick="Remove('#:Id#')" class="dropdown-item"><i class="dropdown-icon fa fa-times"></i>@Localizer["Remove"]</a>
     }
         </div>
     </div>

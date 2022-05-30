@@ -1,5 +1,4 @@
-﻿using Framework.Application.Services.Security.AntiShell;
-using Framework.Common.ExMethods;
+﻿using Framework.Common.ExMethods;
 using Framework.Common.Utilities.Paging;
 using Framework.Exceptions;
 using Framework.Infrastructure;
@@ -48,6 +47,7 @@ namespace PrancaBeauty.Application.Apps.Categories
                 var qData = _CategoryRepository.Get.Select(a => new OutGetCategoryListForAdminPage
                 {
                     Id = a.Id.ToString(),
+                    TopicTitle= a.tblTopic.tblProductTopic_Translates.Where(b => b.LangId==Input.LangId.ToGuid()).Select(b => b.Title).Single(),
                     ParentId = a.ParentId.ToString(),
                     Name = a.Name,
                     Title = a.tblCategory_Translates.Where(b => b.LangId == Guid.Parse(Input.LangId)).Select(b => b.Title).Single(),
@@ -58,10 +58,10 @@ namespace PrancaBeauty.Application.Apps.Categories
                     Sort = a.Sort,
                     ParentTitle = a.tblCategory_Parent.tblCategory_Translates.Where(b => b.LangId == Guid.Parse(Input.LangId)).Select(b => b.Title).Single(),
                 })
-                .Where(a => Input.Title != null ? a.Title.Contains(Input.Title) : true)
-                .Where(a => Input.ParentTitle != null ? a.ParentTitle.Contains(Input.ParentTitle) : true)
-                .OrderBy(a => a.ParentId)
-                .ThenBy(a => a.Sort);
+                                    .Where(a => Input.Title != null ? a.Title.Contains(Input.Title) : true)
+                                    .Where(a => Input.ParentTitle != null ? a.ParentTitle.Contains(Input.ParentTitle) : true)
+                                    .OrderBy(a => a.ParentId)
+                                    .ThenBy(a => a.Sort);
 
                 // صفحه بندی داده ها
                 var qPagingData = PagingData.Calc(await qData.LongCountAsync(), Input.PageNum, Input.Take);
@@ -127,15 +127,20 @@ namespace PrancaBeauty.Application.Apps.Categories
                 Input.CheckModelState(_ServiceProvider);
 
                 if (Input.LstTranslate == null)
+                {
                     throw new ArgumentInvalidException($"{nameof(Input.LstTranslate)} cant be null.");
+                }
 
                 if (Input.LstTranslate.Count() == 0)
+                {
                     throw new ArgumentInvalidException($"{nameof(Input.LstTranslate)} must be greater than zero.");
+                }
                 #endregion
 
                 var tCategory = new tblCategoris()
                 {
                     Id = new Guid().SequentialGuid(),
+                    TopicId = Input.TopicId != null ? Guid.Parse(Input.TopicId) : null,
                     ParentId = Input.ParentId != null ? Guid.Parse(Input.ParentId) : null,
                     Name = Input.Name,
                     Sort = Input.Sort,
@@ -152,7 +157,9 @@ namespace PrancaBeauty.Application.Apps.Categories
                 {
                     var _FileUploadResult = await _FtpWapper.UplaodCategoryImgAsync(new InpUplaodCategoryImg { FormFile = Input.Image, UserId = Input.UserId });
                     if (!_FileUploadResult.IsSucceeded)
+                    {
                         return new OperationResult().Failed(_FileUploadResult.Message);
+                    }
 
                     tCategory.ImageId = Guid.Parse(_FileUploadResult.Message);
                 }
@@ -190,15 +197,21 @@ namespace PrancaBeauty.Application.Apps.Categories
                                                      .SingleOrDefaultAsync();
 
                 if (qData == null)
+                {
                     return new OperationResult().Failed("IdNotFound");
+                }
 
                 // برسی وجود فرزند
                 if (qData.HasChild)
+                {
                     return new OperationResult().Failed("CategoryHasChild,CantRemove");
+                }
 
                 // برسی وجود محصول عضو دسته جاری
                 if (qData.HasProduct)
+                {
                     return new OperationResult().Failed("CategoryHasProduct,CantRemove");
+                }
 
                 // حذف دسته
                 var _Category = await _CategoryRepository.Get.SingleAsync(a => a.Id == Guid.Parse(Input.Id));
@@ -206,7 +219,9 @@ namespace PrancaBeauty.Application.Apps.Categories
 
                 // حذف فایل
                 if (_Category.ImageId != null)
+                {
                     await _FtpWapper.RemoveFileAsync(new InpRemoveFile { FileId = _Category.ImageId.Value.ToString() });
+                }
 
                 return new OperationResult().Succeeded();
             }
@@ -222,7 +237,7 @@ namespace PrancaBeauty.Application.Apps.Categories
             }
         }
 
-        public async Task<OutGetCategoryForEdit> GetForEditAsync(InpGetForEdit Input)
+        public async Task<OutGetCategoryForEdit> GetCategoryForEditAsync(InpGetForEdit Input)
         {
             try
             {
@@ -237,6 +252,7 @@ namespace PrancaBeauty.Application.Apps.Categories
                                                     {
                                                         Id = a.Id.ToString(),
                                                         Name = a.Name,
+                                                        TopicId=a.TopicId.ToString(),
                                                         ParentId = a.ParentId.ToString(),
                                                         Sort = a.Sort,
                                                         ImgCategoryUrl = a.tblFiles.tblFilePaths.tblFileServer.HttpDomin
@@ -253,7 +269,9 @@ namespace PrancaBeauty.Application.Apps.Categories
                                                     .SingleOrDefaultAsync();
 
                 if (qData == null)
+                {
                     return null;
+                }
 
                 return qData;
             }
@@ -276,10 +294,14 @@ namespace PrancaBeauty.Application.Apps.Categories
                 Input.CheckModelState(_ServiceProvider);
 
                 if (Input.LstTranslate == null)
+                {
                     throw new ArgumentInvalidException($"{nameof(Input.LstTranslate)} cant be null.");
+                }
 
                 if (Input.LstTranslate.Count() == 0)
+                {
                     throw new ArgumentInvalidException($"{nameof(Input.LstTranslate)} must be greater than zero.");
+                }
                 #endregion
 
                 var qData = await _CategoryRepository.Get
@@ -287,18 +309,20 @@ namespace PrancaBeauty.Application.Apps.Categories
                                                      .SingleOrDefaultAsync();
 
                 if (qData == null)
+                {
                     return new OperationResult().Failed("IdNotFound");
+                }
 
                 qData.Name = Input.Name;
                 qData.Sort = Input.Sort;
+                qData.TopicId =Input.TopicId != null ? Guid.Parse(Input.TopicId) : null;
+                qData.ParentId =Input.ParentId != null ? Guid.Parse(Input.ParentId) : null;
 
-                if (Input.ParentId != null)
-                    qData.ParentId = Guid.Parse(Input.ParentId);
-                else
-                    qData.ParentId = null;
 
                 if (Input.ParentId?.ToLower() == qData.Id.ToString().ToLower())
+                {
                     qData.ParentId = null;
+                }
 
                 #region ویرایش ترجمه
                 {
@@ -331,7 +355,9 @@ namespace PrancaBeauty.Application.Apps.Categories
                     // اپلود تصویر جدید
                     var _FileUploadResult = await _FtpWapper.UplaodCategoryImgAsync(new InpUplaodCategoryImg { FormFile = Input.Image, UserId = Input.UserId });
                     if (_FileUploadResult.IsSucceeded == false)
+                    {
                         return new OperationResult().Failed(_FileUploadResult.Message);
+                    }
 
                     qData.ImageId = Guid.Parse(_FileUploadResult.Message);
                 }
@@ -371,7 +397,9 @@ namespace PrancaBeauty.Application.Apps.Categories
                                                          .Include(a => a.tblCategory_Translates)
                                                          .SingleOrDefaultAsync();
                     if (qData == null)
+                    {
                         break;
+                    }
 
                     StkItems.Push(new OutGetParentsByChildId()
                     {
@@ -415,7 +443,9 @@ namespace PrancaBeauty.Application.Apps.Categories
                                         .SingleOrDefaultAsync();
 
                 if (qData==null)
+                {
                     return null;
+                }
 
                 return qData;
 

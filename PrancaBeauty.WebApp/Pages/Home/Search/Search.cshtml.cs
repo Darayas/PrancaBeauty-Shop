@@ -11,8 +11,9 @@ namespace PrancaBeauty.WebApp.Pages.Home.Search
 {
     public class SearchModel : PageModel
     {
-        public async Task<IActionResult> OnGetAsync()
+        public async Task<IActionResult> OnGetAsync(string LangId)
         {
+            ViewData["LangId"]=LangId;
             return Page();
         }
 

@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewModel
 {
     public class vmCategoriesList
     {
         public string Id { get; set; }
+
+        [Display(Name = "TopicTitle")]
+        public string TopicTitle { get; set; }
+
         public string ParentId { get; set; }
 
         [Display(Name = "ImgUrl")]

@@ -1,5 +1,9 @@
 ﻿@page "/{culture}/Search/Compo/PropertisSearch"
 @model PrancaBeauty.WebApp.Pages.Home.Search.Components.Compo_Propertis.Compo_PropertisSearchModel
+@{
+    if (Model.Input.SelectedValues==null)
+        Model.Input.SelectedValues = "";
+}
 
 @foreach (var item in Model.Data)
 {
@@ -9,7 +13,7 @@
             @foreach (var itemValue in item.ValueItems)
             {
                 <li>
-                    <input type="checkbox" value="@itemValue.Title" /> <span>@itemValue.Title</span>
+                    <input onchange="SubmitSearch()" form="frmSearch" name="Input.PropSelectedValues" @(Model.Input.SelectedValues.Contains(itemValue.Title)?"checked":"") type="checkbox" value="@itemValue.Title" /> <span>@itemValue.Title</span>
                 </li>
             }
         </ul>

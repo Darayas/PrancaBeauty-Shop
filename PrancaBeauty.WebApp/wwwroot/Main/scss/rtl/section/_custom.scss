@@ -601,6 +601,23 @@ pre {
     }
 }
 
+.widget_list {
+    h3 {
+        font-weight: 600 !important;
+    }
+
+    input[type=checkbox] {
+        width: 20px;
+        height: 20px;
+        margin-left: 5px;
+    }
+
+    span {
+        position: relative;
+        top: -5px;
+    }
+}
+
 .grid_list {
     .product_content {
         &.list_content {

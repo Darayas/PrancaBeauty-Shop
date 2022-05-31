@@ -12,6 +12,7 @@ namespace PrancaBeauty.Application.Apps.Categories
         Task<List<OutGetCategoriesForSeachAutoComplete>> GetCategoriesForSeachAutoCompleteAsync(InpGetCategoriesForSeachAutoComplete Input);
         Task<OutGetCategoryDetailsByName> GetCategoryDetailsByNameAsync(InpGetCategoryDetailsByName Input);
         Task<OutGetCategoryForEdit> GetCategoryForEditAsync(InpGetForEdit Input);
+        Task<string> GetIdByCategoryNameAsync(InpGetIdByCategoryName Input);
         Task<(OutPagingData, List<OutGetCategoryListForAdminPage>)> GetListForAdminPageAsync(InpGetListForAdminPage Input);
         Task<List<OutGetCategoryListForCombo>> GetListForComboAsync(InpGetListForCombo Input);
         Task<IEnumerable<OutGetParentsByChildId>> GetParentsByChildIdAsync(InpGetParentsByChildId Input);

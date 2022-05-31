@@ -18,5 +18,7 @@ namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Products
         public double Rating { get; set; }
         public string Description { get; set; }
         public double KeywordSimilarity { get; set; }
+        public string[] PropValues { get; set; }
+        public string PropVals { get; set; }
     }
 }

@@ -36,10 +36,9 @@ namespace PrancaBeauty.WebApp.Pages.Home.Search
                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
-                #region Get Topic id
-                string TopicId = null;
+                #region Get Topic id from Category Name
                 {
-                    TopicId = await _CategoryApplication.GetTopicIdByCateNameAsync(new InpGetTopicIdByCateName
+                    ViewData["TopicId"] = await _CategoryApplication.GetTopicIdByCateNameAsync(new InpGetTopicIdByCateName
                     {
                         Name=Input.CategoryName
                     });
@@ -47,7 +46,11 @@ namespace PrancaBeauty.WebApp.Pages.Home.Search
                 }
                 #endregion
 
-                ViewData["TopicId"]=TopicId;
+                #region Get Category id from Category Name
+                {
+                    ViewData["CategoryId"]= await _CategoryApplication.GetIdByCategoryNameAsync(new InpGetIdByCategoryName() { Name=Input.CategoryName });
+                }
+                #endregion
 
                 return Page();
             }

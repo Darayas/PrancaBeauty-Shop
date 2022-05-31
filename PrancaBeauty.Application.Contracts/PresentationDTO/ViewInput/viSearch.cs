@@ -1,6 +1,7 @@
 ﻿using Framework.Application.Enums;
 using Framework.Common.DataAnnotations.Numbers.All;
 using Framework.Common.DataAnnotations.String;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput
@@ -41,5 +42,11 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput
 
         [Display(Name = "OnlySendBySeller")]
         public bool OnlySendBySeller { get; set; }
+
+        [Display(Name = "PropSelectedValues")]
+        public List<string> PropSelectedValues { get; set; } = new List<string>();
+
+        [Display(Name = "PropSelectedValues")]
+        public List<string> VariantSelectedValues { get; set; } = new List<string>();
     }
 }

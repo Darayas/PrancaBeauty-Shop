@@ -1,0 +1,21 @@
+﻿@page "/{culture}/Search/Compo/VariantSearch"
+@model PrancaBeauty.WebApp.Pages.Home.Search.Components.Compo_Variants.Compo_VariantSearchModel
+@{
+    if (Model.Input.SelectedValues==null)
+        Model.Input.SelectedValues = "";
+}
+
+@foreach (var item in Model.Data)
+{
+    <div class="widget_list widget_color">
+        <h3>@item.Title</h3>
+        <ul>
+            @foreach (var itemValue in item.ValueItems)
+            {
+                <li>
+                    <input onchange="SubmitSearch()" form="frmSearch" name="Input.VariantSelectedValues" @(Model.Input.SelectedValues.Contains(itemValue.Value)?"checked":"") type="checkbox" value="@itemValue.Value" /> <span>@itemValue.Value</span>
+                </li>
+            }
+        </ul>
+    </div>
+}

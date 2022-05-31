@@ -523,5 +523,28 @@ namespace PrancaBeauty.Application.Apps.Categories
                 return null;
             }
         }
+
+        public async Task<string> GetIdByCategoryNameAsync(InpGetIdByCategoryName Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                return await _CategoryRepository.Get.Where(a => a.Name==Input.Name).Select(a => a.Id.ToString()).SingleOrDefaultAsync();
+
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
+            }
+        }
     }
 }

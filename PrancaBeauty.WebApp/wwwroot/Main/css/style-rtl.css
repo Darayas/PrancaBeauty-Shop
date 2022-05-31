@@ -31704,6 +31704,19 @@ pre {
   margin-top: 5px;
 }
 
+.widget_list h3 {
+  font-weight: 600 !important;
+}
+.widget_list input[type=checkbox] {
+  width: 20px;
+  height: 20px;
+  margin-left: 5px;
+}
+.widget_list span {
+  position: relative;
+  top: -5px;
+}
+
 .grid_list .product_content.list_content .product_desc p {
   max-width: unset !important;
 }

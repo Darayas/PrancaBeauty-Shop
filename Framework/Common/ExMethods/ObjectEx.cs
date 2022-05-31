@@ -30,11 +30,11 @@ namespace Framework.Common.ExMethods
                 if (item.PropertyType.GetInterfaces().Contains(typeof(IList)))
                 {
                     var LstVals = (IEnumerable)item.GetValue(Input);
-
-                    foreach (var itemLst in LstVals)
-                    {
-                        _ValidationResult.AddRange(Check(itemLst, _ServiceProvider, _Localizer[GetName(item)]));
-                    }
+                    if (LstVals!=null)
+                        foreach (var itemLst in LstVals)
+                        {
+                            _ValidationResult.AddRange(Check(itemLst, _ServiceProvider, _Localizer[GetName(item)]));
+                        }
                 }
             }
 

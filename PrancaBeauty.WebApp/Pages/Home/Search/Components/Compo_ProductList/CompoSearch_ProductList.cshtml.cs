@@ -47,7 +47,10 @@ namespace PrancaBeauty.WebApp.Pages.Home.Search.Components.Compo_ProductList
                 {
                     var _MappedData = _Mapper.Map<InpGetProductListForAdvanceSearch>(Input);
                     _MappedData.LangId=LangId;
+
                     var _Result = await _ProductApplication.GetProductListForAdvanceSearchAsync(_MappedData);
+                    if (_Result==default)
+                        Data.LstProducts= new List<vmCompoSearch_ProductListItems>();
 
                     Data.MinPrice=_Result.MinPrice;
                     Data.MaxPrice=_Result.MaxPrice;
@@ -58,7 +61,7 @@ namespace PrancaBeauty.WebApp.Pages.Home.Search.Components.Compo_ProductList
 
                 #region Set statistics
                 {
-                    await _SearchHistoryApplication.SetSearchStatisticsAsync(new InpSetSearchStatistics { LangId=LangId,KeywordTitle=Input.KeywordTitle });
+                    await _SearchHistoryApplication.SetSearchStatisticsAsync(new InpSetSearchStatistics { LangId=LangId, KeywordTitle=Input.KeywordTitle });
                 }
                 #endregion
 

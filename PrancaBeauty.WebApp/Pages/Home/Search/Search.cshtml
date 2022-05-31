@@ -54,56 +54,31 @@
                         </script>
                         <div class="widget_list tags_widget">
                             <div>
-                                <span><input onchange="SubmitSearch()" form="frmSearch" asp-for="Input.OnlyExistProducts" /></span>
+                                <input onchange="SubmitSearch()" form="frmSearch" asp-for="Input.OnlyExistProducts" />
                                 <span>@Localizer["OnlyExistProducts"]</span>
                             </div>
 
                             <div>
-                                <span><input onchange="SubmitSearch()" form="frmSearch" asp-for="Input.OnlySendByPrancaBeauty" /></span>
+                                <input onchange="SubmitSearch()" form="frmSearch" asp-for="Input.OnlySendByPrancaBeauty" />
                                 <span>@Localizer["OnlySendByPrancaBeauty"]</span>
                             </div>
 
                             <div>
-                                <span><input onchange="SubmitSearch()" form="frmSearch" asp-for="Input.OnlySendBySeller" /></span>
+                                <input onchange="SubmitSearch()" form="frmSearch" asp-for="Input.OnlySendBySeller" />
                                 <span>@Localizer["OnlySendBySeller"]</span>
                             </div>
                         </div>
 
-                        <div class="widget_list widget_categories">
-                            <h3>Women</h3>
-                            <ul>
-                                <li class="widget_sub_categories sub_categories1">
-                                    <a href="javascript:void(0)">Shoes</a>
-                                    <ul class="widget_dropdown_categories dropdown_categories1">
-                                        <li><a href="#">Document</a></li>
-                                        <li><a href="#">Dropcap</a></li>
-                                        <li><a href="#">Dummy Image</a></li>
-                                        <li><a href="#">Dummy Text</a></li>
-                                        <li><a href="#">Fancy Text</a></li>
-                                    </ul>
-                                </li>
-                                <li class="widget_sub_categories sub_categories2">
-                                    <a href="javascript:void(0)">Bags</a>
-                                    <ul class="widget_dropdown_categories dropdown_categories2">
-                                        <li><a href="#">Flickr</a></li>
-                                        <li><a href="#">Flip Box</a></li>
-                                        <li><a href="#">Cocktail</a></li>
-                                        <li><a href="#">Frame</a></li>
-                                        <li><a href="#">Flickrq</a></li>
-                                    </ul>
-                                </li>
-                                <li class="widget_sub_categories sub_categories3">
-                                    <a href="javascript:void(0)">Clothing</a>
-                                    <ul class="widget_dropdown_categories dropdown_categories3">
-                                        <li><a href="#">Platform Beds</a></li>
-                                        <li><a href="#">Storage Beds</a></li>
-                                        <li><a href="#">Regular Beds</a></li>
-                                        <li><a href="#">Sleigh Beds</a></li>
-                                        <li><a href="#">Laundry</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
+                        @if (ViewData["CategoryId"]!=null)
+                        {
+                            <LoadComponent id="ProductList"
+                                           context="HttpContext"
+                                           url="/@ViewData["culture"]/Search/Compo/VariantSearch"
+                                           data='new viCompo_VariantSearch {
+                                                CategoryId=ViewData["CategoryId"].ToString(),
+                                                SelectedValues=string.Join(",",Model.Input.VariantSelectedValues)
+                            }'></LoadComponent>
+                        }
 
                         <div id="FilterByPrice"></div>
 
@@ -112,7 +87,10 @@
                             <LoadComponent id="ProductList"
                                        context="HttpContext"
                                        url="/@ViewData["culture"]/Search/Compo/PropertisSearch"
-                                       data='new viCompo_PropertisSearch {TopicId=ViewData["TopicId"].ToString() }'></LoadComponent>
+                                       data='new viCompo_PropertisSearch {
+                                            TopicId=ViewData["TopicId"].ToString(),
+                                            SelectedValues=string.Join(",",Model.Input.PropSelectedValues)
+                            }'></LoadComponent>
                         }
                     </div>
                 </aside>

@@ -3,13 +3,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput
 {
-    public class viCompo_PropertisSearch
+    public class viCompo_VariantSearch
     {
-
-        [Display(Name = "TopicId")]
+        [Display(Name = "CategoryId")]
         [RequiredString]
         [GUID]
-        public string TopicId { get; set; }
+        public string CategoryId { get; set; }
 
         [Display(Name = "SelectedValues")]
         [MaxLengthString(1000)]

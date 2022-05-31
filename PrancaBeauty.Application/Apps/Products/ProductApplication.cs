@@ -1072,6 +1072,7 @@ namespace PrancaBeauty.Application.Apps.Products
                             where Input.OnlySendByPrancaBeauty==true ? (Input.OnlySendBySeller==true ? true : (a.tblProductVariantItems.Where(b => b.SendBy==ProductVariantItems_SendByEnum.Prancabeauty).Any())) : true
                             // شرط: فقط ارسال توسط فروشنده
                             where Input.OnlySendBySeller==true ? (Input.OnlySendByPrancaBeauty==true ? true : (a.tblProductVariantItems.Where(b => b.SendBy==ProductVariantItems_SendByEnum.Seller).Any())) : true
+                            where Input.PropSelectedValues.Any() ? (a.tblProductPropertiesValues.Where(b=>Input.PropSelectedValues.Contains(b.Value)).Any()) : true
                             where Input.KeywordTitle!=null ? (IsKeyword ? a.tblKeywords_Products.Where(b => b.tblKeywords.Title==Input.KeywordTitle.Trim()).Any() : a.Title.Contains(Input.KeywordTitle)) : true
                             let Price = a.tblProductPrices.Where(a => a.IsActive).Select(b => b.Price).Single()
                             let SellerPercent = a.tblProductVariantItems.Where(b => b.IsEnable && b.IsConfirm && b.CountInStock>0).Select(e => new { SellerPercent = e.Percent - (e.tblProductDiscounts!=null ? e.tblProductDiscounts.Percent : 0), Percent = e.Percent }).OrderBy(e => e.SellerPercent).FirstOrDefault().Percent

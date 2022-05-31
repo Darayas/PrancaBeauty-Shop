@@ -44,9 +44,9 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput
         public bool OnlySendBySeller { get; set; }
 
         [Display(Name = "PropSelectedValues")]
-        public List<string> PropSelectedValues { get; set; } = new List<string>();
+        public string[] PropSelectedValues { get; set; } = new string[] { };
 
         [Display(Name = "PropSelectedValues")]
-        public List<string> VariantSelectedValues { get; set; } = new List<string>();
+        public string[] VariantSelectedValues { get; set; } = new string[] { };
     }
 }

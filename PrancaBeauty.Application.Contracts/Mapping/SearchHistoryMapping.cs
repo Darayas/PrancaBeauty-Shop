@@ -20,6 +20,9 @@ namespace PrancaBeauty.Application.Contracts.Mapping
             CreateMap<OutGetDataForAutoComplete_RelatedKeywords, vmCompo_KeywordSearchAutoComplete_RelatedKeywords>();
             CreateMap<OutGetDataForAutoComplete_RelatedCategories, vmCompo_KeywordSearchAutoComplete_RelatedCategories>();
             CreateMap<OutGetDataForAutoComplete_Products, vmCompo_KeywordSearchAutoComplete_Products>();
+
+            CreateMap<OutGetProductListForAdvanceSearch, vmCompoSearch_ProductList>();
+            CreateMap<OutGetProductListForAdvanceSearchItems, vmCompoSearch_ProductListItems>();
         }
     }
 }

@@ -11,6 +11,7 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewModel
 
     public class vmCompo_VariantSearchItem
     {
+        public string Title { get; set; }
         public string Value { get; set; }
     }
 }

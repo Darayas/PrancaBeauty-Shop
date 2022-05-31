@@ -1036,7 +1036,7 @@ namespace PrancaBeauty.Application.Apps.Products
             }
         }
 
-        public async Task<(OutPagingData PagingData, double MinPrice, double MaxPrice, List<OutGetProductListForAdvanceSearch> LstProduct)> GetProductListForAdvanceSearchAsync(InpGetProductListForAdvanceSearch Input)
+        public async Task<OutGetProductListForAdvanceSearch> GetProductListForAdvanceSearchAsync(InpGetProductListForAdvanceSearch Input)
         {
             try
             {
@@ -1072,14 +1072,15 @@ namespace PrancaBeauty.Application.Apps.Products
                             where Input.OnlySendByPrancaBeauty==true ? (Input.OnlySendBySeller==true ? true : (a.tblProductVariantItems.Where(b => b.SendBy==ProductVariantItems_SendByEnum.Prancabeauty).Any())) : true
                             // شرط: فقط ارسال توسط فروشنده
                             where Input.OnlySendBySeller==true ? (Input.OnlySendByPrancaBeauty==true ? true : (a.tblProductVariantItems.Where(b => b.SendBy==ProductVariantItems_SendByEnum.Seller).Any())) : true
-                            where Input.PropSelectedValues.Any() ? (a.tblProductPropertiesValues.Where(b=>Input.PropSelectedValues.Contains(b.Value)).Any()) : true
+                            where Input.PropSelectedValues.Any() ? (a.tblProductPropertiesValues.Where(b => Input.PropSelectedValues.Contains(b.Value)).Any()) : true
+                            where Input.VariantSelectedValues.Any() ? (a.tblProductVariantItems.Where(b => Input.VariantSelectedValues.Contains(b.Value)).Any()) : true
                             where Input.KeywordTitle!=null ? (IsKeyword ? a.tblKeywords_Products.Where(b => b.tblKeywords.Title==Input.KeywordTitle.Trim()).Any() : a.Title.Contains(Input.KeywordTitle)) : true
                             let Price = a.tblProductPrices.Where(a => a.IsActive).Select(b => b.Price).Single()
                             let SellerPercent = a.tblProductVariantItems.Where(b => b.IsEnable && b.IsConfirm && b.CountInStock>0).Select(e => new { SellerPercent = e.Percent - (e.tblProductDiscounts!=null ? e.tblProductDiscounts.Percent : 0), Percent = e.Percent }).OrderBy(e => e.SellerPercent).FirstOrDefault().Percent
                             let PercentSavePrice = a.tblProductVariantItems.Where(b => b.IsEnable && b.IsConfirm && b.CountInStock>0).Select(e => new { SellerPercent = e.Percent - (e.tblProductDiscounts!=null ? e.tblProductDiscounts.Percent : 0), SavePercent = (e.tblProductDiscounts!=null ? e.tblProductDiscounts.Percent : 0) }).OrderBy(e => e.SellerPercent).FirstOrDefault().SavePercent
                             let OldPrice = Price + ((Price/100)*SellerPercent)
                             let NewPrice = OldPrice - ((OldPrice/100)*PercentSavePrice)
-                            select new OutGetProductListForAdvanceSearch
+                            select new OutGetProductListForAdvanceSearchItems
                             {
                                 Id=a.Id.ToString(),
                                 Title=a.Title,
@@ -1103,39 +1104,26 @@ namespace PrancaBeauty.Application.Apps.Products
                                 }).Select(b => b.ImgUrl).Take(2).ToArray()
                             };
 
+                #region واکشی داده ها قبل از اعمال شرط قیمیت
                 double _MinPrice = 0;
                 double _MaxPrice = 0;
-
-                #region شرط ها
+                bool _HasProductWithoutPrriceCond = false;
+                string _CurrencySymbol = "";
                 {
-
-                    #region فقط موجود ها
+                    _HasProductWithoutPrriceCond= await qData.AnyAsync();
+                    if (_HasProductWithoutPrriceCond)
                     {
+                        _CurrencySymbol=(await qData.FirstAsync()).CurrencySymbol;
 
-                    }
-                    #endregion
-
-                    #region فقط ارسال توسط پرنسابیوتی
-                    {
-
-                    }
-                    #endregion
-
-                    #region فقط ارسال توسط فروشنده
-                    {
-
-                    }
-                    #endregion
-
-                    #region شرط های قیمتی
-                    {
                         _MinPrice = await qData.OrderBy(a => a.MainPrice).Select(a => a.MainPrice).FirstOrDefaultAsync();
                         _MaxPrice = await qData.OrderByDescending(a => a.MainPrice).Select(a => a.MainPrice).FirstOrDefaultAsync();
-
-                        qData = qData.Where(a => a.MainPrice >= Input.MinPrice && (Input.MaxPrice>0 ? a.MainPrice <=Input.MaxPrice : true));
                     }
-                    #endregion
-                    // تمام شرط های دیگر را در بالای شرط قیمی بنویسید
+                }
+                #endregion
+
+                #region شرط های قیمتی
+                {
+                    qData = qData.Where(a => a.MainPrice >= Input.MinPrice && (Input.MaxPrice>0 ? a.MainPrice <=Input.MaxPrice : true));
                 }
                 #endregion
 
@@ -1194,7 +1182,15 @@ namespace PrancaBeauty.Application.Apps.Products
 
                 var qPagingData = PagingData.Calc(await qData.CountAsync(), Input.CurrentPage, Input.Take);
 
-                return (qPagingData, _MinPrice, _MaxPrice, await qData.Skip((int)qPagingData.Skip).Take(Input.Take).ToListAsync());
+                return new OutGetProductListForAdvanceSearch
+                {
+                    PagingData=qPagingData,
+                    MinPrice=_MinPrice,
+                    MaxPrice=_MaxPrice,
+                    HasProductWithoutPrriceCond=_HasProductWithoutPrriceCond,
+                    CurrencySymbol=_CurrencySymbol,
+                    Items=await qData.Skip((int)qPagingData.Skip).Take(Input.Take).ToListAsync()
+                };
             }
             catch (ArgumentInvalidException ex)
             {

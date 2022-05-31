@@ -16,7 +16,7 @@
         </div>
         @*<div class="select_option">*@
         <select style="width:unset;" onchange="SubmitSearch()" form="frmSearch" asp-for=Input.Sort class="form-control">
-            <option selected value="0">@Localizer["Newest"]</option>
+            <option value="0">@Localizer["Newest"]</option>
             <option value="1">@Localizer["Oldest"]</option>
             <option value="2">@Localizer["SortByPopularity"]</option>
             <option value="3">@Localizer["SortByAvg"]</option>
@@ -29,7 +29,7 @@
         </div>
     </div>
     <div class="row shop_wrapper">
-        @if (Model.Data.LstProducts.Count()==0)
+        @if (Model.Data.Items.Count()==0)
         {
             <div class="alert alert-info">
                 <span>@Localizer["ItemNotFound"]</span>
@@ -37,7 +37,7 @@
         }
         else
         {
-            foreach (var item in Model.Data.LstProducts)
+            foreach (var item in Model.Data.Items)
             {
                 <div class="col-lg-4 col-md-4 col-sm-6 col-12 ">
                     <div class="single_product">
@@ -162,7 +162,7 @@
         //$('.select_option').niceSelect();
     </script>
 
-    @if (Model.Data.LstProducts.Count()>0)
+    @if (Model.Data.HasProductWithoutPrriceCond)
     {
         <script>
             $(document).ready(function(){
@@ -171,7 +171,7 @@
                     MaxPrice:@Model.Data.MaxPrice,
                     MinValue:@(Model.Input.MinPrice>0?Model.Input.MinPrice:0),
                     MaxValue:@(Model.Input.MaxPrice>0?Model.Input.MaxPrice:Model.Data.MaxPrice),
-                    CurrencySymbol:'@Model.Data.LstProducts.First().CurrencySymbol'
+                    CurrencySymbol:'@Model.Data.CurrencySymbol'
                 },function(res){
                     $('#FilterByPrice').html(res);
                 },false);

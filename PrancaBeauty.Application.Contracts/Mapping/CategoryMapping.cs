@@ -26,6 +26,8 @@ namespace PrancaBeauty.Application.Contracts.Mapping
 
             CreateMap<OutGetCategoryListForCombo, vmCompo_Combo_Categories>();
 
+            CreateMap<viSearch, viCompoSearch_ProductList>();
+
         }
     }
 }

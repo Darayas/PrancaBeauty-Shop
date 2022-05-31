@@ -13,7 +13,7 @@
             @foreach (var itemValue in item.ValueItems)
             {
                 <li>
-                    <input onchange="SubmitSearch()" form="frmSearch" name="Input.VariantSelectedValues" @(Model.Input.SelectedValues.Contains(itemValue.Value)?"checked":"") type="checkbox" value="@itemValue.Value" /> <span>@itemValue.Value</span>
+                    <input onchange="SubmitSearch()" form="frmSearch" name="Input.VariantSelectedValues" @(Model.Input.SelectedValues.Contains(itemValue.Value)?"checked":"") type="checkbox" value="@itemValue.Value" /> <span>@itemValue.Title</span>
                 </li>
             }
         </ul>

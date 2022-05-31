@@ -59,5 +59,45 @@ namespace PrancaBeauty.Application.Apps.ProductVariants
                 return null;
             }
         }
+
+        public async Task<List<OutGetVariantsForSearchByCateId>> GetVariantsForSearchByCateIdAsync(InpGetVariantsForSearchByCateId Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var qData = from a in _ProductVariantsRepository.Get
+                            let Items = a.tblProductVariantItems.Where(b => b.tblProducts.CategoryId==Input.CategoryId.ToGuid())
+                            where Items.Any()
+                            select new OutGetVariantsForSearchByCateId
+                            {
+                                Id=a.Id.ToString(),
+                                Title=a.tblProductVariants_Translates.Where(b => b.LangId==Input.LangId.ToGuid()).Select(b => b.Title).Single(),
+                                ValueItems= Items
+                                                .Select(b => new OutGetVariantsForSearchByCateIdItem
+                                                {
+                                                    Title=b.Title,
+                                                    Value=b.Value
+                                                })
+                                                .Distinct()
+                                                .ToList()
+                            };
+
+                return await qData.ToListAsync();
+
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
+            }
+        }
     }
 }

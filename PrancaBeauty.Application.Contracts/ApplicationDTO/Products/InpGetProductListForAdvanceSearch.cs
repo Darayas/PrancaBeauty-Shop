@@ -50,5 +50,8 @@ namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Products
 
         [Display(Name = "PropSelectedValues")]
         public IEnumerable<string> PropSelectedValues { get; set; }
+        
+        [Display(Name = "VariantSelectedValues")]
+        public IEnumerable<string> VariantSelectedValues { get; set; }
     }
 }

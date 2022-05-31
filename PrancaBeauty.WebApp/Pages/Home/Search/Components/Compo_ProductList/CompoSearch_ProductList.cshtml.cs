@@ -49,13 +49,8 @@ namespace PrancaBeauty.WebApp.Pages.Home.Search.Components.Compo_ProductList
                     _MappedData.LangId=LangId;
 
                     var _Result = await _ProductApplication.GetProductListForAdvanceSearchAsync(_MappedData);
-                    if (_Result==default)
-                        Data.LstProducts= new List<vmCompoSearch_ProductListItems>();
 
-                    Data.MinPrice=_Result.MinPrice;
-                    Data.MaxPrice=_Result.MaxPrice;
-                    Data.PagingData= _Result.PagingData;
-                    Data.LstProducts= _Mapper.Map<List<vmCompoSearch_ProductListItems>>(_Result.LstProduct);
+                    Data= _Mapper.Map<vmCompoSearch_ProductList>(_Result);
                 }
                 #endregion
 

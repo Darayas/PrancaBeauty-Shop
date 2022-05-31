@@ -22,15 +22,30 @@
                 <LoadComponent id="ProductList"
                                context="HttpContext"
                                url="/@ViewData["culture"]/Search/Compo/ProductList"
-                               data="new viCompoSearch_ProductList { CategoryName=Model.Input.CategoryName,KeywordTitle=Model.Input.KeywordTitle,CurrentPage=1,MinPrice=0,MaxPrice=10000000,Sort=Framework.Application.Enums.GetProductListForAdvanceSearchSortingEnum.Newest,Take=10 }"></LoadComponent>
+                               data="new viCompoSearch_ProductList{  
+                                    CategoryName=Model.Input.CategoryName,
+                                    CurrentPage=Model.Input.CurrentPage,
+                                    KeywordTitle=Model.Input.KeywordTitle,
+                                    MaxPrice=Model.Input.MaxPrice,
+                                    MinPrice=Model.Input.MinPrice,
+                                    OnlyExistProducts=Model.Input.OnlyExistProducts,
+                                    OnlySendByPrancaBeauty=Model.Input.OnlySendByPrancaBeauty,
+                                    OnlySendBySeller=Model.Input.OnlySendBySeller,
+                                    PropSelectedValues=Model.Input.PropSelectedValues,
+                                    Sort=(int)Model.Input.Sort,
+                                    Take=Model.Input.Take,
+                                    VariantSelectedValues=Model.Input.VariantSelectedValues,
+                                }"></LoadComponent>
 
                 <form id="frmSearch">
                     <input asp-for="Input.CategoryName" type="hidden" />
                     <input asp-for="Input.CurrentPage" type="hidden" />
+                    <input asp-for="Input.Take"  value="10" type="hidden" />
                 </form>
                 <script>
                     function SubmitSearch()
                     {
+                        ChangeUrlToFormParams('frmSearch');
                         SendFormGET('/@ViewData["culture"]/Search/Compo/ProductList','frmSearch',function(res){
                             $('#ProductList').html(res);
                         });
@@ -71,7 +86,7 @@
 
                         @if (ViewData["CategoryId"]!=null)
                         {
-                            <LoadComponent id="ProductList"
+                            <LoadComponent id="VariantSearch"
                                            context="HttpContext"
                                            url="/@ViewData["culture"]/Search/Compo/VariantSearch"
                                            data='new viCompo_VariantSearch {
@@ -84,7 +99,7 @@
 
                         @if (ViewData["TopicId"]!=null)
                         {
-                            <LoadComponent id="ProductList"
+                            <LoadComponent id="PropertisSearch"
                                        context="HttpContext"
                                        url="/@ViewData["culture"]/Search/Compo/PropertisSearch"
                                        data='new viCompo_PropertisSearch {

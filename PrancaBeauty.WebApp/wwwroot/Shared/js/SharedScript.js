@@ -101,6 +101,19 @@ function SendFormGET(_url, _FormId, _Funcs_Success = function (res) { }) {
     });
 }
 
+function ChangeUrl(_NewUrl) {
+    history.pushState({}, null, _NewUrl);
+}
+
+function ChangeUrlToFormParams(_FormId) {
+    var form = $('#' + _FormId)[0];
+    var _formdata = new FormData(form);
+
+    var queryString = new URLSearchParams(_formdata).toString();
+
+    ChangeUrl ("?"+ queryString);
+}
+
 function LoadComponent(_Url, _Data, _CallbackFuncs = function (data) { }, _EnableLoading = true) {
     $.ajax({
         url: _Url,
@@ -112,7 +125,7 @@ function LoadComponent(_Url, _Data, _CallbackFuncs = function (data) { }, _Enabl
         },
         complete: function (data) {
             if (_EnableLoading)
-            $('.loading').hide(100);
+                $('.loading').hide(100);
         },
         error: function (data) {
             if (data.status == 429) {
@@ -142,9 +155,7 @@ function RefreshGrid(_GridId) {
     _Grid.refresh();
 }
 
-function ChangeUrl(_NewUrl) {
-    history.pushState({}, null, _NewUrl);
-}
+
 
 function Alert429() {
     return swal.fire({

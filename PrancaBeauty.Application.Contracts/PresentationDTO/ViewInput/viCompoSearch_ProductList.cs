@@ -23,7 +23,7 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput
         public double MaxPrice { get; set; }
 
         [Display(Name = "Sort")]
-        public GetProductListForAdvanceSearchSortingEnum Sort { get; set; }
+        public int Sort { get; set; }
 
         [Display(Name = "Take")]
         [NumRange(1, int.MaxValue)]
@@ -44,5 +44,8 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput
 
         [Display(Name = "PropSelectedValues")]
         public string[] PropSelectedValues { get; set; }
+        
+        [Display(Name = "VariantSelectedValues")]
+        public string[] VariantSelectedValues { get; set; }
     }
 }

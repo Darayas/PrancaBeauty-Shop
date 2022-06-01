@@ -91,6 +91,10 @@ function LoadPriceSlider(_SliderId, _MinPrice, _MaxPrice, _MinValue, _MaxValue, 
     });
 }
 
+function AddToCart(_VariantId) {
+    SendData('/' + CurentCulture +'/Cart?handler=AddToCart', { VariantId: _VariantId });
+}
+
 (function ($) {
     "use strict";
 

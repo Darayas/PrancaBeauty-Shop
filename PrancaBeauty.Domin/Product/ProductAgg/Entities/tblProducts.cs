@@ -1,4 +1,5 @@
 ﻿using Framework.Domain.Contracts;
+using PrancaBeauty.Domin.Cart.CartAgg.Entities;
 using PrancaBeauty.Domin.Categories.CategoriesAgg.Entities;
 using PrancaBeauty.Domin.Keywords.Keywords_Products.Entities;
 using PrancaBeauty.Domin.Product.PostingRestrictionsAgg.Entites;
@@ -60,5 +61,6 @@ namespace PrancaBeauty.Domin.Product.ProductAgg.Entities
         public virtual ICollection<tblProductSellers> tblProductSellers { get; set; }
         public virtual ICollection<tblPostingRestrictions> tblPostingRestrictions { get; set; }
         public virtual ICollection<tblSectionProducts> tblSectionProducts { get; set; }
+        public virtual ICollection<tblCarts> tblCarts { get; set; }
     }
 }

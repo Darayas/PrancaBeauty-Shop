@@ -1260,6 +1260,9 @@
   <data name="PleaseLoginForAddNewReview" xml:space="preserve">
     <value>برای ثبت دیدگاه، لطفا ابتدا لاگین نمایید</value>
   </data>
+  <data name="PleaseLoginToAddToCart" xml:space="preserve">
+    <value>برای افزودن محصول به سبد خرید، لطفا ابتدا لاگین نمایید</value>
+  </data>
   <data name="PleaseSelectCategory" xml:space="preserve">
     <value>انتخاب دسته</value>
   </data>

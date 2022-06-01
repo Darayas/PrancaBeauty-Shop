@@ -1,5 +1,6 @@
 ﻿using Framework.Domain.Contracts;
 using Microsoft.AspNetCore.Identity;
+using PrancaBeauty.Domin.Cart.CartAgg.Entities;
 using PrancaBeauty.Domin.FileServer.FileAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductAskAgg.Entities;
@@ -48,6 +49,7 @@ namespace PrancaBeauty.Domin.Users.UserAgg.Entities
         public virtual ICollection<tblProductAskLikes> tblProductAskLikes { get; set; }
         public virtual ICollection<tblSlider> tblSlider { get; set; }
         public virtual ICollection<tblShowcases> tblShowCases { get; set; }
+        public virtual ICollection<tblCarts> tblCarts { get; set; }
 
     }
 }

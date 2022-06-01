@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using PrancaBeauty.Application.Apps.Accesslevels;
 using PrancaBeauty.Application.Apps.AccesslevelsRoles;
 using PrancaBeauty.Application.Apps.Address;
+using PrancaBeauty.Application.Apps.Carts;
 using PrancaBeauty.Application.Apps.Categories;
 using PrancaBeauty.Application.Apps.Cities;
 using PrancaBeauty.Application.Apps.Countries;
@@ -58,6 +59,7 @@ using PrancaBeauty.Application.Apps.Templates;
 using PrancaBeauty.Application.Apps.Users;
 using PrancaBeauty.Application.Common.ExMethods;
 using PrancaBeauty.Application.Common.FtpWapper;
+using PrancaBeauty.Domin.Cart.CartAgg.Contracts;
 using PrancaBeauty.Domin.Categories.CategoriesAgg.Contracts;
 using PrancaBeauty.Domin.FileServer.FileAgg.Contracts;
 using PrancaBeauty.Domin.FileServer.FilePathAgg.Contracts;
@@ -109,6 +111,7 @@ using PrancaBeauty.Domin.Users.UserAgg.Contracts;
 using PrancaBeauty.Infrastructure.EFCore.Context;
 using PrancaBeauty.Infrastructure.EFCore.Repository.AccessLevel;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Address;
+using PrancaBeauty.Infrastructure.EFCore.Repository.Cart;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Categories;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Cities;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Counties;
@@ -236,6 +239,7 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddScoped<ISectionProductKeywordRepository, SectionProductKeywordRepository>();
             services.AddScoped<IShowcaseTabSectionItemRepository, ShowcaseTabSectionItemRepository>();
             services.AddScoped<ISearchHistoryRepository, SearchHistoryRepository>();
+            services.AddScoped<ICartRepository, CartRepository>();
 
             // Applications
             services.AddScoped<IUserApplication, UserApplication>();
@@ -287,6 +291,7 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddScoped<ISectionProductKeywordApplication, SectionProductKeywordApplication>();
             services.AddScoped<IShowcaseTabSectionItemApplication, ShowcaseTabSectionItemApplication>();
             services.AddScoped<ISearchHistoryApplication, SearchHistoryApplication>();
+            services.AddScoped<ICartApplication, CartApplication>();
         }
     }
 }

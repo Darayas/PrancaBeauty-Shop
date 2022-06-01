@@ -46,6 +46,8 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.Compo_ProductSeller
 
                 Data= _Mapper.Map<List<vmCompo_ProductSellers>>(qData);
 
+                ViewData["ProductId"]=Input.ProductId;
+
                 return Page();
             }
             catch (ArgumentInvalidException ex)

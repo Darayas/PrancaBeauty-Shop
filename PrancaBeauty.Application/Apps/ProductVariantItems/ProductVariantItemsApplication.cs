@@ -590,8 +590,8 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
                                                                     VariantType=a.tblProductVariants.VariantType,
                                                                     LstItems= a.tblProductVariants.tblProductVariantItems
                                                                                                   .Where(b => b.ProductId==Input.ProductId.ToGuid())
-                                                                                                  .Where(b=>b.IsEnable)
-                                                                                                  .Where(b=>b.IsConfirm)
+                                                                                                  .Where(b => b.IsEnable)
+                                                                                                  .Where(b => b.IsConfirm)
                                                                                                   .GroupBy(b => b.Value)
                                                                                                   .Select(b => new OutGetAllProductVariantsForProductDetailsItem
                                                                                                   {
@@ -605,6 +605,33 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
 
                 if (qData==null)
                     return null;
+
+                return qData;
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
+            }
+        }
+
+        public async Task<bool?> ExistVariantInStockAsync(InpExistVariantInStock Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var qData = await _ProductVariantItemsRepository.Get
+                                        .Where(a => a.Id==Input.VariantItemId.ToGuid())
+                                        .Select(a => a.CountInStock >= Input.CountToCheck)
+                                        .SingleOrDefaultAsync();
 
                 return qData;
             }

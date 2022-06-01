@@ -51,7 +51,7 @@
 
                             </div>
                             <div class="addToCart col-md-2">
-                                <button class="btn btn-danger" type="button" onclick="AddToCart('@item.VariantId')">@Localizer["AddToCart"]</button>
+                                <button class="btn btn-danger" type="button" onclick="AddToCart('@ViewData["ProductId"].ToString()',@item.VariantId')">@Localizer["AddToCart"]</button>
                             </div>
                         </div>
                     }

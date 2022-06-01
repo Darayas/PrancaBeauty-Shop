@@ -10,9 +10,19 @@ namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Cart
         [GUID]
         public string UserId { get; set; }
 
-        [Display(Name = "VariantId")]
+        [Display(Name = "ProductId")]
         [RequiredString]
         [GUID]
-        public string VariantId { get; set; }
+        public string ProductId { get; set; }
+        
+        [Display(Name = "SellerId")]
+        [RequiredString]
+        [GUID]
+        public string SellerId { get; set; }
+
+        [Display(Name = "VariantItemId")]
+        [RequiredString]
+        [GUID]
+        public string VariantItemId { get; set; }
     }
 }

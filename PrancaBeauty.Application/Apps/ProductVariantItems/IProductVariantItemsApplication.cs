@@ -12,6 +12,7 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
         Task<OperationResult> ChangeStatusVariantItemAsync(InpChangeStatusVariantItem Input);
         Task<bool?> CheckHasPurchaseForVariantAsync(InpCheckHasPurchaseForVariant Input);
         Task<OperationResult> EditProductVariantsAsync(InpEditProductVariants Input);
+        Task<bool?> ExistVariantInStockAsync(InpExistVariantInStock Input);
         Task<List<OutGetAllProductSellerByVariantValue>> GetAllProductSellerByVariantValueAsync(InpGetAllProductSellerByVariantValue Input);
         Task<OutGetAllProductVariantsForProductDetails> GetAllProductVariantsForProductDetailsAsync(InpGetAllProductVariantsForProductDetails Input);
         Task<List<OutGetAllVariantsByProductId>> GetAllVariantsByProductIdAsync(InpGetAllVariantsByProductId Input);

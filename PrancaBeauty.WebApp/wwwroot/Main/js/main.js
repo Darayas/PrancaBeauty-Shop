@@ -91,8 +91,8 @@ function LoadPriceSlider(_SliderId, _MinPrice, _MaxPrice, _MinValue, _MaxValue, 
     });
 }
 
-function AddToCart(_VariantId) {
-    SendData('/' + CurentCulture +'/Cart?handler=AddToCart', { VariantId: _VariantId });
+function AddToCart(_ProductId,_SellerId,_VariantId) {
+    SendData('/' + CurentCulture + '/Cart?handler=AddToCart', { ProductId: _ProductId, SellerId=_SellerId ,VariantId: _VariantId });
 }
 
 (function ($) {

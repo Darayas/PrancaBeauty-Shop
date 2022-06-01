@@ -1,6 +1,11 @@
-﻿namespace PrancaBeauty.Application.Apps.Carts
+﻿using PrancaBeauty.Application.Contracts.ApplicationDTO.Cart;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Results;
+using System.Threading.Tasks;
+
+namespace PrancaBeauty.Application.Apps.Carts
 {
     public interface ICartApplication
     {
+        Task<OperationResult> AddToCartAsync(InpAddToCart Input);
     }
 }

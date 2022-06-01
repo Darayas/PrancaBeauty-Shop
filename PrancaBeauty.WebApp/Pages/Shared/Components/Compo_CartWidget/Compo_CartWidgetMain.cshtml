@@ -1,3 +1,62 @@
 ﻿@page "/{culture}/Shared/Compo/CartWidgetMain"
 @model PrancaBeauty.WebApp.Pages.Shared.Components.Compo_CartWidget.Compo_CartWidgetMainModel
 
+<div class="header_account_list mini_cart_wrapper">
+    <a href="javascript:void(0)">
+        <i class="fa-xs fas fa-shopping-cart"></i>
+        <span class="cart_itemtext"></span>
+        <span class="cart_itemtotal">$60.00</span>
+        <span class="item_count">2</span>
+    </a>
+    <!--mini cart-->
+    <div class="mini_cart">
+        <div class="cart_gallery">
+            <div class="cart_item">
+                <div class="cart_img">
+                    <a href="#"><img src="~/Main/img/s-product/product.jpg" alt=""></a>
+                </div>
+                <div class="cart_info">
+                    <a href="#">محصول یکم</a>
+                    <p>1 x <span> 10,000,000 ریال </span></p>
+                </div>
+                <div class="cart_remove">
+                    <a href="#"><i class="fa fa-times"></i></a>
+                </div>
+            </div>
+            <div class="cart_item">
+                <div class="cart_img">
+                    <a href="#"><img src="~/Main/img/s-product/product2.jpg" alt=""></a>
+                </div>
+                <div class="cart_info">
+                    <a href="#">محصول دوم</a>
+                    <p>5 x <span> 100,000,000 ریال </span></p>
+                </div>
+                <div class="cart_remove">
+                    <a href="#"><i class="fa fa-times"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="mini_cart_table">
+            <div class="cart_table_border">
+                <div class="cart_total">
+                    <span>مالیات:</span>
+                    <span class="price">5,000,000 ریال</span>
+                </div>
+                <div class="cart_total mt-10">
+                    <span>قیمت کل:</span>
+                    <span class="price">110,000,000 ریال</span>
+                </div>
+            </div>
+        </div>
+        <div class="mini_cart_footer">
+            <div class="cart_button">
+                <a href="cart.html"><i class="fa fa-shopping-cart"></i> نمایش سبد</a>
+            </div>
+            <div class="cart_button">
+                <a href="checkout.html"><i class="fa fa-sign-in"></i> بازبینی</a>
+            </div>
+
+        </div>
+    </div>
+    <!--mini cart end-->
+</div>

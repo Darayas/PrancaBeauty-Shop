@@ -1,18 +1,19 @@
 ﻿using System.Collections.Generic;
 
-namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewModel
+namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Cart
 {
-    public class vmCompo_CartWidgetMain
+    public class OutGetItemsInCart
     {
         public int CountInCart { get; set; }
         public double TotalAmount { get; set; }
         public string CurrencySymbol { get; set; }
         public double TaxAmount { get; set; }
+        public double ShippingAmount { get; set; }
 
-        public List<vmCompo_CartWidgetMainItems> Items { get; set; } = new List<vmCompo_CartWidgetMainItems>();
+        public List<OutGetItemsInCartItems> Items { get; set; }
     }
 
-    public class vmCompo_CartWidgetMainItems
+    public class OutGetItemsInCartItems
     {
         public string Id { get; set; }
         public string ProductImgUrl { get; set; }
@@ -22,6 +23,7 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewModel
         public double Price { get; set; }
         public double PercentSavePrice { get; set; }
         public double TaxPercent { get; set; }
+        public string CurrencySymbol { get; set; }
         public int Qty { get; set; }
     }
 }

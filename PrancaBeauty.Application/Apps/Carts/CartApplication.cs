@@ -118,6 +118,44 @@ namespace PrancaBeauty.Application.Apps.Carts
             }
         }
 
+        public async Task<OutGetItemsInCart> GetItemsInCartAsync(InpGetItemsInCart Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
 
+                var qData = await _CartRepository.Get
+                                        .Where(a => a.UserId==Input.UserId.ToGuid())
+                                        .Select(a => new OutGetItemsInCartItems
+                                        {
+                                            
+                                        })
+                                        .ToListAsync();
+
+                var Summary = new OutGetItemsInCart();
+                Summary.CountInCart=qData.Count();
+                Summary.CurrencySymbol=qData.FirstOrDefault().CurrencySymbol;
+                Summary.TaxAmount=0;
+                Summary.ShippingAmount=0;
+                Summary.Items=qData;
+                Summary.TotalAmount=qData.Sum(a => a.Price)
+                                        + Summary.TaxAmount
+                                        + Summary.ShippingAmount;
+
+                return Summary;
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return default;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return default;
+            }
+        }
     }
 }

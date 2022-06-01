@@ -8,5 +8,6 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput
 {
     public class viCompo_CartWidgetMain
     {
+        
     }
 }

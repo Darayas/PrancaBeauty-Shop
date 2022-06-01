@@ -4,7 +4,8 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewModel
 {
     public class vmCompo_ProductSellers
     {
-        public string VariantId { get; set; }
+        public string SellerId { get; set; }
+        public string VariantItemId { get; set; }
         public string SellerLogo { get; set; }
         public string SellerName { get; set; }
         public ProductVariantItems_SendByEnum SendBy { get; set; } // ارسال توسط: پرنسابیوتی، فروشنده

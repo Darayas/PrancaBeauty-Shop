@@ -202,7 +202,7 @@
     <value>افزودن فروشنده به محصول</value>
   </data>
   <data name="AddProductToCartWasSuccessfull" xml:space="preserve">
-    <value>محصول با موفقیت به سبد خرید شما اضافه شد. در صورتی که قصد خرید تعداد از این محصول را دارید لطفا به &lt;a href="{0}" target="_blank"&gt;سبد خرید&lt;/a&gt; مراجعه نمایید</value>
+    <value>محصول با موفقیت به سبد خرید شما اضافه شد. در صورتی که قصد خرید تعداد از این محصول را دارید لطفا به &lt;a class="text-primary" href="{0}" target="_blank"&gt;سبد خرید&lt;/a&gt; مراجعه نمایید</value>
   </data>
   <data name="Address" xml:space="preserve">
     <value>آدرس</value>

@@ -49,7 +49,7 @@ namespace PrancaBeauty.WebApp.Pages.Home
                 string _UserId = null;
                 {
                     if (!User.Identity.IsAuthenticated)
-                        return _MsgBox.InfoMsg("PleaseLoginToAddToCart");
+                        return _MsgBox.InfoMsg(_Localizer["PleaseLoginToAddToCart"]);
 
                     _UserId= User.GetUserDetails().UserId;
                 }
@@ -61,7 +61,7 @@ namespace PrancaBeauty.WebApp.Pages.Home
 
                 var _Result = await _CartApplication.AddToCartAsync(new InpAddToCart { UserId=_UserId, ProductId=Input.ProductId, SellerId=Input.SellerId, VariantItemId=Input.VariantItemId });
                 if (_Result.IsSucceeded)
-                    return _MsgBox.SuccessMsg(_Localizer[_Result.Message, $"/{CultureInfo.CurrentCulture.Parent.Name}/Cart"]);
+                    return _MsgBox.SuccessMsg(_Localizer[_Result.Message, $"/{CultureInfo.CurrentCulture.Parent.Name}/Cart"],"LoadCart()");
                 else
                     return _MsgBox.FaildMsg(_Localizer[_Result.Message]);
 

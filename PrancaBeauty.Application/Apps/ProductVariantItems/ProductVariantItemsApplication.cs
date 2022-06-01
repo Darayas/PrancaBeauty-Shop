@@ -524,7 +524,8 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
                                                     .Where(a => a.IsEnable && a.IsConfirm && a.CountInStock > 0)
                                                     .Select(a => new OutGetAllProductSellerByVariantValue
                                                     {
-                                                        VariantId = a.Id.ToString(),
+                                                        SellerId=a.tblProductSellers.SellerId.ToString(),
+                                                        VariantItemId = a.Id.ToString(),
                                                         SellerName = a.tblProductSellers.tblSellers.tblSeller_Translates.Where(b => b.LangId == Input.LangId.ToGuid()).Select(b => b.Title).Single(),
                                                         SendBy = a.SendBy,
                                                         SendFrom = a.SendFrom,
@@ -545,7 +546,8 @@ namespace PrancaBeauty.Application.Apps.ProductVariantItems
 
                 qData = qData.Select(a => new OutGetAllProductSellerByVariantValue
                 {
-                    VariantId=a.VariantId,
+                    SellerId=a.SellerId,
+                    VariantItemId=a.VariantItemId,
                     CurrencySymbol = a.CurrencySymbol,
                     GarrantyName = a.GarrantyName,
                     PercentSavePrice = a.PercentSavePrice,

@@ -56,11 +56,11 @@ namespace PrancaBeauty.Application.Apps.Carts
                     {
                         #region برسی موجود بودن تعداد در انبار فروشنده
                         {
-                            var CheckExist = await _ProductVariantItemsApplication.ExistVariantInStockAsync(new InpExistVariantInStock { VariantItemId=Input.VariantItemId, CountToCheck=tCart.Count++ });
+                            var CheckExist = await _ProductVariantItemsApplication.ExistVariantInStockAsync(new InpExistVariantInStock { VariantItemId=Input.VariantItemId, CountToCheck=(++tCart.Count) });
                             if (CheckExist==null)
                                 return new OperationResult().Failed("Error500");
 
-                            if(CheckExist==false)
+                            if (CheckExist==false)
                                 return new OperationResult().Failed("ProductNotExistInStock");
                         }
                         #endregion
@@ -93,6 +93,7 @@ namespace PrancaBeauty.Application.Apps.Carts
                             Id= new Guid().SequentialGuid(),
                             UserId=Input.UserId.ToGuid(),
                             ProductId=Input.ProductId.ToGuid(),
+                            SellerId=Input.SellerId.ToGuid(),
                             VariantItemId=Input.VariantItemId.ToGuid(),
                             Date=DateTime.Now,
                             Count=1

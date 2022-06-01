@@ -410,6 +410,7 @@ namespace PrancaBeauty.Application.Apps.ProductSellers
 
                 var SellerData = qData.Select(a => new OutGetListSellerByVariantValue
                 {
+                    SellerId=a.SellerId,
                     CurrencySymbol=a.CurrencySymbol,
                     GarrantyName=a.GarrantyName,
                     MainPrice=a.MainPrice,
@@ -419,7 +420,7 @@ namespace PrancaBeauty.Application.Apps.ProductSellers
                     SellerName=a.SellerName,
                     SendBy=a.SendBy,
                     SendFrom=a.SendFrom,
-                    VariantId=a.VariantId
+                    VariantItemId=a.VariantItemId
                 }).ToList();
 
                 return SellerData;

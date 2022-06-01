@@ -1,4 +1,5 @@
 ﻿using Framework.Domain.Contracts;
+using PrancaBeauty.Domin.Cart.CartAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductDiscountAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductSellerAgg.Entities;
 using PrancaBeauty.Domin.Users.UserAgg.Entities;
@@ -19,6 +20,7 @@ namespace PrancaBeauty.Domin.Users.SellerAgg.Entities
         public virtual ICollection<tblSeller_Translates> tblSeller_Translates { get; set; }
         public virtual ICollection<tblProductSellers> tblProductSellers { get; set; }
         public virtual ICollection<tblProductDiscounts> tblProductDiscounts { get; set; }
+        public virtual ICollection<tblCarts> tblCarts { get; set; }
 
     }
 }

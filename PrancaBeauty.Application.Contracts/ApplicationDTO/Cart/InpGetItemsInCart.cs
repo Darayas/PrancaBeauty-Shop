@@ -9,5 +9,10 @@ namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Cart
         [RequiredString]
         [GUID]
         public string UserId { get; set; }
+
+        [Display(Name = "CurrencyId")]
+        [RequiredString]
+        [GUID]
+        public string CurrencyId { get; set; }
     }
 }

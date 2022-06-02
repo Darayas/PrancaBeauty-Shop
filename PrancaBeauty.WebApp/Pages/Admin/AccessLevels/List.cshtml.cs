@@ -18,7 +18,7 @@ namespace PrancaBeauty.WebApp.Pages.Admin.AccessLevels
 {
     [Authorize(Roles = Roles.CanViewListAccessLevel)]
     public class ListModel : PageModel
-    {
+    { 
         private readonly IMsgBox _MsgBox;
         private readonly ILocalizer _Localizer;
         private readonly IAccesslevelApplication _AccesslevelApplication;

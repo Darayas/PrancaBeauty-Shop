@@ -126,18 +126,35 @@ namespace PrancaBeauty.Application.Apps.Carts
                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
-                var qData = await _CartRepository.Get
-                                        .Where(a => a.UserId==Input.UserId.ToGuid())
-                                        .Select(a => new OutGetItemsInCartItems
-                                        {
-                                            
-                                        })
-                                        .ToListAsync();
+                var qData = await (from a in _CartRepository.Get
+                                   where a.UserId==Input.UserId.ToGuid()
+                                   let CurrencySymbol = a.tblProducts.tblProductPrices.Where(b => b.IsActive && b.CurrencyId==Input.CurrencyId.ToGuid()).Select(b => b.tblCurrency.Symbol).Single()
+                                   let Price = a.tblProducts.tblProductPrices.Where(a => a.IsActive).Select(b => b.Price).Single()
+                                   let SellerPercent = a.tblProducts.tblProductVariantItems.Where(b => b.IsEnable && b.IsConfirm && b.CountInStock>0).Select(e => new { SellerPercent = e.Percent - (e.tblProductDiscounts!=null ? e.tblProductDiscounts.Percent : 0), Percent = e.Percent }).OrderBy(e => e.SellerPercent).FirstOrDefault().Percent
+                                   let PercentSavePrice = a.tblProducts.tblProductVariantItems.Where(b => b.IsEnable && b.IsConfirm && b.CountInStock>0).Select(e => new { SellerPercent = e.Percent - (e.tblProductDiscounts!=null ? e.tblProductDiscounts.Percent : 0), SavePercent = (e.tblProductDiscounts!=null ? e.tblProductDiscounts.Percent : 0) }).OrderBy(e => e.SellerPercent).FirstOrDefault().SavePercent
+                                   let OldPrice = Price + ((Price/100)*SellerPercent)
+                                   let NewPrice = OldPrice - ((OldPrice/100)*PercentSavePrice)
+                                   select new OutGetItemsInCartItems
+                                   {
+                                       Id=a.Id.ToString(),
+                                       ProductName=a.tblProducts.Name,
+                                       ProductTitle=a.tblProducts.Title,
+                                       TaxPercent=0, // TODO: از جدول گروه مالیاتی خوانده شود
+                                       Qty=a.Count,
+                                       CurrencySymbol=CurrencySymbol,
+                                       ProductImgUrl=a.tblProducts.tblProductMedia.Select(b => b.tblFiles.tblFilePaths.tblFileServer.HttpDomin
+                                                                                               + b.tblFiles.tblFilePaths.tblFileServer.HttpPath
+                                                                                               + b.tblFiles.tblFilePaths.Path
+                                                                                               + b.tblFiles.FileName).First(),
+                                       OldPrice=OldPrice,
+                                       Price=NewPrice,
+                                       PercentSavePrice=PercentSavePrice
+                                   }).ToListAsync();
 
                 var Summary = new OutGetItemsInCart();
                 Summary.CountInCart=qData.Count();
                 Summary.CurrencySymbol=qData.FirstOrDefault().CurrencySymbol;
-                Summary.TaxAmount=0;
+                Summary.TaxAmount=qData.Sum(a => ((a.Price/100)* a.TaxPercent) * a.Qty);
                 Summary.ShippingAmount=0;
                 Summary.Items=qData;
                 Summary.TotalAmount=qData.Sum(a => a.Price)

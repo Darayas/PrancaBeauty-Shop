@@ -7,5 +7,6 @@ namespace PrancaBeauty.Application.Apps.Carts
     public interface ICartApplication
     {
         Task<OperationResult> AddToCartAsync(InpAddToCart Input);
+        Task<OutGetItemsInCart> GetItemsInCartAsync(InpGetItemsInCart Input);
     }
 }

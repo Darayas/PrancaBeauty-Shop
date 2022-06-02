@@ -8,6 +8,7 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewModel
         public double TotalAmount { get; set; }
         public string CurrencySymbol { get; set; }
         public double TaxAmount { get; set; }
+        public double ShippingAmount { get; set; }
 
         public List<vmCompo_CartWidgetMainItems> Items { get; set; } = new List<vmCompo_CartWidgetMainItems>();
     }

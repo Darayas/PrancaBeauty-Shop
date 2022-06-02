@@ -8,5 +8,6 @@ namespace PrancaBeauty.Application.Apps.Carts
     {
         Task<OperationResult> AddToCartAsync(InpAddToCart Input);
         Task<OutGetItemsInCart> GetItemsInCartAsync(InpGetItemsInCart Input);
+        Task<OperationResult> RemoveCartItemAsync(InpRemoveCartItem Input);
     }
 }

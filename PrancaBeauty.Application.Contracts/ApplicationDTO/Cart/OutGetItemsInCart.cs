@@ -21,6 +21,7 @@ namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Cart
         public string ProductTitle { get; set; }
         public double OldPrice { get; set; }
         public double Price { get; set; }
+        public double TotalPrice { get; set; }
         public double PercentSavePrice { get; set; }
         public double TaxPercent { get; set; }
         public string CurrencySymbol { get; set; }

@@ -148,20 +148,53 @@ namespace PrancaBeauty.Application.Apps.Carts
                                                                                                + b.tblFiles.FileName).First(),
                                        OldPrice=OldPrice,
                                        Price=NewPrice,
+                                       TotalPrice=NewPrice * a.Count,
                                        PercentSavePrice=PercentSavePrice
                                    }).ToListAsync();
 
                 var Summary = new OutGetItemsInCart();
                 Summary.CountInCart=qData.Count();
                 Summary.CurrencySymbol=qData.FirstOrDefault().CurrencySymbol;
-                Summary.TaxAmount=qData.Sum(a => ((a.Price/100)* a.TaxPercent) * a.Qty);
+                Summary.TaxAmount=qData.Sum(a => (a.TotalPrice/100) * a.TaxPercent);
                 Summary.ShippingAmount=0;
                 Summary.Items=qData;
-                Summary.TotalAmount=qData.Sum(a => a.Price)
+                Summary.TotalAmount=qData.Sum(a => a.TotalPrice)
                                         + Summary.TaxAmount
                                         + Summary.ShippingAmount;
 
                 return Summary;
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return default;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return default;
+            }
+        }
+
+        public async Task<OperationResult> RemoveCartItemAsync(InpRemoveCartItem Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var qData = await _CartRepository.Get
+                                    .Where(a => a.Id==Input.Id.ToGuid())
+                                    .Where(a => a.UserId==Input.UserId.ToGuid())
+                                    .SingleOrDefaultAsync();
+
+                if (qData==null)
+                    return new OperationResult().Succeeded();
+
+                await _CartRepository.DeleteAsync(qData, default, true);
+
+                return new OperationResult().Succeeded();
             }
             catch (ArgumentInvalidException ex)
             {

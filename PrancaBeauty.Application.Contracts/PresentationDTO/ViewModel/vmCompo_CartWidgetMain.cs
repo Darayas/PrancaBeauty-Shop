@@ -21,6 +21,7 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewModel
         public string ProductTitle { get; set; }
         public double OldPrice { get; set; }
         public double Price { get; set; }
+        public double TotalPrice { get; set; }
         public double PercentSavePrice { get; set; }
         public double TaxPercent { get; set; }
         public int Qty { get; set; }

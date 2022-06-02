@@ -30,10 +30,23 @@
                         </div>
                         <div class="cart_info">
                             <a href="/@ViewData["culture"]/Product/@item.ProductName">@item.ProductTitle</a>
-                            <p>@item.Qty x <span> @(item.Price * item.Qty) @Model.Data.CurrencySymbol </span></p>
+                            <p>@item.Qty x <span class="newPrice"> @(item.Price.ToN3()) @Model.Data.CurrencySymbol </span></p>
+                            @if (item.PercentSavePrice>0)
+                            {
+                                <p>
+                                    @Localizer["Discount"]:
+                                    <span>
+                                        (@item.PercentSavePrice%)
+                                        <span class="oldPrice">
+                                            @(item.OldPrice.ToN3()) @Model.Data.CurrencySymbol
+                                        </span>
+                                    </span>
+
+                                </p>
+                            }
                         </div>
                         <div class="cart_remove">
-                            <a href="#"><i class="fa fa-times"></i></a>
+                            <a href="#" onclick="RemoveData('/' + CurentCulture +'/Cart?handler=Remove', {Id:'@item.Id'});"><i class="fa fa-times"></i></a>
                         </div>
                     </div>
                 }
@@ -41,15 +54,15 @@
             <div class="mini_cart_table">
                 <div class="cart_table_border">
                     <div class="cart_total">
-                        <span>مالیات:</span>
+                        <span>@Localizer["Tax"]:</span>
                         <span class="price">@Model.Data.TaxAmount.ToN3() @Model.Data.CurrencySymbol</span>
                     </div>
                     <div class="cart_total mt-10">
-                        <span>هزینه ارسال:</span>
-                        <span class="price">@Model.Data.ShippingAmount @Model.Data.CurrencySymbol</span>
+                        <span>@Localizer["ShippingFee"]:</span>
+                        <span class="price">@Model.Data.ShippingAmount.ToN3() @Model.Data.CurrencySymbol</span>
                     </div>
                     <div class="cart_total mt-10">
-                        <span>قیمت کل:</span>
+                        <span>@Localizer["TotalPrice"]:</span>
                         <span class="price">@Model.Data.TotalAmount.ToN3() @Model.Data.CurrencySymbol</span>
                     </div>
                 </div>

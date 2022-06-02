@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Globalization;
 
 namespace Framework.Common.ExMethods
 {
@@ -12,7 +7,16 @@ namespace Framework.Common.ExMethods
         public static string ToN3(this double Doubl)
         {
             string str = Doubl.ToString("N3", new CultureInfo("en-US"));
-            return str.Trim('0').TrimEnd('.');
+            str = str.Trim('0').TrimEnd('.'); ;
+
+            if (str == "")
+            {
+                return "0";
+            }
+            else
+            {
+                return str;
+            }
         }
     }
 }

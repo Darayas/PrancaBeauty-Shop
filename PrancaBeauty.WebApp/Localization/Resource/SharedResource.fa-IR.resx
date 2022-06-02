@@ -492,6 +492,9 @@
   <data name="DisAdvantages" xml:space="preserve">
     <value>نقاط ضعف</value>
   </data>
+  <data name="Discount" xml:space="preserve">
+    <value>تخفیف</value>
+  </data>
   <data name="District" xml:space="preserve">
     <value>محله</value>
   </data>
@@ -1605,6 +1608,9 @@
   <data name="Settings" xml:space="preserve">
     <value>تنظیمات</value>
   </data>
+  <data name="ShippingFee" xml:space="preserve">
+    <value>هزینه ارسال</value>
+  </data>
   <data name="ShopMainPage" xml:space="preserve">
     <value>فروشگاه</value>
   </data>
@@ -1689,6 +1695,9 @@
   <data name="Take" xml:space="preserve">
     <value>تعداد در صفحه</value>
   </data>
+  <data name="Tax" xml:space="preserve">
+    <value>مالیات</value>
+  </data>
   <data name="TemplEmailMsg" xml:space="preserve">
     <value>قالب ایمیل صحیح نمیباشد. قالب صحیح: ex@example.com</value>
   </data>
@@ -1727,6 +1736,9 @@
   </data>
   <data name="TopSearchword" xml:space="preserve">
     <value>پر طرفدار ترین جستوجو ها</value>
+  </data>
+  <data name="TotalPrice" xml:space="preserve">
+    <value>قیمت کل</value>
   </data>
   <data name="TwoDays" xml:space="preserve">
     <value>دو روز</value>

@@ -756,3 +756,23 @@ pre {
     margin-right: 0;
     margin-left: 3px !important;
 }
+
+.cart_info {
+    p {
+        display: flex;
+        flex-direction: row;
+        direction: rtl;
+        margin-bottom: 0px;
+
+        span {
+            margin-right: 5px;
+
+            &.newPrice {
+            }
+
+            &.oldPrice {
+                text-decoration: line-through;
+            }
+        }
+    }
+}

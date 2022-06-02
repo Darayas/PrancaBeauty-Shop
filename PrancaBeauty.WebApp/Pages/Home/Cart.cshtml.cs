@@ -61,7 +61,43 @@ namespace PrancaBeauty.WebApp.Pages.Home
 
                 var _Result = await _CartApplication.AddToCartAsync(new InpAddToCart { UserId=_UserId, ProductId=Input.ProductId, SellerId=Input.SellerId, VariantItemId=Input.VariantItemId });
                 if (_Result.IsSucceeded)
-                    return _MsgBox.SuccessMsg(_Localizer[_Result.Message, $"/{CultureInfo.CurrentCulture.Parent.Name}/Cart"],"LoadCart()");
+                    return _MsgBox.SuccessMsg(_Localizer[_Result.Message, $"/{CultureInfo.CurrentCulture.Parent.Name}/Cart"], "LoadCart()");
+                else
+                    return _MsgBox.FaildMsg(_Localizer[_Result.Message]);
+
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                return _MsgBox.ModelStateMsg(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return _MsgBox.FaildMsg("Error500");
+            }
+        }
+
+        public async Task<IActionResult> OnPostRemoveAsync(viCartRemove Input)
+        {
+            try
+            {
+                #region برسی لاگین بودن کاربر
+                string _UserId = null;
+                {
+                    if (!User.Identity.IsAuthenticated)
+                        return _MsgBox.InfoMsg(_Localizer["PleaseLoginToAddToCart"]);
+
+                    _UserId= User.GetUserDetails().UserId;
+                }
+                #endregion
+
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var _Result = await _CartApplication.RemoveCartItemAsync(new InpRemoveCartItem { Id=Input.Id, UserId=_UserId });
+                if (_Result.IsSucceeded)
+                    return _MsgBox.SuccessMsg(_Localizer[_Result.Message], "LoadCart()");
                 else
                     return _MsgBox.FaildMsg(_Localizer[_Result.Message]);
 

@@ -31817,3 +31817,16 @@ pre {
   margin-right: 0;
   margin-left: 3px !important;
 }
+
+.cart_info p {
+  display: flex;
+  flex-direction: row;
+  direction: rtl;
+  margin-bottom: 0px;
+}
+.cart_info p span {
+  margin-right: 5px;
+}
+.cart_info p span.oldPrice {
+  text-decoration: line-through;
+}

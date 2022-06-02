@@ -26,5 +26,7 @@ namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Cart
         public double TaxPercent { get; set; }
         public string CurrencySymbol { get; set; }
         public int Qty { get; set; }
+        public string VariantTopic { get; set; }
+        public string VariantTitle { get; set; } 
     }
 }

@@ -91,12 +91,14 @@ function LoadPriceSlider(_SliderId, _MinPrice, _MaxPrice, _MinValue, _MaxValue, 
     });
 }
 
-function AddToCart(_ProductId,_SellerId,_VariantItemId) {
+function AddToCart(_ProductId, _SellerId, _VariantItemId) {
     SendData('/' + CurentCulture + '/Cart?handler=AddToCart', { ProductId: _ProductId, SellerId: _SellerId, VariantItemId: _VariantItemId });
 }
 
 function LoadCart() {
-
+    LoadComponent('/' + CurentCulture + '/Shared/Compo/CartWidgetMain', {}, function (res) {
+        $('.CompoCart').html(res);
+    }, false);
 }
 
 (function ($) {
@@ -853,5 +855,7 @@ $(document).ready(function () {
         touchMove: false,
         centerMode: false
     });
+
+    LoadCart();
 });
 

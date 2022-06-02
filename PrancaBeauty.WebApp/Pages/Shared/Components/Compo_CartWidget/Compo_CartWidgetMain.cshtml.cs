@@ -31,7 +31,7 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.Compo_CartWidget
             _Mapper=mapper;
         }
 
-        public async Task<IActionResult> OnGetAsync(string CurrencyId)
+        public async Task<IActionResult> OnGetAsync(string LangId, string CurrencyId)
         {
             try
             {
@@ -41,7 +41,7 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.Compo_CartWidget
 
                 string _UserId = User.GetUserDetails().UserId;
 
-                var qData = await _CartApplication.GetItemsInCartAsync(new InpGetItemsInCart { CurrencyId=CurrencyId, UserId=_UserId });
+                var qData = await _CartApplication.GetItemsInCartAsync(new InpGetItemsInCart { CurrencyId=CurrencyId, UserId=_UserId, LangId=LangId });
                 if (qData==null)
                 {
                     Data= null;

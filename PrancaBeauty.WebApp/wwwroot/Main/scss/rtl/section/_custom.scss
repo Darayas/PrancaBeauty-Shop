@@ -757,21 +757,28 @@ pre {
     margin-left: 3px !important;
 }
 
-.cart_info {
-    p {
-        display: flex;
-        flex-direction: row;
-        direction: rtl;
-        margin-bottom: 0px;
+.mini_cart {
+    .cart_gallery {
+        overflow-y: auto;
+        height: 250px;
 
-        span {
-            margin-right: 5px;
+        .cart_info {
+            p {
+                display: flex;
+                flex-direction: row;
+                direction: rtl;
+                margin-bottom: 0px;
 
-            &.newPrice {
-            }
+                span {
+                    margin-right: 5px;
 
-            &.oldPrice {
-                text-decoration: line-through;
+                    &.newPrice {
+                    }
+
+                    &.oldPrice {
+                        text-decoration: line-through;
+                    }
+                }
             }
         }
     }

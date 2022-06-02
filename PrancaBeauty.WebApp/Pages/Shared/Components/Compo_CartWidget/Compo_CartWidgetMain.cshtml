@@ -30,6 +30,7 @@
                         </div>
                         <div class="cart_info">
                             <a href="/@ViewData["culture"]/Product/@item.ProductName">@item.ProductTitle</a>
+                            <p><span>@item.VariantTopic</span><span>@item.VariantTitle</span></p>
                             <p>@item.Qty x <span class="newPrice"> @(item.Price.ToN3()) @Model.Data.CurrencySymbol </span></p>
                             @if (item.PercentSavePrice>0)
                             {

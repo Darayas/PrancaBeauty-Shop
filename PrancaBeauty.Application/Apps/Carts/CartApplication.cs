@@ -56,7 +56,7 @@ namespace PrancaBeauty.Application.Apps.Carts
                     {
                         #region برسی موجود بودن تعداد در انبار فروشنده
                         {
-                            var CheckExist = await _ProductVariantItemsApplication.ExistVariantInStockAsync(new InpExistVariantInStock { VariantItemId=Input.VariantItemId, CountToCheck=(++tCart.Count) });
+                            var CheckExist = await _ProductVariantItemsApplication.ExistVariantInStockAsync(new InpExistVariantInStock { VariantItemId=Input.VariantItemId, CountToCheck=tCart.Count+1 });
                             if (CheckExist==null)
                                 return new OperationResult().Failed("Error500");
 
@@ -130,8 +130,9 @@ namespace PrancaBeauty.Application.Apps.Carts
                                    where a.UserId==Input.UserId.ToGuid()
                                    let CurrencySymbol = a.tblProducts.tblProductPrices.Where(b => b.IsActive && b.CurrencyId==Input.CurrencyId.ToGuid()).Select(b => b.tblCurrency.Symbol).Single()
                                    let Price = a.tblProducts.tblProductPrices.Where(a => a.IsActive).Select(b => b.Price).Single()
-                                   let SellerPercent = a.tblProducts.tblProductVariantItems.Where(b => b.IsEnable && b.IsConfirm && b.CountInStock>0).Select(e => new { SellerPercent = e.Percent - (e.tblProductDiscounts!=null ? e.tblProductDiscounts.Percent : 0), Percent = e.Percent }).OrderBy(e => e.SellerPercent).FirstOrDefault().Percent
-                                   let PercentSavePrice = a.tblProducts.tblProductVariantItems.Where(b => b.IsEnable && b.IsConfirm && b.CountInStock>0).Select(e => new { SellerPercent = e.Percent - (e.tblProductDiscounts!=null ? e.tblProductDiscounts.Percent : 0), SavePercent = (e.tblProductDiscounts!=null ? e.tblProductDiscounts.Percent : 0) }).OrderBy(e => e.SellerPercent).FirstOrDefault().SavePercent
+                                   let VariantItem = a.tblProducts.tblProductVariantItems.Where(b => b.Id==a.VariantItemId)
+                                   let SellerPercent = VariantItem.Select(b => b.Percent).Single()
+                                   let PercentSavePrice = VariantItem.Select(b => b.tblProductDiscounts!=null ? b.tblProductDiscounts.Percent : 0).Single()
                                    let OldPrice = Price + ((Price/100)*SellerPercent)
                                    let NewPrice = OldPrice - ((OldPrice/100)*PercentSavePrice)
                                    select new OutGetItemsInCartItems
@@ -142,6 +143,8 @@ namespace PrancaBeauty.Application.Apps.Carts
                                        TaxPercent=0, // TODO: از جدول گروه مالیاتی خوانده شود
                                        Qty=a.Count,
                                        CurrencySymbol=CurrencySymbol,
+                                       VariantTopic=VariantItem.Select(b => b.tblProductVariants.tblProductVariants_Translates.Where(c => c.LangId==Input.LangId.ToGuid()).Select(c => c.Title).Single()).Single(),
+                                       VariantTitle=VariantItem.Select(b => b.Title).Single(),
                                        ProductImgUrl=a.tblProducts.tblProductMedia.Select(b => b.tblFiles.tblFilePaths.tblFileServer.HttpDomin
                                                                                                + b.tblFiles.tblFilePaths.tblFileServer.HttpPath
                                                                                                + b.tblFiles.tblFilePaths.Path

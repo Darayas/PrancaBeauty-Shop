@@ -49,13 +49,7 @@
                                 </form>
                             </div>
                         </div>
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <LoadComponent id="CompoCartMob"
-                                       url="/@ViewData["culture"]/Shared/Compo/CartWidgetMain"
-                                       context="Context"
-                                       data="new viCompo_CartWidgetMain{}"></LoadComponent>
-                        }
+                        <div class="CompoCart"></div>
                     </div>
 
                     <div id="menu" class="text-left ">
@@ -299,13 +293,7 @@
                                     </div>
                                 </div>
 
-                                @if (User.Identity.IsAuthenticated)
-                                {
-                                    <LoadComponent id="CompoCartDesk"
-                                               url="/@ViewData["culture"]/Shared/Compo/CartWidgetMain"
-                                               context="Context"
-                                               data="new viCompo_CartWidgetMain{}"></LoadComponent>
-                                }
+                                <div class="CompoCart"></div>
                             </div>
                         </div>
                     </div>
@@ -572,7 +560,7 @@
     @RenderSection("styles", false)
 }
 
-    @section scripts{
+@section scripts{
     @RenderSection("scripts", false)
 
 }

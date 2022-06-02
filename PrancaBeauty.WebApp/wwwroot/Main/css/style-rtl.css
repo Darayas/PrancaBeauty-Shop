@@ -31818,15 +31818,19 @@ pre {
   margin-left: 3px !important;
 }
 
-.cart_info p {
+.mini_cart .cart_gallery {
+  overflow-y: auto;
+  height: 250px;
+}
+.mini_cart .cart_gallery .cart_info p {
   display: flex;
   flex-direction: row;
   direction: rtl;
   margin-bottom: 0px;
 }
-.cart_info p span {
+.mini_cart .cart_gallery .cart_info p span {
   margin-right: 5px;
 }
-.cart_info p span.oldPrice {
+.mini_cart .cart_gallery .cart_info p span.oldPrice {
   text-decoration: line-through;
 }

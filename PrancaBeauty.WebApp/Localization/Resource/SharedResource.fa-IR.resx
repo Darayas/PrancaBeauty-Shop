@@ -774,6 +774,9 @@
   <data name="IdNotFound" xml:space="preserve">
     <value>شناسه یافت نشد</value>
   </data>
+  <data name="Image" xml:space="preserve">
+    <value>عکس</value>
+  </data>
   <data name="ImgUrl" xml:space="preserve">
     <value>تصویر شاخص</value>
   </data>
@@ -1413,6 +1416,9 @@
   <data name="Published" xml:space="preserve">
     <value>منتشر شده</value>
   </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>تعداد</value>
+  </data>
   <data name="RangeGreaterThanZeroMsgMsg" xml:space="preserve">
     <value>{0} باید بیشتر از 0 باشد.</value>
   </data>
@@ -1614,6 +1620,9 @@
   <data name="ShopMainPage" xml:space="preserve">
     <value>فروشگاه</value>
   </data>
+  <data name="ShoppingCart" xml:space="preserve">
+    <value>سبد خرید</value>
+  </data>
   <data name="ShowCaseHasTab.PleaseRemove" xml:space="preserve">
     <value>ویترین انتخاب شده قابل حذف نمیباشد. لطفا ابتدا تب های آن را حذف نمایید.</value>
   </data>
@@ -1754,6 +1763,9 @@
   </data>
   <data name="UnKnown" xml:space="preserve">
     <value>ناشناخته</value>
+  </data>
+  <data name="UpdateCart" xml:space="preserve">
+    <value>ذخیره سبد خرید</value>
   </data>
   <data name="UploaderUserId" xml:space="preserve">
     <value>کاربر آپلود کننده</value>

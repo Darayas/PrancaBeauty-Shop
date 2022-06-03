@@ -210,5 +210,40 @@ namespace PrancaBeauty.Application.Apps.Carts
                 return default;
             }
         }
+
+        public async Task<OperationResult> ChangeQtyCartAsync(InpChangeQtyCart Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var qData = await _CartRepository.Get
+                                    .Where(a => a.UserId==Input.UserId.ToGuid())
+                                    .ToListAsync();
+
+                foreach (var item in qData)
+                {
+                    item.Count=Input.Items.Where(a => a.Id.ToLower()==item.Id.ToString().ToLower()).SingleOrDefault().Qty;
+                    await _CartRepository.UpdateAsync(item, default, false);
+                }
+
+                await _CartRepository.SaveChangeAsync();
+
+                return new OperationResult().Succeeded();
+
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return default;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return default;
+            }
+        }
     }
 }

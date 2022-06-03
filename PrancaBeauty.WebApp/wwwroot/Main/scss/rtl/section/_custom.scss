@@ -783,3 +783,20 @@ pre {
         }
     }
 }
+
+.cart_page {
+    .product_name {
+        .title {
+            a {
+                font-weight: 600 !important;
+            }
+        }
+    }
+
+    .oldPrice {
+        span {
+            font-size: 12px;
+            font-weight: 400;
+        }
+    }
+}

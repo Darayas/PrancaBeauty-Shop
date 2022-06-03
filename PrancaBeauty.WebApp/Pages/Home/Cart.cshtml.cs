@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Carts;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.Cart;
 using PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput;
+using PrancaBeauty.Application.Contracts.PresentationDTO.ViewModel;
 using PrancaBeauty.WebApp.Common.ExMethod;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
 
@@ -36,9 +37,77 @@ namespace PrancaBeauty.WebApp.Pages.Home
             _Localizer=localizer;
         }
 
-        public async Task<IActionResult> OnGetAsync()
+        public async Task<IActionResult> OnGetAsync(string CurrencyId, string LangId)
         {
-            return Page();
+            try
+            {
+                #region برسی لاگین بودن کاربر
+                string _UserId = null;
+                {
+                    if (!User.Identity.IsAuthenticated)
+                        return StatusCode(401);
+
+                    _UserId= User.GetUserDetails().UserId;
+                }
+                #endregion
+
+                var qData = await _CartApplication.GetItemsInCartAsync(new InpGetItemsInCart
+                {
+                    LangId=LangId,
+                    CurrencyId=CurrencyId,
+                    UserId=_UserId
+                });
+                if (qData==null)
+                    return StatusCode(400);
+
+                Data= _Mapper.Map<vmCart>(qData);
+
+                return Page();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                return _MsgBox.ModelStateMsg(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return _MsgBox.FaildMsg("Error500");
+            }
+        }
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            try
+            {
+                #region برسی لاگین بودن کاربر
+                string _UserId = null;
+                {
+                    if (!User.Identity.IsAuthenticated)
+                        return _MsgBox.InfoMsg(_Localizer["PleaseLoginToAddToCart"]);
+
+                    _UserId= User.GetUserDetails().UserId;
+                }
+                #endregion
+
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var _Result = await _CartApplication.ChangeQtyCartAsync(new InpChangeQtyCart { UserId=_UserId, Items=_Mapper.Map<List<InpChangeQtyCartItem>>(Input) });
+                if (_Result.IsSucceeded)
+                    return _MsgBox.SuccessMsg(_Localizer[_Result.Message], "ReloadPage()");
+                else
+                    return _MsgBox.FaildMsg(_Localizer[_Result.Message]);
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                return _MsgBox.ModelStateMsg(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return _MsgBox.FaildMsg("Error500");
+            }
         }
 
         public async Task<IActionResult> OnPostAddToCartAsync(viAddToCart Input)
@@ -112,5 +181,9 @@ namespace PrancaBeauty.WebApp.Pages.Home
                 return _MsgBox.FaildMsg("Error500");
             }
         }
+
+        [BindProperty]
+        public List<viCart> Input { get; set; }
+        public vmCart Data { get; set; }
     }
 }

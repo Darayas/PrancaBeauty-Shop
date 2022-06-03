@@ -1,29 +1,24 @@
 ﻿@page "/{culture}/Cart"
 @model PrancaBeauty.WebApp.Pages.Home.CartModel
 @{
+    ViewData["Title"] = Localizer["ShoppingCart"];
+    //ViewData["Descreption"] = Model.Data.MetaDescription;
+    //ViewData["canonical"] = Model.Data.MetaCanonical;
+    //ViewData["Keywords"] = Model.Data.MetaKeyword;
+
     Layout = "~/Pages/Shared/_MainLayout.cshtml";
 }
 
 <!--breadcrumbs area start-->
-<div class="breadcrumbs_area">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="breadcrumb_content">
-                    <ul>
-                        <li><a href="index.html">home</a></li>
-                        <li>Shopping Cart</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
+<partial name="~/Pages/Shared/Partials/P_breadcrumbs.cshtml" model='new List<viBreadcrumbs>{
+        new viBreadcrumbs{ Title=Localizer["Home"], Url=$"/{ViewData["Culture"]}"},
+        new viBreadcrumbs{ Title=ViewData["Title"].ToString(), Url=$"/{ViewData["Culture"]}/Cart"}}' />
+
 <!--breadcrumbs area end-->
 <!--shopping cart area start -->
 <div class="shopping_cart_area">
     <div class="container">
-        <form action="#">
             <div class="row">
                 <div class="col-12">
                     <div class="table_desc">
@@ -31,52 +26,48 @@
                             <table>
                                 <thead>
                                     <tr>
-                                        <th class="product_remove">Delete</th>
-                                        <th class="product_thumb">Image</th>
-                                        <th class="product_name">Product</th>
-                                        <th class="product-price">Price</th>
-                                        <th class="product_quantity">Quantity</th>
-                                        <th class="product_total">Total</th>
+                                        <th class="product_remove"></th>
+                                        <th class="product_thumb">@Localizer["Image"]</th>
+                                        <th class="product_name">@Localizer["Title"]</th>
+                                        <th class="product-price">@Localizer["Price"]</th>
+                                        <th class="product_quantity">@Localizer["Quantity"]</th>
+                                        <th class="product_total">@Localizer["TotalPrice"]</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td class="product_remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
-                                        <td class="product_thumb"><a href="#"><img src="/Main/img/s-product/product.jpg" alt=""></a></td>
-                                        <td class="product_name"><a href="#">Handbag fringilla</a></td>
-                                        <td class="product-price">£65.00</td>
-                                        <td class="product_quantity"><label>Quantity</label> <input min="1" max="100" value="1" type="number"></td>
-                                        <td class="product_total">£130.00</td>
-
-
-                                    </tr>
-
-                                    <tr>
-                                        <td class="product_remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
-                                        <td class="product_thumb"><a href="#"><img src="/Main/img/s-product/product2.jpg" alt=""></a></td>
-                                        <td class="product_name"><a href="#">Handbags justo</a></td>
-                                        <td class="product-price">£90.00</td>
-                                        <td class="product_quantity"><label>Quantity</label> <input min="1" max="100" value="1" type="number"></td>
-                                        <td class="product_total">£180.00</td>
-
-
-                                    </tr>
-                                    <tr>
-                                        <td class="product_remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
-                                        <td class="product_thumb"><a href="#"><img src="/Main/img/s-product/product3.jpg" alt=""></a></td>
-                                        <td class="product_name"><a href="#">Handbag elit</a></td>
-                                        <td class="product-price">£80.00</td>
-                                        <td class="product_quantity"><label>Quantity</label> <input min="1" max="100" value="1" type="number"></td>
-                                        <td class="product_total">£160.00</td>
-
-
-                                    </tr>
-
+                                    @{
+                                        int Counter = 0;
+                                        foreach (var item in Model.Data.Items)
+                                        {
+                                            <tr>
+                                                <td class="product_remove"><a href="#" onclick="RemoveData('/'+CurentCulture+'/Cart?handler=Remove',{Id:'@item.Id'})"><i class="fa fa-trash-o"></i></a></td>
+                                                <td class="product_thumb"><a href="/@ViewData["culture"]/Product/@item.ProductName"><img src="@item.ProductImgUrl" alt="@item.ProductTitle"></a></td>
+                                                <td class="product_name">
+                                                    <div class="title"> <a href="/@ViewData["culture"]/Product/@item.ProductName">@item.ProductTitle</a></div>
+                                                    <div class="variant"><span>@item.VariantTopic @item.VariantTitle</span></div>
+                                                </td>
+                                                <td class="product-price">
+                                                    <div><span>@item.Price.ToN3() @item.CurrencySymbol</span></div>
+                                                    @if (item.PercentSavePrice>0)
+                                                    {
+                                                        <div class="oldPrice">
+                                                            <span>@Localizer["Discount"]: (@item.PercentSavePrice%)</span>
+                                                            <span style="text-decoration:line-through;">@item.OldPrice.ToN3() @item.CurrencySymbol</span>
+                                                        </div>
+                                                    }
+                                                </td>
+                                                <td class="product_quantity"><label>@Localizer["Quantity"]</label><input form="frmCart" type="hidden" value="@item.Id" asp-for="Input[Counter].Id" /> <input form="frmCart" asp-for="Input[Counter].Qty" value="@item.Qty" /></td>
+                                                <td class="product_total">@item.TotalPrice.ToN3() @item.CurrencySymbol</td>
+                                            </tr>
+                                            Counter++;
+                                        }
+                                    }
                                 </tbody>
                             </table>
                         </div>
                         <div class="cart_submit">
-                            <button type="submit">update cart</button>
+                            <form id="frmCart"></form>
+                            <button onclick="SendForm('/@ViewData["culture"]/Cart','frmCart')" type="button">@Localizer["UpdateCart"]</button>
                         </div>
                     </div>
                 </div>
@@ -121,7 +112,6 @@
                 </div>
             </div>
             <!--coupon code area end-->
-        </form>
     </div>
 </div>
 <!--shopping cart area end -->
@@ -196,3 +186,8 @@
     </div>
 </div>
 <!--shipping area end-->
+<script>
+    function ReloadPage() {
+        location.reload();
+    }
+</script>

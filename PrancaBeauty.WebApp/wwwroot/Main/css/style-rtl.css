@@ -31834,3 +31834,11 @@ pre {
 .mini_cart .cart_gallery .cart_info p span.oldPrice {
   text-decoration: line-through;
 }
+
+.cart_page .product_name .title a {
+  font-weight: 600 !important;
+}
+.cart_page .oldPrice span {
+  font-size: 12px;
+  font-weight: 400;
+}

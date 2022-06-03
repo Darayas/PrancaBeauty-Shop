@@ -261,6 +261,9 @@
   <data name="Answer" xml:space="preserve">
     <value>پاسخ</value>
   </data>
+  <data name="Apply coupon" xml:space="preserve">
+    <value>اعمال تخفیف</value>
+  </data>
   <data name="AreYouSure" xml:space="preserve">
     <value>ایا مطمعن هستید؟</value>
   </data>
@@ -314,6 +317,9 @@
   </data>
   <data name="CantSend" xml:space="preserve">
     <value>ارسال نمیشود</value>
+  </data>
+  <data name="Cart Totals" xml:space="preserve">
+    <value>جزئیات سبد خرید</value>
   </data>
   <data name="Category" xml:space="preserve">
     <value>دسته</value>
@@ -435,6 +441,9 @@
   <data name="CountyTitle" xml:space="preserve">
     <value>کشور</value>
   </data>
+  <data name="Coupon code" xml:space="preserve">
+    <value>کد تخفیف</value>
+  </data>
   <data name="CssClass" xml:space="preserve">
     <value>کلاس های css</value>
   </data>
@@ -494,6 +503,9 @@
   </data>
   <data name="Discount" xml:space="preserve">
     <value>تخفیف</value>
+  </data>
+  <data name="DiscountCoupon" xml:space="preserve">
+    <value>بن تخفیف</value>
   </data>
   <data name="District" xml:space="preserve">
     <value>محله</value>
@@ -596,6 +608,9 @@
   </data>
   <data name="EndDateMustBeGreaterThanStartDate" xml:space="preserve">
     <value>تاریخ پایان باید بزرگتر از تاریخ شروع باشد</value>
+  </data>
+  <data name="Enter your coupon code if you have one." xml:space="preserve">
+    <value>درصورتی کد تخفیف دارید، از فرم زیر استفاده کنید</value>
   </data>
   <data name="Err429Msg" xml:space="preserve">
     <value>&lt;span style='font-weight:700;color:red;font-size:18px;'&gt;تعداد درخواست های ارسالی به سرور بیش از حد مجاز میباشد.&lt;/span&gt;&lt;br/&gt;&lt;span style='font-weight:600;font-size:16px;'&gt;لطفا 1 دقیقه ی دیگر مجددا تلاش نمایید.&lt;/span&gt;</value>
@@ -1332,6 +1347,9 @@
   <data name="Price" xml:space="preserve">
     <value>قیمت</value>
   </data>
+  <data name="Proceed to Checkout" xml:space="preserve">
+    <value>صدور فاکتور و پرداخت</value>
+  </data>
   <data name="ProdcutName is duplicate." xml:space="preserve">
     <value>نام محصول، ثبلا استفاده شده است. لطفا نام دیگری را انتخاب نمایید</value>
   </data>
@@ -1617,6 +1635,9 @@
   <data name="ShippingFee" xml:space="preserve">
     <value>هزینه ارسال</value>
   </data>
+  <data name="ShippingPrice" xml:space="preserve">
+    <value>هزینه ارسال</value>
+  </data>
   <data name="ShopMainPage" xml:space="preserve">
     <value>فروشگاه</value>
   </data>
@@ -1685,6 +1706,9 @@
   </data>
   <data name="StringLengthMsg" xml:space="preserve">
     <value>{0} باید بین {2} تا {1} کاراکتر باشد</value>
+  </data>
+  <data name="Subtotal" xml:space="preserve">
+    <value>جمع قیمت</value>
   </data>
   <data name="TabSectionHasChild.PleaseRemove" xml:space="preserve">
     <value>TabSection انتخاب شده داراری فرزندانی میباشد که ابتدا باید آن ها را حذف نمایید</value>

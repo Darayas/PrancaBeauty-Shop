@@ -19,8 +19,10 @@
 <!--shopping cart area start -->
 <div class="shopping_cart_area">
     <div class="container">
-            <div class="row">
-                <div class="col-12">
+        <div class="row">
+            <div class="col-12">
+                @if (Model.Data!=null)
+                {
                     <div class="table_desc">
                         <div class="cart_page table-responsive">
                             <table>
@@ -40,12 +42,13 @@
                                         foreach (var item in Model.Data.Items)
                                         {
                                             <tr>
-                                                <td class="product_remove"><a href="#" onclick="RemoveData('/'+CurentCulture+'/Cart?handler=Remove',{Id:'@item.Id'})"><i class="fa fa-trash-o"></i></a></td>
+                                                <td class="product_remove"><a href="#" onclick="RemoveFromCartAndRefresh('@item.Id')"><i class="fa fa-trash-o"></i></a></td>
                                                 <td class="product_thumb"><a href="/@ViewData["culture"]/Product/@item.ProductName"><img src="@item.ProductImgUrl" alt="@item.ProductTitle"></a></td>
                                                 <td class="product_name">
                                                     <div class="title"> <a href="/@ViewData["culture"]/Product/@item.ProductName">@item.ProductTitle</a></div>
                                                     <div class="variant"><span>@item.VariantTopic @item.VariantTitle</span></div>
                                                 </td>
+
                                                 <td class="product-price">
                                                     <div><span>@item.Price.ToN3() @item.CurrencySymbol</span></div>
                                                     @if (item.PercentSavePrice>0)
@@ -70,41 +73,52 @@
                             <button onclick="SendForm('/@ViewData["culture"]/Cart','frmCart')" type="button">@Localizer["UpdateCart"]</button>
                         </div>
                     </div>
-                </div>
+                }
+                else
+                {
+                    <div class="alert alert-info">
+                        @Localizer["ItemNotFound"]
+                    </div>
+                }
             </div>
+        </div>
+        @if (Model.Data!=null)
+        {
             <!--coupon code area start-->
             <div class="coupon_area">
                 <div class="row">
                     <div class="col-lg-6 col-md-6">
                         <div class="coupon_code left">
-                            <h3>Coupon</h3>
+                            <h3>@Localizer["DiscountCoupon"]</h3>
                             <div class="coupon_inner">
-                                <p>Enter your coupon code if you have one.</p>
-                                <input placeholder="Coupon code" type="text">
-                                <button type="submit">Apply coupon</button>
+                                <p>@Localizer["Enter your coupon code if you have one."]</p>
+                                <input placeholder="@Localizer["Coupon code"]" type="text">
+                                <button type="submit">@Localizer["Apply coupon"]</button>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6">
                         <div class="coupon_code right">
-                            <h3>Cart Totals</h3>
+                            <h3>@Localizer["Cart Totals"]</h3>
                             <div class="coupon_inner">
                                 <div class="cart_subtotal">
-                                    <p>Subtotal</p>
-                                    <p class="cart_amount">£215.00</p>
+                                    <p>@Localizer["Subtotal"]</p>
+                                    <p class="cart_amount">@Model.Data.Items.Sum(a=>a.TotalPrice).ToN3() @Model.Data.CurrencySymbol</p>
                                 </div>
                                 <div class="cart_subtotal ">
-                                    <p>Shipping</p>
-                                    <p class="cart_amount"><span>Flat Rate:</span> £255.00</p>
+                                    <p>@Localizer["ShippingPrice"]</p>
+                                    <p class="cart_amount"> @Model.Data.ShippingAmount.ToN3() @Model.Data.CurrencySymbol</p>
                                 </div>
-                                <a href="#">Calculate shipping</a>
-
+                                <div class="cart_subtotal ">
+                                    <p>@Localizer["Tax"]</p>
+                                    <p class="cart_amount"> @Model.Data.TaxAmount.ToN3() @Model.Data.CurrencySymbol</p>
+                                </div>
                                 <div class="cart_subtotal">
-                                    <p>Total</p>
-                                    <p class="cart_amount">£215.00</p>
+                                    <p>@Localizer["TotalPrice"]</p>
+                                    <p class="cart_amount">@Model.Data.TotalAmount.ToN3() @Model.Data.CurrencySymbol</p>
                                 </div>
                                 <div class="checkout_btn">
-                                    <a href="#">Proceed to Checkout</a>
+                                    <a href="#">@Localizer["Proceed to Checkout"]</a>
                                 </div>
                             </div>
                         </div>
@@ -112,6 +126,7 @@
                 </div>
             </div>
             <!--coupon code area end-->
+        }
     </div>
 </div>
 <!--shopping cart area end -->
@@ -189,5 +204,13 @@
 <script>
     function ReloadPage() {
         location.reload();
+    }
+
+    function RemoveFromCartAndRefresh(_Id) {
+        RemoveFromCart('/' + CurentCulture + '/Cart?handler=Remove', { Id: _Id }, function() {
+            Alert('', '@Localizer["Operation was successded"]', 'success', function() {
+                location.reload();
+            });
+        });
     }
 </script>

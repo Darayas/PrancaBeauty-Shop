@@ -2,10 +2,17 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Framework\Framework.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Bills\BillAgg\Contracts\" />
+    <Folder Include="Bills\BillItemsAgg\Contracts\" />
+    <Folder Include="Bills\BillItemsAgg\Entities\" />
   </ItemGroup>
 
 </Project>

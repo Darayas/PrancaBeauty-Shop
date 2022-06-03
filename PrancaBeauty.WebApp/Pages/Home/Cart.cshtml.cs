@@ -14,6 +14,7 @@ using PrancaBeauty.Application.Contracts.ApplicationDTO.Cart;
 using PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput;
 using PrancaBeauty.Application.Contracts.PresentationDTO.ViewModel;
 using PrancaBeauty.WebApp.Common.ExMethod;
+using PrancaBeauty.WebApp.Common.Types;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
 
 namespace PrancaBeauty.WebApp.Pages.Home
@@ -58,7 +59,10 @@ namespace PrancaBeauty.WebApp.Pages.Home
                     UserId=_UserId
                 });
                 if (qData==null)
-                    return StatusCode(400);
+                {
+                    Data=null;
+                    return Page();
+                }
 
                 Data= _Mapper.Map<vmCart>(qData);
 
@@ -166,7 +170,7 @@ namespace PrancaBeauty.WebApp.Pages.Home
 
                 var _Result = await _CartApplication.RemoveCartItemAsync(new InpRemoveCartItem { Id=Input.Id, UserId=_UserId });
                 if (_Result.IsSucceeded)
-                    return _MsgBox.SuccessMsg(_Localizer[_Result.Message], "LoadCart()");
+                    return new JsResult("");
                 else
                     return _MsgBox.FaildMsg(_Localizer[_Result.Message]);
 

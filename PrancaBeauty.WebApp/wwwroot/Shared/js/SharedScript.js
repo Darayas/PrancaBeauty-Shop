@@ -111,7 +111,7 @@ function ChangeUrlToFormParams(_FormId) {
 
     var queryString = new URLSearchParams(_formdata).toString();
 
-    ChangeUrl ("?"+ queryString);
+    ChangeUrl("?" + queryString);
 }
 
 function LoadComponent(_Url, _Data, _CallbackFuncs = function (data) { }, _EnableLoading = true) {
@@ -143,6 +143,12 @@ function RemoveData(_Url, _Data = {}) {
     });
 }
 
+function RemoveFromCart(_Url, _Data = {}, _CallBackFunc = function () { }) {
+    confirm(DeleteMsg, '', function () {
+        SendData(_Url, _Data, _CallBackFunc());
+    });
+}
+
 function AreYouSureData(_Url, _Data = {}) {
     confirm(AreYouSureMsg, '', function () {
         SendData(_Url, _Data);
@@ -166,13 +172,17 @@ function Alert429() {
     });
 }
 
-function Alert(_Title, _Text, _Type = 'info') {
+function Alert(_Title, _Text, _Type = 'info', _CallbackFunc = function () { }) {
     return swal.fire({
         title: _Title,
         html: $.parseHTML(_Text)[0].data,
         icon: _Type, // warning, info, succcess, error
         confirmButtonText: OkText
-    });
+    }).then((result) => {
+        if (result.isConfirmed) {
+            _CallbackFunc();
+        }
+    });;
 }
 
 function Logout(_ReturnUrl) {

@@ -1,6 +1,7 @@
 ﻿using Framework.Domain.Contracts;
 using PrancaBeauty.Domin.Region.CityAgg.Entities;
 using PrancaBeauty.Domin.Region.CountryAgg.Entities;
+using PrancaBeauty.Domin.ShippingMethods.ShippingMethodRestrictAgg.Entities;
 using PrancaBeauty.Domin.Users.AddressAgg.Entities;
 using System;
 using System.Collections.Generic;
@@ -21,5 +22,6 @@ namespace PrancaBeauty.Domin.Region.ProvinceAgg.Entities
         public virtual ICollection<tblProvinces_Translate> tblProvinces_Translate { get; set; }
         public virtual ICollection<tblCities> tblCities { get; set; }
         public virtual ICollection<tblAddress> tblAddress { get; set; }
+        public virtual ICollection<tblShippingMethodRestricts> tblShippingMethodRestricts { get; set; }
     }
 }

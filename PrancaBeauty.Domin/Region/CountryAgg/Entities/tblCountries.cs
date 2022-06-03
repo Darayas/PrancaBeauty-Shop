@@ -1,10 +1,12 @@
 ﻿using Framework.Domain.Contracts;
 using PrancaBeauty.Domin.FileServer.FileAgg.Entities;
+using PrancaBeauty.Domin.PaymentGate.PaymentGateRestrictAgg.Entities;
 using PrancaBeauty.Domin.Product.PostingRestrictionsAgg.Entites;
 using PrancaBeauty.Domin.Product.ProductPricesAgg.Entities;
 using PrancaBeauty.Domin.Region.CurrnencyAgg.Entities;
 using PrancaBeauty.Domin.Region.LanguagesAgg.Entities;
 using PrancaBeauty.Domin.Region.ProvinceAgg.Entities;
+using PrancaBeauty.Domin.ShippingMethods.ShippingMethodRestrictAgg.Entities;
 using PrancaBeauty.Domin.Showcases.ShowcaseAgg.Entities;
 using PrancaBeauty.Domin.Users.AddressAgg.Entities;
 using System;
@@ -31,5 +33,7 @@ namespace PrancaBeauty.Domin.Region.CountryAgg.Entities
         public virtual ICollection<tblCurrencies> tblCurrencies { get; set; }
         public virtual ICollection<tblPostingRestrictions> tblPostingRestrictions { get; set; }
         public virtual ICollection<tblShowcases> tblShowCases { get; set; }
+        public virtual ICollection<tblPaymentGateRestricts> tblPaymentGateRestricts { get; set; }
+        public virtual ICollection<tblShippingMethodRestricts> tblShippingMethodRestricts { get; set; }
     }
 }

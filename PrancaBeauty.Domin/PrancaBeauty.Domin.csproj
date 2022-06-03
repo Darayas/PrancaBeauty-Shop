@@ -10,9 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Bills\BillAgg\Contracts\" />
     <Folder Include="Bills\BillItemsAgg\Contracts\" />
-    <Folder Include="Bills\BillItemsAgg\Entities\" />
   </ItemGroup>
 
 </Project>

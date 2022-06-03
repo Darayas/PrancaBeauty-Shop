@@ -2,6 +2,7 @@
 using PrancaBeauty.Domin.Categories.CategoriesAgg.Entities;
 using PrancaBeauty.Domin.FileServer.FileAgg.Entities;
 using PrancaBeauty.Domin.Keywords.SearchHistoryAgg.Entities;
+using PrancaBeauty.Domin.PaymentGate.PaymentGateAgg.Entities;
 using PrancaBeauty.Domin.Product.GuaranteeAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductPropertisAgg.Entities;
@@ -13,6 +14,7 @@ using PrancaBeauty.Domin.Region.CountryAgg.Entities;
 using PrancaBeauty.Domin.Region.CurrnencyAgg.Entities;
 using PrancaBeauty.Domin.Region.ProvinceAgg.Entities;
 using PrancaBeauty.Domin.Settings.SettingsAgg.Entities;
+using PrancaBeauty.Domin.ShippingMethods.ShippingMethodAgg.Entities;
 using PrancaBeauty.Domin.Showcases.SectionFreeItemAgg.Entities;
 using PrancaBeauty.Domin.Showcases.ShowcaseAgg.Entities;
 using PrancaBeauty.Domin.Showcases.ShowcaseTabAgg.Entities;
@@ -55,6 +57,8 @@ namespace PrancaBeauty.Domin.Region.LanguagesAgg.Entities
         public virtual ICollection<tblShowcaseTabTranslates> tblShowcaseTabTranslates { get; set; }
         public virtual ICollection<tblSectionFreeItemTranslate> tblSectionFreeItemTranslate { get; set; }
         public virtual ICollection<tblSearchHistory> tblSearchHistory { get; set; }
+        public virtual ICollection<tblPaymentGateTranslate> tblPaymentGateTranslate { get; set; }
+        public virtual ICollection<tblShippingMethodTranslate> tblShippingMethodTranslate { get; set; }
 
 
         public virtual tblCountries tblCountries { get; set; }

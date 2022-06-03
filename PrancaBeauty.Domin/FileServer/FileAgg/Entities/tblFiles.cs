@@ -3,11 +3,13 @@ using PrancaBeauty.Domin.Categories.CategoriesAgg.Entities;
 using PrancaBeauty.Domin.FileServer.FilePathAgg.Entities;
 using PrancaBeauty.Domin.FileServer.FileTypeAgg.Entities;
 using PrancaBeauty.Domin.FileServer.ServerAgg.Entities;
+using PrancaBeauty.Domin.PaymentGate.PaymentGateAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductMediaAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductReviewsMediaAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductTopicAgg.Entities;
 using PrancaBeauty.Domin.Region.CountryAgg.Entities;
 using PrancaBeauty.Domin.Region.LanguagesAgg.Entities;
+using PrancaBeauty.Domin.ShippingMethods.ShippingMethodAgg.Entities;
 using PrancaBeauty.Domin.Showcases.SectionFreeItemAgg.Entities;
 using PrancaBeauty.Domin.Sliders.SliderAgg.Entities;
 using PrancaBeauty.Domin.Users.SellerAgg.Entities;
@@ -45,6 +47,8 @@ namespace PrancaBeauty.Domin.FileServer.FileAgg.Entities
         public virtual ICollection<tblSlider> tblSlider { get; set; }
         public virtual ICollection<tblSectionFreeItemTranslate> tblSectionFreeItemTranslate { get; set; }
         public virtual ICollection<tblProductMedia> tblProductMedia { get; set; }
+        public virtual ICollection<tblPaymentGates> tblPaymentGates { get; set; }
+        public virtual ICollection<tblShippingMethods> tblShippingMethods { get; set; }
 
     }
 }

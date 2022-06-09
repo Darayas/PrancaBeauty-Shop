@@ -1,4 +1,5 @@
 ﻿using Framework.Domain.Contracts;
+using PrancaBeauty.Domin.Bills.TaxAgg.Entities;
 using PrancaBeauty.Domin.FileServer.FileAgg.Entities;
 using PrancaBeauty.Domin.PaymentGate.PaymentGateRestrictAgg.Entities;
 using PrancaBeauty.Domin.Product.PostingRestrictionsAgg.Entites;
@@ -35,5 +36,6 @@ namespace PrancaBeauty.Domin.Region.CountryAgg.Entities
         public virtual ICollection<tblShowcases> tblShowCases { get; set; }
         public virtual ICollection<tblPaymentGateRestricts> tblPaymentGateRestricts { get; set; }
         public virtual ICollection<tblShippingMethodRestricts> tblShippingMethodRestricts { get; set; }
+        public virtual ICollection<tblTaxGroups> tblTaxGroups { get; set; }
     }
 }

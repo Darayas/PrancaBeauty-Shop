@@ -3,6 +3,7 @@ using Framework.Domain.Enums;
 using PrancaBeauty.Domin.Bills.BillAgg.Entities;
 using PrancaBeauty.Domin.Bills.BillItemsAgg.Entities;
 using PrancaBeauty.Domin.ShippingMethods.ShippingMethodAgg.Entities;
+using PrancaBeauty.Domin.Users.AddressAgg.Entities;
 using System;
 using System.Collections.Generic;
 
@@ -13,6 +14,7 @@ namespace PrancaBeauty.Domin.PostalBarcodes.PostalBarcodeAgg.Entities
         public Guid Id { get; set; }
         public Guid BillId { get; set; }
         public Guid ShippingMethodId { get; set; }
+        public Guid AddressId { get; set; }
         public DateTime Date { get; set; } // تاریخ ثبت رکورد جاری
         public int Weight { get; set; }
         public int Width { get; set; }
@@ -28,6 +30,7 @@ namespace PrancaBeauty.Domin.PostalBarcodes.PostalBarcodeAgg.Entities
 
         public virtual tblBills tblBill { get; set; }
         public virtual tblShippingMethods tblShippingMethod { get; set; }
+        public virtual tblAddress tblAddress { get; set; }
         public virtual ICollection<tblBillItems> tblBillItems { get; set; }
     }
 }

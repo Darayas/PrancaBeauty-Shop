@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <Folder Include="Bills\BillItemsAgg\Contracts\" />
+    <Folder Include="Product\ProductGroupAgg\Contracts\" />
   </ItemGroup>
 
 </Project>

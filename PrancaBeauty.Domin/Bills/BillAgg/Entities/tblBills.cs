@@ -1,13 +1,11 @@
 ﻿using Framework.Domain.Contracts;
+using Framework.Domain.Enums;
 using PrancaBeauty.Domin.Bills.BillItemsAgg.Entities;
 using PrancaBeauty.Domin.PaymentGate.PaymentGateAgg.Entities;
 using PrancaBeauty.Domin.PostalBarcodes.PostalBarcodeAgg.Entities;
 using PrancaBeauty.Domin.Users.UserAgg.Entities;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PrancaBeauty.Domin.Bills.BillAgg.Entities
 {
@@ -22,7 +20,7 @@ namespace PrancaBeauty.Domin.Bills.BillAgg.Entities
         public string TransactionNumber { get; set; }
         public string GateNumber { get; set; }
         public DateTime Date { get; set; } // تاریخ تغییر وضعیت فاکتور
-        public bool IsPayyed { get; set; } // وضعیت پرداخت
+        public BillStatusEnum Status { get; set; }
 
         public virtual tblUsers tblUsers { get; set; }
         public virtual tblPaymentGates tblPaymentGates { get; set; }

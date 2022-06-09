@@ -2,6 +2,7 @@
 using PrancaBeauty.Domin.Categories.CategoriesAgg.Entities;
 using PrancaBeauty.Domin.FileServer.FileAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductAgg.Entities;
+using PrancaBeauty.Domin.Product.ProductGroupAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductPropertisAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductReviewsAttributeAgg.Entities;
 using System;
@@ -24,5 +25,6 @@ namespace PrancaBeauty.Domin.Product.ProductTopicAgg.Entities
         public virtual ICollection<tblProductReviewsAttribute> tblProductReviewsAttribute { get; set; }
         public virtual ICollection<tblProducts> tblProducts { get; set; }
         public virtual ICollection<tblCategoris> tblCategoris { get; set; }
+        public virtual ICollection<tblProductGroups> tblProductGroups { get; set; }
     }
 }

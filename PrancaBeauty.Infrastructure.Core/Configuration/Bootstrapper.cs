@@ -62,12 +62,14 @@ using PrancaBeauty.Application.Apps.Showcases;
 using PrancaBeauty.Application.Apps.ShowcaseTabs;
 using PrancaBeauty.Application.Apps.ShowcaseTabSection;
 using PrancaBeauty.Application.Apps.Slider;
+using PrancaBeauty.Application.Apps.TaxGroups;
 using PrancaBeauty.Application.Apps.Templates;
 using PrancaBeauty.Application.Apps.Users;
 using PrancaBeauty.Application.Common.ExMethods;
 using PrancaBeauty.Application.Common.FtpWapper;
 using PrancaBeauty.Domin.Bills.BillAgg.Contracts;
 using PrancaBeauty.Domin.Bills.BillItemsAgg.Contracts;
+using PrancaBeauty.Domin.Bills.TaxAgg.Contracts;
 using PrancaBeauty.Domin.Cart.CartAgg.Contracts;
 using PrancaBeauty.Domin.Categories.CategoriesAgg.Contracts;
 using PrancaBeauty.Domin.FileServer.FileAgg.Contracts;
@@ -177,6 +179,7 @@ using PrancaBeauty.Infrastructure.EFCore.Repository.Showcases;
 using PrancaBeauty.Infrastructure.EFCore.Repository.ShowcaseTabs;
 using PrancaBeauty.Infrastructure.EFCore.Repository.ShowcaseTabSection;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Slider;
+using PrancaBeauty.Infrastructure.EFCore.Repository.TaxGroup;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Templates;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Users;
 using PrancaBeauty.Infrastructure.Logger.Serilogger;
@@ -270,6 +273,7 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddScoped<IBillsRepository, BillsRepository>();
             services.AddScoped<IBillItemsRepository, BillItemsRepository>();
             services.AddScoped<IPostalBarcodeRepository, PostalBarcodeRepository>();
+            services.AddScoped<ITaxGroupRepository, TaxGroupRepository>();
 
             // Applications
             services.AddScoped<IUserApplication, UserApplication>();
@@ -329,6 +333,7 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddScoped<IBillApplication, BillApplication>();
             services.AddScoped<IBillItemsApplication, BillItemsApplication>();
             services.AddScoped<IPostalBarcodeApplication, PostalBarcodeApplication>();
+            services.AddScoped<ITaxGroupApplication, TaxGroupApplication>();
         }
     }
 }

@@ -5,6 +5,7 @@ using PrancaBeauty.Domin.Keywords.SearchHistoryAgg.Entities;
 using PrancaBeauty.Domin.PaymentGate.PaymentGateAgg.Entities;
 using PrancaBeauty.Domin.Product.GuaranteeAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductAgg.Entities;
+using PrancaBeauty.Domin.Product.ProductGroupAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductPropertisAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductReviewsAttributeAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductTopicAgg.Entities;
@@ -59,6 +60,7 @@ namespace PrancaBeauty.Domin.Region.LanguagesAgg.Entities
         public virtual ICollection<tblSearchHistory> tblSearchHistory { get; set; }
         public virtual ICollection<tblPaymentGateTranslate> tblPaymentGateTranslate { get; set; }
         public virtual ICollection<tblShippingMethodTranslate> tblShippingMethodTranslate { get; set; }
+        public virtual ICollection<tblProductGroupTranslate> tblProductGroupTranslate { get; set; }
 
 
         public virtual tblCountries tblCountries { get; set; }

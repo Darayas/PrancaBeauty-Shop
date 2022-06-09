@@ -16,6 +16,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Mapping.BillItems
             builder.Property(a => a.VarianrItemId).IsRequired().HasMaxLength(150);
             builder.Property(a => a.SellerId).IsRequired().HasMaxLength(150);
             builder.Property(a => a.PostalBarcodeId).IsRequired().HasMaxLength(150);
+            builder.Property(a => a.ReasonReturn).IsRequired(false).HasMaxLength(500);
 
             builder.HasOne(a => a.tblBills)
                    .WithMany(a => a.tblBillItems)

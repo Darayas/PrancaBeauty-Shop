@@ -1,4 +1,5 @@
 ﻿using Framework.Domain.Contracts;
+using PrancaBeauty.Domin.PostalBarcodes.PostalBarcodeAgg.Entities;
 using PrancaBeauty.Domin.Region.CityAgg.Entities;
 using PrancaBeauty.Domin.Region.CountryAgg.Entities;
 using PrancaBeauty.Domin.Region.ProvinceAgg.Entities;
@@ -33,5 +34,6 @@ namespace PrancaBeauty.Domin.Users.AddressAgg.Entities
         public virtual tblCountries tblCountries { get; set; }
         public virtual tblProvinces tblProvinces { get; set; }
         public virtual tblCities tblCities { get; set; }
+        public virtual ICollection<tblPostalBarcodes> tblPostalBarcodes { get; set; }
     }
 }

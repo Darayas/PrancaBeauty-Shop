@@ -1,5 +1,6 @@
 ﻿using Framework.Domain.Contracts;
 using PrancaBeauty.Domin.Bills.BillItemsAgg.Entities;
+using PrancaBeauty.Domin.Bills.TaxAgg.Entities;
 using PrancaBeauty.Domin.Cart.CartAgg.Entities;
 using PrancaBeauty.Domin.Categories.CategoriesAgg.Entities;
 using PrancaBeauty.Domin.Keywords.Keywords_Products.Entities;
@@ -30,6 +31,7 @@ namespace PrancaBeauty.Domin.Product.ProductAgg.Entities
         public Guid? TopicId { get; set; }
         public Guid AuthorUserId { get; set; }
         public Guid? CategoryId { get; set; }
+        public Guid TaxGroupId { get; set; }
         public Guid LangId { get; set; }
         public DateTime Date { get; set; }
         public string UniqueNumber { get; set; } // Uniqe Number
@@ -52,6 +54,7 @@ namespace PrancaBeauty.Domin.Product.ProductAgg.Entities
         public virtual tblProductTopic tblProductTopic { get; set; }
         public virtual tblCategoris tblCategory { get; set; }
         public virtual tblLanguages tblLanguage { get; set; }
+        public virtual tblTaxGroups tblTaxGroups { get; set; }
         public virtual ICollection<tblKeywords_Products> tblKeywords_Products { get; set; }
         public virtual ICollection<tblProductPrices> tblProductPrices { get; set; }
         public virtual ICollection<tblProductMedia> tblProductMedia { get; set; }

@@ -2,6 +2,7 @@
 using PrancaBeauty.Domin.PaymentGate.PaymentGateRestrictAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductPricesAgg.Entities;
 using PrancaBeauty.Domin.Region.CountryAgg.Entities;
+using PrancaBeauty.Domin.Wallet.WalletAgg.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,5 +27,6 @@ namespace PrancaBeauty.Domin.Region.CurrnencyAgg.Entities
         public virtual ICollection<tblCurrency_Translates> tblCurrency_Translates { get; set; }
         public virtual ICollection<tblProductPrices> tblProductPrices { get; set; }
         public virtual ICollection<tblPaymentGateRestricts> tblPaymentGateRestricts { get; set; }
+        public virtual ICollection<tblWallets> tblWallets { get; set; }
     }
 }

@@ -16,6 +16,7 @@ using PrancaBeauty.Domin.Sliders.SliderAgg.Entities;
 using PrancaBeauty.Domin.Users.AccessLevelAgg.Entities;
 using PrancaBeauty.Domin.Users.AddressAgg.Entities;
 using PrancaBeauty.Domin.Users.SellerAgg.Entities;
+using PrancaBeauty.Domin.Wallet.WalletAgg.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -52,6 +53,7 @@ namespace PrancaBeauty.Domin.Users.UserAgg.Entities
         public virtual ICollection<tblShowcases> tblShowCases { get; set; }
         public virtual ICollection<tblCarts> tblCarts { get; set; }
         public virtual ICollection<tblBills> tblBills { get; set; }
+        public virtual ICollection<tblWallets> tblWallets { get; set; }
 
     }
 }

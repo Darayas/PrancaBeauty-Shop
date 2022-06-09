@@ -32,6 +32,8 @@ using PrancaBeauty.Application.Apps.PostingRestrictions;
 using PrancaBeauty.Application.Apps.ProductAsk;
 using PrancaBeauty.Application.Apps.ProductAskLikes;
 using PrancaBeauty.Application.Apps.ProductDiscount;
+using PrancaBeauty.Application.Apps.ProductGroup;
+using PrancaBeauty.Application.Apps.ProductGroupPercent;
 using PrancaBeauty.Application.Apps.ProductMedia;
 using PrancaBeauty.Application.Apps.ProductPrices;
 using PrancaBeauty.Application.Apps.ProductPropertiesValues;
@@ -65,6 +67,7 @@ using PrancaBeauty.Application.Apps.Slider;
 using PrancaBeauty.Application.Apps.TaxGroups;
 using PrancaBeauty.Application.Apps.Templates;
 using PrancaBeauty.Application.Apps.Users;
+using PrancaBeauty.Application.Apps.Wallets;
 using PrancaBeauty.Application.Common.ExMethods;
 using PrancaBeauty.Application.Common.FtpWapper;
 using PrancaBeauty.Domin.Bills.BillAgg.Contracts;
@@ -88,6 +91,8 @@ using PrancaBeauty.Domin.Product.ProductAgg.Contracts;
 using PrancaBeauty.Domin.Product.ProductAskAgg.Contarcts;
 using PrancaBeauty.Domin.Product.ProductAskLikesAgg.Contracts;
 using PrancaBeauty.Domin.Product.ProductDiscountAgg.Contracts;
+using PrancaBeauty.Domin.Product.ProductGroupAgg.Contracts;
+using PrancaBeauty.Domin.Product.ProductGroupPercentAgg.Contracts;
 using PrancaBeauty.Domin.Product.ProductMediaAgg.Contracts;
 using PrancaBeauty.Domin.Product.ProductPricesAgg.Contracts;
 using PrancaBeauty.Domin.Product.ProductPropertiesValuesAgg.Contracts;
@@ -124,6 +129,7 @@ using PrancaBeauty.Domin.Users.AddressAgg.Contracts;
 using PrancaBeauty.Domin.Users.RoleAgg.Contracts;
 using PrancaBeauty.Domin.Users.SellerAgg.Contracts;
 using PrancaBeauty.Domin.Users.UserAgg.Contracts;
+using PrancaBeauty.Domin.Wallet.WalletAgg.Contracts;
 using PrancaBeauty.Infrastructure.EFCore.Context;
 using PrancaBeauty.Infrastructure.EFCore.Repository.AccessLevel;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Address;
@@ -148,6 +154,9 @@ using PrancaBeauty.Infrastructure.EFCore.Repository.Product;
 using PrancaBeauty.Infrastructure.EFCore.Repository.ProductAsk;
 using PrancaBeauty.Infrastructure.EFCore.Repository.ProductAskLikes;
 using PrancaBeauty.Infrastructure.EFCore.Repository.ProductDiscount;
+using PrancaBeauty.Infrastructure.EFCore.Repository.ProductGroupPercent;
+using PrancaBeauty.Infrastructure.EFCore.Repository.ProductGroups;
+using PrancaBeauty.Infrastructure.EFCore.Repository.ProductGroupTranslate;
 using PrancaBeauty.Infrastructure.EFCore.Repository.ProductMedia;
 using PrancaBeauty.Infrastructure.EFCore.Repository.ProductPrices;
 using PrancaBeauty.Infrastructure.EFCore.Repository.ProductProperties;
@@ -182,6 +191,7 @@ using PrancaBeauty.Infrastructure.EFCore.Repository.Slider;
 using PrancaBeauty.Infrastructure.EFCore.Repository.TaxGroup;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Templates;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Users;
+using PrancaBeauty.Infrastructure.EFCore.Repository.Wallet;
 using PrancaBeauty.Infrastructure.Logger.Serilogger;
 
 namespace PrancaBeauty.Infrastructure.Core.Configuration
@@ -274,6 +284,10 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddScoped<IBillItemsRepository, BillItemsRepository>();
             services.AddScoped<IPostalBarcodeRepository, PostalBarcodeRepository>();
             services.AddScoped<ITaxGroupRepository, TaxGroupRepository>();
+            services.AddScoped<IProductGroupRepository, ProductGroupRepository>();
+            services.AddScoped<IProductGroupTranslateRepository, ProductGroupTranslateRepository>();
+            services.AddScoped<IProductGroupPercentRepository, ProductGroupPercentRepository>();
+            services.AddScoped<IWalletRepository, WalletRepository>();
 
             // Applications
             services.AddScoped<IUserApplication, UserApplication>();
@@ -334,6 +348,9 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddScoped<IBillItemsApplication, BillItemsApplication>();
             services.AddScoped<IPostalBarcodeApplication, PostalBarcodeApplication>();
             services.AddScoped<ITaxGroupApplication, TaxGroupApplication>();
+            services.AddScoped<IProductGroupApplication, ProductGroupApplication>();
+            services.AddScoped<IProductGroupPercentApplication, ProductGroupPercentApplication>();
+            services.AddScoped<IWalletApplication, WalletApplication>();
         }
     }
 }

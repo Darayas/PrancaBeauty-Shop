@@ -7,11 +7,9 @@ using PrancaBeauty.Domin.Product.ProductAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductDiscountAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductSellerAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductVariantAgg.Entities;
+using PrancaBeauty.Domin.Wallet.WalletDepositDetailsAgg.Entities;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PrancaBeauty.Domin.Product.ProductVariantsItemsAgg.Entities
 {
@@ -42,8 +40,7 @@ namespace PrancaBeauty.Domin.Product.ProductVariantsItemsAgg.Entities
         public virtual tblProductDiscounts tblProductDiscounts { get; set; }
         public virtual ICollection<tblCarts> tblCarts { get; set; }
         public virtual ICollection<tblBillItems> tblBillItems { get; set; }
+        public virtual ICollection<tblWalletDepositDetails> tblWalletDepositDetails { get; set; }
 
     }
-
-
 }

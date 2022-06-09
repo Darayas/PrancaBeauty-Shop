@@ -1,5 +1,6 @@
 ﻿using Framework.Domain.Contracts;
 using PrancaBeauty.Domin.FileServer.FileAgg.Entities;
+using PrancaBeauty.Domin.PostalBarcodes.PostalBarcodeAgg.Entities;
 using PrancaBeauty.Domin.ShippingMethods.ShippingMethodRestrictAgg.Entities;
 using System;
 using System.Collections.Generic;
@@ -15,5 +16,7 @@ namespace PrancaBeauty.Domin.ShippingMethods.ShippingMethodAgg.Entities
         public virtual tblFiles tblFiles { get; set; }
         public virtual ICollection<tblShippingMethodTranslate> tblShippingMethodTranslate { get; set; }
         public virtual ICollection<tblShippingMethodRestricts> tblShippingMethodRestricts { get; set; }
+        public virtual ICollection<tblPostalBarcodes> tblPostalBarcodes { get; set; }
+
     }
 }

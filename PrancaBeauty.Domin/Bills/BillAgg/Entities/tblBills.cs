@@ -1,5 +1,7 @@
 ﻿using Framework.Domain.Contracts;
+using PrancaBeauty.Domin.Bills.BillItemsAgg.Entities;
 using PrancaBeauty.Domin.PaymentGate.PaymentGateAgg.Entities;
+using PrancaBeauty.Domin.PostalBarcodes.PostalBarcodeAgg.Entities;
 using PrancaBeauty.Domin.Users.UserAgg.Entities;
 using System;
 using System.Collections.Generic;
@@ -24,6 +26,8 @@ namespace PrancaBeauty.Domin.Bills.BillAgg.Entities
 
         public virtual tblUsers tblUsers { get; set; }
         public virtual tblPaymentGates tblPaymentGates { get; set; }
+        public virtual ICollection<tblBillItems> tblBillItems { get; set; }
+        public virtual ICollection<tblPostalBarcodes> tblPostalBarcodes { get; set; }
 
     }
 }

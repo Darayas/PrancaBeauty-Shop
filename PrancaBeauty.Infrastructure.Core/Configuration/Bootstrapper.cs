@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using PrancaBeauty.Application.Apps.Accesslevels;
 using PrancaBeauty.Application.Apps.AccesslevelsRoles;
 using PrancaBeauty.Application.Apps.Address;
+using PrancaBeauty.Application.Apps.BillItems;
 using PrancaBeauty.Application.Apps.Bills;
 using PrancaBeauty.Application.Apps.Carts;
 using PrancaBeauty.Application.Apps.Categories;
@@ -26,6 +27,7 @@ using PrancaBeauty.Application.Apps.KeywordsProducts;
 using PrancaBeauty.Application.Apps.Languages;
 using PrancaBeauty.Application.Apps.PaymentGateRestricts;
 using PrancaBeauty.Application.Apps.PaymentGates;
+using PrancaBeauty.Application.Apps.PostalBarcode;
 using PrancaBeauty.Application.Apps.PostingRestrictions;
 using PrancaBeauty.Application.Apps.ProductAsk;
 using PrancaBeauty.Application.Apps.ProductAskLikes;
@@ -65,6 +67,7 @@ using PrancaBeauty.Application.Apps.Users;
 using PrancaBeauty.Application.Common.ExMethods;
 using PrancaBeauty.Application.Common.FtpWapper;
 using PrancaBeauty.Domin.Bills.BillAgg.Contracts;
+using PrancaBeauty.Domin.Bills.BillItemsAgg.Contracts;
 using PrancaBeauty.Domin.Cart.CartAgg.Contracts;
 using PrancaBeauty.Domin.Categories.CategoriesAgg.Contracts;
 using PrancaBeauty.Domin.FileServer.FileAgg.Contracts;
@@ -76,6 +79,7 @@ using PrancaBeauty.Domin.Keywords.Keywords_Products.Contracts;
 using PrancaBeauty.Domin.Keywords.SearchHistoryAgg.Contracts;
 using PrancaBeauty.Domin.PaymentGate.PaymentGateAgg.Contracts;
 using PrancaBeauty.Domin.PaymentGate.PaymentGateRestrictAgg.Contracts;
+using PrancaBeauty.Domin.PostalBarcodes.PostalBarcodeAgg.Contracts;
 using PrancaBeauty.Domin.Product.GuaranteeAgg.Contracts;
 using PrancaBeauty.Domin.Product.PostingRestrictionsAgg.Contracts;
 using PrancaBeauty.Domin.Product.ProductAgg.Contracts;
@@ -121,6 +125,7 @@ using PrancaBeauty.Domin.Users.UserAgg.Contracts;
 using PrancaBeauty.Infrastructure.EFCore.Context;
 using PrancaBeauty.Infrastructure.EFCore.Repository.AccessLevel;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Address;
+using PrancaBeauty.Infrastructure.EFCore.Repository.BillItems;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Bills;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Cart;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Categories;
@@ -135,6 +140,7 @@ using PrancaBeauty.Infrastructure.EFCore.Repository.Keywords;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Keywords_Products;
 using PrancaBeauty.Infrastructure.EFCore.Repository.PaymentGateRestricts;
 using PrancaBeauty.Infrastructure.EFCore.Repository.PaymentGates;
+using PrancaBeauty.Infrastructure.EFCore.Repository.PostalBarcode;
 using PrancaBeauty.Infrastructure.EFCore.Repository.PostingRestrictions;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Product;
 using PrancaBeauty.Infrastructure.EFCore.Repository.ProductAsk;
@@ -262,6 +268,8 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddScoped<IShippingMethodRepository, ShippingMethodTranslateRepository>();
             services.AddScoped<IShippingMethodRestrictRepository, ShippingMethodRestrictRepository>();
             services.AddScoped<IBillsRepository, BillsRepository>();
+            services.AddScoped<IBillItemsRepository, BillItemsRepository>();
+            services.AddScoped<IPostalBarcodeRepository, PostalBarcodeRepository>();
 
             // Applications
             services.AddScoped<IUserApplication, UserApplication>();
@@ -319,6 +327,8 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddScoped<IShippingMethodApplication, ShippingMethodApplication>();
             services.AddScoped<IShippingMethodRestrictApplication, ShippingMethodRestrictApplication>();
             services.AddScoped<IBillApplication, BillApplication>();
+            services.AddScoped<IBillItemsApplication, BillItemsApplication>();
+            services.AddScoped<IPostalBarcodeApplication, PostalBarcodeApplication>();
         }
     }
 }

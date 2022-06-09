@@ -1,5 +1,6 @@
 ﻿using Framework.Application.Enums;
 using Framework.Domain.Contracts;
+using PrancaBeauty.Domin.Bills.BillItemsAgg.Entities;
 using PrancaBeauty.Domin.Cart.CartAgg.Entities;
 using PrancaBeauty.Domin.Product.GuaranteeAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductAgg.Entities;
@@ -40,6 +41,8 @@ namespace PrancaBeauty.Domin.Product.ProductVariantsItemsAgg.Entities
         public virtual tblGuarantee tblGuarantee { get; set; }
         public virtual tblProductDiscounts tblProductDiscounts { get; set; }
         public virtual ICollection<tblCarts> tblCarts { get; set; }
+        public virtual ICollection<tblBillItems> tblBillItems { get; set; }
+
     }
 
 

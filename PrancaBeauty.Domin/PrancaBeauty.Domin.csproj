@@ -11,8 +11,6 @@
 
   <ItemGroup>
     <Folder Include="Bills\BillItemsAgg\Contracts\" />
-    <Folder Include="Wallet\WalletDepositDetailsAgg\Contracts\" />
-    <Folder Include="Wallet\WalletDetailsAgg\Contracts\" />
   </ItemGroup>
 
 </Project>

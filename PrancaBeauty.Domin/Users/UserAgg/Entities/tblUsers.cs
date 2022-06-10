@@ -1,5 +1,6 @@
 ﻿using Framework.Domain.Contracts;
 using Microsoft.AspNetCore.Identity;
+using PrancaBeauty.Domin.BankAccount.BankAccountAgg.Entities;
 using PrancaBeauty.Domin.Bills.BillAgg.Entities;
 using PrancaBeauty.Domin.Cart.CartAgg.Entities;
 using PrancaBeauty.Domin.FileServer.FileAgg.Entities;
@@ -54,6 +55,7 @@ namespace PrancaBeauty.Domin.Users.UserAgg.Entities
         public virtual ICollection<tblCarts> tblCarts { get; set; }
         public virtual ICollection<tblBills> tblBills { get; set; }
         public virtual ICollection<tblWallets> tblWallets { get; set; }
+        public virtual ICollection<tblBankAccounts> tblBankAccounts { get; set; }
 
     }
 }

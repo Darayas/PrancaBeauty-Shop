@@ -16,7 +16,7 @@ using PrancaBeauty.Domin.Product.ProductVariantsItemsAgg.Entities;
 using PrancaBeauty.Domin.Region.LanguagesAgg.Entities;
 using PrancaBeauty.Domin.Showcases.SectionProductAgg.Entities;
 using PrancaBeauty.Domin.Users.UserAgg.Entities;
-using PrancaBeauty.Domin.Wallet.WalletDepositDetailsAgg.Entities;
+using PrancaBeauty.Domin.Wallet.WalletProductDepositDetailsAgg.Entities;
 using System;
 using System.Collections.Generic;
 
@@ -65,7 +65,7 @@ namespace PrancaBeauty.Domin.Product.ProductAgg.Entities
         public virtual ICollection<tblSectionProducts> tblSectionProducts { get; set; }
         public virtual ICollection<tblCarts> tblCarts { get; set; }
         public virtual ICollection<tblBillItems> tblBillItems { get; set; }
-        public virtual ICollection<tblWalletDepositDetails> tblWalletDepositDetails { get; set; }
+        public virtual ICollection<tblWalletProductDepositDetails> tblWalletProductDepositDetails { get; set; }
 
 
     }

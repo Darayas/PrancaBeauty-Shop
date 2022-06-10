@@ -1,7 +1,8 @@
 ﻿using Framework.Domain.Contracts;
 using Framework.Domain.Enums;
 using PrancaBeauty.Domin.Wallet.WalletAgg.Entities;
-using PrancaBeauty.Domin.Wallet.WalletDepositDetailsAgg.Entities;
+using PrancaBeauty.Domin.Wallet.WalletProductDepositDetailsAgg.Entities;
+using PrancaBeauty.Domin.Wallet.WalletWithdrawAgg.Entities;
 using System;
 using System.Collections.Generic;
 
@@ -16,6 +17,7 @@ namespace PrancaBeauty.Domin.Wallet.WalletDetailsAgg.Entities
         public DateTime Date { get; set; }
 
         public virtual tblWallets tblWallets { get; set; }
-        public virtual ICollection<tblWalletDepositDetails> tblWalletDepositDetails { get; set; }
+        public virtual ICollection<tblWalletProductDepositDetails> tblWalletProductDepositDetails { get; set; }
+        public virtual ICollection<tblWalletWithdraw> tblWalletWithdraw { get; set; }
     }
 }

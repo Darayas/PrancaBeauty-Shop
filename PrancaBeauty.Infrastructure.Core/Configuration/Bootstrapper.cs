@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using PrancaBeauty.Application.Apps.Accesslevels;
 using PrancaBeauty.Application.Apps.AccesslevelsRoles;
 using PrancaBeauty.Application.Apps.Address;
+using PrancaBeauty.Application.Apps.BankAccount;
 using PrancaBeauty.Application.Apps.BillItems;
 using PrancaBeauty.Application.Apps.Bills;
 using PrancaBeauty.Application.Apps.Carts;
@@ -67,9 +68,13 @@ using PrancaBeauty.Application.Apps.Slider;
 using PrancaBeauty.Application.Apps.TaxGroups;
 using PrancaBeauty.Application.Apps.Templates;
 using PrancaBeauty.Application.Apps.Users;
+using PrancaBeauty.Application.Apps.WalletDetails;
+using PrancaBeauty.Application.Apps.WalletProductDepositDetails;
 using PrancaBeauty.Application.Apps.Wallets;
+using PrancaBeauty.Application.Apps.WalletWithdraw;
 using PrancaBeauty.Application.Common.ExMethods;
 using PrancaBeauty.Application.Common.FtpWapper;
+using PrancaBeauty.Domin.BankAccount.BankAccountAgg.Contracts;
 using PrancaBeauty.Domin.Bills.BillAgg.Contracts;
 using PrancaBeauty.Domin.Bills.BillItemsAgg.Contracts;
 using PrancaBeauty.Domin.Bills.TaxAgg.Contracts;
@@ -130,9 +135,13 @@ using PrancaBeauty.Domin.Users.RoleAgg.Contracts;
 using PrancaBeauty.Domin.Users.SellerAgg.Contracts;
 using PrancaBeauty.Domin.Users.UserAgg.Contracts;
 using PrancaBeauty.Domin.Wallet.WalletAgg.Contracts;
+using PrancaBeauty.Domin.Wallet.WalletDetailsAgg.Contracts;
+using PrancaBeauty.Domin.Wallet.WalletProductDepositDetailsAgg.Contracts;
+using PrancaBeauty.Domin.Wallet.WalletWithdrawAgg.Contracts;
 using PrancaBeauty.Infrastructure.EFCore.Context;
 using PrancaBeauty.Infrastructure.EFCore.Repository.AccessLevel;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Address;
+using PrancaBeauty.Infrastructure.EFCore.Repository.BankAccounts;
 using PrancaBeauty.Infrastructure.EFCore.Repository.BillItems;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Bills;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Cart;
@@ -192,6 +201,9 @@ using PrancaBeauty.Infrastructure.EFCore.Repository.TaxGroup;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Templates;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Users;
 using PrancaBeauty.Infrastructure.EFCore.Repository.Wallet;
+using PrancaBeauty.Infrastructure.EFCore.Repository.WalletDetails;
+using PrancaBeauty.Infrastructure.EFCore.Repository.WalletProductDepositDetails;
+using PrancaBeauty.Infrastructure.EFCore.Repository.WalletWithdraw;
 using PrancaBeauty.Infrastructure.Logger.Serilogger;
 
 namespace PrancaBeauty.Infrastructure.Core.Configuration
@@ -288,6 +300,10 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddScoped<IProductGroupTranslateRepository, ProductGroupTranslateRepository>();
             services.AddScoped<IProductGroupPercentRepository, ProductGroupPercentRepository>();
             services.AddScoped<IWalletRepository, WalletRepository>();
+            services.AddScoped<IWalletDetailsRepository, WalletDetailsRepository>();
+            services.AddScoped<IWalletProductDepositDetailsRepository, WalletProductDepositDetailsRepository>();
+            services.AddScoped<IWalletWithdrawRepository, WalletWithdrawRepository>();
+            services.AddScoped<IBankAccountRepository, BankAccountRepository>();
 
             // Applications
             services.AddScoped<IUserApplication, UserApplication>();
@@ -351,6 +367,10 @@ namespace PrancaBeauty.Infrastructure.Core.Configuration
             services.AddScoped<IProductGroupApplication, ProductGroupApplication>();
             services.AddScoped<IProductGroupPercentApplication, ProductGroupPercentApplication>();
             services.AddScoped<IWalletApplication, WalletApplication>();
+            services.AddScoped<IWalletDetailsApplication, WalletDetailsApplication>();
+            services.AddScoped<IWalletProductDepositDetailsApplication, WalletProductDepositDetailsApplication>();
+            services.AddScoped<IWalletWithdrawApplication, WalletWithdrawApplication>();
+            services.AddScoped<IBankAccountApplication, BankAccountApplication>();
         }
     }
 }

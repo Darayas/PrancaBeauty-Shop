@@ -855,7 +855,5 @@ $(document).ready(function () {
         touchMove: false,
         centerMode: false
     });
-
-    LoadCart();
 });
 

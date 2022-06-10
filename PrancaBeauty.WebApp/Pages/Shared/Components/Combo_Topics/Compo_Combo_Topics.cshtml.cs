@@ -33,7 +33,7 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.Combo_Topics
 
         public async Task<IActionResult> OnGetReadAsync(string LangId, string Text)
         {
-            var qData = await _ProductTopicApplication.GetListForComboAsync(new InpGetListForCombo { LangId = LangId, Text = Text });
+            var qData = await _ProductTopicApplication.GetListTopicForComboAsync(new InpGetListTopicForCombo { LangId = LangId, Text = Text });
             var Data = _Mapper.Map<List<vmCompo_Combo_Topics>>(qData);
             return new JsonResult(Data);
         }

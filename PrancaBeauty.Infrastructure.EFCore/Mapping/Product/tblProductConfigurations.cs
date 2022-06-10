@@ -17,6 +17,8 @@ namespace PrancaBeauty.Infrastructure.EFCore.Mapping.Product
             builder.HasKey(a => a.Id);
             builder.Property(a => a.Id).IsRequired().HasMaxLength(150);
             builder.Property(a => a.TopicId).IsRequired(false).HasMaxLength(150);
+            builder.Property(a => a.TaxGroupId).IsRequired(false).HasMaxLength(150);
+            builder.Property(a => a.ProductGroupId).IsRequired(false).HasMaxLength(150);
             builder.Property(a => a.CategoryId).IsRequired(false).HasMaxLength(150);
             builder.Property(a => a.AuthorUserId).IsRequired().HasMaxLength(450);
             builder.Property(a => a.LangId).IsRequired().HasMaxLength(450);
@@ -51,6 +53,18 @@ namespace PrancaBeauty.Infrastructure.EFCore.Mapping.Product
                   .WithMany(a => a.tblProducts)
                   .HasPrincipalKey(a => a.Id)
                   .HasForeignKey(a => a.TopicId)
+                  .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(a => a.tblTaxGroups)
+                  .WithMany(a => a.tblProducts)
+                  .HasPrincipalKey(a => a.Id)
+                  .HasForeignKey(a => a.TaxGroupId)
+                  .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(a => a.tblProductGroups)
+                  .WithMany(a => a.tblProducts)
+                  .HasPrincipalKey(a => a.Id)
+                  .HasForeignKey(a => a.ProductGroupId)
                   .OnDelete(DeleteBehavior.Restrict);
         }
     }

@@ -11,7 +11,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Mapping.Wallet
         {
             builder.HasKey(a => a.Id);
             builder.Property(a => a.Id).IsRequired().HasMaxLength(150);
-            builder.Property(a => a.UserId).IsRequired().HasMaxLength(450);
+            builder.Property(a => a.UserId).IsRequired(false).HasMaxLength(450);
             builder.Property(a => a.CurrencyId).IsRequired().HasMaxLength(150);
             builder.Property(a => a.Data).IsRequired().HasMaxLength(5000);
 

@@ -25,6 +25,16 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput
         [GUID]
         public string TopicId { get; set; }
 
+        [Display(Name = "TaxGroupId")]
+        [RequiredForDraft(nameof(IsDraft))]
+        [GUID]
+        public string TaxGroupId { get; set; }
+
+        [Display(Name = "ProductGroupId")]
+        [RequiredForDraft(nameof(IsDraft))]
+        [GUID]
+        public string ProductGroupId { get; set; }
+
         [Display(Name = "CategoryId")]
         [RequiredForDraft(nameof(IsDraft))]
         [GUID]

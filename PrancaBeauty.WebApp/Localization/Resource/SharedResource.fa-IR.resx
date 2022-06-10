@@ -1365,6 +1365,9 @@
   <data name="ProductDescription" xml:space="preserve">
     <value>توضیحات محصول</value>
   </data>
+  <data name="ProductGroupId" xml:space="preserve">
+    <value>گروه محصول</value>
+  </data>
   <data name="ProductId" xml:space="preserve">
     <value>محصول</value>
   </data>
@@ -1730,6 +1733,9 @@
   </data>
   <data name="Tax" xml:space="preserve">
     <value>مالیات</value>
+  </data>
+  <data name="TaxId" xml:space="preserve">
+    <value>گروه مالیاتی</value>
   </data>
   <data name="TemplEmailMsg" xml:space="preserve">
     <value>قالب ایمیل صحیح نمیباشد. قالب صحیح: ex@example.com</value>

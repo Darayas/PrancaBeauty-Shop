@@ -11,8 +11,9 @@ namespace PrancaBeauty.Domin.Wallet.WalletAgg.Entities
     public class tblWallets : IEntity
     {
         public Guid Id { get; set; }
-        public Guid UserId { get; set; }
+        public Guid? UserId { get; set; }
         public Guid CurrencyId { get; set; }
+        public string Title { get; set; }
         public string Data { get; set; }
 
 

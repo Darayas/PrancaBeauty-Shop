@@ -14,6 +14,7 @@ namespace PrancaBeauty.Domin.ShippingMethods.ShippingMethodRestrictAgg.Entities
         public Guid CountryId { get; set; }
         public Guid ProvinceId { get; set; }
         public Guid CityId { get; set; }
+        public bool IsActive { get; set; }
 
         public virtual tblShippingMethods tblShippingMethods { get; set; }
         public virtual tblCountries tblCountry { get; set; }

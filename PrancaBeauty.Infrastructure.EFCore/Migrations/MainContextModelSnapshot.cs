@@ -933,7 +933,12 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
-                    b.Property<Guid>("TaxGroupId")
+                    b.Property<Guid?>("ProductGroupId")
+                        .HasMaxLength(150)
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("TaxGroupId")
+                        .HasMaxLength(150)
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Title")
@@ -950,9 +955,6 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
-                    b.Property<Guid?>("tblTaxGroupsId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AuthorUserId");
@@ -961,9 +963,11 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
 
                     b.HasIndex("LangId");
 
-                    b.HasIndex("TopicId");
+                    b.HasIndex("ProductGroupId");
 
-                    b.HasIndex("tblTaxGroupsId");
+                    b.HasIndex("TaxGroupId");
+
+                    b.HasIndex("TopicId");
 
                     b.ToTable("tblProducts");
                 });
@@ -2137,6 +2141,9 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<Guid>("ProvinceId")
                         .HasMaxLength(150)
                         .HasColumnType("uniqueidentifier");
@@ -2996,7 +3003,10 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                         .HasMaxLength(5000)
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("UserId")
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("UserId")
                         .HasMaxLength(450)
                         .HasColumnType("uniqueidentifier");
 
@@ -3532,20 +3542,28 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("PrancaBeauty.Domin.Product.ProductTopicAgg.Entities.tblProductTopic", "tblProductTopic")
+                    b.HasOne("PrancaBeauty.Domin.Product.ProductGroupAgg.Entities.tblProductGroups", "tblProductGroups")
                         .WithMany("tblProducts")
-                        .HasForeignKey("TopicId")
+                        .HasForeignKey("ProductGroupId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("PrancaBeauty.Domin.Bills.TaxAgg.Entities.tblTaxGroups", "tblTaxGroups")
                         .WithMany("tblProducts")
-                        .HasForeignKey("tblTaxGroupsId");
+                        .HasForeignKey("TaxGroupId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("PrancaBeauty.Domin.Product.ProductTopicAgg.Entities.tblProductTopic", "tblProductTopic")
+                        .WithMany("tblProducts")
+                        .HasForeignKey("TopicId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("tblAuthorUser");
 
                     b.Navigation("tblCategory");
 
                     b.Navigation("tblLanguage");
+
+                    b.Navigation("tblProductGroups");
 
                     b.Navigation("tblProductTopic");
 
@@ -4539,8 +4557,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                     b.HasOne("PrancaBeauty.Domin.Users.UserAgg.Entities.tblUsers", "tblUsers")
                         .WithMany("tblWallets")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("tblCurrencies");
 
@@ -4748,6 +4765,8 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                     b.Navigation("tblProductGroupPercents");
 
                     b.Navigation("tblProductGroupTranslate");
+
+                    b.Navigation("tblProducts");
                 });
 
             modelBuilder.Entity("PrancaBeauty.Domin.Product.ProductPropertisAgg.Entities.tblProductPropertis", b =>

@@ -26,7 +26,7 @@ namespace PrancaBeauty.Application.Apps.ProductTopic
             _ServiceProvider = serviceProvider;
         }
 
-        public async Task<List<OutGetProductTopicsListForCombo>> GetListForComboAsync(InpGetListForCombo Input)
+        public async Task<List<OutGetProductTopicsListForCombo>> GetListTopicForComboAsync(InpGetListTopicForCombo Input)
         {
             try
             {

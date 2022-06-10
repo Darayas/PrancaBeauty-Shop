@@ -56,6 +56,17 @@
                                                url="/@ViewData["culture"]/Shared/Compo/ComboTopics"></LoadComponent>
                             </div>
 
+                            <div class="form-group" id="ProductGroupCompo">
+                                
+                            </div>
+
+                            <div class="form-group">
+                                <LoadComponent id="ProductTaxCompo"
+                                               context="HttpContext"
+                                               data='new viCompo_Combo_TaxGroups { FieldName="Input.TaxGroupId"}'
+                                               url="/@ViewData["culture"]/Shared/Compo/ComboTaxGroup"></LoadComponent>
+                            </div>
+
                             <div class="form-group">
                                 <LoadComponent id="ProductCategoryCompo"
                                                context="HttpContext"
@@ -329,9 +340,16 @@
         LoadComponent('/@ViewData["Culture"]/User/Products/Compo/ComboProductProperties',
         {
             TopicId: e.dataItem.Id
-        },
-        function (res) {
+        },function (res) {
             $('#ProductProperties').html(res);
+        });
+
+        LoadComponent('/@ViewData["Culture"]/Shared/Compo/ComboProductGroup',
+        {
+            TopicId: e.dataItem.Id,
+            FieldName:'Input.ProductGroupId',
+        },function (res) {
+            $('#ProductGroupCompo').html(res);
         });
     }
 </script>

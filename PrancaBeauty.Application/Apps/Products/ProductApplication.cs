@@ -217,6 +217,8 @@ namespace PrancaBeauty.Application.Apps.Products
                         AuthorUserId = Guid.Parse(Input.AuthorUserId),
                         CategoryId = Input.CategoryId != null ? Guid.Parse(Input.CategoryId) : null,
                         TopicId = Input.TopicId != null ? Guid.Parse(Input.TopicId) : null,
+                        TaxGroupId = Input.TaxGroupId != null ? Guid.Parse(Input.TaxGroupId) : null,
+                        ProductGroupId = Input.ProductGroupId != null ? Guid.Parse(Input.ProductGroupId) : null,
                         LangId = Guid.Parse(Input.LangId),
                         UniqueNumber = await GenerateUniqeNumberAsync(),
                         Name = Input.Name.ToLowerCaseForUrl(),
@@ -566,6 +568,8 @@ namespace PrancaBeauty.Application.Apps.Products
                                                       LangId = a.LangId.ToString(),
                                                       CategoryId = a.CategoryId.ToString(),
                                                       TopicId = a.TopicId.ToString(),
+                                                      TaxGroupId=a.TaxGroupId.ToString(),
+                                                      ProductGroupId=a.ProductGroupId.ToString(),
                                                       Name = a.Name,
                                                       Title = a.Title,
                                                       MetaTagCanonical = a.MetaTagCanonical,
@@ -651,6 +655,8 @@ namespace PrancaBeauty.Application.Apps.Products
                         return new OperationResult().Failed("YouCantEditThisProduct");
 
                 qData.TopicId = Guid.Parse(Input.TopicId);
+                qData.TaxGroupId = Guid.Parse(Input.TaxGroupId);
+                qData.ProductGroupId = Guid.Parse(Input.ProductGroupId);
                 qData.CategoryId = Guid.Parse(Input.CategoryId);
                 qData.Title = Input.Title;
                 qData.Date = Input.Date == null ? DateTime.Now : (Convert.ToDateTime(Input.Date).AddHours(1) < DateTime.Now ? DateTime.Now : Convert.ToDateTime(Input.Date));

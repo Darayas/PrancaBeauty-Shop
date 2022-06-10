@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PrancaBeauty.Application.Contracts.ApplicationDTO.ProductTopics
 {
-    public class InpGetListForCombo
+    public class InpGetListTopicForCombo
     {
         [Display(Name = "LangId")]
         [RequiredString]

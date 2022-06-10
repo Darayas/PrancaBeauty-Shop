@@ -562,9 +562,16 @@
 
 @section scripts{
     @RenderSection("scripts", false)
-
+    @if (User.Identity.IsAuthenticated)
+    {
+        <script>
+            $(document).ready(function() {
+                LoadCart();
+            });
+        </script>
+    }
 }
 
-    @section KendoScripts{
+@section KendoScripts{
     @RenderSection("KendoScripts", false)
 }

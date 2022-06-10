@@ -1,4 +1,5 @@
 ﻿using Framework.Domain.Contracts;
+using PrancaBeauty.Domin.Product.ProductAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductGroupPercentAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductTopicAgg.Entities;
 using System;
@@ -15,5 +16,6 @@ namespace PrancaBeauty.Domin.Product.ProductGroupAgg.Entities
         public virtual tblProductTopic tblProductTopic { get; set; }
         public virtual ICollection<tblProductGroupTranslate> tblProductGroupTranslate { get; set; }
         public virtual ICollection<tblProductGroupPercents> tblProductGroupPercents { get; set; }
+        public virtual ICollection<tblProducts> tblProducts { get; set; }
     }
 }

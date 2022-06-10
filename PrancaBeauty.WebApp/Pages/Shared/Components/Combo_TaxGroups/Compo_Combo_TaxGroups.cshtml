@@ -1,0 +1,43 @@
+﻿@page "/{culture}/Shared/Compo/ComboTaxGroup"
+@model PrancaBeauty.WebApp.Pages.Shared.Components.Combo_TaxGroups.Compo_Combo_TaxGroupsModel
+@{
+    string FieldName = Model.Input.FieldName;
+    string FieldId = FieldName.Replace(".", "_").Replace("[", "_").Replace("]", "_");
+    string FieldTitle = Localizer[FieldName.Split('.').Last()];
+}
+
+<script>
+    function Filter_@(FieldId)()
+    {
+        var ItemCombo = $('#@(FieldId)').data("kendoComboBox");
+        return { Text: ItemCombo.text() };
+    }
+
+    function onSelect@(FieldId)(e) {
+        if (typeof OnComboSelect@(FieldId)=== "function")
+        {
+            OnComboSelect@(FieldId)(e);
+        }
+    }
+</script>
+
+<label for="@FieldId">@FieldTitle</label>
+<div class="k-lang">
+    @(Html.Kendo()
+          .ComboBox()
+          .Name(FieldName)
+          .HtmlAttributes(new { style="width:100%;height:35px;" })
+          .Placeholder(Localizer["PleseSelect"])
+          .DataTextField("Title")
+          .DataValueField("Id")
+          .Filter(FilterType.Contains)
+          .MinLength(2)
+          .Value(Model.Input.TaxGroupId)
+          .Events(ev=> ev.Select("onSelect"+FieldId))
+          .DataSource(sr => {
+              sr.Read(read =>
+              {
+                  read.Url($"/{ViewData["culture"]}/Shared/Compo/ComboTaxGroup?handler=Read").Data($"Filter_{FieldId}");
+              }).ServerFiltering(true);
+          }).Template("<div class='d-inline ml-2 mr-2'>#=Title#(#=Percent#%)</div>"))
+</div>

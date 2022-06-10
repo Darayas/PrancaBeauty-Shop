@@ -6,6 +6,7 @@ using PrancaBeauty.Domin.Categories.CategoriesAgg.Entities;
 using PrancaBeauty.Domin.Keywords.Keywords_Products.Entities;
 using PrancaBeauty.Domin.Product.PostingRestrictionsAgg.Entites;
 using PrancaBeauty.Domin.Product.ProductAskAgg.Entities;
+using PrancaBeauty.Domin.Product.ProductGroupAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductMediaAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductPricesAgg.Entities;
 using PrancaBeauty.Domin.Product.ProductPropertiesValuesAgg.Entities;
@@ -29,7 +30,8 @@ namespace PrancaBeauty.Domin.Product.ProductAgg.Entities
         public Guid? TopicId { get; set; }
         public Guid AuthorUserId { get; set; }
         public Guid? CategoryId { get; set; }
-        public Guid TaxGroupId { get; set; }
+        public Guid? TaxGroupId { get; set; }
+        public Guid? ProductGroupId { get; set; }
         public Guid LangId { get; set; }
         public DateTime Date { get; set; }
         public string UniqueNumber { get; set; } // Uniqe Number
@@ -53,6 +55,7 @@ namespace PrancaBeauty.Domin.Product.ProductAgg.Entities
         public virtual tblCategoris tblCategory { get; set; }
         public virtual tblLanguages tblLanguage { get; set; }
         public virtual tblTaxGroups tblTaxGroups { get; set; }
+        public virtual tblProductGroups tblProductGroups { get; set; }
         public virtual ICollection<tblKeywords_Products> tblKeywords_Products { get; set; }
         public virtual ICollection<tblProductPrices> tblProductPrices { get; set; }
         public virtual ICollection<tblProductMedia> tblProductMedia { get; set; }
@@ -66,7 +69,5 @@ namespace PrancaBeauty.Domin.Product.ProductAgg.Entities
         public virtual ICollection<tblCarts> tblCarts { get; set; }
         public virtual ICollection<tblBillItems> tblBillItems { get; set; }
         public virtual ICollection<tblWalletProductDepositDetails> tblWalletProductDepositDetails { get; set; }
-
-
     }
 }

@@ -19,6 +19,9 @@ namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Products
 
         public string TopicId { get; set; }
 
+        public string TaxGroupId { get; set; }
+
+        public string ProductGroupId { get; set; }
         public string CategoryId { get; set; }
 
         public string Name { get; set; } // Uniqe Name

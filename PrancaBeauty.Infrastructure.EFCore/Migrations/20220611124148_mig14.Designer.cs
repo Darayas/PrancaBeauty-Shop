@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PrancaBeauty.Infrastructure.EFCore.Context;
 
@@ -11,9 +12,10 @@ using PrancaBeauty.Infrastructure.EFCore.Context;
 namespace PrancaBeauty.Infrastructure.EFCore.Migrations
 {
     [DbContext(typeof(MainContext))]
-    partial class MainContextModelSnapshot : ModelSnapshot
+    [Migration("20220611124148_mig14")]
+    partial class mig14
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -187,10 +189,12 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<Guid?>("GateId")
+                        .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("GateNumber")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -204,6 +208,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                         .HasColumnType("float");
 
                     b.Property<string>("TransactionNumber")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -741,6 +746,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Barcode")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -3178,7 +3184,8 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                     b.HasOne("PrancaBeauty.Domin.PaymentGate.PaymentGateAgg.Entities.tblPaymentGates", "tblPaymentGates")
                         .WithMany("tblBills")
                         .HasForeignKey("GateId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("PrancaBeauty.Domin.Users.UserAgg.Entities.tblUsers", "tblUsers")
                         .WithMany("tblBills")

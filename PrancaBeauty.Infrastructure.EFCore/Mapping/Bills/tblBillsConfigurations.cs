@@ -12,10 +12,12 @@ namespace PrancaBeauty.Infrastructure.EFCore.Mapping.Bills
             builder.HasKey(a => a.Id);
             builder.Property(a => a.Id).IsRequired().HasMaxLength(150);
             builder.Property(a => a.UserId).IsRequired().HasMaxLength(450);
-            builder.Property(a => a.GateId).IsRequired().HasMaxLength(150);
+            builder.Property(a => a.GateId).IsRequired(false).HasMaxLength(150);
+            builder.Property(a => a.AddressId).IsRequired(false).HasMaxLength(150);
             builder.Property(a => a.BillNumber).IsRequired().HasMaxLength(50);
-            builder.Property(a => a.TransactionNumber).IsRequired().HasMaxLength(50);
-            builder.Property(a => a.GateNumber).IsRequired().HasMaxLength(50);
+            builder.Property(a => a.TransactionNumber).IsRequired(false).HasMaxLength(50);
+            builder.Property(a => a.GateNumber).IsRequired(false).HasMaxLength(50);
+            builder.Property(a => a.Note).IsRequired(false).HasMaxLength(500);
 
             builder.HasOne(a => a.tblUsers)
                    .WithMany(a => a.tblBills)
@@ -27,6 +29,12 @@ namespace PrancaBeauty.Infrastructure.EFCore.Mapping.Bills
                    .WithMany(a => a.tblBills)
                    .HasPrincipalKey(a => a.Id)
                    .HasForeignKey(a => a.GateId)
+                   .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(a => a.tblAddress)
+                   .WithMany(a => a.tblBills)
+                   .HasPrincipalKey(a => a.Id)
+                   .HasForeignKey(a => a.AddressId)
                    .OnDelete(DeleteBehavior.Restrict);
         }
     }

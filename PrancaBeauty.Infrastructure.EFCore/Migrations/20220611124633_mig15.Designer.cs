@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PrancaBeauty.Infrastructure.EFCore.Context;
 
@@ -11,9 +12,10 @@ using PrancaBeauty.Infrastructure.EFCore.Context;
 namespace PrancaBeauty.Infrastructure.EFCore.Migrations
 {
     [DbContext(typeof(MainContext))]
-    partial class MainContextModelSnapshot : ModelSnapshot
+    [Migration("20220611124633_mig15")]
+    partial class mig15
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -191,6 +193,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("GateNumber")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -204,6 +207,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                         .HasColumnType("float");
 
                     b.Property<string>("TransactionNumber")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -741,6 +745,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Barcode")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 

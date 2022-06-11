@@ -1,14 +1,11 @@
 ﻿using Framework.Domain.Contracts;
-using PrancaBeauty.Domin.PostalBarcodes.PostalBarcodeAgg.Entities;
+using PrancaBeauty.Domin.Bills.BillAgg.Entities;
 using PrancaBeauty.Domin.Region.CityAgg.Entities;
 using PrancaBeauty.Domin.Region.CountryAgg.Entities;
 using PrancaBeauty.Domin.Region.ProvinceAgg.Entities;
 using PrancaBeauty.Domin.Users.UserAgg.Entities;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PrancaBeauty.Domin.Users.AddressAgg.Entities
 {
@@ -34,6 +31,6 @@ namespace PrancaBeauty.Domin.Users.AddressAgg.Entities
         public virtual tblCountries tblCountries { get; set; }
         public virtual tblProvinces tblProvinces { get; set; }
         public virtual tblCities tblCities { get; set; }
-        public virtual ICollection<tblPostalBarcodes> tblPostalBarcodes { get; set; }
+        public virtual ICollection<tblBills> tblBills { get; set; }
     }
 }

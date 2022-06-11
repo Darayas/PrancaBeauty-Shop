@@ -303,6 +303,9 @@
   <data name="Bad" xml:space="preserve">
     <value>بد</value>
   </data>
+  <data name="Bill" xml:space="preserve">
+    <value>صورت حساب: #{0}</value>
+  </data>
   <data name="BillList" xml:space="preserve">
     <value>لیست صورت حساب ها</value>
   </data>

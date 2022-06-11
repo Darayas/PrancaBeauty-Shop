@@ -6,10 +6,13 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Bills;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Bills;
 using PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput;
 using PrancaBeauty.WebApp.Common.ExMethod;
+using PrancaBeauty.WebApp.Common.Types;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
 using System;
+using System.Globalization;
 using System.Threading.Tasks;
 
 namespace PrancaBeauty.WebApp.Pages.User.Bills
@@ -49,8 +52,14 @@ namespace PrancaBeauty.WebApp.Pages.User.Bills
 
                 string _UserId = User.GetUserDetails().UserId;
 
-
-                return Page();
+                var _Result = await _BillApplication.CreateBillFromCartAsync(new InpCreateBillFromCart
+                {
+                    UserId=_UserId
+                });
+                if (_Result.IsSucceeded)
+                    return new JsResult($"location.href='/{CultureInfo.CurrentCulture.Parent.Name}/User/Bill/{_Result.Message}'");
+                else
+                    return _MsgBox.FaildMsg(_Localizer[_Result.Message]);
             }
             catch (ArgumentInvalidException ex)
             {

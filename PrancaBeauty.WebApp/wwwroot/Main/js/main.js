@@ -101,6 +101,10 @@ function LoadCart() {
     }, false);
 }
 
+function GotoCreateBill() {
+    SendData('/' + CurentCulture + '/User/Bills/List?handler=CreateBill', {});
+}
+
 (function ($) {
     "use strict";
 

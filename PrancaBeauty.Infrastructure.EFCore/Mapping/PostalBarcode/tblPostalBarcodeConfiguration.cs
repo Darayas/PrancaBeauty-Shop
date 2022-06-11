@@ -13,8 +13,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Mapping.PostalBarcode
             builder.Property(a => a.Id).IsRequired().HasMaxLength(150);
             builder.Property(a => a.BillId).IsRequired().HasMaxLength(150);
             builder.Property(a => a.ShippingMethodId).IsRequired(false).HasMaxLength(150);
-            builder.Property(a => a.AddressId).IsRequired(false).HasMaxLength(150);
-            builder.Property(a => a.Barcode).IsRequired().HasMaxLength(50);
+            builder.Property(a => a.Barcode).IsRequired(false).HasMaxLength(50);
 
             builder.HasOne(a => a.tblBill)
                    .WithMany(a => a.tblPostalBarcodes)
@@ -26,12 +25,6 @@ namespace PrancaBeauty.Infrastructure.EFCore.Mapping.PostalBarcode
                    .WithMany(a => a.tblPostalBarcodes)
                    .HasPrincipalKey(a => a.Id)
                    .HasForeignKey(a => a.ShippingMethodId)
-                   .OnDelete(DeleteBehavior.Restrict);
-
-            builder.HasOne(a => a.tblAddress)
-                   .WithMany(a => a.tblPostalBarcodes)
-                   .HasPrincipalKey(a => a.Id)
-                   .HasForeignKey(a => a.AddressId)
                    .OnDelete(DeleteBehavior.Restrict);
         }
     }

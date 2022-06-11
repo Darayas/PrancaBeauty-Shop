@@ -2,6 +2,7 @@
 using Framework.Domain.Enums;
 using Framework.Exceptions;
 using Framework.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Apps.Carts;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.Bills;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.Cart;
@@ -24,12 +25,13 @@ namespace PrancaBeauty.Application.Apps.Bills
         private readonly IServiceProvider _ServiceProvider;
         private readonly IBillsRepository _BillRepository;
         private readonly ICartApplication _CartApplication;
-        public BillApplication(ILogger logger, ILocalizer localizer, IServiceProvider serviceProvider, ICartApplication cartApplication)
+        public BillApplication(ILogger logger, ILocalizer localizer, IServiceProvider serviceProvider, ICartApplication cartApplication, IBillsRepository billRepository)
         {
             _Logger=logger;
             _Localizer=localizer;
             _ServiceProvider=serviceProvider;
             _CartApplication=cartApplication;
+            _BillRepository=billRepository;
         }
 
         private string CreateBillNumberAsync()
@@ -56,15 +58,17 @@ namespace PrancaBeauty.Application.Apps.Bills
 
                 #region ایجاد صورت حساب پرداخت نشده
                 string _BillId = "";
+                string _BillNumber = CreateBillNumberAsync();
                 {
                     _BillId = new Guid().SequentialGuid().ToString();
                     tblBills tBill = new tblBills
                     {
                         Id= _BillId.ToGuid(),
                         UserId=Input.UserId.ToGuid(),
+                        AddressId=null,
                         GateId=null,
                         Date= DateTime.Now,
-                        BillNumber=CreateBillNumberAsync(),
+                        BillNumber=_BillNumber,
                         GateNumber=null,
                         TransactionNumber=null,
                         TaxAmount=null,
@@ -74,7 +78,6 @@ namespace PrancaBeauty.Application.Apps.Bills
                                                   .Select(a => new tblPostalBarcodes
                                                   {
                                                       Id= new Guid().SequentialGuid(),
-                                                      AddressId=null,
                                                       ShippingMethodId=null,
                                                       Barcode="",
                                                       ChangeStatusDateTime=DateTime.Now,
@@ -121,7 +124,7 @@ namespace PrancaBeauty.Application.Apps.Bills
                 }
                 #endregion
 
-                return new OperationResult().Succeeded(_BillId);
+                return new OperationResult().Succeeded(_BillNumber);
             }
             catch (ArgumentInvalidException ex)
             {
@@ -132,6 +135,48 @@ namespace PrancaBeauty.Application.Apps.Bills
             {
                 _Logger.Error(ex);
                 return new OperationResult().Failed("Error500");
+
+            }
+        }
+
+        public async Task<OutGetBillDetails> GetBillDetailsAsync(InpGetBillDetails Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var qData = await _BillRepository.Get
+                                        .Where(a => a.BillNumber==Input.BillNumber)
+                                        .Select(a => new OutGetBillDetails
+                                        {
+                                            AddressId=a.AddressId!=null ? a.AddressId.ToString() : null,
+                                            BillStatus=a.Status,
+                                            GateId=a.GateId!=null ? a.GateId.ToString() : null,
+                                            Note=a.Note,
+                                            ShippingAmount=0,
+                                            TaxAmount=a.TaxAmount!=null ? a.TaxAmount.Value : 0,
+                                            TotalPrice=a.TotalPrice!=null ? a.TotalPrice.Value : 0,
+                                            TransactionNumber=a.TransactionNumber,
+                                            LstSellerGroups=null
+                                        })
+                                        .SingleOrDefaultAsync();
+
+                if (qData==null)
+                    return null;
+
+                return qData;
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return default;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return default;
 
             }
         }

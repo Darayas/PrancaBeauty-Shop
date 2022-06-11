@@ -1,0 +1,7 @@
+﻿@page "/{culture}/User/Bill/{BillNumber}"
+@model PrancaBeauty.WebApp.Pages.User.Bills.BillModel
+@{
+    ViewData["Title"] = Localizer["Bill", Model.Input.BillNumber];
+    Layout = "~/Pages/Shared/_UserLayout.cshtml";
+}
+

@@ -157,13 +157,18 @@ namespace PrancaBeauty.Application.Apps.Carts
                                    }).ToListAsync();
 
                 var Summary = new OutGetItemsInCart();
-                Summary.CountInCart=qData.Count();
-                Summary.CurrencySymbol=qData.FirstOrDefault().CurrencySymbol;
-                Summary.TaxAmount=qData.Sum(a => (a.TotalPrice/100) * a.TaxPercent);
-                Summary.ShippingAmount=0;
-                Summary.Items=qData;
-                Summary.TotalAmount=qData.Sum(a => a.TotalPrice)
-                                        + Summary.ShippingAmount;
+                if (qData.Count()>0)
+                {
+                    Summary.CountInCart=qData.Count();
+                    Summary.CurrencySymbol=qData.FirstOrDefault().CurrencySymbol;
+                    Summary.TaxAmount=qData.Sum(a => (a.TotalPrice/100) * a.TaxPercent);
+                    Summary.ShippingAmount=0;
+                    Summary.Items=qData;
+                    Summary.TotalAmount=qData.Sum(a => a.TotalPrice)
+                                            + Summary.ShippingAmount;
+                }
+                else
+                    Summary= null;
 
                 return Summary;
             }

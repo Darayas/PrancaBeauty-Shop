@@ -147,21 +147,50 @@ namespace PrancaBeauty.Application.Apps.Bills
                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
-                var qData = await _BillRepository.Get
-                                        .Where(a => a.BillNumber==Input.BillNumber)
-                                        .Select(a => new OutGetBillDetails
-                                        {
-                                            AddressId=a.AddressId!=null ? a.AddressId.ToString() : null,
-                                            BillStatus=a.Status,
-                                            GateId=a.GateId!=null ? a.GateId.ToString() : null,
-                                            Note=a.Note,
-                                            ShippingAmount=0,
-                                            TaxAmount=a.TaxAmount!=null ? a.TaxAmount.Value : 0,
-                                            TotalPrice=a.TotalPrice!=null ? a.TotalPrice.Value : 0,
-                                            TransactionNumber=a.TransactionNumber,
-                                            LstSellerGroups=null
-                                        })
-                                        .SingleOrDefaultAsync();
+                var qData = await (from a in _BillRepository.Get
+                                   where a.BillNumber==Input.BillNumber
+                                   select new OutGetBillDetails
+                                   {
+                                       AddressId=a.AddressId!=null ? a.AddressId.ToString() : null,
+                                       BillStatus=a.Status,
+                                       GateId=a.GateId!=null ? a.GateId.ToString() : null,
+                                       Note=a.Note,
+                                       ShippingAmount=a.tblPostalBarcodes.Sum(a => a.TotalPrice),
+                                       TaxAmount=a.TaxAmount!=null ? a.TaxAmount.Value : 0,
+                                       TotalPrice=a.TotalPrice!=null ? a.TotalPrice.Value : 0,
+                                       TransactionNumber=a.TransactionNumber,
+                                       LstSellerGroups= (from b in a.tblPostalBarcodes
+                                                         let Items = b.tblBillItems
+                                                         let Seller = Items.First().tblSellers
+                                                         select new OutGetBillDetailsItemGroups
+                                                         {
+                                                             SellerName=Seller.Name,
+                                                             Barcode= b.Barcode,
+                                                             ChangeStatusDateTime=b.ChangeStatusDateTime,
+                                                             ShippingAmount=b.TotalPrice,
+                                                             ShippingMethodId=b.ShippingMethodId!=null ? b.ShippingMethodId.ToString() : null,
+                                                             ShippingStatus=b.Status,
+                                                             TaxAmount=0,
+                                                             TotalPrice=0,
+                                                             LstItems= (from c in b.tblBillItems
+                                                                        let CurrencySymbol = c.tblProducts.tblProductPrices.Where(b => b.IsActive && b.CurrencyId==Input.CurrencyId.ToGuid()).Select(b => b.tblCurrency.Symbol).Single()
+                                                                        let Price = c.tblProducts.tblProductPrices.Where(a => a.CurrencyId==Input.CurrencyId.ToGuid() && a.IsActive).Select(a => a.Price).Single()
+                                                                        let SellerPercent = c.tblProductVariantItems.Percent
+                                                                        let PercentSavePrice = c.tblProductVariantItems.tblProductDiscounts!=null ? c.tblProductVariantItems.tblProductDiscounts.Percent : 0
+                                                                        let OldPrice = Price + ((Price/100)*SellerPercent)
+                                                                        let NewPrice = OldPrice - ((OldPrice/100)*PercentSavePrice)
+                                                                        select new OutGetBillDetailsItems
+                                                                        {
+                                                                            Title=c.tblProducts.Title,
+                                                                            Name=c.tblProducts.Name,
+                                                                            VariantTopic=c.tblProductVariantItems.tblProductVariants.tblProductVariants_Translates.Where(a => a.LangId==Input.LangId.ToGuid()).Select(a => a.Title).Single(),
+                                                                            VariantValue=c.tblProductVariantItems.Value,
+                                                                            Qty=c.Qty,
+                                                                            TotalAmount=NewPrice * c.Qty,
+                                                                            CurrencySymbol=CurrencySymbol
+                                                                        }).ToList()
+                                                         }).ToList()
+                                   }).SingleOrDefaultAsync();
 
                 if (qData==null)
                     return null;

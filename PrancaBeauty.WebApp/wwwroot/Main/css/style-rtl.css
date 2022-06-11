@@ -31842,3 +31842,62 @@ pre {
   font-size: 12px;
   font-weight: 400;
 }
+
+.fs-12 {
+  font-size: 12px;
+}
+
+.Checkout_section .payment_method .order_button {
+  text-align: left;
+}
+.Checkout_section .ShippingMethid {
+  text-align: left;
+}
+.Checkout_section .ShippingMethid span {
+  display: inline-block;
+  font-size: 13px;
+}
+.Checkout_section .ShippingMethid span select {
+  background-color: #333333;
+  border-color: #404040;
+  font-size: 13px;
+  height: 30px !important;
+  color: #fff;
+}
+.Checkout_section .ShippingMethid span select:focus {
+  box-shadow: unset;
+}
+.Checkout_section .billHeader {
+  margin-bottom: 15px;
+}
+.Checkout_section .billHeader .billNumber {
+  font-weight: 700;
+  font-size: 14px;
+}
+.Checkout_section .billHeader .billNumber span {
+  font-weight: 500;
+}
+.Checkout_section .billHeader .billStatus {
+  text-align: left;
+}
+.Checkout_section .billHeader .billStatus span {
+  display: block;
+}
+.Checkout_section .billHeader .billStatus .Status span {
+  display: inline-block;
+}
+.Checkout_section .billHeader .billStatus .Status .title {
+  font-weight: 700;
+}
+.Checkout_section .billHeader .billStatus .Status .value {
+  font-weight: 500;
+}
+.Checkout_section .billHeader .billStatus .TransactionNumber span {
+  display: inline-block;
+}
+.Checkout_section .billHeader .billStatus .TransactionNumber .title {
+  font-weight: 700;
+}
+.Checkout_section .billHeader .billStatus .TransactionNumber .value {
+  font-weight: 500;
+}

@@ -783,6 +783,9 @@
   <data name="HowToDisplayItems" xml:space="preserve">
     <value>نحوه نمایش Item ها</value>
   </data>
+  <data name="HowToPay" xml:space="preserve">
+    <value>نحوه ی پرداخت</value>
+  </data>
   <data name="HtmlCode" xml:space="preserve">
     <value>کد Html</value>
   </data>

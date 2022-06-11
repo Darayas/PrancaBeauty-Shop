@@ -800,3 +800,85 @@ pre {
         }
     }
 }
+
+.fs-12 {
+    font-size: 12px;
+}
+
+.Checkout_section {
+    .payment_method {
+        .order_button {
+            text-align: left;
+        }
+    }
+
+    .ShippingMethid {
+        text-align: left;
+
+        span {
+            display: inline-block;
+            font-size: 13px;
+
+            select {
+                background-color: #333333;
+                border-color: #404040;
+                font-size: 13px;
+                height: 30px !important;
+                color: #fff;
+
+                &:focus {
+                    box-shadow: unset;
+                }
+            }
+        }
+    }
+
+    .billHeader {
+        margin-bottom: 15px;
+
+        .billNumber {
+            font-weight: 700;
+            font-size: 14px;
+
+            span {
+                font-weight: 500;
+            }
+        }
+
+        .billStatus {
+            text-align: left;
+
+            span {
+                display: block;
+            }
+
+            .Status {
+                span {
+                    display: inline-block;
+                }
+
+                .title {
+                    font-weight: 700;
+                }
+
+                .value {
+                    font-weight: 500;
+                }
+            }
+
+            .TransactionNumber {
+                span {
+                    display: inline-block;
+                }
+
+                .title {
+                    font-weight: 700;
+                }
+
+                .value {
+                    font-weight: 500;
+                }
+            }
+        }
+    }
+}

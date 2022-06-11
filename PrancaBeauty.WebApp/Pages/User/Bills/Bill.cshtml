@@ -5,3 +5,378 @@
     Layout = "~/Pages/Shared/_UserLayout.cshtml";
 }
 
+@section breadcrumbs{
+    <div class="breadcrumbs_area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumb_content">
+                        <ul>
+                            <li><a href="/@ViewData["Culture"]">@Localizer["Home"]</a></li>
+                            <li><a href="/@ViewData["Culture"]/User/Index">@Localizer["Dashboard"]</a></li>
+                            <li><a href="/@ViewData["Culture"]/User/Products/List">@Localizer["ProductList"]</a></li>
+                            <li>@Localizer["AddProduct"]</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+    <div class="Checkout_section">
+        <div class="container">
+            <div class="billHeader">
+                <div class="row">
+                    <div class="col-6">
+                        <span class="billNumber">
+                            شماره صورت حساب: <span>#123456789012</span>
+                        </span>
+                    </div>
+                    <div class="col-6">
+                        <div class="billStatus">
+                            <span class="Status"><span class="title"> وضعیت:</span> <span class="value">پرداخت شده</span></span>
+                            <span class="TransactionNumber"><span class="title"> شماره تراکنش:</span> <span class="value">123456789123456</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="checkout_form">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>@Localizer["Address"]</h3>
+                                <div class="row">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>@Localizer["HowToPay"]</h3>
+                                <div class="row">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-md-8">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>
+                                    <div class="row">
+                                        <div class="col-6">فروشنده: Darayas</div>
+                                        <div class="col-6">
+                                            <div class="ShippingMethid">
+                                                <span>شیوه ی ارسال:</span>
+                                                <span>
+                                                    <select class="form-control">
+                                                        <option value="">Test Test Test Test</option>
+                                                    </select>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </h3>
+                                <div class="order_table table-responsive">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>محصول</th>
+                                                <th>تعداد</th>
+                                                <th>قیمت نهایی</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    محصول یکم
+                                                    <br />
+                                                    <span class="fs-12">رنگ <b>قرمز</b></span>
+                                                </td>
+                                                <td> 2</td>
+                                                <td> $165.00</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    محصول دوم
+                                                    <br />
+                                                    <span class="fs-12">رنگ <b>آبی</b></span>
+                                                </td>
+                                                <td> 1</td>
+                                                <td> $100.00</td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th></th>
+                                                <th>مالیات</th>
+                                                <td>$215.00</td>
+                                            </tr>
+                                            <tr>
+                                                <th></th>
+                                                <th>هزینه ارسال</th>
+                                                <td><strong>$5.00</strong></td>
+                                            </tr>
+                                            <tr class="order_total">
+                                                <th></th>
+                                                <th>قیمت کل</th>
+                                                <td><strong>$220.00</strong></td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-12">
+                                <h3>
+                                    <div class="row">
+                                        <div class="col-6">فروشنده: Darayas</div>
+                                        <div class="col-6">
+                                            <div class="ShippingMethid">
+                                                <span>شیوه ی ارسال:</span>
+                                                <span>
+                                                    <select class="form-control">
+                                                        <option value="">Test Test Test Test</option>
+                                                    </select>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </h3>
+                                <div class="order_table table-responsive">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>محصول</th>
+                                                <th>تعداد</th>
+                                                <th>قیمت نهایی</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    محصول یکم
+                                                    <br />
+                                                    <span class="fs-12">رنگ <b>قرمز</b></span>
+                                                </td>
+                                                <td> 2</td>
+                                                <td> $165.00</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    محصول دوم
+                                                    <br />
+                                                    <span class="fs-12">رنگ <b>آبی</b></span>
+                                                </td>
+                                                <td> 1</td>
+                                                <td> $100.00</td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th></th>
+                                                <th>مالیات</th>
+                                                <td>$215.00</td>
+                                            </tr>
+                                            <tr>
+                                                <th></th>
+                                                <th>هزینه ارسال</th>
+                                                <td><strong>$5.00</strong></td>
+                                            </tr>
+                                            <tr class="order_total">
+                                                <th></th>
+                                                <th>قیمت کل</th>
+                                                <td><strong>$220.00</strong></td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-12">
+                                <h3>
+                                    <div class="row">
+                                        <div class="col-6">فروشنده: Darayas</div>
+                                        <div class="col-6">
+                                            <div class="ShippingMethid">
+                                                <span>شیوه ی ارسال:</span>
+                                                <span>
+                                                    <select class="form-control">
+                                                        <option value="">Test Test Test Test</option>
+                                                    </select>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </h3>
+                                <div class="order_table table-responsive">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>محصول</th>
+                                                <th>تعداد</th>
+                                                <th>قیمت نهایی</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    محصول یکم
+                                                    <br />
+                                                    <span class="fs-12">رنگ <b>قرمز</b></span>
+                                                </td>
+                                                <td> 2</td>
+                                                <td> $165.00</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    محصول دوم
+                                                    <br />
+                                                    <span class="fs-12">رنگ <b>آبی</b></span>
+                                                </td>
+                                                <td> 1</td>
+                                                <td> $100.00</td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th></th>
+                                                <th>مالیات</th>
+                                                <td>$215.00</td>
+                                            </tr>
+                                            <tr>
+                                                <th></th>
+                                                <th>هزینه ارسال</th>
+                                                <td><strong>$5.00</strong></td>
+                                            </tr>
+                                            <tr class="order_total">
+                                                <th></th>
+                                                <th>قیمت کل</th>
+                                                <td><strong>$220.00</strong></td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-12">
+                                <h3 class="bg-info">قیمت نهایی</h3>
+                                <div class="order_table table-responsive">
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td> مالیات کل</td>
+                                                <td>$215.00</td>
+                                            </tr>
+                                            <tr>
+                                                <td>جمع هزینه های ارسال</td>
+                                                <td><strong>$5.00</strong></td>
+                                            </tr>
+                                            <tr class="order_total">
+                                                <td>قیمت نهایی</td>
+                                                <td><strong>$220.00</strong></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="payment_method">
+                                    <div class="order_button">
+                                        <button type="submit">ثبت نهایی و پراخت</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Checkout page section end-->
+    <!--brand area start-->
+    <div class="brand_area brand_padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="brand_container owl-carousel ">
+                        <div class="single_brand">
+                            <a href="#"><img src="assets/img/brand/brand1.jpg" alt=""></a>
+                        </div>
+                        <div class="single_brand">
+                            <a href="#"><img src="assets/img/brand/brand2.jpg" alt=""></a>
+                        </div>
+                        <div class="single_brand">
+                            <a href="#"><img src="assets/img/brand/brand3.jpg" alt=""></a>
+                        </div>
+                        <div class="single_brand">
+                            <a href="#"><img src="assets/img/brand/brand4.jpg" alt=""></a>
+                        </div>
+                        <div class="single_brand">
+                            <a href="#"><img src="assets/img/brand/brand5.jpg" alt=""></a>
+                        </div>
+                        <div class="single_brand">
+                            <a href="#"><img src="assets/img/brand/brand1.jpg" alt=""></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--brand area end-->
+    <!--shipping area start-->
+    <div class="shipping_area shipping_padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="single_shipping">
+                        <div class="shipping_icone">
+                            <i class="icon-call-out icons"></i>
+                        </div>
+                        <div class="shipping_content">
+                            <h3><a href="tel:0123456789">0123456789</a></h3>
+                            <p>/ Phone</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="single_shipping">
+                        <div class="shipping_icone">
+                            <i class="icon-location-pin icons"></i>
+                        </div>
+                        <div class="shipping_content">
+                            <h3>Your address goes here.</h3>
+                            <p>/ Address</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="single_shipping col3">
+                        <div class="shipping_icone">
+                            <i class="icon-envelope icons"></i>
+                        </div>
+                        <div class="shipping_content">
+                            <h3><a href="#">demo@example.com</a></h3>
+                            <p>/ Email</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--shipping area end-->
+    @section styles{
+
+}
+
+    @section scripts{
+
+}

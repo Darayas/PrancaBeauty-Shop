@@ -20,6 +20,7 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewModel
 
     public class vmBillItemGroups
     {
+        public string SellerName { get; set; }
         public string ShippingMethodId { get; set; }
         public double TotalPrice { get; set; }
         public double TaxAmount { get; set; }
@@ -38,6 +39,7 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewModel
         public string VariantTopic { get; set; }
         public string VariantValue { get; set; }
         public int Qty { get; set; }
+        public string CurrencySymbol { get; set; }
         public double TotalAmount { get; set; }
     }
 }

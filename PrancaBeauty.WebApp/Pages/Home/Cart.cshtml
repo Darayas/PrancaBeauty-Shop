@@ -101,16 +101,12 @@
                         <div class="coupon_code right">
                             <h3>@Localizer["Cart Totals"]</h3>
                             <div class="coupon_inner">
-                                <div class="cart_subtotal">
-                                    <p>@Localizer["Subtotal"]</p>
-                                    <p class="cart_amount">@Model.Data.Items.Sum(a=>a.TotalPrice).ToN3() @Model.Data.CurrencySymbol</p>
-                                </div>
                                 <div class="cart_subtotal ">
                                     <p>@Localizer["ShippingPrice"]</p>
                                     <p class="cart_amount"> @Model.Data.ShippingAmount.ToN3() @Model.Data.CurrencySymbol</p>
                                 </div>
                                 <div class="cart_subtotal ">
-                                    <p>@Localizer["Tax"]</p>
+                                    <p>@Localizer["AddedTax"]</p>
                                     <p class="cart_amount"> @Model.Data.TaxAmount.ToN3() @Model.Data.CurrencySymbol</p>
                                 </div>
                                 <div class="cart_subtotal">

@@ -88,6 +88,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                     _JsonSiteData = JsonData.AesEncrypt(AuthConst.SecretKey);
                 }
                 #endregion
+
                 if (!_RepWallets.Get.Where(a => a.Title=="حساب سایت").Any())
                 {
                     _RepWallets.AddAsync(new tblWallets

@@ -39,5 +39,5 @@
               {
                   read.Url($"/{ViewData["culture"]}/Shared/Compo/ComboTaxGroup?handler=Read").Data($"Filter_{FieldId}");
               }).ServerFiltering(true);
-          }).Template("<div class='d-inline ml-2 mr-2'>#=Title#(#=Percent#%)</div>"))
+          }).Template("<div class='d-inline ml-2 mr-2'>#=Title# (#=Percent#%)</div>"))
 </div>

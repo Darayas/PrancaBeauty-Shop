@@ -4,8 +4,6 @@ using PrancaBeauty.Domin.Users.RoleAgg.Entities;
 using PrancaBeauty.Domin.Users.UserAgg.Entities;
 using PrancaBeauty.Infrastructure.EFCore.Context;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace PrancaBeauty.Infrastructure.Core.Configuration
 {

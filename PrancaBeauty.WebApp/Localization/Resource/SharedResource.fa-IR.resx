@@ -159,6 +159,9 @@
   <data name="AddCategory" xml:space="preserve">
     <value>افزودن دسته جدید</value>
   </data>
+  <data name="AddedTax" xml:space="preserve">
+    <value>مالیات اضافه شده</value>
+  </data>
   <data name="AddFreeItem" xml:space="preserve">
     <value>افزودن FreeItem</value>
   </data>
@@ -299,6 +302,9 @@
   </data>
   <data name="Bad" xml:space="preserve">
     <value>بد</value>
+  </data>
+  <data name="BillList" xml:space="preserve">
+    <value>لیست صورت حساب ها</value>
   </data>
   <data name="BirthDate" xml:space="preserve">
     <value>تاریخ تولد</value>
@@ -1734,6 +1740,9 @@
   <data name="Tax" xml:space="preserve">
     <value>مالیات</value>
   </data>
+  <data name="TaxGroupId" xml:space="preserve">
+    <value>گروه مالیاتی</value>
+  </data>
   <data name="TaxId" xml:space="preserve">
     <value>گروه مالیاتی</value>
   </data>
@@ -1795,7 +1804,7 @@
     <value>ناشناخته</value>
   </data>
   <data name="UpdateCart" xml:space="preserve">
-    <value>ذخیره سبد خرید</value>
+    <value>ذخیره تغییرات</value>
   </data>
   <data name="UploaderUserId" xml:space="preserve">
     <value>کاربر آپلود کننده</value>

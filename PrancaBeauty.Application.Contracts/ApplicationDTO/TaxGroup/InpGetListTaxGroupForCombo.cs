@@ -10,7 +10,7 @@ namespace PrancaBeauty.Application.Contracts.ApplicationDTO.TaxGroup
         [GUID]
         public string CountryId { get; set; }
 
-        [Display(Name = "LangId")]
+        [Display(Name = "Text")]
         [MaxLengthString(100)]
         public string Text { get; set; }
     }

@@ -19,7 +19,7 @@ using WebMarkupMin.AspNetCore5;
 var builder = WebApplication.CreateBuilder(args);
 WebApplication app = null;
 
-#region Configure services
+#region Add services
 {
     if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == Environments.Development)
     {

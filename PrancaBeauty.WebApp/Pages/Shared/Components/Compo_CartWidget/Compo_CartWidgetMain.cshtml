@@ -55,13 +55,13 @@
             <div class="mini_cart_table">
                 <div class="cart_table_border">
                     <div class="cart_total">
-                        <span>@Localizer["Tax"]:</span>
+                        <span>@Localizer["AddedTax"]:</span>
                         <span class="price">@Model.Data.TaxAmount.ToN3() @Model.Data.CurrencySymbol</span>
                     </div>
-                    <div class="cart_total mt-10">
+                    @*<div class="cart_total mt-10">
                         <span>@Localizer["ShippingFee"]:</span>
                         <span class="price">@Model.Data.ShippingAmount.ToN3() @Model.Data.CurrencySymbol</span>
-                    </div>
+                    </div>*@
                     <div class="cart_total mt-10">
                         <span>@Localizer["TotalPrice"]:</span>
                         <span class="price">@Model.Data.TotalAmount.ToN3() @Model.Data.CurrencySymbol</span>
@@ -70,10 +70,10 @@
             </div>
             <div class="mini_cart_footer">
                 <div class="cart_button">
-                    <a href="cart.html"><i class="fa fa-shopping-cart"></i> نمایش سبد</a>
+                    <a href="/@ViewData["culture"]/cart"><i class="fa fa-shopping-cart"></i>@Localizer["ShoppingCart"]</a>
                 </div>
                 <div class="cart_button">
-                    <a href="checkout.html"><i class="fa fa-sign-in"></i> بازبینی</a>
+                    <a href="checkout.html"><i class="fa fa-sign-in"></i> @Localizer["Proceed to Checkout"]</a>
                 </div>
 
             </div>

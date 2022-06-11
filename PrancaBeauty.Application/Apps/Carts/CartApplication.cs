@@ -10,6 +10,7 @@ using PrancaBeauty.Application.Contracts.ApplicationDTO.Results;
 using PrancaBeauty.Domin.Cart.CartAgg.Contracts;
 using PrancaBeauty.Domin.Cart.CartAgg.Entities;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -140,7 +141,7 @@ namespace PrancaBeauty.Application.Apps.Carts
                                        Id=a.Id.ToString(),
                                        ProductName=a.tblProducts.Name,
                                        ProductTitle=a.tblProducts.Title,
-                                       TaxPercent=0, // TODO: از جدول گروه مالیاتی خوانده شود
+                                       TaxPercent=a.tblProducts.tblTaxGroups.Percent,
                                        Qty=a.Count,
                                        CurrencySymbol=CurrencySymbol,
                                        VariantTopic=VariantItem.Select(b => b.tblProductVariants.tblProductVariants_Translates.Where(c => c.LangId==Input.LangId.ToGuid()).Select(c => c.Title).Single()).Single(),
@@ -162,7 +163,6 @@ namespace PrancaBeauty.Application.Apps.Carts
                 Summary.ShippingAmount=0;
                 Summary.Items=qData;
                 Summary.TotalAmount=qData.Sum(a => a.TotalPrice)
-                                        + Summary.TaxAmount
                                         + Summary.ShippingAmount;
 
                 return Summary;
@@ -232,6 +232,29 @@ namespace PrancaBeauty.Application.Apps.Carts
                 await _CartRepository.SaveChangeAsync();
 
                 return new OperationResult().Succeeded();
+
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return default;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return default;
+            }
+        }
+
+        public async Task<List<OutGetItemsForBill>> GetItemsForBillAsync(InpGetItemsForBill Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+
 
             }
             catch (ArgumentInvalidException ex)

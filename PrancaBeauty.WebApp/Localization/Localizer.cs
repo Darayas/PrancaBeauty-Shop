@@ -1,10 +1,6 @@
 ﻿using Framework.Infrastructure;
 using Microsoft.Extensions.Localization;
 using PrancaBeauty.WebApp.Localization.Resource;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PrancaBeauty.WebApp.Localization
 {

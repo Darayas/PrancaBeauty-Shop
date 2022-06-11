@@ -13,8 +13,8 @@ namespace PrancaBeauty.Domin.PostalBarcodes.PostalBarcodeAgg.Entities
     {
         public Guid Id { get; set; }
         public Guid BillId { get; set; }
-        public Guid ShippingMethodId { get; set; }
-        public Guid AddressId { get; set; }
+        public Guid? ShippingMethodId { get; set; }
+        public Guid? AddressId { get; set; }
         public DateTime Date { get; set; } // تاریخ ثبت رکورد جاری
         public int Weight { get; set; }
         public int Width { get; set; }

@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Framework.Domain.Enums
+﻿namespace Framework.Domain.Enums
 {
     public enum PostalBarcodeEnum
     {
+        InCheckingOut, // درحال برسی
+        InPacking, // درحال بسته بندی
+        DeliveryToThePost, // تحویل پست داده شده
+        CarryingToDestination, // در حال حمل به مقصد
+        DeliveryToTheRecipient // تحویل به گیرنده
     }
 }

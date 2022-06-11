@@ -254,8 +254,48 @@ namespace PrancaBeauty.Application.Apps.Carts
                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
+                var qData = await _CartRepository.Get
+                                        .Where(a => a.UserId==Input.UserId.ToGuid())
+                                        .Select(a => new OutGetItemsForBill
+                                        {
+                                            Id=a.Id.ToString(),
+                                            ProductId=a.ProductId.ToString(),
+                                            VarianrItemId=a.VariantItemId.ToString(),
+                                            TaxGroupId=a.tblProducts.TaxGroupId.ToString(),
+                                            SellerId=a.SellerId.ToString(),
+                                            Qty=a.Count
+                                        })
+                                        .ToListAsync();
 
+                return qData;
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return default;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return default;
+            }
+        }
 
+        public async Task<OperationResult> ClearCartAsync(InpClearCart Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var qData = await _CartRepository.Get
+                                            .Where(a => a.UserId==Input.UserId.ToGuid())
+                                            .ToListAsync();
+
+                await _CartRepository.DeleteRangeAsync(qData, default, true);
+
+                return new OperationResult().Succeeded();
             }
             catch (ArgumentInvalidException ex)
             {

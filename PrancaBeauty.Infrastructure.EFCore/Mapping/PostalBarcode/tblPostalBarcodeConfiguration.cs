@@ -12,8 +12,8 @@ namespace PrancaBeauty.Infrastructure.EFCore.Mapping.PostalBarcode
             builder.HasKey(a => a.Id);
             builder.Property(a => a.Id).IsRequired().HasMaxLength(150);
             builder.Property(a => a.BillId).IsRequired().HasMaxLength(150);
-            builder.Property(a => a.ShippingMethodId).IsRequired().HasMaxLength(150);
-            builder.Property(a => a.AddressId).IsRequired().HasMaxLength(150);
+            builder.Property(a => a.ShippingMethodId).IsRequired(false).HasMaxLength(150);
+            builder.Property(a => a.AddressId).IsRequired(false).HasMaxLength(150);
             builder.Property(a => a.Barcode).IsRequired().HasMaxLength(50);
 
             builder.HasOne(a => a.tblBill)

@@ -8,9 +8,9 @@ namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Bills
     {
         public string GateId { get; set; }
         public string AddressId { get; set; }
-        public double TotalPrice { get; set; }
-        public double TaxAmount { get; set; }
-        public double ShippingAmount { get; set; }
+        public double? TotalPrice { get; set; }
+        public double? TaxAmount { get; set; }
+        public double? ShippingAmount { get; set; }
         public string Note { get; set; }
         public string TransactionNumber { get; set; }
         public BillStatusEnum BillStatus { get; set; }
@@ -22,8 +22,6 @@ namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Bills
     {
         public string SellerName { get; set; }
         public string ShippingMethodId { get; set; }
-        public double TotalPrice { get; set; }
-        public double TaxAmount { get; set; }
         public double ShippingAmount { get; set; }
         public PostalBarcodeEnum ShippingStatus { get; set; }
         public string Barcode { get; set; }
@@ -40,6 +38,7 @@ namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Bills
         public string VariantValue { get; set; }
         public int Qty { get; set; }
         public string CurrencySymbol { get; set; }
+        public double TaxAmount { get; set; }
         public double TotalAmount { get; set; }
     }
 }

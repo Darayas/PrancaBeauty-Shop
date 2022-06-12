@@ -690,6 +690,9 @@
   <data name="FilterByPrice" xml:space="preserve">
     <value>براساس قیمت</value>
   </data>
+  <data name="FinalPrice" xml:space="preserve">
+    <value>قیمت نهایی</value>
+  </data>
   <data name="First" xml:space="preserve">
     <value>اولین</value>
   </data>
@@ -1665,6 +1668,9 @@
   <data name="Settings" xml:space="preserve">
     <value>تنظیمات</value>
   </data>
+  <data name="ShippingAmount" xml:space="preserve">
+    <value>هزینه ارسال</value>
+  </data>
   <data name="ShippingFee" xml:space="preserve">
     <value>هزینه ارسال</value>
   </data>
@@ -1814,6 +1820,12 @@
   </data>
   <data name="TotalPrice" xml:space="preserve">
     <value>قیمت کل</value>
+  </data>
+  <data name="TotalShippingAmount" xml:space="preserve">
+    <value>هزینه ارسال نهایی</value>
+  </data>
+  <data name="TotalTax" xml:space="preserve">
+    <value>مالیات کل</value>
   </data>
   <data name="TwoDays" xml:space="preserve">
     <value>دو روز</value>

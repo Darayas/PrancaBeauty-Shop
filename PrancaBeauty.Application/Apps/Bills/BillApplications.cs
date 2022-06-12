@@ -155,9 +155,9 @@ namespace PrancaBeauty.Application.Apps.Bills
                                        BillStatus=a.Status,
                                        GateId=a.GateId!=null ? a.GateId.ToString() : null,
                                        Note=a.Note,
-                                       ShippingAmount=a.tblPostalBarcodes.Sum(a => a.TotalPrice),
-                                       TaxAmount=a.TaxAmount!=null ? a.TaxAmount.Value : 0,
-                                       TotalPrice=a.TotalPrice!=null ? a.TotalPrice.Value : 0,
+                                       ShippingAmount=a.Status==BillStatusEnum.Payyed ? a.tblPostalBarcodes.Sum(a => a.TotalPrice) : null,
+                                       TaxAmount= a.TaxAmount,
+                                       TotalPrice= a.TotalPrice,
                                        TransactionNumber=a.TransactionNumber,
                                        LstSellerGroups= (from b in a.tblPostalBarcodes
                                                          let Items = b.tblBillItems
@@ -167,11 +167,9 @@ namespace PrancaBeauty.Application.Apps.Bills
                                                              SellerName=Seller.Name,
                                                              Barcode= b.Barcode,
                                                              ChangeStatusDateTime=b.ChangeStatusDateTime,
-                                                             ShippingAmount=b.TotalPrice,
+                                                             ShippingAmount=a.Status==BillStatusEnum.Payyed ? b.TotalPrice : 0,
                                                              ShippingMethodId=b.ShippingMethodId!=null ? b.ShippingMethodId.ToString() : null,
                                                              ShippingStatus=b.Status,
-                                                             TaxAmount=0,
-                                                             TotalPrice=0,
                                                              LstItems= (from c in Items
                                                                         let CurrencySymbol = c.tblProducts.tblProductPrices.Where(b => b.IsActive && b.CurrencyId==Input.CurrencyId.ToGuid()).Select(b => b.tblCurrency.Symbol).Single()
                                                                         let Price = c.tblProducts.tblProductPrices.Where(a => a.CurrencyId==Input.CurrencyId.ToGuid() && a.IsActive).Select(a => a.Price).Single()
@@ -179,8 +177,11 @@ namespace PrancaBeauty.Application.Apps.Bills
                                                                         let PercentSavePrice = c.tblProductVariantItems.tblProductDiscounts!=null ? c.tblProductVariantItems.tblProductDiscounts.Percent : 0
                                                                         let OldPrice = Price + ((Price/100)*SellerPercent)
                                                                         let NewPrice = OldPrice - ((OldPrice/100)*PercentSavePrice)
-                                                                        let Product= c.tblProducts
-                                                                        let VariantItem= c.tblProductVariantItems
+                                                                        let TaxPercent = c.tblProducts.tblTaxGroups.Percent
+                                                                        let TaxAmount = (NewPrice/100)*TaxPercent
+                                                                        let TotalPrice = NewPrice * c.Qty
+                                                                        let Product = c.tblProducts
+                                                                        let VariantItem = c.tblProductVariantItems
                                                                         select new OutGetBillDetailsItems
                                                                         {
                                                                             Title=Product.Title,
@@ -188,7 +189,8 @@ namespace PrancaBeauty.Application.Apps.Bills
                                                                             VariantTopic=VariantItem.tblProductVariants.tblProductVariants_Translates.Where(a => a.LangId==Input.LangId.ToGuid()).Select(a => a.Title).Single(),
                                                                             VariantValue=VariantItem.Title,
                                                                             Qty=c.Qty,
-                                                                            TotalAmount=NewPrice * c.Qty,
+                                                                            TotalAmount=a.Status==BillStatusEnum.Payyed ? c.TotalPrice.Value : TotalPrice,
+                                                                            TaxAmount=a.Status==BillStatusEnum.Payyed ? (c.TotalPrice.Value/100)*c.TaxPercent.Value : TaxAmount,
                                                                             CurrencySymbol=CurrencySymbol
                                                                         }).ToList()
                                                          }).ToList()
@@ -196,6 +198,10 @@ namespace PrancaBeauty.Application.Apps.Bills
 
                 if (qData==null)
                     return null;
+
+                qData.TotalPrice= qData.TotalPrice!=null ? qData.TotalPrice.Value : qData.LstSellerGroups.Sum(b => b.LstItems.Sum(c => c.TotalAmount));
+                qData.TaxAmount= qData.TaxAmount!=null ? qData.TaxAmount.Value : qData.LstSellerGroups.Sum(b => b.LstItems.Sum(c => c.TaxAmount));
+                qData.ShippingAmount= qData.ShippingAmount!=null ? qData.ShippingAmount.Value : 0; // TODO: Get ShippingAmount from webService;
 
                 return qData;
             }

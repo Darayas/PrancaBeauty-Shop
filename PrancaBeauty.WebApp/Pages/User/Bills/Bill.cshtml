@@ -89,90 +89,101 @@
                 </div>
                 <div class="col-lg-8 col-md-8">
                     <div class="row">
-                        @foreach (var itemSeller in Model.Data.LstSellerGroups)
-                        {
-                            <div class="col-md-12">
-                                <h3>
-                                    <div class="row">
-                                        <div class="col-6">@Localizer["Seller"]: @itemSeller.SellerName</div>
-                                        <div class="col-6">
-                                            <div class="ShippingMethid">
-                                                <span>@Localizer["ShippingMethod"]:</span>
-                                                <span>
-                                                    <select class="form-control">
-                                                        <option value="">Tipax</option>
-                                                        <option value="">پست معمولی</option>
-                                                        <option value="">پست پیشتاز</option>
-                                                    </select>
-                                                </span>
+                        @{
+                            string CurrencySymbol = Model.Data.LstSellerGroups.First().LstItems.First().CurrencySymbol;
+                            foreach (var itemSeller in Model.Data.LstSellerGroups)
+                            {
+                                <div class="col-md-12">
+                                    <h3>
+                                        <div class="row">
+                                            <div class="col-6">@Localizer["Seller"]: @itemSeller.SellerName</div>
+                                            <div class="col-6">
+                                                <div class="ShippingMethid">
+                                                    <span>@Localizer["ShippingMethod"]:</span>
+                                                    <span>
+                                                        <select class="form-control">
+                                                            <option value="">Tipax</option>
+                                                            <option value="">پست معمولی</option>
+                                                            <option value="">پست پیشتاز</option>
+                                                        </select>
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
+
+                                    </h3>
+                                    <div class="order_table table-responsive">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>@Localizer["ProductTitle"]</th>
+                                                    <th>@Localizer["Qty"]</th>
+                                                    <th>@Localizer["TotalPrice"]</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var itemProduct in itemSeller.LstItems)
+                                                {
+                                                    <tr>
+                                                        <td>
+                                                            <a href="/@ViewData["culture"]/Product/@itemProduct.Name" target="_blank">@itemProduct.Title</a>
+                                                            <br />
+                                                            <span class="fs-12">@itemProduct.VariantTopic <b>@itemProduct.VariantValue</b></span>
+                                                        </td>
+                                                        <td>@itemProduct.Qty</td>
+                                                        <td>@itemProduct.TotalAmount.ToN3() @CurrencySymbol</td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th></th>
+                                                    <th>@Localizer["Tax"]</th>
+                                                    <td><strong>@itemSeller.LstItems.Sum(a=>a.TaxAmount).ToN3() @CurrencySymbol</strong></td>
+                                                </tr>
+                                                <tr>
+                                                    <th></th>
+                                                    <th>@Localizer["ShippingAmount"]</th>
+                                                    <td><strong>@itemSeller.ShippingAmount.ToN3() @CurrencySymbol</strong></td>
+                                                </tr>
+                                                <tr class="order_total">
+                                                    <th></th>
+                                                    <th>@Localizer["TotalPrice"]</th>
+                                                    <td><strong>@itemSeller.LstItems.Sum(a=>a.TotalAmount).ToN3() @CurrencySymbol</strong></td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
                                     </div>
 
-                                </h3>
-                                <div class="order_table table-responsive">
-                                    <table>
-                                        <thead>
-                                            <tr>
-                                                <th>@Localizer["ProductTitle"]</th>
-                                                <th>@Localizer["Qty"]</th>
-                                                <th>@Localizer["TotalPrice"]</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach (var itemProduct in itemSeller.LstItems)
-                                            {
-                                                <tr>
-                                                    <td>
-                                                        <a href="/@ViewData["culture"]/Product/@itemProduct.Name" target="_blank">@itemProduct.Title</a>
-                                                        <br />
-                                                        <span class="fs-12">@itemProduct.VariantTopic <b>@itemProduct.VariantValue</b></span>
-                                                    </td>
-                                                    <td>@itemProduct.Qty</td>
-                                                    <td>@itemProduct.TotalAmount.ToN3() @itemProduct.CurrencySymbol</td>
-                                                </tr>
-                                            }
-                                        </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <th></th>
-                                                <th>مالیات</th>
-                                                <td>$215.00</td>
-                                            </tr>
-                                            <tr>
-                                                <th></th>
-                                                <th>هزینه ارسال</th>
-                                                <td><strong>$5.00</strong></td>
-                                            </tr>
-                                            <tr class="order_total">
-                                                <th></th>
-                                                <th>قیمت کل</th>
-                                                <td><strong>$220.00</strong></td>
-                                            </tr>
-                                        </tfoot>
-                                    </table>
                                 </div>
-
-                            </div>
+                            }
                         }
 
-
                         <div class="col-md-12">
-                            <h3 class="bg-info">قیمت نهایی</h3>
+                            <h3 class="bg-info">@Localizer["FinalPrice"]</h3>
                             <div class="order_table table-responsive">
                                 <table>
                                     <tbody>
                                         <tr>
-                                            <td> مالیات کل</td>
-                                            <td>$215.00</td>
+                                            <td> @Localizer["TotalTax"]</td>
+                                            <td>
+                                                <strong>@Model.Data.TaxAmount.ToN3()</strong>
+                                                @CurrencySymbol
+                                            </td>
                                         </tr>
                                         <tr>
-                                            <td>جمع هزینه های ارسال</td>
-                                            <td><strong>$5.00</strong></td>
+                                            <td>@Localizer["TotalShippingAmount"]</td>
+                                            <td>
+                                                <strong>@Model.Data.ShippingAmount.ToN3()</strong>
+                                                @CurrencySymbol
+                                            </td>
                                         </tr>
                                         <tr class="order_total">
-                                            <td>قیمت نهایی</td>
-                                            <td><strong>$220.00</strong></td>
+                                            <td>@Localizer["FinalPrice"]</td>
+                                            <td>
+                                                <strong>@Model.Data.TotalPrice.ToN3()</strong>
+                                                @CurrencySymbol
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>

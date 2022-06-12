@@ -306,8 +306,14 @@
   <data name="Bill" xml:space="preserve">
     <value>صورت حساب: #{0}</value>
   </data>
+  <data name="BillDetails" xml:space="preserve">
+    <value>جزئیات صورت حساب</value>
+  </data>
   <data name="BillList" xml:space="preserve">
     <value>لیست صورت حساب ها</value>
+  </data>
+  <data name="BillNumber" xml:space="preserve">
+    <value>شماره صورت حساب</value>
   </data>
   <data name="BirthDate" xml:space="preserve">
     <value>تاریخ تولد</value>
@@ -632,6 +638,9 @@
   </data>
   <data name="Excellent" xml:space="preserve">
     <value>عالی</value>
+  </data>
+  <data name="Expired" xml:space="preserve">
+    <value>منقضی شده</value>
   </data>
   <data name="File" xml:space="preserve">
     <value>فایل</value>
@@ -1158,6 +1167,9 @@
   <data name="NotFound" xml:space="preserve">
     <value>موردی یافت نشد.</value>
   </data>
+  <data name="NotPayyed" xml:space="preserve">
+    <value>پرداخت نشده</value>
+  </data>
   <data name="NumRangeMsg" xml:space="preserve">
     <value>{0} باید عددی بین '{1}' تا '{2}' باشد.</value>
   </data>
@@ -1247,6 +1259,9 @@
   </data>
   <data name="PasswordTooShort" xml:space="preserve">
     <value>کلمه عبور باید حداقل {0} کاراکتر باشد</value>
+  </data>
+  <data name="Payyed" xml:space="preserve">
+    <value>پرداخت شد ه</value>
   </data>
   <data name="Percent" xml:space="preserve">
     <value>درصد</value>
@@ -1449,6 +1464,9 @@
   <data name="Published" xml:space="preserve">
     <value>منتشر شده</value>
   </data>
+  <data name="Qty" xml:space="preserve">
+    <value>تعداد</value>
+  </data>
   <data name="Quantity" xml:space="preserve">
     <value>تعداد</value>
   </data>
@@ -1649,6 +1667,9 @@
   </data>
   <data name="ShippingFee" xml:space="preserve">
     <value>هزینه ارسال</value>
+  </data>
+  <data name="ShippingMethod" xml:space="preserve">
+    <value>شیوه ارسال</value>
   </data>
   <data name="ShippingPrice" xml:space="preserve">
     <value>هزینه ارسال</value>

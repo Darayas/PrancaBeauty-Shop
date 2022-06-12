@@ -44,7 +44,6 @@ namespace PrancaBeauty.WebApp.Pages.Admin.AccessLevels
                 Take = request.PageSize
             });
 
-
             var _DataGrid = qData.Item2.ToDataSourceResult(request);
             _DataGrid.Total = (int)qData.Item1.CountAllItem;
             _DataGrid.Data = qData.Item2;

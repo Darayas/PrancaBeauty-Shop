@@ -172,19 +172,21 @@ namespace PrancaBeauty.Application.Apps.Bills
                                                              ShippingStatus=b.Status,
                                                              TaxAmount=0,
                                                              TotalPrice=0,
-                                                             LstItems= (from c in b.tblBillItems
+                                                             LstItems= (from c in Items
                                                                         let CurrencySymbol = c.tblProducts.tblProductPrices.Where(b => b.IsActive && b.CurrencyId==Input.CurrencyId.ToGuid()).Select(b => b.tblCurrency.Symbol).Single()
                                                                         let Price = c.tblProducts.tblProductPrices.Where(a => a.CurrencyId==Input.CurrencyId.ToGuid() && a.IsActive).Select(a => a.Price).Single()
                                                                         let SellerPercent = c.tblProductVariantItems.Percent
                                                                         let PercentSavePrice = c.tblProductVariantItems.tblProductDiscounts!=null ? c.tblProductVariantItems.tblProductDiscounts.Percent : 0
                                                                         let OldPrice = Price + ((Price/100)*SellerPercent)
                                                                         let NewPrice = OldPrice - ((OldPrice/100)*PercentSavePrice)
+                                                                        let Product= c.tblProducts
+                                                                        let VariantItem= c.tblProductVariantItems
                                                                         select new OutGetBillDetailsItems
                                                                         {
-                                                                            Title=c.tblProducts.Title,
-                                                                            Name=c.tblProducts.Name,
-                                                                            VariantTopic=c.tblProductVariantItems.tblProductVariants.tblProductVariants_Translates.Where(a => a.LangId==Input.LangId.ToGuid()).Select(a => a.Title).Single(),
-                                                                            VariantValue=c.tblProductVariantItems.Value,
+                                                                            Title=Product.Title,
+                                                                            Name=Product.Name,
+                                                                            VariantTopic=VariantItem.tblProductVariants.tblProductVariants_Translates.Where(a => a.LangId==Input.LangId.ToGuid()).Select(a => a.Title).Single(),
+                                                                            VariantValue=VariantItem.Title,
                                                                             Qty=c.Qty,
                                                                             TotalAmount=NewPrice * c.Qty,
                                                                             CurrencySymbol=CurrencySymbol

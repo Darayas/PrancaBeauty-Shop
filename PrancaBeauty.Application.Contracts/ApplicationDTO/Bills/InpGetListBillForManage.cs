@@ -1,9 +1,11 @@
-﻿using Framework.Common.DataAnnotations.String;
+﻿using Framework.Common.DataAnnotations.Numbers.All;
+using Framework.Common.DataAnnotations.String;
+using Framework.Domain.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Bills
 {
-    public class InpGetBillDetails
+    public class InpGetListBillForManage
     {
         [Display(Name = "LangId")]
         [RequiredString]
@@ -18,14 +20,16 @@ namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Bills
         [GUID]
         public string SellerUserId { get; set; }
 
-        [Display(Name = "CurrencyId")]
-        [RequiredString]
-        [GUID]
-        public string CurrencyId { get; set; }
-
         [Display(Name = "BillNumber")]
-        [RequiredString]
-        [MaxLengthString(13)]
+        [MaxLengthString(50)]
         public string BillNumber { get; set; }
+
+        [Display(Name = "Page")]
+        [NumRange(1, int.MaxValue)]
+        public int Page { get; set; } = 1;
+
+        [Display(Name = "Take")]
+        [NumRange(1, int.MaxValue)]
+        public int Take { get; set; } = 10;
     }
 }

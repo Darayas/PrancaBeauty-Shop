@@ -20,6 +20,7 @@ namespace PrancaBeauty.WebApp.Common.ExMethod
             var UserData = new vmGetUserDetails()
             {
                 UserId = user.Claims.Where(a => a.Type == ClaimTypes.NameIdentifier).Select(a => a.Value).SingleOrDefault() ?? "",
+                SellerId = user.Claims.Where(a => a.Type == "SellerId").Select(a => a.Value).SingleOrDefault() ?? "",
                 UserName = user.Claims.Where(a => a.Type == ClaimTypes.Name).Select(a => a.Value).SingleOrDefault() ?? "",
                 Email = user.Claims.Where(a => a.Type == ClaimTypes.Email).Select(a => a.Value).SingleOrDefault() ?? "",
                 MobileNumber = user.Claims.Where(a => a.Type == ClaimTypes.MobilePhone).Select(a => a.Value).SingleOrDefault() ?? "",

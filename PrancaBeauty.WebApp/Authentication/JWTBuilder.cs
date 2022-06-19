@@ -46,6 +46,7 @@ namespace PrancaBeauty.WebApp.Authentication
                 new Claim(ClaimTypes.GivenName, _UserDetails.FirstName),
                 new Claim(ClaimTypes.Surname, _UserDetails.LastName),
                 new Claim("AccessLevel", _UserDetails.AccessLevelTitle),
+                new Claim("SellerId", _UserDetails.SellerId??""),
                 new Claim("Date", _UserDetails.Date.ToString("yyyy/MM/dd HH:mm:ss", new CultureInfo("en-US"))),
             };
 

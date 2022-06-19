@@ -31901,3 +31901,38 @@ pre {
 .Checkout_section .billHeader .billStatus .TransactionNumber .value {
   font-weight: 500;
 }
+
+.address .Title {
+  height: 30px;
+}
+.address .Title input[type=radio] {
+  width: unset !important;
+  margin-left: 5px;
+  height: 30px;
+}
+.address .Title span {
+  position: relative;
+  top: -11px;
+}
+.address .addr {
+  border-bottom: 1px solid #454545;
+  padding-bottom: 5px;
+  margin-bottom: 15px;
+  padding-right: 20px;
+}
+.address:last-child .addr {
+  border-bottom: unset;
+}
+
+.Gate {
+  height: 25px;
+}
+.Gate input[type=radio] {
+  width: unset !important;
+  margin-left: 5px;
+  height: 30px;
+}
+.Gate span {
+  position: relative;
+  top: -11px;
+}

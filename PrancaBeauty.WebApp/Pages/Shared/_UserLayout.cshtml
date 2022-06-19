@@ -26,9 +26,7 @@
                                     <li> <a href="/@ViewData["Culture"]/User/Products/List" class="nav-link">@Localizer["ProductList"]</a></li>
                                 }
                             }
-                            <li><a href="#downloads" class="nav-link active">Downloads</a></li>
-                            <li><a href="#address" class="nav-link">Addresses</a></li>
-                            <li><a href="#account-details" class="nav-link">Account details</a></li>
+                            <li><a href="/@ViewData["Culture"]/User/Bills/List" class="nav-link">@Localizer["BillList"]</a></li>
                             <li><a onclick="Logout('@Context.Request.GetCurrentUrl()')" href="#Logout" class="nav-link">@Localizer["Logout"]</a></li>
                         </ul>
                     </div>

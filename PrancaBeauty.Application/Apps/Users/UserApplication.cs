@@ -496,6 +496,7 @@ namespace PrancaBeauty.Application.Apps.Users
                                         .Select(a => new OutGetAllUserDetails
                                         {
                                             Id = a.Id.ToString(),
+                                            SellerId=a.tblSellers!=null?a.tblSellers.Id.ToString():null,
                                             UserName = a.UserName,
                                             Email = a.Email,
                                             PhoneNumber = a.PhoneNumber,

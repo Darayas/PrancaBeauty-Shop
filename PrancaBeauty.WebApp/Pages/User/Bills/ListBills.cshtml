@@ -4,3 +4,187 @@
     ViewData["Title"] = Localizer["BillList"];
     Layout = "~/Pages/Shared/_UserLayout.cshtml";
 }
+
+@section breadcrumbs{
+    <div class="breadcrumbs_area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumb_content">
+                        <ul>
+                            <li><a href="/@ViewData["Culture"]">@Localizer["Home"]</a></li>
+                            <li><a href="/@ViewData["Culture"]/User/Index">@Localizer["Dashboard"]</a></li>
+                            <li>@Localizer["ProductList"]</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="k-lang">
+                @(Html.Kendo()
+            .Grid<vmListBills>()
+            .Name("ListBills")
+            .DefaultSettings(Localizer)
+            .Columns(col=> {
+            col.Bound(a => a.Id).Hidden().HtmlAttributes(new { @class = "RowId" }).Sortable(false);
+            col.Bound(a => a.BillNumber).HtmlAttributes(new {style= "vertical-align:top;min-width:150px;max-width:400px" }).ClientTemplateId("TitleCell");
+            col.Bound(a => a.Status).ClientTemplateId("StatusCell").Width(70);
+            col.Bound(a => a).Width(50).Title(" ")
+            .HtmlAttributes(new { style= "overflow: visible; text-align: center;" })
+            .ClientHeaderTemplate("<button class='btn btn-primary btn-sm ml-1 mr-1' onclick='ShowSearchModal()'><i class='fa fa-search'></i></button>")
+            .ClientTemplateId("DropDownCmd");
+            })
+            .DataSource(ds=>ds.Ajax()
+            .PageSize(10)
+            .Read(read=>read.Url($"/{CultureInfo.CurrentCulture.Parent.Name}/User/Bills/List?handler=ReadData").Data("forgeryToken"))))
+            </div>
+        </div>
+    </div>
+
+    <div id="SearchModal" class="modal" tabindex="-1">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">@Localizer["Search"]</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12">
+                            <div class="form-group">
+                                <label asp-for="Input.BillNumber"></label>
+                                <input asp-for="Input.BillNumber" type="text" class="form-control" placeholder="@Localizer["BillNumber"]" />
+                            </div>
+                            </div>
+                        </div>
+
+                        @if (User.IsInRole(Roles.CanViewListBillSeller))
+                    {
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                <LoadComponent id="BuyerUserId"
+                                           url="/@ViewData["culture"]/Shared/Compo/ComboUsers"
+                                           context="HttpContext"
+                                           data='new viCompo_Combo_Users{ FieldName="Input.BuyerUserId",UserId=Model.Input.BuyerUserId,LangId=null,ShowLabale=true  }'></LoadComponent>
+                            </div>
+                            </div>
+                        </div>
+                        if (User.IsInRole(Roles.CanViewListBillAdmin))
+                        {
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                    <LoadComponent id="SellerId"
+                                           url="/@ViewData["culture"]/Shared/Compo/ComboSellers"
+                                           context="HttpContext"
+                                           data='new viCompo_Combo_Sellers{ FieldName="Input.SellerUserId",SellerId=Model.Input.SellerUserId,LangId=ViewData["LangId"].ToString(),ShowLabale=true  }'></LoadComponent>
+                                </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button onclick="Search()" type="button" class="btn btn-primary">@Localizer["Filter"]</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script id="TitleCell">
+    <div class="TitleCell">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="title">
+                    <a target="_blank" href="/@(ViewData["culture"])/User/Bill/#=BillNumber#">#=BillNumber# </a>
+                </h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="Category">
+                    <span>@Localizer["BuyerFullName"]: </span> #=UserFullName#
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="date">
+                    <span>#=Date# </span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="Summery">
+                    <div class="d-inline-block #:GateTitle==''?'hide':''#"> <span class="font-weight-bold"> @Localizer["GateTitle"]: </span><span>#:GateTitle#</span> </div>
+                    <div class="d-inline-block #:TransactionNumber==''?'hide':''#"> <span class="font-weight-bold"> @Localizer["TransactionNumber"]: </span><span>#:TransactionNumber#</span> </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="date #:Address==''?'hide':''#">
+                    <span>#=Address# </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script id="StatusCell">
+    <span class="badge badge-#:Status==0?'warning':(Status==1?'success':(Status==2?'danger':''))#">
+        #:Status == 0 ? '@Localizer["NotPayyed"]' : (Status == 1 ? '@Localizer["Payyed"]' : (Status == 2 ? '@Localizer["Expired"]':''))#
+    </span>
+</script>
+
+<script id="DropDownCmd">
+    <div class="item-action dropdown">
+        <a href="javascript:void(0)" data - toggle="dropdown" class="icon"> <i class="fa fa-bars fs-16 text-dark"> </i></a>
+        <div class="dropdown-menu dropdown-menu-left">
+            <a href="/@ViewData["Culture"]/User/Products/Edit/#:Id#?ReturnUrl=@Request.GetCurrentUrlEncoded()" class="dropdown-item"> <i class="dropdown-icon fa fa-edit"> </i>@Localizer["Edit"]</a>
+        </div>
+    </div>
+</script>
+
+<script>
+    function ShowSearchModal() {
+        $('#SearchModal').modal();
+    }
+
+    function Search() {
+        var _BillNumber = $('#Input_BillNumber').val();
+        var _BuyerUserId = '';
+        var _SellerUserId = '';
+    @if (User.IsInRole(Roles.CanViewListBillSeller))
+    {
+        @Html.Raw("_BuyerUserId = $('#Input_BuyerUserId').val();")
+        if (User.IsInRole(Roles.CanViewListBillAdmin))
+        {
+            @Html.Raw("_SellerUserId = $('#Input_SellerUserId').val();")
+        }
+    }
+
+        var _Grid = $('#ListBills').data('kendoGrid');
+        _Grid.dataSource.transport.options.read.url = '/@CultureInfo.CurrentCulture.Parent.Name/User/Bills/List?handler=ReadData&Input.BillNumber=' + _BillNumber + '&Input.SellerUserId=' + _SellerUserId + '&Input.BuyerUserId=' + _BuyerUserId;
+        _Grid.dataSource.read();
+        _Grid.refresh();
+
+        ChangeUrl('/@CultureInfo.CurrentCulture.Parent.Name/User/Bills/List?handler=ReadData&Input.BillNumber=' + _BillNumber + '&Input.SellerUserId=' + _SellerUserId + '&Input.BuyerUserId=' + _BuyerUserId);
+    }
+
+    $(document).ready(function() {
+        setTimeout(function() {
+            Search();
+        }, 500);
+    });
+</script>

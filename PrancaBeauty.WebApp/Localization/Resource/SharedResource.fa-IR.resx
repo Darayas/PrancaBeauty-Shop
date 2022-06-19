@@ -210,7 +210,7 @@
   <data name="Address" xml:space="preserve">
     <value>آدرس</value>
   </data>
-  <data name="AddressHasFactors" xml:space="preserve">
+  <data name="AddressHasBill" xml:space="preserve">
     <value>آدرس دارای فاکتورهایی میباشد که امکان حذف آن وجود ندارد.</value>
   </data>
   <data name="AddShowcase" xml:space="preserve">
@@ -318,6 +318,12 @@
   <data name="BirthDate" xml:space="preserve">
     <value>تاریخ تولد</value>
   </data>
+  <data name="BuyerFullName" xml:space="preserve">
+    <value>نام خریدار</value>
+  </data>
+  <data name="BuyerUserId" xml:space="preserve">
+    <value>خریدار</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>انصراف</value>
   </data>
@@ -374,6 +380,9 @@
   </data>
   <data name="ChangeStatusEnable" xml:space="preserve">
     <value>فعال کردن</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>شهر</value>
   </data>
   <data name="CityId" xml:space="preserve">
     <value>شهر</value>
@@ -440,6 +449,9 @@
   </data>
   <data name="CountReviews" xml:space="preserve">
     <value>تعداد نظرات</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>کشور</value>
   </data>
   <data name="CountryId" xml:space="preserve">
     <value>کشور</value>
@@ -749,6 +761,9 @@
   </data>
   <data name="FutureWork" xml:space="preserve">
     <value>کاری آینده</value>
+  </data>
+  <data name="GateTitle" xml:space="preserve">
+    <value>درگاه پرداخت</value>
   </data>
   <data name="Good" xml:space="preserve">
     <value>خوب</value>
@@ -1458,6 +1473,9 @@
   <data name="PropertyValue" xml:space="preserve">
     <value>مقدار خصوصیت</value>
   </data>
+  <data name="Province" xml:space="preserve">
+    <value>استان</value>
+  </data>
   <data name="ProvinceId" xml:space="preserve">
     <value>استان</value>
   </data>
@@ -1773,6 +1791,9 @@
   <data name="Tax" xml:space="preserve">
     <value>مالیات</value>
   </data>
+  <data name="TaxAmount" xml:space="preserve">
+    <value>مالیات</value>
+  </data>
   <data name="TaxGroupId" xml:space="preserve">
     <value>گروه مالیاتی</value>
   </data>
@@ -1826,6 +1847,9 @@
   </data>
   <data name="TotalTax" xml:space="preserve">
     <value>مالیات کل</value>
+  </data>
+  <data name="TransactionNumber" xml:space="preserve">
+    <value>شماره تراکنش</value>
   </data>
   <data name="TwoDays" xml:space="preserve">
     <value>دو روز</value>

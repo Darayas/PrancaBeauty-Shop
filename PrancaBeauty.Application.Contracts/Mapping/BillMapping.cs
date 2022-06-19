@@ -11,6 +11,7 @@ namespace PrancaBeauty.Application.Contracts.Mapping
             CreateMap<OutGetBillDetails, vmBill>();
             CreateMap<OutGetBillDetailsItemGroups, vmBillItemGroups>();
             CreateMap<OutGetBillDetailsItems, vmBillItems>();
+            CreateMap<OutGetListBillForManage, vmListBills>();
         }
     }
 }

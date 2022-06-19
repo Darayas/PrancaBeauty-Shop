@@ -882,3 +882,49 @@ pre {
         }
     }
 }
+
+.address {
+
+    .Title {
+        height: 30px;
+
+        input[type=radio] {
+            width: unset !important;
+            margin-left: 5px;
+            height: 30px;
+        }
+
+        span {
+            position: relative;
+            top: -11px;
+        }
+    }
+
+    .addr {
+        border-bottom: 1px solid #454545;
+        padding-bottom: 5px;
+        margin-bottom: 15px;
+        padding-right: 20px;
+    }
+
+    &:last-child {
+        .addr {
+            border-bottom: unset;
+        }
+    }
+}
+
+.Gate {
+    height: 25px;
+
+    input[type=radio] {
+        width: unset !important;
+        margin-left: 5px;
+        height: 30px;
+    }
+
+    span {
+        position: relative;
+        top: -11px;
+    }
+}

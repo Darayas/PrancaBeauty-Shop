@@ -1,5 +1,6 @@
 ﻿using Framework.Common.ExMethods;
 using Framework.Common.Utilities.Paging;
+using Framework.Domain.Enums;
 using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
@@ -34,7 +35,7 @@ namespace PrancaBeauty.Application.Apps.Address
             try
             {
                 #region Validations
-                 Input.CheckModelState(_ServiceProvider);
+                Input.CheckModelState(_ServiceProvider);
                 #endregion
 
                 var qData = _AddressRepository.Get
@@ -49,7 +50,7 @@ namespace PrancaBeauty.Application.Apps.Address
                                                              _Localizer["Plaque"] + " " + a.Plaque + "- " +
                                                              _Localizer["Unit"] + " " + a.Unit + "- " +
                                                              a.FirstName + " " + a.LastName,
-                                                  CountBills = 0,
+                                                  CountBills = a.tblBills.Where(a => a.Status==BillStatusEnum.Payyed).Count(),
                                                   Date = a.Date
                                               })
                                               .Where(a => Input.Search != null ? a.Address.Contains(Input.Search) : true)
@@ -118,19 +119,26 @@ namespace PrancaBeauty.Application.Apps.Address
             try
             {
                 #region Validations
-                 Input.CheckModelState(_ServiceProvider);
+                Input.CheckModelState(_ServiceProvider);
                 #endregion
 
                 var qData = await _AddressRepository.Get
                                                    .Where(a => a.Id == Guid.Parse(Input.Id))
                                                    .Where(a => a.UserId == Guid.Parse(Input.UserId))
-                                                   //TODO .Where(a=> a.tblBills.Count()==0)
+                                                   .Select(a => new
+                                                   {
+                                                       Address = a,
+                                                       HasBill = a.tblBills.Where(a => a.Status==BillStatusEnum.Payyed).Any()
+                                                   })
                                                    .SingleOrDefaultAsync();
 
                 if (qData == null)
-                    return new OperationResult().Failed("AddressHasFactors");
+                    return new OperationResult().Failed("AddressNotFound");
 
-                await _AddressRepository.DeleteAsync(qData, default);
+                if (qData.HasBill)
+                    return new OperationResult().Failed("AddressHasBill");
+
+                await _AddressRepository.DeleteAsync(qData.Address, default);
 
                 return new OperationResult().Succeeded();
             }
@@ -151,7 +159,7 @@ namespace PrancaBeauty.Application.Apps.Address
             try
             {
                 #region Validation
-                 Input.CheckModelState(_ServiceProvider);
+                Input.CheckModelState(_ServiceProvider);
                 #endregion
 
                 var qData = await _AddressRepository.Get
@@ -201,25 +209,33 @@ namespace PrancaBeauty.Application.Apps.Address
                 var qData = await _AddressRepository.Get
                                                    .Where(a => a.Id == Guid.Parse(Input.Id))
                                                    .Where(a => a.UserId == Guid.Parse(Input.UserId))
+                                                   .Select(a => new
+                                                   {
+                                                       tAddress = a,
+                                                       HasBill= a.tblBills.Where(a => a.Status==BillStatusEnum.Payyed).Any()
+                                                   })
                                                    .SingleOrDefaultAsync();
 
                 if (qData == null)
                     return new OperationResult().Failed("IdIsInvalid");
 
-                qData.Address = Input.Address;
-                qData.CityId =Guid.Parse( Input.CityId);
-                qData.ProviceId = Guid.Parse(Input.ProvinceId);
-                qData.CountryId = Guid.Parse(Input.CountryId);
-                qData.District = Input.District;
-                qData.FirstName = Input.FirstName;
-                qData.LastName = Input.LastName;
-                qData.NationalCode = Input.NationalCode;
-                qData.PhoneNumber = Input.PhoneNumber;
-                qData.Plaque = Input.Plaque;
-                qData.PostalCode = Input.PostalCode;
-                qData.Unit = Input.Unit;
+                if(qData.HasBill)
+                    return new OperationResult().Failed("AddressHasFactors");
 
-                await _AddressRepository.UpdateAsync(qData, default);
+                qData.tAddress.Address = Input.Address;
+                qData.tAddress.CityId =Guid.Parse(Input.CityId);
+                qData.tAddress.ProviceId = Guid.Parse(Input.ProvinceId);
+                qData.tAddress.CountryId = Guid.Parse(Input.CountryId);
+                qData.tAddress.District = Input.District;
+                qData.tAddress.FirstName = Input.FirstName;
+                qData.tAddress.LastName = Input.LastName;
+                qData.tAddress.NationalCode = Input.NationalCode;
+                qData.tAddress.PhoneNumber = Input.PhoneNumber;
+                qData.tAddress.Plaque = Input.Plaque;
+                qData.tAddress.PostalCode = Input.PostalCode;
+                qData.tAddress.Unit = Input.Unit;
+
+                await _AddressRepository.UpdateAsync(qData.tAddress, default);
 
                 return new OperationResult().Succeeded();
             }

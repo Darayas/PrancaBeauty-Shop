@@ -23,8 +23,8 @@
     <div class="item-action dropdown">
         <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fa fa-bars fs-16 text-dark"></i></a>
         <div class="dropdown-menu dropdown-menu-left">
-             <a onClick="Edit('#:Id#')" class="dropdown-item"><i class="dropdown-icon fa fa-edit"></i>@Localizer["Edit"]</a>
-             <a onClick="Remove('#:Id#')" class="dropdown-item"><i class="dropdown-icon fa fa-times"></i>@Localizer["Remove"]</a>
+             <a onClick="Edit('#:Id#')" class="dropdown-item #:CountBills>0?'hidden':''#"><i class="dropdown-icon fa fa-edit"></i>@Localizer["Edit"]</a>
+             <a onClick="Remove('#:Id#')" class="dropdown-item #:CountBills>0?'hidden':''#"><i class="dropdown-icon fa fa-times"></i>@Localizer["Remove"]</a>
         </div>
     </div>
 </script>

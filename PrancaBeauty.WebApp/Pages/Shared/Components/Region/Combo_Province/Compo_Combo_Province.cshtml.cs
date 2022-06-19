@@ -30,9 +30,9 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.Region.Combo_Province
             return Page();
         }
 
-        public async Task<IActionResult> OnGetReadAsync(string LangId, string CountryId, string Text)
+        public async Task<IActionResult> OnGetReadAsync(string LangId, string Text)
         {
-            var qData = await _ProvinceApplication.GetListForComboAsync(new InpGetListForCombo { LangId = LangId, CountryId = CountryId, Search = Text });
+            var qData = await _ProvinceApplication.GetListForComboAsync(new InpGetListForCombo { LangId = LangId, CountryId = Input.CountryId, Search = Text });
             var Data = _Mapper.Map<List<vmCompo_Combo_Province>>(qData);
             return new JsonResult(Data);
         }

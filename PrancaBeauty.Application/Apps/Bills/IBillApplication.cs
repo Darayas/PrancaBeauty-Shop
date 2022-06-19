@@ -1,5 +1,7 @@
-﻿using PrancaBeauty.Application.Contracts.ApplicationDTO.Bills;
+﻿using Framework.Common.Utilities.Paging;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Bills;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.Results;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Apps.Bills
@@ -8,5 +10,6 @@ namespace PrancaBeauty.Application.Apps.Bills
     {
         Task<OperationResult> CreateBillFromCartAsync(InpCreateBillFromCart Input);
         Task<OutGetBillDetails> GetBillDetailsAsync(InpGetBillDetails Input);
+        Task<(OutPagingData PagingData, List<OutGetListBillForManage>)> GetListBillForManageAsync(InpGetListBillForManage Input);
     }
 }

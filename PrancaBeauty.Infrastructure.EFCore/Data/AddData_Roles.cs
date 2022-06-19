@@ -1129,6 +1129,71 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
             }
             #endregion
 
+            #region Bills
+            {
+                Guid _Id = new Guid().SequentialGuid();
+                if (!_repRoles.Get.Any(a => a.Name == "CanViewListBillSeller"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = _Id,
+                        ParentId = null,
+                        PageName = "ManageBillsPage",
+                        Sort = 550,
+                        Name = "CanViewListBillSeller",
+                        NormalizedName = "CanViewListBillSeller".ToUpper(),
+                        Description = "توانایی مشاهده ی لیست صورت حساب های مربوط به فروشنده"
+                    }, default, false).Wait();
+                }
+                else
+                {
+                    _Id = _repRoles.Get.Where(a => a.Name == "CanViewListBillSeller").Select(a => a.Id).Single();
+                }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanViewListBillAdmin"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageBillsPage",
+                        Sort = 560,
+                        Name = "CanViewListBillAdmin",
+                        NormalizedName = "CanViewListBillAdmin".ToUpper(),
+                        Description = "توانایی مشاهده ی لیست صورت حساب های مربوط به همه ی فروشندگان"
+                    }, default, false).Wait();
+                }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanChangeBillStatus"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageBillsPage",
+                        Sort = 570,
+                        Name = "CanChangeBillStatus",
+                        NormalizedName = "CanChangeBillStatus".ToUpper(),
+                        Description = "توانایی تغییر وضعیت صورت حساب"
+                    }, default, false).Wait();
+                }
+
+                if (!_repRoles.Get.Any(a => a.Name == "CanChangeBillStatusForAll"))
+                {
+                    _repRoles.AddAsync(new tblRoles()
+                    {
+                        Id = new Guid().SequentialGuid(),
+                        ParentId = _Id,
+                        PageName = "ManageBillsPage",
+                        Sort = 580,
+                        Name = "CanChangeBillStatusForAll",
+                        NormalizedName = "CanChangeBillStatusForAll".ToUpper(),
+                        Description = "توانایی تغییر وضعیت صورت حساب همه فروشندگان"
+                    }, default, false).Wait();
+                }
+            }
+            #endregion
+
             _repRoles.SaveChangeAsync().Wait();
 
         }

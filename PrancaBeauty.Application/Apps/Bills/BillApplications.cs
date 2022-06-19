@@ -1,4 +1,5 @@
 ﻿using Framework.Common.ExMethods;
+using Framework.Common.Utilities.Paging;
 using Framework.Domain.Enums;
 using Framework.Exceptions;
 using Framework.Infrastructure;
@@ -149,6 +150,8 @@ namespace PrancaBeauty.Application.Apps.Bills
 
                 var qData = await (from a in _BillRepository.Get
                                    where a.BillNumber==Input.BillNumber
+                                   where Input.SellerUserId!=null ? a.tblPostalBarcodes.Any(b => b.tblBillItems.Any(c => c.SellerId==Input.SellerUserId.ToGuid())) : true
+                                   where Input.BuyerUserId !=null ? a.UserId==Input.BuyerUserId.ToGuid() : true
                                    select new OutGetBillDetails
                                    {
                                        AddressId=a.AddressId!=null ? a.AddressId.ToString() : null,
@@ -162,6 +165,7 @@ namespace PrancaBeauty.Application.Apps.Bills
                                        LstSellerGroups= (from b in a.tblPostalBarcodes
                                                          let Items = b.tblBillItems
                                                          let Seller = Items.First().tblSellers
+                                                         where Input.SellerUserId!=null ? Items.Any(c => c.SellerId==Input.SellerUserId.ToGuid()) : true
                                                          select new OutGetBillDetailsItemGroups
                                                          {
                                                              SellerName=Seller.Name,
@@ -194,7 +198,8 @@ namespace PrancaBeauty.Application.Apps.Bills
                                                                             CurrencySymbol=CurrencySymbol
                                                                         }).ToList()
                                                          }).ToList()
-                                   }).SingleOrDefaultAsync();
+                                   })
+                                   .SingleOrDefaultAsync();
 
                 if (qData==null)
                     return null;
@@ -204,6 +209,58 @@ namespace PrancaBeauty.Application.Apps.Bills
                 qData.ShippingAmount= qData.ShippingAmount!=null ? qData.ShippingAmount.Value : 0; // TODO: Get ShippingAmount from webService;
 
                 return qData;
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return default;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return default;
+
+            }
+        }
+
+        public async Task<(OutPagingData PagingData, List<OutGetListBillForManage>)> GetListBillForManageAsync(InpGetListBillForManage Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var qData = from a in _BillRepository.Get
+                            where Input.BillNumber!=null ? a.BillNumber==Input.BillNumber : true
+                            where Input.SellerUserId !=null ? a.tblPostalBarcodes.Any(b => b.tblBillItems.Any(c => c.SellerId==Input.SellerUserId.ToGuid())) : true
+                            where Input.BuyerUserId !=null ? a.UserId==Input.BuyerUserId.ToGuid() : true
+                            let Address = a.tblAddress
+                            select new OutGetListBillForManage
+                            {
+                                Id=a.Id.ToString(),
+                                UserFullName=a.tblUsers.FirstName  +" "+ a.tblUsers.LastName,
+                                BillNumber=a.BillNumber,
+                                TransactionNumber=a.TransactionNumber??"",
+                                Status=a.Status,
+                                Date=a.Date,
+                                GateTitle=a.tblPaymentGates!=null ? a.tblPaymentGates.tblPaymentGateTranslate.Where(a => a.LangId==Input.LangId.ToGuid()).Select(a => a.Title).Single() : "",
+                                Address=Address!=null ? _Localizer["Country"] +": " + Address.tblCountries.tblCountries_Translates.Where(a => a.LangId==Input.LangId.ToGuid()).Select(a => a.Title).Single()
+                                                       + "- "+_Localizer["Province"] + ": " + Address.tblProvinces.tblProvinces_Translate.Where(a => a.LangId==Input.LangId.ToGuid()).Select(a => a.Title).Single()
+                                                       + "- "+_Localizer["City"] + ": " + Address.tblCities.tblCities_Translates.Where(a => a.LangId==Input.LangId.ToGuid()).Select(a => a.Title).Single()
+                                                       + "- "+_Localizer["District"] + ": " + Address.District
+                                                       + "- "+_Localizer["Plaque"] + ": " + Address.Plaque
+                                                       + "- "+_Localizer["Unit"] + ": " + Address.Unit
+                                                       + "- "+_Localizer["FullName"] + ": " + Address.FirstName+" "+Address.LastName : ""
+                                                       + "- "+_Localizer["PostalCode"] + ": " + Address.PostalCode
+                                                       + "- " + _Localizer["Phone"] + ": " + Address.PhoneNumber
+                            };
+
+                #region Paging
+                var _PagingData = PagingData.Calc(await qData.CountAsync(), Input.Page, Input.Take);
+                #endregion
+
+                return (_PagingData, await qData.OrderByDescending(a => a.Status).ThenByDescending(a => a.Date).Skip((int)_PagingData.Skip).Take(Input.Take).ToListAsync());
             }
             catch (ArgumentInvalidException ex)
             {

@@ -4,18 +4,29 @@
 <div class="row">
     @if (Model.Data.Count()==0)
     {
-        <div class="col-md-12">
-            <div class="alert alert-info">
-                @Html.Raw(Localizer["NoAddressFound.PleaseAdd","AddAddress()"])
+        if (!Model.Input.IsBuyer)
+        {
+            <div class="col-md-12">
+                <div class="alert alert-info">
+                    @Html.Raw(Localizer["AddressNotSelected"])
+                </div>
             </div>
-        </div>
+        }
+        else
+        {
+            <div class="col-md-12">
+                <div class="alert alert-info">
+                    @Html.Raw(Localizer["NoAddressFound.PleaseAdd","AddAddress()"])
+                </div>
+            </div>
+        }
     }
     else
         foreach (var item in Model.Data)
         {
             <div class="col-md-12 address">
                 <div class="Title">
-                    <input @(Model.Input.AddressId==item.Id?"checked":"") value="@item.Id" name="Input.AddressId" type="radio" />
+                    <input onchange="UpdateBillAddress('@item.Id')" @(Model.Input.IsBuyer?"":"disabled") @(Model.Input.AddressId==item.Id?"checked":"") value="@item.Id" name="Input.AddressId" type="radio" />
                     <span>@item.UserFullName</span>
                 </div>
                 <div class="addr">
@@ -34,5 +45,10 @@
 
     function RefreshAddress() {
         location.reload();
+    }
+
+    function UpdateBillAddress(_AddressId)
+    {
+        SendData('/@ViewData["culture"]/Shared/Compo/ComboBillAddress?handler=UpdateBillAddress', {BillId:'@Model.Input.BillId',AddressId:_AddressId});
     }
 </script>

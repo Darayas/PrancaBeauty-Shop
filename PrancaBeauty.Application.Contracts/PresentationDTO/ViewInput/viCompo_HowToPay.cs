@@ -9,5 +9,8 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput
         [Display(Name = "GateId")]
         [GUID]
         public string GateId { get; set; }
+
+        public bool IsBuyer { get; set; }
+
     }
 }

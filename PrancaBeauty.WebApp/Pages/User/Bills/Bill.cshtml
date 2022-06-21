@@ -4,6 +4,8 @@
 @{
     ViewData["Title"] = Localizer["Bill", Model.Input.BillNumber];
     Layout = "~/Pages/Shared/_UserLayout.cshtml";
+
+    bool _IsBuyer = Model.Data.BuyerUserId==User.GetUserDetails().UserId;
 }
 
 @section breadcrumbs{
@@ -77,23 +79,19 @@
                             <h3>@Localizer["Address"]</h3>
                             <LoadComponent id="Address"
                                            context="HttpContext"
-                                           data="new viCompo_BillAddress{ AddressId=Model.Data.AddressId, BuyerUserId=Model.Data.BuyerUserId}"
+                                           data="new viCompo_BillAddress{ AddressId=Model.Data.AddressId, BuyerUserId=Model.Data.BuyerUserId,IsBuyer=_IsBuyer}"
                                            url="/@ViewData["culture"]/Shared/Compo/ComboBillAddress"></LoadComponent>
                         </div>
                     </div>
-
-                    @if (Model.Data.BuyerUserId==User.GetUserDetails().UserId)
-                    {
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h3>@Localizer["HowToPay"]</h3>
-                                <LoadComponent id="HowToPay"
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3>@Localizer["HowToPay"]</h3>
+                            <LoadComponent id="HowToPay"
                                            context="HttpContext"
-                                           data='new viCompo_HowToPay{ GateId=Model.Data.GateId}'
+                                           data='new viCompo_HowToPay{ GateId=Model.Data.GateId, IsBuyer=_IsBuyer}'
                                            url="/@ViewData["culture"]/Shared/Compo/ComboHowToPay"></LoadComponent>
-                            </div>
                         </div>
-                    }
+                    </div>
                 </div>
                 <div class="col-lg-8 col-md-8">
                     <div class="row">
@@ -163,37 +161,40 @@
                                 </div>
                             }
                         }
-                        <div class="col-md-12">
-                            <h3 class="bg-info">@Localizer["FinalPrice"]</h3>
-                            <div class="order_table table-responsive">
-                                <table>
-                                    <tbody>
-                                        <tr>
-                                            <td> @Localizer["TotalTax"]</td>
-                                            <td>
-                                                <strong>@Model.Data.TaxAmount.ToN3()</strong>
-                                                @CurrencySymbol
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>@Localizer["TotalShippingAmount"]</td>
-                                            <td>
-                                                <strong>@Model.Data.ShippingAmount.ToN3()</strong>
-                                                @CurrencySymbol
-                                            </td>
-                                        </tr>
-                                        <tr class="order_total">
-                                            <td>@Localizer["FinalPrice"]</td>
-                                            <td>
-                                                <strong>@Model.Data.TotalPrice.ToN3()</strong>
-                                                @CurrencySymbol
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                        @if (_IsBuyer || User.IsInRole(Roles.CanViewListBillAdmin))
+                        {
+                            <div class="col-md-12">
+                                <h3 class="bg-info">@Localizer["FinalPrice"]</h3>
+                                <div class="order_table table-responsive">
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td> @Localizer["TotalTax"]</td>
+                                                <td>
+                                                    <strong>@Model.Data.TaxAmount.ToN3()</strong>
+                                                    @CurrencySymbol
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>@Localizer["TotalShippingAmount"]</td>
+                                                <td>
+                                                    <strong>@Model.Data.ShippingAmount.ToN3()</strong>
+                                                    @CurrencySymbol
+                                                </td>
+                                            </tr>
+                                            <tr class="order_total">
+                                                <td>@Localizer["FinalPrice"]</td>
+                                                <td>
+                                                    <strong>@Model.Data.TotalPrice.ToN3()</strong>
+                                                    @CurrencySymbol
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-                        </div>
-                        @if (Model.Data.BuyerUserId==User.GetUserDetails().UserId)
+                        }
+                        @if (_IsBuyer)
                         {
                             <div class="col-md-12">
                                 <div class="payment_method">

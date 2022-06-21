@@ -222,6 +222,9 @@
   <data name="AddressHasSellerAccount,CantRemove" xml:space="preserve">
     <value>این ادرس دارای حساب فروشندگی میباشد و امکان حذف آن وجود ندارد</value>
   </data>
+  <data name="AddressNotSelected" xml:space="preserve">
+    <value>آدرسی انتخاب نشده است.</value>
+  </data>
   <data name="AddShowcase" xml:space="preserve">
     <value>افزودن ویترین جدید</value>
   </data>

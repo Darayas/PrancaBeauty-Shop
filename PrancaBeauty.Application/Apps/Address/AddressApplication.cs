@@ -269,6 +269,7 @@ namespace PrancaBeauty.Application.Apps.Address
 
                 var qData = await _AddressRepository.Get
                                         .Where(a => a.UserId==Input.UserId.ToGuid())
+                                        .Where(a => Input.IsBuyer ? true : (Input.AddressId!=null ? a.Id==Input.AddressId.ToGuid() : false))
                                         .Select(a => new OutGetListAddressForBills
                                         {
                                             Id= a.Id.ToString(),

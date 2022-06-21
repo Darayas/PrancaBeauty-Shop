@@ -39,7 +39,13 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.Compo_BillAddress
                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
-                var qData = await _AddressApplication.GetListAddressForBillsAsync(new InpGetListAddressForBills { LangId=LangId, UserId=Input.BuyerUserId });
+                var qData = await _AddressApplication.GetListAddressForBillsAsync(new InpGetListAddressForBills
+                {
+                    LangId=LangId,
+                    UserId=Input.BuyerUserId,
+                    IsBuyer=Input.IsBuyer,
+                    AddressId=Input.AddressId
+                });
                 if (qData==null)
                     return StatusCode(500);
 
@@ -56,6 +62,11 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.Compo_BillAddress
                 _Logger.Error(ex);
                 return StatusCode(500);
             }
+        }
+
+        public async Task<IActionResult> OnPostUpdateBillAddressAsync(viUpdateBillAddress Input)
+        {
+            return Page();
         }
 
         [BindProperty(SupportsGet = true)]

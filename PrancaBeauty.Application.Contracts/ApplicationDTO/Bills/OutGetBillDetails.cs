@@ -7,6 +7,7 @@ namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Bills
     public class OutGetBillDetails
     {
         public string GateId { get; set; }
+        public string BuyerUserId { get; set; }
         public string AddressId { get; set; }
         public double? TotalPrice { get; set; }
         public double? TaxAmount { get; set; }
@@ -21,6 +22,7 @@ namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Bills
     public class OutGetBillDetailsItemGroups
     {
         public string SellerName { get; set; }
+        public string SellerAddressId { get; set; }
         public string ShippingMethodId { get; set; }
         public double ShippingAmount { get; set; }
         public PostalBarcodeEnum ShippingStatus { get; set; }

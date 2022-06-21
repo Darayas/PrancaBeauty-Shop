@@ -8,5 +8,8 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewModel
 {
     public class vmCompo_BillAddress
     {
+        public string Id { get; set; }
+        public string UserFullName { get; set; }
+        public string Address { get; set; }
     }
 }

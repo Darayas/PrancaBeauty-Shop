@@ -154,6 +154,7 @@ namespace PrancaBeauty.Application.Apps.Bills
                                    where Input.BuyerUserId !=null ? a.UserId==Input.BuyerUserId.ToGuid() : true
                                    select new OutGetBillDetails
                                    {
+                                       BuyerUserId=a.UserId.ToString(),
                                        AddressId=a.AddressId!=null ? a.AddressId.ToString() : null,
                                        BillStatus=a.Status,
                                        GateId=a.GateId!=null ? a.GateId.ToString() : null,
@@ -170,6 +171,7 @@ namespace PrancaBeauty.Application.Apps.Bills
                                                          {
                                                              SellerName=Seller.Name,
                                                              Barcode= b.Barcode,
+                                                             SellerAddressId=Seller.AddressId.ToString(),
                                                              ChangeStatusDateTime=b.ChangeStatusDateTime,
                                                              ShippingAmount=a.Status==BillStatusEnum.Payyed ? b.TotalPrice : 0,
                                                              ShippingMethodId=b.ShippingMethodId!=null ? b.ShippingMethodId.ToString() : null,

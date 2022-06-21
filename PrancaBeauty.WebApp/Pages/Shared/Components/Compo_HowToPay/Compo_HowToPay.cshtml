@@ -2,12 +2,11 @@
 @model PrancaBeauty.WebApp.Pages.Shared.Components.Compo_HowToPay.Compo_HowToPayModel
 
 <div class="row">
-    <div class="col-md-12 Gate">
-        <input type="radio" />
-        <span>زرین پال</span>
-    </div>
-    <div class="col-md-12 Gate">
-        <input type="radio" />
-        <span>پی پال</span>
-    </div>
+    @foreach (var item in Model.Data)
+    {
+        <div class="col-md-12 Gate">
+            <input value="@item.Id" @(Model.Input.GateId==item.Id?"checked":"") name="Input.PaymentGateId" type="radio" />
+            <span>@item.Title</span>
+        </div>
+    }
 </div>

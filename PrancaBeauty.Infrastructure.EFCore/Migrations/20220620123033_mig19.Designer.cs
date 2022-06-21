@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PrancaBeauty.Infrastructure.EFCore.Context;
 
@@ -11,9 +12,10 @@ using PrancaBeauty.Infrastructure.EFCore.Context;
 namespace PrancaBeauty.Infrastructure.EFCore.Migrations
 {
     [DbContext(typeof(MainContext))]
-    partial class MainContextModelSnapshot : ModelSnapshot
+    [Migration("20220620123033_mig19")]
+    partial class mig19
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2851,7 +2853,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("AddressId")
+                    b.Property<Guid?>("AddressId")
                         .HasMaxLength(150)
                         .HasColumnType("uniqueidentifier");
 
@@ -2873,7 +2875,8 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AddressId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[AddressId] IS NOT NULL");
 
                     b.HasIndex("UserId")
                         .IsUnique();
@@ -4519,8 +4522,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Migrations
                     b.HasOne("PrancaBeauty.Domin.Users.AddressAgg.Entities.tblAddress", "tblAddress")
                         .WithOne("tblSellers")
                         .HasForeignKey("PrancaBeauty.Domin.Users.SellerAgg.Entities.tblSellers", "AddressId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("PrancaBeauty.Domin.Users.UserAgg.Entities.tblUsers", "tblUsers")
                         .WithOne("tblSellers")

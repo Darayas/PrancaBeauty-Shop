@@ -8,5 +8,10 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput
         [Display(Name = "AddressId")]
         [GUID]
         public string AddressId { get; set; }
+
+        [Display(Name = "BuyerUserId")]
+        [RequiredString]
+        [GUID]
+        public string BuyerUserId { get; set; }
     }
 }

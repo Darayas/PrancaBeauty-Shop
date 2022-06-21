@@ -42,7 +42,7 @@ namespace PrancaBeauty.WebApp.Pages.User.EditProfile.Components.Address
             var Result = await _AddressApplication.AddAddressAsync(_Mapper.Map<InpAddAddress>(Input));
             if (Result.IsSucceeded)
             {
-                return _MsgBox.SuccessMsg(_Localizer[Result.Message], "RefreshGrid('ListAddress');Close();");
+                return _MsgBox.SuccessMsg(_Localizer[Result.Message], "RefreshAddress()");
             }
             else
             {

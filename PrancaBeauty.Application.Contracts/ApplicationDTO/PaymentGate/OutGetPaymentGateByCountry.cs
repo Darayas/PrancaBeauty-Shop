@@ -1,6 +1,6 @@
-﻿namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewModel
+﻿namespace PrancaBeauty.Application.Contracts.ApplicationDTO.PaymentGate
 {
-    public class vmCompo_HowToPay
+    public class OutGetPaymentGateByCountry
     {
         public string Id { get; set; }
         public string ImgUrl { get; set; }

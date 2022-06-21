@@ -3,6 +3,7 @@ using PrancaBeauty.Domin.Bills.BillAgg.Entities;
 using PrancaBeauty.Domin.Region.CityAgg.Entities;
 using PrancaBeauty.Domin.Region.CountryAgg.Entities;
 using PrancaBeauty.Domin.Region.ProvinceAgg.Entities;
+using PrancaBeauty.Domin.Users.SellerAgg.Entities;
 using PrancaBeauty.Domin.Users.UserAgg.Entities;
 using System;
 using System.Collections.Generic;
@@ -31,6 +32,7 @@ namespace PrancaBeauty.Domin.Users.AddressAgg.Entities
         public virtual tblCountries tblCountries { get; set; }
         public virtual tblProvinces tblProvinces { get; set; }
         public virtual tblCities tblCities { get; set; }
+        public virtual tblSellers tblSellers { get; set; }
         public virtual ICollection<tblBills> tblBills { get; set; }
     }
 }

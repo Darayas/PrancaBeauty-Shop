@@ -3,6 +3,7 @@ using Framework.Common.ExMethods;
 using Framework.Domain.Enums;
 using Framework.Exceptions;
 using Framework.Infrastructure;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Bills;
@@ -16,6 +17,7 @@ using System.Threading.Tasks;
 
 namespace PrancaBeauty.WebApp.Pages.User.Bills
 {
+    [Authorize]
     public class BillModel : PageModel
     {
         private readonly ILogger _Logger;
@@ -31,7 +33,7 @@ namespace PrancaBeauty.WebApp.Pages.User.Bills
             _BillApplication=billApplication;
         }
 
-        public async Task<IActionResult> OnGetAsync(string CountryId, string CurrencyId, string LangId)
+        public async Task<IActionResult> OnGetAsync(string CurrencyId, string LangId)
         {
             try
             {
@@ -62,8 +64,6 @@ namespace PrancaBeauty.WebApp.Pages.User.Bills
 
                 var qData = await _BillApplication.GetBillDetailsAsync(new InpGetBillDetails { BillNumber=Input.BillNumber, CurrencyId=CurrencyId, LangId=LangId, BuyerUserId=_BuyerUserId, SellerUserId=_SellerUserId });
                 Data=_Mapper.Map<vmBill>(qData);
-
-                ViewData["CountryId"]=CountryId;
 
                 return Page();
             }

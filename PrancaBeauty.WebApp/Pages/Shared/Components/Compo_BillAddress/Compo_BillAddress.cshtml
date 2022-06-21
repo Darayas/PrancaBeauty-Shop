@@ -2,38 +2,37 @@
 @model PrancaBeauty.WebApp.Pages.Shared.Components.Compo_BillAddress.Compo_BillAddressModel
 
 <div class="row">
-    <div class="col-md-12 address">
-        <div class="Title">
-            <input type="radio" />
-            <span>محمدرضا احمدی</span>
-
+    @if (Model.Data.Count()==0)
+    {
+        <div class="col-md-12">
+            <div class="alert alert-info">
+                @Html.Raw(Localizer["NoAddressFound.PleaseAdd","AddAddress()"])
+            </div>
         </div>
-        <div class="addr">
-            <span>اذربایجان غربی</span>
-            <span>شهرستان مهاباد</span>
-            <span> - محله</span>
-            <span> - پلاک</span>
-            <span> - واحد</span>
-            <span> - ادرس</span>
-            <span> - کد پستی: 12345-52211</span>
-            <span> - موبایل: 09010112829</span>
-        </div>
-    </div>
-    <div class="col-md-12 address">
-        <div class="Title">
-            <input type="radio" />
-            <span>محمدرضا احمدی</span>
-
-        </div>
-        <div class="addr">
-            <span>اذربایجان غربی</span>
-            <span>شهرستان مهاباد</span>
-            <span> - محله</span>
-            <span> - پلاک</span>
-            <span> - واحد</span>
-            <span> - ادرس</span>
-            <span> - کد پستی: 12345-52211</span>
-            <span> - موبایل: 09010112829</span>
-        </div>
-    </div>
+    }
+    else
+        foreach (var item in Model.Data)
+        {
+            <div class="col-md-12 address">
+                <div class="Title">
+                    <input @(Model.Input.AddressId==item.Id?"checked":"") value="@item.Id" name="Input.AddressId" type="radio" />
+                    <span>@item.UserFullName</span>
+                </div>
+                <div class="addr">
+                    @item.Address
+                </div>
+            </div>
+        }
 </div>
+
+<script>
+    function AddAddress() {
+        LoadComponent('/@ViewData["culture"]/User/EditProfile/Compo/AddAddress', {}, function(res) {
+            ShowModal(res, 'AddAddress');
+        });
+    }
+
+    function RefreshAddress() {
+        location.reload();
+    }
+</script>

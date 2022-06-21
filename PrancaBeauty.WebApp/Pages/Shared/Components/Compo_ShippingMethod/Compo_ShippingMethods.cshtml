@@ -1,0 +1,21 @@
+﻿@page "/{culture}/Shared/Compo/ComboShippingMethods"
+@model PrancaBeauty.WebApp.Pages.Shared.Components.Compo_ShippingMethod.Compo_ShippingMethodsModel
+
+<div class="ShippingMethid">
+    <span>@Localizer["ShippingMethod"]:</span>
+    <span>
+        <select class="form-control" name="Input.ShippingMethodId">
+            @foreach (var item in Model.Data)
+            {
+                if (Model.Input.ShippingMethodId==item.Id)
+                {
+                    <option selected value="@item.Id">@item.Title</option>
+                }
+                else
+                {
+                    <option value="@item.Id">@item.Title</option>
+                }
+            }
+        </select>
+    </span>
+</div>

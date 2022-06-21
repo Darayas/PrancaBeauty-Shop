@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.PaymentGates;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.PaymentGate;
 using PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput;
 using PrancaBeauty.Application.Contracts.PresentationDTO.ViewModel;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace PrancaBeauty.WebApp.Pages.Shared.Components.Compo_HowToPay
@@ -29,7 +31,7 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.Compo_HowToPay
             _PaymentGateApplication=paymentGateApplication;
         }
 
-        public async Task<IActionResult> OnGetAsync()
+        public async Task<IActionResult> OnGetAsync(string LangId, string CountryId, string CurrencyId)
         {
             try
             {
@@ -37,9 +39,15 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.Compo_HowToPay
                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
+                var qData = await _PaymentGateApplication.GetPaymentGateByCountryAsync(new InpGetPaymentGateByCountry { LangId=LangId, CountryId=CountryId, CurrencyId=CurrencyId });
+                if (qData == null)
+                    return StatusCode(500);
+
+                Data= _Mapper.Map<List<vmCompo_HowToPay>>(qData);
+
                 return Page();
             }
-            catch (ArgumentInvalidException ex)
+            catch (ArgumentInvalidException)
             {
                 return StatusCode(400);
             }
@@ -52,6 +60,6 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.Compo_HowToPay
 
         [BindProperty(SupportsGet = true)]
         public viCompo_HowToPay Input { get; set; }
-        public vmCompo_HowToPay Data{ get; set; }
+        public List<vmCompo_HowToPay> Data { get; set; }
     }
 }

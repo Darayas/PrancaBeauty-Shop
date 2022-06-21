@@ -128,7 +128,8 @@ namespace PrancaBeauty.Application.Apps.Address
                                                    .Select(a => new
                                                    {
                                                        Address = a,
-                                                       HasBill = a.tblBills.Where(a => a.Status==BillStatusEnum.Payyed).Any()
+                                                       HasBill = a.tblBills.Where(a => a.Status==BillStatusEnum.Payyed).Any(),
+                                                       HasSeller = a.tblSellers!=null
                                                    })
                                                    .SingleOrDefaultAsync();
 
@@ -136,7 +137,10 @@ namespace PrancaBeauty.Application.Apps.Address
                     return new OperationResult().Failed("AddressNotFound");
 
                 if (qData.HasBill)
-                    return new OperationResult().Failed("AddressHasBill");
+                    return new OperationResult().Failed("AddressHasBill,CantRemove");
+
+                if (qData.HasBill)
+                    return new OperationResult().Failed("AddressHasSellerAccount,CantRemove");
 
                 await _AddressRepository.DeleteAsync(qData.Address, default);
 
@@ -212,15 +216,19 @@ namespace PrancaBeauty.Application.Apps.Address
                                                    .Select(a => new
                                                    {
                                                        tAddress = a,
-                                                       HasBill= a.tblBills.Where(a => a.Status==BillStatusEnum.Payyed).Any()
+                                                       HasBill = a.tblBills.Where(a => a.Status==BillStatusEnum.Payyed).Any(),
+                                                       HasSeller = a.tblSellers!=null
                                                    })
                                                    .SingleOrDefaultAsync();
 
                 if (qData == null)
                     return new OperationResult().Failed("IdIsInvalid");
 
-                if(qData.HasBill)
-                    return new OperationResult().Failed("AddressHasFactors");
+                if (qData.HasBill)
+                    return new OperationResult().Failed("AddressHasBill,CantEdit");
+
+                if (qData.HasBill)
+                    return new OperationResult().Failed("AddressHasSellerAccount,CantEdit");
 
                 qData.tAddress.Address = Input.Address;
                 qData.tAddress.CityId =Guid.Parse(Input.CityId);
@@ -248,6 +256,86 @@ namespace PrancaBeauty.Application.Apps.Address
             {
                 _Logger.Error(ex);
                 return new OperationResult().Failed("Error500");
+            }
+        }
+
+        public async Task<List<OutGetListAddressForBills>> GetListAddressForBillsAsync(InpGetListAddressForBills Input)
+        {
+            try
+            {
+                #region Validation
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var qData = await _AddressRepository.Get
+                                        .Where(a => a.UserId==Input.UserId.ToGuid())
+                                        .Select(a => new OutGetListAddressForBills
+                                        {
+                                            Id= a.Id.ToString(),
+                                            UserFullName=a.FirstName+" "+a.LastName,
+                                            Address= _Localizer["Country"] +": " + a.tblCountries.tblCountries_Translates.Where(a => a.LangId==Input.LangId.ToGuid()).Select(a => a.Title).Single()
+                                                       + "- "+_Localizer["Province"] + ": " + a.tblProvinces.tblProvinces_Translate.Where(a => a.LangId==Input.LangId.ToGuid()).Select(a => a.Title).Single()
+                                                       + "- "+_Localizer["City"] + ": " + a.tblCities.tblCities_Translates.Where(a => a.LangId==Input.LangId.ToGuid()).Select(a => a.Title).Single()
+                                                       + "- "+_Localizer["District"] + ": " + a.District
+                                                       + "- "+_Localizer["Plaque"] + ": " + a.Plaque
+                                                       + "- "+_Localizer["Unit"] + ": " + a.Unit
+                                                       + "- "+_Localizer["PostalCode"] + ": " + a.PostalCode
+                                                       + "- " + _Localizer["Phone"] + ": " + a.PhoneNumber
+                                        })
+                                        .ToListAsync();
+
+                return qData;
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return default;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return default;
+            }
+        }
+
+        public async Task<OutGetAddressById> GetAddressByIdAsync(InpGetAddressById Input)
+        {
+            try
+            {
+                #region Validation
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var qData = await _AddressRepository.Get
+                                        .Where(a => a.Id==Input.AddressId.ToGuid())
+                                        .Select(a => new OutGetAddressById
+                                        {
+                                            CountryId=a.CountryId.ToString(),
+                                            ProviceId=a.ProviceId.ToString(),
+                                            CityId=a.CityId.ToString(),
+                                            Address=a.Address,
+                                            District=a.District,
+                                            FirstName=a.FirstName,
+                                            LastName=a.LastName,
+                                            NationalCode=a.NationalCode,
+                                            PhoneNumber=a.PhoneNumber,
+                                            Plaque=a.Plaque,
+                                            PostalCode=a.PostalCode,
+                                            Unit=a.Unit
+                                        })
+                                        .SingleOrDefaultAsync();
+
+                return qData;
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return default;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return default;
             }
         }
     }

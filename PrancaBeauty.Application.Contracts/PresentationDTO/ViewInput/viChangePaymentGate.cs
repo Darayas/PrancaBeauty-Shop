@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput
 {
-    public class viCompo_HowToPay
+    public class viChangePaymentGate
     {
         [Display(Name = "BillId")]
         [RequiredString]
@@ -11,10 +11,8 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput
         public string BillId { get; set; }
 
         [Display(Name = "GateId")]
+        [RequiredString]
         [GUID]
         public string GateId { get; set; }
-
-        public bool IsBuyer { get; set; }
-
     }
 }

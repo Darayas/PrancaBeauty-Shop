@@ -1,9 +1,9 @@
 ﻿using Framework.Common.DataAnnotations.String;
 using System.ComponentModel.DataAnnotations;
 
-namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput
+namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Bills
 {
-    public class viCompo_HowToPay
+    public class InpChangeBillPaymentGate
     {
         [Display(Name = "BillId")]
         [RequiredString]
@@ -11,10 +11,13 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput
         public string BillId { get; set; }
 
         [Display(Name = "GateId")]
+        [RequiredString]
         [GUID]
         public string GateId { get; set; }
 
-        public bool IsBuyer { get; set; }
-
+        [Display(Name = "BuyerUserId")]
+        [RequiredString]
+        [GUID]
+        public string BuyerUserId { get; set; }
     }
 }

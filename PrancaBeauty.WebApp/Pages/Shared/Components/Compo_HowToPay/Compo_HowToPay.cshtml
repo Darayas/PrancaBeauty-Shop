@@ -5,8 +5,14 @@
     @foreach (var item in Model.Data)
     {
         <div class="col-md-12 Gate">
-            <input @(Model.Input.IsBuyer?"":"disabled") value="@item.Id" @(Model.Input.GateId==item.Id?"checked":"") name="Input.PaymentGateId" type="radio" />
+            <input onclick="UpdatePaymentGate('@item.Id')" @(Model.Input.IsBuyer?"":"disabled") value="@item.Id" @(Model.Input.GateId==item.Id?"checked":"") name="Input.PaymentGateId" type="radio" />
             <span>@item.Title</span>
         </div>
     }
 </div>
+
+<script>
+    function UpdatePaymentGate(_GateId) {
+        SendData('/@ViewData["culture"]/Shared/Compo/ComboHowToPay?handler=ChangePaymentGate', { BillId: '@Model.Input.BillId', GateId: _GateId });
+    }
+</script>

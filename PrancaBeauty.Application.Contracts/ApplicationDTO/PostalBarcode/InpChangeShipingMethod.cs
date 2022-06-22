@@ -1,24 +1,27 @@
 ﻿using Framework.Common.DataAnnotations.String;
 using System.ComponentModel.DataAnnotations;
 
-namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput
+namespace PrancaBeauty.Application.Contracts.ApplicationDTO.PostalBarcode
 {
-    public class viCompo_BillAddress
+    public class InpChangeShipingMethod
     {
+        [Display(Name = "GroupId")]
+        [RequiredString]
+        [GUID]
+        public string GroupId { get; set; }
         [Display(Name = "BillId")]
         [RequiredString]
         [GUID]
         public string BillId { get; set; }
 
-        [Display(Name = "AddressId")]
+        [Display(Name = "ShippingMethodId")]
+        [RequiredString]
         [GUID]
-        public string AddressId { get; set; }
+        public string ShippingMethodId { get; set; }
 
         [Display(Name = "BuyerUserId")]
         [RequiredString]
         [GUID]
         public string BuyerUserId { get; set; }
-
-        public bool IsBuyer { get; set; }
     }
 }

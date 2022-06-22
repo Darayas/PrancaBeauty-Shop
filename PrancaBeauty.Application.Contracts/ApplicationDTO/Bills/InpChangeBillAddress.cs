@@ -1,9 +1,9 @@
 ﻿using Framework.Common.DataAnnotations.String;
 using System.ComponentModel.DataAnnotations;
 
-namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput
+namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Bills
 {
-    public class viCompo_BillAddress
+    public class InpChangeBillAddress
     {
         [Display(Name = "BillId")]
         [RequiredString]
@@ -11,6 +11,7 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput
         public string BillId { get; set; }
 
         [Display(Name = "AddressId")]
+        [RequiredString]
         [GUID]
         public string AddressId { get; set; }
 
@@ -18,7 +19,5 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput
         [RequiredString]
         [GUID]
         public string BuyerUserId { get; set; }
-
-        public bool IsBuyer { get; set; }
     }
 }

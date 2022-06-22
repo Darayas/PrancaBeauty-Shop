@@ -6,6 +6,7 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewModel
 {
     public class vmBill
     {
+        public string Id { get; set; }
         public string GateId { get; set; }
         public string BuyerUserId { get; set; }
         public string AddressId { get; set; }
@@ -21,6 +22,7 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewModel
 
     public class vmBillItemGroups
     {
+        public string Id { get; set; }
         public string SellerName { get; set; }
         public string SellerAddressId { get; set; }
         public string ShippingMethodId { get; set; }

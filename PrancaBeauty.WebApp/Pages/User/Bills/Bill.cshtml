@@ -79,7 +79,7 @@
                             <h3>@Localizer["Address"]</h3>
                             <LoadComponent id="Address"
                                            context="HttpContext"
-                                           data="new viCompo_BillAddress{ AddressId=Model.Data.AddressId, BuyerUserId=Model.Data.BuyerUserId,IsBuyer=_IsBuyer}"
+                                           data="new viCompo_BillAddress{ AddressId=Model.Data.AddressId, BillId=Model.Data.Id, BuyerUserId=Model.Data.BuyerUserId,IsBuyer=_IsBuyer}"
                                            url="/@ViewData["culture"]/Shared/Compo/ComboBillAddress"></LoadComponent>
                         </div>
                     </div>
@@ -88,7 +88,7 @@
                             <h3>@Localizer["HowToPay"]</h3>
                             <LoadComponent id="HowToPay"
                                            context="HttpContext"
-                                           data='new viCompo_HowToPay{ GateId=Model.Data.GateId, IsBuyer=_IsBuyer}'
+                                           data='new viCompo_HowToPay{ GateId=Model.Data.GateId, IsBuyer=_IsBuyer,BillId=Model.Data.Id}'
                                            url="/@ViewData["culture"]/Shared/Compo/ComboHowToPay"></LoadComponent>
                         </div>
                     </div>
@@ -108,7 +108,7 @@
                                                 {
                                                     <LoadComponent id="ShippngMethod"
                                                        context="HttpContext"
-                                                       data='new viCompo_ShippingMethods{ BuyerAddressId=Model.Data.AddressId,SellerAddressId=itemSeller.SellerAddressId,ShippingMethodId=itemSeller.ShippingMethodId }'
+                                                       data='new viCompo_ShippingMethods{ BillId=Model.Data.Id ,BuyerAddressId=Model.Data.AddressId,SellerAddressId=itemSeller.SellerAddressId,ShippingMethodId=itemSeller.ShippingMethodId, GroupId=itemSeller.Id,IsBuyer=_IsBuyer }'
                                                        url="/@ViewData["culture"]/Shared/Compo/ComboShippingMethods"></LoadComponent>
                                                 }
                                             </div>
@@ -287,5 +287,12 @@
 }
 
     @section scripts{
+    <script>
+        $(".ShippingMethod").change(function() {
+            var _GroupId = $(this).attr('GroupId')
+            var _Value = this.value;
 
+            SendData('/@ViewData["culture"]/Shared/Compo/ComboShippingMethods?handler=ChanageShippingMethod', { BillId: '@Model.Data.Id', GroupId: _GroupId, ShippingMethodId: _Value });
+        });
+    </script>
 }

@@ -154,6 +154,7 @@ namespace PrancaBeauty.Application.Apps.Bills
                                    where Input.BuyerUserId !=null ? a.UserId==Input.BuyerUserId.ToGuid() : true
                                    select new OutGetBillDetails
                                    {
+                                       Id=a.Id.ToString(),
                                        BuyerUserId=a.UserId.ToString(),
                                        AddressId=a.AddressId!=null ? a.AddressId.ToString() : null,
                                        BillStatus=a.Status,
@@ -169,6 +170,7 @@ namespace PrancaBeauty.Application.Apps.Bills
                                                          where Input.SellerUserId!=null ? Items.Any(c => c.SellerId==Input.SellerUserId.ToGuid()) : true
                                                          select new OutGetBillDetailsItemGroups
                                                          {
+                                                             Id=b.Id.ToString(),
                                                              SellerName=Seller.Name,
                                                              Barcode= b.Barcode,
                                                              SellerAddressId=Seller.AddressId.ToString(),
@@ -273,7 +275,76 @@ namespace PrancaBeauty.Application.Apps.Bills
             {
                 _Logger.Error(ex);
                 return default;
+            }
+        }
 
+        public async Task<OperationResult> ChangeBillAddressAsync(InpChangeBillAddress Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var qData = await _BillRepository.Get
+                                        .Where(a => a.Id==Input.BillId.ToGuid())
+                                        .Where(a => a.UserId==Input.BuyerUserId.ToGuid())
+                                        .Where(a => a.Status==BillStatusEnum.NotPayyed)
+                                        .SingleOrDefaultAsync();
+
+                if (qData==null)
+                    return new OperationResult().Failed("IdNotFound");
+
+                qData.AddressId=Input.AddressId.ToGuid();
+
+                await _BillRepository.UpdateAsync(qData, default, true);
+
+                return new OperationResult().Succeeded();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
+
+        public async Task<OperationResult> ChangeBillPaymentGateAsync(InpChangeBillPaymentGate Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var qData = await _BillRepository.Get
+                                        .Where(a => a.Id==Input.BillId.ToGuid())
+                                        .Where(a => a.UserId==Input.BuyerUserId.ToGuid())
+                                        .Where(a => a.Status==BillStatusEnum.NotPayyed)
+                                        .SingleOrDefaultAsync();
+
+                if (qData==null)
+                    return new OperationResult().Failed("IdNotFound");
+
+                qData.GateId=Input.GateId.ToGuid();
+
+                await _BillRepository.UpdateAsync(qData, default, true);
+
+                return new OperationResult().Succeeded();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
             }
         }
     }

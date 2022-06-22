@@ -5,6 +5,16 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput
 {
     public class viCompo_ShippingMethods
     {
+        [Display(Name = "BillId")]
+        [RequiredString]
+        [GUID]
+        public string BillId { get; set; }
+
+        [Display(Name = "GroupId")]
+        [RequiredString]
+        [GUID]
+        public string GroupId { get; set; }
+
         [Display(Name = "ShippingMethodId")]
         [GUID]
         public string ShippingMethodId { get; set; }
@@ -18,5 +28,7 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput
         [RequiredString]
         [GUID]
         public string SellerAddressId { get; set; }
+
+        public bool IsBuyer { get; set; }
     }
 }

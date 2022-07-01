@@ -13,6 +13,7 @@
     <ProjectReference Include="..\PrancaBeauty.Application.Contracts\PrancaBeauty.Application.Contracts.csproj" />
     <ProjectReference Include="..\PrancaBeauty.Domin\PrancaBeauty.Domin.csproj" />
     <ProjectReference Include="..\PrancaBeauty.Infrastructure.Logger.Serilogger\PrancaBeauty.Infrastructure.Logger.Serilog.csproj" />
+    <ProjectReference Include="..\PrancaBeauty.Infrastructure.PaymentGates\PrancaBeauty.Infrastructure.PaymentGates.csproj" />
   </ItemGroup>
 
 </Project>

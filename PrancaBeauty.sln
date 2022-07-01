@@ -23,6 +23,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrancaBeauty.Infrastructure
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrancaBeauty.Infrastructure.Logger.Serilog", "PrancaBeauty.Infrastructure.Logger.Serilogger\PrancaBeauty.Infrastructure.Logger.Serilog.csproj", "{BB705A6E-1EB9-42EE-AF19-3BCFE29DAB6F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrancaBeauty.Infrastructure.PaymentGates", "PrancaBeauty.Infrastructure.PaymentGates\PrancaBeauty.Infrastructure.PaymentGates.csproj", "{9A3297D1-C9CB-43B1-B671-3548907158E7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -111,6 +113,14 @@ Global
 		{BB705A6E-1EB9-42EE-AF19-3BCFE29DAB6F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BB705A6E-1EB9-42EE-AF19-3BCFE29DAB6F}.Release|x64.ActiveCfg = Release|x64
 		{BB705A6E-1EB9-42EE-AF19-3BCFE29DAB6F}.Release|x64.Build.0 = Release|x64
+		{9A3297D1-C9CB-43B1-B671-3548907158E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A3297D1-C9CB-43B1-B671-3548907158E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A3297D1-C9CB-43B1-B671-3548907158E7}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{9A3297D1-C9CB-43B1-B671-3548907158E7}.Debug|x64.Build.0 = Debug|Any CPU
+		{9A3297D1-C9CB-43B1-B671-3548907158E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A3297D1-C9CB-43B1-B671-3548907158E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A3297D1-C9CB-43B1-B671-3548907158E7}.Release|x64.ActiveCfg = Release|Any CPU
+		{9A3297D1-C9CB-43B1-B671-3548907158E7}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

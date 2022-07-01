@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PrancaBeauty.Infrastructure.PaymentGates.ZarinPal.Contracts
+namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Bills
 {
-    public class OutPaymentVaryfication
+    public class OutStartPayment
     {
     }
 }

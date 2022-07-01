@@ -199,7 +199,7 @@
                             <div class="col-md-12">
                                 <div class="payment_method">
                                     <div class="order_button">
-                                        <button type="submit">ثبت نهایی و پراخت</button>
+                                        <button type="button" onclick="Payment('@Model.Input.BillNumber')">@Localizer["BillPayment"]</button>
                                     </div>
                                 </div>
                             </div>
@@ -294,5 +294,10 @@
 
             SendData('/@ViewData["culture"]/Shared/Compo/ComboShippingMethods?handler=ChanageShippingMethod', { BillId: '@Model.Data.Id', GroupId: _GroupId, ShippingMethodId: _Value });
         });
+
+        function Payment(_BillNumber)
+        {
+
+        }
     </script>
 }

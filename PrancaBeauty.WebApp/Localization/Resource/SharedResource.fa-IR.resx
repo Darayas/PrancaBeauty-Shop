@@ -327,6 +327,9 @@
   <data name="BillNumber" xml:space="preserve">
     <value>شماره صورت حساب</value>
   </data>
+  <data name="BillPayment" xml:space="preserve">
+    <value>پرداخت صورت حساب</value>
+  </data>
   <data name="BirthDate" xml:space="preserve">
     <value>تاریخ تولد</value>
   </data>

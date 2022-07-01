@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PrancaBeauty.Infrastructure.PaymentGates.ZarinPal.Contracts
 {
-    public class InpStartPayment
+    public class InpZpStartPayment
     {
         [Display(Name = "Amount")]
         public double Amount { get; set; }

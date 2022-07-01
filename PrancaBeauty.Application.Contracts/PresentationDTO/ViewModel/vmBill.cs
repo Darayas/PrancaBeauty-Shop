@@ -14,7 +14,7 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewModel
         public double TaxAmount { get; set; }
         public double ShippingAmount { get; set; }
         public string Note { get; set; }
-        public string TransactionNumber { get; set; }
+        public long TransactionNumber { get; set; }
         public BillStatusEnum BillStatus { get; set; }
 
         public List<vmBillItemGroups> LstSellerGroups { get; set; }

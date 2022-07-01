@@ -78,6 +78,29 @@ namespace PrancaBeauty.WebApp.Pages.User.Bills
             }
         }
 
+        public async Task<IActionResult> OnPostPaymentAsync(viBillPayment Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+
+
+                return Page();
+            }
+            catch (ArgumentInvalidException)
+            {
+                return StatusCode(400);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return StatusCode(500);
+            }
+        }
+
         [BindProperty(SupportsGet = true)]
         public viBill Input { get; set; }
         public vmBill Data { get; set; }

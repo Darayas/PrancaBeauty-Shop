@@ -70,8 +70,8 @@ namespace PrancaBeauty.Application.Apps.Bills
                         GateId=null,
                         Date= DateTime.Now,
                         BillNumber=_BillNumber,
-                        GateNumber=null,
-                        TransactionNumber=null,
+                        Authority=null,
+                        TransactionNumber=0,
                         TaxAmount=null,
                         TotalPrice=null,
                         Status=BillStatusEnum.NotPayyed,
@@ -245,7 +245,7 @@ namespace PrancaBeauty.Application.Apps.Bills
                                 Id=a.Id.ToString(),
                                 UserFullName=a.tblUsers.FirstName  +" "+ a.tblUsers.LastName,
                                 BillNumber=a.BillNumber,
-                                TransactionNumber=a.TransactionNumber??"",
+                                TransactionNumber=a.TransactionNumber,
                                 Status=a.Status,
                                 Date=a.Date,
                                 GateTitle=a.tblPaymentGates!=null ? a.tblPaymentGates.tblPaymentGateTranslate.Where(a => a.LangId==Input.LangId.ToGuid()).Select(a => a.Title).Single() : "",
@@ -345,6 +345,50 @@ namespace PrancaBeauty.Application.Apps.Bills
             {
                 _Logger.Error(ex);
                 return new OperationResult().Failed("Error500");
+            }
+        }
+
+        public async Task<OutStartPayment> StartPaymentAsync(InpStartPayment Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                #region Get bill data
+                string GateName = "";
+                {
+                    var qGate = await _BillRepository.Get
+                                            .Where(a => a.BillNumber==Input.BillNumber)
+                                            .Where(a => a.UserId==Input.UserId.ToGuid())
+                                            .Select(a => new
+                                            {
+                                                GateName = a.GateId!=null ? a.tblPaymentGates.Name : null
+                                            })
+                                            .SingleOrDefaultAsync();
+
+                    if (qGate==null)
+                        return null;
+
+                    if (qGate.GateName==null)
+                        return null;
+
+                    GateName=qGate.GateName;
+                }
+                #endregion
+
+
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return default;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return default;
             }
         }
     }

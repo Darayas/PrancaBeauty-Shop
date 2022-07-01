@@ -23,7 +23,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrancaBeauty.Infrastructure
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrancaBeauty.Infrastructure.Logger.Serilog", "PrancaBeauty.Infrastructure.Logger.Serilogger\PrancaBeauty.Infrastructure.Logger.Serilog.csproj", "{BB705A6E-1EB9-42EE-AF19-3BCFE29DAB6F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrancaBeauty.Infrastructure.PaymentGates", "PrancaBeauty.Infrastructure.PaymentGates\PrancaBeauty.Infrastructure.PaymentGates.csproj", "{9A3297D1-C9CB-43B1-B671-3548907158E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrancaBeauty.Infrastructure.PaymentGates", "PrancaBeauty.Infrastructure.PaymentGates\PrancaBeauty.Infrastructure.PaymentGates.csproj", "{9A3297D1-C9CB-43B1-B671-3548907158E7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{878F5460-165C-46A0-BACF-3B78BA2D814E}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

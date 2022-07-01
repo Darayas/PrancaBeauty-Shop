@@ -1,6 +1,6 @@
-﻿namespace PrancaBeauty.Infrastructure.PaymentGates.ZarinPal.Contracts
+﻿namespace PrancaBeauty.Infrastructure.PaymentGates.Contracts
 {
-    public class OutZpStartPayment
+    public class OutStartPay
     {
         public int StatusCode { get; set; }
         public string Authority { get; set; }

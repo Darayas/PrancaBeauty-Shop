@@ -7,7 +7,7 @@ namespace PrancaBeauty.Application.Apps.PaymentGates
 {
     public interface IPaymentGateApplication
     {
-        Task<OperationResult<bool>> CheckGateStatusAsync(InpCheckGateStatus Input);
+        Task<OperationResult<OutGetGateData>> GetGateDataAsync(InpGetGateData Input);
         Task<List<OutGetPaymentGateByCountry>> GetPaymentGateByCountryAsync(InpGetPaymentGateByCountry Input);
     }
 }

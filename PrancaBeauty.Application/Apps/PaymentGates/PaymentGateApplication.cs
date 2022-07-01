@@ -1,15 +1,18 @@
 ﻿using AutoMapper;
+using Framework.Application.Consts;
 using Framework.Common.ExMethods;
 using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.FileServer;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.PaymentGate;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.Results;
 using PrancaBeauty.Domin.PaymentGate.PaymentGateAgg.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Apps.PaymentGates
@@ -64,7 +67,7 @@ namespace PrancaBeauty.Application.Apps.PaymentGates
             }
         }
 
-        public async Task<OperationResult<bool>> CheckGateStatusAsync(InpCheckGateStatus Input)
+        public async Task<OperationResult<OutGetGateData>> GetGateDataAsync(InpGetGateData Input)
         {
             try
             {
@@ -74,29 +77,30 @@ namespace PrancaBeauty.Application.Apps.PaymentGates
 
                 var qData = await _PaymentGateRepository.Get
                                         .Where(a => a.Name==Input.GateName)
-                                        .Select(a => new
+                                        .Select(a => new OutGetGateData
                                         {
-                                            IsEnable = a.IsEnable
+                                            IsEnable = a.IsEnable,
+                                            EncryptedData = a.Data
                                         })
                                         .SingleOrDefaultAsync();
 
                 if (qData==null)
-                    return new OperationResult<bool>().Failed("GateNotFound");
+                    return new OperationResult<OutGetGateData>().Failed("GateNotFound");
 
                 if (qData.IsEnable==false)
-                    return new OperationResult<bool>().Failed("GateIsDisable"); ;
+                    return new OperationResult<OutGetGateData>().Failed("GateIsDisable"); ;
 
-                return new OperationResult<bool>().Succeeded(true);
+                return new OperationResult<OutGetGateData>().Succeeded(qData);
             }
             catch (ArgumentInvalidException ex)
             {
                 _Logger.Debug(ex);
-                return new OperationResult<bool>().Failed(ex.Message);
+                return new OperationResult<OutGetGateData>().Failed(ex.Message);
             }
             catch (Exception ex)
             {
                 _Logger.Error(ex);
-                return new OperationResult<bool>().Failed("Error500");
+                return new OperationResult<OutGetGateData>().Failed("Error500");
             }
         }
     }

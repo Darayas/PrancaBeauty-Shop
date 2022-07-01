@@ -1,9 +1,9 @@
 ﻿using Framework.Common.DataAnnotations.String;
 using System.ComponentModel.DataAnnotations;
 
-namespace PrancaBeauty.Infrastructure.PaymentGates.ZarinPal.Contracts
+namespace PrancaBeauty.Infrastructure.PaymentGates.Contracts
 {
-    public class InpZpStartPayment
+    public class InpStartPay
     {
         [Display(Name = "Amount")]
         public double Amount { get; set; }

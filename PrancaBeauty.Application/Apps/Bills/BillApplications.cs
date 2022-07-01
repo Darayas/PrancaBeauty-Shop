@@ -15,6 +15,7 @@ using PrancaBeauty.Domin.Bills.BillAgg.Entities;
 using PrancaBeauty.Domin.Bills.BillItemsAgg.Entities;
 using PrancaBeauty.Domin.PostalBarcodes.PostalBarcodeAgg.Entities;
 using PrancaBeauty.Infrastructure.PaymentGates;
+using PrancaBeauty.Infrastructure.PaymentGates.Contracts;
 using PrancaBeauty.Infrastructure.PaymentGates.ZarinPal;
 using System;
 using System.Collections.Generic;
@@ -59,7 +60,9 @@ namespace PrancaBeauty.Application.Apps.Bills
                 {
                     LstCart = await _CartApplication.GetItemsForBillAsync(new InpGetItemsForBill { UserId=Input.UserId });
                     if (LstCart==null)
+                    {
                         return new OperationResult().Failed("Error500");
+                    }
                 }
                 #endregion
 
@@ -127,7 +130,9 @@ namespace PrancaBeauty.Application.Apps.Bills
                         UserId=Input.UserId
                     });
                     if (!_Result.IsSucceeded)
+                    {
                         return new OperationResult().Failed(_Result.Message);
+                    }
                 }
                 #endregion
 
@@ -212,7 +217,9 @@ namespace PrancaBeauty.Application.Apps.Bills
                                    .SingleOrDefaultAsync();
 
                 if (qData==null)
+                {
                     return null;
+                }
 
                 qData.TotalPrice= qData.TotalPrice!=null ? qData.TotalPrice.Value : qData.LstSellerGroups.Sum(b => b.LstItems.Sum(c => c.TotalAmount));
                 qData.TaxAmount= qData.TaxAmount!=null ? qData.TaxAmount.Value : qData.LstSellerGroups.Sum(b => b.LstItems.Sum(c => c.TaxAmount));
@@ -299,7 +306,9 @@ namespace PrancaBeauty.Application.Apps.Bills
                                         .SingleOrDefaultAsync();
 
                 if (qData==null)
+                {
                     return new OperationResult().Failed("IdNotFound");
+                }
 
                 qData.AddressId=Input.AddressId.ToGuid();
 
@@ -334,9 +343,46 @@ namespace PrancaBeauty.Application.Apps.Bills
                                         .SingleOrDefaultAsync();
 
                 if (qData==null)
+                {
                     return new OperationResult().Failed("IdNotFound");
+                }
 
                 qData.GateId=Input.GateId.ToGuid();
+
+                await _BillRepository.UpdateAsync(qData, default, true);
+
+                return new OperationResult().Succeeded();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
+
+        public async Task<OperationResult> ChangeBillAuthorityAsync(InpChangeBillAuthority Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var qData = await _BillRepository.Get
+                                        .Where(a => a.Id==Input.BillId.ToGuid())
+                                        .Where(a => a.UserId==Input.BuyerUserId.ToGuid())
+                                        .Where(a => a.Status==BillStatusEnum.NotPayyed)
+                                        .SingleOrDefaultAsync();
+
+                if (qData==null)
+                    return new OperationResult().Failed("IdNotFound");
+
+                qData.Authority=Input.Authority;
 
                 await _BillRepository.UpdateAsync(qData, default, true);
 
@@ -366,7 +412,22 @@ namespace PrancaBeauty.Application.Apps.Bills
                             where a.BillNumber==Input.BillNumber
                             select new OutGetBillDetailsForPayment
                             {
-
+                                Id=a.Id.ToString(),
+                                IsPayyed=a.Status==BillStatusEnum.Payyed,
+                                Email=a.tblUsers.Email,
+                                Mobile=a.tblUsers.PhoneNumber,
+                                GateName=a.GateId != null ? a.tblPaymentGates.Name : null,
+                                Amount=(from b in a.tblPostalBarcodes
+                                        select (from c in b.tblBillItems
+                                                let Price = c.tblProducts.tblProductPrices.Where(a => a.CurrencyId==Input.CurrencyId.ToGuid() && a.IsActive).Select(a => a.Price).Single()
+                                                let SellerPercent = c.tblProductVariantItems.Percent
+                                                let PercentSavePrice = c.tblProductVariantItems.tblProductDiscounts!=null ? c.tblProductVariantItems.tblProductDiscounts.Percent : 0
+                                                let OldPrice = Price + ((Price/100)*SellerPercent)
+                                                let NewPrice = OldPrice - ((OldPrice/100)*PercentSavePrice)
+                                                let TaxPercent = c.tblProducts.tblTaxGroups.Percent
+                                                let TaxAmount = (NewPrice/100)*TaxPercent
+                                                let TotalPrice = NewPrice * c.Qty
+                                                select TotalPrice).Sum() + b.TotalPrice).Sum()
                             };
 
                 return await qData.SingleOrDefaultAsync();
@@ -392,40 +453,79 @@ namespace PrancaBeauty.Application.Apps.Bills
                 #endregion
 
                 #region Get bill data
-                string _GateName = "";
+                OutGetBillDetailsForPayment _BillData;
                 {
-                    var qGate = await _BillRepository.Get
-                                            .Where(a => a.BillNumber==Input.BillNumber)
-                                            .Where(a => a.UserId==Input.UserId.ToGuid())
-                                            .Select(a => new
-                                            {
-                                                GateName = a.GateId!=null ? a.tblPaymentGates.Name : null
-                                            })
-                                            .SingleOrDefaultAsync();
+                    var qBill = await GetBillDetailsForPaymentAsync(new InpGetBillDetailsForPayment
+                    {
+                        BillNumber=Input.BillNumber,
+                        UserId=Input.UserId,
+                        CurrencyId=Input.CurrencyId
+                    });
 
-                    if (qGate==null)
-                        return new OperationResult<OutStartPayment>().Failed("GateNotFound");
+                    if (qBill==null)
+                    {
+                        return new OperationResult<OutStartPayment>().Failed("BillNotFound");
+                    }
 
-                    if (qGate.GateName==null)
+                    if (qBill.GateName==null)
+                    {
                         return new OperationResult<OutStartPayment>().Failed("PleaseSelectGate");
+                    }
 
-                    _GateName=qGate.GateName;
+                    _BillData = qBill;
                 }
                 #endregion
 
                 #region Register payment gate
                 IPayment _Payment = null;
                 {
-                    var _GateStatus = await _PaymentGateApplication.CheckGateStatusAsync(new InpCheckGateStatus { GateName=_GateName });
-                    if (_GateStatus.IsSucceeded==false)
-                        return new OperationResult<OutStartPayment>().Failed(_GateStatus.Message);
+                    var _GateData = await _PaymentGateApplication.GetGateDataAsync(new InpGetGateData { GateName=_BillData.GateName });
+                    if (_GateData.IsSucceeded==false)
+                    {
+                        return new OperationResult<OutStartPayment>().Failed(_GateData.Message);
+                    }
 
-                    if (_GateName.ToLower()=="ZarinPal".ToLower())
-                        _Payment= new ZarinPalGate(_ServiceProvider, _Logger);
+                    if (_BillData.GateName.ToLower()=="ZarinPal".ToLower())
+                    {
+                        _Payment= new ZarinPalGate(_ServiceProvider, _Logger, _GateData.Data.EncryptedData);
+                    }
                 }
                 #endregion
 
+                #region Start Pay
+                string _Authority;
+                string _PaymentyGateUrl;
+                {
+                    var _Response = await _Payment.StartPaymentAsync(new InpStartPay
+                    {
+                        Email=_BillData.Email,
+                        Mobile=_BillData.Mobile,
+                        Description="",
+                        Amount=_BillData.Amount,
+                        CallBackUrl=Input.CallBackUrl
+                    });
+                    if (_Response.StatusCode!=100)
+                        return new OperationResult<OutStartPayment>().Failed("SelectedPaymentGateNotRespond");
 
+                    _Authority= _Response.Authority;
+                    _PaymentyGateUrl= _Response.PaymentyGateUrl;
+                }
+                #endregion
+
+                #region Chane bill authority
+                {
+                    var _Result = await ChangeBillAuthorityAsync(new InpChangeBillAuthority
+                    {
+                        BillId=_BillData.Id,
+                        BuyerUserId=Input.UserId,
+                        Authority=_Authority
+                    });
+                    if (_Result.IsSucceeded==false)
+                        return new OperationResult<OutStartPayment>().Failed(_Result.Message);
+                }
+                #endregion
+
+                return new OperationResult<OutStartPayment>().Succeeded(new OutStartPayment { PaymentyGateUrl= _PaymentyGateUrl });
             }
             catch (ArgumentInvalidException ex)
             {

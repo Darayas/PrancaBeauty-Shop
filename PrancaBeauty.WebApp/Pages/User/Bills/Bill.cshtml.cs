@@ -1,18 +1,20 @@
 using AutoMapper;
 using Framework.Common.ExMethods;
-using Framework.Domain.Enums;
 using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PrancaBeauty.Application.Apps.Bills;
+using PrancaBeauty.Application.Apps.Settings;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.Bills;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Settings;
 using PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput;
 using PrancaBeauty.Application.Contracts.PresentationDTO.ViewModel;
 using PrancaBeauty.WebApp.Authentication;
 using PrancaBeauty.WebApp.Common.ExMethod;
 using System;
+using System.Globalization;
 using System.Threading.Tasks;
 
 namespace PrancaBeauty.WebApp.Pages.User.Bills
@@ -24,13 +26,15 @@ namespace PrancaBeauty.WebApp.Pages.User.Bills
         private readonly IMapper _Mapper;
         private readonly IServiceProvider _ServiceProvider;
         private readonly IBillApplication _BillApplication;
+        private readonly ISettingApplication _SettingApplication;
 
-        public BillModel(ILogger logger, IMapper mapper, IServiceProvider serviceProvider, IBillApplication billApplication)
+        public BillModel(ILogger logger, IMapper mapper, IServiceProvider serviceProvider, IBillApplication billApplication, ISettingApplication settingApplication)
         {
             _Logger=logger;
             _Mapper=mapper;
             _ServiceProvider=serviceProvider;
             _BillApplication=billApplication;
+            _SettingApplication=settingApplication;
         }
 
         public async Task<IActionResult> OnGetAsync(string CurrencyId, string LangId)
@@ -78,7 +82,7 @@ namespace PrancaBeauty.WebApp.Pages.User.Bills
             }
         }
 
-        public async Task<IActionResult> OnPostPaymentAsync(viBillPayment Input)
+        public async Task<IActionResult> OnPostPaymentAsync(viBillPayment Input, string CurrncyId)
         {
             try
             {
@@ -86,7 +90,17 @@ namespace PrancaBeauty.WebApp.Pages.User.Bills
                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
+                #region Get site setting
+                var _Setting = await _SettingApplication.GetSettingAsync(new InpGetSetting { LangCode= CultureInfo.CurrentCulture.Name });
+                #endregion
 
+                var _Result = await _BillApplication.StartPaymentAsync(new InpStartPayment
+                {
+                    BillNumber=Input.BillNumber,
+                    CurrencyId=CurrncyId,
+                    CallBackUrl=$"{_Setting.SiteUrl}/User/Payment/",
+                    UserId=User.GetUserDetails().UserId
+                });
 
                 return Page();
             }

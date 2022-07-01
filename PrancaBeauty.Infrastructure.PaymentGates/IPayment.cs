@@ -1,10 +1,10 @@
-﻿using PrancaBeauty.Infrastructure.PaymentGates.ZarinPal.Contracts;
+﻿using PrancaBeauty.Infrastructure.PaymentGates.Contracts;
 
 namespace PrancaBeauty.Infrastructure.PaymentGates
 {
     public interface IPayment
     {
-        Task<OutZpPaymentVaryfication> PaymentVaryficationAsync(InpZpPaymentVaryfication Input);
-        Task<OutZpStartPayment> StartPaymentAsync(InpZpStartPayment Input);
+        Task<OutPayVaryfication> PaymentVaryficationAsync(InpPayVaryfication Input);
+        Task<OutStartPay> StartPaymentAsync(InpStartPay Input);
     }
 }

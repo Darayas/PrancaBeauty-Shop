@@ -59,4 +59,53 @@ namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Results
             return this;
         }
     }
+
+    public class OperationResult<T> : OperationResult
+    {
+        public T Data { get; set; }
+
+        public OperationResult<T> Succeeded(T _Data)
+        {
+            IsSucceeded = true;
+            Message = "Operation was successded";
+            Data=_Data;
+
+            return this;
+        }
+        public OperationResult<T> Succeeded(string _Message, T _Data)
+        {
+            IsSucceeded = true;
+            Message = _Message;
+            Data=_Data;
+
+            return this;
+        }
+
+        public OperationResult<T> Succeeded(int _Code, string _Message, T _Data)
+        {
+            IsSucceeded = true;
+            Message = _Message;
+            Code = _Code;
+            Data=_Data;
+
+            return this;
+        }
+
+        public OperationResult<T> Failed(string _Message)
+        {
+            IsSucceeded = false;
+            Message = _Message;
+
+            return this;
+        }
+
+        public OperationResult<T> Failed(int _Code, string _Message)
+        {
+            IsSucceeded = false;
+            Message = _Message;
+            Code = _Code;
+
+            return this;
+        }
+    }
 }

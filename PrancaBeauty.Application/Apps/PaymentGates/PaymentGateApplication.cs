@@ -5,6 +5,7 @@ using Framework.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.PaymentGate;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Results;
 using PrancaBeauty.Domin.PaymentGate.PaymentGateAgg.Contracts;
 using System;
 using System.Collections.Generic;
@@ -37,6 +38,7 @@ namespace PrancaBeauty.Application.Apps.PaymentGates
 
                 var qData = await _PaymentGateRepository.Get
                                         .Where(a => a.tblPaymentGateRestricts.Any(b => b.CountryId==Input.CountryId.ToGuid() && b.CurrencyId==Input.CurrencyId.ToGuid()))
+                                        .Where(a => a.IsEnable)
                                         .Select(a => new OutGetPaymentGateByCountry
                                         {
                                             Id=a.Id.ToString(),
@@ -59,6 +61,42 @@ namespace PrancaBeauty.Application.Apps.PaymentGates
             {
                 _Logger.Error(ex);
                 return null;
+            }
+        }
+
+        public async Task<OperationResult<bool>> CheckGateStatusAsync(InpCheckGateStatus Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var qData = await _PaymentGateRepository.Get
+                                        .Where(a => a.Name==Input.GateName)
+                                        .Select(a => new
+                                        {
+                                            IsEnable = a.IsEnable
+                                        })
+                                        .SingleOrDefaultAsync();
+
+                if (qData==null)
+                    return new OperationResult<bool>().Failed("GateNotFound");
+
+                if (qData.IsEnable==false)
+                    return new OperationResult<bool>().Failed("GateIsDisable"); ;
+
+                return new OperationResult<bool>().Succeeded(true);
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return new OperationResult<bool>().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult<bool>().Failed("Error500");
             }
         }
     }

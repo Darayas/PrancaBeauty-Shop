@@ -777,6 +777,12 @@
   <data name="FutureWork" xml:space="preserve">
     <value>کاری آینده</value>
   </data>
+  <data name="GateIsDisable" xml:space="preserve">
+    <value>در/اه پرداخت غیرفعال شده است.</value>
+  </data>
+  <data name="GateNotFound" xml:space="preserve">
+    <value>درگاه پرداخت یافت نشد</value>
+  </data>
   <data name="GateTitle" xml:space="preserve">
     <value>درگاه پرداخت</value>
   </data>

@@ -13,6 +13,7 @@ namespace PrancaBeauty.Domin.PaymentGate.PaymentGateAgg.Entities
         public Guid LogoId { get; set; }
         public string Name { get; set; }
         public string Data { get; set; }
+        public bool IsEnable { get; set; }
 
         public virtual tblFiles tblFiles { get; set; }
         public virtual ICollection<tblPaymentGateTranslate> tblPaymentGateTranslate { get; set; }

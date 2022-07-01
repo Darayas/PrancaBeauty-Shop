@@ -5,13 +5,17 @@ using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Apps.Carts;
+using PrancaBeauty.Application.Apps.PaymentGates;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.Bills;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.Cart;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.PaymentGate;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.Results;
 using PrancaBeauty.Domin.Bills.BillAgg.Contracts;
 using PrancaBeauty.Domin.Bills.BillAgg.Entities;
 using PrancaBeauty.Domin.Bills.BillItemsAgg.Entities;
 using PrancaBeauty.Domin.PostalBarcodes.PostalBarcodeAgg.Entities;
+using PrancaBeauty.Infrastructure.PaymentGates;
+using PrancaBeauty.Infrastructure.PaymentGates.ZarinPal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,13 +30,15 @@ namespace PrancaBeauty.Application.Apps.Bills
         private readonly IServiceProvider _ServiceProvider;
         private readonly IBillsRepository _BillRepository;
         private readonly ICartApplication _CartApplication;
-        public BillApplication(ILogger logger, ILocalizer localizer, IServiceProvider serviceProvider, ICartApplication cartApplication, IBillsRepository billRepository)
+        private readonly IPaymentGateApplication _PaymentGateApplication;
+        public BillApplication(ILogger logger, ILocalizer localizer, IServiceProvider serviceProvider, ICartApplication cartApplication, IBillsRepository billRepository, IPaymentGateApplication paymentGateApplication)
         {
             _Logger=logger;
             _Localizer=localizer;
             _ServiceProvider=serviceProvider;
             _CartApplication=cartApplication;
             _BillRepository=billRepository;
+            _PaymentGateApplication=paymentGateApplication;
         }
 
         private string CreateBillNumberAsync()
@@ -348,7 +354,36 @@ namespace PrancaBeauty.Application.Apps.Bills
             }
         }
 
-        public async Task<OutStartPayment> StartPaymentAsync(InpStartPayment Input)
+        public async Task<OutGetBillDetailsForPayment> GetBillDetailsForPaymentAsync(InpGetBillDetailsForPayment Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var qData = from a in _BillRepository.Get
+                            where a.BillNumber==Input.BillNumber
+                            select new OutGetBillDetailsForPayment
+                            {
+
+                            };
+
+                return await qData.SingleOrDefaultAsync();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return null;
+            }
+        }
+
+        public async Task<OperationResult<OutStartPayment>> StartPaymentAsync(InpStartPayment Input)
         {
             try
             {
@@ -357,7 +392,7 @@ namespace PrancaBeauty.Application.Apps.Bills
                 #endregion
 
                 #region Get bill data
-                string GateName = "";
+                string _GateName = "";
                 {
                     var qGate = await _BillRepository.Get
                                             .Where(a => a.BillNumber==Input.BillNumber)
@@ -369,12 +404,24 @@ namespace PrancaBeauty.Application.Apps.Bills
                                             .SingleOrDefaultAsync();
 
                     if (qGate==null)
-                        return null;
+                        return new OperationResult<OutStartPayment>().Failed("GateNotFound");
 
                     if (qGate.GateName==null)
-                        return null;
+                        return new OperationResult<OutStartPayment>().Failed("PleaseSelectGate");
 
-                    GateName=qGate.GateName;
+                    _GateName=qGate.GateName;
+                }
+                #endregion
+
+                #region Register payment gate
+                IPayment _Payment = null;
+                {
+                    var _GateStatus = await _PaymentGateApplication.CheckGateStatusAsync(new InpCheckGateStatus { GateName=_GateName });
+                    if (_GateStatus.IsSucceeded==false)
+                        return new OperationResult<OutStartPayment>().Failed(_GateStatus.Message);
+
+                    if (_GateName.ToLower()=="ZarinPal".ToLower())
+                        _Payment= new ZarinPalGate(_ServiceProvider, _Logger);
                 }
                 #endregion
 
@@ -383,12 +430,12 @@ namespace PrancaBeauty.Application.Apps.Bills
             catch (ArgumentInvalidException ex)
             {
                 _Logger.Debug(ex);
-                return default;
+                return new OperationResult<OutStartPayment>().Failed(ex.Message);
             }
             catch (Exception ex)
             {
                 _Logger.Error(ex);
-                return default;
+                return new OperationResult<OutStartPayment>().Failed("Error500");
             }
         }
     }

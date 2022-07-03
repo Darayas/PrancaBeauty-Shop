@@ -1,7 +1,14 @@
 ﻿using AutoMapper;
+using Framework.Common.ExMethods;
+using Framework.Exceptions;
 using Framework.Infrastructure;
+using Microsoft.EntityFrameworkCore;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.BillItems;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.Results;
 using PrancaBeauty.Domin.Bills.BillItemsAgg.Contracts;
 using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace PrancaBeauty.Application.Apps.BillItems
 {
@@ -18,6 +25,41 @@ namespace PrancaBeauty.Application.Apps.BillItems
             _ServiceProvider=serviceProvider;
             _BillItemsRepository=billItemsRepository;
             _Mapper=mapper;
+        }
+
+        public async Task<OperationResult> BillItemFinalPriceRegistrationAsync(InpBillItemFinalPriceRegistration Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var qData = await _BillItemsRepository.Get
+                                        .Where(a => a.Id==Input.Id.ToGuid())
+                                        .SingleOrDefaultAsync();
+
+                if (qData==null)
+                    return new OperationResult().Failed("IdNotFound");
+
+                qData.TaxPercent=Input.TaxPercent;
+                qData.Price=Input.Price;
+                qData.TotalPrice=Input.TotalPrice;
+
+                await _BillItemsRepository.UpdateAsync(qData, default, true);
+
+                return new OperationResult().Succeeded();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
         }
     }
 }

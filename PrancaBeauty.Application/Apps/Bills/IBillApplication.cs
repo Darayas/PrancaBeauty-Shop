@@ -13,9 +13,11 @@ namespace PrancaBeauty.Application.Apps.Bills
         Task<OperationResult> ChangeBillPaymentGateAsync(InpChangeBillPaymentGate Input);
         Task<OperationResult> ChangeBillStatusToPaymentedAsync(InpChangeBillStatusToPaymented Input);
         Task<OperationResult> CreateBillFromCartAsync(InpCreateBillFromCart Input);
+        Task<OperationResult> FinalPriceRegisterationAsync(InpFinalPriceRegisteration Input);
         Task<OutGetBillDetails> GetBillDetailsAsync(InpGetBillDetails Input);
         Task<OutGetBillDetailsForPayment> GetBillDetailsForPaymentAsync(InpGetBillDetailsForPayment Input);
         Task<(OutPagingData PagingData, List<OutGetListBillForManage>)> GetListBillForManageAsync(InpGetListBillForManage Input);
+        Task<OperationResult<OutPaymentVeryfication>> PaymentVeryficationAsync(InpPaymentVeryfication Input);
         Task<OperationResult<OutStartPayment>> StartPaymentAsync(InpStartPayment Input);
     }
 }

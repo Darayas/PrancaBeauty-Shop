@@ -5,6 +5,7 @@ using Framework.Infrastructure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Primitives;
 using PrancaBeauty.Application.Apps.Bills;
 using PrancaBeauty.Application.Apps.Settings;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.Bills;
@@ -16,7 +17,9 @@ using PrancaBeauty.WebApp.Common.ExMethod;
 using PrancaBeauty.WebApp.Common.Types;
 using PrancaBeauty.WebApp.Common.Utility.MessageBox;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace PrancaBeauty.WebApp.Pages.User.Bills
@@ -92,7 +95,6 @@ namespace PrancaBeauty.WebApp.Pages.User.Bills
         {
             try
             {
-                var req = Request;
                 #region Validations
                 Input.CheckModelState(_ServiceProvider);
                 #endregion
@@ -105,7 +107,7 @@ namespace PrancaBeauty.WebApp.Pages.User.Bills
                 {
                     BillNumber=Input.BillNumber,
                     CurrencyId=CurrencyId,
-                    CallBackUrl=$"{_Setting.SiteUrl}/{CultureInfo.CurrentCulture.Parent.Name}/User/Bill/{Input.BillNumber}?handler=PaymentVeryfication",
+                    CallBackUrl=$"{_Setting.SiteUrl}/{CultureInfo.CurrentCulture.Parent.Name}/User/Bill/{Input.BillNumber}?handler=PaymentVeryfication&BillNumber={Input.BillNumber}",
                     UserId=User.GetUserDetails().UserId
                 });
                 if (_Result.IsSucceeded)
@@ -124,10 +126,34 @@ namespace PrancaBeauty.WebApp.Pages.User.Bills
             }
         }
 
-        public async Task<IActionResult> OnGetPaymentVeryficationAsync()
+        public async Task<IActionResult> OnGetPaymentVeryficationAsync(viPaymentVeryfication Input,string LangId, string CurrencyId)
         {
-           
-            return Page();
+            try
+            {
+                var _Result = await _BillApplication.PaymentVeryficationAsync(new InpPaymentVeryfication
+                {
+                    CurrencyId=CurrencyId,
+                    BillNumber=Input.BillNumber,
+                    UserId=User.GetUserDetails().UserId,
+                    QueryData= Request.Query.Select(a => new KeyValuePair<string, string>(a.Key, a.Value)).ToDictionary(k => k.Key, v => v.Value)
+                });
+
+                if (_Result.IsSucceeded)
+                {
+                    
+                }
+                else
+                {
+
+                }
+
+                return await OnGetAsync(CurrencyId, LangId);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return StatusCode(500);
+            }
         }
 
         [BindProperty(SupportsGet = true)]

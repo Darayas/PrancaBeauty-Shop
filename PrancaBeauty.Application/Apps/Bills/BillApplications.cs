@@ -4,8 +4,10 @@ using Framework.Domain.Enums;
 using Framework.Exceptions;
 using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using PrancaBeauty.Application.Apps.BillItems;
 using PrancaBeauty.Application.Apps.Carts;
 using PrancaBeauty.Application.Apps.PaymentGates;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.BillItems;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.Bills;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.Cart;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.PaymentGate;
@@ -32,7 +34,8 @@ namespace PrancaBeauty.Application.Apps.Bills
         private readonly IBillsRepository _BillRepository;
         private readonly ICartApplication _CartApplication;
         private readonly IPaymentGateApplication _PaymentGateApplication;
-        public BillApplication(ILogger logger, ILocalizer localizer, IServiceProvider serviceProvider, ICartApplication cartApplication, IBillsRepository billRepository, IPaymentGateApplication paymentGateApplication)
+        private readonly IBillItemsApplication _BillItemsApplication;
+        public BillApplication(ILogger logger, ILocalizer localizer, IServiceProvider serviceProvider, ICartApplication cartApplication, IBillsRepository billRepository, IPaymentGateApplication paymentGateApplication, IBillItemsApplication billItemsApplication)
         {
             _Logger=logger;
             _Localizer=localizer;
@@ -40,6 +43,7 @@ namespace PrancaBeauty.Application.Apps.Bills
             _CartApplication=cartApplication;
             _BillRepository=billRepository;
             _PaymentGateApplication=paymentGateApplication;
+            _BillItemsApplication=billItemsApplication;
         }
 
         private string CreateBillNumberAsync()
@@ -591,6 +595,92 @@ namespace PrancaBeauty.Application.Apps.Bills
             }
         }
 
+        public async Task<OperationResult> FinalPriceRegisterationAsync(InpFinalPriceRegisteration Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                #region Get bill data
+                var qData = await (from a in _BillRepository.Get
+                                   where a.UserId==Input.UserId.ToGuid()
+                                   where a.BillNumber==Input.BillNumber
+                                   select new
+                                   {
+                                       Bill = a,
+                                       PostalBarcode = from b in a.tblPostalBarcodes
+                                                       select new
+                                                       {
+                                                           ShippingAmountTotalPrice = b.TotalPrice,
+                                                           ShippingAmountTax = a.TaxAmount,
+                                                           Items = from c in a.tblBillItems
+                                                                   let Price = c.tblProducts.tblProductPrices.Where(a => a.CurrencyId==Input.CurrencyId.ToGuid() && a.IsActive).Select(a => a.Price).Single()
+                                                                   let SellerPercent = c.tblProductVariantItems.Percent
+                                                                   let PercentSavePrice = c.tblProductVariantItems.tblProductDiscounts!=null ? c.tblProductVariantItems.tblProductDiscounts.Percent : 0
+                                                                   let OldPrice = Price + ((Price/100)*SellerPercent)
+                                                                   let NewPrice = OldPrice - ((OldPrice/100)*PercentSavePrice)
+                                                                   let TaxPercent = c.tblProducts.tblTaxGroups.Percent
+                                                                   let TaxAmount = (NewPrice/100)*TaxPercent
+                                                                   let TotalPrice = NewPrice * c.Qty
+                                                                   select new
+                                                                   {
+                                                                       Id = c.Id.ToString(),
+                                                                       Price = Price,
+                                                                       TaxPercent = TaxPercent,
+                                                                       TotalPrice = TotalPrice,
+                                                                       TaxAmount = TaxAmount
+                                                                   }
+                                                       }
+
+                                   }).SingleOrDefaultAsync();
+
+                if (qData==null)
+                    return new OperationResult().Failed("BillNotFound");
+                #endregion
+
+                #region Update bill
+                {
+                    qData.Bill.TaxAmount=qData.PostalBarcode.Sum(a => a.ShippingAmountTax + a.Items.Sum(b => b.TaxAmount));
+                    qData.Bill.TotalPrice=qData.PostalBarcode.Sum(a => a.ShippingAmountTotalPrice + a.Items.Sum(b => b.TotalPrice));
+
+                    await _BillRepository.UpdateAsync(qData.Bill, default, true);
+                }
+                #endregion
+
+                #region Update bill items
+                {
+                    foreach (var itemPostal in qData.PostalBarcode)
+                    {
+                        foreach (var item in itemPostal.Items)
+                        {
+                            await _BillItemsApplication.BillItemFinalPriceRegistrationAsync(new InpBillItemFinalPriceRegistration
+                            {
+                                Id=item.Id,
+                                TaxPercent=item.TaxPercent,
+                                Price=item.Price,
+                                TotalPrice=item.TotalPrice
+                            });
+                        }
+                    }
+                }
+                #endregion
+
+                return new OperationResult().Succeeded();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
+
         public async Task<OperationResult<OutPaymentVeryfication>> PaymentVeryficationAsync(InpPaymentVeryfication Input)
         {
 
@@ -658,7 +748,14 @@ namespace PrancaBeauty.Application.Apps.Bills
 
                 #region Final price registeration
                 {
-
+                    var _Result = await FinalPriceRegisterationAsync(new InpFinalPriceRegisteration
+                    {
+                        UserId=Input.UserId,
+                        CurrencyId=Input.CurrencyId,
+                        BillNumber= Input.BillNumber
+                    });
+                    if (_Result.IsSucceeded==false)
+                        return new OperationResult<OutPaymentVeryfication>().Failed(_Localizer["PaymentVeryficationFaild.PleaseContactToAdmin", _TransactionNumber]);
                 }
                 #endregion
 

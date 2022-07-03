@@ -1302,6 +1302,12 @@
   <data name="PasswordTooShort" xml:space="preserve">
     <value>کلمه عبور باید حداقل {0} کاراکتر باشد</value>
   </data>
+  <data name="PaymentVeryficationFaild" xml:space="preserve">
+    <value>پرداخت با شکست مواجه شد. درصورتی که مبلغی از حساب شما کم شده باشد در مدت 72 ساعت به حساب شما برگشت خواهد خورد</value>
+  </data>
+  <data name="PaymentVeryficationFaild.PleaseContactToAdmin" xml:space="preserve">
+    <value>پرداخت شما انجام شد ولی سفارش شما ثبت نشد. لطفا با مدیریت تماس حاصل فرمایید. شماره تراکنش: {0}</value>
+  </data>
   <data name="Payyed" xml:space="preserve">
     <value>پرداخت شد ه</value>
   </data>

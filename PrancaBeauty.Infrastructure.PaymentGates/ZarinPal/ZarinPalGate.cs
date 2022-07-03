@@ -55,10 +55,21 @@ namespace PrancaBeauty.Infrastructure.PaymentGates.ZarinPal
         {
             try
             {
+                #region Validations
                 Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                #region Decode query data
+                string _Authority = null;
+                {
+                    _Authority= Input.QueryData.Where(a => a.Key=="Authority")
+                                               .Select(a => a.Value)
+                                               .Single();
+                }
+                #endregion
 
                 var zp = new PaymentGatewayImplementationServicePortTypeClient();
-                var _Response = await zp.PaymentVerificationAsync(_MerchantId, Input.Authority, (int)Input.Amount);
+                var _Response = await zp.PaymentVerificationAsync(_MerchantId, _Authority, (int)Input.Amount);
 
                 return new OutPayVaryfication
                 {

@@ -105,7 +105,7 @@ namespace PrancaBeauty.WebApp.Pages.User.Bills
                 {
                     BillNumber=Input.BillNumber,
                     CurrencyId=CurrencyId,
-                    CallBackUrl=$"{_Setting.SiteUrl}/User/Bill/{Input.BillNumber}?handler=PaymentVeryfication",
+                    CallBackUrl=$"{_Setting.SiteUrl}/{CultureInfo.CurrentCulture.Parent.Name}/User/Bill/{Input.BillNumber}?handler=PaymentVeryfication",
                     UserId=User.GetUserDetails().UserId
                 });
                 if (_Result.IsSucceeded)
@@ -124,8 +124,9 @@ namespace PrancaBeauty.WebApp.Pages.User.Bills
             }
         }
 
-        public async Task<IActionResult> OnPostPaymentVeryficationAsync()
+        public async Task<IActionResult> OnGetPaymentVeryficationAsync()
         {
+           
             return Page();
         }
 

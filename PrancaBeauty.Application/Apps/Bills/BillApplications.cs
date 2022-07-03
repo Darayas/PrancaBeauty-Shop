@@ -400,6 +400,43 @@ namespace PrancaBeauty.Application.Apps.Bills
             }
         }
 
+        public async Task<OperationResult> ChangeBillStatusToPaymentedAsync(InpChangeBillStatusToPaymented Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                var qData = await _BillRepository.Get
+                                        .Where(a => a.Id==Input.BillId.ToGuid())
+                                        .Where(a => a.UserId==Input.BuyerUserId.ToGuid())
+                                        .Where(a => a.Status==BillStatusEnum.NotPayyed)
+                                        .SingleOrDefaultAsync();
+
+                if (qData==null)
+                    return new OperationResult().Failed("IdNotFound");
+
+                qData.TransactionNumber=Input.TransactionNumber;
+                qData.Status=BillStatusEnum.Payyed;
+                qData.Date=DateTime.Now;
+
+                await _BillRepository.UpdateAsync(qData, default, true);
+
+                return new OperationResult().Succeeded();
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
+
         public async Task<OutGetBillDetailsForPayment> GetBillDetailsForPaymentAsync(InpGetBillDetailsForPayment Input)
         {
             try
@@ -516,7 +553,7 @@ namespace PrancaBeauty.Application.Apps.Bills
                         Mobile=_BillData.Mobile,
                         Description="",
                         //Amount=_BillData.Amount,
-                        Amount=20000,
+                        Amount=2000,
                         CallBackUrl=Input.CallBackUrl
                     });
                     if (_Response.StatusCode!=100)
@@ -551,6 +588,110 @@ namespace PrancaBeauty.Application.Apps.Bills
             {
                 _Logger.Error(ex);
                 return new OperationResult<OutStartPayment>().Failed("Error500");
+            }
+        }
+
+        public async Task<OperationResult<OutPaymentVeryfication>> PaymentVeryficationAsync(InpPaymentVeryfication Input)
+        {
+
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                #region Get bill data
+                OutGetBillDetailsForPayment _BillData;
+                {
+                    var qBill = await GetBillDetailsForPaymentAsync(new InpGetBillDetailsForPayment
+                    {
+                        BillNumber=Input.BillNumber,
+                        UserId=Input.UserId,
+                        CurrencyId=Input.CurrencyId
+                    });
+
+                    if (qBill==null)
+                    {
+                        return new OperationResult<OutPaymentVeryfication>().Failed("BillNotFound");
+                    }
+
+                    if (qBill.GateName==null)
+                    {
+                        return new OperationResult<OutPaymentVeryfication>().Failed("PleaseSelectGate");
+                    }
+
+                    _BillData = qBill;
+                }
+                #endregion
+
+                #region Register payment gate
+                IPayment _Payment = null;
+                {
+                    var _GateData = await _PaymentGateApplication.GetGateDataAsync(new InpGetGateData { GateName=_BillData.GateName });
+                    if (_GateData.IsSucceeded==false)
+                    {
+                        return new OperationResult<OutPaymentVeryfication>().Failed(_GateData.Message);
+                    }
+
+                    if (_BillData.GateName.ToLower()=="ZarinPal".ToLower())
+                    {
+                        _Payment= new ZarinPalGate(_ServiceProvider, _Logger, _GateData.Data.EncryptedData);
+                    }
+                }
+                #endregion
+
+                #region Payment Veryfication 
+                string _TransactionNumber = null;
+                {
+                    var _Response = await _Payment.PaymentVaryficationAsync(new InpPayVaryfication
+                    {
+                        Amount= _BillData.Amount,
+                        QueryData=Input.QueryData
+                    });
+
+                    if (_Response.StatusCode!=100)
+                        return new OperationResult<OutPaymentVeryfication>().Failed("PaymentVeryficationFaild");
+
+                    _TransactionNumber= _Response.TransactionNumber;
+                }
+                #endregion
+
+                #region Final price registeration
+                {
+
+                }
+                #endregion
+
+                #region Recharge wallets
+                {
+
+                }
+                #endregion
+
+                #region Change bill status to paymented
+                {
+                    var _Result = await ChangeBillStatusToPaymentedAsync(new InpChangeBillStatusToPaymented
+                    {
+                        BillId=_BillData.Id,
+                        BuyerUserId=Input.UserId,
+                        TransactionNumber=_TransactionNumber
+                    });
+                    if (_Result.IsSucceeded==false)
+                        return new OperationResult<OutPaymentVeryfication>().Failed(_Localizer["PaymentVeryficationFaild.PleaseContactToAdmin", _TransactionNumber]);
+                }
+                #endregion
+
+                return new OperationResult<OutPaymentVeryfication>().Succeeded(new OutPaymentVeryfication { TransactionNumber=_TransactionNumber });
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return new OperationResult<OutPaymentVeryfication>().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult<OutPaymentVeryfication>().Failed("Error500");
             }
         }
     }

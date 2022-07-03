@@ -2,7 +2,7 @@
 {
     public class InpPayVaryfication
     {
-        public string Authority { get; set; }
+        public Dictionary<string, string> QueryData { get; set; }
         public double Amount { get; set; }
     }
 }

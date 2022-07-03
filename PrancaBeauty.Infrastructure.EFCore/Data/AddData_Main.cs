@@ -15,7 +15,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                 //new AddData_FileServers().Run();
                 //new AddData_FileType().Run();
                 //new AddData_FilePath().Run();
-                new AddData_Roles().Run();
+                //new AddData_Roles().Run();
                 //new AddData_AccessLevel().Run();
                 //new AddData_Countris().Run();
                 //new AddData_languages().Run();
@@ -40,8 +40,8 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                 //new AddData_ProductGroupPercents().Run();
                 //new AddData_ShippingMethods().Run();
                 //new AddData_ShippingMethodRestricts().Run();
-                //new AddData_PaymentGates().Run();
-                //new AddData_PaymentGateRestricts().Run();
+                new AddData_PaymentGates().Run();
+                new AddData_PaymentGateRestricts().Run();
             }
             catch (Exception ex)
             {

@@ -80,7 +80,7 @@ namespace PrancaBeauty.Application.Apps.Bills
                         Date= DateTime.Now,
                         BillNumber=_BillNumber,
                         Authority=null,
-                        TransactionNumber=0,
+                        TransactionNumber=null,
                         TaxAmount=null,
                         TotalPrice=null,
                         Status=BillStatusEnum.NotPayyed,
@@ -408,29 +408,43 @@ namespace PrancaBeauty.Application.Apps.Bills
                 Input.CheckModelState(_ServiceProvider);
                 #endregion
 
-                var qData = from a in _BillRepository.Get
-                            where a.BillNumber==Input.BillNumber
-                            select new OutGetBillDetailsForPayment
-                            {
-                                Id=a.Id.ToString(),
-                                IsPayyed=a.Status==BillStatusEnum.Payyed,
-                                Email=a.tblUsers.Email,
-                                Mobile=a.tblUsers.PhoneNumber,
-                                GateName=a.GateId != null ? a.tblPaymentGates.Name : null,
-                                Amount=(from b in a.tblPostalBarcodes
-                                        select (from c in b.tblBillItems
-                                                let Price = c.tblProducts.tblProductPrices.Where(a => a.CurrencyId==Input.CurrencyId.ToGuid() && a.IsActive).Select(a => a.Price).Single()
-                                                let SellerPercent = c.tblProductVariantItems.Percent
-                                                let PercentSavePrice = c.tblProductVariantItems.tblProductDiscounts!=null ? c.tblProductVariantItems.tblProductDiscounts.Percent : 0
-                                                let OldPrice = Price + ((Price/100)*SellerPercent)
-                                                let NewPrice = OldPrice - ((OldPrice/100)*PercentSavePrice)
-                                                let TaxPercent = c.tblProducts.tblTaxGroups.Percent
-                                                let TaxAmount = (NewPrice/100)*TaxPercent
-                                                let TotalPrice = NewPrice * c.Qty
-                                                select TotalPrice).Sum() + b.TotalPrice).Sum()
-                            };
+                var q = await (from a in _BillRepository.Get
+                               where a.BillNumber==Input.BillNumber
+                               select new
+                               {
+                                   Id = a.Id.ToString(),
+                                   IsPayyed = a.Status==BillStatusEnum.Payyed,
+                                   Email = a.tblUsers.Email,
+                                   Mobile = a.tblUsers.PhoneNumber,
+                                   GateName = a.GateId != null ? a.tblPaymentGates.Name : null,
+                                   Amounts = (from b in a.tblPostalBarcodes
+                                              select new
+                                              {
+                                                  ShippingAmount = b.TotalPrice,
+                                                  Prices = from c in b.tblBillItems
+                                                           let Price = c.tblProducts.tblProductPrices.Where(a => a.CurrencyId==Input.CurrencyId.ToGuid() && a.IsActive).Select(a => a.Price).Single()
+                                                           let SellerPercent = c.tblProductVariantItems.Percent
+                                                           let PercentSavePrice = c.tblProductVariantItems.tblProductDiscounts!=null ? c.tblProductVariantItems.tblProductDiscounts.Percent : 0
+                                                           let OldPrice = Price + ((Price/100)*SellerPercent)
+                                                           let NewPrice = OldPrice - ((OldPrice/100)*PercentSavePrice)
+                                                           let TaxPercent = c.tblProducts.tblTaxGroups.Percent
+                                                           let TaxAmount = (NewPrice/100)*TaxPercent
+                                                           let TotalPrice = NewPrice * c.Qty
+                                                           select TotalPrice
+                                              })
+                               }).ToListAsync();
 
-                return await qData.SingleOrDefaultAsync();
+                var qData = q.Select(a => new OutGetBillDetailsForPayment
+                {
+                    Id=a.Id,
+                    Email=a.Email,
+                    Mobile=a.Mobile,
+                    GateName=a.GateName,
+                    IsPayyed=a.IsPayyed,
+                    Amount=a.Amounts.Select(b => b.ShippingAmount+b.Prices.Sum()).Sum()
+                }).SingleOrDefault();
+
+                return qData;
             }
             catch (ArgumentInvalidException ex)
             {
@@ -501,7 +515,8 @@ namespace PrancaBeauty.Application.Apps.Bills
                         Email=_BillData.Email,
                         Mobile=_BillData.Mobile,
                         Description="",
-                        Amount=_BillData.Amount,
+                        //Amount=_BillData.Amount,
+                        Amount=20000,
                         CallBackUrl=Input.CallBackUrl
                     });
                     if (_Response.StatusCode!=100)

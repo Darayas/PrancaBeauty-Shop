@@ -11,7 +11,7 @@ namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Bills
         public string GateTitle { get; set; }
         public string Address { get; set; }
         public string BillNumber { get; set; }
-        public long TransactionNumber { get; set; }
+        public string TransactionNumber { get; set; }
         public BillStatusEnum Status { get; set; }
     }
 }

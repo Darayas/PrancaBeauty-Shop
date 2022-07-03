@@ -19,7 +19,7 @@ namespace PrancaBeauty.Domin.Bills.BillAgg.Entities
         public string BillNumber { get; set; }
         public double? TaxAmount { get; set; } // بعد از پرداخت کاربر تکمیل شود
         public double? TotalPrice { get; set; } // بعد از پرداخت کاربر تکمیل شود
-        public long TransactionNumber { get; set; }
+        public string TransactionNumber { get; set; }
         public string Authority { get; set; }
         public string Note { get; set; }
         public DateTime Date { get; set; } // تاریخ تغییر وضعیت فاکتور

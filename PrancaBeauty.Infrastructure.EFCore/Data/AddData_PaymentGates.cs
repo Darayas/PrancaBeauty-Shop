@@ -55,6 +55,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                         Id= new Guid().SequentialGuid(),
                         Name="ZarinPal",
                         Data=_JsonData,
+                        IsEnable=true,
                         tblFiles= new tblFiles
                         {
                             Id = new Guid().SequentialGuid(),
@@ -99,6 +100,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Data
                         Id= new Guid().SequentialGuid(),
                         Name="Paypal",
                         Data=_JsonData,
+                        IsEnable=true,
                         tblFiles= new tblFiles
                         {
                             Id = new Guid().SequentialGuid(),

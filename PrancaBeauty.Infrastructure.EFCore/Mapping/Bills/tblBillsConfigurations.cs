@@ -16,7 +16,7 @@ namespace PrancaBeauty.Infrastructure.EFCore.Mapping.Bills
             builder.Property(a => a.AddressId).IsRequired(false).HasMaxLength(150);
             builder.Property(a => a.BillNumber).IsRequired().HasMaxLength(50);
             builder.Property(a => a.TransactionNumber).IsRequired(false).HasMaxLength(50);
-            builder.Property(a => a.GateNumber).IsRequired(false).HasMaxLength(50);
+            builder.Property(a => a.Authority).IsRequired(false).HasMaxLength(50);
             builder.Property(a => a.Note).IsRequired(false).HasMaxLength(500);
 
             builder.HasOne(a => a.tblUsers)

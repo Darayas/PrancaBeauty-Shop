@@ -199,7 +199,7 @@
                             <div class="col-md-12">
                                 <div class="payment_method">
                                     <div class="order_button">
-                                        <button type="button" onclick="Payment('@Model.Input.BillNumber')">@Localizer["BillPayment"]</button>
+                                        <button type="button" onclick="Payment()">@Localizer["BillPayment"]</button>
                                     </div>
                                 </div>
                             </div>
@@ -295,9 +295,9 @@
             SendData('/@ViewData["culture"]/Shared/Compo/ComboShippingMethods?handler=ChanageShippingMethod', { BillId: '@Model.Data.Id', GroupId: _GroupId, ShippingMethodId: _Value });
         });
 
-        function Payment(_BillNumber)
+        function Payment()
         {
-
+            SendData('/@ViewData["culture"]/User/Bill/@Model.Input.BillNumber?handler=Payment', { BillNumber:'@Model.Input.BillNumber' });
         }
     </script>
 }

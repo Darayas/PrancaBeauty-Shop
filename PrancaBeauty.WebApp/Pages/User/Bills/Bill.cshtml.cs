@@ -13,6 +13,8 @@ using PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput;
 using PrancaBeauty.Application.Contracts.PresentationDTO.ViewModel;
 using PrancaBeauty.WebApp.Authentication;
 using PrancaBeauty.WebApp.Common.ExMethod;
+using PrancaBeauty.WebApp.Common.Types;
+using PrancaBeauty.WebApp.Common.Utility.MessageBox;
 using System;
 using System.Globalization;
 using System.Threading.Tasks;
@@ -23,18 +25,22 @@ namespace PrancaBeauty.WebApp.Pages.User.Bills
     public class BillModel : PageModel
     {
         private readonly ILogger _Logger;
+        private readonly IMsgBox _MsgBox;
+        private readonly ILocalizer _Localizer;
         private readonly IMapper _Mapper;
         private readonly IServiceProvider _ServiceProvider;
         private readonly IBillApplication _BillApplication;
         private readonly ISettingApplication _SettingApplication;
 
-        public BillModel(ILogger logger, IMapper mapper, IServiceProvider serviceProvider, IBillApplication billApplication, ISettingApplication settingApplication)
+        public BillModel(ILogger logger, IMapper mapper, IServiceProvider serviceProvider, IBillApplication billApplication, ISettingApplication settingApplication, IMsgBox msgBox, ILocalizer localizer)
         {
             _Logger=logger;
             _Mapper=mapper;
             _ServiceProvider=serviceProvider;
             _BillApplication=billApplication;
             _SettingApplication=settingApplication;
+            _MsgBox=msgBox;
+            _Localizer=localizer;
         }
 
         public async Task<IActionResult> OnGetAsync(string CurrencyId, string LangId)
@@ -82,10 +88,11 @@ namespace PrancaBeauty.WebApp.Pages.User.Bills
             }
         }
 
-        public async Task<IActionResult> OnPostPaymentAsync(viBillPayment Input, string CurrncyId)
+        public async Task<IActionResult> OnPostPaymentAsync(viBillPayment Input, string CurrencyId)
         {
             try
             {
+                var req = Request;
                 #region Validations
                 Input.CheckModelState(_ServiceProvider);
                 #endregion
@@ -97,22 +104,29 @@ namespace PrancaBeauty.WebApp.Pages.User.Bills
                 var _Result = await _BillApplication.StartPaymentAsync(new InpStartPayment
                 {
                     BillNumber=Input.BillNumber,
-                    CurrencyId=CurrncyId,
-                    CallBackUrl=$"{_Setting.SiteUrl}/User/Payment/",
+                    CurrencyId=CurrencyId,
+                    CallBackUrl=$"{_Setting.SiteUrl}/User/Bill/{Input.BillNumber}?handler=PaymentVeryfication",
                     UserId=User.GetUserDetails().UserId
                 });
-
-                return Page();
+                if (_Result.IsSucceeded)
+                    return new JsResult($"location.href='{_Result.Data.PaymentyGateUrl}'");
+                else
+                    return _MsgBox.FaildMsg(_Localizer[_Result.Message]);
             }
-            catch (ArgumentInvalidException)
+            catch (ArgumentInvalidException ex)
             {
-                return StatusCode(400);
+                return _MsgBox.FaildMsg(ex.Message);
             }
             catch (Exception ex)
             {
                 _Logger.Error(ex);
-                return StatusCode(500);
+                return _MsgBox.FaildMsg(_Localizer["Error500"]);
             }
+        }
+
+        public async Task<IActionResult> OnPostPaymentVeryficationAsync()
+        {
+            return Page();
         }
 
         [BindProperty(SupportsGet = true)]

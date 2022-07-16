@@ -19,5 +19,7 @@ namespace PrancaBeauty.Application.Contracts.ApplicationDTO.Address
         [GUID]
         public string AddressId { get; set; }
         public bool IsBuyer { get; set; }
+
+        public bool IsPayed { get; set; }
     }
 }

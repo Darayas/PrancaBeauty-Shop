@@ -126,7 +126,7 @@ namespace PrancaBeauty.WebApp.Pages.User.Bills
             }
         }
 
-        public async Task<IActionResult> OnGetPaymentVeryficationAsync(viPaymentVeryfication Input,string LangId, string CurrencyId)
+        public async Task<IActionResult> OnGetPaymentVeryficationAsync(viPaymentVeryfication Input, string LangId, string CurrencyId)
         {
             try
             {
@@ -138,13 +138,9 @@ namespace PrancaBeauty.WebApp.Pages.User.Bills
                     QueryData= Request.Query.Select(a => new KeyValuePair<string, string>(a.Key, a.Value)).ToDictionary(k => k.Key, v => v.Value)
                 });
 
-                if (_Result.IsSucceeded)
+                if (!_Result.IsSucceeded)
                 {
-                    
-                }
-                else
-                {
-
+                    ViewData["Message"]=_Localizer[_Result.Message];
                 }
 
                 return await OnGetAsync(CurrencyId, LangId);

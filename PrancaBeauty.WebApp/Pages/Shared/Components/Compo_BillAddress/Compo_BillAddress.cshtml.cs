@@ -55,6 +55,7 @@ namespace PrancaBeauty.WebApp.Pages.Shared.Components.Compo_BillAddress
                     LangId=LangId,
                     UserId=Input.BuyerUserId,
                     IsBuyer=Input.IsBuyer,
+                    IsPayed=Input.IsPayed,
                     AddressId=Input.AddressId
                 });
                 if (qData==null)

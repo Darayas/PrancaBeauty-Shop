@@ -324,6 +324,9 @@
   <data name="BillList" xml:space="preserve">
     <value>لیست صورت حساب ها</value>
   </data>
+  <data name="BillNotFound" xml:space="preserve">
+    <value>صورت حساب یافت نشد</value>
+  </data>
   <data name="BillNumber" xml:space="preserve">
     <value>شماره صورت حساب</value>
   </data>
@@ -1309,7 +1312,7 @@
     <value>پرداخت شما انجام شد ولی سفارش شما ثبت نشد. لطفا با مدیریت تماس حاصل فرمایید. شماره تراکنش: {0}</value>
   </data>
   <data name="Payyed" xml:space="preserve">
-    <value>پرداخت شد ه</value>
+    <value>پرداخت شده</value>
   </data>
   <data name="Percent" xml:space="preserve">
     <value>درصد</value>
@@ -1367,6 +1370,9 @@
   </data>
   <data name="PleaseSelectCategory" xml:space="preserve">
     <value>انتخاب دسته</value>
+  </data>
+  <data name="PleaseSelectGate" xml:space="preserve">
+    <value>لطفا درگاهی را به جهت پرداخت انتخاب نمایید</value>
   </data>
   <data name="PleaseSelectPostingRestrictions" xml:space="preserve">
     <value>هیچ محدودیتی تنظیم نشده است</value>
@@ -2045,6 +2051,9 @@
   </data>
   <data name="YouCantEditThisProductAsDraft" xml:space="preserve">
     <value>شما امکان ویرایش این مصول به حالت پیش نویس را ندارید.</value>
+  </data>
+  <data name="Your desired invoice has been paid" xml:space="preserve">
+    <value>صورت حساب مورد نظر شما پرداخت شده است.</value>
   </data>
   <data name="YourAccountIsDisabled" xml:space="preserve">
     <value>حساب کاربری شما غیرفعال شده است. لطفا با مدیریت در ارتباط باشید.</value>

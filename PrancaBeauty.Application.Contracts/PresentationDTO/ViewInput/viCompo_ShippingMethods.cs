@@ -30,5 +30,7 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput
         public string SellerAddressId { get; set; }
 
         public bool IsBuyer { get; set; }
+
+        public bool IsPayed { get; set; }
     }
 }

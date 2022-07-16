@@ -701,14 +701,13 @@ namespace PrancaBeauty.Application.Apps.Bills
                     });
 
                     if (qBill==null)
-                    {
                         return new OperationResult<OutPaymentVeryfication>().Failed("BillNotFound");
-                    }
 
                     if (qBill.GateName==null)
-                    {
                         return new OperationResult<OutPaymentVeryfication>().Failed("PleaseSelectGate");
-                    }
+
+                    if(qBill.IsPayyed==true)
+                        return new OperationResult<OutPaymentVeryfication>().Failed("Your desired invoice has been paid");
 
                     _BillData = qBill;
                 }
@@ -731,6 +730,9 @@ namespace PrancaBeauty.Application.Apps.Bills
                 #endregion
 
                 #region Payment Veryfication 
+
+                _BillData.Amount=2000;
+
                 string _TransactionNumber = null;
                 {
                     var _Response = await _Payment.PaymentVaryficationAsync(new InpPayVaryfication

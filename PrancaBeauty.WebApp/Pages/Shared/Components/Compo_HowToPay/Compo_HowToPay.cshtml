@@ -5,7 +5,7 @@
     @foreach (var item in Model.Data)
     {
         <div class="col-md-12 Gate">
-            <input onclick="UpdatePaymentGate('@item.Id')" @(Model.Input.IsBuyer?"":"disabled") value="@item.Id" @(Model.Input.GateId==item.Id?"checked":"") name="Input.PaymentGateId" type="radio" />
+            <input onclick="UpdatePaymentGate('@item.Id')" @((Model.Input.IsBuyer && !Model.Input.IsPayed)?"":"disabled") value="@item.Id" @(Model.Input.GateId==item.Id?"checked":"") name="Input.PaymentGateId" type="radio" />
             <span>@item.Title</span>
         </div>
     }

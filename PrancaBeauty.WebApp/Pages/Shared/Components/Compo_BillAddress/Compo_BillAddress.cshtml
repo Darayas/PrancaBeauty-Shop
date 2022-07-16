@@ -26,7 +26,7 @@
         {
             <div class="col-md-12 address">
                 <div class="Title">
-                    <input onchange="UpdateBillAddress('@item.Id')" @(Model.Input.IsBuyer?"":"disabled") @(Model.Input.AddressId==item.Id?"checked":"") value="@item.Id" name="Input.AddressId" type="radio" />
+                    <input onchange="UpdateBillAddress('@item.Id')" @((Model.Input.IsBuyer && !Model.Input.IsPayed)?"":"disabled") @(Model.Input.AddressId==item.Id?"checked":"") value="@item.Id" name="Input.AddressId" type="radio" />
                     <span>@item.UserFullName</span>
                 </div>
                 <div class="addr">

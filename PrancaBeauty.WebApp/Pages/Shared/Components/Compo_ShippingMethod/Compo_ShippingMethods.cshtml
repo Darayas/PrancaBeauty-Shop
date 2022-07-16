@@ -4,7 +4,7 @@
 <div class="ShippingMethid">
     <span>@Localizer["ShippingMethod"]:</span>
     <span>
-        <select @(Model.Input.IsBuyer?"":"disabled") GroupId="@Model.Input.GroupId" class="form-control ShippingMethod" name="Input.ShippingMethodId">
+        <select @((Model.Input.IsBuyer && !Model.Input.IsPayed)?"":"disabled") GroupId="@Model.Input.GroupId" class="form-control ShippingMethod" name="Input.ShippingMethodId">
             @foreach (var item in Model.Data)
             {
                 if (Model.Input.ShippingMethodId==item.Id)

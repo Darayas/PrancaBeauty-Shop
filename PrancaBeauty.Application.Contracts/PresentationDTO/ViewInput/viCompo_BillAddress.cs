@@ -20,5 +20,6 @@ namespace PrancaBeauty.Application.Contracts.PresentationDTO.ViewInput
         public string BuyerUserId { get; set; }
 
         public bool IsBuyer { get; set; }
+        public bool IsPayed { get; set; }
     }
 }

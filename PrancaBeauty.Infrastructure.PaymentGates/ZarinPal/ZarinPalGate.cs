@@ -4,6 +4,7 @@ using Framework.Exceptions;
 using Framework.Infrastructure;
 using Newtonsoft.Json.Linq;
 using PrancaBeauty.Infrastructure.PaymentGates.Contracts;
+using System.Net;
 using ZarinPalWCF;
 
 namespace PrancaBeauty.Infrastructure.PaymentGates.ZarinPal
@@ -28,7 +29,6 @@ namespace PrancaBeauty.Infrastructure.PaymentGates.ZarinPal
             {
                 Input.CheckModelState(_ServiceProvider);
                 var zp = new PaymentGatewayImplementationServicePortTypeClient();
-
                 var _Response = await zp.PaymentRequestAsync(_MerchantId, (int)Input.Amount, Input.Description??"", Input.Email, Input.Mobile, Input.CallBackUrl);
 
                 return new OutStartPay
@@ -73,7 +73,7 @@ namespace PrancaBeauty.Infrastructure.PaymentGates.ZarinPal
 
                 return new OutPayVaryfication
                 {
-                    StatusCode= _Response.Body.Status,
+                    StatusCode=int.Parse(_Response.Body.Status),
                     TransactionNumber=_Response.Body.RefID.ToString()
                 };
             }

@@ -6,6 +6,7 @@
     Layout = "~/Pages/Shared/_UserLayout.cshtml";
 
     bool _IsBuyer = Model.Data.BuyerUserId==User.GetUserDetails().UserId;
+    bool _IsPayyed = false;
 }
 
 @section breadcrumbs{
@@ -30,6 +31,16 @@
     <div class="Checkout_section">
         <div class="container">
             <div class="billHeader">
+                @if(ViewData["Message"]!=null)
+                {
+                    <div class=row>
+                        <div class=col-md-12>
+                            <div class="alert alert-danger">
+                                @ViewData["Message"].ToString()
+                            </div>
+                        </div>
+                    </div>
+                }
                 <div class="row">
                     <div class="col-6">
                         <span class="billNumber">
@@ -52,6 +63,7 @@
                                         case BillStatusEnum.Payyed:
                                             {
                                                 <span class="text-succss bold">@Localizer["Payyed"]</span>
+                                                _IsPayyed=true;
                                                 break;
                                             }
                                         case BillStatusEnum.Expired:
@@ -79,7 +91,7 @@
                             <h3>@Localizer["Address"]</h3>
                             <LoadComponent id="Address"
                                            context="HttpContext"
-                                           data="new viCompo_BillAddress{ AddressId=Model.Data.AddressId, BillId=Model.Data.Id, BuyerUserId=Model.Data.BuyerUserId,IsBuyer=_IsBuyer}"
+                                           data="new viCompo_BillAddress{IsPayed=_IsPayyed, AddressId=Model.Data.AddressId, BillId=Model.Data.Id, BuyerUserId=Model.Data.BuyerUserId,IsBuyer=_IsBuyer}"
                                            url="/@ViewData["culture"]/Shared/Compo/ComboBillAddress"></LoadComponent>
                         </div>
                     </div>
@@ -88,7 +100,7 @@
                             <h3>@Localizer["HowToPay"]</h3>
                             <LoadComponent id="HowToPay"
                                            context="HttpContext"
-                                           data='new viCompo_HowToPay{ GateId=Model.Data.GateId, IsBuyer=_IsBuyer,BillId=Model.Data.Id}'
+                                           data='new viCompo_HowToPay{IsPayed=_IsPayyed, GateId=Model.Data.GateId, IsBuyer=_IsBuyer,BillId=Model.Data.Id}'
                                            url="/@ViewData["culture"]/Shared/Compo/ComboHowToPay"></LoadComponent>
                         </div>
                     </div>
@@ -108,7 +120,7 @@
                                                 {
                                                     <LoadComponent id="ShippngMethod"
                                                        context="HttpContext"
-                                                       data='new viCompo_ShippingMethods{ BillId=Model.Data.Id ,BuyerAddressId=Model.Data.AddressId,SellerAddressId=itemSeller.SellerAddressId,ShippingMethodId=itemSeller.ShippingMethodId, GroupId=itemSeller.Id,IsBuyer=_IsBuyer }'
+                                                       data='new viCompo_ShippingMethods{IsPayed=_IsPayyed, BillId=Model.Data.Id ,BuyerAddressId=Model.Data.AddressId,SellerAddressId=itemSeller.SellerAddressId,ShippingMethodId=itemSeller.ShippingMethodId, GroupId=itemSeller.Id,IsBuyer=_IsBuyer }'
                                                        url="/@ViewData["culture"]/Shared/Compo/ComboShippingMethods"></LoadComponent>
                                                 }
                                             </div>
@@ -194,7 +206,7 @@
                                 </div>
                             </div>
                         }
-                        @if (_IsBuyer)
+                        @if (_IsBuyer && !_IsPayyed)
                         {
                             <div class="col-md-12">
                                 <div class="payment_method">

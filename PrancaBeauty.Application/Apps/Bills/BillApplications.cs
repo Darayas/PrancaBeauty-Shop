@@ -7,10 +7,12 @@ using Microsoft.EntityFrameworkCore;
 using PrancaBeauty.Application.Apps.BillItems;
 using PrancaBeauty.Application.Apps.Carts;
 using PrancaBeauty.Application.Apps.PaymentGates;
+using PrancaBeauty.Application.Apps.ProductGroupPercent;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.BillItems;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.Bills;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.Cart;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.PaymentGate;
+using PrancaBeauty.Application.Contracts.ApplicationDTO.ProductGroupPercent;
 using PrancaBeauty.Application.Contracts.ApplicationDTO.Results;
 using PrancaBeauty.Domin.Bills.BillAgg.Contracts;
 using PrancaBeauty.Domin.Bills.BillAgg.Entities;
@@ -35,7 +37,8 @@ namespace PrancaBeauty.Application.Apps.Bills
         private readonly ICartApplication _CartApplication;
         private readonly IPaymentGateApplication _PaymentGateApplication;
         private readonly IBillItemsApplication _BillItemsApplication;
-        public BillApplication(ILogger logger, ILocalizer localizer, IServiceProvider serviceProvider, ICartApplication cartApplication, IBillsRepository billRepository, IPaymentGateApplication paymentGateApplication, IBillItemsApplication billItemsApplication)
+        private readonly IProductGroupPercentApplication _ProductGroupPercentApplication;
+        public BillApplication(ILogger logger, ILocalizer localizer, IServiceProvider serviceProvider, ICartApplication cartApplication, IBillsRepository billRepository, IPaymentGateApplication paymentGateApplication, IBillItemsApplication billItemsApplication, IProductGroupPercentApplication productGroupPercentApplication)
         {
             _Logger=logger;
             _Localizer=localizer;
@@ -44,6 +47,7 @@ namespace PrancaBeauty.Application.Apps.Bills
             _BillRepository=billRepository;
             _PaymentGateApplication=paymentGateApplication;
             _BillItemsApplication=billItemsApplication;
+            _ProductGroupPercentApplication=productGroupPercentApplication;
         }
 
         private string CreateBillNumberAsync()
@@ -681,6 +685,53 @@ namespace PrancaBeauty.Application.Apps.Bills
             }
         }
 
+        private async Task<OperationResult> RechargeWalletsAsync(InpRechargeWallets Input)
+        {
+            try
+            {
+                #region Validations
+                Input.CheckModelState(_ServiceProvider);
+                #endregion
+
+                #region Get bill data
+                var qData = await (from a in _BillRepository.Get
+                                   where a.Id==Input.BillId.ToGuid()
+                                   select from c in a.tblBillItems
+                                          let Price = c.tblProducts.tblProductPrices.Where(a => a.CurrencyId==Input.CurrencyId.ToGuid() && a.IsActive).Select(a => a.Price).Single()
+                                          let SellerPercent = c.tblProductVariantItems.Percent
+                                          let PercentSavePrice = c.tblProductVariantItems.tblProductDiscounts!=null ? c.tblProductVariantItems.tblProductDiscounts.Percent : 0
+                                          let OldPrice = Price + ((Price/100)*SellerPercent)
+                                          let NewPrice = OldPrice - ((OldPrice/100)*PercentSavePrice)
+                                          let TaxPercent = c.tblProducts.tblTaxGroups.Percent
+                                          let TaxAmount = (NewPrice/100)*TaxPercent
+                                          let TotalPrice = NewPrice * c.Qty
+                                          select new
+                                          {
+                                              Id = c.Id.ToString(),
+                                              ProductId = c.ProductId.ToString(),
+                                              Price = Price,
+                                              TaxPercent = TaxPercent,
+                                              TotalPrice = TotalPrice,
+                                              TaxAmount = TaxAmount
+                                          }
+                                   ).SingleOrDefaultAsync();
+
+                if (qData==null)
+                    return new OperationResult().Failed("BillNotFound");
+                #endregion
+            }
+            catch (ArgumentInvalidException ex)
+            {
+                _Logger.Debug(ex);
+                return new OperationResult().Failed(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                return new OperationResult().Failed("Error500");
+            }
+        }
+
         public async Task<OperationResult<OutPaymentVeryfication>> PaymentVeryficationAsync(InpPaymentVeryfication Input)
         {
 
@@ -706,7 +757,7 @@ namespace PrancaBeauty.Application.Apps.Bills
                     if (qBill.GateName==null)
                         return new OperationResult<OutPaymentVeryfication>().Failed("PleaseSelectGate");
 
-                    if(qBill.IsPayyed==true)
+                    if (qBill.IsPayyed==true)
                         return new OperationResult<OutPaymentVeryfication>().Failed("Your desired invoice has been paid");
 
                     _BillData = qBill;
@@ -764,8 +815,15 @@ namespace PrancaBeauty.Application.Apps.Bills
                 #region Recharge wallets
                 {
 
+                    #region Get Percents
+                    {
+                        var qPercentResult = await _ProductGroupPercentApplication.GetProductGroupPercentsAsync(new InpGetProductGroupPercents { });
+                    }
+                    #endregion
                 }
                 #endregion
+
+                //TODO: کاهش موجودی انبار
 
                 #region Change bill status to paymented
                 {

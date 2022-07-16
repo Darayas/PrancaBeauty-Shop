@@ -140,7 +140,8 @@ namespace PrancaBeauty.WebApp.Pages.User.Bills
 
                 if (!_Result.IsSucceeded)
                 {
-                    ViewData["Message"]=_Localizer[_Result.Message];
+                    TempData["Message"]=_Localizer[_Result.Message];
+                    TempData.Keep();
                 }
 
                 return await OnGetAsync(CurrencyId, LangId);

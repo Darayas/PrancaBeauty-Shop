@@ -21,5 +21,6 @@ namespace PrancaBeauty.Application.Apps.Products
         Task<OperationResult> SaveEditProductAsync(InpSaveEditProduct Input);
         Task<OutGetProductListForAdvanceSearch> GetProductListForAdvanceSearchAsync(InpGetProductListForAdvanceSearch Input);
         Task<List<OutGetProductsByTitleForSearchAutoComplete>> GetProductsByTitleForSearchAutoCompleteAsync(InpGetProductsByTitleForSearchAutoComplete Input);
+        Task<OperationResult<string>> GetProductGroupIdAsync(InpGetProductGroupId Input);
     }
 }

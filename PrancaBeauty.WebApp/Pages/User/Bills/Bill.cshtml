@@ -31,12 +31,12 @@
     <div class="Checkout_section">
         <div class="container">
             <div class="billHeader">
-                @if(ViewData["Message"]!=null)
+                @if(TempData["Message"]!=null)
                 {
                     <div class=row>
                         <div class=col-md-12>
                             <div class="alert alert-danger">
-                                @ViewData["Message"].ToString()
+                                @TempData["Message"].ToString()
                             </div>
                         </div>
                     </div>
